@@ -2,7 +2,7 @@
 #include <sstream>
 #include "setting.hpp"
 
-Setting::Setting(std::string key, uint defaultValue)
+void Setting::setup(std::string key, uint defaultValue)
 {
 	this->key = key;
 	this->defaultValue.numeric = defaultValue;
@@ -10,7 +10,7 @@ Setting::Setting(std::string key, uint defaultValue)
 	this->settingType = SETTING_UINT;
 }
 
-Setting::Setting(std::string key, bool defaultValue)
+void Setting::setup(std::string key, bool defaultValue)
 {
 	this->key = key;
 	this->defaultValue.logic = defaultValue;
@@ -18,7 +18,7 @@ Setting::Setting(std::string key, bool defaultValue)
 	this->settingType = SETTING_BOOL;
 }
 
-Setting::Setting(std::string key, ScreenCorner defaultValue)
+void Setting::setup(std::string key, ScreenCorner defaultValue)
 {
 	this->key = key;
 	this->defaultValue.enumScreenCorner = defaultValue;
@@ -89,8 +89,17 @@ bool Setting::tryLoadFromLine(std::string line)
 			return true;
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
-			std::cout << "skip loading " << key << std::endl;
-			return false;
+			try
+			{
+				uintVal = stoi(strVal);
+			}
+			catch (const std::invalid_argument& ex)
+			{
+				return false;
+			}
+			this->val.enumScreenCorner = static_cast<ScreenCorner>(uintVal);
+			std::cout << "loaded " << key << " = " << this->val.enumScreenCorner << std::endl;
+			return true;
 			break;
 		case SETTING_UINT:
 			try

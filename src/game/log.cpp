@@ -21,7 +21,7 @@ void Log::updateFontSize()
 {
 	for (LogElementText &item : this->history)
 	{
-		item.setCharacterSize(GET_SETT_UINT(normalFontSize)); // TODO do we actually operate on list elements, or on iterator?
+		item.setCharacterSize(this->settings->getUint(SETT_NORMAL_FONT_SIZE)); // TODO do we actually operate on list elements, or on iterator?
 	}
 }
 
@@ -33,11 +33,12 @@ void Log::draw()
 	uint x = 5; // constant offset from left, will be enough for CORNER_*_LEFT
 	uint y = 2; // constant offset from top, will be enough for CORNER_TOP_*
 	uint timesUpCnt = 0;
-	ScreenCorner anchor = GET_SETT_SCR_CORNER(logAnchor);
+	ScreenCorner anchor = this->settings->getScreenCorner(SETT_ANCHOR_LOG);
+	uint lineHeight = this->settings->getUint(SETT_NORMAL_FONT_SIZE_WITH_GAP);
 
 	// initial offset from top/bottom
 	if (anchor == CORNER_BOTTOM_LEFT || anchor == CORNER_BOTTOM_RIGHT)
-		y = this->window->getSize().y - this->history.size() * GET_SETT_UINT(normalFontSizeWithGap) - 2;
+		y = this->window->getSize().y - this->history.size() * lineHeight - 2;
 
 	for (LogElementText &item : this->history)
 	{
@@ -47,7 +48,7 @@ void Log::draw()
 		item.setPosition(x, y);
 		this->window->draw(item);
 
-		y += GET_SETT_UINT(normalFontSizeWithGap);
+		y += lineHeight;
 
 		if (item.isTimeUp())
 			timesUpCnt++;

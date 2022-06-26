@@ -26,9 +26,9 @@ class Setting
 		SettingType settingType;
 	public:
 		setting_value_t val; // solution with templates is also possible, but more messy
-		Setting(std::string key, uint defaultValue);
-		Setting(std::string key, bool defaultValue);
-		Setting(std::string key, ScreenCorner defaultValue);
+		void setup(std::string key, uint defaultValue);
+		void setup(std::string key, bool defaultValue);
+		void setup(std::string key, ScreenCorner defaultValue);
 		void resetToDefault();
 		void writeToFile(std::ofstream& file);
 		bool tryLoadFromLine(std::string line);
