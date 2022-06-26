@@ -1,11 +1,12 @@
 #pragma once
 
-#include <unordered_map>
 #include "gui.hpp"
 #include "setting.hpp"
 
-#define DEF_SETTING(sType, sKey, sDefault) Setting<sType> sKey = Setting<sType>(#sKey, sDefault)
-#define GET_SETTING(key) this->settings->key.val
+#define DEF_SETTING(sKey, sDefault) Setting sKey = Setting(#sKey, sDefault)
+#define GET_SETT_UINT(key) this->settings->key.val.numeric
+#define GET_SETT_BOOL(key) this->settings->key.val.logic
+#define GET_SETT_SCR_CORNER(key) this->settings->key.val.enumScreenCorner
 
 /**
  * The Settings class only represents a "live" representation of settings.
@@ -35,26 +36,26 @@ class Settings
 		void loadConfig();
 
 		// window
-		DEF_SETTING(bool, fullscreenEnabled, false);
-		DEF_SETTING(bool, fpsLimitEnabled, true);
-		DEF_SETTING(uint, fpsLimit, 60);
-		DEF_SETTING(bool, fakeVsyncEnabled, false);
-		DEF_SETTING(uint, windowWidth, 1280);
-		DEF_SETTING(uint, windowHeight, 720);
+		DEF_SETTING(fullscreenEnabled, false);
+		DEF_SETTING(fpsLimitEnabled, true);
+		DEF_SETTING(fpsLimit, 60U);
+		DEF_SETTING(fakeVsyncEnabled, false);
+		DEF_SETTING(windowWidth, 1280U);
+		DEF_SETTING(windowHeight, 720U);
 		// TODO? windowed size + position override
 
 		// logging
-		DEF_SETTING(bool, logDebugMsgs, true);
-		DEF_SETTING(bool, writeDebugLog, true);
+		DEF_SETTING(displayDebugInLog, true);
+		DEF_SETTING(writeDebugLog, true);
 
 		// font sizes
-		DEF_SETTING(uint, normalFontSize, 18);
-		DEF_SETTING(uint, normalFontSizeWithGap, 20);
-		DEF_SETTING(uint, smallFontSize, 14);
+		DEF_SETTING(normalFontSize, 18U);
+		DEF_SETTING(normalFontSizeWithGap, 20U);
+		DEF_SETTING(smallFontSize, 14U);
 
 		// gui
-		DEF_SETTING(bool, preferCustomCursor, true);
-		DEF_SETTING(bool, showFpsCounter, true);
-		DEF_SETTING(ScreenCorner, logAnchor, CORNER_TOP_RIGHT);
+		DEF_SETTING(preferCustomCursor, true);
+		DEF_SETTING(showFpsCounter, true);
+		DEF_SETTING(logAnchor, CORNER_TOP_RIGHT);
 		//DEF_SETTING(uint, logMsgTimeout, 3); // is this really necessary?
 };

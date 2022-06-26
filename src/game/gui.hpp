@@ -1,3 +1,5 @@
+#pragma once
+
 enum ScreenCorner
 {
 	CORNER_TOP_LEFT,

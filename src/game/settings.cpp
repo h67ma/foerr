@@ -16,7 +16,7 @@ void Settings::saveConfig()
 	this->windowHeight.writeToFile(file);
 
 	// logging
-	this->logDebugMsgs.writeToFile(file);
+	this->displayDebugInLog.writeToFile(file);
 	this->writeDebugLog.writeToFile(file);
 
 	// font sizes
@@ -56,7 +56,7 @@ void Settings::loadConfig()
 			continue;
 
 		// logging
-		if (this->logDebugMsgs.tryLoadFromLine(line))
+		if (this->displayDebugInLog.tryLoadFromLine(line))
 			continue;
 		if (this->writeDebugLog.tryLoadFromLine(line))
 			continue;

@@ -21,7 +21,7 @@ void Log::updateFontSize()
 {
 	for (LogElementText &item : this->history)
 	{
-		item.setCharacterSize(this->settings->normalFontSize.val); // TODO do we actually operate on list elements, or on iterator?
+		item.setCharacterSize(GET_SETT_UINT(normalFontSize)); // TODO do we actually operate on list elements, or on iterator?
 	}
 }
 
@@ -33,20 +33,21 @@ void Log::draw()
 	uint x = 5; // constant offset from left, will be enough for CORNER_*_LEFT
 	uint y = 2; // constant offset from top, will be enough for CORNER_TOP_*
 	uint timesUpCnt = 0;
+	ScreenCorner anchor = GET_SETT_SCR_CORNER(logAnchor);
 
 	// initial offset from top/bottom
-	if (this->settings->logAnchor.val == CORNER_BOTTOM_LEFT || this->settings->logAnchor.val == CORNER_BOTTOM_RIGHT)
-		y = this->window->getSize().y - this->history.size() * this->settings->normalFontSizeWithGap.val - 2;
+	if (anchor == CORNER_BOTTOM_LEFT || anchor == CORNER_BOTTOM_RIGHT)
+		y = this->window->getSize().y - this->history.size() * GET_SETT_UINT(normalFontSizeWithGap) - 2;
 
 	for (LogElementText &item : this->history)
 	{
-		if (this->settings->logAnchor.val == CORNER_TOP_RIGHT || this->settings->logAnchor.val == CORNER_BOTTOM_RIGHT)
+		if (anchor == CORNER_TOP_RIGHT || anchor == CORNER_BOTTOM_RIGHT)
 			x = this->window->getSize().x - item.getLocalBounds().width - 7;
 
 		item.setPosition(x, y);
 		this->window->draw(item);
 
-		y += this->settings->normalFontSizeWithGap.val;
+		y += GET_SETT_UINT(normalFontSizeWithGap);
 
 		if (item.isTimeUp())
 			timesUpCnt++;

@@ -33,16 +33,16 @@ void recreateWindow(sf::Window *window, Settings *settings)
 	// when loading settings, game should check if the specified video mode exists - sf::VideoMode::isValid()
 	// when settings are uninitialized, game should pick *some* mode - either best, or "safe"
 
-	if (settings->fullscreenEnabled.val)
+	if (settings->fullscreenEnabled.val.logic)
 		// TODO support overriding fullscreen resolution via settings
 		window->create(sf::VideoMode::getDesktopMode(), STR_WINDOW_TITLE, sf::Style::Fullscreen);
 	else
 		window->create(sf::VideoMode(1280, 720), STR_WINDOW_TITLE);
 
-	if (settings->fpsLimitEnabled.val)
-		window->setFramerateLimit(settings->fpsLimit.val);
+	if (settings->fpsLimitEnabled.val.logic)
+		window->setFramerateLimit(settings->fpsLimit.val.numeric);
 
-	window->setVerticalSyncEnabled(settings->fakeVsyncEnabled.val);
+	window->setVerticalSyncEnabled(settings->fakeVsyncEnabled.val.logic);
 }
 
 int main()
@@ -65,10 +65,10 @@ int main()
 
 	Log log(&window, &font, &settings);
 
-	FpsMeter fpsMeter(&window, &font, settings.normalFontSize.val);
+	FpsMeter fpsMeter(&window, &font, settings.normalFontSize.val.numeric);
 	
 	WindowCursor cursor(&window, &log);
-	if (!cursor.loadCursors(settings.preferCustomCursor.val))
+	if (!cursor.loadCursors(settings.preferCustomCursor.val.logic))
 	{
 		log.log(LOG_ERROR, STR_CURSOR_LOAD_FAIL);
 		exit(1);
@@ -107,9 +107,9 @@ int main()
 					switch (event.key.code)
 					{
 						case sf::Keyboard::F11:
-							settings.fullscreenEnabled.val = !settings.fullscreenEnabled.val;
+							settings.fullscreenEnabled.val.logic = !settings.fullscreenEnabled.val.logic;
 
-							if (settings.fullscreenEnabled.val)
+							if (settings.fullscreenEnabled.val.logic)
 								log.log(LOG_DEBUG, "Switching to fullscreen mode");
 							else
 								log.log(LOG_DEBUG, "Switching to windowed mode");
@@ -133,7 +133,7 @@ int main()
 		// gui
 		log.draw();
 
-		if (settings.showFpsCounter.val)
+		if (settings.showFpsCounter.val.logic)
 			fpsMeter.draw(); // also won't count frame times when disabled, but the clock will be initialized at program start either way
 
 		window.display();

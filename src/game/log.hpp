@@ -86,13 +86,13 @@ void Log::log(LogMsgType msgType, const char *fmt, T... args)
 
 	std::string formatted = litSprintf(fmt, args...);
 
-	if (this->settings->writeDebugLog.val)
+	if (GET_SETT_BOOL(writeDebugLog))
 		this->logToFile(msgType, formatted);
 
-	if (msgType == LOG_DEBUG && !this->settings->logDebugMsgs.val)
+	if (msgType == LOG_DEBUG && !GET_SETT_BOOL(displayDebugInLog))
 		return;
 
-	LogElementText logElem(formatted, this->font, this->settings->normalFontSize.val, logMsgTypeToColor(msgType));
+	LogElementText logElem(formatted, this->font, GET_SETT_UINT(normalFontSize), logMsgTypeToColor(msgType));
 
 	this->history.push_back(logElem);
 }
