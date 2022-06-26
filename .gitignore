@@ -1,0 +1,6 @@
+*.o
+*.gch
+res
+.vscode
+foerr
+*.ini
