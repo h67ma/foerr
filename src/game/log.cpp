@@ -8,15 +8,6 @@ Log::Log(sf::RenderWindow *window, sf::Font *font, Settings *settings)
 	this->settings = settings;
 }
 
-/**
- * Writes a message to log file.
- */
-void Log::logToFile(LogMsgType msgType, std::string msg)
-{
-	// TODO actually write to log file
-	std::cerr << '[' << logMsgTypeToPrefix(msgType) << "] " << msg << std::endl;
-}
-
 void Log::updateFontSize()
 {
 	for (LogElementText &item : this->history)

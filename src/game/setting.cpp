@@ -1,6 +1,6 @@
-#include <iostream> // TODO del
 #include <sstream>
 #include "setting.hpp"
+#include "log.hpp"
 
 void Setting::setup(std::string key, uint defaultValue)
 {
@@ -85,7 +85,7 @@ bool Setting::tryLoadFromLine(std::string line)
 	{
 		case SETTING_BOOL:
 			this->val.logic = strVal == "1" || strVal == "true" || strVal == "yes";
-			std::cout << "loaded " << key << " = " << this->val.logic << std::endl;
+			Log::logStderr(LOG_DEBUG, "Loaded setting %s = %d", key.c_str(), this->val.logic);
 			return true;
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
@@ -95,10 +95,11 @@ bool Setting::tryLoadFromLine(std::string line)
 			}
 			catch (const std::invalid_argument& ex)
 			{
+				Log::logStderr(LOG_WARNING, "Can't load %s: invalid value", key.c_str());
 				return false;
 			}
 			this->val.enumScreenCorner = static_cast<ScreenCorner>(uintVal);
-			std::cout << "loaded " << key << " = " << this->val.enumScreenCorner << std::endl;
+			Log::logStderr(LOG_DEBUG, "Loaded setting %s = %u", key.c_str(), this->val.enumScreenCorner);
 			return true;
 			break;
 		case SETTING_UINT:
@@ -108,13 +109,15 @@ bool Setting::tryLoadFromLine(std::string line)
 			}
 			catch (const std::invalid_argument& ex)
 			{
+				Log::logStderr(LOG_WARNING, "Can't load %s: invalid value", key.c_str());
 				return false;
 			}
 			this->val.numeric = uintVal;
-			std::cout << "loaded " << key << " = " << uintVal << std::endl;
+			Log::logStderr(LOG_DEBUG, "Loaded setting %s = %u", key.c_str(), this->val.numeric);
 			return true;
 			break;
 		default:
+			Log::logStderr(LOG_WARNING, "Can't load %s: invalid setting type", key.c_str());
 			return false;
 	}
 }

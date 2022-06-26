@@ -59,7 +59,7 @@ int main()
 
 	if (!font.loadFromFile(PATH_FONT))
 	{
-		std::cerr << STR_FONT_LOAD_FAIL << std::endl;
+		Log::logStderr(LOG_ERROR, STR_FONT_LOAD_FAIL);
 		exit(1);
 	}
 

@@ -1,6 +1,7 @@
 #include <fstream>
 #include "settings.hpp"
 #include "consts.h"
+#include "log.hpp"
 
 #define INIT_SETTING(sKey, sDefault) this->_settings[sKey].setup(#sKey, sDefault)
 
@@ -53,13 +54,18 @@ void Settings::loadConfig()
 
 	while (getline(file, line))
 	{
+		bool found = false;
 		for (size_t i = 0; i < _SETTINGS_CNT; i++)
 		{
 			if (this->_settings[i].tryLoadFromLine(line))
+			{
+				found = true;
 				continue; // setting found & load successful, we can move to the next setting
-
-			// if we've scanned all lines and the setting was still not found, it will just use the default value
+			}
 		}
+
+		if (!found)
+			Log::logStderr(LOG_WARNING, "Failed to parse settings line:\n\t%s", line.c_str());
 	}
 
 	file.close();
