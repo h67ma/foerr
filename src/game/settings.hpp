@@ -29,7 +29,7 @@ enum SettingName
 class Settings
 {
 	private:
-		Setting _settings[_SETTINGS_CNT];
+		Setting settings[_SETTINGS_CNT];
 	public:
 		Settings();
 		void saveConfig();

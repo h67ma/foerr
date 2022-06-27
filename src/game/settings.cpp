@@ -3,7 +3,7 @@
 #include "consts.h"
 #include "log.hpp"
 
-#define INIT_SETTING(sKey, sDefault) this->_settings[sKey].setup(#sKey, sDefault)
+#define INIT_SETTING(sKey, sDefault) this->settings[sKey].setup(#sKey, sDefault)
 
 Settings::Settings()
 {
@@ -38,7 +38,7 @@ void Settings::saveConfig()
 
 	for (size_t i = 0; i < _SETTINGS_CNT; i++)
 	{
-		this->_settings[i].writeToFile(file);
+		this->settings[i].writeToFile(file);
 	}
 
 	file.close();
@@ -57,7 +57,7 @@ void Settings::loadConfig()
 		bool found = false;
 		for (size_t i = 0; i < _SETTINGS_CNT; i++)
 		{
-			if (this->_settings[i].tryLoadFromLine(line))
+			if (this->settings[i].tryLoadFromLine(line))
 			{
 				found = true;
 				continue; // setting found & load successful, we can move to the next setting
@@ -76,7 +76,7 @@ uint Settings::getUint(SettingName idx)
 	if (idx >= _SETTINGS_CNT)
 		return 0; // default value is better than crash
 
-	return this->_settings[idx].val.numeric;
+	return this->settings[idx].val.numeric;
 }
 
 bool Settings::getBool(SettingName idx)
@@ -84,7 +84,7 @@ bool Settings::getBool(SettingName idx)
 	if (idx >= _SETTINGS_CNT)
 		return false; // default value is better than crash
 
-	return this->_settings[idx].val.logic;
+	return this->settings[idx].val.logic;
 }
 
 ScreenCorner Settings::getScreenCorner(SettingName idx)
@@ -92,7 +92,7 @@ ScreenCorner Settings::getScreenCorner(SettingName idx)
 	if (idx >= _SETTINGS_CNT)
 		return CORNER_TOP_LEFT; // default value is better than crash
 
-	return this->_settings[idx].val.enumScreenCorner;
+	return this->settings[idx].val.enumScreenCorner;
 }
 
 void Settings::setUint(SettingName idx, uint newValue)
@@ -100,7 +100,7 @@ void Settings::setUint(SettingName idx, uint newValue)
 	if (idx >= _SETTINGS_CNT)
 		return; // TODO print some error or something
 
-	this->_settings[idx].val.numeric = newValue;
+	this->settings[idx].val.numeric = newValue;
 }
 
 void Settings::setBool(SettingName idx, bool newValue)
@@ -108,7 +108,7 @@ void Settings::setBool(SettingName idx, bool newValue)
 	if (idx >= _SETTINGS_CNT)
 		return; // TODO print some error or something
 
-	this->_settings[idx].val.logic = newValue;
+	this->settings[idx].val.logic = newValue;
 }
 
 void Settings::setScreenCorner(SettingName idx, ScreenCorner newValue)
@@ -116,5 +116,5 @@ void Settings::setScreenCorner(SettingName idx, ScreenCorner newValue)
 	if (idx >= _SETTINGS_CNT)
 		return; // TODO print some error or something
 
-	this->_settings[idx].val.enumScreenCorner = newValue;
+	this->settings[idx].val.enumScreenCorner = newValue;
 }
