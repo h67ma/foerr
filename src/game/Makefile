@@ -1,5 +1,5 @@
 LIBS=-lsfml-graphics -lsfml-window -lsfml-system
-OBJS=main.o window_cursor.o custom_cursor.o log.o log_element_text.o fps_meter.o settings.o setting.o
+OBJS = $(patsubst %.cpp, %.o, $(wildcard *.cpp))
 HEADERS=*.h *.hpp
 BIN_PATH=../../foerr
 FLAGS=-g -rdynamic -Wall
