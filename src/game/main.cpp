@@ -6,12 +6,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
-#include "window_cursor.hpp"
+#include "window/window_cursor.hpp"
 #include "i18n.hpp"
 #include "consts.h"
-#include "log.hpp"
-#include "settings.hpp"
-#include "fps_meter.hpp"
+#include "hud/log.hpp"
+#include "settings/settings.hpp"
+#include "hud/fps_meter.hpp"
 
 void stackTraceHandler(int sig) {
 	void *array[STACKTRACE_MAX_CNT];

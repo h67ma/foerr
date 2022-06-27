@@ -1,8 +1,8 @@
 #include <SFML/Window/Cursor.hpp>
 #include <SFML/Graphics.hpp>
 #include "window_cursor.hpp"
-#include "i18n.hpp"
-#include "consts.h"
+#include "../i18n.hpp"
+#include "../consts.h"
 
 WindowCursor::WindowCursor(sf::Window *window, Log *log)
 {

@@ -1,5 +1,4 @@
 #include "log.hpp"
-#include "util.hpp"
 
 Log::Log(sf::RenderWindow *window, sf::Font *font, Settings *settings)
 {

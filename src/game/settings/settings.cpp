@@ -1,7 +1,7 @@
 #include <fstream>
 #include "settings.hpp"
-#include "consts.h"
-#include "log.hpp"
+#include "../consts.h"
+#include "../hud/log.hpp"
 
 #define INIT_SETTING(sKey, sDefault) this->settings[sKey].setup(#sKey, sDefault)
 

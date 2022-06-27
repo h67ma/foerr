@@ -1,5 +1,5 @@
 #include "custom_cursor.hpp"
-#include "i18n.hpp"
+#include "../i18n.hpp"
 
 /**
  * Tries to load a cursor from image file. If image is not found, or

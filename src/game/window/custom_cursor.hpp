@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "log.hpp"
+#include "../hud/log.hpp"
 
 class CustomCursor
 {

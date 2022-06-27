@@ -3,8 +3,8 @@
 #include <list>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "util.hpp"
-#include "settings.hpp"
+#include "../util.hpp"
+#include "../settings/settings.hpp"
 #include "log_element_text.hpp"
 
 #define HISTORY_LEN 100

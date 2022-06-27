@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "log.hpp"
+#include "../hud/log.hpp"
 #include "custom_cursor.hpp"
 
 #define CURSORS_CNT 4

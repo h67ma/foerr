@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gui.hpp"
+#include "../hud/hud.hpp"
 #include "setting.hpp"
 
 enum SettingName

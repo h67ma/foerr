@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 2.8.12)
 
 project(foerr_game)
 
-file(GLOB SOURCES *.cpp)
+file(GLOB_RECURSE SOURCES *.cpp)
+include_directories(${PROJECT_SOURCE_DIR}/hud)
+include_directories(${PROJECT_SOURCE_DIR}/settings)
+include_directories(${PROJECT_SOURCE_DIR}/window)
 
 add_compile_options(-g -rdynamic -Wall)
 

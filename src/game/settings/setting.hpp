@@ -2,7 +2,7 @@
 
 #include <string>
 #include <fstream>
-#include "gui.hpp"
+#include "../hud/hud.hpp"
 
 enum SettingType
 {

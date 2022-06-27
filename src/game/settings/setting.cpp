@@ -1,6 +1,6 @@
 #include <sstream>
 #include "setting.hpp"
-#include "log.hpp"
+#include "../hud/log.hpp"
 
 void Setting::setup(std::string key, uint defaultValue)
 {
