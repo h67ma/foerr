@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "../hud/log.hpp"
+#include "../consts.h"
 
 class CustomCursor
 {

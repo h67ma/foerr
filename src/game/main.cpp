@@ -1,8 +1,8 @@
 #include <iostream>
-#include <execinfo.h>
+//#include <execinfo.h>
 #include <signal.h>
 #include <stdlib.h>
-#include <unistd.h>
+//#include <unistd.h>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
@@ -13,18 +13,18 @@
 #include "settings/settings.hpp"
 #include "hud/fps_meter.hpp"
 
-void stackTraceHandler(int sig) {
-	void *array[STACKTRACE_MAX_CNT];
-	size_t size;
-
-	// get void*'s for all entries on the stack
-	size = backtrace(array, STACKTRACE_MAX_CNT);
-
-	// print out all the frames to stderr
-	std::cerr << "Error: signal " << sig << std::endl;
-	backtrace_symbols_fd(array, size, STDERR_FILENO);
-	exit(1);
-}
+//void stackTraceHandler(int sig) {
+//	void *array[STACKTRACE_MAX_CNT];
+//	size_t size;
+//
+//	// get void*'s for all entries on the stack
+//	size = backtrace(array, STACKTRACE_MAX_CNT);
+//
+//	// print out all the frames to stderr
+//	std::cerr << "Error: signal " << sig << std::endl;
+//	backtrace_symbols_fd(array, size, STDERR_FILENO);
+//	exit(1);
+//}
 
 void recreateWindow(sf::Window *window, Settings *settings)
 {
@@ -53,7 +53,8 @@ int main()
 	sf::RenderWindow window;
 	sf::Font font;
 
-	signal(SIGSEGV, stackTraceHandler);
+	// TODO find a platform-independent way to display stack trace on crash
+	//signal(SIGSEGV, stackTraceHandler);
 
 	recreateWindow(&window, &settings); // actually create it for the first time, details
 

@@ -6,3 +6,8 @@
 #define PATH_CURSOR_CROSS_YELLOW "res/gui/crosshair_yellow.png"
 #define PATH_CURSOR_CROSS_RED "res/gui/crosshair_red.png"
 #define PATH_FONT "res/fonts/Inconsolata-Regular.ttf"
+
+// seriously though
+#ifndef uint
+#define uint unsigned int
+#endif

@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include "../hud/hud.hpp"
+#include "../consts.h"
 
 enum SettingType
 {

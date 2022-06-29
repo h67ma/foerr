@@ -1,6 +1,7 @@
 #include <math.h>
 #include <SFML/Graphics.hpp>
 #include "fps_meter.hpp"
+#include "../consts.h"
 
 FpsMeter::FpsMeter(sf::RenderWindow *window, sf::Font *font, uint fontSize)
 {

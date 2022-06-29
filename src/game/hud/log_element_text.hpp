@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "../consts.h"
 
 #define LOG_ELEMENT_LIFE_TIME_S 3
 
