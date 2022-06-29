@@ -135,7 +135,7 @@ int main()
 		window.draw(circle);
 		window.draw(rectangle);
 
-		// gui
+		// hud
 		log.draw();
 
 		if (settings.getBool(SETT_SHOW_FPS_COUNTER))
