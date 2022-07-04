@@ -1,6 +1,7 @@
 #define STACKTRACE_MAX_CNT 10
 
 #define PATH_SETTINGS "config.ini"
+#define PATH_LOGFILE "foerr.log"
 #define PATH_CURSOR_ARROW "res/hud/cursor.png"
 #define PATH_CURSOR_CROSS_WHITE "res/hud/crosshair_white.png"
 #define PATH_CURSOR_CROSS_YELLOW "res/hud/crosshair_yellow.png"

@@ -5,3 +5,4 @@ res
 foerr
 *.ini
 build/
+*.log

@@ -1,3 +1,4 @@
+#include <fstream>
 #include "log.hpp"
 
 Log::Log(sf::RenderWindow *window, sf::Font *font, Settings *settings)
@@ -46,4 +47,17 @@ void Log::draw()
 
 	for (uint i = 0; i < timesUpCnt; i++)
 		this->history.pop_front();
+}
+
+/**
+ * Writes a formatted message to log file.
+ */
+void Log::logToFile(LogMsgType msgType, std::string msg)
+{
+	this->logFile << '[' << logMsgTypeToPrefix(msgType) << "] " << msg << std::endl;
+}
+
+Log::~Log()
+{
+	this->logFile.close();
 }

@@ -62,7 +62,12 @@ class Log
 		sf::Font *font;
 		Settings *settings;
 		std::list<LogElementText> history;
-		template<typename... T> void logToFile(LogMsgType msgType, const char *fmt, T... args);
+		void logToFile(LogMsgType msgType, std::string msg);
+
+		// empty file will be created even if user has disabled writing to log file.
+		// if user enables writing to log mid-game we'll have somewhere to write to.
+		// otherwise we'd have to check if the file exists every time we write.
+		std::ofstream logFile = std::ofstream(PATH_LOGFILE);
 
 	public:
 		Log(sf::RenderWindow *window, sf::Font *font, Settings *settings);
@@ -70,6 +75,7 @@ class Log
 		template<typename... T> static void logStderr(LogMsgType msgType, const char *fmt, T... args);
 		void updateFontSize();
 		void draw();
+		~Log();
 };
 
 /**
@@ -88,7 +94,7 @@ void Log::log(LogMsgType msgType, const char *fmt, T... args)
 	std::string formatted = litSprintf(fmt, args...);
 
 	if (this->settings->getBool(SETT_WRITE_DEBUG_LOG_TO_FILE))
-		this->logToFile(msgType, formatted.c_str());
+		this->logToFile(msgType, formatted);
 
 	if (msgType == LOG_DEBUG && !this->settings->getBool(SETT_DISPLAY_DEBUG_MSGS_IN_LOG))
 		return;
@@ -100,22 +106,11 @@ void Log::log(LogMsgType msgType, const char *fmt, T... args)
 
 /**
  * Writes a formatted message to stderr.
+ *
+ * Use only if no Log object is available (writing to hud or log file is preferred).
  */
 template<typename... T>
 void Log::logStderr(LogMsgType msgType, const char *fmt, T... args)
 {
-	//std::cerr << '[' << logMsgTypeToPrefix(msgType) << "] " << litSprintf(fmt, args...) << std::endl;
-	fprintf(stderr, "[%s] ", logMsgTypeToPrefix(msgType));
-	fprintf(stderr, fmt, args...);
-	fprintf(stderr, "\n");
-}
-
-/**
- * Writes a formatted message to log file.
- */
-template<typename... T>
-void Log::logToFile(LogMsgType msgType, const char *fmt, T... args)
-{
-	// TODO actually write to log file
-	this->logStderr(msgType, fmt, args...);
+	std::cerr << '[' << logMsgTypeToPrefix(msgType) << "] " << litSprintf(fmt, args...) << std::endl;
 }
