@@ -47,7 +47,7 @@ void Setting::writeToFile(std::ofstream& file)
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
-			file << this->key << '=' << val.logic << std::endl;
+			file << this->key << '=' << (val.logic ? "true" : "false") << std::endl;
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
 			file << this->key << '=' << val.enumScreenCorner << std::endl;
@@ -84,7 +84,7 @@ bool Setting::tryLoadFromLine(std::string line)
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
-			this->val.logic = strVal == "1" || strVal == "true" || strVal == "yes";
+			this->val.logic = strVal == "true" || strVal == "1" || strVal == "yes";
 			Log::logStderr(LOG_DEBUG, "Loaded setting %s = %d", key.c_str(), this->val.logic);
 			return true;
 			break;
