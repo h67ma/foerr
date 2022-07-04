@@ -98,7 +98,7 @@ void Log::log(LogMsgType msgType, const char *fmt, T... args)
 	if (msgType == LOG_DEBUG && !this->settings->getBool(SETT_DISPLAY_DEBUG_MSGS_IN_LOG))
 		return;
 
-	LogElementText logElem(formatted, this->font, this->settings->getUint(SETT_NORMAL_FONT_SIZE), logMsgTypeToColor(msgType));
+	LogElementText logElem(formatted, this->font, FONT_SIZE_NORMAL, logMsgTypeToColor(msgType));
 
 	this->history.push_back(logElem);
 }

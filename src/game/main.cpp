@@ -66,7 +66,7 @@ int main()
 
 	Log log(&font, &settings);
 
-	FpsMeter fpsMeter(&font, settings.getUint(SETT_NORMAL_FONT_SIZE));
+	FpsMeter fpsMeter(&font, FONT_SIZE_NORMAL);
 	
 	WindowCursor cursor(&log);
 	if (!cursor.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
