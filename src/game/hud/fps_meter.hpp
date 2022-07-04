@@ -9,7 +9,6 @@
 class FpsMeter
 {
 	private:
-		sf::RenderWindow *window;
 		sf::Text text;
 		uint fontSize;
 		uint elapsedFrames;
@@ -17,7 +16,7 @@ class FpsMeter
 		char buf[FPS_METER_MAX_CHARS];
 		sf::Clock clock;
 	public:
-		FpsMeter(sf::RenderWindow *window, sf::Font *font, uint fontSize);
+		FpsMeter(sf::Font *font, uint fontSize);
 		void updateFontSize(uint newSize);
-		void draw();
+		void draw(sf::RenderWindow *window);
 };

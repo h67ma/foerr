@@ -58,7 +58,6 @@ inline const char* logMsgTypeToPrefix(LogMsgType msgType)
 class Log
 {
 	private:
-		sf::RenderWindow *window;
 		sf::Font *font;
 		Settings *settings;
 		std::list<LogElementText> history;
@@ -70,11 +69,11 @@ class Log
 		std::ofstream logFile = std::ofstream(PATH_LOGFILE);
 
 	public:
-		Log(sf::RenderWindow *window, sf::Font *font, Settings *settings);
+		Log(sf::Font *font, Settings *settings);
 		template<typename... T> void log(LogMsgType msgType, const char *fmt, T... args);
 		template<typename... T> static void logStderr(LogMsgType msgType, const char *fmt, T... args);
 		void updateFontSize();
-		void draw();
+		void draw(sf::RenderWindow *window);
 		~Log();
 };
 

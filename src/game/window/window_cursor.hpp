@@ -16,11 +16,10 @@ enum CursorType {
 class WindowCursor
 {
 	private:
-		sf::Window *window;
 		CustomCursor cursors[CURSORS_CNT];
 
 	public:
-		WindowCursor(sf::Window *window, Log *log);
+		WindowCursor(Log *log);
 		bool loadCursors(bool preferCustom);
-		void setCursor(CursorType type);
+		void setCursor(sf::RenderWindow *window, CursorType type);
 };

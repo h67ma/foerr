@@ -64,18 +64,18 @@ int main()
 		exit(1);
 	}
 
-	Log log(&window, &font, &settings);
+	Log log(&font, &settings);
 
-	FpsMeter fpsMeter(&window, &font, settings.getUint(SETT_NORMAL_FONT_SIZE));
+	FpsMeter fpsMeter(&font, settings.getUint(SETT_NORMAL_FONT_SIZE));
 	
-	WindowCursor cursor(&window, &log);
+	WindowCursor cursor(&log);
 	if (!cursor.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
 	{
 		log.log(LOG_ERROR, STR_CURSOR_LOAD_FAIL);
 		exit(1);
 	}
 
-	cursor.setCursor(POINTER);
+	cursor.setCursor(&window, POINTER);
 
 	sf::CircleShape circle(100.f);
 	circle.setFillColor(sf::Color::Green);
@@ -136,10 +136,10 @@ int main()
 		window.draw(rectangle);
 
 		// hud
-		log.draw();
+		log.draw(&window);
 
 		if (settings.getBool(SETT_SHOW_FPS_COUNTER))
-			fpsMeter.draw(); // also won't count frame times when disabled, but the clock will be initialized at program start either way
+			fpsMeter.draw(&window); // also won't count frame times when disabled, but the clock will be initialized at program start either way
 
 		window.display();
 	}

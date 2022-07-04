@@ -4,10 +4,8 @@
 #include "../util/i18n.hpp"
 #include "../consts.h"
 
-WindowCursor::WindowCursor(sf::Window *window, Log *log)
+WindowCursor::WindowCursor(Log *log)
 {
-	this->window = window;
-
 	this->cursors[0].path = PATH_CURSOR_ARROW;
 	this->cursors[0].hotX = 1;
 	this->cursors[0].hotY = 1;
@@ -54,7 +52,7 @@ bool WindowCursor::loadCursors(bool preferCustom)
 	return true;
 }
 
-void WindowCursor::setCursor(CursorType type)
+void WindowCursor::setCursor(sf::RenderWindow *window, CursorType type)
 {
-	this->window->setMouseCursor(this->cursors[type].cursor);
+	window->setMouseCursor(this->cursors[type].cursor);
 }

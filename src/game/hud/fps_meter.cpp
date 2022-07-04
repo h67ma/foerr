@@ -3,9 +3,8 @@
 #include "fps_meter.hpp"
 #include "../consts.h"
 
-FpsMeter::FpsMeter(sf::RenderWindow *window, sf::Font *font, uint fontSize)
+FpsMeter::FpsMeter(sf::Font *font, uint fontSize)
 {
-	this->window = window;
 	this->fontSize = fontSize;
 	this->text.setFont(*font);
 	this->text.setCharacterSize(fontSize);
@@ -19,9 +18,9 @@ void FpsMeter::updateFontSize(uint newSize)
 	this->text.setCharacterSize(newSize);
 }
 
-void FpsMeter::draw()
+void FpsMeter::draw(sf::RenderWindow *window)
 {
-	this->window->draw(this->text);
+	window->draw(this->text);
 
 	if (this->firstFrame)
 	{
