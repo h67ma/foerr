@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include "window/window_cursor.hpp"
-#include "i18n.hpp"
+#include "util/i18n.hpp"
 #include "consts.h"
 #include "hud/log.hpp"
 #include "settings/settings.hpp"
