@@ -12,6 +12,7 @@
 #include "hud/log.hpp"
 #include "settings/settings.hpp"
 #include "hud/fps_meter.hpp"
+#include "hud/button.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -48,10 +49,10 @@ void recreateWindow(sf::Window *window, Settings *settings)
 int main()
 {
 	Settings settings;
-	//settings.saveConfig();
 	settings.loadConfig();
 	sf::RenderWindow window;
 	sf::Font font;
+	std::list<Button*> buttons;
 
 	// TODO find a platform-independent way to display stack trace on crash
 	//signal(SIGSEGV, stackTraceHandler);
@@ -77,11 +78,21 @@ int main()
 
 	cursor.setCursor(&window, POINTER);
 
-	sf::CircleShape circle(100.f);
-	circle.setFillColor(sf::Color::Green);
+	Button saveBtn(300, 200, BTN_NORMAL, "Save config", &font, false, [&settings]() {
+		settings.saveConfig();
+	});
+	buttons.push_back(&saveBtn);
 
-	sf::RectangleShape rectangle(sf::Vector2f(120.f, 50.f));
-	rectangle.setFillColor(sf::Color::Blue);
+	bool isKasztanSelected = true;
+	Button kasztanBtn(500, 200, BTN_BIG, "Kasztan", &font, isKasztanSelected, nullptr, false);
+	kasztanBtn.setCallback([&kasztanBtn, &isKasztanSelected]() {
+		isKasztanSelected = !isKasztanSelected;
+		kasztanBtn.setSelected(isKasztanSelected);
+	});
+	buttons.push_back(&kasztanBtn);
+
+	Button narrowBtn(700, 200, BTN_NARROW, "Narrow", &font, false, nullptr);
+	buttons.push_back(&narrowBtn);
 
 	while (window.isOpen())
 	{
@@ -125,6 +136,19 @@ int main()
 							break;
 					}
 					break;
+				case sf::Event::MouseButtonPressed:
+					if (event.mouseButton.button == sf::Mouse::Left)
+					{
+						for(std::list<Button*>::iterator btn = buttons.begin(); btn != buttons.end(); btn++)
+						{
+							if ((*btn)->containsPoint(event.mouseButton.x, event.mouseButton.y))
+							{
+								(*btn)->onClick();
+								break; // click consumed, no need to check other buttons
+							}
+						}
+					}
+					break;
 				default:
 					break;
 			}
@@ -132,10 +156,13 @@ int main()
 
 		window.clear();
 
-		window.draw(circle);
-		window.draw(rectangle);
 
 		// hud
+		for(std::list<Button*>::iterator btn = buttons.begin(); btn != buttons.end(); btn++)
+		{
+			(*btn)->draw(&window);
+		}
+
 		log.draw(&window);
 
 		if (settings.getBool(SETT_SHOW_FPS_COUNTER))
