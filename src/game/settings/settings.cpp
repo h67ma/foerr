@@ -25,6 +25,7 @@ Settings::Settings()
 	INIT_SETTING(SETT_SHOW_FPS_COUNTER, true);
 	INIT_SETTING(SETT_ANCHOR_LOG, CORNER_TOP_RIGHT);
 	//INIT_SETTING(SETT_LOG_MSG_TIMEOUT, 3); // is this really necessary?
+	// TODO INIT_SETTING(SETT_FONT_SCALING_FACTOR, 1.0);
 }
 
 void Settings::saveConfig()
@@ -37,6 +38,8 @@ void Settings::saveConfig()
 	}
 
 	file.close();
+
+	Log::logStderr(LOG_DEBUG, "Saved settings");
 }
 
 void Settings::loadConfig()
@@ -60,7 +63,7 @@ void Settings::loadConfig()
 		}
 
 		if (!found)
-			Log::logStderr(LOG_WARNING, "Failed to parse settings line:\n\t%s", line.c_str());
+			Log::logStderr(LOG_WARNING, "Failed to parse settings line:\n%s", line.c_str());
 	}
 
 	file.close();
