@@ -2,6 +2,7 @@
 
 #include <list>
 #include <string>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "../util.hpp"
 #include "../settings/settings.hpp"
