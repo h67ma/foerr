@@ -21,12 +21,9 @@ class Button
 	private:
 		sf::RectangleShape rect;
 		sf::Text text;
-		sf::Vertex gradientSelected[8]; // gradient lightgreen-black-lightgreengreen
-		sf::Vertex gradientDeselected[8]; // gradient darkgreen-black-darkgreen
-		bool isSelected = false;
+		sf::Vertex gradient[8];
 		bool setSelectedOnClick;
 		std::function<void(void)> callback = nullptr;
-		void prepareGradient(bool selected, uint x, uint y, uint w, uint h);
 
 	public:
 		Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font, bool selected, std::function<void(void)> callback, bool setSelectedOnClick = true);

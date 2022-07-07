@@ -24,15 +24,9 @@ Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font
 			h = 27;
 	}
 
-	// border
-
+	// rectangle & border
 	this->rect = sf::RectangleShape(sf::Vector2f(w, h));
-
-	// will be covered by gradient anyway, let's say this is a sort of "fallback" color
-	this->rect.setFillColor(sf::Color(0, 11, 6));
-
 	this->rect.setOutlineColor(sf::Color(0, 255, 153));
-	this->rect.setOutlineThickness(BTN_BORDER_THICKNESS);
 	this->rect.move(x, y);
 
 	// text
@@ -42,59 +36,43 @@ Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font
 	this->text.setString(text);
 	this->text.setCharacterSize(BTN_FONT_SIZE);
 
+	// center button text
 	// FONT_BUTTON_TOP_OFFSET: for some reason sf::Text is drawn with a little top padding, need to offset that
 	this->text.move(x + (w - this->text.getLocalBounds().width) / 2, y - BTN_FONT_TOP_OFFSET + (h - this->text.getLocalBounds().height) / 2);
 
-	// gradient fills
-	this->prepareGradient(true, x, y, w, h); // selected
-	this->prepareGradient(false, x, y, w, h); // deselected
+	// gradient fill (transparent - almost black - transparent)
+	// this->rect color will "shine" through left & right side, this way we don't have to prepare multiple gradients
 
-	this->setSelected(selected);
-}
-
-void Button::prepareGradient(bool selected, uint x, uint y, uint w, uint h)
-{
 	sf::Color black(0, 11, 6);
-	sf::Color green;
+	sf::Color transparent(0, 0, 0, 0);;
 
 	uint midX = x + w/2;
 	uint rightX = x + w;
 	uint bottomY = y + h;
-
-	sf::Vertex *gradient;
-
-	if (selected)
-	{
-		gradient = this->gradientSelected;
-		green = sf::Color(0, 103, 60);
-	}
-	else
-	{
-		gradient = this->gradientDeselected;
-		green = sf::Color(0, 67, 39);
-	}
 
 	// 0 -- 1
 	// |	|
 	// 3 -- 2
 
 	// left half
-	gradient[0] = sf::Vertex(sf::Vector2f(x, y), green);
+	gradient[0] = sf::Vertex(sf::Vector2f(x, y), transparent);
 	gradient[1] = sf::Vertex(sf::Vector2f(midX, y), black);
 	gradient[2] = sf::Vertex(sf::Vector2f(midX, bottomY), black);
-	gradient[3] = sf::Vertex(sf::Vector2f(x, bottomY), green);
+	gradient[3] = sf::Vertex(sf::Vector2f(x, bottomY), transparent);
 
 	// right half
 	gradient[4] = sf::Vertex(sf::Vector2f(midX, y), black);
-	gradient[5] = sf::Vertex(sf::Vector2f(rightX, y), green);
-	gradient[6] = sf::Vertex(sf::Vector2f(rightX, bottomY), green);
+	gradient[5] = sf::Vertex(sf::Vector2f(rightX, y), transparent);
+	gradient[6] = sf::Vertex(sf::Vector2f(rightX, bottomY), transparent);
 	gradient[7] = sf::Vertex(sf::Vector2f(midX, bottomY), black);
+
+	// initial selected state
+	this->setSelected(selected);
 }
 
 void Button::setSelected(bool selected)
 {
-	this->isSelected = selected;
-
+	this->rect.setFillColor(selected ? sf::Color(0, 104, 60) : sf::Color(0, 68, 39));
 	this->rect.setOutlineThickness(selected ? BTN_BORDER_THICKNESS_SELECTED : BTN_BORDER_THICKNESS);
 }
 
@@ -120,6 +98,6 @@ bool Button::containsPoint(float x, float y)
 void Button::draw(sf::RenderWindow *window)
 {
 	window->draw(this->rect);
-	window->draw(this->isSelected ? this->gradientSelected : this->gradientDeselected, 8, sf::Quads);
+	window->draw(this->gradient, 8, sf::Quads);
 	window->draw(this->text);
 }
