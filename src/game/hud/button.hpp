@@ -16,20 +16,19 @@ enum ButtonSize
 	BTN_BIG,
 };
 
+// TODO? change btn color on hover. could be a nice addition, but kinda tedious to implement
 class Button
 {
 	private:
 		sf::RectangleShape rect;
 		sf::Text text;
 		sf::Vertex gradient[8];
-		bool setSelectedOnClick;
 		std::function<void(void)> callback = nullptr;
 
 	public:
-		Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font, bool selected, std::function<void(void)> callback, bool setSelectedOnClick = true);
+		Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font, std::function<void(void)> callback = nullptr);
 		void setSelected(bool selected);
 		void setCallback(std::function<void(void)> callback);
-		bool Button::containsPoint(float x, float y);
-		void onClick();
+		bool maybeHandleClick(float x, float y);
 		void draw(sf::RenderWindow *window);
 };

@@ -78,21 +78,48 @@ int main()
 
 	cursor.setCursor(&window, POINTER);
 
-	Button saveBtn(300, 200, BTN_NORMAL, "Save config", &font, false, [&settings]() {
+	sf::Text dummyTab;
+	dummyTab.setFont(font);
+	dummyTab.setPosition(200, 300);
+	dummyTab.setString("Weapons");
+
+
+
+	Button tab1Btn(100, 100, BTN_NARROW, "Weapons", &font);
+	Button tab2Btn(250, 100, BTN_NARROW, "Armor", &font);
+	Button tab3Btn(400, 100, BTN_NARROW, "Equipment", &font);
+	
+	tab1Btn.setCallback([&dummyTab, &tab1Btn, &tab2Btn, &tab3Btn]() {
+		tab1Btn.setSelected(true);
+		tab2Btn.setSelected(false);
+		tab3Btn.setSelected(false);
+		dummyTab.setString("Weapons");
+	});
+
+	tab2Btn.setCallback([&dummyTab, &tab1Btn, &tab2Btn, &tab3Btn]() {
+		tab1Btn.setSelected(false);
+		tab2Btn.setSelected(true);
+		tab3Btn.setSelected(false);
+		dummyTab.setString("Armor");
+	});
+
+	tab3Btn.setCallback([&dummyTab, &tab1Btn, &tab2Btn, &tab3Btn]() {
+		tab1Btn.setSelected(false);
+		tab2Btn.setSelected(false);
+		tab3Btn.setSelected(true);
+		dummyTab.setString("Equipment");
+	});
+
+	tab1Btn.setSelected(true);
+
+	buttons.push_back(&tab1Btn);
+	buttons.push_back(&tab2Btn);
+	buttons.push_back(&tab3Btn);
+
+	Button saveBtn(100, 500, BTN_NORMAL, "Save config", &font, [&settings]() {
 		settings.saveConfig();
 	});
 	buttons.push_back(&saveBtn);
-
-	bool isKasztanSelected = true;
-	Button kasztanBtn(500, 200, BTN_BIG, "Kasztan", &font, isKasztanSelected, nullptr, false);
-	kasztanBtn.setCallback([&kasztanBtn, &isKasztanSelected]() {
-		isKasztanSelected = !isKasztanSelected;
-		kasztanBtn.setSelected(isKasztanSelected);
-	});
-	buttons.push_back(&kasztanBtn);
-
-	Button narrowBtn(700, 200, BTN_NARROW, "Narrow", &font, false, nullptr);
-	buttons.push_back(&narrowBtn);
 
 	while (window.isOpen())
 	{
@@ -141,11 +168,8 @@ int main()
 					{
 						for(std::list<Button*>::iterator btn = buttons.begin(); btn != buttons.end(); btn++)
 						{
-							if ((*btn)->containsPoint(event.mouseButton.x, event.mouseButton.y))
-							{
-								(*btn)->onClick();
+							if ((*btn)->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
 								break; // click consumed, no need to check other buttons
-							}
 						}
 					}
 					break;
@@ -162,6 +186,8 @@ int main()
 		{
 			(*btn)->draw(&window);
 		}
+
+		window.draw(dummyTab);
 
 		log.draw(&window);
 

@@ -1,12 +1,11 @@
 #include "button.hpp"
 #include "../consts.h"
 
-Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font, bool selected, std::function<void(void)> callback, bool setSelectedOnClick)
+Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font, std::function<void(void)> callback)
 {
 	uint w, h;
 
 	this->callback = callback;
-	this->setSelectedOnClick = setSelectedOnClick;
 
 	switch (size)
 	{
@@ -27,7 +26,7 @@ Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font
 	// rectangle & border
 	this->rect = sf::RectangleShape(sf::Vector2f(w, h));
 	this->rect.setOutlineColor(sf::Color(0, 255, 153));
-	this->rect.move(x, y);
+	this->rect.setPosition(x, y);
 
 	// text
 
@@ -38,7 +37,7 @@ Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font
 
 	// center button text
 	// FONT_BUTTON_TOP_OFFSET: for some reason sf::Text is drawn with a little top padding, need to offset that
-	this->text.move(x + (w - this->text.getLocalBounds().width) / 2, y - BTN_FONT_TOP_OFFSET + (h - this->text.getLocalBounds().height) / 2);
+	this->text.setPosition(x + (w - this->text.getLocalBounds().width) / 2, y - BTN_FONT_TOP_OFFSET + (h - this->text.getLocalBounds().height) / 2);
 
 	// gradient fill (transparent - almost black - transparent)
 	// this->rect color will "shine" through left & right side, this way we don't have to prepare multiple gradients
@@ -66,8 +65,8 @@ Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font
 	gradient[6] = sf::Vertex(sf::Vector2f(rightX, bottomY), transparent);
 	gradient[7] = sf::Vertex(sf::Vector2f(midX, bottomY), black);
 
-	// initial selected state
-	this->setSelected(selected);
+	// disabled by default
+	this->setSelected(false);
 }
 
 void Button::setSelected(bool selected)
@@ -81,18 +80,22 @@ void Button::setCallback(std::function<void(void)> callback)
 	this->callback = callback;
 }
 
-void Button::onClick()
+/**
+ * Checks if click was placed inside button area.
+ * If it was, and the callback function exists, the callback will be called.
+ * @param x click x coordinate
+ * @param y click y coordinate
+ * @returns `true` if click was consumed, `false` otherwise
+*/
+bool Button::maybeHandleClick(float x, float y)
 {
-	if (this->setSelectedOnClick)
-		this->setSelected(true);
+	if (!this->rect.getGlobalBounds().contains(x, y))
+		return false; // click outside of btn bounds
 
 	if (this->callback != nullptr)
 		this->callback();
-}
 
-bool Button::containsPoint(float x, float y)
-{
-	return this->rect.getGlobalBounds().contains(x, y);
+	return true;
 }
 
 void Button::draw(sf::RenderWindow *window)
