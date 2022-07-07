@@ -98,6 +98,13 @@ bool Setting::tryLoadFromLine(std::string line)
 				Log::logStderr(LOG_WARNING, "Can't load %s: invalid value", key.c_str());
 				return false;
 			}
+
+			if (uintVal >= _CORNER_CNT)
+			{
+				Log::logStderr(LOG_WARNING, "Invalid enum value (%u) for %s", uintVal, key.c_str());
+				return false;
+			}
+
 			this->val.enumScreenCorner = static_cast<ScreenCorner>(uintVal);
 			Log::logStderr(LOG_DEBUG, "Loaded setting %s = %u", key.c_str(), this->val.enumScreenCorner);
 			return true;
