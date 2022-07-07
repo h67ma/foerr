@@ -67,7 +67,8 @@ int main()
 
 	Log log(&font, &settings);
 
-	FpsMeter fpsMeter(&font, FONT_SIZE_NORMAL);
+	FpsMeter fpsMeter(&font, FONT_SIZE_NORMAL, settings.getScreenCorner(SETT_ANCHOR_FPS));
+	fpsMeter.handleWindowResized(window.getSize().x, window.getSize().y);
 	
 	WindowCursor cursor(&log);
 	if (!cursor.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
@@ -116,6 +117,13 @@ int main()
 	buttons.push_back(&tab2Btn);
 	buttons.push_back(&tab3Btn);
 
+	ScreenCorner anchor = CORNER_TOP_LEFT;
+	Button debugBtn(400, 400, BTN_BIG, "DEBUG", &font, [&anchor, &settings]() {
+		anchor = static_cast<ScreenCorner>((((int)anchor) + 1) % _CORNER_CNT);
+		settings.setScreenCorner(SETT_ANCHOR_LOG, anchor);
+	});
+	buttons.push_back(&debugBtn);
+
 	Button saveBtn(100, 500, BTN_NORMAL, "Save config", &font, [&settings]() {
 		settings.saveConfig();
 	});
@@ -133,6 +141,7 @@ int main()
 					break;
 				case sf::Event::Resized:
 					window.setView(sf::View(sf::FloatRect(0.f, 0.f, event.size.width, event.size.height)));
+					fpsMeter.handleWindowResized(event.size.width, event.size.height);
 					break;
 				case sf::Event::LostFocus:
 					// TODO actually pause game

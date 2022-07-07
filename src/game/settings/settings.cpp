@@ -19,6 +19,7 @@ Settings::Settings()
 	this->settings[SETT_PREFER_CUSTOM_CURSOR].setup("PreferCustomCursor", true);
 	this->settings[SETT_SHOW_FPS_COUNTER].setup("ShowFpsCounter", true);
 	this->settings[SETT_ANCHOR_LOG].setup("LogAnchor", CORNER_TOP_RIGHT);
+	this->settings[SETT_ANCHOR_FPS].setup("FpsAnchor", CORNER_TOP_LEFT);
 	//this->settings[SETT_LOG_MSG_TIMEOUT].setup("LogMsgTimeout", 3); // is this really necessary?
 	// TODO this->settings[SETT_FONT_SCALING_FACTOR].setup("FontScalingFactor", 1.0);
 
