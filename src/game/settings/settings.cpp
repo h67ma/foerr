@@ -3,29 +3,31 @@
 #include "../consts.h"
 #include "../hud/log.hpp"
 
-#define INIT_SETTING(sKey, sDefault) this->settings[sKey].setup(#sKey, sDefault)
-
 Settings::Settings()
 {
 	// window
-	INIT_SETTING(SETT_FULLSCREEN_ENABLED, false);
-	INIT_SETTING(SETT_FPS_LIMIT_ENABLED, true);
-	INIT_SETTING(SETT_FPS_LIMIT, 60U);
-	INIT_SETTING(SETT_FAKE_VSYNC_ENABLED, false);
-	INIT_SETTING(SETT_WINDOW_WIDTH, 1280U);
-	INIT_SETTING(SETT_WINDOW_HEIGHT, 720U);
+	this->settings[SETT_FULLSCREEN_ENABLED].setup("FullscreenEnabled", false);
+	this->settings[SETT_FPS_LIMIT_ENABLED].setup("FpsLimitEnabled", true);
+	this->settings[SETT_FPS_LIMIT].setup("FpsLimit", 60U);
+	this->settings[SETT_FAKE_VSYNC_ENABLED].setup("FakeVsyncEnabled", false);
 	// TODO? windowed size + position override
 
 	// logging
-	INIT_SETTING(SETT_DISPLAY_DEBUG_MSGS_IN_LOG, true);
-	INIT_SETTING(SETT_WRITE_DEBUG_LOG_TO_FILE, true);
+	this->settings[SETT_WRITE_LOG_TO_FILE].setup("WriteLogToFile", true);
 
 	// hud
-	INIT_SETTING(SETT_PREFER_CUSTOM_CURSOR, true);
-	INIT_SETTING(SETT_SHOW_FPS_COUNTER, true);
-	INIT_SETTING(SETT_ANCHOR_LOG, CORNER_TOP_RIGHT);
-	//INIT_SETTING(SETT_LOG_MSG_TIMEOUT, 3); // is this really necessary?
-	// TODO INIT_SETTING(SETT_FONT_SCALING_FACTOR, 1.0);
+	this->settings[SETT_PREFER_CUSTOM_CURSOR].setup("PreferCustomCursor", true);
+	this->settings[SETT_SHOW_FPS_COUNTER].setup("ShowFpsCounter", true);
+	this->settings[SETT_ANCHOR_LOG].setup("LogAnchor", CORNER_TOP_RIGHT);
+	//this->settings[SETT_LOG_MSG_TIMEOUT].setup("LogMsgTimeout", 3); // is this really necessary?
+	// TODO this->settings[SETT_FONT_SCALING_FACTOR].setup("FontScalingFactor", 1.0);
+
+	// debug
+	this->settings[SETT_WINDOW_WIDTH].setup("WindowW", 1280U, true);
+	this->settings[SETT_WINDOW_HEIGHT].setup("WindowH", 720U, true);
+	this->settings[SETT_DISPLAY_DEBUG_MSGS_IN_LOG].setup("DisplayDebugMsgsInLog", false, true);
+	// TODO this->settings[SETT_SHOW_BOUNDING_BOXEN].setup("ShowBoundingBoxen", false, true); // Brian, what's the plural form of "box"?
+	// TODO this->settings[SETT_DEV_CONSOLE_ENABLED].setup("DevConsoleEnabled", false, true);
 }
 
 void Settings::saveConfig()

@@ -93,7 +93,7 @@ void Log::log(LogMsgType msgType, const char *fmt, T... args)
 
 	std::string formatted = litSprintf(fmt, args...);
 
-	if (this->settings->getBool(SETT_WRITE_DEBUG_LOG_TO_FILE))
+	if (this->settings->getBool(SETT_WRITE_LOG_TO_FILE))
 		this->logToFile(msgType, formatted);
 
 	if (msgType == LOG_DEBUG && !this->settings->getBool(SETT_DISPLAY_DEBUG_MSGS_IN_LOG))

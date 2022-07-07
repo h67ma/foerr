@@ -25,11 +25,12 @@ class Setting
 		std::string key;
 		setting_value_t defaultValue;
 		SettingType settingType;
+		bool debug; // debug settings can be loaded from settings file, but are never written
 	public:
 		setting_value_t val; // solution with templates is also possible, but more messy
-		void setup(std::string key, uint defaultValue);
-		void setup(std::string key, bool defaultValue);
-		void setup(std::string key, ScreenCorner defaultValue);
+		void setup(std::string key, uint defaultValue, bool debug=false);
+		void setup(std::string key, bool defaultValue, bool debug=false);
+		void setup(std::string key, ScreenCorner defaultValue, bool debug=false);
 		void resetToDefault();
 		void writeToFile(std::ofstream& file);
 		bool tryLoadFromLine(std::string line);

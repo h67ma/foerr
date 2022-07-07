@@ -2,28 +2,31 @@
 #include "setting.hpp"
 #include "../hud/log.hpp"
 
-void Setting::setup(std::string key, uint defaultValue)
+void Setting::setup(std::string key, uint defaultValue, bool debug)
 {
 	this->key = key;
 	this->defaultValue.numeric = defaultValue;
 	this->val.numeric = defaultValue;
 	this->settingType = SETTING_UINT;
+	this->debug = debug;
 }
 
-void Setting::setup(std::string key, bool defaultValue)
+void Setting::setup(std::string key, bool defaultValue, bool debug)
 {
 	this->key = key;
 	this->defaultValue.logic = defaultValue;
 	this->val.logic = defaultValue;
 	this->settingType = SETTING_BOOL;
+	this->debug = debug;
 }
 
-void Setting::setup(std::string key, ScreenCorner defaultValue)
+void Setting::setup(std::string key, ScreenCorner defaultValue, bool debug)
 {
 	this->key = key;
 	this->defaultValue.enumScreenCorner = defaultValue;
 	this->val.enumScreenCorner = defaultValue;
 	this->settingType = SETTING_ENUM_SCREEN_CORNER;
+	this->debug = debug;
 }
 
 void Setting::resetToDefault()
@@ -44,6 +47,9 @@ void Setting::resetToDefault()
 
 void Setting::writeToFile(std::ofstream& file)
 {
+	if (this->debug)
+		return; // debug settings are not written
+
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
