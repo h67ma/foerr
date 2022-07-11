@@ -5,7 +5,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "../util.hpp"
-#include "../settings/settings.hpp"
+#include "../settings/settings_manager.hpp"
 #include "log_element_text.hpp"
 
 #define HISTORY_LEN 100
@@ -65,7 +65,7 @@ class Log
 {
 	private:
 		sf::Font *font;
-		Settings *settings;
+		SettingsManager *settings;
 		std::list<LogElementText> history;
 		void logToFile(LogMsgType msgType, std::string msg);
 
@@ -75,7 +75,7 @@ class Log
 		std::ofstream logFile = std::ofstream(PATH_LOGFILE);
 
 	public:
-		Log(sf::Font *font, Settings *settings);
+		Log(sf::Font *font, SettingsManager *settings);
 		template<typename... T> void log(LogMsgType msgType, const char *fmt, T... args);
 		template<typename... T> static void logStderr(LogMsgType msgType, const char *fmt, T... args);
 		void updateFontSize();

@@ -1,7 +1,7 @@
 #include <fstream>
 #include "log.hpp"
 
-Log::Log(sf::Font *font, Settings *settings)
+Log::Log(sf::Font *font, SettingsManager *settings)
 {
 	this->font = font;
 	this->settings = settings;

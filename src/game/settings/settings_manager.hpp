@@ -25,12 +25,12 @@ enum SettingName
  * The Settings class is a "live" representation of settings.
  * All changes to settings are temporary, unless they are written to the settings file.
  */
-class Settings
+class SettingsManager
 {
 	private:
 		Setting settings[_SETTINGS_CNT];
 	public:
-		Settings();
+		SettingsManager();
 		void saveConfig();
 		void loadConfig();
 		uint getUint(SettingName idx);

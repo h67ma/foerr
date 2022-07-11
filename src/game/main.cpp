@@ -10,7 +10,7 @@
 #include "util/i18n.hpp"
 #include "consts.h"
 #include "hud/log.hpp"
-#include "settings/settings.hpp"
+#include "settings/settings_manager.hpp"
 #include "hud/fps_meter.hpp"
 #include "hud/button.hpp"
 
@@ -27,7 +27,7 @@
 //	exit(1);
 //}
 
-void recreateWindow(sf::Window *window, Settings *settings)
+void recreateWindow(sf::Window *window, SettingsManager *settings)
 {
 	// TODO settings activity should detect valid video modes and list them, with the standard "confirm in 15 seconds" dialog after changing resolution.
 	// the selected mode should be saved to settings file.
@@ -48,7 +48,7 @@ void recreateWindow(sf::Window *window, Settings *settings)
 
 int main()
 {
-	Settings settings;
+	SettingsManager settings;
 	settings.loadConfig();
 	sf::RenderWindow window;
 	sf::Font font;

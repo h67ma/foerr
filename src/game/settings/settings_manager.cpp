@@ -1,9 +1,9 @@
 #include <fstream>
-#include "settings.hpp"
+#include "settings_manager.hpp"
 #include "../consts.h"
 #include "../hud/log.hpp"
 
-Settings::Settings()
+SettingsManager::SettingsManager()
 {
 	// window
 	this->settings[SETT_FULLSCREEN_ENABLED].setup("FullscreenEnabled", false);
@@ -31,7 +31,7 @@ Settings::Settings()
 	// TODO this->settings[SETT_DEV_CONSOLE_ENABLED].setup("DevConsoleEnabled", false, true);
 }
 
-void Settings::saveConfig()
+void SettingsManager::saveConfig()
 {
 	std::ofstream file(PATH_SETTINGS);
 
@@ -45,7 +45,7 @@ void Settings::saveConfig()
 	Log::logStderr(LOG_DEBUG, "Saved settings");
 }
 
-void Settings::loadConfig()
+void SettingsManager::loadConfig()
 {
 	std::string line;
 	std::ifstream file(PATH_SETTINGS);
@@ -72,7 +72,7 @@ void Settings::loadConfig()
 	file.close();
 }
 
-uint Settings::getUint(SettingName idx)
+uint SettingsManager::getUint(SettingName idx)
 {
 	if (idx >= _SETTINGS_CNT)
 		return 0; // default value is better than crash
@@ -80,7 +80,7 @@ uint Settings::getUint(SettingName idx)
 	return this->settings[idx].val.numeric;
 }
 
-bool Settings::getBool(SettingName idx)
+bool SettingsManager::getBool(SettingName idx)
 {
 	if (idx >= _SETTINGS_CNT)
 		return false; // default value is better than crash
@@ -88,7 +88,7 @@ bool Settings::getBool(SettingName idx)
 	return this->settings[idx].val.logic;
 }
 
-ScreenCorner Settings::getScreenCorner(SettingName idx)
+ScreenCorner SettingsManager::getScreenCorner(SettingName idx)
 {
 	if (idx >= _SETTINGS_CNT)
 		return CORNER_TOP_LEFT; // default value is better than crash
@@ -96,7 +96,7 @@ ScreenCorner Settings::getScreenCorner(SettingName idx)
 	return this->settings[idx].val.enumScreenCorner;
 }
 
-void Settings::setUint(SettingName idx, uint newValue)
+void SettingsManager::setUint(SettingName idx, uint newValue)
 {
 	if (idx >= _SETTINGS_CNT)
 		return; // TODO print some error or something
@@ -104,7 +104,7 @@ void Settings::setUint(SettingName idx, uint newValue)
 	this->settings[idx].val.numeric = newValue;
 }
 
-void Settings::setBool(SettingName idx, bool newValue)
+void SettingsManager::setBool(SettingName idx, bool newValue)
 {
 	if (idx >= _SETTINGS_CNT)
 		return; // TODO print some error or something
@@ -112,7 +112,7 @@ void Settings::setBool(SettingName idx, bool newValue)
 	this->settings[idx].val.logic = newValue;
 }
 
-void Settings::setScreenCorner(SettingName idx, ScreenCorner newValue)
+void SettingsManager::setScreenCorner(SettingName idx, ScreenCorner newValue)
 {
 	if (idx >= _SETTINGS_CNT)
 		return; // TODO print some error or something
