@@ -25,6 +25,6 @@ class FpsMeter
 		FpsMeter(sf::Font *font, uint fontSize, ScreenCorner anchor);
 		void setFontSize(uint newSize);
 		void setAnchor(ScreenCorner anchor);
-		void handleWindowResized(uint w, uint h);
+		void updatePosition(uint w, uint h);
 		void draw(sf::RenderWindow *window);
 };

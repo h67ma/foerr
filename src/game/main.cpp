@@ -68,7 +68,7 @@ int main()
 	Log log(&font, &settings);
 
 	FpsMeter fpsMeter(&font, FONT_SIZE_NORMAL, settings.getScreenCorner(SETT_ANCHOR_FPS));
-	fpsMeter.handleWindowResized(window.getSize().x, window.getSize().y);
+	fpsMeter.updatePosition(window.getSize().x, window.getSize().y);
 	
 	WindowCursor cursor(&log);
 	if (!cursor.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
@@ -141,7 +141,7 @@ int main()
 					break;
 				case sf::Event::Resized:
 					window.setView(sf::View(sf::FloatRect(0.f, 0.f, event.size.width, event.size.height)));
-					fpsMeter.handleWindowResized(event.size.width, event.size.height);
+					fpsMeter.updatePosition(event.size.width, event.size.height);
 					break;
 				case sf::Event::LostFocus:
 					// TODO actually pause game

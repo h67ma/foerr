@@ -22,7 +22,7 @@ void FpsMeter::setAnchor(ScreenCorner anchor)
 	this->anchor = anchor;
 }
 
-void FpsMeter::handleWindowResized(uint w, uint h)
+void FpsMeter::updatePosition(uint w, uint h)
 {
 	switch(this->anchor)
 	{
