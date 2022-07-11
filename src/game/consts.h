@@ -7,7 +7,9 @@
 #define PATH_CURSOR_CROSS_WHITE "res/hud/crosshair_white.png"
 #define PATH_CURSOR_CROSS_YELLOW "res/hud/crosshair_yellow.png"
 #define PATH_CURSOR_CROSS_RED "res/hud/crosshair_red.png"
-#define PATH_FONT "res/fonts/Inconsolata-Regular.ttf"
+#define PATH_FONT_NORMAL "res/fonts/OpenSans-Regular.ttf"
+#define PATH_FONT_MEDIUM "res/fonts/OpenSans-Medium.ttf"
+#define PATH_FONT_FIXED "res/fonts/Inconsolata-Regular.ttf"
 
 // font sizes
 #define FONT_SIZE_NORMAL 18

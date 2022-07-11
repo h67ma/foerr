@@ -52,7 +52,8 @@ int main()
 	SettingsManager settings;
 	settings.loadConfig();
 	sf::RenderWindow window;
-	sf::Font font;
+	sf::Font fontMedium;
+	sf::Font fontNormal;
 	std::list<Button*> buttons;
 
 	// TODO find a platform-independent way to display stack trace on crash
@@ -60,15 +61,21 @@ int main()
 
 	recreateWindow(&window, &settings); // actually create it for the first time, details
 
-	if (!font.loadFromFile(PATH_FONT))
+	if (!fontNormal.loadFromFile(PATH_FONT_NORMAL))
 	{
 		Log::logStderr(LOG_ERROR, STR_FONT_LOAD_FAIL);
 		exit(1);
 	}
 
-	Log log(&font, &settings);
+	if (!fontMedium.loadFromFile(PATH_FONT_MEDIUM))
+	{
+		Log::logStderr(LOG_ERROR, STR_FONT_LOAD_FAIL);
+		exit(1);
+	}
 
-	FpsMeter fpsMeter(&font, FONT_SIZE_NORMAL, settings.getScreenCorner(SETT_ANCHOR_FPS));
+	Log log(&fontNormal, &settings);
+
+	FpsMeter fpsMeter(&fontNormal, FONT_SIZE_NORMAL, settings.getScreenCorner(SETT_ANCHOR_FPS));
 	fpsMeter.updatePosition(window.getSize().x, window.getSize().y);
 	
 	WindowCursor cursor(&log);
@@ -81,15 +88,15 @@ int main()
 	cursor.setCursor(&window, POINTER);
 
 	sf::Text dummyTab;
-	dummyTab.setFont(font);
+	dummyTab.setFont(fontMedium);
 	dummyTab.setPosition(200, 300);
 	dummyTab.setString("Weapons");
 
 
 
-	Button tab1Btn(100, 100, BTN_NARROW, "Weapons", &font);
-	Button tab2Btn(250, 100, BTN_NARROW, "Armor", &font);
-	Button tab3Btn(400, 100, BTN_NARROW, "Equipment", &font);
+	Button tab1Btn(100, 100, BTN_NARROW, "Weapons", &fontMedium);
+	Button tab2Btn(240, 100, BTN_NARROW, "Armor", &fontMedium);
+	Button tab3Btn(380, 100, BTN_NARROW, "Equipment", &fontMedium);
 	
 	tab1Btn.setCallback([&dummyTab, &tab1Btn, &tab2Btn, &tab3Btn]() {
 		tab1Btn.setSelected(true);
@@ -125,12 +132,12 @@ int main()
 	sf::Sound sound;
 	sound.setBuffer(buffer);
 
-	Button debugBtn(400, 400, BTN_BIG, "DEBUG", &font, [&sound]() {
+	Button debugBtn(400, 400, BTN_BIG, "DEBUG", &fontMedium, [&sound]() {
 		sound.play();
 	});
 	buttons.push_back(&debugBtn);
 
-	Button saveBtn(100, 500, BTN_NORMAL, "Save config", &font, [&settings]() {
+	Button saveBtn(100, 500, BTN_NORMAL, "Save config", &fontMedium, [&settings]() {
 		settings.saveConfig();
 	});
 	buttons.push_back(&saveBtn);

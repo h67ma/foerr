@@ -36,8 +36,9 @@ Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font
 	this->text.setCharacterSize(BTN_FONT_SIZE);
 
 	// center button text
-	// FONT_BUTTON_TOP_OFFSET: for some reason sf::Text is drawn with a little top padding, need to offset that
-	this->text.setPosition(x + (w - this->text.getLocalBounds().width) / 2, y - BTN_FONT_TOP_OFFSET + (h - this->text.getLocalBounds().height) / 2);
+	// to center vertically, we can't use local bounds, as the baselines on different buttons would not match.
+	// use a constant top offset instead
+	this->text.setPosition(x + ((w - this->text.getLocalBounds().width) / 2), y + (h / 2) - BTN_FONT_TOP_OFFSET);
 
 	// gradient fill (transparent - almost black - transparent)
 	// this->rect color will "shine" through left & right side, this way we don't have to prepare multiple gradients

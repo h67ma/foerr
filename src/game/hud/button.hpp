@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include "../consts.h"
 
-#define BTN_FONT_SIZE 23U
-#define BTN_FONT_TOP_OFFSET 7U
+#define BTN_FONT_SIZE 18U
+#define BTN_FONT_TOP_OFFSET 12U
 #define BTN_BORDER_THICKNESS 1U
 #define BTN_BORDER_THICKNESS_SELECTED 3U
 
