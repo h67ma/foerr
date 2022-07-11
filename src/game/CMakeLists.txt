@@ -20,23 +20,25 @@ add_executable(foerr ${SOURCES})
 find_library(SFML_GRAPHICS_D sfml-graphics-d)
 find_library(SFML_WINDOW_D sfml-window-d)
 find_library(SFML_SYSTEM_D sfml-system-d)
+find_library(SFML_AUDIO_D sfml-audio-d)
 
 find_library(SFML_GRAPHICS sfml-graphics)
 find_library(SFML_WINDOW sfml-window)
 find_library(SFML_SYSTEM sfml-system)
+find_library(SFML_AUDIO sfml-audio)
 
 if(MSVC)
 	# set a tolerable warning level
 	add_compile_options(foerr PRIVATE /W4 /WX)
 
 	if(CMAKE_BUILD_TYPE MATCHES Debug)
-		target_link_libraries(foerr ${SFML_GRAPHICS_D} ${SFML_WINDOW_D} ${SFML_SYSTEM_D})
+		target_link_libraries(foerr ${SFML_GRAPHICS_D} ${SFML_WINDOW_D} ${SFML_SYSTEM_D} ${SFML_AUDIO_D})
 	else()
-		target_link_libraries(foerr ${SFML_GRAPHICS} ${SFML_WINDOW} ${SFML_SYSTEM})
+		target_link_libraries(foerr ${SFML_GRAPHICS} ${SFML_WINDOW} ${SFML_SYSTEM} ${SFML_AUDIO})
 	endif()
 else()
 	add_compile_options(foerr PRIVATE -Wall -Wextra -Wpedantic -Werror)
-	target_link_libraries(foerr ${SFML_GRAPHICS} ${SFML_WINDOW} ${SFML_SYSTEM})
+	target_link_libraries(foerr ${SFML_GRAPHICS} ${SFML_WINDOW} ${SFML_AUDIO})
 endif()
 
 install(TARGETS foerr DESTINATION foerr)

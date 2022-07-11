@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
+#include <SFML/Audio.hpp>
 #include "window/window_cursor.hpp"
 #include "util/i18n.hpp"
 #include "consts.h"
@@ -117,10 +118,15 @@ int main()
 	buttons.push_back(&tab2Btn);
 	buttons.push_back(&tab3Btn);
 
-	ScreenCorner anchor = CORNER_TOP_LEFT;
-	Button debugBtn(400, 400, BTN_BIG, "DEBUG", &font, [&anchor, &settings]() {
-		anchor = static_cast<ScreenCorner>((((int)anchor) + 1) % _CORNER_CNT);
-		settings.setScreenCorner(SETT_ANCHOR_LOG, anchor);
+	sf::SoundBuffer buffer;
+	if (!buffer.loadFromFile("res/audio/13_skill.wav"))
+		return -1;
+
+	sf::Sound sound;
+	sound.setBuffer(buffer);
+
+	Button debugBtn(400, 400, BTN_BIG, "DEBUG", &font, [&sound]() {
+		sound.play();
 	});
 	buttons.push_back(&debugBtn);
 
