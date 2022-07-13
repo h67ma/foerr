@@ -12,8 +12,10 @@
 #include "consts.h"
 #include "hud/log.hpp"
 #include "settings/settings_manager.hpp"
+#include "resource_manager.hpp"
 #include "hud/fps_meter.hpp"
 #include "hud/button.hpp"
+#include "entities/animated_entity.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -55,6 +57,8 @@ int main()
 	sf::Font fontMedium;
 	sf::Font fontNormal;
 	std::list<Button*> buttons;
+	std::vector<AnimatedEntity*> fires;
+	AnimatedEntity* fire;
 
 	// TODO find a platform-independent way to display stack trace on crash
 	//signal(SIGSEGV, stackTraceHandler);
@@ -74,6 +78,8 @@ int main()
 	}
 
 	Log log(&fontNormal, &settings);
+
+	ResourceManager resManager(&log);
 
 	FpsMeter fpsMeter(&fontNormal, FONT_SIZE_NORMAL, settings.getScreenCorner(SETT_ANCHOR_FPS));
 	fpsMeter.updatePosition(window.getSize().x, window.getSize().y);
@@ -194,6 +200,11 @@ int main()
 								break; // click consumed, no need to check other buttons
 						}
 					}
+
+					// excercie: set selected point on fire
+					fire = new AnimatedEntity(*resManager.getImage(IMG_FIRE), 50, 67);
+					fire->setPosition(event.mouseButton.x, event.mouseButton.y);
+					fires.push_back(fire);
 					break;
 				default:
 					break;
@@ -202,6 +213,12 @@ int main()
 
 		window.clear();
 
+		// entities
+		for(AnimatedEntity* fire : fires)
+		{
+			fire->maybeNextFrame();
+			window.draw(*fire);
+		}
 
 		// hud
 		for(std::list<Button*>::iterator btn = buttons.begin(); btn != buttons.end(); btn++)
@@ -217,6 +234,11 @@ int main()
 			fpsMeter.draw(&window); // also won't count frame times when disabled, but the clock will be initialized at program start either way
 
 		window.display();
+	}
+
+	for(AnimatedEntity* fire : fires)
+	{
+		delete fire;
 	}
 
 	return 0;

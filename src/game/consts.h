@@ -1,4 +1,5 @@
 #define STACKTRACE_MAX_CNT 10
+#define ANIM_FRAME_DURATION_MS 33 // around 30fps
 
 // paths
 #define PATH_SETTINGS "config.ini"
@@ -10,6 +11,7 @@
 #define PATH_FONT_NORMAL "res/fonts/OpenSans-Regular.ttf"
 #define PATH_FONT_MEDIUM "res/fonts/OpenSans-Medium.ttf"
 #define PATH_FONT_FIXED "res/fonts/Inconsolata-Regular.ttf"
+#define PATH_ENTITY_FIRE "res/entities/fire.png"
 
 // font sizes
 #define FONT_SIZE_NORMAL 18
