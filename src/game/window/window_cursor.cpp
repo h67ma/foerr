@@ -4,7 +4,7 @@
 #include "../util/i18n.hpp"
 #include "../consts.h"
 
-WindowCursor::WindowCursor(Log *log)
+WindowCursor::WindowCursor(Log* log)
 {
 	this->cursors[0].path = PATH_CURSOR_ARROW;
 	this->cursors[0].hotX = 1;

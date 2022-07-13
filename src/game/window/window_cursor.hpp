@@ -19,7 +19,7 @@ class WindowCursor
 		CustomCursor cursors[CURSORS_CNT];
 
 	public:
-		WindowCursor(Log *log);
+		WindowCursor(Log* log);
 		bool loadCursors(bool preferCustom);
 		void setCursor(sf::RenderWindow *window, CursorType type);
 };
