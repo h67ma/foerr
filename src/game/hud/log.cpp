@@ -1,52 +1,69 @@
 #include <fstream>
 #include "log.hpp"
 
-Log::Log(sf::Font *font, SettingsManager *settings)
+Log::Log(sf::Font *font)
 {
 	this->font = font;
-	this->settings = settings;
 }
 
-void Log::updateFontSize()
+void Log::setPosition(ScreenCorner anchor, uint windowW, uint windowH)
 {
-	for (LogElementText &item : this->history)
-	{
-		item.setCharacterSize(FONT_SIZE_NORMAL); // TODO do we actually operate on list elements, or on iterator?
-	}
+	this->anchor = anchor;
+	this->windowW = windowW;
+	this->windowH = windowH;
+}
+
+void Log::setWriteLogToFile(bool writeLogToFile)
+{
+	this->writeLogToFile = writeLogToFile;
+}
+
+void Log::setDisplayDebugMsgsInLog(bool displayDebugMsgsInLog)
+{
+	this->displayDebugMsgsInLog = displayDebugMsgsInLog;
 }
 
 /**
- * Draws message log items.
- * TODO this should be calculated every 1s or 0.25s or whatever, then only draw the items.
+ * Removes old items from history.
+ * If update should happen (based on private clock) and there are items in history, calculate their positions.
+ * 
+ * @param force update even if there was an update in last `LOG_UPDATE_FREQUENCY_MS`
  */
-void Log::draw(sf::RenderWindow *window)
+void Log::maybeUpdate(bool force)
 {
 	uint x = LOG_ANCHOR_PADDING_LEFT; // constant offset from left, will be enough for CORNER_*_LEFT
 	uint y = LOG_ANCHOR_PADDING_TOP; // constant offset from top, will be enough for CORNER_TOP_*
 	uint timesUpCnt = 0;
-	ScreenCorner anchor = this->settings->getScreenCorner(SETT_ANCHOR_LOG);
+
+	if ((this->history.empty() || this->clock.getElapsedTime().asMilliseconds() < LOG_UPDATE_FREQUENCY_MS) && !force)
+		return;
+
+	// remove items which were in the log for longer than LOG_ELEMENT_LIFE_TIME_S
+	this->history.remove_if([](LogElementText& item){ return item.isTimeUp(); });
 
 	// initial offset from top/bottom
-	if (anchor == CORNER_BOTTOM_LEFT || anchor == CORNER_BOTTOM_RIGHT)
-		y = window->getSize().y - this->history.size() * FONT_SIZE_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
+	if (this->anchor == CORNER_BOTTOM_LEFT || this->anchor == CORNER_BOTTOM_RIGHT)
+		y = this->windowH - this->history.size() * FONT_SIZE_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
 	for (LogElementText &item : this->history)
 	{
-		if (anchor == CORNER_TOP_RIGHT || anchor == CORNER_BOTTOM_RIGHT)
-			x = window->getSize().x - item.getLocalBounds().width - LOG_ANCHOR_NEG_PADDING_RIGHT;
+		if (this->anchor == CORNER_TOP_RIGHT || this->anchor == CORNER_BOTTOM_RIGHT)
+			x = this->windowW - item.getLocalBounds().width - LOG_ANCHOR_NEG_PADDING_RIGHT;
 
 		item.setPosition(x, y);
-		window->draw(item);
 
 		y += FONT_SIZE_NORMAL_WITH_GAP;
-
-		if (item.isTimeUp())
-			timesUpCnt++;
 	}
 
-	// remove items which were in the log for longer than LOG_ELEMENT_LIFE_TIME_S
-	for (uint i = 0; i < timesUpCnt; i++)
-		this->history.pop_front();
+	this->clock.restart();
+}
+
+void Log::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	for (const LogElementText &item : this->history)
+	{
+		target.draw(item);
+	}
 }
 
 /**

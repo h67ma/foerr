@@ -3,12 +3,15 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include "../util.hpp"
-#include "../settings/settings_manager.hpp"
 #include "log_element_text.hpp"
+#include "../consts.h"
+#include "../hud/hud.hpp"
 
-#define HISTORY_LEN 100
+#define LOG_HISTORY_LEN 100
+#define LOG_UPDATE_FREQUENCY_MS 200
 
 #define LOG_ANCHOR_PADDING_LEFT 7
 #define LOG_ANCHOR_NEG_PADDING_RIGHT 7
@@ -61,12 +64,17 @@ inline const char* logMsgTypeToPrefix(LogMsgType msgType)
 	}
 }
 
-class Log
+class Log : public sf::Drawable
 {
 	private:
 		sf::Font *font;
-		SettingsManager *settings;
+		ScreenCorner anchor;
+		uint windowW;
+		uint windowH;
+		bool writeLogToFile;
+		bool displayDebugMsgsInLog;
 		std::list<LogElementText> history;
+		sf::Clock clock;
 		void logToFile(LogMsgType msgType, std::string msg);
 
 		// empty file will be created even if user has disabled writing to log file.
@@ -75,11 +83,14 @@ class Log
 		std::ofstream logFile = std::ofstream(PATH_LOGFILE);
 
 	public:
-		Log(sf::Font *font, SettingsManager *settings);
+		Log(sf::Font *font);
 		template<typename... T> void log(LogMsgType msgType, const char *fmt, T... args);
 		template<typename... T> static void logStderr(LogMsgType msgType, const char *fmt, T... args);
-		void updateFontSize();
-		void draw(sf::RenderWindow *window);
+		void setPosition(ScreenCorner anchor, uint windowW, uint windowH);
+		void setWriteLogToFile(bool writeLogToFile);
+		void setDisplayDebugMsgsInLog(bool displayDebugMsgsInLog);
+		void maybeUpdate(bool force=false);
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		~Log();
 };
 
@@ -98,15 +109,16 @@ void Log::log(LogMsgType msgType, const char *fmt, T... args)
 
 	std::string formatted = litSprintf(fmt, args...);
 
-	if (this->settings->getBool(SETT_WRITE_LOG_TO_FILE))
+	if (this->writeLogToFile)
 		this->logToFile(msgType, formatted);
 
-	if (msgType == LOG_DEBUG && !this->settings->getBool(SETT_DISPLAY_DEBUG_MSGS_IN_LOG))
+	if (msgType == LOG_DEBUG && !this->displayDebugMsgsInLog)
 		return;
 
 	LogElementText logElem(formatted, this->font, FONT_SIZE_NORMAL, logMsgTypeToColor(msgType));
 
 	this->history.push_back(logElem);
+	this->maybeUpdate(true);
 }
 
 /**

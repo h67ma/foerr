@@ -81,7 +81,8 @@ int main()
 		exit(1);
 	}
 
-	Log log(&fontNormal, &settings);
+	Log log(&fontNormal);
+	log.setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowW, windowH);
 
 	ResourceManager resManager(&log);
 
@@ -165,6 +166,7 @@ int main()
 				case sf::Event::Resized:
 					window.setView(sf::View(sf::FloatRect(0.f, 0.f, event.size.width, event.size.height)));
 					fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), event.size.width, event.size.height);
+					log.setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), event.size.width, event.size.height);
 					break;
 				case sf::Event::LostFocus:
 					// TODO actually pause game
@@ -232,7 +234,8 @@ int main()
 
 		window.draw(dummyTab);
 
-		log.draw(&window);
+		log.maybeUpdate();
+		window.draw(log);
 
 		if (settings.getBool(SETT_SHOW_FPS_COUNTER))
 		{
