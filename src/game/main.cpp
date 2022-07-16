@@ -53,7 +53,9 @@ int main()
 {
 	SettingsManager settings;
 	settings.loadConfig();
+
 	sf::RenderWindow window;
+	uint windowW, windowH;
 	sf::Font fontMedium;
 	sf::Font fontNormal;
 	std::list<Button*> buttons;
@@ -64,6 +66,8 @@ int main()
 	//signal(SIGSEGV, stackTraceHandler);
 
 	recreateWindow(&window, &settings); // actually create it for the first time, details
+	windowW = window.getSize().x;
+	windowH = window.getSize().y;
 
 	if (!fontNormal.loadFromFile(PATH_FONT_NORMAL))
 	{
@@ -81,8 +85,8 @@ int main()
 
 	ResourceManager resManager(&log);
 
-	FpsMeter fpsMeter(&fontNormal, FONT_SIZE_NORMAL, settings.getScreenCorner(SETT_ANCHOR_FPS));
-	fpsMeter.updatePosition(window.getSize().x, window.getSize().y);
+	FpsMeter fpsMeter(&fontNormal, FONT_SIZE_NORMAL);
+	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowW, windowH);
 	
 	WindowCursor cursor(&log);
 	if (!cursor.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
@@ -160,7 +164,7 @@ int main()
 					break;
 				case sf::Event::Resized:
 					window.setView(sf::View(sf::FloatRect(0.f, 0.f, event.size.width, event.size.height)));
-					fpsMeter.updatePosition(event.size.width, event.size.height);
+					fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), event.size.width, event.size.height);
 					break;
 				case sf::Event::LostFocus:
 					// TODO actually pause game

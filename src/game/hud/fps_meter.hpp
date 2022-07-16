@@ -20,12 +20,10 @@ class FpsMeter : public sf::Drawable
 		bool firstFrame = true;
 		char buf[FPS_METER_MAX_CHARS];
 		sf::Clock clock;
-		ScreenCorner anchor;
 	public:
-		FpsMeter(sf::Font *font, uint fontSize, ScreenCorner anchor);
+		FpsMeter(sf::Font *font, uint fontSize);
 		void setFontSize(uint newSize);
-		void setAnchor(ScreenCorner anchor);
-		void updatePosition(uint w, uint h);
+		void setPosition(ScreenCorner anchor, uint screenW, uint screenH);
 		void maybeUpdate();
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

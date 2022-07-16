@@ -3,9 +3,8 @@
 #include "fps_meter.hpp"
 #include "../consts.h"
 
-FpsMeter::FpsMeter(sf::Font *font, uint fontSize, ScreenCorner anchor)
+FpsMeter::FpsMeter(sf::Font *font, uint fontSize)
 {
-	this->anchor = anchor;
 	this->text.setFont(*font);
 	this->text.setCharacterSize(fontSize);
 	this->text.setFillColor(sf::Color::Green);
@@ -17,23 +16,18 @@ void FpsMeter::setFontSize(uint newSize)
 	this->text.setCharacterSize(newSize);
 }
 
-void FpsMeter::setAnchor(ScreenCorner anchor)
+void FpsMeter::setPosition(ScreenCorner anchor, uint screenW, uint screenH)
 {
-	this->anchor = anchor;
-}
-
-void FpsMeter::updatePosition(uint w, uint h)
-{
-	switch(this->anchor)
+	switch(anchor)
 	{
 		case CORNER_TOP_RIGHT:
-			this->text.setPosition(w - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, FPS_ANCHOR_PADDING_TOP);
+			this->text.setPosition(screenW - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, FPS_ANCHOR_PADDING_TOP);
 			break;
 		case CORNER_BOTTOM_LEFT:
-			this->text.setPosition(FPS_ANCHOR_PADDING_LEFT, h - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
+			this->text.setPosition(FPS_ANCHOR_PADDING_LEFT, screenH - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
 			break;
 		case CORNER_BOTTOM_RIGHT:
-			this->text.setPosition(w - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, h - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
+			this->text.setPosition(screenW - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, screenH - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
 			break;
 		case CORNER_TOP_LEFT:
 		default:
