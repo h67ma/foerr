@@ -99,9 +99,9 @@ bool Button::maybeHandleClick(float x, float y)
 	return true;
 }
 
-void Button::draw(sf::RenderWindow *window)
+void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	window->draw(this->rect);
-	window->draw(this->gradient, 8, sf::Quads);
-	window->draw(this->text);
+	target.draw(this->rect);
+	target.draw(this->gradient);
+	target.draw(this->text);
 }

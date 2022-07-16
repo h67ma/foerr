@@ -200,9 +200,9 @@ int main()
 				case sf::Event::MouseButtonPressed:
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
-						for(std::list<Button*>::iterator btn = buttons.begin(); btn != buttons.end(); btn++)
+						for (Button* btn : buttons)
 						{
-							if ((*btn)->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
+							if (btn->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
 								break; // click consumed, no need to check other buttons
 						}
 					}
@@ -227,9 +227,9 @@ int main()
 		}
 
 		// hud
-		for(std::list<Button*>::iterator btn = buttons.begin(); btn != buttons.end(); btn++)
+		for (Button* btn : buttons)
 		{
-			(*btn)->draw(&window);
+			window.draw(*btn);
 		}
 
 		window.draw(dummyTab);

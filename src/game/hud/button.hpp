@@ -17,12 +17,12 @@ enum ButtonSize
 };
 
 // TODO? change btn color on hover. could be a nice addition, but kinda tedious to implement
-class Button
+class Button : public sf::Drawable
 {
 	private:
 		sf::RectangleShape rect;
 		sf::Text text;
-		sf::Vertex gradient[8];
+		sf::VertexArray gradient = sf::VertexArray(sf::Quads, 8);
 		std::function<void(void)> callback = nullptr;
 
 	public:
@@ -30,5 +30,5 @@ class Button
 		void setSelected(bool selected);
 		void setCallback(std::function<void(void)> callback);
 		bool maybeHandleClick(float x, float y);
-		void draw(sf::RenderWindow *window);
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
