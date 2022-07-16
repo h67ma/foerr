@@ -1,6 +1,6 @@
-#include "animated_entity.hpp"
+#include "animation.hpp"
 
-AnimatedEntity::AnimatedEntity(sf::Image textureImg, uint width, uint height)
+Animation::Animation(sf::Image textureImg, uint width, uint height)
 {
 	this->width = width;
 	this->height = height;
@@ -20,7 +20,7 @@ AnimatedEntity::AnimatedEntity(sf::Image textureImg, uint width, uint height)
  * Checks if frame should be changed (depending on time of last update) and updates frame if needed.
  * TODO? it is possible that the first frame will not be drawn - will this be a visible problem? a simple solution would be to artificially set the timer to >= ANIM_FRAME_DURATION_MS at initialization
  */
-void AnimatedEntity::maybeNextFrame()
+void Animation::maybeNextFrame()
 {
 	if (this->clock.getElapsedTime().asMilliseconds() < ANIM_FRAME_DURATION_MS)
 		return;
@@ -34,7 +34,7 @@ void AnimatedEntity::maybeNextFrame()
 	this->clock.restart();
 }
 
-void AnimatedEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 	target.draw(this->sprite, states);

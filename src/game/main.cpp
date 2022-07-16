@@ -15,7 +15,7 @@
 #include "resource_manager.hpp"
 #include "hud/fps_meter.hpp"
 #include "hud/button.hpp"
-#include "entities/animated_entity.hpp"
+#include "entities/animation.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -57,8 +57,8 @@ int main()
 	sf::Font fontMedium;
 	sf::Font fontNormal;
 	std::list<Button*> buttons;
-	std::vector<AnimatedEntity*> fires;
-	AnimatedEntity* fire;
+	std::vector<Animation*> fires;
+	Animation* fire;
 
 	// TODO find a platform-independent way to display stack trace on crash
 	//signal(SIGSEGV, stackTraceHandler);
@@ -202,7 +202,7 @@ int main()
 					}
 
 					// excercie: set selected point on fire
-					fire = new AnimatedEntity(*resManager.getImage(IMG_FIRE), 50, 67);
+					fire = new Animation(*resManager.getImage(IMG_FIRE), 50, 67);
 					fire->setPosition(event.mouseButton.x, event.mouseButton.y);
 					fires.push_back(fire);
 					break;
@@ -214,7 +214,7 @@ int main()
 		window.clear();
 
 		// entities
-		for(AnimatedEntity* fire : fires)
+		for(Animation* fire : fires)
 		{
 			fire->maybeNextFrame();
 			window.draw(*fire);
@@ -236,7 +236,7 @@ int main()
 		window.display();
 	}
 
-	for(AnimatedEntity* fire : fires)
+	for(Animation* fire : fires)
 	{
 		delete fire;
 	}

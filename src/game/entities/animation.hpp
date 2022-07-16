@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "../consts.h"
 
-class AnimatedEntity : public sf::Drawable, public sf::Transformable
+class Animation : public sf::Drawable, public sf::Transformable
 {
 	private:
 		sf::Texture texture;
@@ -15,7 +15,7 @@ class AnimatedEntity : public sf::Drawable, public sf::Transformable
 		uint height;
 
 	public:
-		AnimatedEntity(sf::Image textureImg, uint width, uint height);
+		Animation(sf::Image textureImg, uint width, uint height);
 		bool loadTexture();
 		void maybeNextFrame();
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
