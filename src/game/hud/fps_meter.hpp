@@ -12,7 +12,7 @@
 #define FPS_ANCHOR_PADDING_TOP 0
 #define FPS_ANCHOR_NEG_PADDING_BOTTOM 10
 
-class FpsMeter
+class FpsMeter : public sf::Drawable
 {
 	private:
 		sf::Text text;
@@ -26,5 +26,6 @@ class FpsMeter
 		void setFontSize(uint newSize);
 		void setAnchor(ScreenCorner anchor);
 		void updatePosition(uint w, uint h);
-		void draw(sf::RenderWindow *window);
+		void maybeUpdate();
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

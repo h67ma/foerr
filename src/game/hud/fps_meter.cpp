@@ -42,10 +42,8 @@ void FpsMeter::updatePosition(uint w, uint h)
 	}
 }
 
-void FpsMeter::draw(sf::RenderWindow *window)
+void FpsMeter::maybeUpdate()
 {
-	window->draw(this->text);
-
 	if (this->firstFrame)
 	{
 		this->firstFrame = false;
@@ -69,4 +67,9 @@ void FpsMeter::draw(sf::RenderWindow *window)
 		this->text.setString(buf);
 		this->firstFrame = true;
 	}
+}
+
+void FpsMeter::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(this->text, states);
 }

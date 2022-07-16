@@ -231,7 +231,11 @@ int main()
 		log.draw(&window);
 
 		if (settings.getBool(SETT_SHOW_FPS_COUNTER))
-			fpsMeter.draw(&window); // also won't count frame times when disabled, but the clock will be initialized at program start either way
+		{
+			// the clock will be initialized at program start either way, but fps won't be calculated if disabled
+			fpsMeter.maybeUpdate();
+			window.draw(fpsMeter);
+		}
 
 		window.display();
 	}
