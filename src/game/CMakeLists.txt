@@ -39,7 +39,7 @@ if(MSVC)
 	endif()
 else()
 	add_compile_options(foerr PRIVATE -Wall -Wextra -Wpedantic -Werror)
-	target_link_libraries(foerr ${SFML_GRAPHICS} ${SFML_WINDOW} ${SFML_AUDIO})
+	target_link_libraries(foerr ${SFML_GRAPHICS} ${SFML_WINDOW} ${SFML_SYSTEM} ${SFML_AUDIO})
 endif()
 
 install(TARGETS foerr DESTINATION foerr)
