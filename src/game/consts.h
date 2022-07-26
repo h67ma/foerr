@@ -11,7 +11,8 @@
 #define PATH_FONT_NORMAL "res/fonts/OpenSans-Regular.ttf"
 #define PATH_FONT_MEDIUM "res/fonts/OpenSans-Medium.ttf"
 #define PATH_FONT_FIXED "res/fonts/Inconsolata-Regular.ttf"
-#define PATH_ENTITY_FIRE "res/entities/fire.png"
+#define PATH_SPRITESHEET_FIRE "res/entities/fire.png"
+#define PATH_SPRITESHEET_MCHAVI "res/entities/mchavi.png"
 
 // font sizes
 #define FONT_SIZE_NORMAL 18

@@ -59,8 +59,7 @@ int main()
 	sf::Font fontMedium;
 	sf::Font fontNormal;
 	std::list<Button*> buttons;
-	std::vector<Animation*> fires;
-	Animation* fire;
+	std::vector<Animation*> animations;
 
 	// TODO find a platform-independent way to display stack trace on crash
 	//signal(SIGSEGV, stackTraceHandler);
@@ -143,7 +142,7 @@ int main()
 	sf::Sound sound;
 	sound.setBuffer(buffer);
 
-	Button debugBtn(400, 400, BTN_BIG, "DEBUG", &fontMedium, [&sound]() {
+	Button debugBtn(400, 400, BTN_BIG, "test sound", &fontMedium, [&sound]() {
 		sound.play();
 	});
 	buttons.push_back(&debugBtn);
@@ -152,6 +151,81 @@ int main()
 		settings.saveConfig();
 	});
 	buttons.push_back(&saveBtn);
+
+
+	Animation *fire = new Animation(*resManager.getImage(SPRITESHEET_FIRE), 50, 67, {
+		{ANIM_STATIC, 17}
+	});
+	fire->setPosition(100, 200);
+	animations.push_back(fire);
+
+
+
+	Animation *mchavi = new Animation(*resManager.getImage(SPRITESHEET_MCHAVI), 130, 130, {
+		{ ANIM_STAND, 1 },
+		{ ANIM_TROT, 17 },
+		{ ANIM_GALLOP, 8 },
+		{ ANIM_JUMP, 16 },
+		{ ANIM_DIE_GROUND, 20 },
+		{ ANIM_DIE_AIR, 13 },
+		{ ANIM_TK_HOLD, 8 },
+		{ ANIM_SWIM, 24 },
+		{ ANIM_CLIMB, 12 },
+		{ ANIM_WALK, 24 },
+	});
+	mchavi->setPosition(500, 200);
+	animations.push_back(mchavi);
+
+	Button mchavi1(700, 60, BTN_NORMAL, "stand", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_STAND);
+	});
+	buttons.push_back(&mchavi1);
+
+	Button mchavi2(700, 90, BTN_NORMAL, "walk", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_WALK);
+	});
+	buttons.push_back(&mchavi2);
+
+	Button mchavi3(700, 120, BTN_NORMAL, "trot", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_TROT);
+	});
+	buttons.push_back(&mchavi3);
+
+	Button mchavi4(700, 150, BTN_NORMAL, "gallop", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_GALLOP);
+	});
+	buttons.push_back(&mchavi4);
+
+	Button mchavi5(700, 180, BTN_NORMAL, "jump", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_JUMP);
+	});
+	buttons.push_back(&mchavi5);
+
+	Button mchavi6(700, 210, BTN_NORMAL, "die ground", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_DIE_GROUND);
+	});
+	buttons.push_back(&mchavi6);
+
+	Button mchavi7(700, 240, BTN_NORMAL, "die air", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_DIE_AIR);
+	});
+	buttons.push_back(&mchavi7);
+
+	Button mchavi8(700, 270, BTN_NORMAL, "tk hold", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_TK_HOLD);
+	});
+	buttons.push_back(&mchavi8);
+
+	Button mchavi9(700, 300, BTN_NORMAL, "swim", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_SWIM);
+	});
+	buttons.push_back(&mchavi9);
+
+	Button mchavi10(700, 330, BTN_NORMAL, "climb", &fontMedium, [&mchavi]() {
+		mchavi->setAnimation(ANIM_CLIMB);
+	});
+	buttons.push_back(&mchavi10);
+
 
 	while (window.isOpen())
 	{
@@ -205,12 +279,7 @@ int main()
 							if (btn->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
 								break; // click consumed, no need to check other buttons
 						}
-					}
-
-					// excercie: set selected point on fire
-					fire = new Animation(*resManager.getImage(IMG_FIRE), 50, 67);
-					fire->setPosition(event.mouseButton.x, event.mouseButton.y);
-					fires.push_back(fire);
+					}					
 					break;
 				default:
 					break;
@@ -220,10 +289,10 @@ int main()
 		window.clear();
 
 		// entities
-		for(Animation* fire : fires)
+		for(Animation* animation : animations)
 		{
-			fire->maybeNextFrame();
-			window.draw(*fire);
+			animation->maybeNextFrame();
+			window.draw(*animation);
 		}
 
 		// hud
@@ -247,9 +316,9 @@ int main()
 		window.display();
 	}
 
-	for(Animation* fire : fires)
+	for(Animation* animation : animations)
 	{
-		delete fire;
+		delete animation;
 	}
 
 	return 0;

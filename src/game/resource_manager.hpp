@@ -5,7 +5,8 @@
 
 enum ImageName
 {
-	IMG_FIRE,
+	SPRITESHEET_FIRE,
+	SPRITESHEET_MCHAVI,
 	_IMGS_CNT
 };
 
@@ -13,6 +14,7 @@ class ResourceManager
 {
 	private:
 		sf::Image images[_IMGS_CNT];
+		void loadImg(Log* log, ImageName idx, std::string path);
 
 	public:
 		ResourceManager(Log* log);

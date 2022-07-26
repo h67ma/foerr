@@ -4,8 +4,15 @@
 
 ResourceManager::ResourceManager(Log* log)
 {
-	if (!this->images[IMG_FIRE].loadFromFile(PATH_ENTITY_FIRE))
-		log->log(LOG_ERROR, STR_IMG_LOAD_FAIL, PATH_ENTITY_FIRE);
+	// any image we won't or can't load will be shown as white rectangle, could think of adding some fallback img
+	this->loadImg(log, SPRITESHEET_FIRE, PATH_SPRITESHEET_FIRE);
+	this->loadImg(log, SPRITESHEET_MCHAVI, PATH_SPRITESHEET_MCHAVI);
+}
+
+void ResourceManager::loadImg(Log* log, ImageName idx, std::string path)
+{
+	if (!this->images[idx].loadFromFile(path))
+		log->log(LOG_ERROR, STR_IMG_LOAD_FAIL, path);
 }
 
 sf::Image* ResourceManager::getImage(ImageName imgName)
