@@ -22,7 +22,7 @@ enum SettingName
 };
 
 /**
- * The Settings class is a "live" representation of settings.
+ * The SettingsManager class is a "live" representation of settings.
  * All changes to settings are temporary, unless they are written to the settings file.
  */
 class SettingsManager

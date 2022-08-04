@@ -62,7 +62,7 @@ void Animation::maybeNextFrame()
  * selected animation will continue playing.
  * 
  * @param kind animation kind
- * @return `true` if animation was successfuly changed, `false` otherwise.
+ * @returns `true` if animation was successfuly changed, `false` otherwise.
  */
 bool Animation::setAnimation(AnimationKind kind)
 {

@@ -84,6 +84,7 @@ void Button::setCallback(std::function<void(void)> callback)
 /**
  * Checks if click was placed inside button area.
  * If it was, and the callback function exists, the callback will be called.
+ *
  * @param x click x coordinate
  * @param y click y coordinate
  * @returns `true` if click was consumed, `false` otherwise

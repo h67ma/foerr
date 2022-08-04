@@ -26,7 +26,7 @@ void Log::setDisplayDebugMsgsInLog(bool displayDebugMsgsInLog)
 /**
  * Removes old items from history.
  * If update should happen (based on private clock) and there are items in history, calculate their positions.
- * 
+ *
  * @param force update even if there was an update in last `LOG_UPDATE_FREQUENCY_MS`
  */
 void Log::maybeUpdate(bool force)
