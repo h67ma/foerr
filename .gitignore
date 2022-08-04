@@ -3,6 +3,7 @@
 res
 .vscode
 foerr
-*.ini
+*.json
 build/
 *.log
+*.dll

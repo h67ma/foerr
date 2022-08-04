@@ -29,6 +29,7 @@ void Setting::setup(std::string key, ScreenCorner defaultValue, bool debug)
 	this->debug = debug;
 }
 
+// TODO do we actually need this?
 void Setting::resetToDefault()
 {
 	switch (this->settingType)
@@ -45,92 +46,61 @@ void Setting::resetToDefault()
 	}
 }
 
-void Setting::writeToFile(std::ofstream& file)
+std::string Setting::getKey()
 {
-	if (this->debug)
-		return; // debug settings are not written
+	return this->key;
+}
 
+bool Setting::isDebug()
+{
+	return this->debug;
+}
+
+/**
+ * @returns setting's value, as Json node
+ */
+Json::Value Setting::getJsonValue()
+{
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
-			file << this->key << '=' << (val.logic ? "true" : "false") << std::endl;
+			return Json::Value(val.logic);
 			break;
-		case SETTING_ENUM_SCREEN_CORNER:
-			file << this->key << '=' << val.enumScreenCorner << std::endl;
-			break;
+		case SETTING_ENUM_SCREEN_CORNER: // enums are ints anyway
 		case SETTING_UINT:
 		default:
-			file << this->key << '=' << val.numeric << std::endl;
+			return Json::Value(val.numeric);
 	}
 }
 
 /**
- * Tries to load the value from a given line. The line needs to be in correct format.
- * The value will be loaded only if SettingsKey (read from the line) matches the setting's key.
+ * Loads value from Json node. Assumes the node's type is the same as setting's type.
  *
- * @param line a single line read from settings file, in the format "SettingKey=SettingValue" (without quotes).
- * @returns `true` if loading was successful, `false` otherwise.
+ * @param value Json node with an elementary value
  */
-bool Setting::tryLoadFromLine(std::string line)
+void Setting::loadFromJson(Json::Value value)
 {
-	// TODO maybe just use xml/json parser
-	std::stringstream stream(line);
-	std::string key, strVal;
-	uint uintVal;
-
-	if (!std::getline(stream, key, '='))
-		return false;
-
-	if (key != this->key)
-		return false;
-
-	if (!std::getline(stream, strVal))
-		return false;
+	int readEnum;
 
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
-			this->val.logic = strVal == "true" || strVal == "1" || strVal == "yes";
-			Log::logStderr(LOG_DEBUG, "Loaded setting %s = %d", key.c_str(), this->val.logic);
-			return true;
+			val.logic = value.asBool();
+			Log::logStderr(LOG_DEBUG, "Loaded setting: %s = %d", key.c_str(), val.logic);
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
-			try
+			readEnum = value.asInt();
+			if (readEnum >= _CORNER_CNT)
 			{
-				uintVal = stoi(strVal);
+				Log::logStderr(LOG_WARNING, "Invalid value (%u) for %s", readEnum, key.c_str());
+				return;
 			}
-			catch (const std::invalid_argument& ex)
-			{
-				Log::logStderr(LOG_WARNING, "Can't load %s: invalid value", key.c_str());
-				return false;
-			}
-
-			if (uintVal >= _CORNER_CNT)
-			{
-				Log::logStderr(LOG_WARNING, "Invalid enum value (%u) for %s", uintVal, key.c_str());
-				return false;
-			}
-
-			this->val.enumScreenCorner = static_cast<ScreenCorner>(uintVal);
-			Log::logStderr(LOG_DEBUG, "Loaded setting %s = %u", key.c_str(), this->val.enumScreenCorner);
-			return true;
+			val.enumScreenCorner = (ScreenCorner)readEnum;
+			Log::logStderr(LOG_DEBUG, "Loaded setting: %s = %d", key.c_str(), val.enumScreenCorner);
 			break;
 		case SETTING_UINT:
-			try
-			{
-				uintVal = stoi(strVal);
-			}
-			catch (const std::invalid_argument& ex)
-			{
-				Log::logStderr(LOG_WARNING, "Can't load %s: invalid value", key.c_str());
-				return false;
-			}
-			this->val.numeric = uintVal;
-			Log::logStderr(LOG_DEBUG, "Loaded setting %s = %u", key.c_str(), this->val.numeric);
-			return true;
-			break;
 		default:
-			Log::logStderr(LOG_WARNING, "Can't load %s: invalid setting type", key.c_str());
-			return false;
+			val.numeric = value.asUInt();
+			Log::logStderr(LOG_DEBUG, "Loaded setting: %s = %u", key.c_str(), val.numeric);
 	}
 }

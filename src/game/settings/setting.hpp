@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <fstream>
+#include <json/json.h>
 #include "../hud/hud.hpp"
 #include "../consts.h"
 
@@ -32,6 +32,8 @@ class Setting
 		void setup(std::string key, bool defaultValue, bool debug=false);
 		void setup(std::string key, ScreenCorner defaultValue, bool debug=false);
 		void resetToDefault();
-		void writeToFile(std::ofstream& file);
-		bool tryLoadFromLine(std::string line);
+		std::string getKey();
+		bool isDebug();
+		Json::Value getJsonValue();
+		void loadFromJson(Json::Value value);
 };

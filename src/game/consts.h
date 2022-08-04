@@ -2,7 +2,7 @@
 #define ANIM_FRAME_DURATION_MS 33 // around 30fps
 
 // paths
-#define PATH_SETTINGS "config.ini"
+#define PATH_SETTINGS "config.json"
 #define PATH_LOGFILE "foerr.log"
 #define PATH_CURSOR_ARROW "res/hud/cursor.png"
 #define PATH_CURSOR_CROSS_WHITE "res/hud/crosshair_white.png"

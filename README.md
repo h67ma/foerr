@@ -1,5 +1,6 @@
 # Dependencies
-* [SFML library](https://www.sfml-dev.org/download/sfml/2.5.1/)
+* [SFML](https://www.sfml-dev.org)
+* [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
 
 # Build
 ```
@@ -8,10 +9,10 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=Debug ../src/game
 cmake --build . -j`nproc` --config Debug
 ```
-In case SFML is installed in non-standard path (or when using Windows), set the following environment variables:
+In case libraries are installed in non-standard path (or when using Windows), set the following environment variables:
 ```
-CMAKE_INCLUDE_PATH=path/to/SFML-x.y.z/include
-CMAKE_LIBRARY_PATH=path/to/SFML-x.y.z/lib
+CMAKE_INCLUDE_PATH=path/to/SFML/include;path/to/jsoncpp/include"
+CMAKE_LIBRARY_PATH=path/to/SFML/lib;path/to/jsoncpp/build/lib"
 ```
 
 ## Switching build type
@@ -23,6 +24,20 @@ cmake --build . -j`nproc` --config Release
 ## Verbose build
 Just add `-v`.
 
+## Dependencies: SFML
+SFML provides prebuilt binaries. Get them [here](https://www.sfml-dev.org/download/sfml/2.5.1/).
+
+## Dependencies: jsoncpp (Windows)
+```
+mkdir build
+cd build
+cmake -DBUILD_STATIC_LIBS=OFF -DBUILD_SHARED_LIBS=ON ..
+cmake --build . --config Release
+cmake --build . --config Debug
+move lib\Release\jsoncpp.lib lib\jsoncpp.lib
+move lib\Debug\jsoncpp.lib lib\jsoncpp-d.lib
+```
+
 # Run
 ```
 cd $PROJECT_ROOT
@@ -30,7 +45,7 @@ build/foerr
 ```
 Where `$PROJECT_ROOT` is a directory containing the `res` directory.
 
-SFML bin dir path must be present in PATH, or libraries must be present in the same dir as game executable.
+Game requires shared libraries (see *Dependencies*). Libraries bin dirs paths must be present in PATH, or libraries must be present in curent directory (Windows).
 
 # Clean
 ```

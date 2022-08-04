@@ -1,7 +1,9 @@
 #include <fstream>
+#include <json/writer.h>
 #include "settings_manager.hpp"
 #include "../consts.h"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
 SettingsManager::SettingsManager()
 {
@@ -24,6 +26,7 @@ SettingsManager::SettingsManager()
 	// TODO this->settings[SETT_FONT_SCALING_FACTOR].setup("FontScalingFactor", 1.0);
 
 	// debug
+	// TODO maybe we could save window w&h on program exit and then restore it?
 	this->settings[SETT_WINDOW_WIDTH].setup("WindowW", 1280U, true);
 	this->settings[SETT_WINDOW_HEIGHT].setup("WindowH", 720U, true);
 	this->settings[SETT_DISPLAY_DEBUG_MSGS_IN_LOG].setup("DisplayDebugMsgsInLog", false, true);
@@ -33,13 +36,20 @@ SettingsManager::SettingsManager()
 
 void SettingsManager::saveConfig()
 {
-	std::ofstream file(PATH_SETTINGS);
+	Json::Value root;
 
 	for (size_t i = 0; i < _SETTINGS_CNT; i++)
 	{
-		this->settings[i].writeToFile(file);
+		Setting *sett = &this->settings[i];
+
+		if (sett->isDebug())
+			continue; // don't write debug settings
+
+		root[sett->getKey().c_str()] = sett->getJsonValue();
 	}
 
+	std::ofstream file(PATH_SETTINGS);
+	file << root << std::endl;
 	file.close();
 
 	Log::logStderr(LOG_DEBUG, "Saved settings");
@@ -47,29 +57,35 @@ void SettingsManager::saveConfig()
 
 void SettingsManager::loadConfig()
 {
-	std::string line;
-	std::ifstream file(PATH_SETTINGS);
+	std::ifstream file(PATH_SETTINGS, std::ifstream::binary);
+	Json::Value root;
 
 	if (!file.is_open())
 		return; // we'll just run on default settings (which are already assigned)
 
-	while (getline(file, line))
+	file >> root;
+	file.close();
+
+	for (size_t i = 0; i < _SETTINGS_CNT; i++)
 	{
-		bool found = false;
-		for (size_t i = 0; i < _SETTINGS_CNT; i++)
+		Setting *sett = &this->settings[i];
+
+		// TODO C related mystery for another time:
+		// why can't we do `key = sett->getKey().c_str();` and use it as a variable later?
+
+		if (!root.isMember(sett->getKey().c_str()))
 		{
-			if (this->settings[i].tryLoadFromLine(line))
-			{
-				found = true;
-				continue; // setting found & load successful, we can move to the next setting
-			}
+			// settings file is missing this key
+
+			// debug settings are missing "by default" so we shouldn't warn user
+			if (!sett->isDebug())
+				Log::logStderr(LOG_WARNING, STR_SETTING_LOAD_FAIL, sett->getKey().c_str());
+
+			continue;
 		}
 
-		if (!found)
-			Log::logStderr(LOG_WARNING, "Failed to parse settings line:\n%s", line.c_str());
+		sett->loadFromJson(root[sett->getKey().c_str()]);
 	}
-
-	file.close();
 }
 
 uint SettingsManager::getUint(SettingName idx)
