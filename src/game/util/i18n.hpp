@@ -8,4 +8,7 @@
 #define STR_CURSOR_LOAD_FAIL "Error loading cursors."
 #define STR_IMG_LOAD_FAIL "Error loading image resource (%s)"
 #define STR_FONT_LOAD_FAIL "Error loading font."
-#define STR_SETTING_LOAD_FAIL "Invalid setting key (%s)"
+#define STR_SETTINGS_OPEN_ERROR "Error opening settings file. using default settings."
+#define STR_SETTINGS_SYNTAX_ERROR "Error loading settings file:\n%s"
+#define STR_SETTING_INVALID_KEY "Invalid setting key (%s)"
+#define STR_SETTING_INVALID_TYPE "Invalid value for key %s: %s"

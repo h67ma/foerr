@@ -61,9 +61,22 @@ void SettingsManager::loadConfig()
 	Json::Value root;
 
 	if (!file.is_open())
+	{
+		Log::logStderr(LOG_WARNING, STR_SETTINGS_OPEN_ERROR);
 		return; // we'll just run on default settings (which are already assigned)
+	}
 
-	file >> root;
+	try
+	{
+		file >> root;
+	}
+	catch (const Json::RuntimeError& ex)
+	{
+		Log::logStderr(LOG_WARNING, STR_SETTINGS_SYNTAX_ERROR, ex.what());
+		file.close(); // no finally :(
+		return;
+	}
+
 	file.close();
 
 	for (size_t i = 0; i < _SETTINGS_CNT; i++)
@@ -79,12 +92,19 @@ void SettingsManager::loadConfig()
 
 			// debug settings are missing "by default" so we shouldn't warn user
 			if (!sett->isDebug())
-				Log::logStderr(LOG_WARNING, STR_SETTING_LOAD_FAIL, sett->getKey().c_str());
+				Log::logStderr(LOG_WARNING, STR_SETTING_INVALID_KEY, sett->getKey().c_str());
 
 			continue;
 		}
 
-		sett->loadFromJson(root[sett->getKey().c_str()]);
+		try
+		{
+			sett->loadFromJson(root[sett->getKey().c_str()]);
+		}
+		catch(const Json::LogicError& ex)
+		{
+			Log::logStderr(LOG_WARNING, STR_SETTING_INVALID_TYPE, sett->getKey().c_str(), ex.what());
+		}
 	}
 }
 
