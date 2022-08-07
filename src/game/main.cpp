@@ -16,6 +16,7 @@
 #include "hud/fps_meter.hpp"
 #include "hud/button.hpp"
 #include "entities/animation.hpp"
+#include "campaigns/room.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -225,6 +226,10 @@ int main()
 		mchavi->setAnimation(ANIM_CLIMB);
 	});
 	buttons.push_back(&mchavi10);
+
+
+	Room room;
+	room.load("res/campaigns/test/locations/test/test.json", log);
 
 
 	while (window.isOpen())

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <SFML/Graphics.hpp>
-#include "../util.hpp"
+#include "../util/util.hpp"
 #include "log_element_text.hpp"
 #include "../consts.h"
 #include "../hud/hud.hpp"

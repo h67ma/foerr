@@ -5,6 +5,7 @@ project(foerr_game)
 
 file(GLOB_RECURSE SOURCES *.cpp)
 
+include_directories(${PROJECT_SOURCE_DIR}/campaigns)
 include_directories(${PROJECT_SOURCE_DIR}/entities)
 include_directories(${PROJECT_SOURCE_DIR}/hud)
 include_directories(${PROJECT_SOURCE_DIR}/settings)

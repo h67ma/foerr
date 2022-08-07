@@ -72,7 +72,7 @@ void SettingsManager::loadConfig()
 	}
 	catch (const Json::RuntimeError& ex)
 	{
-		Log::logStderr(LOG_WARNING, STR_SETTINGS_SYNTAX_ERROR, ex.what());
+		Log::logStderr(LOG_WARNING, STR_SYNTAX_ERROR, PATH_SETTINGS, ex.what());
 		file.close(); // no finally :(
 		return;
 	}
@@ -92,7 +92,7 @@ void SettingsManager::loadConfig()
 
 			// debug settings are missing "by default" so we shouldn't warn user
 			if (!sett->isDebug())
-				Log::logStderr(LOG_WARNING, STR_SETTING_INVALID_KEY, sett->getKey().c_str());
+				Log::logStderr(LOG_WARNING, STR_INVALID_KEY, PATH_SETTINGS, sett->getKey().c_str());
 
 			continue;
 		}
@@ -101,9 +101,9 @@ void SettingsManager::loadConfig()
 		{
 			sett->loadFromJson(root[sett->getKey().c_str()]);
 		}
-		catch(const Json::LogicError& ex)
+		catch (const Json::LogicError& ex)
 		{
-			Log::logStderr(LOG_WARNING, STR_SETTING_INVALID_TYPE, sett->getKey().c_str(), ex.what());
+			Log::logStderr(LOG_WARNING, STR_INVALID_TYPE_EX, PATH_SETTINGS, sett->getKey().c_str(), ex.what());
 		}
 	}
 }
