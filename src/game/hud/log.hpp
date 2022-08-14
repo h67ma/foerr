@@ -72,7 +72,7 @@ class Log : public sf::Drawable
 		uint windowW;
 		uint windowH;
 		bool writeLogToFile;
-		bool displayDebugMsgsInLog;
+		bool printDebugMsgs;
 		std::list<LogElementText> history;
 		sf::Clock clock;
 		void logToFile(LogMsgType msgType, std::string msg);
@@ -88,7 +88,7 @@ class Log : public sf::Drawable
 		template<typename... T> static void logStderr(LogMsgType msgType, const char *fmt, T... args);
 		void setPosition(ScreenCorner anchor, uint windowW, uint windowH);
 		void setWriteLogToFile(bool writeLogToFile);
-		void setDisplayDebugMsgsInLog(bool displayDebugMsgsInLog);
+		void setPrintDebugMsgs(bool printDebugMsgs);
 		void maybeUpdate(bool force=false);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		~Log();
@@ -109,11 +109,22 @@ void Log::log(LogMsgType msgType, const char *fmt, T... args)
 
 	std::string formatted = litSprintf(fmt, args...);
 
+	if (msgType == LOG_DEBUG)
+	{
+		if (!this->printDebugMsgs)
+			return;
+
+		if (this->writeLogToFile)
+			this->logToFile(msgType, formatted);
+
+		Log::logStderr(LOG_DEBUG, formatted.c_str());
+		return;
+	}
+
+	// normal messages
+
 	if (this->writeLogToFile)
 		this->logToFile(msgType, formatted);
-
-	if (msgType == LOG_DEBUG && !this->displayDebugMsgsInLog)
-		return;
 
 	LogElementText logElem(formatted, this->font, FONT_SIZE_NORMAL, logMsgTypeToColor(msgType));
 

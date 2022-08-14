@@ -29,7 +29,7 @@ SettingsManager::SettingsManager()
 	// TODO maybe we could save window w&h on program exit and then restore it?
 	this->settings[SETT_WINDOW_WIDTH].setup("WindowW", 1280U, true);
 	this->settings[SETT_WINDOW_HEIGHT].setup("WindowH", 720U, true);
-	this->settings[SETT_DISPLAY_DEBUG_MSGS_IN_LOG].setup("DisplayDebugMsgsInLog", false, true);
+	this->settings[SETT_PRINT_DEBUG_MSGS].setup("PrintDebugMsgs", false, true);
 	// TODO this->settings[SETT_SHOW_BOUNDING_BOXEN].setup("ShowBoundingBoxen", false, true); // Brian, what's the plural form of "box"?
 	// TODO this->settings[SETT_DEV_CONSOLE_ENABLED].setup("DevConsoleEnabled", false, true);
 }

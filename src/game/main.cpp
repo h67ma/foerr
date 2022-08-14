@@ -83,6 +83,8 @@ int main()
 
 	Log log(&fontNormal);
 	log.setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowW, windowH);
+	log.setWriteLogToFile(settings.getBool(SETT_WRITE_LOG_TO_FILE));
+	log.setPrintDebugMsgs(settings.getBool(SETT_PRINT_DEBUG_MSGS));
 
 	ResourceManager resManager;
 

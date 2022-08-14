@@ -18,9 +18,9 @@ void Log::setWriteLogToFile(bool writeLogToFile)
 	this->writeLogToFile = writeLogToFile;
 }
 
-void Log::setDisplayDebugMsgsInLog(bool displayDebugMsgsInLog)
+void Log::setPrintDebugMsgs(bool printDebugMsgs)
 {
-	this->displayDebugMsgsInLog = displayDebugMsgsInLog;
+	this->printDebugMsgs = printDebugMsgs;
 }
 
 /**
