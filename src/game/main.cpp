@@ -71,30 +71,30 @@ int main()
 
 	if (!fontNormal.loadFromFile(PATH_FONT_NORMAL))
 	{
-		Log::logStderr(LOG_ERROR, STR_FONT_LOAD_FAIL);
+		Log::log(Log::LOG_ERROR, STR_FONT_LOAD_FAIL);
 		exit(1);
 	}
 
 	if (!fontMedium.loadFromFile(PATH_FONT_MEDIUM))
 	{
-		Log::logStderr(LOG_ERROR, STR_FONT_LOAD_FAIL);
+		Log::log(Log::LOG_ERROR, STR_FONT_LOAD_FAIL);
 		exit(1);
 	}
 
-	Log log(&fontNormal);
-	log.setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowW, windowH);
-	log.setWriteLogToFile(settings.getBool(SETT_WRITE_LOG_TO_FILE));
-	log.setPrintDebugMsgs(settings.getBool(SETT_PRINT_DEBUG_MSGS));
+	Log::setFont(&fontNormal);
+	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowW, windowH);
+	Log::setWriteLogToFile(settings.getBool(SETT_WRITE_LOG_TO_FILE));
+	Log::setPrintDebugMsgs(settings.getBool(SETT_PRINT_DEBUG_MSGS));
 
 	ResourceManager resManager;
 
 	FpsMeter fpsMeter(&fontNormal, FONT_SIZE_NORMAL);
 	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowW, windowH);
 	
-	WindowCursor cursor(&log);
+	WindowCursor cursor;
 	if (!cursor.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
 	{
-		log.log(LOG_ERROR, STR_CURSOR_LOAD_FAIL);
+		Log::log(Log::LOG_ERROR, STR_CURSOR_LOAD_FAIL);
 		exit(1);
 	}
 
@@ -232,8 +232,8 @@ int main()
 
 
 	Campaign campaign;
-	if (!campaign.load("res/campaigns/test", resManager, log))
-		log.log(LOG_ERROR, STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
+	if (!campaign.load("res/campaigns/test", resManager))
+		Log::log(Log::LOG_ERROR, STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
 
 
 	while (window.isOpen())
@@ -249,15 +249,15 @@ int main()
 				case sf::Event::Resized:
 					window.setView(sf::View(sf::FloatRect(0.f, 0.f, event.size.width, event.size.height)));
 					fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), event.size.width, event.size.height);
-					log.setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), event.size.width, event.size.height);
+					Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), event.size.width, event.size.height);
 					break;
 				case sf::Event::LostFocus:
 					// TODO actually pause game
-					log.log(LOG_DEBUG, "Game lost focus");
+					Log::log(Log::LOG_DEBUG, "Game lost focus");
 					break;
 				case sf::Event::TextEntered:
 					if (event.text.unicode < 128)
-						log.log(LOG_DEBUG, "ASCII character typed: %c", static_cast<char>(event.text.unicode));
+						Log::log(Log::LOG_DEBUG, "ASCII character typed: %c", static_cast<char>(event.text.unicode));
 					break;
 				case sf::Event::KeyPressed:
 					switch (event.key.code)
@@ -266,12 +266,12 @@ int main()
 							if (settings.getBool(SETT_FULLSCREEN_ENABLED))
 							{
 								settings.setBool(SETT_FULLSCREEN_ENABLED, false);
-								log.log(LOG_DEBUG, "Switching to windowed mode");
+								Log::log(Log::LOG_DEBUG, "Switching to windowed mode");
 							}
 							else
 							{
 								settings.setBool(SETT_FULLSCREEN_ENABLED, true);
-								log.log(LOG_DEBUG, "Switching to fullscreen mode");
+								Log::log(Log::LOG_DEBUG, "Switching to fullscreen mode");
 							}
 
 							recreateWindow(&window, &settings);
@@ -312,8 +312,8 @@ int main()
 
 		window.draw(dummyTab);
 
-		log.maybeUpdate();
-		window.draw(log);
+		Log::maybeUpdate();
+		Log::draw(window);
 
 		if (settings.getBool(SETT_SHOW_FPS_COUNTER))
 		{

@@ -1,7 +1,6 @@
 #include <unordered_map>
 #include "../resource_manager.hpp"
 #include "location.hpp"
-#include "../hud/log.hpp"
 
 class Campaign
 {
@@ -9,5 +8,5 @@ class Campaign
 		std::unordered_map<std::string, std::unique_ptr<Location>> locations; // maps location id to location. location id is just dir name
 
 	public:
-		bool load(std::string campaignDir, ResourceManager& resMgr, Log &log);
+		bool load(std::string campaignDir, ResourceManager& resMgr);
 };

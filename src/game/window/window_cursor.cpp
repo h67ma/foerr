@@ -4,7 +4,7 @@
 #include "../util/i18n.hpp"
 #include "../consts.hpp"
 
-WindowCursor::WindowCursor(Log* log)
+WindowCursor::WindowCursor()
 {
 	this->cursors[0].path = PATH_CURSOR_ARROW;
 	this->cursors[0].hotX = 1;
@@ -25,11 +25,6 @@ WindowCursor::WindowCursor(Log* log)
 	this->cursors[3].hotX = 1;
 	this->cursors[3].hotY = 1;
 	this->cursors[3].fallbackCursor = sf::Cursor::Cross;
-
-	for (uint i = 0; i < CURSORS_CNT; i++)
-	{
-		this->cursors[i].log = log;
-	}
 }
 
 /**

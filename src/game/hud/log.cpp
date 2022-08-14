@@ -1,80 +1,107 @@
 #include <fstream>
 #include "log.hpp"
 
-Log::Log(sf::Font *font)
+namespace Log
 {
-	this->font = font;
-}
+	sf::Font *_font = nullptr;
+	ScreenCorner _anchor;
+	uint _windowW;
+	uint _windowH;
+	bool _writeLogToFile;
+	bool _printDebugMsgs;
+	std::list<LogElementText> _history;
+	sf::Clock _clock;
 
-void Log::setPosition(ScreenCorner anchor, uint windowW, uint windowH)
-{
-	this->anchor = anchor;
-	this->windowW = windowW;
-	this->windowH = windowH;
-}
+	// empty file will be created even if user has disabled writing to log file.
+	// if user enables writing to log mid-game we'll have somewhere to write to.
+	// otherwise we'd have to check if the file exists every time we write.
+	std::ofstream _logFile = std::ofstream(PATH_LOGFILE);
 
-void Log::setWriteLogToFile(bool writeLogToFile)
-{
-	this->writeLogToFile = writeLogToFile;
-}
-
-void Log::setPrintDebugMsgs(bool printDebugMsgs)
-{
-	this->printDebugMsgs = printDebugMsgs;
-}
-
-/**
- * Removes old items from history.
- * If update should happen (based on private clock) and there are items in history, calculate their positions.
- *
- * @param force update even if there was an update in last `LOG_UPDATE_FREQUENCY_MS`
- */
-void Log::maybeUpdate(bool force)
-{
-	uint x = LOG_ANCHOR_PADDING_LEFT; // constant offset from left, will be enough for CORNER_*_LEFT
-	uint y = LOG_ANCHOR_PADDING_TOP; // constant offset from top, will be enough for CORNER_TOP_*
-	uint timesUpCnt = 0;
-
-	if ((this->history.empty() || this->clock.getElapsedTime().asMilliseconds() < LOG_UPDATE_FREQUENCY_MS) && !force)
-		return;
-
-	// remove items which were in the log for longer than LOG_ELEMENT_LIFE_TIME_S
-	this->history.remove_if([](LogElementText& item){ return item.isTimeUp(); });
-
-	// initial offset from top/bottom
-	if (this->anchor == CORNER_BOTTOM_LEFT || this->anchor == CORNER_BOTTOM_RIGHT)
-		y = this->windowH - this->history.size() * FONT_SIZE_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
-
-	for (LogElementText &item : this->history)
+	void setFont(sf::Font *font)
 	{
-		if (this->anchor == CORNER_TOP_RIGHT || this->anchor == CORNER_BOTTOM_RIGHT)
-			x = this->windowW - item.getLocalBounds().width - LOG_ANCHOR_NEG_PADDING_RIGHT;
-
-		item.setPosition(x, y);
-
-		y += FONT_SIZE_NORMAL_WITH_GAP;
+		_font = font;
 	}
 
-	this->clock.restart();
-}
-
-void Log::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	for (const LogElementText &item : this->history)
+	void setPosition(ScreenCorner anchor, uint windowW, uint windowH)
 	{
-		target.draw(item);
+		_anchor = anchor;
+		_windowW = windowW;
+		_windowH = windowH;
 	}
-}
 
-/**
- * Writes a formatted message to log file.
- */
-void Log::logToFile(LogMsgType msgType, std::string msg)
-{
-	this->logFile << '[' << logMsgTypeToPrefix(msgType) << "] " << msg << std::endl;
-}
+	void setWriteLogToFile(bool writeLogToFile)
+	{
+		_writeLogToFile = writeLogToFile;
+	}
 
-Log::~Log()
-{
-	this->logFile.close();
+	void setPrintDebugMsgs(bool printDebugMsgs)
+	{
+		_printDebugMsgs = printDebugMsgs;
+	}
+
+	/**
+	 * Removes old items from history.
+	 * If update should happen (based on private clock) and there are items in history, calculate their positions.
+	 *
+	 * @param force update even if there was an update in last `LOG_UPDATE_FREQUENCY_MS`
+	 */
+	void maybeUpdate(bool force)
+	{
+		uint x = LOG_ANCHOR_PADDING_LEFT; // constant offset from left, will be enough for CORNER_*_LEFT
+		uint y = LOG_ANCHOR_PADDING_TOP; // constant offset from top, will be enough for CORNER_TOP_*
+		uint timesUpCnt = 0;
+
+		if ((_history.empty() || _clock.getElapsedTime().asMilliseconds() < LOG_UPDATE_FREQUENCY_MS) && !force)
+			return;
+
+		// remove items which were in the log for longer than LOG_ELEMENT_LIFE_TIME_S
+		_history.remove_if([](LogElementText& item){ return item.isTimeUp(); });
+
+		// initial offset from top/bottom
+		if (_anchor == CORNER_BOTTOM_LEFT || _anchor == CORNER_BOTTOM_RIGHT)
+			y = _windowH - _history.size() * FONT_SIZE_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
+
+		for (LogElementText &item : _history)
+		{
+			if (_anchor == CORNER_TOP_RIGHT || _anchor == CORNER_BOTTOM_RIGHT)
+				x = _windowW - item.getLocalBounds().width - LOG_ANCHOR_NEG_PADDING_RIGHT;
+
+			item.setPosition(x, y);
+
+			y += FONT_SIZE_NORMAL_WITH_GAP;
+		}
+
+		_clock.restart();
+	}
+
+	void draw(sf::RenderTarget& target)
+	{
+		for (const LogElementText &item : _history)
+		{
+			target.draw(item);
+		}
+	}
+
+	/**
+	 * Writes a formatted message to log file.
+	 */
+	void _logToFile(LogMsgType msgType, std::string msg)
+	{
+		_logFile << '[' << _logMsgTypeToPrefix(msgType) << "] " << msg << std::endl;
+	}
+
+	/**
+	 * Writes a formatted message to stderr.
+	 *
+	 * Use only if no Log object is available (writing to hud or log file is preferred).
+	 */
+	void _logStderr(LogMsgType msgType, std::string msg)
+	{
+		std::cerr << '[' << _logMsgTypeToPrefix(msgType) << "] " << msg << std::endl;
+	}
+
+	void close()
+	{
+		_logFile.close();
+	}
 }

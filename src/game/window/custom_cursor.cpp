@@ -1,4 +1,5 @@
 #include "custom_cursor.hpp"
+#include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
 /**
@@ -19,13 +20,13 @@ bool CustomCursor::load(bool preferCustom)
 
 	loadSucc = img.loadFromFile(this->path);
 	if (!loadSucc) {
-		this->log->log(LOG_WARNING, STR_CURSOR_LOAD_IMG_ERR, this->path);
+		Log::log(Log::LOG_WARNING, STR_CURSOR_LOAD_IMG_ERR, this->path);
 		return this->cursor.loadFromSystem(this->fallbackCursor);
 	}
 
 	loadSucc = this->cursor.loadFromPixels(img.getPixelsPtr(), img.getSize(), sf::Vector2u(this->hotX, this->hotY));
 	if (!loadSucc) {
-		this->log->log(LOG_WARNING, STR_CURSOR_LOAD_PIXELS_ERR, this->path);
+		Log::log(Log::LOG_WARNING, STR_CURSOR_LOAD_PIXELS_ERR, this->path);
 		return this->cursor.loadFromSystem(this->fallbackCursor);
 	}
 

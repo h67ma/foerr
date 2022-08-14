@@ -52,7 +52,7 @@ void SettingsManager::saveConfig()
 	file << root << std::endl;
 	file.close();
 
-	Log::logStderr(LOG_DEBUG, "Saved settings");
+	Log::log(Log::LOG_DEBUG, "Saved settings");
 }
 
 void SettingsManager::loadConfig()
@@ -62,7 +62,7 @@ void SettingsManager::loadConfig()
 	if (!loadJsonFromFile(root, std::string(PATH_SETTINGS)))
 	{
 		// we'll just run on default settings (which are already assigned)
-		Log::logStderr(LOG_WARNING, STR_SETTINGS_OPEN_ERROR);
+		Log::log(Log::LOG_WARNING, STR_SETTINGS_OPEN_ERROR);
 		return;
 	}
 
@@ -79,7 +79,7 @@ void SettingsManager::loadConfig()
 
 			// debug settings are missing "by default" so we shouldn't warn user
 			if (!sett->isDebug())
-				Log::logStderr(LOG_WARNING, STR_INVALID_KEY, PATH_SETTINGS, sett->getKey().c_str());
+				Log::log(Log::LOG_WARNING, STR_INVALID_KEY, PATH_SETTINGS, sett->getKey().c_str());
 
 			continue;
 		}
@@ -90,7 +90,7 @@ void SettingsManager::loadConfig()
 		}
 		catch (const Json::LogicError &ex)
 		{
-			Log::logStderr(LOG_WARNING, STR_INVALID_TYPE_EX, PATH_SETTINGS, sett->getKey().c_str(), ex.what());
+			Log::log(Log::LOG_WARNING, STR_INVALID_TYPE_EX, PATH_SETTINGS, sett->getKey().c_str(), ex.what());
 		}
 	}
 }

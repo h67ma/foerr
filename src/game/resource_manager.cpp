@@ -1,5 +1,6 @@
 #include "resource_manager.hpp"
 #include "util/i18n.hpp"
+#include "../hud/log.hpp"
 #include "consts.hpp"
 
 /**
@@ -18,11 +19,12 @@ sf::Image* ResourceManager::loadImage(std::string path)
 	sf::Image *img = new sf::Image();
 	if (!img->loadFromFile(path))
 	{
-		// TODO log error loading
+		Log::log(Log::LOG_DEBUG, STR_IMG_LOAD_FAIL, path.c_str());
 		delete img;
 		return nullptr;
 	}
 
+	Log::log(Log::LOG_DEBUG, STR_LOADED_FILE, path.c_str());
 	this->images[path] = img;
 	return img;
 }

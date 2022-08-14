@@ -1,25 +1,26 @@
 #include <json/reader.h>
 #include "room.hpp"
 #include "../util/i18n.hpp"
+#include "../hud/log.hpp"
 
-bool Room::loadArray(Json::Value &root, const char* key, const char* filename, char (*arr)[ROOM_WIDTH_WITH_BORDER], Log &log)
+bool Room::loadArray(Json::Value &root, const char* key, const char* filename, char (*arr)[ROOM_WIDTH_WITH_BORDER])
 {
 	if (!root.isMember(key))
 	{
-		log.log(LOG_ERROR, STR_MISSING_KEY, filename, key);
+		Log::log(Log::LOG_ERROR, STR_MISSING_KEY, filename, key);
 		return false;
 	}
 
 	Json::Value node = root[key];
 	if (!node.isArray())
 	{
-		log.log(LOG_ERROR, STR_INVALID_TYPE, filename, key);
+		Log::log(Log::LOG_ERROR, STR_INVALID_TYPE, filename, key);
 		return false;
 	}
 
 	if (node.size() < ROOM_HEIGHT_WITH_BORDER)
 	{
-		log.log(LOG_ERROR, STR_ROOM_MISSING_DATA, filename, key);
+		Log::log(Log::LOG_ERROR, STR_ROOM_MISSING_DATA, filename, key);
 		return false;
 	}
 
@@ -36,13 +37,13 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
 		}
 		catch (const Json::LogicError &ex)
 		{
-			log.log(LOG_ERROR, STR_INVALID_TYPE_EX, filename, key, ex.what());
+			Log::log(Log::LOG_ERROR, STR_INVALID_TYPE_EX, filename, key, ex.what());
 			return false;
 		}
 
 		if (strlen(line) < ROOM_WIDTH_WITH_BORDER)
 		{
-			log.log(LOG_ERROR, STR_ROOM_MISSING_DATA, filename, key);
+			Log::log(Log::LOG_ERROR, STR_ROOM_MISSING_DATA, filename, key);
 			return false;
 		}
 
@@ -80,17 +81,17 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
  * @param log pointer to Log object (need to figure out exceptions at some point...)
  * @returns `true` on load success, `false` otherwise
  */
-bool Room::load(std::string roomFilePath, Log &log)
+bool Room::load(std::string roomFilePath)
 {
 	Json::Value root;
 
 	if (!loadJsonFromFile(root, roomFilePath))
 		return false;
 
-	if (!this->loadArray(root, FOERR_JSON_KEY_BLOCKS, roomFilePath.c_str(), this->blocks, log))
+	if (!this->loadArray(root, FOERR_JSON_KEY_BLOCKS, roomFilePath.c_str(), this->blocks))
 		return false;
 
-	if (!this->loadArray(root, FOERR_JSON_KEY_BACKGROUNDS, roomFilePath.c_str(), this->backgrounds, log))
+	if (!this->loadArray(root, FOERR_JSON_KEY_BACKGROUNDS, roomFilePath.c_str(), this->backgrounds))
 		return false;
 
 	return true;

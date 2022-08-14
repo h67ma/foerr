@@ -9,7 +9,7 @@ bool loadJsonFromFile(Json::Value &root, std::string path)
 
 	if (!file.is_open())
 	{
-		// TODO Log::log(LOG_ERROR, STR_FILE_OPEN_ERROR, path.c_str());
+		Log::log(Log::LOG_ERROR, STR_FILE_OPEN_ERROR, path.c_str());
 		return false;
 	}
 
@@ -19,12 +19,12 @@ bool loadJsonFromFile(Json::Value &root, std::string path)
 	}
 	catch (const Json::RuntimeError &ex)
 	{
-		// TODO Log::log(LOG_ERROR, STR_SYNTAX_ERROR, path.c_str(), ex.what());
+		Log::log(Log::LOG_ERROR, STR_SYNTAX_ERROR, path.c_str(), ex.what());
 		file.close(); // no finally :(
 		return false;
 	}
 
 	file.close();
-	// TODO Log::log(LOG_DEBUG, STR_LOAEDD_FILE, path.c_str());
+	Log::log(Log::LOG_DEBUG, STR_LOADED_FILE, path.c_str());
 	return true;
 }

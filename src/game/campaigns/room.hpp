@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <json/json.h>
-#include "../hud/log.hpp"
 
 #define ROOM_WIDTH_WITH_BORDER 7 // TODO 46
 #define ROOM_HEIGHT_WITH_BORDER 5 // TODO 23
@@ -17,8 +16,8 @@ class Room
 	private:
 		char blocks[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
 		char backgrounds[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
-		bool loadArray(Json::Value &root, const char* key, const char* filename, char (*arr)[ROOM_WIDTH_WITH_BORDER], Log &log);
+		bool loadArray(Json::Value &root, const char* key, const char* filename, char (*arr)[ROOM_WIDTH_WITH_BORDER]);
 
 	public:
-		bool load(std::string roomFilePath, Log &log);
+		bool load(std::string roomFilePath);
 };

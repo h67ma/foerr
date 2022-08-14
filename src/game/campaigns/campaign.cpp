@@ -3,8 +3,9 @@
 #include "../util/util.hpp"
 #include "../consts.hpp"
 #include "../util/i18n.hpp"
+#include "../hud/log.hpp"
 
-bool Campaign::load(std::string campaignDir, ResourceManager& resMgr, Log &log)
+bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 {
 	std::string locationsDir = pathCombine(campaignDir, std::string(DIR_LOCATIONS));
 	std::filesystem::directory_iterator iter;
@@ -15,7 +16,7 @@ bool Campaign::load(std::string campaignDir, ResourceManager& resMgr, Log &log)
 	}
 	catch(const std::filesystem::filesystem_error &ex)
 	{
-		log.log(LOG_ERROR, STR_FILE_NOT_FOUND, ex.what());
+		Log::log(Log::LOG_ERROR, STR_FILE_NOT_FOUND, ex.what());
 		return false;
 	}
 
@@ -24,7 +25,7 @@ bool Campaign::load(std::string campaignDir, ResourceManager& resMgr, Log &log)
 		std::string locId = entry.path().filename().string();
 		std::string locPath = entry.path().string();
 		Location *loc = new Location();
-		if (!loc->load(locPath, resMgr, log))
+		if (!loc->load(locPath, resMgr))
 		{
 			// unload everything
 			// mission failed, we'll get em next time
