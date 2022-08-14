@@ -14,7 +14,7 @@ sf::Image* ResourceManager::loadImage(std::string path)
 {
 	auto search = this->images.find(path);
 	if (search != this->images.end())
-		return search->second; // resource already loaded
+		return search->second.get(); // resource already loaded
 
 	sf::Image *img = new sf::Image();
 	if (!img->loadFromFile(path))
@@ -25,7 +25,7 @@ sf::Image* ResourceManager::loadImage(std::string path)
 	}
 
 	Log::v(STR_LOADED_FILE, path.c_str());
-	this->images[path] = img;
+	this->images[path] = std::unique_ptr<sf::Image>(img);
 	return img;
 }
 
@@ -38,13 +38,5 @@ sf::Image* ResourceManager::getImage(std::string path)
 	if (this->images.find(path) == this->images.end())
 		return nullptr;
 
-	return this->images[path];
-}
-
-ResourceManager::~ResourceManager()
-{
-	for (const auto &img : this->images)
-	{
-		delete img.second;
-	}
+	return this->images[path].get();
 }

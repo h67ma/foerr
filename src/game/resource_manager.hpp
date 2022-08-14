@@ -33,7 +33,7 @@
 class ResourceManager
 {
 	private:
-		std::unordered_map<std::string, sf::Image*> images;
+		std::unordered_map<std::string, std::unique_ptr<sf::Image>> images;
 		// TODO std::unordered_map<std::string, sf::SoundBuffer*> audios;
 		// TODO std::unordered_map<char, sf::Image*> charToBlock; // map for getting image resource to draw blocks
 		// TODO std::unordered_map<char, sf::Image*> charToBackground; // map for getting image resource to draw backgrounds
@@ -43,5 +43,4 @@ class ResourceManager
 		// TODO bool loadAudio(std::string path);
 		sf::Image* getImage(std::string path);
 		// TODO sf::SoundBuffer* getAudio(std::string path);
-		~ResourceManager();
 };

@@ -34,7 +34,7 @@ namespace Log
 	extern bool _writeLogToFile;
 	extern bool _printMsgs;
 	extern bool _verboseDebug;
-	extern std::list<LogElementText> _history;
+	extern std::list<std::unique_ptr<LogElementText>> _history;
 
 	void _logToFile(const char* prefix, std::string msg);
 	void _logStderr(const char* prefix, std::string msg);
@@ -73,9 +73,9 @@ namespace Log
 		if (hideInGui || _font == nullptr)
 			return;
 
-		LogElementText logElem(formatted, _font, FONT_SIZE_NORMAL, color);
+		LogElementText *logElem = new LogElementText(formatted, _font, FONT_SIZE_NORMAL, color);
 
-		_history.push_back(logElem);
+		_history.push_back(std::unique_ptr<LogElementText>(logElem));
 		maybeUpdate(true);
 	}
 

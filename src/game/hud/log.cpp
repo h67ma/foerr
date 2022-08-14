@@ -13,7 +13,7 @@ namespace Log
 	bool _printMsgs = true;
 	bool _verboseDebug = true;
 
-	std::list<LogElementText> _history;
+	std::list<std::unique_ptr<LogElementText>> _history;
 	sf::Clock _clock;
 
 	// empty file will be created even if user has disabled writing to log file.
@@ -64,18 +64,18 @@ namespace Log
 			return;
 
 		// remove items which were in the log for longer than LOG_ELEMENT_LIFE_TIME_S
-		_history.remove_if([](LogElementText& item){ return item.isTimeUp(); });
+		_history.remove_if([](const auto &item){ return item->isTimeUp(); });
 
 		// initial offset from top/bottom
 		if (_anchor == CORNER_BOTTOM_LEFT || _anchor == CORNER_BOTTOM_RIGHT)
 			y = _windowH - _history.size() * FONT_SIZE_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
-		for (LogElementText &item : _history)
+		for (auto &item : _history)
 		{
 			if (_anchor == CORNER_TOP_RIGHT || _anchor == CORNER_BOTTOM_RIGHT)
-				x = _windowW - item.getLocalBounds().width - LOG_ANCHOR_NEG_PADDING_RIGHT;
+				x = _windowW - item->getLocalBounds().width - LOG_ANCHOR_NEG_PADDING_RIGHT;
 
-			item.setPosition(x, y);
+			item->setPosition(x, y);
 
 			y += FONT_SIZE_NORMAL_WITH_GAP;
 		}
@@ -85,9 +85,9 @@ namespace Log
 
 	void draw(sf::RenderTarget& target)
 	{
-		for (const LogElementText &item : _history)
+		for (const auto &item : _history)
 		{
-			target.draw(item);
+			target.draw(*item);
 		}
 	}
 
