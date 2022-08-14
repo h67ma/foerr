@@ -11,7 +11,7 @@ class Location
 		bool isGrind;
 		bool isBasecamp;
 		sf::Image *backgroundFull;
-		std::vector<std::unique_ptr<Room>> rooms;
+		std::vector<std::unique_ptr<Room>> rooms; // TODO class Vector2d storing also w, h, and with methods to get/set by (x, y)
 		uint width; // number of rooms horizontally (including empty)
 		uint height; // number of rooms vertically (including empty)
 

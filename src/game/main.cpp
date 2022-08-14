@@ -237,6 +237,12 @@ int main()
 		Log::e(STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
 
 
+	Button logNormal(700, 500, BTN_BIG, "log normal", &fontMedium, []() {
+		Log::i("normal");
+	});
+	buttons.push_back(&logNormal);
+
+
 	while (window.isOpen())
 	{
 		sf::Event event;
