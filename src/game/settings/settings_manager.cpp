@@ -27,12 +27,12 @@ SettingsManager::SettingsManager()
 
 	// debug
 	// TODO maybe we could save window w&h on program exit and then restore it?
-	this->settings[SETT_WINDOW_WIDTH].setup("WindowW", 1280U, true);
-	this->settings[SETT_WINDOW_HEIGHT].setup("WindowH", 720U, true);
-	this->settings[SETT_PRINT_MSGS].setup("PrintMsgs", false, true);
-	this->settings[SETT_VERBOSE_DEBUG].setup("VerboseDebug", false, true);
-	// TODO this->settings[SETT_SHOW_BOUNDING_BOXEN].setup("ShowBoundingBoxen", false, true); // Brian, what's the plural form of "box"?
-	// TODO this->settings[SETT_DEV_CONSOLE_ENABLED].setup("DevConsoleEnabled", false, true);
+	this->settings[SETT_WINDOW_WIDTH].setup("WindowW", 1280U);
+	this->settings[SETT_WINDOW_HEIGHT].setup("WindowH", 720U);
+	this->settings[SETT_PRINT_MSGS].setup("PrintMsgs", false);
+	this->settings[SETT_VERBOSE_DEBUG].setup("VerboseDebug", false);
+	// TODO this->settings[SETT_SHOW_BOUNDING_BOXEN].setup("ShowBoundingBoxen", false); // Brian, what's the plural form of "box"?
+	// TODO this->settings[SETT_DEV_CONSOLE_ENABLED].setup("DevConsoleEnabled", false);
 }
 
 void SettingsManager::saveConfig()
@@ -42,9 +42,6 @@ void SettingsManager::saveConfig()
 	for (size_t i = 0; i < _SETTINGS_CNT; i++)
 	{
 		Setting *sett = &this->settings[i];
-
-		if (sett->isDebug())
-			continue; // don't write debug settings
 
 		root[sett->getKey().c_str()] = sett->getJsonValue();
 	}
@@ -77,11 +74,7 @@ void SettingsManager::loadConfig()
 		if (!root.isMember(sett->getKey().c_str()))
 		{
 			// settings file is missing this key
-
-			// debug settings are missing "by default" so we shouldn't warn user
-			if (!sett->isDebug())
-				Log::w(STR_INVALID_KEY, PATH_SETTINGS, sett->getKey().c_str());
-
+			Log::w(STR_SETTINGS_KEY_MISSING, PATH_SETTINGS, sett->getKey().c_str());
 			continue;
 		}
 

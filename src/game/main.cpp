@@ -42,7 +42,7 @@ void recreateWindow(sf::Window *window, SettingsManager *settings)
 		// TODO support overriding fullscreen resolution via settings
 		window->create(sf::VideoMode::getDesktopMode(), STR_WINDOW_TITLE, sf::Style::Fullscreen);
 	else
-		window->create(sf::VideoMode(1280, 720), STR_WINDOW_TITLE);
+		window->create(sf::VideoMode(settings->getUint(SETT_WINDOW_WIDTH), settings->getUint(SETT_WINDOW_HEIGHT)), STR_WINDOW_TITLE);
 
 	if (settings->getBool(SETT_FPS_LIMIT_ENABLED))
 		window->setFramerateLimit(settings->getUint(SETT_FPS_LIMIT));

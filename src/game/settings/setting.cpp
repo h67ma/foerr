@@ -3,31 +3,28 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-void Setting::setup(std::string key, uint defaultValue, bool debug)
+void Setting::setup(std::string key, uint defaultValue)
 {
 	this->key = key;
 	this->defaultValue.numeric = defaultValue;
 	this->val.numeric = defaultValue;
 	this->settingType = SETTING_UINT;
-	this->debug = debug;
 }
 
-void Setting::setup(std::string key, bool defaultValue, bool debug)
+void Setting::setup(std::string key, bool defaultValue)
 {
 	this->key = key;
 	this->defaultValue.logic = defaultValue;
 	this->val.logic = defaultValue;
 	this->settingType = SETTING_BOOL;
-	this->debug = debug;
 }
 
-void Setting::setup(std::string key, ScreenCorner defaultValue, bool debug)
+void Setting::setup(std::string key, ScreenCorner defaultValue)
 {
 	this->key = key;
 	this->defaultValue.enumScreenCorner = defaultValue;
 	this->val.enumScreenCorner = defaultValue;
 	this->settingType = SETTING_ENUM_SCREEN_CORNER;
-	this->debug = debug;
 }
 
 // TODO do we actually need this?
@@ -50,11 +47,6 @@ void Setting::resetToDefault()
 std::string Setting::getKey()
 {
 	return this->key;
-}
-
-bool Setting::isDebug()
-{
-	return this->debug;
 }
 
 /**
