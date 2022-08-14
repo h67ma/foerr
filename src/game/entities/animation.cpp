@@ -5,14 +5,14 @@
  * @param height height (in px) of a single animation frame
  * @param kinds vector of animation kinds which the spritesheet contains. Order matters.
  */
-Animation::Animation(sf::Image textureImg, uint width, uint height, std::vector<struct anim_kind_details> kinds)
+Animation::Animation(sf::Image *textureImg, uint width, uint height, std::vector<struct anim_kind_details> kinds)
 {
 	this->width = width;
 	this->height = height;
 
 	this->textureRect = sf::IntRect(0, 0, width, height);
 
-	this->texture.loadFromImage(textureImg);
+	this->texture.loadFromImage(*textureImg);
 
 	this->textureHeight = this->texture.getSize().y;
 

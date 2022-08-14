@@ -2,7 +2,7 @@
 
 #include "../hud/hud.hpp"
 #include "setting.hpp"
-#include "../consts.h"
+#include "../consts.hpp"
 
 enum SettingName
 {

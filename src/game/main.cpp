@@ -9,14 +9,14 @@
 #include <SFML/Audio.hpp>
 #include "window/window_cursor.hpp"
 #include "util/i18n.hpp"
-#include "consts.h"
+#include "consts.hpp"
 #include "hud/log.hpp"
 #include "settings/settings_manager.hpp"
 #include "resource_manager.hpp"
 #include "hud/fps_meter.hpp"
 #include "hud/button.hpp"
 #include "entities/animation.hpp"
-#include "campaigns/room.hpp"
+#include "campaigns/campaign.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -84,7 +84,7 @@ int main()
 	Log log(&fontNormal);
 	log.setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowW, windowH);
 
-	ResourceManager resManager(&log);
+	ResourceManager resManager;
 
 	FpsMeter fpsMeter(&fontNormal, FONT_SIZE_NORMAL);
 	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowW, windowH);
@@ -154,15 +154,14 @@ int main()
 	buttons.push_back(&saveBtn);
 
 
-	Animation *fire = new Animation(*resManager.getImage(SPRITESHEET_FIRE), 50, 67, {
+	Animation *fire = new Animation(resManager.loadImage("res/entities/fire.png"), 50, 67, {
 		{ANIM_STATIC, 17}
 	});
 	fire->setPosition(100, 200);
 	animations.push_back(fire);
 
 
-
-	Animation *mchavi = new Animation(*resManager.getImage(SPRITESHEET_MCHAVI), 130, 130, {
+	Animation *mchavi = new Animation(resManager.loadImage("res/entities/mchavi.png"), 130, 130, {
 		{ ANIM_STAND, 1 },
 		{ ANIM_TROT, 17 },
 		{ ANIM_GALLOP, 8 },
@@ -227,9 +226,12 @@ int main()
 	});
 	buttons.push_back(&mchavi10);
 
+	mchavi->setAnimation(ANIM_SWIM);
 
-	Room room;
-	room.load("res/campaigns/test/locations/test/test.json", log);
+
+	Campaign campaign;
+	if (!campaign.load("res/campaigns/test", resManager, log))
+		log.log(LOG_ERROR, STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
 
 
 	while (window.isOpen())

@@ -1,7 +1,7 @@
 #include <fstream>
 #include <json/writer.h>
 #include "settings_manager.hpp"
-#include "../consts.h"
+#include "../consts.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
@@ -57,27 +57,14 @@ void SettingsManager::saveConfig()
 
 void SettingsManager::loadConfig()
 {
-	std::ifstream file(PATH_SETTINGS, std::ifstream::binary);
 	Json::Value root;
 
-	if (!file.is_open())
+	if (!loadJsonFromFile(root, std::string(PATH_SETTINGS)))
 	{
+		// we'll just run on default settings (which are already assigned)
 		Log::logStderr(LOG_WARNING, STR_SETTINGS_OPEN_ERROR);
-		return; // we'll just run on default settings (which are already assigned)
-	}
-
-	try
-	{
-		file >> root;
-	}
-	catch (const Json::RuntimeError& ex)
-	{
-		Log::logStderr(LOG_WARNING, STR_SYNTAX_ERROR, PATH_SETTINGS, ex.what());
-		file.close(); // no finally :(
 		return;
 	}
-
-	file.close();
 
 	for (size_t i = 0; i < _SETTINGS_CNT; i++)
 	{
@@ -101,7 +88,7 @@ void SettingsManager::loadConfig()
 		{
 			sett->loadFromJson(root[sett->getKey().c_str()]);
 		}
-		catch (const Json::LogicError& ex)
+		catch (const Json::LogicError &ex)
 		{
 			Log::logStderr(LOG_WARNING, STR_INVALID_TYPE_EX, PATH_SETTINGS, sett->getKey().c_str(), ex.what());
 		}

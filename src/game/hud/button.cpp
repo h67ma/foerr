@@ -1,5 +1,5 @@
 #include "button.hpp"
-#include "../consts.h"
+#include "../consts.hpp"
 
 Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font, std::function<void(void)> callback)
 {

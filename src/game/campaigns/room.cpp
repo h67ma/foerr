@@ -1,4 +1,3 @@
-#include <fstream>
 #include <json/reader.h>
 #include "room.hpp"
 #include "../util/i18n.hpp"
@@ -35,7 +34,7 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
 			// I don't give a damn about bad reputation, need to get some C++ education.
 			line = node[i].asCString();
 		}
-		catch (const Json::LogicError& ex)
+		catch (const Json::LogicError &ex)
 		{
 			log.log(LOG_ERROR, STR_INVALID_TYPE_EX, filename, key, ex.what());
 			return false;
@@ -83,30 +82,16 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
  */
 bool Room::load(std::string roomFilePath, Log &log)
 {
-	std::ifstream file(roomFilePath, std::ifstream::binary);
 	Json::Value root;
 
-	if (!file.is_open())
-	{
-		log.log(LOG_ERROR, STR_FILE_OPEN_ERROR, roomFilePath.c_str());
+	if (!loadJsonFromFile(root, roomFilePath))
 		return false;
-	}
 
-	try
-	{
-		file >> root;
-	}
-	catch (const Json::RuntimeError& ex)
-	{
-		log.log(LOG_ERROR, STR_SYNTAX_ERROR, roomFilePath.c_str(), ex.what());
-		file.close(); // no finally :(
+	if (!this->loadArray(root, FOERR_JSON_KEY_BLOCKS, roomFilePath.c_str(), this->blocks, log))
 		return false;
-	}
 
-	file.close();
-
-	this->loadArray(root, FOERR_JSON_KEY_ROOM_BLOCKS, roomFilePath.c_str(), this->blocks, log);
-	this->loadArray(root, FOERR_JSON_KEY_ROOM_BACKGROUNDS, roomFilePath.c_str(), this->backgrounds, log);
+	if (!this->loadArray(root, FOERR_JSON_KEY_BACKGROUNDS, roomFilePath.c_str(), this->backgrounds, log))
+		return false;
 
 	return true;
 }

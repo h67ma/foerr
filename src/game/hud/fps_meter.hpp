@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "../consts.h"
+#include "../consts.hpp"
 #include "hud.hpp"
 
 #define FPS_METER_MAX_CHARS 6 // yes, we CAN go beyond 4 digits with fps limit off

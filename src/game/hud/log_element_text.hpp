@@ -1,9 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "../consts.h"
+#include "../consts.hpp"
 
-#define LOG_ELEMENT_LIFE_TIME_S 3
+#define LOG_ELEMENT_LIFE_TIME_S 5
 
 class LogElementText: public sf::Text
 {

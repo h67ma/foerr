@@ -2,7 +2,7 @@
 
 #include <functional>
 #include <SFML/Graphics.hpp>
-#include "../consts.h"
+#include "../consts.hpp"
 
 #define BTN_FONT_SIZE 18U
 #define BTN_FONT_TOP_OFFSET 12U

@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
-#include "../consts.h"
+#include "../consts.hpp"
 
 enum AnimationKind
 {
@@ -47,7 +47,7 @@ class Animation : public sf::Drawable, public sf::Transformable
 		std::unordered_map<AnimationKind, struct anim_kind_details_internal> kinds;
 
 	public:
-		Animation(sf::Image textureImg, uint width, uint height, std::vector<struct anim_kind_details> kinds);
+		Animation(sf::Image *textureImg, uint width, uint height, std::vector<struct anim_kind_details> kinds);
 		bool loadTexture();
 		void maybeNextFrame();
 		bool setAnimation(AnimationKind kind);

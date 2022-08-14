@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include "../util/util.hpp"
 #include "log_element_text.hpp"
-#include "../consts.h"
+#include "../consts.hpp"
 #include "../hud/hud.hpp"
 
 #define LOG_HISTORY_LEN 100

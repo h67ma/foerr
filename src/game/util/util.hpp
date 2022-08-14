@@ -1,7 +1,7 @@
 #pragma once
 
+#include <json/reader.h>
 #include <string>
-#include <vector>
 
 // stolen from https://stackoverflow.com/questions/63121776/simplest-syntax-for-string-interpolation-in-c
 template<typename... T>
@@ -14,3 +14,10 @@ std::string litSprintf(const char *fmt, T... args)
 	delete[] buf;
 	return ret;
 }
+
+inline std::string pathCombine(std::string path1, std::string path2)
+{
+	return path1 + '/' + path2;
+}
+
+bool loadJsonFromFile(Json::Value &root, std::string path);

@@ -1,24 +1,48 @@
 #include "resource_manager.hpp"
 #include "util/i18n.hpp"
-#include "consts.h"
+#include "consts.hpp"
 
-ResourceManager::ResourceManager(Log* log)
+/**
+ * Loads image from specified path into resource manager object.
+ * This image resource will be accessible via the `getImage` method.
+ *
+ * @param path image resource path
+ * @returns pointer to the loaded image resource, or `nullptr` if loading failed
+ */
+sf::Image* ResourceManager::loadImage(std::string path)
 {
-	// any image we won't or can't load will be shown as white rectangle, could think of adding some fallback img
-	this->loadImg(log, SPRITESHEET_FIRE, PATH_SPRITESHEET_FIRE);
-	this->loadImg(log, SPRITESHEET_MCHAVI, PATH_SPRITESHEET_MCHAVI);
+	auto search = this->images.find(path);
+	if (search != this->images.end())
+		return search->second; // resource already loaded
+
+	sf::Image *img = new sf::Image();
+	if (!img->loadFromFile(path))
+	{
+		// TODO log error loading
+		delete img;
+		return nullptr;
+	}
+
+	this->images[path] = img;
+	return img;
 }
 
-void ResourceManager::loadImg(Log* log, ImageName idx, std::string path)
+/**
+ * @param path image resource path
+ * @returns pointer to image resource, or `nullptr` if specified resource is not currently loaded
+ */
+sf::Image* ResourceManager::getImage(std::string path)
 {
-	if (!this->images[idx].loadFromFile(path))
-		log->log(LOG_ERROR, STR_IMG_LOAD_FAIL, path);
+	if (this->images.find(path) == this->images.end())
+		return nullptr;
+
+	return this->images[path];
 }
 
-sf::Image* ResourceManager::getImage(ImageName imgName)
+ResourceManager::~ResourceManager()
 {
-	if (imgName >= _IMGS_CNT)
-		return nullptr; // sorry
-
-	return &this->images[imgName];
+	for (const auto &img : this->images)
+	{
+		delete img.second;
+	}
 }

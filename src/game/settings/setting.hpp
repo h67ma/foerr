@@ -3,7 +3,7 @@
 #include <string>
 #include <json/json.h>
 #include "../hud/hud.hpp"
-#include "../consts.h"
+#include "../consts.hpp"
 
 enum SettingType
 {

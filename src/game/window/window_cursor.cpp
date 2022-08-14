@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "window_cursor.hpp"
 #include "../util/i18n.hpp"
-#include "../consts.h"
+#include "../consts.hpp"
 
 WindowCursor::WindowCursor(Log* log)
 {
