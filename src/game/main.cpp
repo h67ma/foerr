@@ -71,20 +71,21 @@ int main()
 
 	if (!fontNormal.loadFromFile(PATH_FONT_NORMAL))
 	{
-		Log::log(Log::LOG_ERROR, STR_FONT_LOAD_FAIL);
+		Log::e(STR_FONT_LOAD_FAIL);
 		exit(1);
 	}
 
 	if (!fontMedium.loadFromFile(PATH_FONT_MEDIUM))
 	{
-		Log::log(Log::LOG_ERROR, STR_FONT_LOAD_FAIL);
+		Log::e(STR_FONT_LOAD_FAIL);
 		exit(1);
 	}
 
 	Log::setFont(&fontNormal);
 	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowW, windowH);
 	Log::setWriteLogToFile(settings.getBool(SETT_WRITE_LOG_TO_FILE));
-	Log::setPrintDebugMsgs(settings.getBool(SETT_PRINT_DEBUG_MSGS));
+	Log::setPrintMsgs(settings.getBool(SETT_PRINT_MSGS));
+	Log::setVerboseDebug(settings.getBool(SETT_VERBOSE_DEBUG));
 
 	ResourceManager resManager;
 
@@ -94,7 +95,7 @@ int main()
 	WindowCursor cursor;
 	if (!cursor.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
 	{
-		Log::log(Log::LOG_ERROR, STR_CURSOR_LOAD_FAIL);
+		Log::e(STR_CURSOR_LOAD_FAIL);
 		exit(1);
 	}
 
@@ -233,7 +234,7 @@ int main()
 
 	Campaign campaign;
 	if (!campaign.load("res/campaigns/test", resManager))
-		Log::log(Log::LOG_ERROR, STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
+		Log::e(STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
 
 
 	while (window.isOpen())
@@ -253,11 +254,11 @@ int main()
 					break;
 				case sf::Event::LostFocus:
 					// TODO actually pause game
-					Log::log(Log::LOG_DEBUG, "Game lost focus");
+					Log::d(STR_WINDOW_LOST_FOCUS);
 					break;
 				case sf::Event::TextEntered:
 					if (event.text.unicode < 128)
-						Log::log(Log::LOG_DEBUG, "ASCII character typed: %c", static_cast<char>(event.text.unicode));
+						Log::d("ASCII character typed: %c", static_cast<char>(event.text.unicode));
 					break;
 				case sf::Event::KeyPressed:
 					switch (event.key.code)
@@ -266,12 +267,12 @@ int main()
 							if (settings.getBool(SETT_FULLSCREEN_ENABLED))
 							{
 								settings.setBool(SETT_FULLSCREEN_ENABLED, false);
-								Log::log(Log::LOG_DEBUG, "Switching to windowed mode");
+								Log::d(STR_WINDOW_WINDOWED);
 							}
 							else
 							{
 								settings.setBool(SETT_FULLSCREEN_ENABLED, true);
-								Log::log(Log::LOG_DEBUG, "Switching to fullscreen mode");
+								Log::d(STR_WINDOW_FULLSCREEN);
 							}
 
 							recreateWindow(&window, &settings);
@@ -288,7 +289,7 @@ int main()
 							if (btn->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
 								break; // click consumed, no need to check other buttons
 						}
-					}					
+					}
 					break;
 				default:
 					break;

@@ -19,12 +19,12 @@ sf::Image* ResourceManager::loadImage(std::string path)
 	sf::Image *img = new sf::Image();
 	if (!img->loadFromFile(path))
 	{
-		Log::log(Log::LOG_DEBUG, STR_IMG_LOAD_FAIL, path.c_str());
+		Log::d(STR_IMG_LOAD_FAIL, path.c_str());
 		delete img;
 		return nullptr;
 	}
 
-	Log::log(Log::LOG_DEBUG, STR_LOADED_FILE, path.c_str());
+	Log::v(STR_LOADED_FILE, path.c_str());
 	this->images[path] = img;
 	return img;
 }

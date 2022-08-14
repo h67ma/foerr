@@ -34,37 +34,37 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 
 	if (!root.isMember(FOERR_JSON_KEY_TYPE_GRIND))
 	{
-		Log::log(Log::LOG_ERROR, STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND);
+		Log::e(STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND);
 		return false;
 	}
 
 	if (!root.isMember(FOERR_JSON_KEY_TYPE_BASECAMP))
 	{
-		Log::log(Log::LOG_ERROR, STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP);
+		Log::e(STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP);
 		return false;
 	}
 
 	if (!root.isMember(FOERR_JSON_KEY_BACKGROUND_FULL))
 	{
-		Log::log(Log::LOG_ERROR, STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL);
+		Log::e(STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL);
 		return false;
 	}
 
 	if (!root.isMember(FOERR_JSON_KEY_WIDTH))
 	{
-		Log::log(Log::LOG_ERROR, STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_WIDTH);
+		Log::e(STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_WIDTH);
 		return false;
 	}
 
 	if (!root.isMember(FOERR_JSON_KEY_HEIGHT))
 	{
-		Log::log(Log::LOG_ERROR, STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_HEIGHT);
+		Log::e(STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_HEIGHT);
 		return false;
 	}
 
 	if (!root.isMember(FOERR_JSON_KEY_ROOM_MAP))
 	{
-		Log::log(Log::LOG_ERROR, STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+		Log::e(STR_MISSING_KEY, indexPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
 		return false;
 	}
 
@@ -76,7 +76,7 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 	}
 	catch (Json::LogicError &ex)
 	{
-		Log::log(Log::LOG_ERROR, STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
+		Log::e(STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
 		return false;
 	}
 
@@ -86,14 +86,14 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 	}
 	catch (Json::LogicError &ex)
 	{
-		Log::log(Log::LOG_ERROR, STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
+		Log::e(STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
 		return false;
 	}
 
 	if (this->isBasecamp && this->isGrind)
 	{
 		// something stinks here...
-		Log::log(Log::LOG_ERROR, STR_LOC_INVALID_TYPES, indexPath.c_str());
+		Log::e(STR_LOC_INVALID_TYPES, indexPath.c_str());
 		return false;
 	}
 
@@ -103,7 +103,7 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 	}
 	catch (Json::LogicError &ex)
 	{
-		Log::log(Log::LOG_ERROR, STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
+		Log::e(STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
 		return false;
 	}
 
@@ -113,7 +113,7 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 	}
 	catch (Json::LogicError &ex)
 	{
-		Log::log(Log::LOG_ERROR, STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
+		Log::e(STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
 		return false;
 	}
 
@@ -123,7 +123,7 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 	}
 	catch (Json::LogicError &ex)
 	{
-		Log::log(Log::LOG_ERROR, STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
+		Log::e(STR_SYNTAX_ERROR, indexPath.c_str(), ex.what());
 		return false;
 	}
 
@@ -133,7 +133,7 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 
 	// TODO load room map
 
-	Log::log(Log::LOG_DEBUG, STR_LOADED_LOCATION, indexPath.c_str());
+	Log::d(STR_LOADED_LOCATION, indexPath.c_str());
 
 	return true;
 }

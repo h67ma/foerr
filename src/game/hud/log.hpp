@@ -24,62 +24,26 @@ namespace Log
 #define LOG_ANCHOR_PADDING_TOP 2
 #define LOG_ANCHOR_NEG_PADDING_BOTTOM 7
 
-	enum LogMsgType
-	{
-		LOG_ERROR,
-		LOG_WARNING,
-		LOG_INFO,
-		LOG_DEBUG,
-	};
-
-	inline sf::Color _logMsgTypeToColor(LogMsgType msgType)
-	{
-		switch (msgType)
-		{
-			case LOG_ERROR:
-				return sf::Color::Red;
-				break;
-			case LOG_WARNING:
-				return sf::Color::Yellow;
-				break;
-			case LOG_INFO:
-			default:
-				// LOG_DEBUG are never shown in hud
-				return sf::Color::White;
-		}
-	}
-
-	inline const char* _logMsgTypeToPrefix(LogMsgType msgType)
-	{
-		switch (msgType)
-		{
-			case LOG_ERROR:
-				return "ERROR";
-				break;
-			case LOG_WARNING:
-				return "WARN";
-				break;
-			case LOG_DEBUG:
-				return "DEBUG";
-				break;
-			case LOG_INFO:
-			default:
-				return "INFO";
-		}
-	}
+#define LOG_PREFIX_ERROR	"[ERRO] "
+#define LOG_PREFIX_WARNING	"[WARN] "
+#define LOG_PREFIX_INFO		"[INFO] "
+#define LOG_PREFIX_DEBUG	"[DEBG] "
+#define LOG_PREFIX_VERBOSE	"[VERB] "
 
 	extern sf::Font *_font;
 	extern bool _writeLogToFile;
-	extern bool _printDebugMsgs;
+	extern bool _printMsgs;
+	extern bool _verboseDebug;
 	extern std::list<LogElementText> _history;
 
-	void _logToFile(LogMsgType msgType, std::string msg);
-	void _logStderr(LogMsgType msgType, std::string msg);
+	void _logToFile(const char* prefix, std::string msg);
+	void _logStderr(const char* prefix, std::string msg);
 
 	void setFont(sf::Font *font);
 	void setPosition(ScreenCorner anchor, uint windowW, uint windowH);
 	void setWriteLogToFile(bool writeLogToFile);
-	void setPrintDebugMsgs(bool printDebugMsgs);
+	void setPrintMsgs(bool printMsgs);
+	void setVerboseDebug(bool verboseDebug);
 	void maybeUpdate(bool force=false);
 	void draw(sf::RenderTarget& target);
 	void close();
@@ -88,7 +52,7 @@ namespace Log
 	 * Adds a formatted message to the game log. Both `fmt` and `args` must not contain newlines.
 	 */
 	template<typename... T>
-	void log(LogMsgType msgType, const char *fmt, T... args)
+	void log(const char* prefix, sf::Color color, bool hideInGui, const char *fmt, T... args)
 	{
 		// TODO problem: translations will be loaded from file and can specify arbitrary (incorrect) format strings,
 		// e.g. "number format %s" which is supposed to load a %d, not %s. this can lead to crashes and potentially memory exploits.
@@ -99,19 +63,67 @@ namespace Log
 
 		std::string formatted = litSprintf(fmt, args...);
 
-		if (_printDebugMsgs)
-			_logStderr(msgType, formatted);
+		if (_printMsgs)
+			_logStderr(prefix, formatted);
 
 		if (_writeLogToFile)
-			_logToFile(msgType, formatted);
+			_logToFile(prefix, formatted);
 
 		// don't display debug msgs in hud, or any messages whatsoever when gui is not initialized
-		if (msgType == LOG_DEBUG || _font == nullptr)
+		if (hideInGui || _font == nullptr)
 			return;
 
-		LogElementText logElem(formatted, _font, FONT_SIZE_NORMAL, _logMsgTypeToColor(msgType));
+		LogElementText logElem(formatted, _font, FONT_SIZE_NORMAL, color);
 
 		_history.push_back(logElem);
 		maybeUpdate(true);
+	}
+
+	/**
+	 * Logs a critical message.
+	 */
+	template<typename... T>
+	inline void e(const char *fmt, T... args)
+	{
+		log(LOG_PREFIX_ERROR, sf::Color::Red, false, fmt, args...);
+	}
+
+	/**
+	 * Logs a warning message.
+	 */
+	template<typename... T>
+	inline void w(const char *fmt, T... args)
+	{
+		log(LOG_PREFIX_WARNING, sf::Color::Yellow, false, fmt, args...);
+	}
+
+	/**
+	 * Logs a message.
+	 */
+	template<typename... T>
+	inline void i(const char *fmt, T... args)
+	{
+		log(LOG_PREFIX_INFO, sf::Color::White, false, fmt, args...);
+	}
+
+	/**
+	 * Logs a debug message. Not visible in game hud.
+	 */
+	template<typename... T>
+	inline void d(const char *fmt, T... args)
+	{
+		log(LOG_PREFIX_DEBUG, sf::Color::Cyan, true, fmt, args...);
+	}
+
+	/**
+	 * Logs a verbose message. Not visible in game hud. SETT_VERBOSE_DEBUG needs to be enabled.
+	 */
+	template<typename... T>
+	void v(const char *fmt, T... args)
+	{
+		if (!_verboseDebug)
+			return;
+
+		log(LOG_PREFIX_VERBOSE, sf::Color::Blue, true, fmt, args...);
 	}
 }

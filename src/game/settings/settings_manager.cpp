@@ -29,7 +29,8 @@ SettingsManager::SettingsManager()
 	// TODO maybe we could save window w&h on program exit and then restore it?
 	this->settings[SETT_WINDOW_WIDTH].setup("WindowW", 1280U, true);
 	this->settings[SETT_WINDOW_HEIGHT].setup("WindowH", 720U, true);
-	this->settings[SETT_PRINT_DEBUG_MSGS].setup("PrintDebugMsgs", false, true);
+	this->settings[SETT_PRINT_MSGS].setup("PrintMsgs", false, true);
+	this->settings[SETT_VERBOSE_DEBUG].setup("VerboseDebug", false, true);
 	// TODO this->settings[SETT_SHOW_BOUNDING_BOXEN].setup("ShowBoundingBoxen", false, true); // Brian, what's the plural form of "box"?
 	// TODO this->settings[SETT_DEV_CONSOLE_ENABLED].setup("DevConsoleEnabled", false, true);
 }
@@ -52,7 +53,7 @@ void SettingsManager::saveConfig()
 	file << root << std::endl;
 	file.close();
 
-	Log::log(Log::LOG_DEBUG, "Saved settings");
+	Log::d("Saved settings");
 }
 
 void SettingsManager::loadConfig()
@@ -62,7 +63,7 @@ void SettingsManager::loadConfig()
 	if (!loadJsonFromFile(root, std::string(PATH_SETTINGS)))
 	{
 		// we'll just run on default settings (which are already assigned)
-		Log::log(Log::LOG_WARNING, STR_SETTINGS_OPEN_ERROR);
+		Log::w(STR_SETTINGS_OPEN_ERROR);
 		return;
 	}
 
@@ -79,7 +80,7 @@ void SettingsManager::loadConfig()
 
 			// debug settings are missing "by default" so we shouldn't warn user
 			if (!sett->isDebug())
-				Log::log(Log::LOG_WARNING, STR_INVALID_KEY, PATH_SETTINGS, sett->getKey().c_str());
+				Log::w(STR_INVALID_KEY, PATH_SETTINGS, sett->getKey().c_str());
 
 			continue;
 		}
@@ -90,7 +91,7 @@ void SettingsManager::loadConfig()
 		}
 		catch (const Json::LogicError &ex)
 		{
-			Log::log(Log::LOG_WARNING, STR_INVALID_TYPE_EX, PATH_SETTINGS, sett->getKey().c_str(), ex.what());
+			Log::w(STR_INVALID_TYPE_EX, PATH_SETTINGS, sett->getKey().c_str(), ex.what());
 		}
 	}
 }

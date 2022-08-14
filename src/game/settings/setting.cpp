@@ -87,21 +87,21 @@ void Setting::loadFromJson(Json::Value value)
 	{
 		case SETTING_BOOL:
 			val.logic = value.asBool();
-			Log::log(Log::LOG_DEBUG, STR_LOADED_SETTING_D, key.c_str(), val.logic);
+			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.logic);
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
 			readEnum = value.asInt();
 			if (readEnum >= _CORNER_CNT)
 			{
-				Log::log(Log::LOG_WARNING, STR_INVALID_VALUE, readEnum, key.c_str());
+				Log::w(STR_INVALID_VALUE, readEnum, key.c_str());
 				return;
 			}
 			val.enumScreenCorner = (ScreenCorner)readEnum;
-			Log::log(Log::LOG_DEBUG, STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
+			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
 			break;
 		case SETTING_UINT:
 		default:
 			val.numeric = value.asUInt();
-			Log::log(Log::LOG_DEBUG, STR_LOADED_SETTING_U, key.c_str(), val.numeric);
+			Log::d(STR_LOADED_SETTING_U, key.c_str(), val.numeric);
 	}
 }

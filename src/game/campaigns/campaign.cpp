@@ -16,7 +16,7 @@ bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 	}
 	catch(const std::filesystem::filesystem_error &ex)
 	{
-		Log::log(Log::LOG_ERROR, STR_FILE_NOT_FOUND, ex.what());
+		Log::e(STR_FILE_NOT_FOUND, ex.what());
 		return false;
 	}
 

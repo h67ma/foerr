@@ -7,20 +7,20 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
 {
 	if (!root.isMember(key))
 	{
-		Log::log(Log::LOG_ERROR, STR_MISSING_KEY, filename, key);
+		Log::e(STR_MISSING_KEY, filename, key);
 		return false;
 	}
 
 	Json::Value node = root[key];
 	if (!node.isArray())
 	{
-		Log::log(Log::LOG_ERROR, STR_INVALID_TYPE, filename, key);
+		Log::e(STR_INVALID_TYPE, filename, key);
 		return false;
 	}
 
 	if (node.size() < ROOM_HEIGHT_WITH_BORDER)
 	{
-		Log::log(Log::LOG_ERROR, STR_ROOM_MISSING_DATA, filename, key);
+		Log::e(STR_ROOM_MISSING_DATA, filename, key);
 		return false;
 	}
 
@@ -37,13 +37,13 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
 		}
 		catch (const Json::LogicError &ex)
 		{
-			Log::log(Log::LOG_ERROR, STR_INVALID_TYPE_EX, filename, key, ex.what());
+			Log::e(STR_INVALID_TYPE_EX, filename, key, ex.what());
 			return false;
 		}
 
 		if (strlen(line) < ROOM_WIDTH_WITH_BORDER)
 		{
-			Log::log(Log::LOG_ERROR, STR_ROOM_MISSING_DATA, filename, key);
+			Log::e(STR_ROOM_MISSING_DATA, filename, key);
 			return false;
 		}
 

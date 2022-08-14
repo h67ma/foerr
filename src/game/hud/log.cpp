@@ -7,8 +7,12 @@ namespace Log
 	ScreenCorner _anchor;
 	uint _windowW;
 	uint _windowH;
-	bool _writeLogToFile;
-	bool _printDebugMsgs;
+
+	// default values are only relevant until SettingsManager is loaded
+	bool _writeLogToFile = false;
+	bool _printMsgs = true;
+	bool _verboseDebug = true;
+
 	std::list<LogElementText> _history;
 	sf::Clock _clock;
 
@@ -34,9 +38,14 @@ namespace Log
 		_writeLogToFile = writeLogToFile;
 	}
 
-	void setPrintDebugMsgs(bool printDebugMsgs)
+	void setPrintMsgs(bool printMsgs)
 	{
-		_printDebugMsgs = printDebugMsgs;
+		_printMsgs = printMsgs;
+	}
+
+	void setVerboseDebug(bool verboseDebug)
+	{
+		_verboseDebug = verboseDebug;
 	}
 
 	/**
@@ -85,9 +94,9 @@ namespace Log
 	/**
 	 * Writes a formatted message to log file.
 	 */
-	void _logToFile(LogMsgType msgType, std::string msg)
+	void _logToFile(const char* prefix, std::string msg)
 	{
-		_logFile << '[' << _logMsgTypeToPrefix(msgType) << "] " << msg << std::endl;
+		_logFile << prefix << msg << std::endl;
 	}
 
 	/**
@@ -95,9 +104,9 @@ namespace Log
 	 *
 	 * Use only if no Log object is available (writing to hud or log file is preferred).
 	 */
-	void _logStderr(LogMsgType msgType, std::string msg)
+	void _logStderr(const char* prefix, std::string msg)
 	{
-		std::cerr << '[' << _logMsgTypeToPrefix(msgType) << "] " << msg << std::endl;
+		std::cerr << prefix << msg << std::endl;
 	}
 
 	void close()
