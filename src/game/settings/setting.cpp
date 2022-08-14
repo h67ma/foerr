@@ -1,6 +1,7 @@
 #include <sstream>
 #include "setting.hpp"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
 void Setting::setup(std::string key, uint defaultValue, bool debug)
 {
@@ -86,21 +87,21 @@ void Setting::loadFromJson(Json::Value value)
 	{
 		case SETTING_BOOL:
 			val.logic = value.asBool();
-			Log::logStderr(LOG_DEBUG, "Loaded setting: %s = %d", key.c_str(), val.logic);
+			Log::logStderr(LOG_DEBUG, STR_LOADED_SETTING_D, key.c_str(), val.logic);
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
 			readEnum = value.asInt();
 			if (readEnum >= _CORNER_CNT)
 			{
-				Log::logStderr(LOG_WARNING, "Invalid value (%u) for %s", readEnum, key.c_str());
+				Log::logStderr(LOG_WARNING, STR_INVALID_VALUE, readEnum, key.c_str());
 				return;
 			}
 			val.enumScreenCorner = (ScreenCorner)readEnum;
-			Log::logStderr(LOG_DEBUG, "Loaded setting: %s = %d", key.c_str(), val.enumScreenCorner);
+			Log::logStderr(LOG_DEBUG, STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
 			break;
 		case SETTING_UINT:
 		default:
 			val.numeric = value.asUInt();
-			Log::logStderr(LOG_DEBUG, "Loaded setting: %s = %u", key.c_str(), val.numeric);
+			Log::logStderr(LOG_DEBUG, STR_LOADED_SETTING_U, key.c_str(), val.numeric);
 	}
 }

@@ -13,6 +13,7 @@
 #define STR_SYNTAX_ERROR "Error loading file (%s): %s"
 #define STR_INVALID_KEY "Error loading file (%s) - invalid key \"%s\""
 #define STR_INVALID_TYPE_EX "Error loading file (%s) - invalid value for key \"%s\": \"%s\""
+#define STR_INVALID_VALUE "Invalid value (%u) for %s"
 #define STR_INVALID_TYPE "Error loading file (%s) - invalid value for key \"%s\""
 #define STR_MISSING_KEY "Error loading file (%s) - key is missing: \"%s\"."
 #define STR_ROOM_MISSING_DATA "Error loading room (%s) - room data is missing: \"%s\"."
@@ -20,3 +21,5 @@
 #define STR_LOC_INVALID_TYPES "Error: location cannot be grind and basecamp at the same time (%s)."
 #define STR_CAMPAIGN_LOAD_ERR "Error loading campaign (%s)."
 #define STR_LOADED_LOCATION "Loaded location (%s)."
+#define STR_LOADED_SETTING_D "Loaded setting: %s = %d."
+#define STR_LOADED_SETTING_U "Loaded setting: %s = %u."
