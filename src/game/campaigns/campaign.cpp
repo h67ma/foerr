@@ -7,6 +7,24 @@
 
 bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 {
+	// load basic campaign infos
+
+	std::string indexPath = pathCombine(campaignDir, std::string(FILENAME_INDEX));
+	Json::Value root;
+	if (!loadJsonFromFile(root, indexPath))
+	{
+		Log::e(STR_CAMPAIGN_LOAD_ERR, indexPath.c_str());
+		return false;
+	}
+
+	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
+		return false;
+
+	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
+		return false;
+
+	// load locations inside this campaign
+
 	std::string locationsDir = pathCombine(campaignDir, std::string(DIR_LOCATIONS));
 	std::filesystem::directory_iterator iter;
 
@@ -39,4 +57,14 @@ bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 	// TODO load other stuffs (most probably campaign-specific resources, so just /audio, /texture, etc)
 
 	return true;
+}
+
+std::string Campaign::getTitle()
+{
+	return this->title;
+}
+
+std::string Campaign::getDescription()
+{
+	return this->description;
 }

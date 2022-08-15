@@ -21,3 +21,5 @@ inline std::string pathCombine(std::string path1, std::string path2)
 }
 
 bool loadJsonFromFile(Json::Value &root, std::string path);
+
+bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key, std::string &value);

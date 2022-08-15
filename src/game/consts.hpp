@@ -27,6 +27,8 @@
 #define FOERR_JSON_KEY_WIDTH "width"
 #define FOERR_JSON_KEY_HEIGHT "height"
 #define FOERR_JSON_KEY_ROOM_MAP "room_map"
+#define FOERR_JSON_KEY_TITLE "title"
+#define FOERR_JSON_KEY_DESCRIPTION "description"
 
 // font sizes
 #define FONT_SIZE_NORMAL 18

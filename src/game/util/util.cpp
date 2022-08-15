@@ -28,3 +28,27 @@ bool loadJsonFromFile(Json::Value &root, std::string path)
 	Log::v(STR_LOADED_FILE, path.c_str());
 	return true;
 }
+
+bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key, std::string &value)
+{
+	if (!node.isMember(key))
+	{
+		Log::e(STR_MISSING_KEY, filePath, key);
+		return false;
+	}
+
+	try
+	{
+		// no idea how to use ::asString(), access violation and no explanation.
+		// doesn't help there's empty documentation.
+		// I don't give a damn about bad reputation, need to get some C++ education.
+		value = std::string(node[key].asCString());
+	}
+	catch (Json::LogicError &ex)
+	{
+		Log::e(STR_SYNTAX_ERROR, filePath, ex.what());
+		return false;
+	}
+
+	return true;
+}

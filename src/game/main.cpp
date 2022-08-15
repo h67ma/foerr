@@ -235,6 +235,8 @@ int main()
 	Campaign campaign;
 	if (!campaign.load("res/campaigns/test", resManager))
 		Log::e(STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
+	else
+		Log::d("Loaded campaign %s (%s)", campaign.getTitle().c_str(), campaign.getDescription().c_str());
 
 
 	Button logNormal(700, 500, BTN_BIG, "log normal", &fontMedium, []() {

@@ -30,9 +30,6 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
 
 		try
 		{
-			// no idea how to use asString(), access violation and no explanation.
-			// empty documentation also doesn't help.
-			// I don't give a damn about bad reputation, need to get some C++ education.
 			line = node[i].asCString();
 		}
 		catch (const Json::LogicError &ex)
