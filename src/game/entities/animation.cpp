@@ -46,7 +46,7 @@ void Animation::maybeNextFrame()
 
 	this->textureRect.left += this->width;
 
-	if (this->textureRect.left >= this->loadedKindTextureWidth)
+	if (this->textureRect.left >= static_cast<int>(this->loadedKindTextureWidth))
 		this->textureRect.left = 0;
 
 	this->sprite.setTextureRect(this->textureRect);

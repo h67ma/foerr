@@ -309,7 +309,7 @@ int main()
 				{
 					for (Button* btn : buttons)
 					{
-						if (btn->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
+						if (btn->maybeHandleClick(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y)))
 							break; // click consumed, no need to check other buttons
 					}
 				}

@@ -24,9 +24,9 @@ Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font
 	}
 
 	// rectangle & border
-	this->rect = sf::RectangleShape(sf::Vector2f(w, h));
+	this->rect = sf::RectangleShape({ static_cast<float>(w), static_cast<float>(h) });
 	this->rect.setOutlineColor(sf::Color(0, 255, 153));
-	this->rect.setPosition(x, y);
+	this->rect.setPosition(static_cast<float>(x), static_cast<float>(y));
 
 	// text
 
@@ -38,7 +38,10 @@ Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font
 	// center button text
 	// to center vertically, we can't use local bounds, as the baselines on different buttons would not match.
 	// use a constant top offset instead
-	this->text.setPosition(x + ((w - this->text.getLocalBounds().width) / 2), y + (h / 2) - BTN_FONT_TOP_OFFSET);
+	this->text.setPosition(
+		static_cast<float>(x + ((w - this->text.getLocalBounds().width) / 2)),
+		static_cast<float>(y + (h / 2) - BTN_FONT_TOP_OFFSET)
+	);
 
 	// gradient fill (transparent - almost black - transparent)
 	// this->rect color will "shine" through left & right side, this way we don't have to prepare multiple gradients
@@ -55,16 +58,16 @@ Button::Button(uint x, uint y, ButtonSize size, std::string text, sf::Font *font
 	// 3 -- 2
 
 	// left half
-	gradient[0] = sf::Vertex(sf::Vector2f(x, y), transparent);
-	gradient[1] = sf::Vertex(sf::Vector2f(midX, y), black);
-	gradient[2] = sf::Vertex(sf::Vector2f(midX, bottomY), black);
-	gradient[3] = sf::Vertex(sf::Vector2f(x, bottomY), transparent);
+	gradient[0] = sf::Vertex({ static_cast<float>(x), static_cast<float>(y) }, transparent);
+	gradient[1] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(y) }, black);
+	gradient[2] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(bottomY) }, black);
+	gradient[3] = sf::Vertex({ static_cast<float>(x), static_cast<float>(bottomY) }, transparent);
 
 	// right half
-	gradient[4] = sf::Vertex(sf::Vector2f(midX, y), black);
-	gradient[5] = sf::Vertex(sf::Vector2f(rightX, y), transparent);
-	gradient[6] = sf::Vertex(sf::Vector2f(rightX, bottomY), transparent);
-	gradient[7] = sf::Vertex(sf::Vector2f(midX, bottomY), black);
+	gradient[4] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(y) }, black);
+	gradient[5] = sf::Vertex({ static_cast<float>(rightX), static_cast<float>(y) }, transparent);
+	gradient[6] = sf::Vertex({ static_cast<float>(rightX), static_cast<float>(bottomY) }, transparent);
+	gradient[7] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(bottomY) }, black);
 
 	// disabled by default
 	this->setSelected(false);
