@@ -259,58 +259,56 @@ int main()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			switch (event.type)
+			if (event.type == sf::Event::Closed)
 			{
-				case sf::Event::Closed:
-					window.close();
-					break;
-				case sf::Event::Resized:
-					window.setView(sf::View(sf::FloatRect(0.f, 0.f, event.size.width, event.size.height)));
-					fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), event.size.width, event.size.height);
-					Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), event.size.width, event.size.height);
-					break;
-				case sf::Event::LostFocus:
-					if (gameState == STATE_PLAYING)
-						Log::i(STR_GAME_PAUSED);
-					gameState = STATE_PAUSEMENU;
-					break;
-				case sf::Event::TextEntered:
-					if (event.text.unicode < 128)
-						Log::d("ASCII character typed: %c", static_cast<char>(event.text.unicode));
-					break;
-				case sf::Event::KeyPressed:
-					switch (event.key.code)
-					{
-						case sf::Keyboard::F11:
-							if (settings.getBool(SETT_FULLSCREEN_ENABLED))
-							{
-								settings.setBool(SETT_FULLSCREEN_ENABLED, false);
-								Log::d(STR_WINDOW_WINDOWED);
-							}
-							else
-							{
-								settings.setBool(SETT_FULLSCREEN_ENABLED, true);
-								Log::d(STR_WINDOW_FULLSCREEN);
-							}
+				window.close();
+			}
+			else if (event.type == sf::Event::Resized)
+			{
+				window.setView(sf::View(sf::FloatRect(0.f, 0.f, event.size.width, event.size.height)));
+				fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), event.size.width, event.size.height);
+				Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), event.size.width, event.size.height);
+			}
+			else if (event.type == sf::Event::LostFocus)
+			{
+				if (gameState == STATE_PLAYING)
+					Log::i(STR_GAME_PAUSED);
 
-							recreateWindow(&window, &settings);
-							break;
-						default:
-							break;
-					}
-					break;
-				case sf::Event::MouseButtonPressed:
-					if (event.mouseButton.button == sf::Mouse::Left)
+				gameState = STATE_PAUSEMENU;
+			}
+			else if (event.type == sf::Event::TextEntered)
+			{
+				if (event.text.unicode < 128)
+					Log::d("ASCII character typed: %c", static_cast<char>(event.text.unicode));
+			}
+			else if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::F11)
+				{
+					if (settings.getBool(SETT_FULLSCREEN_ENABLED))
 					{
-						for (Button* btn : buttons)
-						{
-							if (btn->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
-								break; // click consumed, no need to check other buttons
-						}
+						settings.setBool(SETT_FULLSCREEN_ENABLED, false);
+						Log::d(STR_WINDOW_WINDOWED);
 					}
-					break;
-				default:
-					break;
+					else
+					{
+						settings.setBool(SETT_FULLSCREEN_ENABLED, true);
+						Log::d(STR_WINDOW_FULLSCREEN);
+					}
+
+					recreateWindow(&window, &settings);
+				}
+			}
+			else if (event.type == sf::Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					for (Button* btn : buttons)
+					{
+						if (btn->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
+							break; // click consumed, no need to check other buttons
+					}
+				}
 			}
 		}
 
