@@ -5,7 +5,7 @@
 
 /**
  * The role of the ResourceManager is to basically avoid a situation where a resource
- * (e.g. image, audio file, etc.) is loaded multiple times.
+ * (e.g. texture, audio file, etc.) is loaded multiple times.
  *
  * Care must be taken to ensure that the required resources are loaded.
  *
@@ -13,7 +13,7 @@
  * in needlessly high usage of memory and lots of resources left unused.
  *
  * A better approach works like this: each room defines resources it needs to use, e.g. it needs
- * certain images for texturing blocks. When a location loads its list of rooms, it compiles all
+ * certain textures for texturing blocks. When a location loads its list of rooms, it compiles all
  * resources required by its rooms into a set. When a location is being loaded, it can request all
  * needed resources from resource manager, which then loads resources that are currently missing.
  * When loading next location, a different one than current one (excluding basecamps), we can
@@ -33,14 +33,14 @@
 class ResourceManager
 {
 	private:
-		std::unordered_map<std::string, std::unique_ptr<sf::Image>> images;
+		std::unordered_map<std::string, std::unique_ptr<sf::Texture>> textures;
 		// TODO std::unordered_map<std::string, sf::SoundBuffer*> audios;
-		// TODO std::unordered_map<char, sf::Image*> charToBlock; // map for getting image resource to draw blocks
-		// TODO std::unordered_map<char, sf::Image*> charToBackground; // map for getting image resource to draw backgrounds
+		// TODO std::unordered_map<char, sf::Texture*> charToBlock; // map for getting texture resource to draw blocks
+		// TODO std::unordered_map<char, sf::Texture*> charToBackground; // map for getting texture resource to draw backgrounds
 
 	public:
-		sf::Image* loadImage(std::string path);
+		sf::Texture* loadTexture(std::string path);
 		// TODO bool loadAudio(std::string path);
-		sf::Image* getImage(std::string path);
+		sf::Texture* getTexture(std::string path);
 		// TODO sf::SoundBuffer* getAudio(std::string path);
 };

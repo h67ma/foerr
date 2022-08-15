@@ -163,14 +163,14 @@ int main()
 	buttons.push_back(&saveBtn);
 
 
-	Animation *fire = new Animation(resManager.loadImage("res/entities/fire.png"), 50, 67, {
+	Animation *fire = new Animation(*resManager.loadTexture("res/entities/fire.png"), 50, 67, {
 		{ANIM_STATIC, 17}
 	});
 	fire->setPosition(100, 200);
 	animations.push_back(fire);
 
 
-	Animation *mchavi = new Animation(resManager.loadImage("res/entities/mchavi.png"), 130, 130, {
+	Animation *mchavi = new Animation(*resManager.loadTexture("res/entities/mchavi.png"), 130, 130, {
 		{ ANIM_STAND, 1 },
 		{ ANIM_TROT, 17 },
 		{ ANIM_GALLOP, 8 },
@@ -252,6 +252,23 @@ int main()
 	});
 	buttons.push_back(&loadCamp);
 
+	Button unloadCamp(700, 550, BTN_NORMAL, "unload campaign", &fontMedium, [&campaign, &gameState]() {
+		campaign.unload();
+		Log::d(STR_CAMPAIGN_UNLOADED);
+		gameState = STATE_MAINMENU;
+	});
+	buttons.push_back(&unloadCamp);
+
+	Button campLoc1(900, 500, BTN_NORMAL, "goto loc 1", &fontMedium, [&campaign]() {
+		campaign.changeLocation("surface");
+	});
+	buttons.push_back(&campLoc1);
+
+	Button campLoc2(900, 550, BTN_NORMAL, "goto loc 2", &fontMedium, [&campaign]() {
+		campaign.changeLocation("technical_tunnels");
+	});
+	buttons.push_back(&campLoc2);
+
 
 
 	while (window.isOpen())
@@ -315,12 +332,20 @@ int main()
 		window.clear();
 
 		// entities
+
+		if ((gameState == STATE_PLAYING || gameState == STATE_PAUSEMENU) && campaign.isLoaded())
+			window.draw(campaign);
+
 		for(Animation* animation : animations)
 		{
 			if (gameState == STATE_PLAYING)
 				animation->maybeNextFrame();
 			window.draw(*animation);
 		}
+
+		// TODO something like this probably, campaign will call its kids which will call individual animations at the end
+		//if (gameState == STATE_PLAYING)
+		//	campaign.maybeNextFrame();
 
 		// hud
 		for (Button* btn : buttons)

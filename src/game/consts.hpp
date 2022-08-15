@@ -30,6 +30,7 @@
 #define FOERR_JSON_KEY_ROOM_MAP "room_map"
 #define FOERR_JSON_KEY_TITLE "title"
 #define FOERR_JSON_KEY_DESCRIPTION "description"
+#define FOERR_JSON_KEY_START_LOC "startLocation"
 
 // font sizes
 #define FONT_SIZE_NORMAL 18

@@ -1,23 +1,20 @@
 #include "animation.hpp"
 /**
- * @param textureImg image resource containing animation spritesheet
+ * @param textureImg texture resource containing animation spritesheet
  * @param width width (in px) of a single animation frame
  * @param height height (in px) of a single animation frame
  * @param kinds vector of animation kinds which the spritesheet contains. Order matters.
  */
-Animation::Animation(sf::Image *textureImg, uint width, uint height, std::vector<struct anim_kind_details> kinds)
+Animation::Animation(const sf::Texture &texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds)
 {
 	this->width = width;
 	this->height = height;
 
 	this->textureRect = sf::IntRect(0, 0, width, height);
 
-	this->texture.loadFromImage(*textureImg);
+	this->textureHeight = texture.getSize().y;
 
-	this->textureHeight = this->texture.getSize().y;
-
-	this->texture.setSmooth(true);
-	this->sprite.setTexture(this->texture);
+	this->sprite.setTexture(texture);
 	sprite.setTextureRect(this->textureRect);
 
 	uint topOffset = 0;

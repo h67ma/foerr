@@ -60,9 +60,11 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath))
 		return false;
 
-	this->backgroundFull = resMgr.loadImage(backgroundFullPath);
-	if (this->backgroundFull == nullptr)
+	sf::Texture *backgroundFull = resMgr.loadTexture(backgroundFullPath);
+	if (backgroundFull == nullptr)
 		return false;
+
+	this->backgroundFullSprite.setTexture(*backgroundFull);
 
 	if (!parseJsonUintKey(root, indexPath.c_str(), FOERR_JSON_KEY_WIDTH, width))
 		return false;
@@ -78,6 +80,7 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 		return false;
 	}
 
+	// TODO this is relevant for unique locations - put it in function or inherit classes for unique and grind
 	Json::Value roomMap = root[FOERR_JSON_KEY_ROOM_MAP];
 
 	if (!roomMap.isArray())
@@ -151,4 +154,11 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 
 	Log::d(STR_LOADED_LOCATION, indexPath.c_str());
 	return true;
+}
+
+void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(this->backgroundFullSprite, states);
+
+	// TODO draw current room
 }

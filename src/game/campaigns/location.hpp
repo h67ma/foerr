@@ -5,14 +5,15 @@
 #include "../resource_manager.hpp"
 
 // TODO? maybe inherit UniqueLocation and GeneratedLocation
-class Location
+class Location : public sf::Drawable
 {
 	private:
 		bool isGrind;
 		bool isBasecamp;
-		sf::Image *backgroundFull;
+		sf::Sprite backgroundFullSprite;
 		RoomGrid rooms;
 
 	public:
 		bool load(std::string locDir, ResourceManager& resMgr);
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

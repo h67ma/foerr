@@ -36,7 +36,6 @@ struct anim_kind_details_internal
 class Animation : public sf::Drawable, public sf::Transformable
 {
 	private:
-		sf::Texture texture;
 		uint textureHeight;
 		sf::Sprite sprite;
 		sf::IntRect textureRect;
@@ -47,7 +46,7 @@ class Animation : public sf::Drawable, public sf::Transformable
 		std::unordered_map<AnimationKind, struct anim_kind_details_internal> kinds;
 
 	public:
-		Animation(sf::Image *textureImg, uint width, uint height, std::vector<struct anim_kind_details> kinds);
+		Animation(const sf::Texture &texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds);
 		bool loadTexture();
 		void maybeNextFrame();
 		bool setAnimation(AnimationKind kind);
