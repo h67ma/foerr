@@ -52,3 +52,45 @@ bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key
 
 	return true;
 }
+
+bool parseJsonBoolKey(Json::Value &node, const char* filePath, const char* key, bool &value)
+{
+	if (!node.isMember(key))
+	{
+		Log::e(STR_MISSING_KEY, filePath, key);
+		return false;
+	}
+
+	try
+	{
+		value = node[key].asBool();
+	}
+	catch (Json::LogicError &ex)
+	{
+		Log::e(STR_SYNTAX_ERROR, filePath, ex.what());
+		return false;
+	}
+
+	return true;
+}
+
+bool parseJsonUintKey(Json::Value &node, const char* filePath, const char* key, uint &value)
+{
+	if (!node.isMember(key))
+	{
+		Log::e(STR_MISSING_KEY, filePath, key);
+		return false;
+	}
+
+	try
+	{
+		value = node[key].asUInt();
+	}
+	catch (Json::LogicError &ex)
+	{
+		Log::e(STR_SYNTAX_ERROR, filePath, ex.what());
+		return false;
+	}
+
+	return true;
+}

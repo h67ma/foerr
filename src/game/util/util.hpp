@@ -2,6 +2,7 @@
 
 #include <json/reader.h>
 #include <string>
+#include "../consts.hpp"
 
 // stolen from https://stackoverflow.com/questions/63121776/simplest-syntax-for-string-interpolation-in-c
 template<typename... T>
@@ -23,3 +24,5 @@ inline std::string pathCombine(std::string path1, std::string path2)
 bool loadJsonFromFile(Json::Value &root, std::string path);
 
 bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key, std::string &value);
+bool parseJsonBoolKey(Json::Value &node, const char* filePath, const char* key, bool &value);
+bool parseJsonUintKey(Json::Value &node, const char* filePath, const char* key, uint &value);
