@@ -44,6 +44,14 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 	if (!loadJsonFromFile(root, indexPath))
 		return false;
 
+	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
+		return false;
+
+	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
+		return false;
+
+	// TODO translate title & description
+
 	if (!parseJsonBoolKey(root, indexPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND, this->isGrind))
 		return false;
 
@@ -154,6 +162,16 @@ bool Location::load(std::string locDir, ResourceManager& resMgr)
 
 	Log::d(STR_LOADED_LOCATION, indexPath.c_str());
 	return true;
+}
+
+std::string Location::getTitle()
+{
+	return this->title;
+}
+
+std::string Location::getDescription()
+{
+	return this->description;
 }
 
 void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const

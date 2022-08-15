@@ -25,6 +25,8 @@ bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
 		return false;
 
+	// TODO translate title & description
+
 	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_START_LOC, this->startLocation))
 		return false;
 
