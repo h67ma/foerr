@@ -3,6 +3,12 @@
 #define STACKTRACE_MAX_CNT 10
 #define ANIM_FRAME_DURATION_MS 33 // around 30fps
 
+// game area size
+#define GAME_AREA_WIDTH 1920.f
+#define GAME_AREA_HEIGHT 1000.f
+#define GAME_AREA_MID_X 960.f
+#define GAME_AREA_MID_Y 500.f
+
 // paths
 #define PATH_SETTINGS "config.json"
 #define PATH_LOGFILE "foerr.log"

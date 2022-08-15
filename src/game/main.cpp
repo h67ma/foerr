@@ -17,6 +17,7 @@
 #include "hud/button.hpp"
 #include "entities/animation.hpp"
 #include "campaigns/campaign.hpp"
+#include "window/util.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -31,25 +32,6 @@
 //	exit(1);
 //}
 
-void recreateWindow(sf::Window *window, SettingsManager *settings)
-{
-	// TODO settings activity should detect valid video modes and list them, with the standard "confirm in 15 seconds" dialog after changing resolution.
-	// the selected mode should be saved to settings file.
-	// when loading settings, game should check if the specified video mode exists - sf::VideoMode::isValid()
-	// when settings are uninitialized, game should pick *some* mode - either best, or "safe"
-
-	if (settings->getBool(SETT_FULLSCREEN_ENABLED))
-		// TODO support overriding fullscreen resolution via settings
-		window->create(sf::VideoMode::getDesktopMode(), STR_WINDOW_TITLE, sf::Style::Fullscreen);
-	else
-		window->create(sf::VideoMode(settings->getUint(SETT_WINDOW_WIDTH), settings->getUint(SETT_WINDOW_HEIGHT)), STR_WINDOW_TITLE);
-
-	if (settings->getBool(SETT_FPS_LIMIT_ENABLED))
-		window->setFramerateLimit(settings->getUint(SETT_FPS_LIMIT));
-
-	window->setVerticalSyncEnabled(settings->getBool(SETT_FAKE_VSYNC_ENABLED));
-}
-
 int main()
 {
 	GameState gameState = STATE_MAINMENU;
@@ -62,11 +44,14 @@ int main()
 	sf::Font fontNormal;
 	std::list<Button*> buttons;
 	std::vector<Animation*> animations;
+	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
+	sf::View hudView;
 
 	// TODO find a platform-independent way to display stack trace on crash
 	//signal(SIGSEGV, stackTraceHandler);
 
-	recreateWindow(&window, &settings); // actually create it for the first time, details
+	recreateWindow(window, settings);
+
 	windowW = window.getSize().x;
 	windowH = window.getSize().y;
 
@@ -271,6 +256,8 @@ int main()
 
 
 
+	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView);
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -282,14 +269,12 @@ int main()
 			}
 			else if (event.type == sf::Event::Resized)
 			{
-				window.setView(sf::View(sf::FloatRect(0.f, 0.f, event.size.width, event.size.height)));
-				fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), event.size.width, event.size.height);
-				Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), event.size.width, event.size.height);
+				windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView);
 			}
 			else if (event.type == sf::Event::LostFocus)
 			{
 				if (gameState == STATE_PLAYING)
-					Log::i(STR_GAME_PAUSED);
+					Log::d(STR_GAME_PAUSED);
 
 				gameState = STATE_PAUSEMENU;
 			}
@@ -313,11 +298,13 @@ int main()
 						Log::d(STR_WINDOW_FULLSCREEN);
 					}
 
-					recreateWindow(&window, &settings);
+					recreateWindow(window, settings);
+					windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView);
 				}
 			}
 			else if (event.type == sf::Event::MouseButtonPressed)
 			{
+				//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					for (Button* btn : buttons)
@@ -331,7 +318,8 @@ int main()
 
 		window.clear();
 
-		// entities
+		// game world entities
+		window.setView(gameWorldView);
 
 		if ((gameState == STATE_PLAYING || gameState == STATE_PAUSEMENU) && campaign.isLoaded())
 			window.draw(campaign);
@@ -348,6 +336,8 @@ int main()
 		//	campaign.maybeNextFrame();
 
 		// hud
+		window.setView(hudView);
+
 		for (Button* btn : buttons)
 		{
 			window.draw(*btn);
