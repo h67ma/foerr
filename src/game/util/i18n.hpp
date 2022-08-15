@@ -25,7 +25,7 @@
 #define STR_LOADED_FILE "Loaded file (%s)."
 #define STR_LOADED_SETTING_D "Loaded setting: %s = %d."
 #define STR_LOADED_SETTING_U "Loaded setting: %s = %u."
-#define STR_WINDOW_LOST_FOCUS "Game lost focus"
+#define STR_GAME_PAUSED "Game paused"
 #define STR_WINDOW_WINDOWED "Switching to windowed mode"
 #define STR_WINDOW_FULLSCREEN "Switching to fullscreen mode"
 #define STR_IDX_OUTTA_BOUNDS "Index out of bounds!"

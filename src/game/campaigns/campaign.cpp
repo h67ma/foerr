@@ -7,6 +7,8 @@
 
 bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 {
+	this->locations.clear();
+
 	// load basic campaign infos
 
 	std::string indexPath = pathCombine(campaignDir, std::string(FILENAME_INDEX));

@@ -52,6 +52,7 @@ void recreateWindow(sf::Window *window, SettingsManager *settings)
 
 int main()
 {
+	GameState gameState = STATE_MAINMENU;
 	SettingsManager settings;
 	settings.loadConfig();
 
@@ -151,6 +152,11 @@ int main()
 	});
 	buttons.push_back(&debugBtn);
 
+	Button unpauseBtn(400, 500, BTN_BIG, "unpause", &fontMedium, [&gameState]() {
+		gameState = STATE_PLAYING;
+	});
+	buttons.push_back(&unpauseBtn);
+
 	Button saveBtn(100, 500, BTN_NORMAL, "Save config", &fontMedium, [&settings]() {
 		settings.saveConfig();
 	});
@@ -232,17 +238,20 @@ int main()
 	mchavi->setAnimation(ANIM_SWIM);
 
 
+
 	Campaign campaign;
-	if (!campaign.load("res/campaigns/test", resManager))
-		Log::e(STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
-	else
-		Log::d("Loaded campaign %s (%s)", campaign.getTitle().c_str(), campaign.getDescription().c_str());
 
-
-	Button logNormal(700, 500, BTN_BIG, "log normal", &fontMedium, []() {
-		Log::i("normal");
+	Button loadCamp(700, 500, BTN_NORMAL, "load test campaign", &fontMedium, [&campaign, &resManager, &gameState]() {
+		if (campaign.load("res/campaigns/test", resManager))
+		{
+			Log::d("Loaded campaign %s (%s)", campaign.getTitle().c_str(), campaign.getDescription().c_str());
+			gameState = STATE_PLAYING;
+		}
+		else
+			Log::e(STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
 	});
-	buttons.push_back(&logNormal);
+	buttons.push_back(&loadCamp);
+
 
 
 	while (window.isOpen())
@@ -261,8 +270,9 @@ int main()
 					Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), event.size.width, event.size.height);
 					break;
 				case sf::Event::LostFocus:
-					// TODO actually pause game
-					Log::d(STR_WINDOW_LOST_FOCUS);
+					if (gameState == STATE_PLAYING)
+						Log::i(STR_GAME_PAUSED);
+					gameState = STATE_PAUSEMENU;
 					break;
 				case sf::Event::TextEntered:
 					if (event.text.unicode < 128)
@@ -309,7 +319,8 @@ int main()
 		// entities
 		for(Animation* animation : animations)
 		{
-			animation->maybeNextFrame();
+			if (gameState == STATE_PLAYING)
+				animation->maybeNextFrame();
 			window.draw(*animation);
 		}
 

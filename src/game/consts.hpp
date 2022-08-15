@@ -41,3 +41,11 @@
 #ifndef uint
 #define uint unsigned int
 #endif
+
+enum GameState
+{
+	STATE_LOADINGSCREEN,
+	STATE_MAINMENU,
+	STATE_PLAYING,
+	STATE_PAUSEMENU,
+};
