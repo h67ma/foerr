@@ -27,9 +27,18 @@ void Setting::setup(std::string key, ScreenCorner defaultValue)
 	this->settingType = SETTING_ENUM_SCREEN_CORNER;
 }
 
+void Setting::setup(std::string key, HudScale defaultValue)
+{
+	this->key = key;
+	this->defaultValue.hudScale = defaultValue;
+	this->val.hudScale = defaultValue;
+	this->settingType = SETTING_ENUM_HUD_SCALE;
+}
+
 // TODO do we actually need this?
 void Setting::resetToDefault()
 {
+	Log::d(STR_RESETTING_TO_DEFAULT, this->key.c_str());
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
@@ -37,6 +46,9 @@ void Setting::resetToDefault()
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
 			this->val.enumScreenCorner = this->defaultValue.enumScreenCorner;
+			break;
+		case SETTING_ENUM_HUD_SCALE:
+			this->val.hudScale = this->defaultValue.hudScale;
 			break;
 		case SETTING_UINT:
 		default:
@@ -60,6 +72,7 @@ Json::Value Setting::getJsonValue()
 			return Json::Value(val.logic);
 			break;
 		case SETTING_ENUM_SCREEN_CORNER: // enums are ints anyway
+		case SETTING_ENUM_HUD_SCALE: // ditto
 		case SETTING_UINT:
 		default:
 			return Json::Value(val.numeric);
@@ -82,14 +95,24 @@ void Setting::loadFromJson(Json::Value value)
 			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.logic);
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
+		case SETTING_ENUM_HUD_SCALE:
 			readEnum = value.asInt();
 			if (readEnum >= _CORNER_CNT)
 			{
 				Log::w(STR_INVALID_VALUE, readEnum, key.c_str());
 				return;
 			}
-			val.enumScreenCorner = (ScreenCorner)readEnum;
-			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
+
+			if (this->settingType == SETTING_ENUM_SCREEN_CORNER)
+			{
+				val.enumScreenCorner = static_cast<ScreenCorner>(readEnum);
+				Log::d(STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
+			}
+			else if (this->settingType == SETTING_ENUM_HUD_SCALE)
+			{
+				val.hudScale = static_cast<HudScale>(readEnum);
+				Log::d(STR_LOADED_SETTING_D, key.c_str(), val.hudScale);
+			}
 			break;
 		case SETTING_UINT:
 		default:

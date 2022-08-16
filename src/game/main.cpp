@@ -32,6 +32,14 @@
 //	exit(1);
 //}
 
+void setHudScale(std::list<Button*> &buttons, HudScale scale)
+{
+	for (Button* btn : buttons)
+	{
+		btn->setScale(scale);
+	}
+}
+
 int main()
 {
 	GameState gameState = STATE_MAINMENU;
@@ -141,20 +149,23 @@ int main()
 	debugBtn.setPosition(300, 400);
 	buttons.push_back(&debugBtn);
 
-	Button size1(HUD_NORMAL, BTN_NARROW, "small", fontMedium, [&debugBtn]() {
-		debugBtn.setScale(HUD_SMALL);
+	Button size1(HUD_NORMAL, BTN_NARROW, "small", fontMedium, [&settings, &buttons]() {
+		settings.setHudScale(SETT_HUD_SCALE, HUD_SMALL);
+		setHudScale(buttons, HUD_SMALL);
 	});
 	size1.setPosition(500, 400);
 	buttons.push_back(&size1);
 
-	Button size2(HUD_NORMAL, BTN_NARROW, "normal", fontMedium, [&debugBtn]() {
-		debugBtn.setScale(HUD_NORMAL);
+	Button size2(HUD_NORMAL, BTN_NARROW, "normal", fontMedium, [&settings, &buttons]() {
+		settings.setHudScale(SETT_HUD_SCALE, HUD_NORMAL);
+		setHudScale(buttons, HUD_NORMAL);
 	});
 	size2.setPosition(500, 440);
 	buttons.push_back(&size2);
 
-	Button size3(HUD_NORMAL, BTN_NARROW, "large", fontMedium, [&debugBtn]() {
-		debugBtn.setScale(HUD_LARGE);
+	Button size3(HUD_NORMAL, BTN_NARROW, "large", fontMedium, [&settings, &buttons]() {
+		settings.setHudScale(SETT_HUD_SCALE, HUD_LARGE);
+		setHudScale(buttons, HUD_LARGE);
 	});
 	size3.setPosition(500, 480);
 	buttons.push_back(&size3);
@@ -170,7 +181,7 @@ int main()
 	Button unpauseBtn(HUD_NORMAL, BTN_BIG, "unpause", fontMedium, [&gameState]() {
 		gameState = STATE_PLAYING;
 	});
-	unpauseBtn.setPosition(400, 500);
+	unpauseBtn.setPosition(300, 500);
 	buttons.push_back(&unpauseBtn);
 
 	Button saveBtn(HUD_NORMAL, BTN_NORMAL, "Save config", fontMedium, [&settings]() {
@@ -301,7 +312,7 @@ int main()
 	buttons.push_back(&campLoc2);
 
 
-
+	setHudScale(buttons, settings.getHudScale(SETT_HUD_SCALE));
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView);
 
 	while (window.isOpen())

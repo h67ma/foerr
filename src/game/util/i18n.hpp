@@ -14,6 +14,7 @@
 #define STR_SETTINGS_KEY_MISSING "Key is missing from settings file (%s): \"%s\" - using default value."
 #define STR_INVALID_TYPE_EX "Error loading file (%s) - invalid value for key \"%s\": \"%s\""
 #define STR_INVALID_VALUE "Invalid value (%u) for %s"
+#define STR_RESETTING_TO_DEFAULT "Resetting %s to default value"
 #define STR_INVALID_TYPE "Error loading file (%s) - invalid value for key \"%s\""
 #define STR_MISSING_KEY "Error loading file (%s) - key is missing: \"%s\"."
 #define STR_ROOM_MISSING_DATA "Error loading room (%s) - room data is missing: \"%s\"."
@@ -33,3 +34,4 @@
 #define STR_WINDOW_WINDOWED "Switching to windowed mode"
 #define STR_WINDOW_FULLSCREEN "Switching to fullscreen mode"
 #define STR_IDX_OUTTA_BOUNDS "Index out of bounds!"
+#define STR_IDX_OUTTA_BOUNDS_SETT_NOT_SET "Index out of bounds! Skipping setting a setting."

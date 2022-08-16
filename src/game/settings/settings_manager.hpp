@@ -15,6 +15,7 @@ enum SettingName
 	SETT_SHOW_FPS_COUNTER,
 	SETT_ANCHOR_LOG,
 	SETT_ANCHOR_FPS,
+	SETT_HUD_SCALE,
 	SETT_WINDOW_WIDTH,
 	SETT_WINDOW_HEIGHT,
 	SETT_PRINT_MSGS,
@@ -37,7 +38,9 @@ class SettingsManager
 		uint getUint(SettingName idx);
 		bool getBool(SettingName idx);
 		ScreenCorner getScreenCorner(SettingName idx);
+		HudScale getHudScale(SettingName idx);
 		void setUint(SettingName idx, uint newValue);
 		void setBool(SettingName idx, bool newValue);
 		void setScreenCorner(SettingName idx, ScreenCorner newValue);
+		void setHudScale(SettingName idx, HudScale newValue);
 };

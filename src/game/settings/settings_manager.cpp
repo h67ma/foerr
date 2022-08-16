@@ -22,8 +22,8 @@ SettingsManager::SettingsManager()
 	this->settings[SETT_SHOW_FPS_COUNTER].setup("ShowFpsCounter", true);
 	this->settings[SETT_ANCHOR_LOG].setup("LogAnchor", CORNER_TOP_RIGHT);
 	this->settings[SETT_ANCHOR_FPS].setup("FpsAnchor", CORNER_TOP_LEFT);
+	this->settings[SETT_HUD_SCALE].setup("HudScale", HUD_NORMAL);
 	//this->settings[SETT_LOG_MSG_TIMEOUT].setup("LogMsgTimeout", 3); // is this really necessary?
-	// TODO this->settings[SETT_FONT_SCALING_FACTOR].setup("FontScalingFactor", 1.0);
 
 	// debug
 	// TODO maybe we could save window w&h on program exit and then restore it?
@@ -50,7 +50,7 @@ void SettingsManager::saveConfig()
 	file << root << std::endl;
 	file.close();
 
-	Log::d("Saved settings");
+	Log::i("Saved settings");
 }
 
 void SettingsManager::loadConfig()
@@ -113,10 +113,21 @@ ScreenCorner SettingsManager::getScreenCorner(SettingName idx)
 	return this->settings[idx].val.enumScreenCorner;
 }
 
+HudScale SettingsManager::getHudScale(SettingName idx)
+{
+	if (idx >= _SETTINGS_CNT)
+		return HUD_NORMAL; // default value is better than crash
+
+	return this->settings[idx].val.hudScale;
+}
+
 void SettingsManager::setUint(SettingName idx, uint newValue)
 {
 	if (idx >= _SETTINGS_CNT)
-		return; // TODO print some error or something
+	{
+		Log::w(STR_IDX_OUTTA_BOUNDS_SETT_NOT_SET);
+		return;
+	}
 
 	this->settings[idx].val.numeric = newValue;
 }
@@ -124,7 +135,10 @@ void SettingsManager::setUint(SettingName idx, uint newValue)
 void SettingsManager::setBool(SettingName idx, bool newValue)
 {
 	if (idx >= _SETTINGS_CNT)
-		return; // TODO print some error or something
+	{
+		Log::w(STR_IDX_OUTTA_BOUNDS_SETT_NOT_SET);
+		return;
+	}
 
 	this->settings[idx].val.logic = newValue;
 }
@@ -132,7 +146,21 @@ void SettingsManager::setBool(SettingName idx, bool newValue)
 void SettingsManager::setScreenCorner(SettingName idx, ScreenCorner newValue)
 {
 	if (idx >= _SETTINGS_CNT)
-		return; // TODO print some error or something
+	{
+		Log::w(STR_IDX_OUTTA_BOUNDS_SETT_NOT_SET);
+		return;
+	}
 
 	this->settings[idx].val.enumScreenCorner = newValue;
+}
+
+void SettingsManager::setHudScale(SettingName idx, HudScale newValue)
+{
+	if (idx >= _SETTINGS_CNT)
+	{
+		Log::w(STR_IDX_OUTTA_BOUNDS_SETT_NOT_SET);
+		return;
+	}
+
+	this->settings[idx].val.hudScale = newValue;
 }
