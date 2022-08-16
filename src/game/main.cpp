@@ -85,7 +85,7 @@ int main()
 
 	ResourceManager resManager;
 
-	FpsMeter fpsMeter(&fontNormal, FONT_SIZE_NORMAL);
+	FpsMeter fpsMeter(initialScale, fontNormal);
 	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowW, windowH);
 	
 	WindowCursor cursor;
@@ -151,23 +151,26 @@ int main()
 	debugBtn.setPosition(300, 400);
 	buttons.push_back(&debugBtn);
 
-	Button size1(initialScale, BTN_NARROW, "small", fontMedium, [&settings, &buttons]() {
+	Button size1(initialScale, BTN_NARROW, "small", fontMedium, [&settings, &buttons, &fpsMeter]() {
 		settings.setHudScale(SETT_HUD_SCALE, HUD_SMALL);
 		setHudScale(buttons, HUD_SMALL);
+		fpsMeter.setScale(HUD_SMALL);
 	});
 	size1.setPosition(500, 400);
 	buttons.push_back(&size1);
 
-	Button size2(initialScale, BTN_NARROW, "normal", fontMedium, [&settings, &buttons]() {
+	Button size2(initialScale, BTN_NARROW, "normal", fontMedium, [&settings, &buttons, &fpsMeter]() {
 		settings.setHudScale(SETT_HUD_SCALE, HUD_NORMAL);
 		setHudScale(buttons, HUD_NORMAL);
+		fpsMeter.setScale(HUD_NORMAL);
 	});
 	size2.setPosition(500, 440);
 	buttons.push_back(&size2);
 
-	Button size3(initialScale, BTN_NARROW, "large", fontMedium, [&settings, &buttons]() {
+	Button size3(initialScale, BTN_NARROW, "large", fontMedium, [&settings, &buttons, &fpsMeter]() {
 		settings.setHudScale(SETT_HUD_SCALE, HUD_LARGE);
 		setHudScale(buttons, HUD_LARGE);
+		fpsMeter.setScale(HUD_LARGE);
 	});
 	size3.setPosition(500, 480);
 	buttons.push_back(&size3);

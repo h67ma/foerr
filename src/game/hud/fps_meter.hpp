@@ -21,9 +21,9 @@ class FpsMeter : public sf::Drawable
 		char buf[FPS_METER_MAX_CHARS];
 		sf::Clock clock;
 	public:
-		FpsMeter(sf::Font *font, uint fontSize);
-		void setFontSize(uint newSize);
+		FpsMeter(HudScale scale, sf::Font &font);
+		void setScale(HudScale scale);
 		void setPosition(ScreenCorner anchor, uint screenW, uint screenH);
 		void maybeUpdate();
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

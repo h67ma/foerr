@@ -3,17 +3,28 @@
 #include "fps_meter.hpp"
 #include "../consts.hpp"
 
-FpsMeter::FpsMeter(sf::Font *font, uint fontSize)
+FpsMeter::FpsMeter(HudScale scale, sf::Font &font)
 {
-	this->text.setFont(*font);
-	this->text.setCharacterSize(fontSize);
+	this->text.setFont(font);
+	this->setScale(scale);
 	this->text.setFillColor(sf::Color::Green);
 	this->text.setString("??");
 }
 
-void FpsMeter::setFontSize(uint newSize)
+void FpsMeter::setScale(HudScale scale)
 {
-	this->text.setCharacterSize(newSize);
+	switch (scale)
+	{
+		case HUD_SMALL:
+			this->text.setCharacterSize(FONT_SIZE_SMALL);
+			break;
+		case HUD_LARGE:
+			this->text.setCharacterSize(FONT_SIZE_LARGE);
+			break;
+		case HUD_NORMAL:
+		default:
+			this->text.setCharacterSize(FONT_SIZE_NORMAL);
+	}
 }
 
 void FpsMeter::setPosition(ScreenCorner anchor, uint screenW, uint screenH)
@@ -63,7 +74,7 @@ void FpsMeter::maybeUpdate()
 	}
 }
 
-void FpsMeter::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void FpsMeter::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(this->text, states);
+	target.draw(this->text);
 }
