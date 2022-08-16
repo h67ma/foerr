@@ -63,6 +63,8 @@ int main()
 	windowW = window.getSize().x;
 	windowH = window.getSize().y;
 
+	HudScale initialScale = settings.getHudScale(SETT_HUD_SCALE);
+
 	if (!fontNormal.loadFromFile(PATH_FONT_NORMAL))
 	{
 		Log::e(STR_FONT_LOAD_FAIL);
@@ -143,27 +145,27 @@ int main()
 	sf::Sound sound;
 	sound.setBuffer(buffer);
 
-	Button debugBtn(HUD_NORMAL, BTN_BIG, "test sound", fontMedium, [&sound]() {
+	Button debugBtn(initialScale, BTN_BIG, "test sound", fontMedium, [&sound]() {
 		sound.play();
 	});
 	debugBtn.setPosition(300, 400);
 	buttons.push_back(&debugBtn);
 
-	Button size1(HUD_NORMAL, BTN_NARROW, "small", fontMedium, [&settings, &buttons]() {
+	Button size1(initialScale, BTN_NARROW, "small", fontMedium, [&settings, &buttons]() {
 		settings.setHudScale(SETT_HUD_SCALE, HUD_SMALL);
 		setHudScale(buttons, HUD_SMALL);
 	});
 	size1.setPosition(500, 400);
 	buttons.push_back(&size1);
 
-	Button size2(HUD_NORMAL, BTN_NARROW, "normal", fontMedium, [&settings, &buttons]() {
+	Button size2(initialScale, BTN_NARROW, "normal", fontMedium, [&settings, &buttons]() {
 		settings.setHudScale(SETT_HUD_SCALE, HUD_NORMAL);
 		setHudScale(buttons, HUD_NORMAL);
 	});
 	size2.setPosition(500, 440);
 	buttons.push_back(&size2);
 
-	Button size3(HUD_NORMAL, BTN_NARROW, "large", fontMedium, [&settings, &buttons]() {
+	Button size3(initialScale, BTN_NARROW, "large", fontMedium, [&settings, &buttons]() {
 		settings.setHudScale(SETT_HUD_SCALE, HUD_LARGE);
 		setHudScale(buttons, HUD_LARGE);
 	});
@@ -171,20 +173,20 @@ int main()
 	buttons.push_back(&size3);
 
 	bool selected = false;
-	Button btnSel(HUD_NORMAL, BTN_NARROW, "toggle sel", fontMedium, [&debugBtn, &selected]() {
+	Button btnSel(initialScale, BTN_NARROW, "toggle sel", fontMedium, [&debugBtn, &selected]() {
 		selected = !selected;
 		debugBtn.setSelected(selected);
 	});
 	btnSel.setPosition(500, 520);
 	buttons.push_back(&btnSel);
 
-	Button unpauseBtn(HUD_NORMAL, BTN_BIG, "unpause", fontMedium, [&gameState]() {
+	Button unpauseBtn(initialScale, BTN_BIG, "unpause", fontMedium, [&gameState]() {
 		gameState = STATE_PLAYING;
 	});
 	unpauseBtn.setPosition(300, 500);
 	buttons.push_back(&unpauseBtn);
 
-	Button saveBtn(HUD_NORMAL, BTN_NORMAL, "Save config", fontMedium, [&settings]() {
+	Button saveBtn(initialScale, BTN_NORMAL, "Save config", fontMedium, [&settings]() {
 		settings.saveConfig();
 	});
 	saveBtn.setPosition(100, 500);
@@ -213,61 +215,61 @@ int main()
 	mchavi->setPosition(500, 200);
 	animations.push_back(mchavi);
 
-	Button mchavi1(HUD_NORMAL, BTN_NORMAL, "stand", fontMedium, [&mchavi]() {
+	Button mchavi1(initialScale, BTN_NORMAL, "stand", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_STAND);
 	});
 	mchavi1.setPosition(700, 60);
 	buttons.push_back(&mchavi1);
 
-	Button mchavi2(HUD_NORMAL, BTN_NORMAL, "walk", fontMedium, [&mchavi]() {
+	Button mchavi2(initialScale, BTN_NORMAL, "walk", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_WALK);
 	});
 	mchavi2.setPosition(700, 90);
 	buttons.push_back(&mchavi2);
 
-	Button mchavi3(HUD_NORMAL, BTN_NORMAL, "trot", fontMedium, [&mchavi]() {
+	Button mchavi3(initialScale, BTN_NORMAL, "trot", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_TROT);
 	});
 	mchavi3.setPosition(700, 120);
 	buttons.push_back(&mchavi3);
 
-	Button mchavi4(HUD_NORMAL, BTN_NORMAL, "gallop", fontMedium, [&mchavi]() {
+	Button mchavi4(initialScale, BTN_NORMAL, "gallop", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_GALLOP);
 	});
 	mchavi4.setPosition(700, 150);
 	buttons.push_back(&mchavi4);
 
-	Button mchavi5(HUD_NORMAL, BTN_NORMAL, "jump", fontMedium, [&mchavi]() {
+	Button mchavi5(initialScale, BTN_NORMAL, "jump", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_JUMP);
 	});
 	mchavi5.setPosition(700, 180);
 	buttons.push_back(&mchavi5);
 
-	Button mchavi6(HUD_NORMAL, BTN_NORMAL, "die ground", fontMedium, [&mchavi]() {
+	Button mchavi6(initialScale, BTN_NORMAL, "die ground", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_GROUND);
 	});
 	mchavi6.setPosition(700, 210);
 	buttons.push_back(&mchavi6);
 
-	Button mchavi7(HUD_NORMAL, BTN_NORMAL, "die air", fontMedium, [&mchavi]() {
+	Button mchavi7(initialScale, BTN_NORMAL, "die air", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_AIR);
 	});
 	mchavi7.setPosition(700, 240);
 	buttons.push_back(&mchavi7);
 
-	Button mchavi8(HUD_NORMAL, BTN_NORMAL, "tk hold", fontMedium, [&mchavi]() {
+	Button mchavi8(initialScale, BTN_NORMAL, "tk hold", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_TK_HOLD);
 	});
 	mchavi8.setPosition(700, 270);
 	buttons.push_back(&mchavi8);
 
-	Button mchavi9(HUD_NORMAL, BTN_NORMAL, "swim", fontMedium, [&mchavi]() {
+	Button mchavi9(initialScale, BTN_NORMAL, "swim", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_SWIM);
 	});
 	mchavi9.setPosition(700, 300);
 	buttons.push_back(&mchavi9);
 
-	Button mchavi10(HUD_NORMAL, BTN_NORMAL, "climb", fontMedium, [&mchavi]() {
+	Button mchavi10(initialScale, BTN_NORMAL, "climb", fontMedium, [&mchavi]() {
 		mchavi->setAnimation(ANIM_CLIMB);
 	});
 	mchavi10.setPosition(700, 330);
@@ -279,7 +281,7 @@ int main()
 
 	Campaign campaign;
 
-	Button loadCamp(HUD_NORMAL, BTN_NORMAL, "load test campaign", fontMedium, [&campaign, &resManager, &gameState]() {
+	Button loadCamp(initialScale, BTN_NORMAL, "load test campaign", fontMedium, [&campaign, &resManager, &gameState]() {
 		if (campaign.load("res/campaigns/test", resManager))
 		{
 			Log::d("Loaded campaign %s (%s)", campaign.getTitle().c_str(), campaign.getDescription().c_str());
@@ -291,7 +293,7 @@ int main()
 	loadCamp.setPosition(700, 500);
 	buttons.push_back(&loadCamp);
 
-	Button unloadCamp(HUD_NORMAL, BTN_NORMAL, "unload campaign", fontMedium, [&campaign, &gameState]() {
+	Button unloadCamp(initialScale, BTN_NORMAL, "unload campaign", fontMedium, [&campaign, &gameState]() {
 		campaign.unload();
 		Log::d(STR_CAMPAIGN_UNLOADED);
 		gameState = STATE_MAINMENU;
@@ -299,20 +301,19 @@ int main()
 	unloadCamp.setPosition(700, 550);
 	buttons.push_back(&unloadCamp);
 
-	Button campLoc1(HUD_NORMAL, BTN_NORMAL, "goto loc 1", fontMedium, [&campaign]() {
+	Button campLoc1(initialScale, BTN_NORMAL, "goto loc 1", fontMedium, [&campaign]() {
 		campaign.changeLocation("surface");
 	});
 	campLoc1.setPosition(900, 500);
 	buttons.push_back(&campLoc1);
 
-	Button campLoc2(HUD_NORMAL, BTN_NORMAL, "goto loc 2", fontMedium, [&campaign]() {
+	Button campLoc2(initialScale, BTN_NORMAL, "goto loc 2", fontMedium, [&campaign]() {
 		campaign.changeLocation("technical_tunnels");
 	});
 	campLoc2.setPosition(900, 550);
 	buttons.push_back(&campLoc2);
 
 
-	setHudScale(buttons, settings.getHudScale(SETT_HUD_SCALE));
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView);
 
 	while (window.isOpen())
