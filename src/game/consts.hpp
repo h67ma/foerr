@@ -39,8 +39,12 @@
 #define FOERR_JSON_KEY_START_LOC "startLocation"
 
 // font sizes
-#define FONT_SIZE_NORMAL 18
-#define FONT_SIZE_NORMAL_WITH_GAP 20
+#define FONT_SIZE_SMALL 14U
+#define FONT_SIZE_SMALL_WITH_GAP 16U
+#define FONT_SIZE_NORMAL 18U
+#define FONT_SIZE_NORMAL_WITH_GAP 20U
+#define FONT_SIZE_LARGE 24U
+#define FONT_SIZE_LARGE_WITH_GAP 26U
 
 #define ROOM_EMPTY "/EMPTY" // '/' should be an illegal filename character in both linux and windows
 

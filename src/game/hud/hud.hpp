@@ -8,3 +8,10 @@ enum ScreenCorner
 	CORNER_BOTTOM_RIGHT,
 	_CORNER_CNT
 };
+
+enum HudScale
+{
+	HUD_SMALL,
+	HUD_NORMAL,
+	HUD_LARGE
+};
