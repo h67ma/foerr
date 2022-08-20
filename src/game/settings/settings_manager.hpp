@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sfml/Graphics.hpp>
 #include "../hud/hud.hpp"
 #include "setting.hpp"
 #include "../consts.hpp"
@@ -16,6 +17,7 @@ enum SettingName
 	SETT_ANCHOR_LOG,
 	SETT_ANCHOR_FPS,
 	SETT_GUI_SCALE,
+	SETT_HUD_COLOR,
 	SETT_WINDOW_WIDTH,
 	SETT_WINDOW_HEIGHT,
 	SETT_PRINT_MSGS,
@@ -37,10 +39,12 @@ class SettingsManager
 		void loadConfig();
 		uint getUint(SettingName idx);
 		bool getBool(SettingName idx);
+		sf::Color getColor(SettingName idx);
 		ScreenCorner getScreenCorner(SettingName idx);
 		GuiScale getGuiScale(SettingName idx);
 		void setUint(SettingName idx, uint newValue);
 		void setBool(SettingName idx, bool newValue);
+		void setColor(SettingName idx, sf::Color newValue);
 		void setScreenCorner(SettingName idx, ScreenCorner newValue);
 		void setGuiScale(SettingName idx, GuiScale newValue);
 };

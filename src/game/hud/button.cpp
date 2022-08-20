@@ -1,17 +1,15 @@
 #include "button.hpp"
 #include "../consts.hpp"
 
-Button::Button(GuiScale scale, ButtonSize size, std::string text, sf::Font &font, std::function<void(void)> callback)
+Button::Button(GuiScale scale, ButtonSize size, sf::Color color, std::string text, sf::Font &font, std::function<void(void)> callback)
 {
 	this->callback = callback;
 	this->size = size;
 
-	// rectangle border
-	this->rect.setOutlineColor(sf::Color(0, 255, 153));
+	this->setColor(color);
 
 	// text
 	this->text.setFont(font);
-	this->text.setFillColor(sf::Color(0, 255, 153));
 	this->text.setString(text);
 
 	// disabled by default
@@ -147,8 +145,21 @@ void Button::setThickness()
 void Button::setSelected(bool selected)
 {
 	this->selected = selected;
-	this->rect.setFillColor(selected ? sf::Color(0, 104, 60) : sf::Color(0, 68, 39));
+	this->rect.setFillColor(selected ? this->colorSelected : this->colorUnselected);
 	this->setThickness();
+}
+
+void Button::setColor(sf::Color color)
+{
+	// rectangle border
+	this->rect.setOutlineColor(color);
+
+	// text
+	this->text.setFillColor(color);
+
+	// selected/deselected colors are just the same color toned down
+	this->colorSelected = color * sf::Color(BTN_COLOR_BG_SEL_FACTOR, BTN_COLOR_BG_SEL_FACTOR, BTN_COLOR_BG_SEL_FACTOR);
+	this->colorUnselected = color * sf::Color(BTN_COLOR_BG_UNSEL_FACTOR, BTN_COLOR_BG_UNSEL_FACTOR, BTN_COLOR_BG_UNSEL_FACTOR);
 }
 
 void Button::setCallback(std::function<void(void)> callback)

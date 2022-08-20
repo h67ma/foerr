@@ -1,5 +1,6 @@
 #include <fstream>
 #include <json/writer.h>
+#include <SFML/Graphics.hpp>
 #include "settings_manager.hpp"
 #include "../consts.hpp"
 #include "../hud/log.hpp"
@@ -23,6 +24,7 @@ SettingsManager::SettingsManager()
 	this->settings[SETT_ANCHOR_LOG].setup("LogAnchor", CORNER_TOP_RIGHT);
 	this->settings[SETT_ANCHOR_FPS].setup("FpsAnchor", CORNER_TOP_LEFT);
 	this->settings[SETT_GUI_SCALE].setup("GuiScale", GUI_NORMAL);
+	this->settings[SETT_HUD_COLOR].setup("HudColor", sf::Color(0, 255, 153)); // default is greenish, same as in Remains
 	//this->settings[SETT_LOG_MSG_TIMEOUT].setup("LogMsgTimeout", 3); // is this really necessary?
 
 	// debug
@@ -105,6 +107,14 @@ bool SettingsManager::getBool(SettingName idx)
 	return this->settings[idx].val.logic;
 }
 
+sf::Color SettingsManager::getColor(SettingName idx)
+{
+	if (idx >= _SETTINGS_CNT)
+		return sf::Color::White; // default value is better than crash
+
+	return sf::Color(this->settings[idx].val.numeric);
+}
+
 ScreenCorner SettingsManager::getScreenCorner(SettingName idx)
 {
 	if (idx >= _SETTINGS_CNT)
@@ -141,6 +151,17 @@ void SettingsManager::setBool(SettingName idx, bool newValue)
 	}
 
 	this->settings[idx].val.logic = newValue;
+}
+
+void SettingsManager::setColor(SettingName idx, sf::Color newValue)
+{
+	if (idx >= _SETTINGS_CNT)
+	{
+		Log::w(STR_IDX_OUTTA_BOUNDS_SETT_NOT_SET);
+		return;
+	}
+
+	this->settings[idx].val.numeric = newValue.toInteger();
 }
 
 void SettingsManager::setScreenCorner(SettingName idx, ScreenCorner newValue)

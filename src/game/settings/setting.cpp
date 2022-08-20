@@ -2,6 +2,7 @@
 #include "setting.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
+#include "../util/color.hpp"
 
 void Setting::setup(std::string key, uint defaultValue)
 {
@@ -17,6 +18,14 @@ void Setting::setup(std::string key, bool defaultValue)
 	this->defaultValue.logic = defaultValue;
 	this->val.logic = defaultValue;
 	this->settingType = SETTING_BOOL;
+}
+
+void Setting::setup(std::string key, sf::Color color)
+{
+	this->key = key;
+	this->defaultValue.numeric = color.toInteger();
+	this->val.numeric = color.toInteger();
+	this->settingType = SETTING_COLOR;
 }
 
 void Setting::setup(std::string key, ScreenCorner defaultValue)
@@ -51,6 +60,7 @@ void Setting::resetToDefault()
 			this->val.guiScale = this->defaultValue.guiScale;
 			break;
 		case SETTING_UINT:
+		case SETTING_COLOR:
 		default:
 			this->val.numeric = this->defaultValue.numeric;
 	}
@@ -66,11 +76,16 @@ std::string Setting::getKey()
  */
 Json::Value Setting::getJsonValue()
 {
+	Color color;
+
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
 			return Json::Value(val.logic);
 			break;
+		case SETTING_COLOR:
+			color = Color(val.numeric);
+			return Json::Value(color.toString().c_str());
 		case SETTING_ENUM_SCREEN_CORNER: // enums are ints anyway
 		case SETTING_ENUM_GUI_SCALE: // ditto
 		case SETTING_UINT:
@@ -87,12 +102,25 @@ Json::Value Setting::getJsonValue()
 void Setting::loadFromJson(Json::Value value)
 {
 	int readEnum;
+	std::string readString;
+	Color readColor;
 
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
 			val.logic = value.asBool();
 			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.logic);
+			break;
+		case SETTING_COLOR:
+			readString = std::string(value.asCString());
+			if (!readColor.loadFromColorString(readString))
+			{
+				Log::w(STR_INVALID_COLOR_VALUE, readString.c_str(), key.c_str());
+				return;
+			}
+
+			val.numeric = readColor.toInteger();
+			Log::d(STR_LOADED_SETTING_S, key.c_str(), readString.c_str());
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
 		case SETTING_ENUM_GUI_SCALE:
