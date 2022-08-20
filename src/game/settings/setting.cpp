@@ -101,50 +101,48 @@ Json::Value Setting::getJsonValue()
  */
 void Setting::loadFromJson(Json::Value value)
 {
-	int readEnum;
-	std::string readString;
-	Color readColor;
-
-	switch (this->settingType)
+	if (this->settingType == SETTING_BOOL)
 	{
-		case SETTING_BOOL:
-			val.logic = value.asBool();
-			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.logic);
-			break;
-		case SETTING_COLOR:
-			readString = std::string(value.asCString());
-			if (!readColor.loadFromColorString(readString))
-			{
-				Log::w(STR_INVALID_COLOR_VALUE, readString.c_str(), key.c_str());
-				return;
-			}
+		val.logic = value.asBool();
+		Log::d(STR_LOADED_SETTING_D, key.c_str(), val.logic);
+	}
+	else if (this->settingType == SETTING_COLOR)
+	{
+		Color readColor;
+		std::string readString = std::string(value.asCString());
+		if (!readColor.loadFromColorString(readString))
+		{
+			Log::w(STR_INVALID_COLOR_VALUE, readString.c_str(), key.c_str());
+			return;
+		}
 
-			val.numeric = readColor.toInteger();
-			Log::d(STR_LOADED_SETTING_S, key.c_str(), readString.c_str());
-			break;
-		case SETTING_ENUM_SCREEN_CORNER:
-		case SETTING_ENUM_GUI_SCALE:
-			readEnum = value.asInt();
-			if (readEnum >= _CORNER_CNT)
-			{
-				Log::w(STR_INVALID_VALUE, readEnum, key.c_str());
-				return;
-			}
+		val.numeric = readColor.toInteger();
+		Log::d(STR_LOADED_SETTING_S, key.c_str(), readString.c_str());
+	}
+	else if (this->settingType == SETTING_ENUM_SCREEN_CORNER ||
+			 this->settingType == SETTING_ENUM_GUI_SCALE)
+	{
+		int readEnum = value.asInt();
+		if (readEnum >= _CORNER_CNT)
+		{
+			Log::w(STR_INVALID_VALUE, readEnum, key.c_str());
+			return;
+		}
 
-			if (this->settingType == SETTING_ENUM_SCREEN_CORNER)
-			{
-				val.enumScreenCorner = static_cast<ScreenCorner>(readEnum);
-				Log::d(STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
-			}
-			else if (this->settingType == SETTING_ENUM_GUI_SCALE)
-			{
-				val.guiScale = static_cast<GuiScale>(readEnum);
-				Log::d(STR_LOADED_SETTING_D, key.c_str(), val.guiScale);
-			}
-			break;
-		case SETTING_UINT:
-		default:
-			val.numeric = value.asUInt();
-			Log::d(STR_LOADED_SETTING_U, key.c_str(), val.numeric);
+		if (this->settingType == SETTING_ENUM_SCREEN_CORNER)
+		{
+			val.enumScreenCorner = static_cast<ScreenCorner>(readEnum);
+			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
+		}
+		else if (this->settingType == SETTING_ENUM_GUI_SCALE)
+		{
+			val.guiScale = static_cast<GuiScale>(readEnum);
+			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.guiScale);
+		}
+	}
+	else // SETTING_UINT
+	{
+		val.numeric = value.asUInt();
+		Log::d(STR_LOADED_SETTING_U, key.c_str(), val.numeric);
 	}
 }
