@@ -82,6 +82,7 @@ int main()
 	Log::setWriteLogToFile(settings.getBool(SETT_WRITE_LOG_TO_FILE));
 	Log::setPrintMsgs(settings.getBool(SETT_PRINT_MSGS));
 	Log::setVerboseDebug(settings.getBool(SETT_VERBOSE_DEBUG));
+	Log::setScale(initialScale);
 
 	ResourceManager resManager;
 
@@ -155,6 +156,7 @@ int main()
 		settings.setGuiScale(SETT_GUI_SCALE, GUI_SMALL);
 		setGuiScale(buttons, GUI_SMALL);
 		fpsMeter.setScale(GUI_SMALL);
+		Log::setScale(GUI_SMALL);
 	});
 	size1.setPosition(500, 400);
 	buttons.push_back(&size1);
@@ -163,6 +165,7 @@ int main()
 		settings.setGuiScale(SETT_GUI_SCALE, GUI_NORMAL);
 		setGuiScale(buttons, GUI_NORMAL);
 		fpsMeter.setScale(GUI_NORMAL);
+		Log::setScale(GUI_NORMAL);
 	});
 	size2.setPosition(500, 440);
 	buttons.push_back(&size2);
@@ -171,6 +174,7 @@ int main()
 		settings.setGuiScale(SETT_GUI_SCALE, GUI_LARGE);
 		setGuiScale(buttons, GUI_LARGE);
 		fpsMeter.setScale(GUI_LARGE);
+		Log::setScale(GUI_LARGE);
 	});
 	size3.setPosition(500, 480);
 	buttons.push_back(&size3);

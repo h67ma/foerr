@@ -1,12 +1,28 @@
 #include <SFML/Graphics.hpp>
 #include "log_element_text.hpp"
 
-LogElementText::LogElementText(std::string text, sf::Font *font, uint fontSize, sf::Color color)
+LogElementText::LogElementText(std::string text, sf::Font &font, GuiScale scale, sf::Color color)
 {
 	this->setString(text);
-	this->setFont(*font);
-	this->setCharacterSize(fontSize);
+	this->setFont(font);
 	this->setFillColor(color);
+	this->setScale(scale);
+}
+
+void LogElementText::setScale(GuiScale scale)
+{
+	switch (scale)
+	{
+		case GUI_SMALL:
+			this->setCharacterSize(FONT_SIZE_SMALL);
+			break;
+		case GUI_LARGE:
+			this->setCharacterSize(FONT_SIZE_LARGE);
+			break;
+		case GUI_NORMAL:
+		default:
+			this->setCharacterSize(FONT_SIZE_NORMAL);
+	}
 }
 
 bool LogElementText::isTimeUp()

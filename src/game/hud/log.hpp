@@ -34,6 +34,7 @@ namespace Log
 	extern bool _writeLogToFile;
 	extern bool _printMsgs;
 	extern bool _verboseDebug;
+	extern GuiScale _scale;
 	extern std::list<std::unique_ptr<LogElementText>> _history;
 
 	void _logToFile(const char* prefix, std::string msg);
@@ -44,6 +45,7 @@ namespace Log
 	void setWriteLogToFile(bool writeLogToFile);
 	void setPrintMsgs(bool printMsgs);
 	void setVerboseDebug(bool verboseDebug);
+	void setScale(GuiScale scale);
 	void maybeUpdate(bool force=false);
 	void draw(sf::RenderTarget& target);
 	void close();
@@ -73,7 +75,7 @@ namespace Log
 		if (hideInGui || _font == nullptr)
 			return;
 
-		LogElementText *logElem = new LogElementText(formatted, _font, FONT_SIZE_NORMAL, color);
+		LogElementText *logElem = new LogElementText(formatted, *_font, _scale, color);
 
 		_history.push_back(std::unique_ptr<LogElementText>(logElem));
 		maybeUpdate(true);

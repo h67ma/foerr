@@ -12,6 +12,7 @@ namespace Log
 	bool _writeLogToFile = false;
 	bool _printMsgs = true;
 	bool _verboseDebug = true;
+	GuiScale _scale = GUI_NORMAL;
 
 	std::list<std::unique_ptr<LogElementText>> _history;
 	sf::Clock _clock;
@@ -46,6 +47,15 @@ namespace Log
 	void setVerboseDebug(bool verboseDebug)
 	{
 		_verboseDebug = verboseDebug;
+	}
+
+	void setScale(GuiScale scale)
+	{
+		_scale = scale;
+		for (const auto &item : _history)
+		{
+			item->setScale(_scale);
+		}
 	}
 
 	/**
