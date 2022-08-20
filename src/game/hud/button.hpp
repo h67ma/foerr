@@ -39,7 +39,7 @@ class Button : public sf::Drawable, public sf::Transformable
 
 	public:
 		Button(GuiScale scale, ButtonSize size, std::string text, sf::Font &font, std::function<void(void)> callback = nullptr);
-		void setScale(GuiScale scale);
+		void setGuiScale(GuiScale scale);
 		void setSelected(bool selected);
 		void setCallback(std::function<void(void)> callback);
 		bool maybeHandleClick(int x, int y);

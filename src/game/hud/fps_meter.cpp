@@ -6,12 +6,12 @@
 FpsMeter::FpsMeter(GuiScale scale, sf::Font &font)
 {
 	this->text.setFont(font);
-	this->setScale(scale);
+	this->setGuiScale(scale);
 	this->text.setFillColor(sf::Color::Green);
 	this->text.setString("??");
 }
 
-void FpsMeter::setScale(GuiScale scale)
+void FpsMeter::setGuiScale(GuiScale scale)
 {
 	switch (scale)
 	{

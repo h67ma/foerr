@@ -22,7 +22,7 @@ class FpsMeter : public sf::Drawable
 		sf::Clock clock;
 	public:
 		FpsMeter(GuiScale scale, sf::Font &font);
-		void setScale(GuiScale scale);
+		void setGuiScale(GuiScale scale);
 		void setPosition(ScreenCorner anchor, uint screenW, uint screenH);
 		void maybeUpdate();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

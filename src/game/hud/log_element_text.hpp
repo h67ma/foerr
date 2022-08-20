@@ -13,6 +13,6 @@ class LogElementText: public sf::Text
 
 	public:
 		LogElementText(std::string text, sf::Font &font, GuiScale scale, sf::Color color);
-		void setScale(GuiScale scale);
+		void setGuiScale(GuiScale scale);
 		bool isTimeUp();
 };

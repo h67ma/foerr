@@ -49,12 +49,12 @@ namespace Log
 		_verboseDebug = verboseDebug;
 	}
 
-	void setScale(GuiScale scale)
+	void setGuiScale(GuiScale scale)
 	{
 		_scale = scale;
 		for (const auto &item : _history)
 		{
-			item->setScale(_scale);
+			item->setGuiScale(_scale);
 		}
 	}
 

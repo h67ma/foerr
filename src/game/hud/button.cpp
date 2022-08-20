@@ -17,10 +17,10 @@ Button::Button(GuiScale scale, ButtonSize size, std::string text, sf::Font &font
 	// disabled by default
 	this->setSelected(false);
 
-	this->setScale(scale);
+	this->setGuiScale(scale);
 }
 
-void Button::setScale(GuiScale scale)
+void Button::setGuiScale(GuiScale scale)
 {
 	uint w, h, textTopOffset;
 	this->scale = scale;

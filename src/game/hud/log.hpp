@@ -44,7 +44,7 @@ namespace Log
 	void setWriteLogToFile(bool writeLogToFile);
 	void setPrintMsgs(bool printMsgs);
 	void setVerboseDebug(bool verboseDebug);
-	void setScale(GuiScale scale);
+	void setGuiScale(GuiScale scale);
 	void maybeUpdate(bool force=false);
 	void draw(sf::RenderTarget& target);
 	void close();

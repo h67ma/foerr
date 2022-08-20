@@ -6,10 +6,10 @@ LogElementText::LogElementText(std::string text, sf::Font &font, GuiScale scale,
 	this->setString(text);
 	this->setFont(font);
 	this->setFillColor(color);
-	this->setScale(scale);
+	this->setGuiScale(scale);
 }
 
-void LogElementText::setScale(GuiScale scale)
+void LogElementText::setGuiScale(GuiScale scale)
 {
 	switch (scale)
 	{
