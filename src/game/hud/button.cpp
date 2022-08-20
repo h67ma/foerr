@@ -167,12 +167,13 @@ void Button::setCallback(std::function<void(void)> callback)
 bool Button::maybeHandleClick(int x, int y)
 {
 	// basically the entity which bounds we check on click is only moved when it's being drawn,
-	// so ::getGlobalBounds() returns a rectangle starting at (0, 0).
+	// so ::getGlobalBounds() returns a rectangle starting at (0, 0), so might as well
+	// call ::getLocalBounds() instead.
 	// TODO there might be a better way to handle this
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	if (!this->rect.getGlobalBounds().contains(static_cast<float>(x), static_cast<float>(y)))
+	if (!this->rect.getLocalBounds().contains(static_cast<float>(x), static_cast<float>(y)))
 		return false; // click outside of btn bounds
 
 	if (this->callback != nullptr)
