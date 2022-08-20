@@ -16,7 +16,6 @@
  */
 namespace Log
 {
-#define LOG_HISTORY_LEN 100
 #define LOG_UPDATE_FREQUENCY_MS 200U
 
 #define LOG_ANCHOR_PADDING_LEFT 7U

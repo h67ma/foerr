@@ -179,14 +179,6 @@ int main()
 	size3.setPosition(500, 480);
 	buttons.push_back(&size3);
 
-	bool selected = false;
-	Button btnSel(initialScale, BTN_NARROW, "toggle sel", fontMedium, [&debugBtn, &selected]() {
-		selected = !selected;
-		debugBtn.setSelected(selected);
-	});
-	btnSel.setPosition(500, 520);
-	buttons.push_back(&btnSel);
-
 	Button unpauseBtn(initialScale, BTN_BIG, "unpause", fontMedium, [&gameState]() {
 		gameState = STATE_PLAYING;
 	});
