@@ -78,14 +78,14 @@ namespace Log
 
 		// initial offset from top/bottom
 		if (_anchor == CORNER_BOTTOM_LEFT || _anchor == CORNER_BOTTOM_RIGHT)
-			y = _windowH - _history.size() * FONT_SIZE_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
+			y = _windowH - static_cast<uint>(_history.size()) * FONT_SIZE_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
 		for (auto &item : _history)
 		{
 			if (_anchor == CORNER_TOP_RIGHT || _anchor == CORNER_BOTTOM_RIGHT)
-				x = _windowW - item->getLocalBounds().width - LOG_ANCHOR_NEG_PADDING_RIGHT;
+				x = _windowW - static_cast<uint>(item->getLocalBounds().width) - LOG_ANCHOR_NEG_PADDING_RIGHT;
 
-			item->setPosition(x, y);
+			item->setPosition(static_cast<float>(x), static_cast<float>(y));
 
 			y += FONT_SIZE_NORMAL_WITH_GAP;
 		}
