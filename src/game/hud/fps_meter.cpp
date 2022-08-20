@@ -3,7 +3,7 @@
 #include "fps_meter.hpp"
 #include "../consts.hpp"
 
-FpsMeter::FpsMeter(HudScale scale, sf::Font &font)
+FpsMeter::FpsMeter(GuiScale scale, sf::Font &font)
 {
 	this->text.setFont(font);
 	this->setScale(scale);
@@ -11,17 +11,17 @@ FpsMeter::FpsMeter(HudScale scale, sf::Font &font)
 	this->text.setString("??");
 }
 
-void FpsMeter::setScale(HudScale scale)
+void FpsMeter::setScale(GuiScale scale)
 {
 	switch (scale)
 	{
-		case HUD_SMALL:
+		case GUI_SMALL:
 			this->text.setCharacterSize(FONT_SIZE_SMALL);
 			break;
-		case HUD_LARGE:
+		case GUI_LARGE:
 			this->text.setCharacterSize(FONT_SIZE_LARGE);
 			break;
-		case HUD_NORMAL:
+		case GUI_NORMAL:
 		default:
 			this->text.setCharacterSize(FONT_SIZE_NORMAL);
 	}

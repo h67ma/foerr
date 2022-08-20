@@ -27,12 +27,12 @@ void Setting::setup(std::string key, ScreenCorner defaultValue)
 	this->settingType = SETTING_ENUM_SCREEN_CORNER;
 }
 
-void Setting::setup(std::string key, HudScale defaultValue)
+void Setting::setup(std::string key, GuiScale defaultValue)
 {
 	this->key = key;
-	this->defaultValue.hudScale = defaultValue;
-	this->val.hudScale = defaultValue;
-	this->settingType = SETTING_ENUM_HUD_SCALE;
+	this->defaultValue.guiScale = defaultValue;
+	this->val.guiScale = defaultValue;
+	this->settingType = SETTING_ENUM_GUI_SCALE;
 }
 
 // TODO do we actually need this?
@@ -47,8 +47,8 @@ void Setting::resetToDefault()
 		case SETTING_ENUM_SCREEN_CORNER:
 			this->val.enumScreenCorner = this->defaultValue.enumScreenCorner;
 			break;
-		case SETTING_ENUM_HUD_SCALE:
-			this->val.hudScale = this->defaultValue.hudScale;
+		case SETTING_ENUM_GUI_SCALE:
+			this->val.guiScale = this->defaultValue.guiScale;
 			break;
 		case SETTING_UINT:
 		default:
@@ -72,7 +72,7 @@ Json::Value Setting::getJsonValue()
 			return Json::Value(val.logic);
 			break;
 		case SETTING_ENUM_SCREEN_CORNER: // enums are ints anyway
-		case SETTING_ENUM_HUD_SCALE: // ditto
+		case SETTING_ENUM_GUI_SCALE: // ditto
 		case SETTING_UINT:
 		default:
 			return Json::Value(val.numeric);
@@ -95,7 +95,7 @@ void Setting::loadFromJson(Json::Value value)
 			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.logic);
 			break;
 		case SETTING_ENUM_SCREEN_CORNER:
-		case SETTING_ENUM_HUD_SCALE:
+		case SETTING_ENUM_GUI_SCALE:
 			readEnum = value.asInt();
 			if (readEnum >= _CORNER_CNT)
 			{
@@ -108,10 +108,10 @@ void Setting::loadFromJson(Json::Value value)
 				val.enumScreenCorner = static_cast<ScreenCorner>(readEnum);
 				Log::d(STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
 			}
-			else if (this->settingType == SETTING_ENUM_HUD_SCALE)
+			else if (this->settingType == SETTING_ENUM_GUI_SCALE)
 			{
-				val.hudScale = static_cast<HudScale>(readEnum);
-				Log::d(STR_LOADED_SETTING_D, key.c_str(), val.hudScale);
+				val.guiScale = static_cast<GuiScale>(readEnum);
+				Log::d(STR_LOADED_SETTING_D, key.c_str(), val.guiScale);
 			}
 			break;
 		case SETTING_UINT:

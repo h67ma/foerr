@@ -1,7 +1,7 @@
 #include "button.hpp"
 #include "../consts.hpp"
 
-Button::Button(HudScale scale, ButtonSize size, std::string text, sf::Font &font, std::function<void(void)> callback)
+Button::Button(GuiScale scale, ButtonSize size, std::string text, sf::Font &font, std::function<void(void)> callback)
 {
 	this->callback = callback;
 	this->size = size;
@@ -20,12 +20,12 @@ Button::Button(HudScale scale, ButtonSize size, std::string text, sf::Font &font
 	this->setScale(scale);
 }
 
-void Button::setScale(HudScale scale)
+void Button::setScale(GuiScale scale)
 {
 	uint w, h, textTopOffset;
 	this->scale = scale;
 
-	if (scale == HUD_SMALL)
+	if (scale == GUI_SMALL)
 	{
 		this->text.setCharacterSize(FONT_SIZE_SMALL);
 		textTopOffset = BTN_TEXT_SMALL_TOP_OFFSET;
@@ -46,7 +46,7 @@ void Button::setScale(HudScale scale)
 				h = 21;
 		}
 	}
-	else if (scale == HUD_LARGE)
+	else if (scale == GUI_LARGE)
 	{
 		this->text.setCharacterSize(FONT_SIZE_LARGE);
 		textTopOffset = BTN_TEXT_LARGE_TOP_OFFSET;
@@ -130,13 +130,13 @@ void Button::setThickness()
 	float thicc;
 	switch (this->scale)
 	{
-		case HUD_SMALL:
+		case GUI_SMALL:
 			thicc = this->selected ? BTN_BORDER_THICKNESS_SMALL_SELECTED : BTN_BORDER_THICKNESS_SMALL;
 			break;
-		case HUD_LARGE:
+		case GUI_LARGE:
 			thicc = this->selected ? BTN_BORDER_THICKNESS_LARGE_SELECTED : BTN_BORDER_THICKNESS_LARGE;
 			break;
-		case HUD_NORMAL:
+		case GUI_NORMAL:
 		default:
 			thicc = this->selected ? BTN_BORDER_THICKNESS_NORMAL_SELECTED : BTN_BORDER_THICKNESS_NORMAL;
 	}

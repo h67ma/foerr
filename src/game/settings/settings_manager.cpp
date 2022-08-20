@@ -22,7 +22,7 @@ SettingsManager::SettingsManager()
 	this->settings[SETT_SHOW_FPS_COUNTER].setup("ShowFpsCounter", true);
 	this->settings[SETT_ANCHOR_LOG].setup("LogAnchor", CORNER_TOP_RIGHT);
 	this->settings[SETT_ANCHOR_FPS].setup("FpsAnchor", CORNER_TOP_LEFT);
-	this->settings[SETT_HUD_SCALE].setup("HudScale", HUD_NORMAL);
+	this->settings[SETT_GUI_SCALE].setup("GuiScale", GUI_NORMAL);
 	//this->settings[SETT_LOG_MSG_TIMEOUT].setup("LogMsgTimeout", 3); // is this really necessary?
 
 	// debug
@@ -113,12 +113,12 @@ ScreenCorner SettingsManager::getScreenCorner(SettingName idx)
 	return this->settings[idx].val.enumScreenCorner;
 }
 
-HudScale SettingsManager::getHudScale(SettingName idx)
+GuiScale SettingsManager::getGuiScale(SettingName idx)
 {
 	if (idx >= _SETTINGS_CNT)
-		return HUD_NORMAL; // default value is better than crash
+		return GUI_NORMAL; // default value is better than crash
 
-	return this->settings[idx].val.hudScale;
+	return this->settings[idx].val.guiScale;
 }
 
 void SettingsManager::setUint(SettingName idx, uint newValue)
@@ -154,7 +154,7 @@ void SettingsManager::setScreenCorner(SettingName idx, ScreenCorner newValue)
 	this->settings[idx].val.enumScreenCorner = newValue;
 }
 
-void SettingsManager::setHudScale(SettingName idx, HudScale newValue)
+void SettingsManager::setGuiScale(SettingName idx, GuiScale newValue)
 {
 	if (idx >= _SETTINGS_CNT)
 	{
@@ -162,5 +162,5 @@ void SettingsManager::setHudScale(SettingName idx, HudScale newValue)
 		return;
 	}
 
-	this->settings[idx].val.hudScale = newValue;
+	this->settings[idx].val.guiScale = newValue;
 }

@@ -30,7 +30,7 @@ class Button : public sf::Drawable, public sf::Transformable
 	private:
 		sf::RectangleShape rect;
 		ButtonSize size;
-		HudScale scale;
+		GuiScale scale;
 		bool selected;
 		sf::Text text;
 		sf::VertexArray gradient = sf::VertexArray(sf::Quads, 8);
@@ -38,8 +38,8 @@ class Button : public sf::Drawable, public sf::Transformable
 		void setThickness();
 
 	public:
-		Button(HudScale scale, ButtonSize size, std::string text, sf::Font &font, std::function<void(void)> callback = nullptr);
-		void setScale(HudScale scale);
+		Button(GuiScale scale, ButtonSize size, std::string text, sf::Font &font, std::function<void(void)> callback = nullptr);
+		void setScale(GuiScale scale);
 		void setSelected(bool selected);
 		void setCallback(std::function<void(void)> callback);
 		bool maybeHandleClick(int x, int y);

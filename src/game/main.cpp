@@ -32,7 +32,7 @@
 //	exit(1);
 //}
 
-void setHudScale(std::list<Button*> &buttons, HudScale scale)
+void setGuiScale(std::list<Button*> &buttons, GuiScale scale)
 {
 	for (Button* btn : buttons)
 	{
@@ -63,7 +63,7 @@ int main()
 	windowW = window.getSize().x;
 	windowH = window.getSize().y;
 
-	HudScale initialScale = settings.getHudScale(SETT_HUD_SCALE);
+	GuiScale initialScale = settings.getGuiScale(SETT_GUI_SCALE);
 
 	if (!fontNormal.loadFromFile(PATH_FONT_NORMAL))
 	{
@@ -104,9 +104,9 @@ int main()
 
 
 
-	Button tab1Btn(HUD_NORMAL, BTN_NARROW, "Weapons", fontMedium);
-	Button tab2Btn(HUD_NORMAL, BTN_NARROW, "Armor", fontMedium);
-	Button tab3Btn(HUD_NORMAL, BTN_NARROW, "Equipment", fontMedium);
+	Button tab1Btn(GUI_NORMAL, BTN_NARROW, "Weapons", fontMedium);
+	Button tab2Btn(GUI_NORMAL, BTN_NARROW, "Armor", fontMedium);
+	Button tab3Btn(GUI_NORMAL, BTN_NARROW, "Equipment", fontMedium);
 	
 	tab1Btn.setCallback([&dummyTab, &tab1Btn, &tab2Btn, &tab3Btn]() {
 		tab1Btn.setSelected(true);
@@ -152,25 +152,25 @@ int main()
 	buttons.push_back(&debugBtn);
 
 	Button size1(initialScale, BTN_NARROW, "small", fontMedium, [&settings, &buttons, &fpsMeter]() {
-		settings.setHudScale(SETT_HUD_SCALE, HUD_SMALL);
-		setHudScale(buttons, HUD_SMALL);
-		fpsMeter.setScale(HUD_SMALL);
+		settings.setGuiScale(SETT_GUI_SCALE, GUI_SMALL);
+		setGuiScale(buttons, GUI_SMALL);
+		fpsMeter.setScale(GUI_SMALL);
 	});
 	size1.setPosition(500, 400);
 	buttons.push_back(&size1);
 
 	Button size2(initialScale, BTN_NARROW, "normal", fontMedium, [&settings, &buttons, &fpsMeter]() {
-		settings.setHudScale(SETT_HUD_SCALE, HUD_NORMAL);
-		setHudScale(buttons, HUD_NORMAL);
-		fpsMeter.setScale(HUD_NORMAL);
+		settings.setGuiScale(SETT_GUI_SCALE, GUI_NORMAL);
+		setGuiScale(buttons, GUI_NORMAL);
+		fpsMeter.setScale(GUI_NORMAL);
 	});
 	size2.setPosition(500, 440);
 	buttons.push_back(&size2);
 
 	Button size3(initialScale, BTN_NARROW, "large", fontMedium, [&settings, &buttons, &fpsMeter]() {
-		settings.setHudScale(SETT_HUD_SCALE, HUD_LARGE);
-		setHudScale(buttons, HUD_LARGE);
-		fpsMeter.setScale(HUD_LARGE);
+		settings.setGuiScale(SETT_GUI_SCALE, GUI_LARGE);
+		setGuiScale(buttons, GUI_LARGE);
+		fpsMeter.setScale(GUI_LARGE);
 	});
 	size3.setPosition(500, 480);
 	buttons.push_back(&size3);

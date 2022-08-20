@@ -9,9 +9,9 @@ enum ScreenCorner
 	_CORNER_CNT
 };
 
-enum HudScale
+enum GuiScale
 {
-	HUD_SMALL,
-	HUD_NORMAL,
-	HUD_LARGE
+	GUI_SMALL,
+	GUI_NORMAL,
+	GUI_LARGE
 };
