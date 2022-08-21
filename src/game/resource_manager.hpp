@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
+#include "resource.hpp"
 
 /**
  * The role of the ResourceManager is to basically avoid a situation where a resource
@@ -33,14 +34,13 @@
 class ResourceManager
 {
 	private:
-		std::unordered_map<std::string, std::unique_ptr<sf::Texture>> textures;
+		std::unordered_map<std::string, Resource<sf::Texture>> textures;
 		// TODO std::unordered_map<std::string, sf::SoundBuffer*> audios;
 		// TODO std::unordered_map<char, sf::Texture*> charToBlock; // map for getting texture resource to draw blocks
 		// TODO std::unordered_map<char, sf::Texture*> charToBackground; // map for getting texture resource to draw backgrounds
 
 	public:
-		sf::Texture* loadTexture(std::string path);
-		// TODO bool loadAudio(std::string path);
-		sf::Texture* getTexture(std::string path);
+		sf::Texture* getTexture(std::string path, bool isCoreRes=true);
 		// TODO sf::SoundBuffer* getAudio(std::string path);
+		void clearAllNonCore();
 };

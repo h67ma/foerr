@@ -8,37 +8,54 @@
  * This texture resource will be accessible via the `getTexture` method.
  *
  * @param path image resource path
+ * @param isCoreRes `true` if this resource should not be unloaded when unloading campaigns, `false` otherwise
  * @returns pointer to the loaded texture resource, or `nullptr` if loading failed
  */
-sf::Texture* ResourceManager::loadTexture(std::string path)
+sf::Texture* ResourceManager::getTexture(std::string path, bool isCoreRes)
 {
 	auto search = this->textures.find(path);
 	if (search != this->textures.end())
-		return search->second.get(); // resource already loaded
+		return search->second.payload.get(); // resource already loaded
 
-	sf::Texture *txt = new sf::Texture();
+	std::unique_ptr<sf::Texture> txt = std::make_unique<sf::Texture>();
 	if (!txt->loadFromFile(path))
 	{
 		Log::e(STR_IMG_LOAD_FAIL, path.c_str());
-		delete txt;
 		return nullptr;
 	}
 
 	txt->setSmooth(true);
 
 	Log::v(STR_LOADED_FILE, path.c_str());
-	this->textures[path] = std::unique_ptr<sf::Texture>(txt);
-	return txt;
+
+	// TODO refactor
+	this->textures[path].payload = std::move(txt);
+	this->textures[path].isCoreRes = isCoreRes;
+	return this->textures[path].payload.get();
 }
 
 /**
- * @param path image resource path
- * @returns pointer to texture resource, or `nullptr` if specified resource is not currently loaded
+ * Unloads all resources marked as "not core".
+ * Used to clear resources used by campaign after unloading a campaign.
  */
-sf::Texture* ResourceManager::getTexture(std::string path)
+void ResourceManager::clearAllNonCore()
 {
-	if (this->textures.find(path) == this->textures.end())
-		return nullptr;
+	// note: alternatively, shared pointers could be used to track actual usage of
+	// resources, instead of manually marking them as core/not core. However this
+	// doesn't really give any benefits over current approach, as realistically we'll only
+	// ever want to unload campaign-specific resources, and in addition shared pointers
+	// add a bit of unnecessary overhead.
 
-	return this->textures[path].get();
+	size_t oldSize = this->textures.size();
+
+	for (auto it = this->textures.begin(); it != this->textures.end(); ) {
+		if (!it->second.isCoreRes)
+			it = this->textures.erase(it);
+		else
+			it++;
+	}
+
+	Log::d(STR_CLEANED_UNUSED_RES, oldSize - this->textures.size());
+
+	// TODO same for audio, etc.
 }

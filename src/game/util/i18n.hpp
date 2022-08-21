@@ -37,3 +37,4 @@
 #define STR_WINDOW_FULLSCREEN "Switching to fullscreen mode"
 #define STR_IDX_OUTTA_BOUNDS "Index out of bounds!"
 #define STR_IDX_OUTTA_BOUNDS_SETT_NOT_SET "Index out of bounds! Skipping setting a setting."
+#define STR_CLEANED_UNUSED_RES "Cleaned %u unused resources."

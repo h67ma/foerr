@@ -65,7 +65,7 @@ bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 			// unload everything
 			// mission failed, we'll get em next time
 			delete loc;
-			this->locations.clear();
+			this->unload(resMgr);
 			return false;
 		}
 		this->locations[locId] = std::unique_ptr<Location>(loc);
@@ -82,7 +82,7 @@ bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 	return true;
 }
 
-void Campaign::unload()
+void Campaign::unload(ResourceManager& resMgr)
 {
 	this->title = "";
 	this->description = "";
@@ -90,6 +90,7 @@ void Campaign::unload()
 	this->currentLocation = nullptr;
 	this->locations.clear();
 	this->loaded = false;
+	resMgr.clearAllNonCore();
 }
 
 std::string Campaign::getTitle()

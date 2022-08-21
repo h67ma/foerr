@@ -193,14 +193,20 @@ int main()
 	buttons.push_back(&saveBtn);
 
 
-	Animation *fire = new Animation(*resManager.loadTexture("res/entities/fire.png"), 50, 67, {
+	Animation *fire = new Animation(*resManager.getTexture("res/entities/fire.png"), 50, 67, {
 		{ANIM_STATIC, 17}
 	});
 	fire->setPosition(100, 200);
 	animations.push_back(fire);
 
+	Animation *fire2 = new Animation(*resManager.getTexture("res/entities/fire.png"), 50, 67, {
+		{ANIM_STATIC, 17}
+	});
+	fire2->setPosition(150, 200);
+	animations.push_back(fire2);
 
-	Animation *mchavi = new Animation(*resManager.loadTexture("res/entities/mchavi.png"), 130, 130, {
+
+	Animation *mchavi = new Animation(*resManager.getTexture("res/entities/mchavi.png"), 130, 130, {
 		{ ANIM_STAND, 1 },
 		{ ANIM_TROT, 17 },
 		{ ANIM_GALLOP, 8 },
@@ -293,8 +299,8 @@ int main()
 	loadCamp.setPosition(700, 500);
 	buttons.push_back(&loadCamp);
 
-	Button unloadCamp(initialScale, BTN_NORMAL, hudColor, "unload campaign", fontMedium, [&campaign, &gameState]() {
-		campaign.unload();
+	Button unloadCamp(initialScale, BTN_NORMAL, hudColor, "unload campaign", fontMedium, [&campaign, &gameState, &resManager]() {
+		campaign.unload(resManager);
 		Log::d(STR_CAMPAIGN_UNLOADED);
 		gameState = STATE_MAINMENU;
 	});

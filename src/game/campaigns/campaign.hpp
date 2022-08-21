@@ -14,7 +14,7 @@ class Campaign : public sf::Drawable
 
 	public:
 		bool load(std::string campaignDir, ResourceManager& resMgr);
-		void unload();
+		void unload(ResourceManager& resMgr);
 		std::string getTitle();
 		std::string getDescription();
 		bool changeLocation(std::string locKey);
