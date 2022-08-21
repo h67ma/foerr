@@ -47,7 +47,6 @@ class Animation : public sf::Drawable, public sf::Transformable
 
 	public:
 		Animation(const sf::Texture &texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds);
-		bool loadTexture();
 		void maybeNextFrame();
 		bool setAnimation(AnimationKind kind);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
