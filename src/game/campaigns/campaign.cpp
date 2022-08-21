@@ -7,7 +7,7 @@
 
 bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 {
-	this->locations.clear();
+	this->unload(resMgr);
 
 	// load basic campaign infos
 
