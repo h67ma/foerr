@@ -74,9 +74,7 @@ namespace Log
 		if (hideInGui || _font == nullptr)
 			return;
 
-		LogElementText *logElem = new LogElementText(formatted, *_font, _scale, color);
-
-		_history.push_back(std::unique_ptr<LogElementText>(logElem));
+		_history.emplace_back(std::make_unique<LogElementText>(formatted, *_font, _scale, color));
 		maybeUpdate(true);
 	}
 
