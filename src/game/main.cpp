@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Audio.hpp>
-#include "window/window_cursor.hpp"
+#include "window/cursor_manager.hpp"
 #include "util/i18n.hpp"
 #include "consts.hpp"
 #include "hud/log.hpp"
@@ -82,14 +82,14 @@ int main()
 	FpsMeter fpsMeter(initialScale, *resManager.getFont(FONT_NORMAL));
 	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowW, windowH);
 	
-	WindowCursor cursor;
-	if (!cursor.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
+	CursorManager cursorMgr;
+	if (!cursorMgr.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
 	{
 		Log::e(STR_CURSOR_LOAD_FAIL);
 		exit(1);
 	}
 
-	cursor.setCursor(window, POINTER);
+	cursorMgr.setCursor(window, POINTER);
 
 	sf::Text dummyTab;
 	dummyTab.setFont(*resManager.getFont(FONT_MEDIUM));
@@ -312,26 +312,26 @@ int main()
 	buttons.push_back(&campLoc2);
 
 
-	Button cursor1(initialScale, BTN_NARROW, hudColor, "pointer", *resManager.getFont(FONT_MEDIUM), [&cursor, &window]() {
-		cursor.setCursor(window, POINTER);
+	Button cursor1(initialScale, BTN_NARROW, hudColor, "pointer", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
+		cursorMgr.setCursor(window, POINTER);
 	});
 	cursor1.setPosition(1100, 100);
 	buttons.push_back(&cursor1);
 
-	Button cursor2(initialScale, BTN_NARROW, hudColor, "x white", *resManager.getFont(FONT_MEDIUM), [&cursor, &window]() {
-		cursor.setCursor(window, CROSSHAIR_WHITE);
+	Button cursor2(initialScale, BTN_NARROW, hudColor, "x white", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
+		cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 	});
 	cursor2.setPosition(1100, 150);
 	buttons.push_back(&cursor2);
 
-	Button cursor3(initialScale, BTN_NARROW, hudColor, "x yellow", *resManager.getFont(FONT_MEDIUM), [&cursor, &window]() {
-		cursor.setCursor(window, CROSSHAIR_YELLOW);
+	Button cursor3(initialScale, BTN_NARROW, hudColor, "x yellow", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
+		cursorMgr.setCursor(window, CROSSHAIR_YELLOW);
 	});
 	cursor3.setPosition(1100, 200);
 	buttons.push_back(&cursor3);
 
-	Button cursor4(initialScale, BTN_NARROW, hudColor, "x red", *resManager.getFont(FONT_MEDIUM), [&cursor, &window]() {
-		cursor.setCursor(window, CROSSHAIR_RED);
+	Button cursor4(initialScale, BTN_NARROW, hudColor, "x red", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
+		cursorMgr.setCursor(window, CROSSHAIR_RED);
 	});
 	cursor4.setPosition(1100, 250);
 	buttons.push_back(&cursor4);

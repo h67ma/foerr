@@ -1,6 +1,6 @@
 #include <SFML/Window/Cursor.hpp>
 #include <SFML/Graphics.hpp>
-#include "window_cursor.hpp"
+#include "cursor_manager.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 #include "../consts.hpp"
@@ -11,7 +11,7 @@
  * @param preferCustom prefer loading custom images instead of system cursors.
  * @returns whether load succeeded.
  */
-bool WindowCursor::loadCursors(bool preferCustom)
+bool CursorManager::loadCursors(bool preferCustom)
 {
 	for (uint i = 0; i < _CURSORS_CNT; i++)
 	{
@@ -22,7 +22,7 @@ bool WindowCursor::loadCursors(bool preferCustom)
 	return true;
 }
 
-void WindowCursor::setCursor(sf::RenderWindow &window, CursorType type)
+void CursorManager::setCursor(sf::RenderWindow &window, CursorType type)
 {
 	if (type >= _CURSORS_CNT)
 	{

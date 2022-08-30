@@ -41,7 +41,7 @@ enum FontType
  * resource manager.
  *
  * Fonts are special cases of core resources, i.e. they are stored differently (in arrays).
- * Cursors are handled separately via the WindowCursor class.
+ * Cursors are handled separately via the CursorManager class.
  */
 class ResourceManager
 {

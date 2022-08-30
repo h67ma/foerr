@@ -11,7 +11,7 @@ enum CursorType {
 	_CURSORS_CNT
 };
 
-class WindowCursor
+class CursorManager
 {
 	private:
 		CustomCursor cursors[_CURSORS_CNT] = {
