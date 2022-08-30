@@ -40,7 +40,8 @@ enum FontType
  * Paths of core resources are hardcoded. They must be loaded immediately after creating the
  * resource manager.
  *
- * Fonts and cursors are special cases of core resources, i.e. they are stored differently (in arrays).
+ * Fonts are special cases of core resources, i.e. they are stored differently (in arrays).
+ * Cursors are handled separately via the WindowCursor class.
  */
 class ResourceManager
 {

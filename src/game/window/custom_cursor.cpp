@@ -2,6 +2,14 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
+CustomCursor::CustomCursor(const char* path, uint hotX, uint hotY, sf::Cursor::Type fallback)
+{
+	this->path = path;
+	this->hotX = hotX;
+	this->hotY = hotY;
+	this->fallbackCursor = fallback;
+}
+
 /**
  * Tries to load a cursor from image file. If image is not found, or
  * there are other load errors, a fallback (system) cursor will be loaded instead.
@@ -31,4 +39,9 @@ bool CustomCursor::load(bool preferCustom)
 	}
 
 	return true;
+}
+
+sf::Cursor& CustomCursor::getCursor()
+{
+	return this->cursor;
 }

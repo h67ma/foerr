@@ -2,30 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "window_cursor.hpp"
 #include "../util/i18n.hpp"
+#include "../hud/log.hpp"
 #include "../consts.hpp"
-
-WindowCursor::WindowCursor()
-{
-	this->cursors[0].path = PATH_CURSOR_ARROW;
-	this->cursors[0].hotX = 1;
-	this->cursors[0].hotY = 1;
-	this->cursors[0].fallbackCursor = sf::Cursor::Arrow;
-
-	this->cursors[1].path = PATH_CURSOR_CROSS_WHITE;
-	this->cursors[1].hotX = 1;
-	this->cursors[1].hotY = 1;
-	this->cursors[1].fallbackCursor = sf::Cursor::Cross;
-
-	this->cursors[2].path = PATH_CURSOR_CROSS_YELLOW;
-	this->cursors[2].hotX = 1;
-	this->cursors[2].hotY = 1;
-	this->cursors[2].fallbackCursor = sf::Cursor::Cross;
-
-	this->cursors[3].path = PATH_CURSOR_CROSS_RED;
-	this->cursors[3].hotX = 1;
-	this->cursors[3].hotY = 1;
-	this->cursors[3].fallbackCursor = sf::Cursor::Cross;
-}
 
 /**
  * Loads all cursors.
@@ -35,19 +13,22 @@ WindowCursor::WindowCursor()
  */
 bool WindowCursor::loadCursors(bool preferCustom)
 {
-	bool succ = true;
-	
-	for (uint i = 0; i < CURSORS_CNT; i++)
+	for (uint i = 0; i < _CURSORS_CNT; i++)
 	{
-		succ = this->cursors[i].load(preferCustom);
-		if (!succ)
+		if (!this->cursors[i].load(preferCustom))
 			return false;
 	}
 
 	return true;
 }
 
-void WindowCursor::setCursor(sf::RenderWindow *window, CursorType type)
+void WindowCursor::setCursor(sf::RenderWindow &window, CursorType type)
 {
-	window->setMouseCursor(this->cursors[type].cursor);
+	if (type >= _CURSORS_CNT)
+	{
+		Log::w(STR_IDX_OUTTA_BOUNDS);
+		return;
+	}
+
+	window.setMouseCursor(this->cursors[type].getCursor());
 }

@@ -11,7 +11,7 @@ const char* _fonts[] = {
 };
 
 /**
- * Loads essential resources: fonts and cursors.
+ * Loads essential resources, such as fonts.
  * If the loading fails, then the program must be exited.
  *
  * @returns `true` if the loading succeeded, `false` otherwise
@@ -27,7 +27,7 @@ bool ResourceManager::loadCore()
 		}
 	}
 
-	// TODO cursors, core textures, core audio, etc.
+	// TODO core textures, core audio, etc.
 
 	this->coreLoaded = true;
 	return true;
