@@ -32,7 +32,7 @@
 //	exit(1);
 //}
 
-void setGuiScale(std::list<Button*> &buttons, GuiScale scale)
+void setGuiScale(std::vector<Button*> &buttons, GuiScale scale)
 {
 	for (Button* btn : buttons)
 	{
@@ -48,7 +48,7 @@ int main()
 
 	sf::RenderWindow window;
 	uint windowW, windowH;
-	std::list<Button*> buttons;
+	std::vector<Button*> buttons;
 	std::vector<Animation*> animations;
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
