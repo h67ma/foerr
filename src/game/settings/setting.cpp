@@ -119,8 +119,7 @@ void Setting::loadFromJson(Json::Value value)
 		val.numeric = readColor.toInteger();
 		Log::d(STR_LOADED_SETTING_S, key.c_str(), readString.c_str());
 	}
-	else if (this->settingType == SETTING_ENUM_SCREEN_CORNER ||
-			 this->settingType == SETTING_ENUM_GUI_SCALE)
+	else if (this->settingType == SETTING_ENUM_SCREEN_CORNER )
 	{
 		int readEnum = value.asInt();
 		if (readEnum >= _CORNER_CNT)
@@ -129,16 +128,20 @@ void Setting::loadFromJson(Json::Value value)
 			return;
 		}
 
-		if (this->settingType == SETTING_ENUM_SCREEN_CORNER)
+		val.enumScreenCorner = static_cast<ScreenCorner>(readEnum);
+		Log::d(STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
+	}
+	else if (this->settingType == SETTING_ENUM_GUI_SCALE)
+	{
+		int readEnum = value.asInt();
+		if (readEnum >= _GUI_SCALE_CNT)
 		{
-			val.enumScreenCorner = static_cast<ScreenCorner>(readEnum);
-			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.enumScreenCorner);
+			Log::w(STR_INVALID_VALUE, readEnum, key.c_str());
+			return;
 		}
-		else if (this->settingType == SETTING_ENUM_GUI_SCALE)
-		{
-			val.guiScale = static_cast<GuiScale>(readEnum);
-			Log::d(STR_LOADED_SETTING_D, key.c_str(), val.guiScale);
-		}
+
+		val.guiScale = static_cast<GuiScale>(readEnum);
+		Log::d(STR_LOADED_SETTING_D, key.c_str(), val.guiScale);
 	}
 	else // SETTING_UINT
 	{

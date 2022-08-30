@@ -13,5 +13,6 @@ enum GuiScale
 {
 	GUI_SMALL,
 	GUI_NORMAL,
-	GUI_LARGE
+	GUI_LARGE,
+	_GUI_SCALE_CNT
 };
