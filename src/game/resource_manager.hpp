@@ -4,6 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include "resource.hpp"
 
+enum FontType
+{
+	FONT_NORMAL,
+	FONT_MEDIUM,
+	FONT_FIXED,
+	_FONT_CNT
+};
+
 /**
  * The role of the ResourceManager is to basically avoid a situation where a resource
  * (e.g. texture, audio file, etc.) is loaded multiple times.
@@ -24,23 +32,30 @@
  * Resource manager does not store text (json) files. These are loaded when the game/campaign is
  * being loaded and are not unloaded (unless unloading a whole campaign).
  *
- * There's also a group of resources that needs to be loaded all the time, e.g. fonts, some
- * translations, cursors, etc. Those resources need to be marked as "core" to prevent unloading
- * them at any point.
- *
  * Resource files are identified by their path in filesystem. The same string is used for loading
  * and getting resources.
+ *
+ * There's also a group of resources that need to be loaded all the time, e.g. some textures.
+ * These resources need to be marked as "core" to prevent unloading them at any point.
+ * Paths of core resources are hardcoded. They must be loaded immediately after creating the
+ * resource manager.
+ *
+ * Fonts and cursors are special cases of core resources, i.e. they are stored differently (in arrays).
  */
 class ResourceManager
 {
 	private:
+		bool coreLoaded = false;
+		sf::Font fonts[_FONT_CNT];
 		std::unordered_map<std::string, Resource<sf::Texture>> textures;
 		// TODO std::unordered_map<std::string, sf::SoundBuffer*> audios;
 		// TODO std::unordered_map<char, sf::Texture*> charToBlock; // map for getting texture resource to draw blocks
 		// TODO std::unordered_map<char, sf::Texture*> charToBackground; // map for getting texture resource to draw backgrounds
 
 	public:
+		bool loadCore();
 		sf::Texture* getTexture(std::string path, bool isCoreRes=true);
+		sf::Font* getFont(FontType fontType);
 		// TODO sf::SoundBuffer* getAudio(std::string path);
 		void clearAllNonCore();
 };

@@ -3,9 +3,40 @@
 #include "../hud/log.hpp"
 #include "consts.hpp"
 
+// order matters!
+const char* _fonts[] = {
+	"res/fonts/OpenSans-Regular.ttf",	// FONT_NORMAL
+	"res/fonts/OpenSans-Medium.ttf",	// FONT_MEDIUM
+	"res/fonts/Inconsolata-Regular.ttf"	// FONT_FIXED
+};
+
+/**
+ * Loads essential resources: fonts and cursors.
+ * If the loading fails, then the program must be exited.
+ *
+ * @returns `true` if the loading succeeded, `false` otherwise
+ */
+bool ResourceManager::loadCore()
+{
+	for (size_t i = 0; i < _FONT_CNT; i++)
+	{
+		if (!this->fonts[i].loadFromFile(_fonts[i]))
+		{
+			Log::e(STR_FONT_LOAD_FAIL, _fonts[i]);
+			return false;
+		}
+	}
+
+	// TODO cursors, core textures, core audio, etc.
+
+	this->coreLoaded = true;
+	return true;
+}
+
 /**
  * Loads a texture from specified path into resource manager object.
  * This texture resource will be accessible via the `getTexture` method.
+ * isCoreRes has no meaning if the texture is already loaded.
  *
  * @param path image resource path
  * @param isCoreRes `true` if this resource should not be unloaded when unloading campaigns, `false` otherwise
@@ -32,6 +63,18 @@ sf::Texture* ResourceManager::getTexture(std::string path, bool isCoreRes)
 	this->textures[path].payload = std::move(txt);
 	this->textures[path].isCoreRes = isCoreRes;
 	return this->textures[path].payload.get();
+}
+
+/**
+ * @param fontType font type enum
+ * @returns pointer to font resource if it's loaded and fontType is valid, `nullptr` otherwise.
+ */
+sf::Font* ResourceManager::getFont(FontType fontType)
+{
+	if (fontType >= _FONT_CNT || !coreLoaded)
+		return nullptr;
+
+	return &this->fonts[fontType];
 }
 
 /**
