@@ -142,11 +142,30 @@ void Button::setThickness()
 	this->rect.setOutlineThickness(thicc);
 }
 
+/**
+ * Sets the correct button state (rect background color)
+ * based on whether the button is selected and/or being hovered.
+ */
+void Button::updateState()
+{
+	if (this->hover)
+		this->rect.setFillColor(this->colorHover);
+	else
+		this->rect.setFillColor(this->selected ? this->colorSelected : this->colorUnselected);
+
+	this->setThickness(); // thickness changes between selected/deselected state
+}
+
 void Button::setSelected(bool selected)
 {
 	this->selected = selected;
-	this->rect.setFillColor(selected ? this->colorSelected : this->colorUnselected);
-	this->setThickness();
+	this->updateState();
+}
+
+void Button::setHover(bool hover)
+{
+	this->hover = hover;
+	this->updateState();
 }
 
 void Button::setColor(sf::Color color)
@@ -157,9 +176,10 @@ void Button::setColor(sf::Color color)
 	// text
 	this->text.setFillColor(color);
 
-	// selected/deselected colors are just the same color toned down
-	this->colorSelected = color * sf::Color(BTN_COLOR_BG_SEL_FACTOR, BTN_COLOR_BG_SEL_FACTOR, BTN_COLOR_BG_SEL_FACTOR);
-	this->colorUnselected = color * sf::Color(BTN_COLOR_BG_UNSEL_FACTOR, BTN_COLOR_BG_UNSEL_FACTOR, BTN_COLOR_BG_UNSEL_FACTOR);
+	// hover/selected/deselected colors are the same color toned down
+	this->colorHover = color * sf::Color(BTN_COLOR_HOVER_FACTOR, BTN_COLOR_HOVER_FACTOR, BTN_COLOR_HOVER_FACTOR);
+	this->colorSelected = color * sf::Color(BTN_COLOR_SEL_FACTOR, BTN_COLOR_SEL_FACTOR, BTN_COLOR_SEL_FACTOR);
+	this->colorUnselected = color * sf::Color(BTN_COLOR_UNSEL_FACTOR, BTN_COLOR_UNSEL_FACTOR, BTN_COLOR_UNSEL_FACTOR);
 }
 
 void Button::setCallback(std::function<void(void)> callback)
@@ -173,9 +193,9 @@ void Button::setCallback(std::function<void(void)> callback)
  *
  * @param x click x coordinate
  * @param y click y coordinate
- * @returns `true` if click was consumed, `false` otherwise
+ * @returns `true` if point belongs to button area, `false` otherwise
 */
-bool Button::maybeHandleClick(int x, int y)
+bool Button::containsPoint(int x, int y)
 {
 	// basically the entity which bounds we check on click is only moved when it's being drawn,
 	// so ::getGlobalBounds() returns a rectangle starting at (0, 0), so might as well
@@ -184,8 +204,21 @@ bool Button::maybeHandleClick(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	if (!this->rect.getLocalBounds().contains(static_cast<float>(x), static_cast<float>(y)))
-		return false; // click outside of btn bounds
+	return this->rect.getLocalBounds().contains(static_cast<float>(x), static_cast<float>(y));
+}
+
+/**
+ * Checks if click was placed inside button area.
+ * If it was, and the callback function exists, the callback will be called.
+ *
+ * @param x click x coordinate
+ * @param y click y coordinate
+ * @returns `true` if click was consumed, `false` otherwise
+*/
+bool Button::maybeHandleClick(int x, int y)
+{
+	if (!this->containsPoint(x, y))
+		return false;
 
 	if (this->callback != nullptr)
 		this->callback();

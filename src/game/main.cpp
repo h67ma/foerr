@@ -19,6 +19,8 @@
 #include "campaigns/campaign.hpp"
 #include "window/util.hpp"
 
+#define NO_HOVER -1
+
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
 //	size_t size;
@@ -50,6 +52,8 @@ int main()
 	uint windowW, windowH;
 	std::vector<Button*> buttons;
 	std::vector<Animation*> animations;
+	std::vector<Hoverable*> hoverables;
+	int lastHoveredIdx = NO_HOVER;
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
 
@@ -132,6 +136,10 @@ int main()
 	buttons.push_back(&tab2Btn);
 	buttons.push_back(&tab3Btn);
 
+	hoverables.push_back(&tab1Btn);
+	hoverables.push_back(&tab2Btn);
+	hoverables.push_back(&tab3Btn);
+
 	sf::SoundBuffer buffer;
 	if (!buffer.loadFromFile("res/audio/13_skill.wav"))
 		return -1;
@@ -144,6 +152,7 @@ int main()
 	});
 	debugBtn.setPosition(300, 400);
 	buttons.push_back(&debugBtn);
+	hoverables.push_back(&debugBtn);
 
 	Button size1(initialScale, BTN_NARROW, hudColor, "small", *resManager.getFont(FONT_MEDIUM), [&settings, &buttons, &fpsMeter]() {
 		settings.setGuiScale(SETT_GUI_SCALE, GUI_SMALL);
@@ -153,6 +162,7 @@ int main()
 	});
 	size1.setPosition(500, 400);
 	buttons.push_back(&size1);
+	hoverables.push_back(&size1);
 
 	Button size2(initialScale, BTN_NARROW, hudColor, "normal", *resManager.getFont(FONT_MEDIUM), [&settings, &buttons, &fpsMeter]() {
 		settings.setGuiScale(SETT_GUI_SCALE, GUI_NORMAL);
@@ -162,6 +172,7 @@ int main()
 	});
 	size2.setPosition(500, 440);
 	buttons.push_back(&size2);
+	hoverables.push_back(&size2);
 
 	Button size3(initialScale, BTN_NARROW, hudColor, "large", *resManager.getFont(FONT_MEDIUM), [&settings, &buttons, &fpsMeter]() {
 		settings.setGuiScale(SETT_GUI_SCALE, GUI_LARGE);
@@ -171,18 +182,21 @@ int main()
 	});
 	size3.setPosition(500, 480);
 	buttons.push_back(&size3);
+	hoverables.push_back(&size3);
 
 	Button unpauseBtn(initialScale, BTN_BIG, hudColor, "unpause", *resManager.getFont(FONT_MEDIUM), [&gameState]() {
 		gameState = STATE_PLAYING;
 	});
 	unpauseBtn.setPosition(300, 500);
 	buttons.push_back(&unpauseBtn);
+	hoverables.push_back(&unpauseBtn);
 
 	Button saveBtn(initialScale, BTN_NORMAL, hudColor, "Save config", *resManager.getFont(FONT_MEDIUM), [&settings]() {
 		settings.saveConfig();
 	});
 	saveBtn.setPosition(100, 500);
 	buttons.push_back(&saveBtn);
+	hoverables.push_back(&saveBtn);
 
 
 	Animation *fire = new Animation(*resManager.getTexture("res/entities/fire.png"), 50, 67, {
@@ -218,60 +232,70 @@ int main()
 	});
 	mchavi1.setPosition(700, 60);
 	buttons.push_back(&mchavi1);
+	hoverables.push_back(&mchavi1);
 
 	Button mchavi2(initialScale, BTN_NORMAL, hudColor, "walk", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
 		mchavi->setAnimation(ANIM_WALK);
 	});
 	mchavi2.setPosition(700, 90);
 	buttons.push_back(&mchavi2);
+	hoverables.push_back(&mchavi2);
 
 	Button mchavi3(initialScale, BTN_NORMAL, hudColor, "trot", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
 		mchavi->setAnimation(ANIM_TROT);
 	});
 	mchavi3.setPosition(700, 120);
 	buttons.push_back(&mchavi3);
+	hoverables.push_back(&mchavi3);
 
 	Button mchavi4(initialScale, BTN_NORMAL, hudColor, "gallop", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
 		mchavi->setAnimation(ANIM_GALLOP);
 	});
 	mchavi4.setPosition(700, 150);
 	buttons.push_back(&mchavi4);
+	hoverables.push_back(&mchavi4);
 
 	Button mchavi5(initialScale, BTN_NORMAL, hudColor, "jump", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
 		mchavi->setAnimation(ANIM_JUMP);
 	});
 	mchavi5.setPosition(700, 180);
 	buttons.push_back(&mchavi5);
+	hoverables.push_back(&mchavi5);
 
 	Button mchavi6(initialScale, BTN_NORMAL, hudColor, "die ground", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_GROUND);
 	});
 	mchavi6.setPosition(700, 210);
 	buttons.push_back(&mchavi6);
+	hoverables.push_back(&mchavi6);
 
 	Button mchavi7(initialScale, BTN_NORMAL, hudColor, "die air", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_AIR);
 	});
 	mchavi7.setPosition(700, 240);
 	buttons.push_back(&mchavi7);
+	hoverables.push_back(&mchavi7);
 
 	Button mchavi8(initialScale, BTN_NORMAL, hudColor, "tk hold", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
 		mchavi->setAnimation(ANIM_TK_HOLD);
 	});
 	mchavi8.setPosition(700, 270);
 	buttons.push_back(&mchavi8);
+	hoverables.push_back(&mchavi8);
 
 	Button mchavi9(initialScale, BTN_NORMAL, hudColor, "swim", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
 		mchavi->setAnimation(ANIM_SWIM);
 	});
 	mchavi9.setPosition(700, 300);
 	buttons.push_back(&mchavi9);
+	hoverables.push_back(&mchavi9);
 
 	Button mchavi10(initialScale, BTN_NORMAL, hudColor, "climb", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
 		mchavi->setAnimation(ANIM_CLIMB);
 	});
 	mchavi10.setPosition(700, 330);
 	buttons.push_back(&mchavi10);
+	hoverables.push_back(&mchavi10);
 
 	mchavi->setAnimation(ANIM_SWIM);
 
@@ -290,6 +314,7 @@ int main()
 	});
 	loadCamp.setPosition(700, 500);
 	buttons.push_back(&loadCamp);
+	hoverables.push_back(&loadCamp);
 
 	Button unloadCamp(initialScale, BTN_NORMAL, hudColor, "unload campaign", *resManager.getFont(FONT_MEDIUM), [&campaign, &gameState, &resManager]() {
 		campaign.unload(resManager);
@@ -298,18 +323,21 @@ int main()
 	});
 	unloadCamp.setPosition(700, 550);
 	buttons.push_back(&unloadCamp);
+	hoverables.push_back(&unloadCamp);
 
 	Button campLoc1(initialScale, BTN_NORMAL, hudColor, "goto loc 1", *resManager.getFont(FONT_MEDIUM), [&campaign]() {
 		campaign.changeLocation("surface");
 	});
 	campLoc1.setPosition(900, 500);
 	buttons.push_back(&campLoc1);
+	hoverables.push_back(&campLoc1);
 
 	Button campLoc2(initialScale, BTN_NORMAL, hudColor, "goto loc 2", *resManager.getFont(FONT_MEDIUM), [&campaign]() {
 		campaign.changeLocation("technical_tunnels");
 	});
 	campLoc2.setPosition(900, 550);
 	buttons.push_back(&campLoc2);
+	hoverables.push_back(&campLoc2);
 
 
 	Button cursor1(initialScale, BTN_NARROW, hudColor, "pointer", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
@@ -317,24 +345,28 @@ int main()
 	});
 	cursor1.setPosition(1100, 100);
 	buttons.push_back(&cursor1);
+	hoverables.push_back(&cursor1);
 
 	Button cursor2(initialScale, BTN_NARROW, hudColor, "x white", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 	});
 	cursor2.setPosition(1100, 150);
 	buttons.push_back(&cursor2);
+	hoverables.push_back(&cursor2);
 
 	Button cursor3(initialScale, BTN_NARROW, hudColor, "x yellow", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_YELLOW);
 	});
 	cursor3.setPosition(1100, 200);
 	buttons.push_back(&cursor3);
+	hoverables.push_back(&cursor3);
 
 	Button cursor4(initialScale, BTN_NARROW, hudColor, "x red", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_RED);
 	});
 	cursor4.setPosition(1100, 250);
 	buttons.push_back(&cursor4);
+	hoverables.push_back(&cursor4);
 
 
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView);
@@ -393,6 +425,53 @@ int main()
 						if (btn->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
 							break; // click consumed, no need to check other buttons
 					}
+				}
+			}
+			else if (event.type == sf::Event::MouseMoved)
+			{
+				// note: we could reuse the searching loop, but
+				// it just makes the code look more complicated
+
+				if (lastHoveredIdx == NO_HOVER)
+				{
+					// there was no item which we hovered over previously.
+					// need to search through hoverables and check if we entered any of them.
+					// if none is found, last hover idx will still remain at NO_HOVER.
+					for (auto it = hoverables.begin(); it != hoverables.end(); it++)
+					{
+						if ((*it)->containsPoint(event.mouseMove.x, event.mouseMove.y))
+						{
+							lastHoveredIdx = static_cast<int>(std::distance(hoverables.begin(), it));
+							(*it)->setHover(true);
+							break;
+						}
+					}
+				}
+				// there was an item which was previously hovered-over. there's a good chance
+				// it's still being hovered now, so check it before iterating the whole collection
+				// of hoverables. if it's still hovered, then we don't need to change anything.
+				else if (!hoverables[lastHoveredIdx]->containsPoint(event.mouseMove.x, event.mouseMove.y))
+				{
+					// previous item lost hover.
+					// we need to check if any new item gained hover,
+					// and if none then set NO_HOVER as last idx.
+
+					hoverables[lastHoveredIdx]->setHover(false);
+
+					bool foundNewHover = false;
+					for (auto it = hoverables.begin(); it != hoverables.end(); it++)
+					{
+						if ((*it)->containsPoint(event.mouseMove.x, event.mouseMove.y))
+						{
+							lastHoveredIdx = static_cast<int>(std::distance(hoverables.begin(), it));
+							(*it)->setHover(true);
+							foundNewHover = true;
+							break;
+						}
+					}
+
+					if (!foundNewHover)
+						lastHoveredIdx = NO_HOVER;
 				}
 			}
 		}
