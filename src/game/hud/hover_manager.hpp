@@ -8,6 +8,7 @@ class HoverManager
 	private:
 		int lastHoveredIdx = NO_HOVER_IDX;
 		std::vector<Hoverable*> hoverables;
+		bool searchSetHover(int x, int y);
 
 	public:
 		void addHoverable(Hoverable *hoverable);
