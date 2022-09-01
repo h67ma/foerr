@@ -29,8 +29,6 @@ enum ButtonSize
 	BTN_BIG,
 };
 
-// TODO? change btn color on hover. could be a nice addition, but kinda tedious to implement
-// another nice thing would be to change cursor color/shape on hover, maybe it would be easier to implement
 class Button : public sf::Drawable, public sf::Transformable, public Hoverable
 {
 	private:
