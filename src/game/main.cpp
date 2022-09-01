@@ -19,6 +19,7 @@
 #include "campaigns/campaign.hpp"
 #include "window/util.hpp"
 #include "hud/hover_manager.hpp"
+#include "hud/clickable.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -50,6 +51,7 @@ int main()
 	sf::RenderWindow window;
 	uint windowW, windowH;
 	std::vector<Button*> buttons;
+	std::vector<Clickable*> clickables;
 	std::vector<Animation*> animations;
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
@@ -135,6 +137,10 @@ int main()
 	buttons.push_back(&tab2Btn);
 	buttons.push_back(&tab3Btn);
 
+	clickables.push_back(&tab1Btn);
+	clickables.push_back(&tab2Btn);
+	clickables.push_back(&tab3Btn);
+
 	hoverMgr.addHoverable(&tab1Btn);
 	hoverMgr.addHoverable(&tab2Btn);
 	hoverMgr.addHoverable(&tab3Btn);
@@ -151,6 +157,7 @@ int main()
 	});
 	debugBtn.setPosition(300, 400);
 	buttons.push_back(&debugBtn);
+	clickables.push_back(&debugBtn);
 	hoverMgr.addHoverable(&debugBtn);
 
 	Button size1(initialScale, BTN_NARROW, hudColor, "small", *resManager.getFont(FONT_MEDIUM), [&settings, &buttons, &fpsMeter]() {
@@ -161,6 +168,7 @@ int main()
 	});
 	size1.setPosition(500, 400);
 	buttons.push_back(&size1);
+	clickables.push_back(&size1);
 	hoverMgr.addHoverable(&size1);
 
 	Button size2(initialScale, BTN_NARROW, hudColor, "normal", *resManager.getFont(FONT_MEDIUM), [&settings, &buttons, &fpsMeter]() {
@@ -171,6 +179,7 @@ int main()
 	});
 	size2.setPosition(500, 440);
 	buttons.push_back(&size2);
+	clickables.push_back(&size2);
 	hoverMgr.addHoverable(&size2);
 
 	Button size3(initialScale, BTN_NARROW, hudColor, "large", *resManager.getFont(FONT_MEDIUM), [&settings, &buttons, &fpsMeter]() {
@@ -181,6 +190,7 @@ int main()
 	});
 	size3.setPosition(500, 480);
 	buttons.push_back(&size3);
+	clickables.push_back(&size3);
 	hoverMgr.addHoverable(&size3);
 
 	Button unpauseBtn(initialScale, BTN_BIG, hudColor, "unpause", *resManager.getFont(FONT_MEDIUM), [&gameState]() {
@@ -188,6 +198,7 @@ int main()
 	});
 	unpauseBtn.setPosition(300, 500);
 	buttons.push_back(&unpauseBtn);
+	clickables.push_back(&unpauseBtn);
 	hoverMgr.addHoverable(&unpauseBtn);
 
 	Button saveBtn(initialScale, BTN_NORMAL, hudColor, "Save config", *resManager.getFont(FONT_MEDIUM), [&settings]() {
@@ -195,6 +206,7 @@ int main()
 	});
 	saveBtn.setPosition(100, 500);
 	buttons.push_back(&saveBtn);
+	clickables.push_back(&saveBtn);
 	hoverMgr.addHoverable(&saveBtn);
 
 
@@ -231,6 +243,7 @@ int main()
 	});
 	mchavi1.setPosition(700, 60);
 	buttons.push_back(&mchavi1);
+	clickables.push_back(&mchavi1);
 	hoverMgr.addHoverable(&mchavi1);
 
 	Button mchavi2(initialScale, BTN_NORMAL, hudColor, "walk", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
@@ -238,6 +251,7 @@ int main()
 	});
 	mchavi2.setPosition(700, 90);
 	buttons.push_back(&mchavi2);
+	clickables.push_back(&mchavi2);
 	hoverMgr.addHoverable(&mchavi2);
 
 	Button mchavi3(initialScale, BTN_NORMAL, hudColor, "trot", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
@@ -245,6 +259,7 @@ int main()
 	});
 	mchavi3.setPosition(700, 120);
 	buttons.push_back(&mchavi3);
+	clickables.push_back(&mchavi3);
 	hoverMgr.addHoverable(&mchavi3);
 
 	Button mchavi4(initialScale, BTN_NORMAL, hudColor, "gallop", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
@@ -252,6 +267,7 @@ int main()
 	});
 	mchavi4.setPosition(700, 150);
 	buttons.push_back(&mchavi4);
+	clickables.push_back(&mchavi4);
 	hoverMgr.addHoverable(&mchavi4);
 
 	Button mchavi5(initialScale, BTN_NORMAL, hudColor, "jump", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
@@ -259,6 +275,7 @@ int main()
 	});
 	mchavi5.setPosition(700, 180);
 	buttons.push_back(&mchavi5);
+	clickables.push_back(&mchavi5);
 	hoverMgr.addHoverable(&mchavi5);
 
 	Button mchavi6(initialScale, BTN_NORMAL, hudColor, "die ground", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
@@ -266,6 +283,7 @@ int main()
 	});
 	mchavi6.setPosition(700, 210);
 	buttons.push_back(&mchavi6);
+	clickables.push_back(&mchavi6);
 	hoverMgr.addHoverable(&mchavi6);
 
 	Button mchavi7(initialScale, BTN_NORMAL, hudColor, "die air", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
@@ -273,6 +291,7 @@ int main()
 	});
 	mchavi7.setPosition(700, 240);
 	buttons.push_back(&mchavi7);
+	clickables.push_back(&mchavi7);
 	hoverMgr.addHoverable(&mchavi7);
 
 	Button mchavi8(initialScale, BTN_NORMAL, hudColor, "tk hold", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
@@ -280,6 +299,7 @@ int main()
 	});
 	mchavi8.setPosition(700, 270);
 	buttons.push_back(&mchavi8);
+	clickables.push_back(&mchavi8);
 	hoverMgr.addHoverable(&mchavi8);
 
 	Button mchavi9(initialScale, BTN_NORMAL, hudColor, "swim", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
@@ -287,6 +307,7 @@ int main()
 	});
 	mchavi9.setPosition(700, 300);
 	buttons.push_back(&mchavi9);
+	clickables.push_back(&mchavi9);
 	hoverMgr.addHoverable(&mchavi9);
 
 	Button mchavi10(initialScale, BTN_NORMAL, hudColor, "climb", *resManager.getFont(FONT_MEDIUM), [&mchavi]() {
@@ -294,6 +315,7 @@ int main()
 	});
 	mchavi10.setPosition(700, 330);
 	buttons.push_back(&mchavi10);
+	clickables.push_back(&mchavi10);
 	hoverMgr.addHoverable(&mchavi10);
 
 	mchavi->setAnimation(ANIM_SWIM);
@@ -313,6 +335,7 @@ int main()
 	});
 	loadCamp.setPosition(700, 500);
 	buttons.push_back(&loadCamp);
+	clickables.push_back(&loadCamp);
 	hoverMgr.addHoverable(&loadCamp);
 
 	Button unloadCamp(initialScale, BTN_NORMAL, hudColor, "unload campaign", *resManager.getFont(FONT_MEDIUM), [&campaign, &gameState, &resManager]() {
@@ -322,6 +345,7 @@ int main()
 	});
 	unloadCamp.setPosition(700, 550);
 	buttons.push_back(&unloadCamp);
+	clickables.push_back(&unloadCamp);
 	hoverMgr.addHoverable(&unloadCamp);
 
 	Button campLoc1(initialScale, BTN_NORMAL, hudColor, "goto loc 1", *resManager.getFont(FONT_MEDIUM), [&campaign]() {
@@ -329,6 +353,7 @@ int main()
 	});
 	campLoc1.setPosition(900, 500);
 	buttons.push_back(&campLoc1);
+	clickables.push_back(&campLoc1);
 	hoverMgr.addHoverable(&campLoc1);
 
 	Button campLoc2(initialScale, BTN_NORMAL, hudColor, "goto loc 2", *resManager.getFont(FONT_MEDIUM), [&campaign]() {
@@ -336,6 +361,7 @@ int main()
 	});
 	campLoc2.setPosition(900, 550);
 	buttons.push_back(&campLoc2);
+	clickables.push_back(&campLoc2);
 	hoverMgr.addHoverable(&campLoc2);
 
 
@@ -344,6 +370,7 @@ int main()
 	});
 	cursor1.setPosition(1100, 100);
 	buttons.push_back(&cursor1);
+	clickables.push_back(&cursor1);
 	hoverMgr.addHoverable(&cursor1);
 
 	Button cursor2(initialScale, BTN_NARROW, hudColor, "x white", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
@@ -351,6 +378,7 @@ int main()
 	});
 	cursor2.setPosition(1100, 150);
 	buttons.push_back(&cursor2);
+	clickables.push_back(&cursor2);
 	hoverMgr.addHoverable(&cursor2);
 
 	Button cursor3(initialScale, BTN_NARROW, hudColor, "x yellow", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
@@ -358,6 +386,7 @@ int main()
 	});
 	cursor3.setPosition(1100, 200);
 	buttons.push_back(&cursor3);
+	clickables.push_back(&cursor3);
 	hoverMgr.addHoverable(&cursor3);
 
 	Button cursor4(initialScale, BTN_NARROW, hudColor, "x red", *resManager.getFont(FONT_MEDIUM), [&cursorMgr, &window]() {
@@ -365,6 +394,7 @@ int main()
 	});
 	cursor4.setPosition(1100, 250);
 	buttons.push_back(&cursor4);
+	clickables.push_back(&cursor4);
 	hoverMgr.addHoverable(&cursor4);
 
 
@@ -419,9 +449,9 @@ int main()
 				//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
-					for (Button* btn : buttons)
+					for (const auto clickable : clickables)
 					{
-						if (btn->maybeHandleClick(event.mouseButton.x, event.mouseButton.y))
+						if (clickable->maybeHandleLeftClick(event.mouseButton.x, event.mouseButton.y))
 							break; // click consumed, no need to check other buttons
 					}
 				}

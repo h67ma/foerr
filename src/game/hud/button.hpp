@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "hud.hpp"
 #include "hoverable.hpp"
+#include "clickable.hpp"
 #include "../consts.hpp"
 
 #define BTN_TEXT_SMALL_TOP_OFFSET 8U
@@ -29,7 +30,7 @@ enum ButtonSize
 	BTN_BIG,
 };
 
-class Button : public sf::Drawable, public sf::Transformable, public Hoverable
+class Button : public sf::Drawable, public sf::Transformable, public Hoverable, public Clickable
 {
 	private:
 		sf::RectangleShape rect;
@@ -54,6 +55,6 @@ class Button : public sf::Drawable, public sf::Transformable, public Hoverable
 		void setColor(sf::Color color);
 		void setCallback(std::function<void(void)> callback);
 		bool containsPoint(int x, int y);
-		bool maybeHandleClick(int x, int y);
+		bool maybeHandleLeftClick(int x, int y);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

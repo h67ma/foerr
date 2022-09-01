@@ -215,7 +215,7 @@ bool Button::containsPoint(int x, int y)
  * @param y click y coordinate
  * @returns `true` if click was consumed, `false` otherwise
 */
-bool Button::maybeHandleClick(int x, int y)
+bool Button::maybeHandleLeftClick(int x, int y)
 {
 	if (!this->containsPoint(x, y))
 		return false;
