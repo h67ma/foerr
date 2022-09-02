@@ -1,11 +1,11 @@
 #include "pipbuck_category.hpp"
 
 PipBuckCategoryPage::PipBuckCategoryPage(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, std::string dummyText) :
-	page1Btn(scale, BTN_NARROW, hudColor, *resMgr.getFont(FONT_MEDIUM), 385, 210, "kappa1"),
-	page2Btn(scale, BTN_NARROW, hudColor, *resMgr.getFont(FONT_MEDIUM), 525, 210, "kappa2"),
-	page3Btn(scale, BTN_NARROW, hudColor, *resMgr.getFont(FONT_MEDIUM), 665, 210, "kappa3"),
-	page4Btn(scale, BTN_NARROW, hudColor, *resMgr.getFont(FONT_MEDIUM), 805, 210, "kappa4"),
-	page5Btn(scale, BTN_NARROW, hudColor, *resMgr.getFont(FONT_MEDIUM), 945, 210, "kappa5")
+	page1Btn(scale, BTN_NARROW, hudColor, resMgr, 385, 210, "kappa1"),
+	page2Btn(scale, BTN_NARROW, hudColor, resMgr, 525, 210, "kappa2"),
+	page3Btn(scale, BTN_NARROW, hudColor, resMgr, 665, 210, "kappa3"),
+	page4Btn(scale, BTN_NARROW, hudColor, resMgr, 805, 210, "kappa4"),
+	page5Btn(scale, BTN_NARROW, hudColor, resMgr, 945, 210, "kappa5")
 {
 	this->dummyText.setFont(*resMgr.getFont(FONT_NORMAL));
 	this->dummyText.setString(dummyText);

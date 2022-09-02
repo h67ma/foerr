@@ -1,7 +1,7 @@
 #include "button.hpp"
 #include "../consts.hpp"
 
-Button::Button(GuiScale scale, ButtonSize size, sf::Color color, sf::Font &font, uint x, uint y, std::string text, std::function<void(void)> callback)
+Button::Button(GuiScale scale, ButtonSize size, sf::Color color, ResourceManager &resMgr, uint x, uint y, std::string text, std::function<void(void)> callback)
 {
 	this->callback = callback;
 	this->size = size;
@@ -11,7 +11,7 @@ Button::Button(GuiScale scale, ButtonSize size, sf::Color color, sf::Font &font,
 	this->setColor(color);
 
 	// text
-	this->text.setFont(font);
+	this->text.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->text.setString(text);
 
 	// disabled by default

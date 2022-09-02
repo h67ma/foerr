@@ -147,61 +147,61 @@ int main()
 	mchavi->setPosition(1200, 100);
 	animations.push_back(mchavi);
 
-	Button mchavi1(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 60, "stand", [&mchavi]() {
+	Button mchavi1(initialScale, BTN_NORMAL, hudColor, resManager, 100, 60, "stand", [&mchavi]() {
 		mchavi->setAnimation(ANIM_STAND);
 	});
 	buttons.push_back(&mchavi1);
 	hoverMgr.addHoverable(&mchavi1);
 
-	Button mchavi2(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 90, "walk", [&mchavi]() {
+	Button mchavi2(initialScale, BTN_NORMAL, hudColor, resManager, 100, 90, "walk", [&mchavi]() {
 		mchavi->setAnimation(ANIM_WALK);
 	});
 	buttons.push_back(&mchavi2);
 	hoverMgr.addHoverable(&mchavi2);
 
-	Button mchavi3(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 120, "trot", [&mchavi]() {
+	Button mchavi3(initialScale, BTN_NORMAL, hudColor, resManager, 100, 120, "trot", [&mchavi]() {
 		mchavi->setAnimation(ANIM_TROT);
 	});
 	buttons.push_back(&mchavi3);
 	hoverMgr.addHoverable(&mchavi3);
 
-	Button mchavi4(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 150, "gallop", [&mchavi]() {
+	Button mchavi4(initialScale, BTN_NORMAL, hudColor, resManager, 100, 150, "gallop", [&mchavi]() {
 		mchavi->setAnimation(ANIM_GALLOP);
 	});
 	buttons.push_back(&mchavi4);
 	hoverMgr.addHoverable(&mchavi4);
 
-	Button mchavi5(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 180, "jump", [&mchavi]() {
+	Button mchavi5(initialScale, BTN_NORMAL, hudColor, resManager, 100, 180, "jump", [&mchavi]() {
 		mchavi->setAnimation(ANIM_JUMP);
 	});
 	buttons.push_back(&mchavi5);
 	hoverMgr.addHoverable(&mchavi5);
 
-	Button mchavi6(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 210, "die ground", [&mchavi]() {
+	Button mchavi6(initialScale, BTN_NORMAL, hudColor, resManager, 100, 210, "die ground", [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_GROUND);
 	});
 	buttons.push_back(&mchavi6);
 	hoverMgr.addHoverable(&mchavi6);
 
-	Button mchavi7(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 240, "die air", [&mchavi]() {
+	Button mchavi7(initialScale, BTN_NORMAL, hudColor, resManager, 100, 240, "die air", [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_AIR);
 	});
 	buttons.push_back(&mchavi7);
 	hoverMgr.addHoverable(&mchavi7);
 
-	Button mchavi8(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 270, "tk hold", [&mchavi]() {
+	Button mchavi8(initialScale, BTN_NORMAL, hudColor, resManager, 100, 270, "tk hold", [&mchavi]() {
 		mchavi->setAnimation(ANIM_TK_HOLD);
 	});
 	buttons.push_back(&mchavi8);
 	hoverMgr.addHoverable(&mchavi8);
 
-	Button mchavi9(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 300, "swim", [&mchavi]() {
+	Button mchavi9(initialScale, BTN_NORMAL, hudColor, resManager, 100, 300, "swim", [&mchavi]() {
 		mchavi->setAnimation(ANIM_SWIM);
 	});
 	buttons.push_back(&mchavi9);
 	hoverMgr.addHoverable(&mchavi9);
 
-	Button mchavi10(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 100, 330, "climb", [&mchavi]() {
+	Button mchavi10(initialScale, BTN_NORMAL, hudColor, resManager, 100, 330, "climb", [&mchavi]() {
 		mchavi->setAnimation(ANIM_CLIMB);
 	});
 	buttons.push_back(&mchavi10);
@@ -213,7 +213,7 @@ int main()
 
 	Campaign campaign;
 
-	Button loadCamp(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 1000, 500, "load test campaign", [&campaign, &resManager, &gameState]() {
+	Button loadCamp(initialScale, BTN_NORMAL, hudColor, resManager, 1000, 500, "load test campaign", [&campaign, &resManager, &gameState]() {
 		if (campaign.load("res/campaigns/test", resManager))
 		{
 			Log::d("Loaded campaign %s (%s)", campaign.getTitle().c_str(), campaign.getDescription().c_str());
@@ -225,7 +225,7 @@ int main()
 	buttons.push_back(&loadCamp);
 	hoverMgr.addHoverable(&loadCamp);
 
-	Button unloadCamp(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 1000, 550, "unload campaign", [&campaign, &gameState, &resManager]() {
+	Button unloadCamp(initialScale, BTN_NORMAL, hudColor, resManager, 1000, 550, "unload campaign", [&campaign, &gameState, &resManager]() {
 		campaign.unload(resManager);
 		Log::d(STR_CAMPAIGN_UNLOADED);
 		gameState = STATE_MAINMENU;
@@ -233,38 +233,38 @@ int main()
 	buttons.push_back(&unloadCamp);
 	hoverMgr.addHoverable(&unloadCamp);
 
-	Button campLoc1(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 1200, 500, "goto loc 1", [&campaign]() {
+	Button campLoc1(initialScale, BTN_NORMAL, hudColor, resManager, 1200, 500, "goto loc 1", [&campaign]() {
 		campaign.changeLocation("surface");
 	});
 	buttons.push_back(&campLoc1);
 	hoverMgr.addHoverable(&campLoc1);
 
-	Button campLoc2(initialScale, BTN_NORMAL, hudColor, *resManager.getFont(FONT_MEDIUM), 1200, 550, "goto loc 2", [&campaign]() {
+	Button campLoc2(initialScale, BTN_NORMAL, hudColor, resManager, 1200, 550, "goto loc 2", [&campaign]() {
 		campaign.changeLocation("technical_tunnels");
 	});
 	buttons.push_back(&campLoc2);
 	hoverMgr.addHoverable(&campLoc2);
 
 
-	Button cursor1(initialScale, BTN_NARROW, hudColor, *resManager.getFont(FONT_MEDIUM), 1100, 100, "pointer", [&cursorMgr, &window]() {
+	Button cursor1(initialScale, BTN_NARROW, hudColor, resManager, 1100, 100, "pointer", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, POINTER);
 	});
 	buttons.push_back(&cursor1);
 	hoverMgr.addHoverable(&cursor1);
 
-	Button cursor2(initialScale, BTN_NARROW, hudColor, *resManager.getFont(FONT_MEDIUM), 1100, 150, "x white", [&cursorMgr, &window]() {
+	Button cursor2(initialScale, BTN_NARROW, hudColor, resManager, 1100, 150, "x white", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 	});
 	buttons.push_back(&cursor2);
 	hoverMgr.addHoverable(&cursor2);
 
-	Button cursor3(initialScale, BTN_NARROW, hudColor, *resManager.getFont(FONT_MEDIUM), 1100, 200, "x yellow", [&cursorMgr, &window]() {
+	Button cursor3(initialScale, BTN_NARROW, hudColor, resManager, 1100, 200, "x yellow", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_YELLOW);
 	});
 	buttons.push_back(&cursor3);
 	hoverMgr.addHoverable(&cursor3);
 
-	Button cursor4(initialScale, BTN_NARROW, hudColor, *resManager.getFont(FONT_MEDIUM), 1100, 250, "x red", [&cursorMgr, &window]() {
+	Button cursor4(initialScale, BTN_NARROW, hudColor, resManager, 1100, 250, "x red", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_RED);
 	});
 	buttons.push_back(&cursor4);

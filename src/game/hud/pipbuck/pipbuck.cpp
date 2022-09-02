@@ -4,10 +4,10 @@
 
 PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
 	resMgr(resMgr),
-	catStatusBtn(scale, BTN_BIG, hudColor, *resMgr.getFont(FONT_MEDIUM), 650, 900, STR_PIPBUCK_STATUS),
-	catInvBtn(scale, BTN_BIG, hudColor, *resMgr.getFont(FONT_MEDIUM), 855, 915, STR_PIPBUCK_INV),
-	catInfoBtn(scale, BTN_BIG, hudColor, *resMgr.getFont(FONT_MEDIUM), 1055, 900, STR_PIPBUCK_INFO),
-	closeBtn(scale, BTN_BIG, hudColor, *resMgr.getFont(FONT_MEDIUM), 55, 750, STR_PIPBUCK_CLOSE),
+	catStatusBtn(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS),
+	catInvBtn(scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV),
+	catInfoBtn(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO),
+	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 750, STR_PIPBUCK_CLOSE),
 	statusCategoryPage(scale, hudColor, resMgr, "STATUS"),
 	invCategoryPage(scale, hudColor, resMgr, "INVENTORY"),
 	infoCategoryPage(scale, hudColor, resMgr, "INFORMATION")
