@@ -57,7 +57,7 @@ void setLetterboxView(sf::View &view, uint windowWidth, uint windowHeight)
 	view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
 }
 
-void windowSizeChanged(sf::RenderWindow &window, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView)
+void windowSizeChanged(sf::RenderWindow &window, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck)
 {
 	uint w = window.getSize().x;
 	uint h = window.getSize().y;
@@ -65,6 +65,7 @@ void windowSizeChanged(sf::RenderWindow &window, SettingsManager &settings, FpsM
 	// update position of dockable elements
 	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), w, h);
 	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), w, h);
+	pipBuck.handleScreenResize(w, h);
 
 	// update views
 	hudView.reset(sf::FloatRect(0.f, 0.f, static_cast<float>(w), static_cast<float>(h)));

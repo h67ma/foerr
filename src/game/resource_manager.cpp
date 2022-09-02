@@ -27,7 +27,10 @@ bool ResourceManager::loadCore()
 		}
 	}
 
-	// TODO core textures, core audio, etc.
+	// preload core resources
+
+	if (!this->getTexture(PATH_PIPBUCK_OVERLAY, true))
+		return false;
 
 	this->coreLoaded = true;
 	return true;

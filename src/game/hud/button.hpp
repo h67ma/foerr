@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include "hud.hpp"
 #include "hoverable.hpp"
-#include "clickable.hpp"
 #include "../consts.hpp"
 
 #define BTN_TEXT_SMALL_TOP_OFFSET 8U
@@ -30,7 +29,7 @@ enum ButtonSize
 	BTN_BIG,
 };
 
-class Button : public sf::Drawable, public sf::Transformable, public Hoverable, public Clickable
+class Button : public sf::Drawable, public sf::Transformable, public Hoverable
 {
 	private:
 		sf::RectangleShape rect;
@@ -48,7 +47,7 @@ class Button : public sf::Drawable, public sf::Transformable, public Hoverable, 
 		void updateState();
 
 	public:
-		Button(GuiScale scale, ButtonSize size, sf::Color color, std::string text, sf::Font &font, std::function<void(void)> callback = nullptr);
+		Button(GuiScale scale, ButtonSize size, sf::Color color, sf::Font &font, uint x = 0, uint y = 0, std::string text="Button", std::function<void(void)> callback = nullptr);
 		void setGuiScale(GuiScale scale);
 		void setSelected(bool selected);
 		void setHover(bool hover);

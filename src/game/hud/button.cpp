@@ -1,10 +1,12 @@
 #include "button.hpp"
 #include "../consts.hpp"
 
-Button::Button(GuiScale scale, ButtonSize size, sf::Color color, std::string text, sf::Font &font, std::function<void(void)> callback)
+Button::Button(GuiScale scale, ButtonSize size, sf::Color color, sf::Font &font, uint x, uint y, std::string text, std::function<void(void)> callback)
 {
 	this->callback = callback;
 	this->size = size;
+	
+	this->setPosition(static_cast<float>(x), static_cast<float>(y));
 
 	this->setColor(color);
 

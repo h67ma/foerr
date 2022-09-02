@@ -12,10 +12,11 @@
 // paths
 #define PATH_SETTINGS "config.json"
 #define PATH_LOGFILE "foerr.log"
-#define PATH_CURSOR_ARROW "res/hud/cursor.png"
-#define PATH_CURSOR_CROSS_WHITE "res/hud/crosshair_white.png"
-#define PATH_CURSOR_CROSS_YELLOW "res/hud/crosshair_yellow.png"
-#define PATH_CURSOR_CROSS_RED "res/hud/crosshair_red.png"
+#define PATH_CURSOR_ARROW "res/hud/cursor/cursor.png"
+#define PATH_CURSOR_CROSS_WHITE "res/hud/cursor/crosshair_white.png"
+#define PATH_CURSOR_CROSS_YELLOW "res/hud/cursor/crosshair_yellow.png"
+#define PATH_CURSOR_CROSS_RED "res/hud/cursor/crosshair_red.png"
+#define PATH_PIPBUCK_OVERLAY "res/hud/pipbuck.png"
 #define DIR_LOCATIONS "locations"
 #define FILENAME_INDEX "_index.json"
 #define EXT_JSON ".json"
@@ -53,5 +54,5 @@ enum GameState
 	STATE_LOADINGSCREEN,
 	STATE_MAINMENU,
 	STATE_PLAYING,
-	STATE_PAUSEMENU,
+	STATE_PIPBUCK,
 };
