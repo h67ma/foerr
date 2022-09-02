@@ -24,14 +24,6 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, 
 	}
 }
 
-/**
- * Handles left mouse click event.
- *
- * @param x x click coordinate
- * @param y y click coordinate
- * @return true if game should enter loading state
- * @return false if main menu should remain open
- */
 void MainMenu::handleLeftClick(int x, int y)
 {
 	// need to account for this component's position

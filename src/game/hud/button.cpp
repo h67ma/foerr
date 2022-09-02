@@ -190,11 +190,10 @@ void Button::setCallback(std::function<void(void)> callback)
 }
 
 /**
- * Checks if click was placed inside button area.
- * If it was, and the callback function exists, the callback will be called.
+ * Checks if button area contains a given point.
  *
- * @param x click x coordinate
- * @param y click y coordinate
+ * @param x point x coordinate
+ * @param y point y coordinate
  * @returns `true` if point belongs to button area, `false` otherwise
 */
 bool Button::containsPoint(int x, int y)
