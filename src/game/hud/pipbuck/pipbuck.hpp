@@ -7,6 +7,7 @@
 #include "../hover_manager.hpp"
 #include "../hud.hpp"
 #include "pipbuck_category.hpp"
+#include "gui_container.hpp"
 
 enum PipBuckCategory
 {
@@ -22,11 +23,10 @@ enum PipBuckCategory
  * PipBuck contains 4 *categories*, each of them containing 5 *pages*. Some pages
  * (settings, controls) can also be acccessed via main menu.
  */
-class PipBuck : public sf::Drawable, public sf::Transformable
+class PipBuck : public GuiContainer
 {
 	private:
 		sf::Sprite pipBuckSprite;
-		HoverManager hoverMgr;
 		std::vector<Button> miscButtons;
 		PipBuckCategory selectedCategory;
 		PipBuckCategoryPage statusCategoryPage;
@@ -43,7 +43,6 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 	public:
 		PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr);
 		void handleScreenResize(uint screenW, uint screenH);
-		void handleMouseMove(int x, int y);
 		bool handleLeftClick(int x, int y);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

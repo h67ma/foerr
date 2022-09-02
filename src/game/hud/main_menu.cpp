@@ -24,13 +24,6 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, 
 	}
 }
 
-void MainMenu::handleMouseMove(int x, int y)
-{
-	// need to account for this component's position
-	this->hoverMgr.handleMouseMove(x - static_cast<int>(this->getPosition().x),
-								   y - static_cast<int>(this->getPosition().y));
-}
-
 /**
  * Handles left mouse click event.
  *

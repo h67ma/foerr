@@ -33,13 +33,6 @@ void PipBuck::handleScreenResize(uint screenW, uint screenH)
 	this->setPosition(0, static_cast<float>(screenH - this->pipBuckSprite.getLocalBounds().height));
 }
 
-void PipBuck::handleMouseMove(int x, int y)
-{
-	// need to account for this component's position
-	this->hoverMgr.handleMouseMove(x - static_cast<int>(this->getPosition().x),
-								   y - static_cast<int>(this->getPosition().y));
-}
-
 /**
  * Changes active category.
  * If the requested category is already active, nothing will happen.
