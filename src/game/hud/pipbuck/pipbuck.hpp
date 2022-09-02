@@ -13,6 +13,7 @@ enum PipBuckCategory
 	PIPB_CAT_STATUS,
 	PIPB_CAT_INV,
 	PIPB_CAT_INFO,
+	PIPB_CAT_MAINMENU,
 	_PIPB_CAT_CNT
 };
 
@@ -32,9 +33,11 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		PipBuckCategoryPage statusCategoryPage;
 		PipBuckCategoryPage invCategoryPage;
 		PipBuckCategoryPage infoCategoryPage;
+		PipBuckCategoryPage mainMenuCategoryPage;
 		Button catStatusBtn;
 		Button catInvBtn;
 		Button catInfoBtn;
+		Button catMainMenuBtn;
 		Button closeBtn;
 		void changeCategory(PipBuckCategory cat);
 

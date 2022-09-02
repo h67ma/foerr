@@ -7,10 +7,12 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
 	catStatusBtn(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS),
 	catInvBtn(scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV),
 	catInfoBtn(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO),
-	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 750, STR_PIPBUCK_CLOSE),
+	catMainMenuBtn(scale, BTN_BIG, hudColor, resMgr, 55, 700, STR_PIPBUCK_MAINMENU),
+	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 800, STR_PIPBUCK_CLOSE),
 	statusCategoryPage(scale, hudColor, resMgr, "STATUS"),
 	invCategoryPage(scale, hudColor, resMgr, "INVENTORY"),
-	infoCategoryPage(scale, hudColor, resMgr, "INFORMATION")
+	infoCategoryPage(scale, hudColor, resMgr, "INFORMATION"),
+	mainMenuCategoryPage(scale, hudColor, resMgr, "MAIN MENU")
 {
 	sf::Texture *pipbuckOverlay = resMgr.getTexture(PATH_PIPBUCK_OVERLAY);
 
@@ -19,6 +21,7 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
 	this->hoverMgr.addHoverable(&catStatusBtn);
 	this->hoverMgr.addHoverable(&catInvBtn);
 	this->hoverMgr.addHoverable(&catInfoBtn);
+	this->hoverMgr.addHoverable(&catMainMenuBtn);
 	this->hoverMgr.addHoverable(&closeBtn);
 
 	this->changeCategory(PIPB_CAT_STATUS); // default category
@@ -51,18 +54,28 @@ void PipBuck::changeCategory(PipBuckCategory cat)
 		this->catStatusBtn.setSelected(true);
 		this->catInvBtn.setSelected(false);
 		this->catInfoBtn.setSelected(false);
+		this->catMainMenuBtn.setSelected(false);
 	}
 	else if (cat == PIPB_CAT_INV && selectedCategory != PIPB_CAT_INV)
 	{
 		this->catStatusBtn.setSelected(false);
 		this->catInvBtn.setSelected(true);
 		this->catInfoBtn.setSelected(false);
+		this->catMainMenuBtn.setSelected(false);
 	}
 	else if (cat == PIPB_CAT_INFO && selectedCategory != PIPB_CAT_INFO)
 	{
 		this->catStatusBtn.setSelected(false);
 		this->catInvBtn.setSelected(false);
 		this->catInfoBtn.setSelected(true);
+		this->catMainMenuBtn.setSelected(false);
+	}
+	else if (cat == PIPB_CAT_MAINMENU && selectedCategory != PIPB_CAT_MAINMENU)
+	{
+		this->catStatusBtn.setSelected(false);
+		this->catInvBtn.setSelected(false);
+		this->catInfoBtn.setSelected(false);
+		this->catMainMenuBtn.setSelected(true);
 	}
 
 	selectedCategory = cat;
@@ -88,6 +101,8 @@ bool PipBuck::handleLeftClick(int x, int y)
 		this->changeCategory(PIPB_CAT_INV);
 	else if (this->catInfoBtn.maybeHandleLeftClick(x, y))
 		this->changeCategory(PIPB_CAT_INFO);
+	else if (this->catMainMenuBtn.maybeHandleLeftClick(x, y))
+		this->changeCategory(PIPB_CAT_MAINMENU);
 	else if (this->closeBtn.maybeHandleLeftClick(x, y))
 		return true;
 
@@ -103,6 +118,7 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	target.draw(this->catStatusBtn, states);
 	target.draw(this->catInvBtn, states);
 	target.draw(this->catInfoBtn, states);
+	target.draw(this->catMainMenuBtn, states);
 	target.draw(this->closeBtn, states);
 
 	if (this->selectedCategory == PIPB_CAT_STATUS)
@@ -111,4 +127,6 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		target.draw(this->invCategoryPage, states);
 	else if (this->selectedCategory == PIPB_CAT_INFO)
 		target.draw(this->infoCategoryPage, states);
+	else if (this->selectedCategory == PIPB_CAT_MAINMENU)
+		target.draw(this->mainMenuCategoryPage, states);
 }

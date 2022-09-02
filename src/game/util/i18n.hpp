@@ -44,3 +44,4 @@
 #define STR_PIPBUCK_STATUS "Status"
 #define STR_PIPBUCK_INV "Inventory"
 #define STR_PIPBUCK_INFO "Information"
+#define STR_PIPBUCK_MAINMENU "Main Menu"
