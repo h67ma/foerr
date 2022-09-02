@@ -26,7 +26,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 	private:
 		sf::Sprite pipBuckSprite;
 		HoverManager hoverMgr;
-		ResourceManager& resMgr;
+		ResourceManager &resMgr;
 		std::vector<Button> miscButtons;
 		PipBuckCategory selectedCategory;
 		PipBuckCategoryPage statusCategoryPage;
@@ -39,9 +39,9 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		void changeCategory(PipBuckCategory cat);
 
 	public:
-		PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager& resMgr);
+		PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr);
 		void handleScreenResize(uint screenW, uint screenH);
 		void handleMouseMove(int x, int y);
 		bool handleLeftClick(int x, int y);
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

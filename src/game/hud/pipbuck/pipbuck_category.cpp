@@ -1,6 +1,6 @@
 #include "pipbuck_category.hpp"
 
-PipBuckCategoryPage::PipBuckCategoryPage(GuiScale scale, sf::Color hudColor, ResourceManager& resMgr, std::string dummyText) :
+PipBuckCategoryPage::PipBuckCategoryPage(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, std::string dummyText) :
 	page1Btn(scale, BTN_NARROW, hudColor, *resMgr.getFont(FONT_MEDIUM), 385, 210, "kappa1"),
 	page2Btn(scale, BTN_NARROW, hudColor, *resMgr.getFont(FONT_MEDIUM), 525, 210, "kappa2"),
 	page3Btn(scale, BTN_NARROW, hudColor, *resMgr.getFont(FONT_MEDIUM), 665, 210, "kappa3"),
@@ -12,7 +12,7 @@ PipBuckCategoryPage::PipBuckCategoryPage(GuiScale scale, sf::Color hudColor, Res
 	this->dummyText.setPosition(800, 500);
 }
 
-void PipBuckCategoryPage::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void PipBuckCategoryPage::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

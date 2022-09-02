@@ -13,11 +13,11 @@ class Campaign : public sf::Drawable
 		std::unordered_map<std::string, std::unique_ptr<Location>> locations; // maps location id to location. location id is just dir name
 
 	public:
-		bool load(std::string campaignDir, ResourceManager& resMgr);
-		void unload(ResourceManager& resMgr);
+		bool load(std::string campaignDir, ResourceManager &resMgr);
+		void unload(ResourceManager &resMgr);
 		std::string getTitle();
 		std::string getDescription();
 		bool changeLocation(std::string locKey);
 		bool isLoaded();
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

@@ -76,7 +76,7 @@ bool Animation::setAnimation(AnimationKind kind)
 	return true;
 }
 
-void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Animation::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 	target.draw(this->sprite, states);

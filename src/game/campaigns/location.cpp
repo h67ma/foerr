@@ -34,7 +34,7 @@
  * @param resMgr reference to resource manager object
  * @returns `true` if load succeeded, `false` otherwise.
  */
-bool Location::load(std::string locDir, ResourceManager& resMgr)
+bool Location::load(std::string locDir, ResourceManager &resMgr)
 {
 	std::string indexPath = pathCombine(locDir, std::string(FILENAME_INDEX));
 	std::string backgroundFullPath;
@@ -172,7 +172,7 @@ std::string Location::getDescription()
 	return this->description;
 }
 
-void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->backgroundFullSprite, states);
 

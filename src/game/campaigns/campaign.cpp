@@ -5,7 +5,7 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
+bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 {
 	this->unload(resMgr);
 
@@ -55,7 +55,7 @@ bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 	// the best solution would be to check if all files are present and don't have any errors,
 	// and somehow lock changing those files until campaign is unloaded.
 	// for now let's just load everything at start
-	for (const std::filesystem::directory_entry& entry : iter)
+	for (const std::filesystem::directory_entry &entry : iter)
 	{
 		std::string locId = entry.path().filename().string();
 		std::string locPath = entry.path().string();
@@ -82,7 +82,7 @@ bool Campaign::load(std::string campaignDir, ResourceManager& resMgr)
 	return true;
 }
 
-void Campaign::unload(ResourceManager& resMgr)
+void Campaign::unload(ResourceManager &resMgr)
 {
 	this->title = "";
 	this->description = "";
@@ -129,7 +129,7 @@ bool Campaign::isLoaded()
 	return this->loaded;
 }
 
-void Campaign::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(*this->currentLocation, states);
 }

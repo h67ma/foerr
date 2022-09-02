@@ -2,7 +2,7 @@
 #include "../util/i18n.hpp"
 #include "../log.hpp"
 
-PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager& resMgr) :
+PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
 	resMgr(resMgr),
 	catStatusBtn(scale, BTN_BIG, hudColor, *resMgr.getFont(FONT_MEDIUM), 650, 900, STR_PIPBUCK_STATUS),
 	catInvBtn(scale, BTN_BIG, hudColor, *resMgr.getFont(FONT_MEDIUM), 855, 915, STR_PIPBUCK_INV),
@@ -94,7 +94,7 @@ bool PipBuck::handleLeftClick(int x, int y)
 	return false;
 }
 
-void PipBuck::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

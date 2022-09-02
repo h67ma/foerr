@@ -93,7 +93,7 @@ namespace Log
 		_clock.restart();
 	}
 
-	void draw(sf::RenderTarget& target)
+	void draw(sf::RenderTarget &target)
 	{
 		for (const auto &item : _history)
 		{

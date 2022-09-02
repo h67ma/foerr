@@ -228,7 +228,7 @@ bool Button::maybeHandleLeftClick(int x, int y)
 	return true;
 }
 
-void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

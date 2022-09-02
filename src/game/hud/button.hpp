@@ -55,5 +55,5 @@ class Button : public sf::Drawable, public sf::Transformable, public Hoverable
 		void setCallback(std::function<void(void)> callback);
 		bool containsPoint(int x, int y);
 		bool maybeHandleLeftClick(int x, int y);
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

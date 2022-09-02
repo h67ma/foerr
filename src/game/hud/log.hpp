@@ -46,7 +46,7 @@ namespace Log
 	void setVerboseDebug(bool verboseDebug);
 	void setGuiScale(GuiScale scale);
 	void maybeUpdate(bool force=false);
-	void draw(sf::RenderTarget& target);
+	void draw(sf::RenderTarget &target);
 	void close();
 
 	/**
