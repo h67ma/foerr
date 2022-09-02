@@ -3,7 +3,6 @@
 #include "../log.hpp"
 
 PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
-	resMgr(resMgr),
 	catStatusBtn(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS),
 	catInvBtn(scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV),
 	catInfoBtn(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO),
@@ -18,11 +17,11 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
 
 	this->pipBuckSprite.setTexture(*pipbuckOverlay);
 
-	this->hoverMgr.addHoverable(&catStatusBtn);
-	this->hoverMgr.addHoverable(&catInvBtn);
-	this->hoverMgr.addHoverable(&catInfoBtn);
-	this->hoverMgr.addHoverable(&catMainMenuBtn);
-	this->hoverMgr.addHoverable(&closeBtn);
+	this->hoverMgr.addHoverable(&this->catStatusBtn);
+	this->hoverMgr.addHoverable(&this->catInvBtn);
+	this->hoverMgr.addHoverable(&this->catInfoBtn);
+	this->hoverMgr.addHoverable(&this->catMainMenuBtn);
+	this->hoverMgr.addHoverable(&this->closeBtn);
 
 	this->changeCategory(PIPB_CAT_STATUS); // default category
 }

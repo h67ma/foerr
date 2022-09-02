@@ -27,7 +27,6 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 	private:
 		sf::Sprite pipBuckSprite;
 		HoverManager hoverMgr;
-		ResourceManager &resMgr;
 		std::vector<Button> miscButtons;
 		PipBuckCategory selectedCategory;
 		PipBuckCategoryPage statusCategoryPage;
