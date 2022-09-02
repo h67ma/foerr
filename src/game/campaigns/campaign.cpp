@@ -5,6 +5,14 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
+/**
+ * Loads a campaign from path. If previous campaign is loaded, it will be automatically unloaded first.
+ *
+ * @param campaignDir path to campaign directory containing campaign index file.
+ * @param resMgr reference to resource manager
+ * @return true if load succeeded
+ * @return false if load failed
+ */
 bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 {
 	this->unload(resMgr);

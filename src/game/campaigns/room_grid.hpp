@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include "room.hpp"
 #include "../consts.hpp"

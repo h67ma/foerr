@@ -20,6 +20,7 @@
 #include "window/util.hpp"
 #include "hud/hover_manager.hpp"
 #include "hud/pipbuck/pipbuck.hpp"
+#include "hud/main_menu.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -36,7 +37,7 @@
 
 int main()
 {
-	GameState gameState = STATE_PLAYING; // TODO initially we should enter main menu
+	GameState gameState = STATE_MAINMENU;
 	SettingsManager settings;
 	settings.loadConfig();
 
@@ -85,7 +86,9 @@ int main()
 
 	cursorMgr.setCursor(window, POINTER);
 
+	Campaign campaign;
 	HoverManager hoverMgr;
+	MainMenu mainMenu(initialScale, hudColor, resManager, window, campaign, gameState);
 	PipBuck pipBuck(initialScale, hudColor, resManager);
 
 
@@ -201,21 +204,6 @@ int main()
 
 	mchavi->setAnimation(ANIM_SWIM);
 
-
-
-	Campaign campaign;
-
-	Button loadCamp(initialScale, BTN_NORMAL, hudColor, resManager, 1000, 500, "load test campaign", [&campaign, &resManager, &gameState]() {
-		if (campaign.load("res/campaigns/test", resManager))
-		{
-			Log::d("Loaded campaign %s (%s)", campaign.getTitle().c_str(), campaign.getDescription().c_str());
-			gameState = STATE_PLAYING;
-		}
-		else
-			Log::e(STR_CAMPAIGN_LOAD_ERR, "res/campaigns/test");
-	});
-	buttons.push_back(&loadCamp);
-	hoverMgr.addHoverable(&loadCamp);
 
 	Button unloadCamp(initialScale, BTN_NORMAL, hudColor, resManager, 1000, 550, "unload campaign", [&campaign, &gameState, &resManager]() {
 		campaign.unload(resManager);
@@ -349,13 +337,25 @@ int main()
 			}
 			else if (gameState == STATE_MAINMENU)
 			{
-				// TODO
+				if (event.type == sf::Event::MouseMoved)
+				{
+					mainMenu.handleMouseMove(event.mouseMove.x, event.mouseMove.y);
+				}
+				else if (event.type == sf::Event::MouseButtonPressed)
+				{
+					//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+					if (event.mouseButton.button == sf::Mouse::Left)
+					{
+						mainMenu.handleLeftClick(event.mouseButton.x, event.mouseButton.y);
+					}
+				}
 			}
 
 			// below events apply to all game states
 			if (event.type == sf::Event::Closed)
 			{
 				// TODO autosave if campaign loaded
+				Log::d(STR_SHUTTING_DOWN);
 				window.close();
 			}
 			else if (event.type == sf::Event::Resized)
@@ -378,11 +378,14 @@ int main()
 		if ((gameState == STATE_PLAYING || gameState == STATE_PIPBUCK) && campaign.isLoaded())
 			window.draw(campaign); // TODO ultimately campaign should contain pipbuck and decide to display it or not based on game state
 
-		for(Animation* animation : animations)
+		if (gameState == STATE_PLAYING || gameState == STATE_PIPBUCK)
 		{
-			if (gameState == STATE_PLAYING)
-				animation->maybeNextFrame();
-			window.draw(*animation);
+			for(Animation* animation : animations)
+			{
+				if (gameState == STATE_PLAYING)
+					animation->maybeNextFrame();
+				window.draw(*animation);
+			}
 		}
 
 		// TODO something like this probably, campaign will call its kids which will call individual animations at the end
@@ -392,13 +395,17 @@ int main()
 		// hud
 		window.setView(hudView);
 
-		for (Button* btn : buttons)
+		if (gameState == STATE_PLAYING)
 		{
-			window.draw(*btn);
+			for (Button* btn : buttons)
+			{
+				window.draw(*btn);
+			}
 		}
-
-		if (gameState == STATE_PIPBUCK)
+		else if (gameState == STATE_PIPBUCK)
 			window.draw(pipBuck);
+		else if (gameState == STATE_MAINMENU)
+			window.draw(mainMenu);
 
 		Log::maybeUpdate();
 		Log::draw(window);

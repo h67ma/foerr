@@ -1,3 +1,5 @@
+#pragma once
+
 #include <unordered_map>
 #include "../resource_manager.hpp"
 #include "location.hpp"

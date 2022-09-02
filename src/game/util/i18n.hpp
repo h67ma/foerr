@@ -45,3 +45,6 @@
 #define STR_PIPBUCK_INV "Inventory"
 #define STR_PIPBUCK_INFO "Information"
 #define STR_PIPBUCK_MAINMENU "Main Menu"
+#define STR_CONTINUE "Continue"
+#define STR_QUIT_GAME "Quit game"
+#define STR_SHUTTING_DOWN "Shutting down"
