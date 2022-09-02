@@ -46,7 +46,6 @@ enum FontType
 class ResourceManager
 {
 	private:
-		bool coreLoaded = false;
 		sf::Font fonts[_FONT_CNT];
 		std::unordered_map<std::string, Resource<sf::Texture>> textures;
 		// TODO std::unordered_map<std::string, sf::SoundBuffer*> audios;

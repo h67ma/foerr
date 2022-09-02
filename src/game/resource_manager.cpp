@@ -32,7 +32,6 @@ bool ResourceManager::loadCore()
 	if (!this->getTexture(PATH_PIPBUCK_OVERLAY, true))
 		return false;
 
-	this->coreLoaded = true;
 	return true;
 }
 
@@ -74,7 +73,7 @@ sf::Texture* ResourceManager::getTexture(std::string path, bool isCoreRes)
  */
 sf::Font* ResourceManager::getFont(FontType fontType)
 {
-	if (fontType >= _FONT_CNT || !coreLoaded)
+	if (fontType >= _FONT_CNT)
 		return nullptr;
 
 	return &this->fonts[fontType];
