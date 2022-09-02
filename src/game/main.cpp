@@ -34,14 +34,6 @@
 //	exit(1);
 //}
 
-void setGuiScale(std::vector<Button*> &buttons, GuiScale scale)
-{
-	for (Button* btn : buttons)
-	{
-		btn->setGuiScale(scale);
-	}
-}
-
 int main()
 {
 	GameState gameState = STATE_PLAYING; // TODO initially we should enter main menu
@@ -110,7 +102,7 @@ int main()
 
 	// howto set gui scale
 	//settings.setGuiScale(SETT_GUI_SCALE, GUI_SMALL);
-	//setGuiScale(buttons, GUI_SMALL);
+	//setGuiScale() for all buttons
 	//fpsMeter.setGuiScale(GUI_SMALL);
 	//Log::setGuiScale(GUI_SMALL);
 
