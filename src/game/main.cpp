@@ -89,7 +89,7 @@ int main()
 	Campaign campaign;
 	HoverManager hoverMgr;
 	MainMenu mainMenu(initialScale, hudColor, resManager, window, campaign, gameState);
-	PipBuck pipBuck(initialScale, hudColor, resManager);
+	PipBuck pipBuck(initialScale, hudColor, resManager, gameState);
 
 
 
@@ -253,6 +253,9 @@ int main()
 	// initial size
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
 
+	campaign.load("res/campaigns/test", resManager); // TODO remove
+	gameState = STATE_PLAYING; // TODO remove
+
 	sf::Event event;
 	while (window.isOpen())
 	{
@@ -322,12 +325,7 @@ int main()
 					//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
-						if (pipBuck.handleLeftClick(event.mouseButton.x, event.mouseButton.y))
-						{
-							// click caused PipBuck to close, resume game
-							gameState = STATE_PLAYING;
-							Log::d(STR_GAME_RESUMED);
-						}
+						pipBuck.handleLeftClick(event.mouseButton.x, event.mouseButton.y);
 					}
 				}
 			}

@@ -2,25 +2,30 @@
 #include "../util/i18n.hpp"
 #include "../log.hpp"
 
-PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
-	catStatusBtn(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS),
-	catInvBtn(scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV),
-	catInfoBtn(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO),
-	catMainMenuBtn(scale, BTN_BIG, hudColor, resMgr, 55, 700, STR_PIPBUCK_MAINMENU),
-	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 800, STR_PIPBUCK_CLOSE),
-	statusCategoryPage(scale, hudColor, resMgr, "STATUS"),
-	invCategoryPage(scale, hudColor, resMgr, "INVENTORY"),
-	infoCategoryPage(scale, hudColor, resMgr, "INFORMATION"),
-	mainMenuCategoryPage(scale, hudColor, resMgr, "MAIN MENU")
+PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, GameState &gameState) :
+	categoryPages({
+		{ PIPB_CAT_STATUS, PipBuckCategoryPage(scale, hudColor, resMgr, "STATUS") },
+		{ PIPB_CAT_INV, PipBuckCategoryPage(scale, hudColor, resMgr, "INVENTORY") },
+		{ PIPB_CAT_INFO, PipBuckCategoryPage(scale, hudColor, resMgr, "INFORMATION") },
+		{ PIPB_CAT_MAINMENU, PipBuckCategoryPage(scale, hudColor, resMgr, "MAIN MENU") }
+	}),
+	categoryButtons({
+		{ PIPB_CAT_STATUS, Button(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS) },
+		{ PIPB_CAT_INV, Button(scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV) },
+		{ PIPB_CAT_INFO, Button(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO) },
+		{ PIPB_CAT_MAINMENU, Button(scale, BTN_BIG, hudColor, resMgr, 55, 700, STR_PIPBUCK_MAINMENU) }
+	}),
+	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 800, STR_PIPBUCK_CLOSE, [&gameState](){
+		gameState = STATE_PLAYING;
+		Log::d(STR_GAME_RESUMED);
+	})
 {
-	sf::Texture *pipbuckOverlay = resMgr.getTexture(PATH_PIPBUCK_OVERLAY);
+	this->pipBuckSprite.setTexture(*resMgr.getTexture(PATH_PIPBUCK_OVERLAY));
 
-	this->pipBuckSprite.setTexture(*pipbuckOverlay);
-
-	this->hoverMgr.addHoverable(&this->catStatusBtn);
-	this->hoverMgr.addHoverable(&this->catInvBtn);
-	this->hoverMgr.addHoverable(&this->catInfoBtn);
-	this->hoverMgr.addHoverable(&this->catMainMenuBtn);
+	for (auto &btn : this->categoryButtons)
+	{
+		this->hoverMgr.addHoverable(&btn.second);
+	}
 	this->hoverMgr.addHoverable(&this->closeBtn);
 
 	this->changeCategory(PIPB_CAT_STATUS); // default category
@@ -33,72 +38,31 @@ void PipBuck::handleScreenResize(uint screenW, uint screenH)
 	this->setPosition(0, static_cast<float>(screenH - this->pipBuckSprite.getLocalBounds().height));
 }
 
-/**
- * Changes active category.
- * If the requested category is already active, nothing will happen.
- *
- * @param cat new category to set
- */
 void PipBuck::changeCategory(PipBuckCategory cat)
 {
-	if (cat == PIPB_CAT_STATUS && selectedCategory != PIPB_CAT_STATUS)
-	{
-		this->catStatusBtn.setSelected(true);
-		this->catInvBtn.setSelected(false);
-		this->catInfoBtn.setSelected(false);
-		this->catMainMenuBtn.setSelected(false);
-	}
-	else if (cat == PIPB_CAT_INV && selectedCategory != PIPB_CAT_INV)
-	{
-		this->catStatusBtn.setSelected(false);
-		this->catInvBtn.setSelected(true);
-		this->catInfoBtn.setSelected(false);
-		this->catMainMenuBtn.setSelected(false);
-	}
-	else if (cat == PIPB_CAT_INFO && selectedCategory != PIPB_CAT_INFO)
-	{
-		this->catStatusBtn.setSelected(false);
-		this->catInvBtn.setSelected(false);
-		this->catInfoBtn.setSelected(true);
-		this->catMainMenuBtn.setSelected(false);
-	}
-	else if (cat == PIPB_CAT_MAINMENU && selectedCategory != PIPB_CAT_MAINMENU)
-	{
-		this->catStatusBtn.setSelected(false);
-		this->catInvBtn.setSelected(false);
-		this->catInfoBtn.setSelected(false);
-		this->catMainMenuBtn.setSelected(true);
-	}
+	// note: need to use ::at, otherwise we'd need to have a default constructor in Button
+	this->categoryButtons.at(selectedCategory).setSelected(false);
+	this->categoryButtons.at(cat).setSelected(true);
 
 	selectedCategory = cat;
 }
 
-/**
- * Handles left mouse click event.
- *
- * @param x x click coordinate
- * @param y y click coordinate
- * @return `true` if game should be unpaused (owner should hide PipBuck menu)
- * @return `false` if the game should remain paused (owner should leave PipBuck open)
- */
-bool PipBuck::handleLeftClick(int x, int y)
+void PipBuck::handleLeftClick(int x, int y)
 {
 	// need to account for this component's position
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	if (this->catStatusBtn.maybeHandleLeftClick(x, y))
-		this->changeCategory(PIPB_CAT_STATUS);
-	else if (this->catInvBtn.maybeHandleLeftClick(x, y))
-		this->changeCategory(PIPB_CAT_INV);
-	else if (this->catInfoBtn.maybeHandleLeftClick(x, y))
-		this->changeCategory(PIPB_CAT_INFO);
-	else if (this->catMainMenuBtn.maybeHandleLeftClick(x, y))
-		this->changeCategory(PIPB_CAT_MAINMENU);
-	else if (this->closeBtn.maybeHandleLeftClick(x, y))
-		return true;
+	for (auto &btn : this->categoryButtons)
+	{
+		if (btn.second.containsPoint(x, y))
+		{
+			this->changeCategory(btn.first);
+			return; // click consumed
+		}
+	}
 
-	return false;
+	this->closeBtn.maybeHandleLeftClick(x, y);
 }
 
 void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -107,18 +71,13 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	target.draw(this->pipBuckSprite, states);
 
-	target.draw(this->catStatusBtn, states);
-	target.draw(this->catInvBtn, states);
-	target.draw(this->catInfoBtn, states);
-	target.draw(this->catMainMenuBtn, states);
-	target.draw(this->closeBtn, states);
+	// note: need to use ::at, otherwise we'd need to have a default constructor in PipBuckCategoryPage
+	target.draw(this->categoryPages.at(this->selectedCategory), states);
 
-	if (this->selectedCategory == PIPB_CAT_STATUS)
-		target.draw(this->statusCategoryPage, states);
-	else if (this->selectedCategory == PIPB_CAT_INV)
-		target.draw(this->invCategoryPage, states);
-	else if (this->selectedCategory == PIPB_CAT_INFO)
-		target.draw(this->infoCategoryPage, states);
-	else if (this->selectedCategory == PIPB_CAT_MAINMENU)
-		target.draw(this->mainMenuCategoryPage, states);
+	for (const auto &btn : this->categoryButtons)
+	{
+		target.draw(btn.second, states);
+	}
+
+	target.draw(this->closeBtn, states);
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "../button.hpp"
 #include "../../resource_manager.hpp"
@@ -15,34 +15,34 @@ enum PipBuckCategory
 	PIPB_CAT_INV,
 	PIPB_CAT_INFO,
 	PIPB_CAT_MAINMENU,
-	_PIPB_CAT_CNT
 };
 
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.
  * PipBuck contains 4 *categories*, each of them containing 5 *pages*. Some pages
  * (settings, controls) can also be acccessed via main menu.
+ *
+ * The convention is to keep all categories and their child pages in memory.
+ * This way we can switch between them instantaneously, without the need to
+ * deallocate old page and allocate new one. As a bonus, state of all pages is
+ * preserved, unless we explicitly want to e.g. scroll list to top when page is opened.
+ *
+ * TODO what about updating states of individual pages? We should NOT update
+ * states of inactive (invisible) pages; instead only update them on page open.
  */
 class PipBuck : public GuiContainer
 {
 	private:
 		sf::Sprite pipBuckSprite;
-		std::vector<Button> miscButtons;
-		PipBuckCategory selectedCategory;
-		PipBuckCategoryPage statusCategoryPage;
-		PipBuckCategoryPage invCategoryPage;
-		PipBuckCategoryPage infoCategoryPage;
-		PipBuckCategoryPage mainMenuCategoryPage;
-		Button catStatusBtn;
-		Button catInvBtn;
-		Button catInfoBtn;
-		Button catMainMenuBtn;
+		PipBuckCategory selectedCategory = PIPB_CAT_STATUS;
+		std::unordered_map<PipBuckCategory, PipBuckCategoryPage> categoryPages;
+		std::unordered_map<PipBuckCategory, Button> categoryButtons;
 		Button closeBtn;
 		void changeCategory(PipBuckCategory cat);
 
 	public:
-		PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr);
+		PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, GameState &gameState);
 		void handleScreenResize(uint screenW, uint screenH);
-		bool handleLeftClick(int x, int y);
+		void handleLeftClick(int x, int y);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
