@@ -71,3 +71,20 @@ void windowSizeChanged(sf::RenderWindow &window, SettingsManager &settings, FpsM
 	hudView.reset(sf::FloatRect(0.f, 0.f, static_cast<float>(w), static_cast<float>(h)));
 	setLetterboxView(gameWorldView, w, h);
 }
+
+void toggleFullscreen(sf::RenderWindow &window, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck)
+{
+	if (settings.getBool(SETT_FULLSCREEN_ENABLED))
+	{
+		settings.setBool(SETT_FULLSCREEN_ENABLED, false);
+		Log::d(STR_WINDOW_WINDOWED);
+	}
+	else
+	{
+		settings.setBool(SETT_FULLSCREEN_ENABLED, true);
+		Log::d(STR_WINDOW_FULLSCREEN);
+	}
+
+	recreateWindow(window, settings);
+	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
+}

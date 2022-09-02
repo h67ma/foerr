@@ -273,78 +273,36 @@ int main()
 	// initial size
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
 
+	sf::Event event;
 	while (window.isOpen())
 	{
-		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			// TODO? probably logic for different game states could be handled by objects such as pipbuck/mainmenu/campaign, etc. instead of here
+			if (gameState == STATE_PLAYING)
 			{
-				window.close();
-			}
-			else if (event.type == sf::Event::Resized)
-			{
-				windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
-			}
-			else if (event.type == sf::Event::LostFocus)
-			{
-				if (gameState == STATE_PLAYING)
+				if (event.type == sf::Event::MouseMoved)
 				{
-					gameState = STATE_PIPBUCK;
-					Log::d(STR_GAME_PAUSED);
+					hoverMgr.handleMouseMove(event.mouseMove.x, event.mouseMove.y);
 				}
-			}
-			// TODO probably useful for text entry
-			//else if (event.type == sf::Event::TextEntered)
-			//{
-			//	if (event.text.unicode < 128)
-			//		Log::d("ASCII character typed: %c", static_cast<char>(event.text.unicode));
-			//}
-			else if (event.type == sf::Event::KeyPressed)
-			{
-				// TODO get appropriate action from control map
-
-				if (event.key.code == sf::Keyboard::F11)
+				else if (event.type == sf::Event::KeyPressed)
 				{
-					if (settings.getBool(SETT_FULLSCREEN_ENABLED))
-					{
-						settings.setBool(SETT_FULLSCREEN_ENABLED, false);
-						Log::d(STR_WINDOW_WINDOWED);
-					}
-					else
-					{
-						settings.setBool(SETT_FULLSCREEN_ENABLED, true);
-						Log::d(STR_WINDOW_FULLSCREEN);
-					}
+					// TODO get appropriate action from control map
 
-					recreateWindow(window, settings);
-					windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
-				}
-				else if (event.key.code == sf::Keyboard::Tab || event.key.code == sf::Keyboard::Escape)
-				{
-					if (gameState == STATE_PIPBUCK)
-					{
-						gameState = STATE_PLAYING;
-						Log::d(STR_GAME_RESUMED);
-					}
-					else if (gameState == STATE_PLAYING)
+					if (event.key.code == sf::Keyboard::Tab || event.key.code == sf::Keyboard::Escape)
 					{
 						gameState = STATE_PIPBUCK;
 						Log::d(STR_GAME_PAUSED);
 					}
-				}
-			}
-			else if (event.type == sf::Event::MouseButtonPressed)
-			{
-				//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-				if (event.mouseButton.button == sf::Mouse::Left)
-				{
-					if (gameState == STATE_PIPBUCK)
+					else if (event.key.code == sf::Keyboard::F11)
 					{
-						if (pipBuck.handleLeftClick(event.mouseButton.x, event.mouseButton.y))
-							gameState = STATE_PLAYING; // click caused PipBuck to close, resume game
+						toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
 					}
-					else if (gameState == STATE_PLAYING)
+				}
+				else if (event.type == sf::Event::MouseButtonPressed)
+				{
+					//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+					if (event.mouseButton.button == sf::Mouse::Left)
 					{
 						for (Button* btn : buttons)
 						{
@@ -353,18 +311,71 @@ int main()
 						}
 					}
 				}
+				else if (event.type == sf::Event::LostFocus)
+				{
+					gameState = STATE_PIPBUCK;
+					Log::d(STR_GAME_PAUSED);
+				}
 			}
-			else if (event.type == sf::Event::MouseMoved)
+			else if (gameState == STATE_PIPBUCK)
 			{
-				if (gameState == STATE_PIPBUCK)
+				if (event.type == sf::Event::MouseMoved)
 				{
 					pipBuck.handleMouseMove(event.mouseMove.x, event.mouseMove.y);
 				}
-				else if (gameState == STATE_PLAYING)
+				else if (event.type == sf::Event::KeyPressed)
 				{
-					hoverMgr.handleMouseMove(event.mouseMove.x, event.mouseMove.y);
+					// TODO get appropriate action from control map
+
+					if (event.key.code == sf::Keyboard::F11)
+					{
+						toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
+					}
+					else if (event.key.code == sf::Keyboard::Tab || event.key.code == sf::Keyboard::Escape)
+					{
+						gameState = STATE_PLAYING;
+						Log::d(STR_GAME_RESUMED);
+					}
+				}
+				else if (event.type == sf::Event::MouseButtonPressed)
+				{
+					//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+					if (event.mouseButton.button == sf::Mouse::Left)
+					{
+						if (pipBuck.handleLeftClick(event.mouseButton.x, event.mouseButton.y))
+						{
+							// click caused PipBuck to close, resume game
+							gameState = STATE_PLAYING;
+							Log::d(STR_GAME_RESUMED);
+						}
+					}
 				}
 			}
+			else if (gameState == STATE_LOADINGSCREEN)
+			{
+				// TODO
+			}
+			else if (gameState == STATE_MAINMENU)
+			{
+				// TODO
+			}
+
+			// below events apply to all game states
+			if (event.type == sf::Event::Closed)
+			{
+				// TODO autosave if campaign loaded
+				window.close();
+			}
+			else if (event.type == sf::Event::Resized)
+			{
+				windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
+			}
+			// TODO probably useful for text entry
+			//else if (event.type == sf::Event::TextEntered)
+			//{
+			//	if (event.text.unicode < 128)
+			//		Log::d("ASCII character typed: %c", static_cast<char>(event.text.unicode));
+			//}
 		}
 
 		window.clear();
