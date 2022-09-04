@@ -16,7 +16,6 @@
 #define PATH_CURSOR_CROSS_WHITE "res/hud/cursor/crosshair_white.png"
 #define PATH_CURSOR_CROSS_YELLOW "res/hud/cursor/crosshair_yellow.png"
 #define PATH_CURSOR_CROSS_RED "res/hud/cursor/crosshair_red.png"
-#define PATH_PIPBUCK_OVERLAY "res/hud/pipbuck.png"
 #define DIR_LOCATIONS "locations"
 #define FILENAME_INDEX "_index.json"
 #define EXT_JSON ".json"

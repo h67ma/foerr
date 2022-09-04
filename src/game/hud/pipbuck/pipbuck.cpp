@@ -3,6 +3,7 @@
 #include "../log.hpp"
 
 PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, GameState &gameState) :
+	gameState(gameState),
 	categoryPages({
 		{ PIPB_CAT_STATUS, PipBuckCategoryPage(scale, hudColor, resMgr, "STATUS") },
 		{ PIPB_CAT_INV, PipBuckCategoryPage(scale, hudColor, resMgr, "INVENTORY") },
@@ -15,12 +16,12 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Ga
 		{ PIPB_CAT_INFO, Button(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO) },
 		{ PIPB_CAT_MAINMENU, Button(scale, BTN_BIG, hudColor, resMgr, 55, 700, STR_PIPBUCK_MAINMENU) }
 	}),
-	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 800, STR_PIPBUCK_CLOSE, [&gameState](){
-		gameState = STATE_PLAYING;
-		Log::d(STR_GAME_RESUMED);
+	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 800, STR_PIPBUCK_CLOSE, [this](){
+		this->close();
 	})
 {
-	this->pipBuckSprite.setTexture(*resMgr.getTexture(PATH_PIPBUCK_OVERLAY));
+	this->pipBuckSprite.setTexture(*resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY));
+	this->soundOpenClose.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE));
 
 	for (auto &btn : this->categoryButtons)
 	{
@@ -36,6 +37,27 @@ void PipBuck::handleScreenResize(uint screenW, uint screenH)
 	// for now copy the behaviour of Remains pipbuck, i.e. display it unscaled in bottom left corner
 	// TODO scale should affect sprite size and individual buttons/labels/etc scale and placement
 	this->setPosition(0, static_cast<float>(screenH - this->pipBuckSprite.getLocalBounds().height));
+}
+
+/**
+ * Opens PipBuck by changing game state and plays the open/close sound.
+ */
+void PipBuck::open(bool sound)
+{
+	this->gameState = STATE_PIPBUCK;
+	if (sound)
+		this->soundOpenClose.play();
+	Log::d(STR_GAME_PAUSED);
+}
+
+/**
+ * Closes PipBuck by changing game state and plays the open/close sound.
+ */
+void PipBuck::close()
+{
+	this->gameState = STATE_PLAYING;
+	this->soundOpenClose.play();
+	Log::d(STR_GAME_RESUMED);
 }
 
 void PipBuck::changeCategory(PipBuckCategory cat)

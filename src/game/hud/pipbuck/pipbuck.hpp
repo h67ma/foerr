@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "../button.hpp"
 #include "../../resource_manager.hpp"
 #include "../hover_manager.hpp"
@@ -38,11 +39,15 @@ class PipBuck : public GuiContainer
 		std::unordered_map<PipBuckCategory, PipBuckCategoryPage> categoryPages;
 		std::unordered_map<PipBuckCategory, Button> categoryButtons;
 		Button closeBtn;
+		sf::Sound soundOpenClose;
+		GameState &gameState;
 		void changeCategory(PipBuckCategory cat);
 
 	public:
 		PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, GameState &gameState);
 		void handleScreenResize(uint screenW, uint screenH);
 		void handleLeftClick(int x, int y);
+		void open(bool sound=true);
+		void close();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

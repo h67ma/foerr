@@ -2,7 +2,14 @@
 
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "resource.hpp"
+
+// core textures
+#define PATH_TXT_PIPBUCK_OVERLAY "res/hud/pipbuck.png"
+
+// core audio
+#define PATH_AUD_PIPBUCK_OPENCLOSE "res/audio/pipbuck_openclose.wav"
 
 enum FontType
 {
@@ -48,14 +55,14 @@ class ResourceManager
 	private:
 		sf::Font fonts[_FONT_CNT];
 		std::unordered_map<std::string, Resource<sf::Texture>> textures;
-		// TODO std::unordered_map<std::string, sf::SoundBuffer*> audios;
+		std::unordered_map<std::string, Resource<sf::SoundBuffer>> audios;
 		// TODO std::unordered_map<char, sf::Texture*> charToBlock; // map for getting texture resource to draw blocks
 		// TODO std::unordered_map<char, sf::Texture*> charToBackground; // map for getting texture resource to draw backgrounds
 
 	public:
 		bool loadCore();
 		sf::Texture* getTexture(std::string path, bool isCoreRes=true);
+		sf::SoundBuffer* getSoundBuffer(std::string path, bool isCoreRes=true);
 		sf::Font* getFont(FontType fontType);
-		// TODO sf::SoundBuffer* getAudio(std::string path);
 		void clearAllNonCore();
 };

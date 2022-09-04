@@ -6,7 +6,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
-#include <SFML/Audio.hpp>
 #include "window/cursor_manager.hpp"
 #include "util/i18n.hpp"
 #include "consts.hpp"
@@ -94,14 +93,6 @@ int main()
 
 
 	// TODO remove all comments below
-
-	// howto play sounds
-	//sf::SoundBuffer buffer;
-	//if (!buffer.loadFromFile("res/audio/13_skill.wav"))
-	//	return -1;
-	//sf::Sound sound;
-	//sound.setBuffer(buffer);
-	//sound.play();
 
 	// howto set gui scale
 	//settings.setGuiScale(SETT_GUI_SCALE, GUI_SMALL);
@@ -274,8 +265,7 @@ int main()
 
 					if (event.key.code == sf::Keyboard::Tab || event.key.code == sf::Keyboard::Escape)
 					{
-						gameState = STATE_PIPBUCK;
-						Log::d(STR_GAME_PAUSED);
+						pipBuck.open();
 					}
 					else if (event.key.code == sf::Keyboard::F11)
 					{
@@ -296,8 +286,7 @@ int main()
 				}
 				else if (event.type == sf::Event::LostFocus)
 				{
-					gameState = STATE_PIPBUCK;
-					Log::d(STR_GAME_PAUSED);
+					pipBuck.open(false);
 				}
 			}
 			else if (gameState == STATE_PIPBUCK)
@@ -316,8 +305,7 @@ int main()
 					}
 					else if (event.key.code == sf::Keyboard::Tab || event.key.code == sf::Keyboard::Escape)
 					{
-						gameState = STATE_PLAYING;
-						Log::d(STR_GAME_RESUMED);
+						pipBuck.close();
 					}
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)

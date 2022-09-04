@@ -10,6 +10,14 @@ const char* _fonts[] = {
 	"res/fonts/Inconsolata-Regular.ttf"	// FONT_FIXED
 };
 
+const char* _coreTextures[] = {
+	PATH_TXT_PIPBUCK_OVERLAY
+};
+
+const char* _coreAudio[] = {
+	PATH_AUD_PIPBUCK_OPENCLOSE
+};
+
 /**
  * Loads essential resources, such as fonts.
  * If the loading fails, then the program must be exited.
@@ -27,10 +35,23 @@ bool ResourceManager::loadCore()
 		}
 	}
 
-	// preload core resources
+	Log::d(STR_LOADING_CORE_RES);
 
-	if (!this->getTexture(PATH_PIPBUCK_OVERLAY, true))
-		return false;
+	// preload core textures
+	for (const char* txt : _coreTextures)
+	{
+		if (!this->getTexture(txt, true))
+			return false;
+	}
+
+	// preload core audio
+	for (const char* buf : _coreAudio)
+	{
+		if (!this->getSoundBuffer(buf, true))
+			return false;
+	}
+
+	Log::d(STR_LOADING_CORE_RES_DONE);
 
 	return true;
 }
@@ -53,7 +74,7 @@ sf::Texture* ResourceManager::getTexture(std::string path, bool isCoreRes)
 	std::unique_ptr<sf::Texture> txt = std::make_unique<sf::Texture>();
 	if (!txt->loadFromFile(path))
 	{
-		Log::e(STR_IMG_LOAD_FAIL, path.c_str());
+		Log::e(STR_LOAD_FAIL, path.c_str());
 		return nullptr;
 	}
 
@@ -65,6 +86,27 @@ sf::Texture* ResourceManager::getTexture(std::string path, bool isCoreRes)
 	this->textures[path].payload = std::move(txt);
 	this->textures[path].isCoreRes = isCoreRes;
 	return this->textures[path].payload.get();
+}
+
+sf::SoundBuffer* ResourceManager::getSoundBuffer(std::string path, bool isCoreRes)
+{
+	auto search = this->audios.find(path);
+	if (search != this->audios.end())
+		return search->second.payload.get(); // resource already loaded
+
+	std::unique_ptr<sf::SoundBuffer> buf = std::make_unique<sf::SoundBuffer>();
+	if (!buf->loadFromFile(path))
+	{
+		Log::e(STR_LOAD_FAIL, path.c_str());
+		return nullptr;
+	}
+
+	Log::v(STR_LOADED_FILE, path.c_str());
+
+	// TODO refactor
+	this->audios[path].payload = std::move(buf);
+	this->audios[path].isCoreRes = isCoreRes;
+	return this->audios[path].payload.get();
 }
 
 /**
@@ -100,7 +142,19 @@ void ResourceManager::clearAllNonCore()
 			it++;
 	}
 
-	Log::d(STR_CLEANED_UNUSED_RES, oldSize - this->textures.size());
+	size_t cleaned = oldSize - this->textures.size();
+	oldSize = this->audios.size();
 
-	// TODO same for audio, etc.
+	for (auto it = this->audios.begin(); it != this->audios.end(); ) {
+		if (!it->second.isCoreRes)
+			it = this->audios.erase(it);
+		else
+			it++;
+	}
+
+	cleaned += (oldSize - this->audios.size());
+
+	Log::d(STR_CLEANED_UNUSED_RES, cleaned);
+
+	// TODO same for other non core res
 }
