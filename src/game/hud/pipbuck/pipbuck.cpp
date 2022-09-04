@@ -4,11 +4,11 @@
 
 PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, GameState &gameState) :
 	gameState(gameState),
-	categoryPages({
-		{ PIPB_CAT_STATUS, PipBuckCategoryPage(scale, hudColor, resMgr, "STATUS") },
-		{ PIPB_CAT_INV, PipBuckCategoryPage(scale, hudColor, resMgr, "INVENTORY") },
-		{ PIPB_CAT_INFO, PipBuckCategoryPage(scale, hudColor, resMgr, "INFORMATION") },
-		{ PIPB_CAT_MAINMENU, PipBuckCategoryPage(scale, hudColor, resMgr, "MAIN MENU") }
+	categories({
+		{ PIPB_CAT_STATUS, PipBuckCategory(scale, hudColor, resMgr, "STATUS") },
+		{ PIPB_CAT_INV, PipBuckCategory(scale, hudColor, resMgr, "INVENTORY") },
+		{ PIPB_CAT_INFO, PipBuckCategory(scale, hudColor, resMgr, "INFORMATION") },
+		{ PIPB_CAT_MAINMENU, PipBuckCategory(scale, hudColor, resMgr, "MAIN MENU") }
 	}),
 	categoryButtons({
 		{ PIPB_CAT_STATUS, Button(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS) },
@@ -60,7 +60,7 @@ void PipBuck::close()
 	Log::d(STR_GAME_RESUMED);
 }
 
-void PipBuck::changeCategory(PipBuckCategory cat)
+void PipBuck::changeCategory(PipBuckCategoryName cat)
 {
 	// note: need to use ::at, otherwise we'd need to have a default constructor in Button
 	this->categoryButtons.at(selectedCategory).setSelected(false);
@@ -94,7 +94,7 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	target.draw(this->pipBuckSprite, states);
 
 	// note: need to use ::at, otherwise we'd need to have a default constructor in PipBuckCategoryPage
-	target.draw(this->categoryPages.at(this->selectedCategory), states);
+	target.draw(this->categories.at(this->selectedCategory), states);
 
 	for (const auto &btn : this->categoryButtons)
 	{

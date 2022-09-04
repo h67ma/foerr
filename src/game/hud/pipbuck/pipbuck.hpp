@@ -10,7 +10,7 @@
 #include "pipbuck_category.hpp"
 #include "gui_container.hpp"
 
-enum PipBuckCategory
+enum PipBuckCategoryName
 {
 	PIPB_CAT_STATUS,
 	PIPB_CAT_INV,
@@ -35,13 +35,13 @@ class PipBuck : public GuiContainer
 {
 	private:
 		sf::Sprite pipBuckSprite;
-		PipBuckCategory selectedCategory = PIPB_CAT_STATUS;
-		std::unordered_map<PipBuckCategory, PipBuckCategoryPage> categoryPages;
-		std::unordered_map<PipBuckCategory, Button> categoryButtons;
+		PipBuckCategoryName selectedCategory = PIPB_CAT_STATUS;
+		std::unordered_map<PipBuckCategoryName, PipBuckCategory> categories;
+		std::unordered_map<PipBuckCategoryName, Button> categoryButtons;
 		Button closeBtn;
 		sf::Sound soundOpenClose;
 		GameState &gameState;
-		void changeCategory(PipBuckCategory cat);
+		void changeCategory(PipBuckCategoryName cat);
 
 	public:
 		PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, GameState &gameState);
