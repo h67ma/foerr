@@ -58,11 +58,11 @@ bool ResourceManager::loadCore()
 
 /**
  * Loads a texture from specified path into resource manager object.
- * This texture resource will be accessible via the `getTexture` method.
- * isCoreRes has no meaning if the texture is already loaded.
+ * Pointer to the loaded texture is returned. If the texture is already
+ * loaded, "duplicate" loading does not occur.
  *
  * @param path image resource path
- * @param isCoreRes `true` if this resource should not be unloaded when unloading campaigns, `false` otherwise
+ * @param isCoreRes `true` if this resource should not be unloaded when unloading campaigns, `false` otherwise. Has no meaning if the texture is already loaded.
  * @returns pointer to the loaded texture resource, or `nullptr` if loading failed
  */
 sf::Texture* ResourceManager::getTexture(std::string path, bool isCoreRes)
@@ -88,6 +88,15 @@ sf::Texture* ResourceManager::getTexture(std::string path, bool isCoreRes)
 	return this->textures[path].payload.get();
 }
 
+/**
+ * Loads audio from specified path into resource manager object.
+ * Pointer to the loaded sound buffer is returned. If the buffer is already
+ * loaded, "duplicate" loading does not occur.
+ *
+ * @param path audio resource path
+ * @param isCoreRes `true` if this resource should not be unloaded when unloading campaigns, `false` otherwise. Has no meaning if the sound is already loaded.
+ * @return pointer to the loaded sound buffer resource, or `nullptr` if loading failed
+ */
 sf::SoundBuffer* ResourceManager::getSoundBuffer(std::string path, bool isCoreRes)
 {
 	auto search = this->audios.find(path);
@@ -143,6 +152,7 @@ void ResourceManager::clearAllNonCore()
 	}
 
 	size_t cleaned = oldSize - this->textures.size();
+
 	oldSize = this->audios.size();
 
 	for (auto it = this->audios.begin(); it != this->audios.end(); ) {

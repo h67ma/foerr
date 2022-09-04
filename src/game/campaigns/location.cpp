@@ -41,6 +41,8 @@ bool Location::load(std::string locDir, ResourceManager &resMgr)
 	uint width, height;
 	Json::Value root;
 
+	Log::d(STR_LOADING_LOCATION, indexPath.c_str());
+
 	if (!loadJsonFromFile(root, indexPath))
 		return false;
 

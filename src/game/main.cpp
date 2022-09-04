@@ -198,7 +198,6 @@ int main()
 
 	Button unloadCamp(initialScale, BTN_NORMAL, hudColor, resManager, 1000, 550, "unload campaign", [&campaign, &gameState, &resManager]() {
 		campaign.unload(resManager);
-		Log::d(STR_CAMPAIGN_UNLOADED);
 		gameState = STATE_MAINMENU;
 	});
 	buttons.push_back(&unloadCamp);

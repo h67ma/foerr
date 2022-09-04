@@ -15,6 +15,8 @@
  */
 bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 {
+	Log::d(STR_CAMPAIGN_LOADING, campaignDir.c_str());
+
 	this->unload(resMgr);
 
 	// load basic campaign infos
@@ -87,11 +89,13 @@ bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 		return false;
 
 	this->loaded = true;
+	Log::d(STR_CAMPAIGN_LOADED, campaignDir.c_str());
 	return true;
 }
 
 void Campaign::unload(ResourceManager &resMgr)
 {
+	Log::d(STR_CAMPAIGN_UNLOADING);
 	this->title = "";
 	this->description = "";
 	this->startLocation = "";
@@ -99,6 +103,7 @@ void Campaign::unload(ResourceManager &resMgr)
 	this->locations.clear();
 	this->loaded = false;
 	resMgr.clearAllNonCore();
+	Log::d(STR_CAMPAIGN_UNLOADED);
 }
 
 std::string Campaign::getTitle()
