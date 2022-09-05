@@ -49,6 +49,9 @@ enum FontType
  *
  * Fonts are special cases of core resources, i.e. they are stored differently (in arrays).
  * Cursors are handled separately via the CursorManager class.
+ *
+ * TODO? res mgr could potentially be made into a "static class", same as with Log, to avoid
+ * passing it along everywhere.
  */
 class ResourceManager
 {

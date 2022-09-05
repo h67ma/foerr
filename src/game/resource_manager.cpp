@@ -144,7 +144,8 @@ void ResourceManager::clearAllNonCore()
 
 	size_t oldSize = this->textures.size();
 
-	for (auto it = this->textures.begin(); it != this->textures.end(); ) {
+	for (auto it = this->textures.begin(); it != this->textures.end(); )
+	{
 		if (!it->second.isCoreRes)
 			it = this->textures.erase(it);
 		else
@@ -155,7 +156,8 @@ void ResourceManager::clearAllNonCore()
 
 	oldSize = this->audios.size();
 
-	for (auto it = this->audios.begin(); it != this->audios.end(); ) {
+	for (auto it = this->audios.begin(); it != this->audios.end(); )
+	{
 		if (!it->second.isCoreRes)
 			it = this->audios.erase(it);
 		else
