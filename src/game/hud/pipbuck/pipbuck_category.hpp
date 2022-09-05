@@ -1,7 +1,12 @@
+#pragma once
+
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include "../../resource_manager.hpp"
 #include "../hud.hpp"
 #include "../button.hpp"
+#include "../hover_manager.hpp"
+#include "pipbuck_page.hpp"
 
 /**
  * Represents a single PipBuck category (e.g. "Status").
@@ -10,14 +15,18 @@
 class PipBuckCategory : public sf::Drawable, public sf::Transformable
 {
 	private:
-		Button page1Btn;
-		Button page2Btn;
-		Button page3Btn;
-		Button page4Btn;
-		Button page5Btn;
-		sf::Text dummyText; // TODO replace with actual pages & switch between them like the same as pipbuck-category
+		HoverManager hoverMgr;
+		uint selectedPage = 0;
+		void changePage(uint idx);
+		std::vector<Button> pageButtons;
+
+	protected:
+		std::vector<std::shared_ptr<PipBuckPage>> pages;
 
 	public:
-		PipBuckCategory(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, std::string dummyText);
+		PipBuckCategory(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr);
+		void setup();
+		bool handleLeftClick(int x, int y);
+		void handleMouseMove(int x, int y);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

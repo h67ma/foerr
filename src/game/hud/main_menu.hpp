@@ -4,15 +4,16 @@
 #include "hover_manager.hpp"
 #include "button.hpp"
 #include "../campaigns/campaign.hpp"
-#include "gui_container.hpp"
 
-class MainMenu : public GuiContainer
+class MainMenu : public sf::Drawable, public sf::Transformable
 {
 	private:
+		HoverManager hoverMgr;
 		std::vector<Button> buttons;
 
 	public:
 		MainMenu(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState);
 		void handleLeftClick(int x, int y);
+		void handleMouseMove(int x, int y);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

@@ -53,6 +53,7 @@ class Button : public sf::Drawable, public sf::Transformable, public Hoverable
 		void setSelected(bool selected);
 		void setHover(bool hover);
 		void setColor(sf::Color color);
+		void setText(std::string text);
 		void setCallback(std::function<void(void)> callback);
 		bool containsPoint(int x, int y);
 		bool maybeHandleLeftClick(int x, int y);

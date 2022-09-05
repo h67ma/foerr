@@ -1,21 +1,25 @@
 #include "pipbuck.hpp"
 #include "../util/i18n.hpp"
 #include "../log.hpp"
+#include "categories/pipbuck_cat_status.hpp"
+#include "categories/pipbuck_cat_inventory.hpp"
+#include "categories/pipbuck_cat_info.hpp"
+#include "categories/pipbuck_cat_main.hpp"
 
 PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, GameState &gameState) :
 	gameState(gameState),
-	categories({
-		{ PIPB_CAT_STATUS, PipBuckCategory(scale, hudColor, resMgr, "STATUS") },
-		{ PIPB_CAT_INV, PipBuckCategory(scale, hudColor, resMgr, "INVENTORY") },
-		{ PIPB_CAT_INFO, PipBuckCategory(scale, hudColor, resMgr, "INFORMATION") },
-		{ PIPB_CAT_MAINMENU, PipBuckCategory(scale, hudColor, resMgr, "MAIN MENU") }
-	}),
-	categoryButtons({
-		{ PIPB_CAT_STATUS, Button(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS) },
-		{ PIPB_CAT_INV, Button(scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV) },
-		{ PIPB_CAT_INFO, Button(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO) },
-		{ PIPB_CAT_MAINMENU, Button(scale, BTN_BIG, hudColor, resMgr, 55, 700, STR_PIPBUCK_MAINMENU) }
-	}),
+	categories { // order matters
+		PipBuckCategoryStatus(scale, hudColor, resMgr),
+		PipBuckCategoryInventory(scale, hudColor, resMgr),
+		PipBuckCategoryInfo(scale, hudColor, resMgr),
+		PipBuckCategoryMain(scale, hudColor, resMgr)
+	},
+	categoryButtons { // order matters
+		Button(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS),
+		Button(scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV),
+		Button(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO),
+		Button(scale, BTN_BIG, hudColor, resMgr, 55, 700, STR_PIPBUCK_MAINMENU)
+	},
 	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 800, STR_PIPBUCK_CLOSE, [this](){
 		this->close();
 	})
@@ -23,13 +27,18 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Ga
 	this->pipBuckSprite.setTexture(*resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY));
 	this->soundOpenClose.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE));
 
+	for (auto &cat : this->categories)
+	{
+		cat.setup();
+	}
+
 	for (auto &btn : this->categoryButtons)
 	{
-		this->hoverMgr.addHoverable(&btn.second);
+		this->hoverMgr.addHoverable(&btn);
 	}
 	this->hoverMgr.addHoverable(&this->closeBtn);
 
-	this->changeCategory(PIPB_CAT_STATUS); // default category
+	this->changeCategory(this->selectedCategory); // default category
 }
 
 void PipBuck::handleScreenResize(uint screenW, uint screenH)
@@ -60,31 +69,45 @@ void PipBuck::close()
 	Log::d(STR_GAME_RESUMED);
 }
 
-void PipBuck::changeCategory(PipBuckCategoryName cat)
+void PipBuck::changeCategory(uint idx)
 {
-	// note: need to use ::at, otherwise we'd need to have a default constructor in Button
-	this->categoryButtons.at(selectedCategory).setSelected(false);
-	this->categoryButtons.at(cat).setSelected(true);
+	this->categoryButtons[this->selectedCategory].setSelected(false);
+	this->categoryButtons[idx].setSelected(true);
 
-	selectedCategory = cat;
+	this->selectedCategory = idx;
 }
 
 void PipBuck::handleLeftClick(int x, int y)
 {
-	// need to account for this component's position
+	// account for this component's position
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	for (auto &btn : this->categoryButtons)
+	if (this->categories[this->selectedCategory].handleLeftClick(x, y))
+		return; // click consumed
+
+	for (auto it = this->categoryButtons.begin(); it != this->categoryButtons.end(); it++)
 	{
-		if (btn.second.containsPoint(x, y))
+		if (it->containsPoint(x, y))
 		{
-			this->changeCategory(btn.first);
+			uint idx = static_cast<uint>(std::distance(this->categoryButtons.begin(), it));
+			this->changeCategory(idx);
 			return; // click consumed
 		}
 	}
 
 	this->closeBtn.maybeHandleLeftClick(x, y);
+}
+
+void PipBuck::handleMouseMove(int x, int y)
+{
+	// account for this component's position
+	x -= static_cast<int>(this->getPosition().x);
+	y -= static_cast<int>(this->getPosition().y);
+
+	// TODO if one of them "consumed" hover then no need to call the other one
+	this->categories[this->selectedCategory].handleMouseMove(x, y);
+	this->hoverMgr.handleMouseMove(x, y);
 }
 
 void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -93,12 +116,11 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	target.draw(this->pipBuckSprite, states);
 
-	// note: need to use ::at, otherwise we'd need to have a default constructor in PipBuckCategoryPage
-	target.draw(this->categories.at(this->selectedCategory), states);
+	target.draw(this->categories[this->selectedCategory], states);
 
 	for (const auto &btn : this->categoryButtons)
 	{
-		target.draw(btn.second, states);
+		target.draw(btn, states);
 	}
 
 	target.draw(this->closeBtn, states);

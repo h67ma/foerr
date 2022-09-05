@@ -26,7 +26,7 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, 
 
 void MainMenu::handleLeftClick(int x, int y)
 {
-	// need to account for this component's position
+	// account for this component's position
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
@@ -35,6 +35,15 @@ void MainMenu::handleLeftClick(int x, int y)
 		if (btn.maybeHandleLeftClick(x, y))
 			return;
 	}
+}
+
+void MainMenu::handleMouseMove(int x, int y)
+{
+	// account for this component's position
+	x -= static_cast<int>(this->getPosition().x);
+	y -= static_cast<int>(this->getPosition().y);
+
+	this->hoverMgr.handleMouseMove(x, y);
 }
 
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const

@@ -1,26 +1,89 @@
 #include "pipbuck_category.hpp"
 
-PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, std::string dummyText) :
-	page1Btn(scale, BTN_NARROW, hudColor, resMgr, 385, 210, "kappa1"),
-	page2Btn(scale, BTN_NARROW, hudColor, resMgr, 525, 210, "kappa2"),
-	page3Btn(scale, BTN_NARROW, hudColor, resMgr, 665, 210, "kappa3"),
-	page4Btn(scale, BTN_NARROW, hudColor, resMgr, 805, 210, "kappa4"),
-	page5Btn(scale, BTN_NARROW, hudColor, resMgr, 945, 210, "kappa5")
+PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
+	pageButtons { // order matters
+		Button(scale, BTN_NARROW, hudColor, resMgr, 385, 210),
+		Button(scale, BTN_NARROW, hudColor, resMgr, 525, 210),
+		Button(scale, BTN_NARROW, hudColor, resMgr, 665, 210),
+		Button(scale, BTN_NARROW, hudColor, resMgr, 805, 210),
+		Button(scale, BTN_NARROW, hudColor, resMgr, 945, 210)
+	}
 {
-	this->dummyText.setFont(*resMgr.getFont(FONT_NORMAL));
-	this->dummyText.setString(dummyText);
-	this->dummyText.setPosition(800, 500);
+	this->changePage(this->selectedPage); // default page
+}
+
+/**
+ * Setups buttons stored in this object to respond to hover events.
+ * Must be called after constructing the object. If the object is
+ * moved in memory, there *will* be problems.
+ *
+ * Also setups button labels.
+ */
+void PipBuckCategory::setup()
+{
+	for (auto &btn : this->pageButtons)
+	{
+		this->hoverMgr.addHoverable(&btn);
+	}
+
+	// this is not very safe, but considering we'll always have
+	// exactly 5 buttons and 5 pages, it should be ok
+	for (uint i = 0; i < this->pages.size(); i++)
+	{
+		this->pageButtons[i].setText(this->pages[i]->getLabel());
+	}
+}
+
+void PipBuckCategory::changePage(uint idx)
+{
+	this->pageButtons[this->selectedPage].setSelected(false);
+	this->pageButtons[idx].setSelected(true);
+
+	this->selectedPage = idx;
+}
+
+/**
+ * @param x the x mouse coordinate
+ * @param y the y mouse coordinate
+ * @return true if click was consumed
+ * @return false if click was not consumed
+ */
+bool PipBuckCategory::handleLeftClick(int x, int y)
+{
+	// account for this component's position
+	x -= static_cast<int>(this->getPosition().x);
+	y -= static_cast<int>(this->getPosition().y);
+
+	for (auto it = this->pageButtons.begin(); it != this->pageButtons.end(); it++)
+	{
+		if (it->containsPoint(x, y))
+		{
+			uint idx = static_cast<uint>(std::distance(this->pageButtons.begin(), it));
+			this->changePage(idx);
+			return true; // click consumed
+		}
+	}
+
+	return false;
+}
+
+void PipBuckCategory::handleMouseMove(int x, int y)
+{
+	// account for this component's position
+	x -= static_cast<int>(this->getPosition().x);
+	y -= static_cast<int>(this->getPosition().y);
+
+	this->hoverMgr.handleMouseMove(x, y);
 }
 
 void PipBuckCategory::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
-	target.draw(this->page1Btn, states);
-	target.draw(this->page2Btn, states);
-	target.draw(this->page3Btn, states);
-	target.draw(this->page4Btn, states);
-	target.draw(this->page5Btn, states);
+	target.draw(*this->pages[this->selectedPage], states);
 
-	target.draw(this->dummyText, states);
+	for (auto &btn : this->pageButtons)
+	{
+		target.draw(btn, states);
+	}
 }

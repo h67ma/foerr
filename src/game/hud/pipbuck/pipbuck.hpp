@@ -1,6 +1,6 @@
 #pragma once
 
-#include <unordered_map>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "../button.hpp"
@@ -8,15 +8,6 @@
 #include "../hover_manager.hpp"
 #include "../hud.hpp"
 #include "pipbuck_category.hpp"
-#include "gui_container.hpp"
-
-enum PipBuckCategoryName
-{
-	PIPB_CAT_STATUS,
-	PIPB_CAT_INV,
-	PIPB_CAT_INFO,
-	PIPB_CAT_MAINMENU,
-};
 
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.
@@ -31,22 +22,24 @@ enum PipBuckCategoryName
  * TODO what about updating states of individual pages? We should NOT update
  * states of inactive (invisible) pages; instead only update them on page open.
  */
-class PipBuck : public GuiContainer
+class PipBuck : public sf::Drawable, public sf::Transformable
 {
 	private:
+		HoverManager hoverMgr;
 		sf::Sprite pipBuckSprite;
-		PipBuckCategoryName selectedCategory = PIPB_CAT_STATUS;
-		std::unordered_map<PipBuckCategoryName, PipBuckCategory> categories;
-		std::unordered_map<PipBuckCategoryName, Button> categoryButtons;
+		uint selectedCategory = 0;
+		std::vector<PipBuckCategory> categories;
+		std::vector<Button> categoryButtons;
 		Button closeBtn;
 		sf::Sound soundOpenClose;
 		GameState &gameState;
-		void changeCategory(PipBuckCategoryName cat);
+		void changeCategory(uint idx);
 
 	public:
 		PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, GameState &gameState);
 		void handleScreenResize(uint screenW, uint screenH);
 		void handleLeftClick(int x, int y);
+		void handleMouseMove(int x, int y);
 		void open(bool sound=true);
 		void close();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

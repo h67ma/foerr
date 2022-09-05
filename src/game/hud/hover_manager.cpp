@@ -54,3 +54,8 @@ void HoverManager::handleMouseMove(int x, int y)
 			this->lastHoveredIdx = NO_HOVER_IDX;
 	}
 }
+
+void HoverManager::clear()
+{
+	this->hoverables.clear();
+}

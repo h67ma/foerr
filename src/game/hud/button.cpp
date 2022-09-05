@@ -184,6 +184,12 @@ void Button::setColor(sf::Color color)
 	this->colorUnselected = color * sf::Color(BTN_COLOR_UNSEL_FACTOR, BTN_COLOR_UNSEL_FACTOR, BTN_COLOR_UNSEL_FACTOR);
 }
 
+void Button::setText(std::string text)
+{
+	this->text.setString(text);
+	this->setGuiScale(this->scale); // need to re-center text
+}
+
 void Button::setCallback(std::function<void(void)> callback)
 {
 	this->callback = callback;
