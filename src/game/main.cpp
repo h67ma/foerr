@@ -103,7 +103,7 @@ int main()
 
 	Campaign campaign;
 	HoverManager hoverMgr;
-	MainMenu mainMenu(initialScale, hudColor, resManager, window, campaign, gameState);
+	MainMenu mainMenu(initialScale, hudColor, initialFxVol, resManager, window, campaign, gameState);
 	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState);
 
 

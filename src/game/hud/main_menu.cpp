@@ -4,7 +4,7 @@
 #include "loading_screen.hpp"
 
 
-MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState) :
+MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState) :
 	buttons({
 		Button(scale, BTN_NORMAL, hudColor, resMgr, 100, 100, STR_CONTINUE, [scale, hudColor, &resMgr, &campaign, &gameState, &window](){
 			// TODO some kind of campaign select
@@ -26,6 +26,9 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, 
 		})
 	})
 {
+	this->soundBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK));
+	this->soundBtn.setVolume(static_cast<float>(fxVolume));
+
 	for (auto &btn : this->buttons)
 	{
 		this->hoverMgr.addHoverable(&btn);
@@ -41,7 +44,10 @@ ClickStatus MainMenu::handleLeftClick(int x, int y)
 	for (auto &btn : this->buttons)
 	{
 		if (btn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+		{
+			this->soundBtn.play();
 			return CLICK_CONSUMED;
+		}
 	}
 
 	return CLICK_NOT_CONSUMED;
