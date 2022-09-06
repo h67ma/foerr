@@ -27,6 +27,9 @@ SettingsManager::SettingsManager()
 	this->settings[SETT_HUD_COLOR].setup("HudColor", sf::Color(0, 255, 153)); // default is greenish, same as in Remains
 	//this->settings[SETT_LOG_MSG_TIMEOUT].setup("LogMsgTimeout", 3); // is this really necessary?
 
+	// audio
+	this->settings[SETT_FX_VOLUME].setup("FXVolume", 100U);
+
 	// debug
 	// TODO maybe we could save window w&h on program exit and then restore it?
 	this->settings[SETT_WINDOW_WIDTH].setup("WindowW", 1280U);

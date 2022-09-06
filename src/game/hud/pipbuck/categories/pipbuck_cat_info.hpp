@@ -3,5 +3,5 @@
 class PipBuckCategoryInfo : public PipBuckCategory
 {
 	public:
-		PipBuckCategoryInfo(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr);
+		PipBuckCategoryInfo(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr);
 };

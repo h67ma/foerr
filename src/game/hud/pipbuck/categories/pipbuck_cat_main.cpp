@@ -5,8 +5,8 @@
 #include "../pages/pipbuck_page_controls.hpp"
 #include "../pages/pipbuck_page_log.hpp"
 
-PipBuckCategoryMain::PipBuckCategoryMain(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
-	PipBuckCategory(scale, hudColor, resMgr) {
+PipBuckCategoryMain::PipBuckCategoryMain(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr) :
+	PipBuckCategory(scale, hudColor, fxVolume, resMgr) {
 		this->pages = { // order matters
 			std::make_shared<PipBuckPageCampaign>(resMgr),
 			std::make_shared<PipBuckPageSave>(resMgr),

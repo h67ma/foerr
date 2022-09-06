@@ -56,6 +56,7 @@ int main()
 	windowH = window.getSize().y;
 
 	GuiScale initialScale = settings.getGuiScale(SETT_GUI_SCALE);
+	uint initialFxVol = settings.getUint(SETT_FX_VOLUME);
 	sf::Color hudColor = settings.getColor(SETT_HUD_COLOR);
 
 	ResourceManager resManager;
@@ -88,7 +89,7 @@ int main()
 	Campaign campaign;
 	HoverManager hoverMgr;
 	MainMenu mainMenu(initialScale, hudColor, resManager, window, campaign, gameState);
-	PipBuck pipBuck(initialScale, hudColor, resManager, gameState);
+	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, gameState);
 
 
 

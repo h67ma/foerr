@@ -26,7 +26,7 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 		std::vector<std::shared_ptr<PipBuckPage>> pages;
 
 	public:
-		PipBuckCategory(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr);
+		PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr);
 		void setup();
 		bool handleLeftClick(int x, int y);
 		bool handleMouseMove(int x, int y);

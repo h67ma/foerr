@@ -1,6 +1,6 @@
 #include "pipbuck_category.hpp"
 
-PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr) :
+PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr) :
 	pageButtons { // order matters
 		Button(scale, BTN_NARROW, hudColor, resMgr, 385, 210),
 		Button(scale, BTN_NARROW, hudColor, resMgr, 525, 210),
@@ -10,6 +10,8 @@ PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, ResourceMan
 	}
 {
 	this->soundPageChange.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE));
+	this->soundPageChange.setVolume(static_cast<float>(fxVolume));
+
 	this->changePage(this->selectedPage); // default page
 }
 

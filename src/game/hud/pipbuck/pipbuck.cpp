@@ -6,13 +6,13 @@
 #include "categories/pipbuck_cat_info.hpp"
 #include "categories/pipbuck_cat_main.hpp"
 
-PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, GameState &gameState) :
+PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, GameState &gameState) :
 	gameState(gameState),
 	categories { // order matters
-		PipBuckCategoryStatus(scale, hudColor, resMgr),
-		PipBuckCategoryInventory(scale, hudColor, resMgr),
-		PipBuckCategoryInfo(scale, hudColor, resMgr),
-		PipBuckCategoryMain(scale, hudColor, resMgr)
+		PipBuckCategoryStatus(scale, hudColor, fxVolume, resMgr),
+		PipBuckCategoryInventory(scale, hudColor, fxVolume, resMgr),
+		PipBuckCategoryInfo(scale, hudColor, fxVolume, resMgr),
+		PipBuckCategoryMain(scale, hudColor, fxVolume, resMgr)
 	},
 	categoryButtons { // order matters
 		Button(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS),
@@ -25,8 +25,11 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Ga
 	})
 {
 	this->pipBuckSprite.setTexture(*resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY));
+
 	this->soundOpenClose.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE));
 	this->soundCategoryBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE));
+	this->soundOpenClose.setVolume(static_cast<float>(fxVolume));
+	this->soundCategoryBtn.setVolume(static_cast<float>(fxVolume));
 
 	for (auto &cat : this->categories)
 	{
