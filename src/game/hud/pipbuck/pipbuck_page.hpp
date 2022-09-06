@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "../hover_manager.hpp"
+#include "../../consts.hpp"
 
 /**
  * Represents an abstract PipBuck page (e.g. Armor).
@@ -18,7 +19,7 @@ class PipBuckPage : public sf::Drawable, public sf::Transformable
 		sf::Text dummy; // TODO delet this
 
 	public:
-		virtual bool handleLeftClick(int x, int y) { return false; };
+		virtual ClickStatus handleLeftClick(int x, int y) { return CLICK_NOT_CONSUMED; };
 		virtual bool handleMouseMove(int x, int y);
 		virtual std::string getLabel() = 0;
 };

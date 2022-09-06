@@ -29,7 +29,7 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 	public:
 		PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr);
 		void setup();
-		bool handleLeftClick(int x, int y);
+		ClickStatus handleLeftClick(int x, int y);
 		bool handleMouseMove(int x, int y);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

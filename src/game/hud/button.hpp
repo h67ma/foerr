@@ -56,6 +56,6 @@ class Button : public sf::Drawable, public sf::Transformable, public Hoverable
 		void setText(std::string text);
 		void setCallback(std::function<void(void)> callback);
 		bool containsPoint(int x, int y);
-		bool handleLeftClick(int x, int y);
+		ClickStatus handleLeftClick(int x, int y);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

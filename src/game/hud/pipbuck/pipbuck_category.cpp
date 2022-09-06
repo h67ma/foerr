@@ -47,13 +47,7 @@ void PipBuckCategory::changePage(uint idx)
 	this->selectedPage = idx;
 }
 
-/**
- * @param x the x mouse coordinate
- * @param y the y mouse coordinate
- * @return true if click was consumed
- * @return false if click was not consumed
- */
-bool PipBuckCategory::handleLeftClick(int x, int y)
+ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
 {
 	// account for this component's position
 	x -= static_cast<int>(this->getPosition().x);
@@ -61,12 +55,16 @@ bool PipBuckCategory::handleLeftClick(int x, int y)
 
 	for (auto &page : this->pages)
 	{
-		if (page->handleLeftClick(x, y))
+		ClickStatus pageResult = page->handleLeftClick(x, y);
+		if (pageResult != CLICK_NOT_CONSUMED)
 		{
 			// basically we want every page click to play the same sound
-			// so there's no point in having each page keep its own sf::Sound for that
-			this->soundClick.play();
-			return true;
+			// so there's no point in having each page keep its own sf::Sound for that.
+			// except the case when pipbuck is being closed, then pipbuck sound should play
+			if (pageResult != CLICK_CONSUMED_CLOSE)
+				this->soundClick.play();
+
+			return pageResult;
 		}
 	}
 
@@ -80,11 +78,11 @@ bool PipBuckCategory::handleLeftClick(int x, int y)
 				this->changePage(idx);
 				this->soundPageChange.play();
 			}
-			return true; // click consumed
+			return CLICK_CONSUMED;
 		}
 	}
 
-	return false;
+	return CLICK_NOT_CONSUMED;
 }
 
 bool PipBuckCategory::handleMouseMove(int x, int y)

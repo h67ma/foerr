@@ -16,15 +16,15 @@ PipBuckPageCampaign::PipBuckPageCampaign(GuiScale scale, sf::Color hudColor, Res
 	}
 }
 
-bool PipBuckPageCampaign::handleLeftClick(int x, int y)
+ClickStatus PipBuckPageCampaign::handleLeftClick(int x, int y)
 {
 	for (auto &btn : this->buttons)
 	{
-		if (btn.handleLeftClick(x, y))
-			return true;
+		if (btn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+			return CLICK_CONSUMED;
 	}
 
-	return false;
+	return CLICK_NOT_CONSUMED;
 }
 
 std::string PipBuckPageCampaign::getLabel()

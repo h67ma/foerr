@@ -40,7 +40,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 	public:
 		PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
 		void handleScreenResize(uint screenW, uint screenH);
-		void handleLeftClick(int x, int y);
+		ClickStatus handleLeftClick(int x, int y);
 		void handleMouseMove(int x, int y);
 		void open(bool sound=true);
 		void close();

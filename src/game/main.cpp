@@ -275,7 +275,7 @@ int main()
 					{
 						for (Button* btn : buttons)
 						{
-							if (btn->handleLeftClick(event.mouseButton.x, event.mouseButton.y))
+							if (btn->handleLeftClick(event.mouseButton.x, event.mouseButton.y) != CLICK_NOT_CONSUMED)
 								break;
 						}
 					}

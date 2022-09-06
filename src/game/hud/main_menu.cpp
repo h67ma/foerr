@@ -32,7 +32,7 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, 
 	}
 }
 
-void MainMenu::handleLeftClick(int x, int y)
+ClickStatus MainMenu::handleLeftClick(int x, int y)
 {
 	// account for this component's position
 	x -= static_cast<int>(this->getPosition().x);
@@ -40,9 +40,11 @@ void MainMenu::handleLeftClick(int x, int y)
 
 	for (auto &btn : this->buttons)
 	{
-		if (btn.handleLeftClick(x, y))
-			return;
+		if (btn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+			return CLICK_CONSUMED;
 	}
+
+	return CLICK_NOT_CONSUMED;
 }
 
 void MainMenu::handleMouseMove(int x, int y)

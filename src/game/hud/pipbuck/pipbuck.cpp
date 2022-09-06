@@ -81,14 +81,20 @@ void PipBuck::changeCategory(uint idx)
 	this->selectedCategory = idx;
 }
 
-void PipBuck::handleLeftClick(int x, int y)
+ClickStatus PipBuck::handleLeftClick(int x, int y)
 {
 	// account for this component's position
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	if (this->categories[this->selectedCategory].handleLeftClick(x, y))
-		return; // click consumed
+	ClickStatus catResult = this->categories[this->selectedCategory].handleLeftClick(x, y);
+	if (catResult == CLICK_CONSUMED)
+		return CLICK_CONSUMED;
+	else if(catResult == CLICK_CONSUMED_CLOSE)
+	{
+		this->close();
+		return CLICK_CONSUMED;
+	}
 
 	for (auto it = this->categoryButtons.begin(); it != this->categoryButtons.end(); it++)
 	{
@@ -100,11 +106,11 @@ void PipBuck::handleLeftClick(int x, int y)
 				this->changeCategory(idx);
 				this->soundCategoryBtn.play();
 			}
-			return; // click consumed
+			return CLICK_CONSUMED;
 		}
 	}
 
-	this->closeBtn.handleLeftClick(x, y);
+	return this->closeBtn.handleLeftClick(x, y);
 }
 
 void PipBuck::handleMouseMove(int x, int y)

@@ -217,20 +217,16 @@ bool Button::containsPoint(int x, int y)
 /**
  * Checks if click was placed inside button area.
  * If it was, and the callback function exists, the callback will be called.
- *
- * @param x click x coordinate
- * @param y click y coordinate
- * @returns `true` if click was consumed, `false` otherwise
 */
-bool Button::handleLeftClick(int x, int y)
+ClickStatus Button::handleLeftClick(int x, int y)
 {
 	if (!this->containsPoint(x, y))
-		return false;
+		return CLICK_NOT_CONSUMED;
 
 	if (this->callback != nullptr)
 		this->callback();
 
-	return true;
+	return CLICK_CONSUMED;
 }
 
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
