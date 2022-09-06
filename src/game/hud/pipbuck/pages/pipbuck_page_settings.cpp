@@ -1,10 +1,28 @@
 #include "pipbuck_page_settings.hpp"
+#include "../../../util/i18n.hpp"
 
-PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr)
+PipBuckPageSettings::PipBuckPageSettings(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, SettingsManager &settings) :
+	buttons({
+		Button(scale, BTN_NORMAL, hudColor, resMgr, 400, 815, STR_SAVE_SETTINGS, [&settings]() {
+			settings.saveConfig();
+		})
+	})
 {
-	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
-	this->dummy.setPosition(500.f, 500.f);
-	this->dummy.setString("settings");
+	for (auto &btn : this->buttons)
+	{
+		this->hoverMgr.addHoverable(&btn);
+	}
+}
+
+ClickStatus PipBuckPageSettings::handleLeftClick(int x, int y)
+{
+	for (auto &btn : this->buttons)
+	{
+		if (btn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+			return CLICK_CONSUMED;
+	}
+
+	return CLICK_NOT_CONSUMED;
 }
 
 std::string PipBuckPageSettings::getLabel()
@@ -14,5 +32,8 @@ std::string PipBuckPageSettings::getLabel()
 
 void PipBuckPageSettings::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(this->dummy, states);
+	for (auto &btn : this->buttons)
+	{
+		target.draw(btn, states);
+	}
 }

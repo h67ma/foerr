@@ -53,19 +53,16 @@ ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	for (auto &page : this->pages)
+	ClickStatus pageResult = this->pages[this->selectedPage]->handleLeftClick(x, y);
+	if (pageResult != CLICK_NOT_CONSUMED)
 	{
-		ClickStatus pageResult = page->handleLeftClick(x, y);
-		if (pageResult != CLICK_NOT_CONSUMED)
-		{
-			// basically we want every page click to play the same sound
-			// so there's no point in having each page keep its own sf::Sound for that.
-			// except the case when pipbuck is being closed, then pipbuck sound should play
-			if (pageResult != CLICK_CONSUMED_CLOSE)
-				this->soundClick.play();
+		// basically we want every page click to play the same sound
+		// so there's no point in having each page keep its own sf::Sound for that.
+		// except the case when pipbuck is being closed, then pipbuck sound should play
+		if (pageResult != CLICK_CONSUMED_CLOSE)
+			this->soundClick.play();
 
-			return pageResult;
-		}
+		return pageResult;
 	}
 
 	for (auto it = this->pageButtons.begin(); it != this->pageButtons.end(); it++)
@@ -91,11 +88,8 @@ bool PipBuckCategory::handleMouseMove(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	for (auto &page : this->pages)
-	{
-		if (page->handleMouseMove(x, y))
-			return true;
-	}
+	if (this->pages[this->selectedPage]->handleMouseMove(x, y))
+		return true;
 
 	return this->hoverMgr.handleMouseMove(x, y);
 }

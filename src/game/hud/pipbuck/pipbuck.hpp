@@ -9,6 +9,7 @@
 #include "../hud.hpp"
 #include "pipbuck_category.hpp"
 #include "../campaigns/campaign.hpp"
+#include "../settings/settings_manager.hpp"
 
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.
@@ -38,7 +39,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		void changeCategory(uint idx);
 
 	public:
-		PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
+		PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState, SettingsManager &settings);
 		void handleScreenResize(uint screenW, uint screenH);
 		ClickStatus handleLeftClick(int x, int y);
 		void handleMouseMove(int x, int y);

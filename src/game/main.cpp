@@ -104,7 +104,7 @@ int main()
 	Campaign campaign;
 	HoverManager hoverMgr;
 	MainMenu mainMenu(initialScale, hudColor, initialFxVol, resManager, window, campaign, gameState);
-	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState);
+	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState, settings);
 
 
 
@@ -115,9 +115,6 @@ int main()
 	//setGuiScale() for all buttons
 	//fpsMeter.setGuiScale(GUI_SMALL);
 	//Log::setGuiScale(GUI_SMALL);
-
-	// howto save settings
-	//settings.saveConfig();
 
 
 
