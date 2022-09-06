@@ -11,7 +11,7 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 	categories { // order matters
 		PipBuckCategoryStatus(scale, hudColor, fxVolume, resMgr),
 		PipBuckCategoryInventory(scale, hudColor, fxVolume, resMgr),
-		PipBuckCategoryInfo(scale, hudColor, fxVolume, resMgr),
+		PipBuckCategoryInfo(scale, hudColor, fxVolume, resMgr, campaign),
 		PipBuckCategoryMain(scale, hudColor, fxVolume, resMgr, campaign, gameState)
 	},
 	categoryButtons { // order matters

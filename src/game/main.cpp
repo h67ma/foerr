@@ -213,19 +213,6 @@ int main()
 
 
 
-	Button campLoc1(initialScale, BTN_NORMAL, hudColor, resManager, 1200, 500, "goto loc 1", [&campaign]() {
-		campaign.changeLocation("surface");
-	});
-	buttons.push_back(&campLoc1);
-	hoverMgr.addHoverable(&campLoc1);
-
-	Button campLoc2(initialScale, BTN_NORMAL, hudColor, resManager, 1200, 550, "goto loc 2", [&campaign]() {
-		campaign.changeLocation("technical_tunnels");
-	});
-	buttons.push_back(&campLoc2);
-	hoverMgr.addHoverable(&campLoc2);
-
-
 	Button cursor1(initialScale, BTN_NARROW, hudColor, resManager, 1100, 100, "pointer", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, POINTER);
 	});
