@@ -105,8 +105,9 @@ void PipBuck::handleMouseMove(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	// TODO if one of them "consumed" hover then no need to call the other one
-	this->categories[this->selectedCategory].handleMouseMove(x, y);
+	if (this->categories[this->selectedCategory].handleMouseMove(x, y))
+		return; // hover "consumed"
+
 	this->hoverMgr.handleMouseMove(x, y);
 }
 

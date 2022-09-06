@@ -13,7 +13,8 @@ void HoverManager::addHoverable(Hoverable *hoverable)
  *
  * @param x the x mouse coordinate
  * @param y the y mouse coordinate
- * @returns `true` if any element is being hovered over, `false` otherwise
+ * @returns true if an element which is being hovered over was found
+ * @returns false if no element managed by this object is being hovered over
  */
 bool HoverManager::searchSetHover(int x, int y)
 {
@@ -30,28 +31,41 @@ bool HoverManager::searchSetHover(int x, int y)
 	return false;
 }
 
-void HoverManager::handleMouseMove(int x, int y)
+/**
+ * @param x the x mouse coordinate
+ * @param y the y mouse coordinate
+ * @returns true if any element managed by this object is being hovered over
+ * @returns false if no element managed by this object is being hovered over
+ */
+bool HoverManager::handleMouseMove(int x, int y)
 {
 	if (this->lastHoveredIdx == NO_HOVER_IDX)
 	{
 		// there was no item which we hovered over previously.
 		// need to search through hoverables and check if we entered any of them.
 		// if none is found, last hover idx will still remain at NO_HOVER_IDX.
-		this->searchSetHover(x, y);
+		return this->searchSetHover(x, y);
 	}
+
 	// there was an item which was previously hovered-over. there's a good chance
 	// it's still being hovered now, so check it before iterating the whole collection
 	// of hoverables. if it's still hovered, then we don't need to change anything.
-	else if (!this->hoverables[this->lastHoveredIdx]->containsPoint(x, y))
+	if (this->hoverables[this->lastHoveredIdx]->containsPoint(x, y))
+		return true;
+
+	// previous item lost hover, deselect it
+	this->hoverables[this->lastHoveredIdx]->setHover(false);
+	
+	// now we need to check if any new item gained hover, and if none then set NO_HOVER_IDX.
+	if (this->searchSetHover(x, y))
 	{
-		// previous item lost hover. we need to check if any new item gained hover,
-		// and if none then set NO_HOVER_IDX.
-
-		this->hoverables[this->lastHoveredIdx]->setHover(false);
-
-		if (!this->searchSetHover(x, y))
-			// new hover item not found
-			this->lastHoveredIdx = NO_HOVER_IDX;
+		return true;
+	}
+	else
+	{
+		// new hover item not found
+		this->lastHoveredIdx = NO_HOVER_IDX;
+		return false;
 	}
 }
 
