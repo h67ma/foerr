@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "../../resource_manager.hpp"
 #include "../hud.hpp"
 #include "../button.hpp"
@@ -17,8 +18,9 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 	private:
 		HoverManager hoverMgr;
 		uint selectedPage = 0;
-		void changePage(uint idx);
 		std::vector<Button> pageButtons;
+		sf::Sound soundPageChange;
+		void changePage(uint idx);
 
 	protected:
 		std::vector<std::shared_ptr<PipBuckPage>> pages;

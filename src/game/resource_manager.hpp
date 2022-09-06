@@ -10,6 +10,7 @@
 
 // core audio
 #define PATH_AUD_PIPBUCK_OPENCLOSE "res/audio/pipbuck_openclose.wav"
+#define PATH_AUD_PIPBUCK_PAGECHANGE "res/audio/pipbuck_change_page.wav"
 
 enum FontType
 {
@@ -58,9 +59,12 @@ class ResourceManager
 	private:
 		sf::Font fonts[_FONT_CNT];
 		std::unordered_map<std::string, Resource<sf::Texture>> textures;
-		std::unordered_map<std::string, Resource<sf::SoundBuffer>> audios;
 		// TODO std::unordered_map<char, sf::Texture*> charToBlock; // map for getting texture resource to draw blocks
 		// TODO std::unordered_map<char, sf::Texture*> charToBackground; // map for getting texture resource to draw backgrounds
+
+		// it would be more convenient to store sf::Sound, however then we'd be unable
+		// to play the same sound multiple times at the same time, which will definitely happen
+		std::unordered_map<std::string, Resource<sf::SoundBuffer>> audios;
 
 	public:
 		bool loadCore();

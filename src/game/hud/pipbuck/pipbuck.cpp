@@ -26,6 +26,7 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Ga
 {
 	this->pipBuckSprite.setTexture(*resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY));
 	this->soundOpenClose.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE));
+	this->soundCategoryBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE));
 
 	for (auto &cat : this->categories)
 	{
@@ -91,7 +92,11 @@ void PipBuck::handleLeftClick(int x, int y)
 		if (it->containsPoint(x, y))
 		{
 			uint idx = static_cast<uint>(std::distance(this->categoryButtons.begin(), it));
-			this->changeCategory(idx);
+			if (idx != this->selectedCategory)
+			{
+				this->changeCategory(idx);
+				this->soundCategoryBtn.play();
+			}
 			return; // click consumed
 		}
 	}

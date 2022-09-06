@@ -32,6 +32,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		std::vector<Button> categoryButtons;
 		Button closeBtn;
 		sf::Sound soundOpenClose;
+		sf::Sound soundCategoryBtn;
 		GameState &gameState;
 		void changeCategory(uint idx);
 

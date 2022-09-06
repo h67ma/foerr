@@ -9,6 +9,7 @@ PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, ResourceMan
 		Button(scale, BTN_NARROW, hudColor, resMgr, 945, 210)
 	}
 {
+	this->soundPageChange.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE));
 	this->changePage(this->selectedPage); // default page
 }
 
@@ -59,7 +60,11 @@ bool PipBuckCategory::handleLeftClick(int x, int y)
 		if (it->containsPoint(x, y))
 		{
 			uint idx = static_cast<uint>(std::distance(this->pageButtons.begin(), it));
-			this->changePage(idx);
+			if (idx != this->selectedPage)
+			{
+				this->changePage(idx);
+				this->soundPageChange.play();
+			}
 			return true; // click consumed
 		}
 	}
