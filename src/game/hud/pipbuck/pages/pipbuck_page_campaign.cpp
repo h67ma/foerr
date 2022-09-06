@@ -20,7 +20,7 @@ bool PipBuckPageCampaign::handleLeftClick(int x, int y)
 {
 	for (auto &btn : this->buttons)
 	{
-		if (btn.maybeHandleLeftClick(x, y))
+		if (btn.handleLeftClick(x, y))
 			return true;
 	}
 

@@ -285,7 +285,7 @@ int main()
 					{
 						for (Button* btn : buttons)
 						{
-							if (btn->maybeHandleLeftClick(event.mouseButton.x, event.mouseButton.y))
+							if (btn->handleLeftClick(event.mouseButton.x, event.mouseButton.y))
 								break;
 						}
 					}

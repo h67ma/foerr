@@ -104,7 +104,7 @@ void PipBuck::handleLeftClick(int x, int y)
 		}
 	}
 
-	this->closeBtn.maybeHandleLeftClick(x, y);
+	this->closeBtn.handleLeftClick(x, y);
 }
 
 void PipBuck::handleMouseMove(int x, int y)
