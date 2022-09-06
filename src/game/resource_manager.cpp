@@ -17,6 +17,7 @@ const char* _coreTextures[] = {
 const char* _coreAudio[] = {
 	PATH_AUD_PIPBUCK_OPENCLOSE,
 	PATH_AUD_PIPBUCK_PAGECHANGE,
+	PATH_AUD_PIPBUCK_PAGE_CLICK,
 };
 
 /**

@@ -20,6 +20,7 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 		uint selectedPage = 0;
 		std::vector<Button> pageButtons;
 		sf::Sound soundPageChange;
+		sf::Sound soundClick;
 		void changePage(uint idx);
 
 	protected:

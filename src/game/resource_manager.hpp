@@ -11,6 +11,7 @@
 // core audio
 #define PATH_AUD_PIPBUCK_OPENCLOSE "res/audio/pipbuck_openclose.wav"
 #define PATH_AUD_PIPBUCK_PAGECHANGE "res/audio/pipbuck_change_page.wav"
+#define PATH_AUD_PIPBUCK_PAGE_CLICK "res/audio/pipbuck_click.wav"
 
 enum FontType
 {

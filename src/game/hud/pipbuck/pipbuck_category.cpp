@@ -11,6 +11,8 @@ PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolu
 {
 	this->soundPageChange.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE));
 	this->soundPageChange.setVolume(static_cast<float>(fxVolume));
+	this->soundClick.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK));
+	this->soundClick.setVolume(static_cast<float>(fxVolume));
 
 	this->changePage(this->selectedPage); // default page
 }
@@ -60,7 +62,12 @@ bool PipBuckCategory::handleLeftClick(int x, int y)
 	for (auto &page : this->pages)
 	{
 		if (page->handleLeftClick(x, y))
+		{
+			// basically we want every page click to play the same sound
+			// so there's no point in having each page keep its own sf::Sound for that
+			this->soundClick.play();
 			return true;
+		}
 	}
 
 	for (auto it = this->pageButtons.begin(); it != this->pageButtons.end(); it++)
