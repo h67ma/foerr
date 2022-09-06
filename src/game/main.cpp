@@ -20,6 +20,7 @@
 #include "hud/hover_manager.hpp"
 #include "hud/pipbuck/pipbuck.hpp"
 #include "hud/main_menu.hpp"
+#include "hud/loading_screen.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -60,6 +61,17 @@ int main()
 	sf::Color hudColor = settings.getColor(SETT_HUD_COLOR);
 
 	ResourceManager resManager;
+
+	if (!resManager.loadFonts())
+	{
+		Log::e(STR_LOAD_FONTS_FAIL);
+		exit(1);
+	}
+
+	LoadingScreen loadingScreen(initialScale, hudColor, resManager, window.getSize().x, window.getSize().y);
+	window.clear();
+	window.draw(loadingScreen);
+	window.display();
 
 	if (!resManager.loadCore())
 	{
@@ -316,10 +328,6 @@ int main()
 						pipBuck.handleLeftClick(event.mouseButton.x, event.mouseButton.y);
 					}
 				}
-			}
-			else if (gameState == STATE_LOADINGSCREEN)
-			{
-				// TODO
 			}
 			else if (gameState == STATE_MAINMENU)
 			{

@@ -1,13 +1,21 @@
 #include "main_menu.hpp"
 #include "../util/i18n.hpp"
 #include "log.hpp"
+#include "loading_screen.hpp"
 
 
 MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState) :
 	buttons({
-		Button(scale, BTN_NORMAL, hudColor, resMgr, 100, 100, STR_CONTINUE, [&resMgr, &campaign, &gameState](){
+		Button(scale, BTN_NORMAL, hudColor, resMgr, 100, 100, STR_CONTINUE, [scale, hudColor, &resMgr, &campaign, &gameState, &window](){
 			// TODO some kind of campaign select
-			// TODO load on thread, display loading screen
+
+			// this is a pretty terrible way of showing a loading screen, but it will do for now
+			// TODO load on thread, display loading screen in main loop with a progress bar
+			LoadingScreen loadingScreen(scale, hudColor, resMgr, window.getSize().x, window.getSize().y);
+			window.clear();
+			window.draw(loadingScreen);
+			window.display();
+
 			campaign.load("res/campaigns/test", resMgr);
 
 			gameState = STATE_PLAYING;

@@ -9,6 +9,7 @@
 #define STR_LOAD_FAIL "Error loading resource (%s)"
 #define STR_FONT_LOAD_FAIL "Error loading font %s."
 #define STR_LOAD_CORE_FAIL "Error loading core resources."
+#define STR_LOAD_FONTS_FAIL "Error loading fonts."
 #define STR_SETTINGS_OPEN_ERROR "Error opening settings file. Using default settings."
 #define STR_FILE_OPEN_ERROR "Error opening file (%s)."
 #define STR_SYNTAX_ERROR "Error loading file (%s): %s"
@@ -54,3 +55,4 @@
 #define STR_SHUTTING_DOWN "Shutting down"
 #define STR_LOADING_CORE_RES "Loading core resources..."
 #define STR_LOADING_CORE_RES_DONE "Finished loading core resources."
+#define STR_LOADING "Loading..."

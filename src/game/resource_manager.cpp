@@ -20,12 +20,12 @@ const char* _coreAudio[] = {
 };
 
 /**
- * Loads essential resources, such as fonts.
+ * Loads fonts.
  * If the loading fails, then the program must be exited.
  *
  * @returns `true` if the loading succeeded, `false` otherwise
  */
-bool ResourceManager::loadCore()
+bool ResourceManager::loadFonts()
 {
 	for (size_t i = 0; i < _FONT_CNT; i++)
 	{
@@ -36,16 +36,25 @@ bool ResourceManager::loadCore()
 		}
 	}
 
+	return true;
+}
+
+/**
+ * Preloads essential resources, except fonts.
+ * If the loading fails, then the program must be exited.
+ *
+ * @returns `true` if the loading succeeded, `false` otherwise
+ */
+bool ResourceManager::loadCore()
+{
 	Log::d(STR_LOADING_CORE_RES);
 
-	// preload core textures
 	for (const char* txt : _coreTextures)
 	{
 		if (!this->getTexture(txt, true))
 			return false;
 	}
 
-	// preload core audio
 	for (const char* buf : _coreAudio)
 	{
 		if (!this->getSoundBuffer(buf, true))
