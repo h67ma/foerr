@@ -1,10 +1,30 @@
 #include "pipbuck_page_campaign.hpp"
+#include "../../../util/i18n.hpp"
 
-PipBuckPageCampaign::PipBuckPageCampaign(ResourceManager &resMgr)
+PipBuckPageCampaign::PipBuckPageCampaign(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :
+	buttons({
+		Button(scale, BTN_NORMAL, hudColor, resMgr, 385, 260, STR_EXIT_TO_MAIN_MENU, [&campaign, &gameState, &resMgr]() {
+			// TODO also save game before unloading campaign
+			campaign.unload(resMgr);
+			gameState = STATE_MAINMENU;
+		})
+	})
 {
-	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
-	this->dummy.setPosition(500.f, 500.f);
-	this->dummy.setString("campaign");
+	for (auto &btn : this->buttons)
+	{
+		this->hoverMgr.addHoverable(&btn);
+	}
+}
+
+bool PipBuckPageCampaign::handleLeftClick(int x, int y)
+{
+	for (auto &btn : this->buttons)
+	{
+		if (btn.maybeHandleLeftClick(x, y))
+			return true;
+	}
+
+	return false;
 }
 
 std::string PipBuckPageCampaign::getLabel()
@@ -14,5 +34,8 @@ std::string PipBuckPageCampaign::getLabel()
 
 void PipBuckPageCampaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(this->dummy, states);
+	for (auto &btn : this->buttons)
+	{
+		target.draw(btn, states);
+	}
 }

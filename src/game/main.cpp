@@ -101,7 +101,7 @@ int main()
 	Campaign campaign;
 	HoverManager hoverMgr;
 	MainMenu mainMenu(initialScale, hudColor, resManager, window, campaign, gameState);
-	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, gameState);
+	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState);
 
 
 
@@ -209,12 +209,6 @@ int main()
 	mchavi->setAnimation(ANIM_SWIM);
 
 
-	Button unloadCamp(initialScale, BTN_NORMAL, hudColor, resManager, 1000, 550, "unload campaign", [&campaign, &gameState, &resManager]() {
-		campaign.unload(resManager);
-		gameState = STATE_MAINMENU;
-	});
-	buttons.push_back(&unloadCamp);
-	hoverMgr.addHoverable(&unloadCamp);
 
 	Button campLoc1(initialScale, BTN_NORMAL, hudColor, resManager, 1200, 500, "goto loc 1", [&campaign]() {
 		campaign.changeLocation("surface");

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "../hover_manager.hpp"
 
 /**
  * Represents an abstract PipBuck page (e.g. Armor).
@@ -13,8 +14,11 @@
 class PipBuckPage : public sf::Drawable, public sf::Transformable
 {
 	protected:
+		HoverManager hoverMgr;
 		sf::Text dummy; // TODO delet this
 
 	public:
+		virtual bool handleLeftClick(int x, int y) { return false; };
+		virtual bool handleMouseMove(int x, int y);
 		virtual std::string getLabel() = 0;
 };

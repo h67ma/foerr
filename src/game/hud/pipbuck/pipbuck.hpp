@@ -8,6 +8,7 @@
 #include "../hover_manager.hpp"
 #include "../hud.hpp"
 #include "pipbuck_category.hpp"
+#include "../campaigns/campaign.hpp"
 
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.
@@ -37,7 +38,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		void changeCategory(uint idx);
 
 	public:
-		PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, GameState &gameState);
+		PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
 		void handleScreenResize(uint screenW, uint screenH);
 		void handleLeftClick(int x, int y);
 		void handleMouseMove(int x, int y);

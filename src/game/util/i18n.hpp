@@ -56,3 +56,4 @@
 #define STR_LOADING_CORE_RES "Loading core resources..."
 #define STR_LOADING_CORE_RES_DONE "Finished loading core resources."
 #define STR_LOADING "Loading..."
+#define STR_EXIT_TO_MAIN_MENU "Exit to main menu"

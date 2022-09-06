@@ -57,6 +57,12 @@ bool PipBuckCategory::handleLeftClick(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
+	for (auto &page : this->pages)
+	{
+		if (page->handleLeftClick(x, y))
+			return true;
+	}
+
 	for (auto it = this->pageButtons.begin(); it != this->pageButtons.end(); it++)
 	{
 		if (it->containsPoint(x, y))
@@ -79,6 +85,12 @@ bool PipBuckCategory::handleMouseMove(int x, int y)
 	// account for this component's position
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
+
+	for (auto &page : this->pages)
+	{
+		if (page->handleMouseMove(x, y))
+			return true;
+	}
 
 	return this->hoverMgr.handleMouseMove(x, y);
 }

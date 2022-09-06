@@ -6,13 +6,13 @@
 #include "categories/pipbuck_cat_info.hpp"
 #include "categories/pipbuck_cat_main.hpp"
 
-PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, GameState &gameState) :
+PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :
 	gameState(gameState),
 	categories { // order matters
 		PipBuckCategoryStatus(scale, hudColor, fxVolume, resMgr),
 		PipBuckCategoryInventory(scale, hudColor, fxVolume, resMgr),
 		PipBuckCategoryInfo(scale, hudColor, fxVolume, resMgr),
-		PipBuckCategoryMain(scale, hudColor, fxVolume, resMgr)
+		PipBuckCategoryMain(scale, hudColor, fxVolume, resMgr, campaign, gameState)
 	},
 	categoryButtons { // order matters
 		Button(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS),
