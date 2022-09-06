@@ -65,6 +65,7 @@ int main()
 	if (!resManager.loadFonts())
 	{
 		Log::e(STR_LOAD_FONTS_FAIL);
+		window.close();
 		exit(1);
 	}
 
@@ -76,6 +77,7 @@ int main()
 	if (!resManager.loadCore())
 	{
 		Log::e(STR_LOAD_CORE_FAIL);
+		window.close();
 		exit(1);
 	}
 
@@ -93,6 +95,7 @@ int main()
 	if (!cursorMgr.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
 	{
 		Log::e(STR_CURSOR_LOAD_FAIL);
+		window.close();
 		exit(1);
 	}
 
