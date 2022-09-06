@@ -4,15 +4,16 @@
 #include "../util/i18n.hpp"
 #include "../util/color.hpp"
 
-void Setting::setup(std::string key, uint defaultValue)
+void Setting::setupUint(std::string key, uint defaultValue, const std::function<bool(uint)> constraint)
 {
 	this->key = key;
 	this->defaultValue.numeric = defaultValue;
 	this->val.numeric = defaultValue;
+	this->constraint = constraint;
 	this->settingType = SETTING_UINT;
 }
 
-void Setting::setup(std::string key, bool defaultValue)
+void Setting::setupBool(std::string key, bool defaultValue)
 {
 	this->key = key;
 	this->defaultValue.logic = defaultValue;
@@ -20,7 +21,7 @@ void Setting::setup(std::string key, bool defaultValue)
 	this->settingType = SETTING_BOOL;
 }
 
-void Setting::setup(std::string key, sf::Color color)
+void Setting::setupColor(std::string key, sf::Color color)
 {
 	this->key = key;
 	this->defaultValue.numeric = color.toInteger();
@@ -28,7 +29,7 @@ void Setting::setup(std::string key, sf::Color color)
 	this->settingType = SETTING_COLOR;
 }
 
-void Setting::setup(std::string key, ScreenCorner defaultValue)
+void Setting::setupScreenCorner(std::string key, ScreenCorner defaultValue)
 {
 	this->key = key;
 	this->defaultValue.enumScreenCorner = defaultValue;
@@ -36,7 +37,7 @@ void Setting::setup(std::string key, ScreenCorner defaultValue)
 	this->settingType = SETTING_ENUM_SCREEN_CORNER;
 }
 
-void Setting::setup(std::string key, GuiScale defaultValue)
+void Setting::setupGuiScale(std::string key, GuiScale defaultValue)
 {
 	this->key = key;
 	this->defaultValue.guiScale = defaultValue;
@@ -124,7 +125,7 @@ void Setting::loadFromJson(Json::Value value)
 		int readEnum = value.asInt();
 		if (readEnum >= _CORNER_CNT)
 		{
-			Log::w(STR_INVALID_VALUE, readEnum, key.c_str());
+			Log::w(STR_INVALID_VALUE, key.c_str(), readEnum);
 			return;
 		}
 
@@ -136,7 +137,7 @@ void Setting::loadFromJson(Json::Value value)
 		int readEnum = value.asInt();
 		if (readEnum >= _GUI_SCALE_CNT)
 		{
-			Log::w(STR_INVALID_VALUE, readEnum, key.c_str());
+			Log::w(STR_INVALID_VALUE, key.c_str(), readEnum);
 			return;
 		}
 
@@ -145,7 +146,15 @@ void Setting::loadFromJson(Json::Value value)
 	}
 	else // SETTING_UINT
 	{
-		val.numeric = value.asUInt();
-		Log::d(STR_LOADED_SETTING_U, key.c_str(), val.numeric);
+		uint readUint = value.asUInt();
+		if (this->constraint != nullptr && !this->constraint(readUint))
+		{
+			Log::w(STR_INVALID_VALUE, key.c_str(), readUint);
+		}
+		else
+		{
+			val.numeric = readUint;
+			Log::d(STR_LOADED_SETTING_U, key.c_str(), val.numeric);
+		}
 	}
 }

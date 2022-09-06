@@ -14,7 +14,7 @@
 #define STR_SYNTAX_ERROR "Error loading file (%s): %s"
 #define STR_SETTINGS_KEY_MISSING "Key is missing from settings file (%s): \"%s\" - using default value."
 #define STR_INVALID_TYPE_EX "Error loading file (%s) - invalid value for key \"%s\": \"%s\""
-#define STR_INVALID_VALUE "Invalid value (%u) for %s"
+#define STR_INVALID_VALUE "Invalid value for %s: \"%u\" - using default value."
 #define STR_INVALID_COLOR_VALUE "Invalid color value (%u) for %s"
 #define STR_RESETTING_TO_DEFAULT "Resetting %s to default value"
 #define STR_INVALID_TYPE "Error loading file (%s) - invalid value for key \"%s\""

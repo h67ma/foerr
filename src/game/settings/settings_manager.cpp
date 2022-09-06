@@ -9,35 +9,35 @@
 SettingsManager::SettingsManager()
 {
 	// window
-	this->settings[SETT_FULLSCREEN_ENABLED].setup("FullscreenEnabled", false);
-	this->settings[SETT_FPS_LIMIT_ENABLED].setup("FpsLimitEnabled", true);
-	this->settings[SETT_FPS_LIMIT].setup("FpsLimit", 60U);
-	this->settings[SETT_FAKE_VSYNC_ENABLED].setup("FakeVsyncEnabled", false);
+	this->settings[SETT_FULLSCREEN_ENABLED].setupBool("FullscreenEnabled", false);
+	this->settings[SETT_FPS_LIMIT_ENABLED].setupBool("FpsLimitEnabled", true);
+	this->settings[SETT_FPS_LIMIT].setupUint("FpsLimit", 60);
+	this->settings[SETT_FAKE_VSYNC_ENABLED].setupBool("FakeVsyncEnabled", false);
 	// TODO? windowed size + position override
 
 	// logging
-	this->settings[SETT_WRITE_LOG_TO_FILE].setup("WriteLogToFile", true);
+	this->settings[SETT_WRITE_LOG_TO_FILE].setupBool("WriteLogToFile", true);
 
 	// hud
-	this->settings[SETT_PREFER_CUSTOM_CURSOR].setup("PreferCustomCursor", true);
-	this->settings[SETT_SHOW_FPS_COUNTER].setup("ShowFpsCounter", true);
-	this->settings[SETT_ANCHOR_LOG].setup("LogAnchor", CORNER_TOP_RIGHT);
-	this->settings[SETT_ANCHOR_FPS].setup("FpsAnchor", CORNER_TOP_LEFT);
-	this->settings[SETT_GUI_SCALE].setup("GuiScale", GUI_NORMAL);
-	this->settings[SETT_HUD_COLOR].setup("HudColor", sf::Color(0, 255, 153)); // default is greenish, same as in Remains
+	this->settings[SETT_PREFER_CUSTOM_CURSOR].setupBool("PreferCustomCursor", true);
+	this->settings[SETT_SHOW_FPS_COUNTER].setupBool("ShowFpsCounter", true);
+	this->settings[SETT_ANCHOR_LOG].setupScreenCorner("LogAnchor", CORNER_TOP_RIGHT);
+	this->settings[SETT_ANCHOR_FPS].setupScreenCorner("FpsAnchor", CORNER_TOP_LEFT);
+	this->settings[SETT_GUI_SCALE].setupGuiScale("GuiScale", GUI_NORMAL);
+	this->settings[SETT_HUD_COLOR].setupColor("HudColor", sf::Color(0, 255, 153)); // default is greenish, same as in Remains
 	//this->settings[SETT_LOG_MSG_TIMEOUT].setup("LogMsgTimeout", 3); // is this really necessary?
 
 	// audio
-	this->settings[SETT_FX_VOLUME].setup("FXVolume", 100U);
+	this->settings[SETT_FX_VOLUME].setupUint("FXVolume", 100, [](uint val){ return val <= 100; }); // 100 is max volume
 
 	// debug
 	// TODO maybe we could save window w&h on program exit and then restore it?
-	this->settings[SETT_WINDOW_WIDTH].setup("WindowW", 1280U);
-	this->settings[SETT_WINDOW_HEIGHT].setup("WindowH", 720U);
-	this->settings[SETT_PRINT_MSGS].setup("PrintMsgs", false);
-	this->settings[SETT_VERBOSE_DEBUG].setup("VerboseDebug", false);
-	// TODO this->settings[SETT_SHOW_BOUNDING_BOXEN].setup("ShowBoundingBoxen", false); // Brian, what's the plural form of "box"?
-	// TODO this->settings[SETT_DEV_CONSOLE_ENABLED].setup("DevConsoleEnabled", false);
+	this->settings[SETT_WINDOW_WIDTH].setupUint("WindowW", 1280, [](uint val){ return val <= 7680; }); // let's be realistic about max value
+	this->settings[SETT_WINDOW_HEIGHT].setupUint("WindowH", 720, [](uint val){ return val <= 7680; }); // let's be realistic about max value
+	this->settings[SETT_PRINT_MSGS].setupBool("PrintMsgs", false);
+	this->settings[SETT_VERBOSE_DEBUG].setupBool("VerboseDebug", false);
+	// TODO this->settings[SETT_SHOW_BOUNDING_BOXEN].setupBool("ShowBoundingBoxen", false); // Brian, what's the plural form of "box"?
+	// TODO this->settings[SETT_DEV_CONSOLE_ENABLED].setupBool("DevConsoleEnabled", false);
 }
 
 void SettingsManager::saveConfig()
