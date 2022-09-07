@@ -4,6 +4,8 @@
 #include "../../button.hpp"
 #include "../../../campaigns/campaign.hpp"
 
+#define NO_LOCATION_SELECTED -1
+
 /**
  * PipBuck -> Information -> World
  */
@@ -16,7 +18,10 @@ class PipBuckPageWorld : public PipBuckPage
 		sf::Color hudColor;
 		sf::Sprite mapBg;
 		std::vector<Button> mapButtons;
+		std::vector<std::string> locationIds;
+		Button gotoLocationBtn;
 		HoverManager mapButtonHoverMgr;
+		int selectedLocationIdx = NO_LOCATION_SELECTED;
 
 	public:
 		PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign);

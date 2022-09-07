@@ -8,22 +8,52 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	resMgr(resMgr),
 	campaign(campaign),
 	guiScale(scale),
-	hudColor(hudColor)
+	hudColor(hudColor),
+	gotoLocationBtn(scale, BTN_NORMAL, hudColor, resMgr, 1000, 815, "Travel", [this](){
+		// TODO display loading screen
+		if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
+			this->selectedLocationIdx < this->locationIds.size())
+		{
+			this->campaign.changeLocation(this->locationIds[this->selectedLocationIdx]);
+
+			// reset map buttons
+			this->mapButtons[this->selectedLocationIdx].setSelected(false);
+			this->selectedLocationIdx = NO_LOCATION_SELECTED;
+		}
+	})
 {
 	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
+
+	this->hoverMgr.addHoverable(&this->gotoLocationBtn);
 }
 
 ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
 {
+	// if click was outside map area, then no point in checking map buttons
 	if (this->mapBg.getGlobalBounds().contains(x - this->getPosition().x, y - this->getPosition().y))
 	{
-		// if click was outside map area, then no point in checking it
-		for (auto &btn : this->mapButtons)
+		for (auto it = this->mapButtons.begin(); it != this->mapButtons.end(); it++)
 		{
-			if (btn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
-				return CLICK_CONSUMED_CLOSE;
+			if (it->handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+			{
+				// deselect old map btn if any
+				if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
+					this->selectedLocationIdx < this->locationIds.size())
+					this->mapButtons[this->selectedLocationIdx].setSelected(false);
+
+				this->selectedLocationIdx = static_cast<int>(std::distance(this->mapButtons.begin(), it));
+
+				// select new btn
+				it->setSelected(true);
+
+				return CLICK_CONSUMED;
+			}
 		}
 	}
+
+	if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
+		this->gotoLocationBtn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+		return CLICK_CONSUMED_CLOSE;
 
 	return CLICK_NOT_CONSUMED;
 }
@@ -34,14 +64,17 @@ bool PipBuckPageWorld::handleMouseMove(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
+	// if hover was outside map area, then no point in checking map buttons
 	if (this->mapBg.getGlobalBounds().contains(static_cast<float>(x), static_cast<float>(y)))
 	{
-		// if hover was outside map area, then no point in checking it
-		if (this->mapButtonHoverMgr.handleMouseMove(x, y) != CLICK_NOT_CONSUMED)
-			return CLICK_CONSUMED;
+		if (this->mapButtonHoverMgr.handleMouseMove(x, y))
+			return true;
 	}
 
-	return this->hoverMgr.handleMouseMove(x, y);
+	if (this->selectedLocationIdx != NO_LOCATION_SELECTED)
+		return this->hoverMgr.handleMouseMove(x, y);
+
+	return false;
 }
 
 std::string PipBuckPageWorld::getLabel()
@@ -57,6 +90,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 
 	this->mapBg.setTexture(*mapBgTxt);
 
+	this->selectedLocationIdx = NO_LOCATION_SELECTED;
 	this->mapButtonHoverMgr.clear();
 	this->mapButtons.clear();
 
@@ -69,11 +103,11 @@ bool PipBuckPageWorld::setupCampaignInfos()
 			this->resMgr,
 			WORLD_MAP_X + loc.second->getWorldMapX(),
 			WORLD_MAP_Y + loc.second->getWorldMapY(),
-			loc.second->getTitle(),
-			[this, &loc](){
-				this->campaign.changeLocation(loc.first);
-			}
+			loc.second->getTitle()
 		);
+
+		// keep track of location ids in a separate vector
+		locationIds.emplace_back(loc.first);
 	}
 
 	for (auto &btn : this->mapButtons)
@@ -92,4 +126,7 @@ void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) c
 	{
 		target.draw(btn, states);
 	}
+
+	if (this->selectedLocationIdx != NO_LOCATION_SELECTED)
+		target.draw(this->gotoLocationBtn, states);
 }
