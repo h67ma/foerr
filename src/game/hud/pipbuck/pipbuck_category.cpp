@@ -9,9 +9,9 @@ PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolu
 		Button(scale, BTN_NARROW, hudColor, resMgr, 945, 210)
 	}
 {
-	this->soundPageChange.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE));
+	this->soundPageChange.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE, true));
 	this->soundPageChange.setVolume(static_cast<float>(fxVolume));
-	this->soundClick.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK));
+	this->soundClick.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK, true));
 	this->soundClick.setVolume(static_cast<float>(fxVolume));
 
 	this->changePage(this->selectedPage); // default page

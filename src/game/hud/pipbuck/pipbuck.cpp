@@ -24,10 +24,10 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 		this->close();
 	})
 {
-	this->pipBuckSprite.setTexture(*resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY));
+	this->pipBuckSprite.setTexture(*resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY, true));
 
-	this->soundOpenClose.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE));
-	this->soundCategoryBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE));
+	this->soundOpenClose.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE, true));
+	this->soundCategoryBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE, true));
 	this->soundOpenClose.setVolume(static_cast<float>(fxVolume));
 	this->soundCategoryBtn.setVolume(static_cast<float>(fxVolume));
 

@@ -70,7 +70,7 @@ bool Location::load(std::string locDir, ResourceManager &resMgr)
 	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath))
 		return false;
 
-	sf::Texture *backgroundFull = resMgr.getTexture(backgroundFullPath, false);
+	sf::Texture *backgroundFull = resMgr.getTexture(backgroundFullPath);
 	if (backgroundFull == nullptr)
 		return false;
 

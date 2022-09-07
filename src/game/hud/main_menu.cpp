@@ -36,7 +36,7 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 		})
 	})
 {
-	this->soundBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK));
+	this->soundBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK, true));
 	this->soundBtn.setVolume(static_cast<float>(fxVolume));
 
 	for (auto &btn : this->buttons)
