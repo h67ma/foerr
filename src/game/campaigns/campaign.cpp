@@ -72,23 +72,22 @@ bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 	{
 		std::string locId = entry.path().filename().string();
 		std::string locPath = entry.path().string();
-		Location *loc = new Location();
-		if (!loc->load(locPath, resMgr))
+
+		this->locations.emplace_back(locId);
+		if (!this->locations.back().load(locPath, resMgr))
 		{
 			// unload everything
 			// mission failed, we'll get em next time
-			delete loc;
 			this->unload(resMgr);
 			return false;
 		}
-		this->locations[locId] = std::unique_ptr<Location>(loc);
 	}
 
 	// TODO load other stuffs (most probably campaign-specific resources, so just /audio, /texture, etc)
 	// TODO restore game state from save
 
 	// TODO restore from save
-	if (!this->changeLocation(this->startLocation))
+	if (!this->changeLocationById(this->startLocation))
 		return false;
 
 	this->loaded = true;
@@ -102,7 +101,7 @@ void Campaign::unload(ResourceManager &resMgr)
 	this->title = "";
 	this->description = "";
 	this->startLocation = "";
-	this->currentLocation = nullptr;
+	this->currentLocationIdx = 0;
 	this->locations.clear();
 	this->loaded = false;
 	resMgr.clearAllNonCore();
@@ -124,30 +123,43 @@ std::string Campaign::getWorldMapBackground()
 	return this->worldMapBackgroundId;
 }
 
-const std::unordered_map<std::string, std::unique_ptr<Location>>& Campaign::getLocations()
+std::vector<Location>& Campaign::getLocations()
 {
 	return this->locations;
 }
 
-bool Campaign::changeLocation(std::string locKey)
+uint Campaign::getCurrentLocationIdx()
 {
-	auto search = this->locations.find(locKey);
-	if (search == this->locations.end())
+	return this->currentLocationIdx;
+}
+
+bool Campaign::changeLocation(uint locIdx)
+{
+	if (locIdx >= this->locations.size())
 	{
-		Log::e(STR_LOC_NOT_FOUND, locKey.c_str());
+		Log::e(STR_IDX_OUTTA_BOUNDS);
 		return false;
 	}
 
-	Location *loc = search->second.get();
-	if (loc == nullptr)
-	{
-		Log::e(STR_LOC_EMPTY, locKey.c_str());
-		return false;
-	}
-
-	this->currentLocation = loc;
-	Log::d(STR_LOC_CHANGED, locKey.c_str());
+	this->currentLocationIdx = locIdx;
+	Log::d(STR_LOC_CHANGED, this->locations[locIdx].getId().c_str());
 	return true;
+}
+
+bool Campaign::changeLocationById(std::string locId)
+{
+	for (auto it = this->locations.begin(); it != this->locations.end(); it++)
+	{
+		if (it->getId() == locId)
+		{
+			this->currentLocationIdx = static_cast<uint>(std::distance(this->locations.begin(), it));
+			Log::d(STR_LOC_CHANGED, locId.c_str());
+			return true;
+		}
+	}
+
+	Log::e(STR_LOC_NOT_FOUND, locId.c_str());
+	return false;
 }
 
 bool Campaign::isLoaded()
@@ -157,5 +169,5 @@ bool Campaign::isLoaded()
 
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(*this->currentLocation, states);
+	target.draw(this->locations[this->currentLocationIdx], states);
 }

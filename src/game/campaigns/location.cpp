@@ -3,6 +3,11 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
+Location::Location(std::string id)
+{
+	this->id = id;
+}
+
 /**
  * Loads location details, "big" background, and all rooms located
  * in `locDir` (json files, each one contains a single room).
@@ -171,6 +176,11 @@ bool Location::load(std::string locDir, ResourceManager &resMgr)
 
 	Log::d(STR_LOADED_LOCATION, indexPath.c_str());
 	return true;
+}
+
+std::string Location::getId()
+{
+	return this->id;
 }
 
 std::string Location::getTitle()

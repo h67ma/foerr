@@ -1,6 +1,6 @@
 #pragma once
 
-#include <unordered_map>
+#include <vector>
 #include "../resource_manager.hpp"
 #include "location.hpp"
 
@@ -12,8 +12,8 @@ class Campaign : public sf::Drawable
 		std::string description;
 		std::string startLocation;
 		std::string worldMapBackgroundId;
-		Location *currentLocation = nullptr;
-		std::unordered_map<std::string, std::unique_ptr<Location>> locations; // maps location id to location. location id is just dir name
+		uint currentLocationIdx = 0;
+		std::vector<Location> locations;
 
 	public:
 		bool load(std::string campaignDir, ResourceManager &resMgr);
@@ -21,8 +21,10 @@ class Campaign : public sf::Drawable
 		std::string getTitle();
 		std::string getDescription();
 		std::string getWorldMapBackground();
-		const std::unordered_map<std::string, std::unique_ptr<Location>>& getLocations();
-		bool changeLocation(std::string locKey);
+		std::vector<Location>& getLocations();
+		uint getCurrentLocationIdx();
+		bool changeLocation(uint locIdx);
+		bool changeLocationById(std::string locId);
 		bool isLoaded();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

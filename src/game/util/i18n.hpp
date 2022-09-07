@@ -26,7 +26,6 @@
 #define STR_LOC_INVALID_TYPES "Error: location cannot be grind and basecamp at the same time (%s)."
 #define STR_LOC_CHANGED "Changed location to %s."
 #define STR_LOC_NOT_FOUND "Error changing location - location not found (%s)."
-#define STR_LOC_EMPTY "Error changing location - location empty (%s)."
 #define STR_CAMPAIGN_LOAD_ERR "Error loading campaign (%s)."
 #define STR_CAMPAIGN_LOADING "Loading campaign (%s)..."
 #define STR_CAMPAIGN_LOADED "Finished loading campaign (%s)."

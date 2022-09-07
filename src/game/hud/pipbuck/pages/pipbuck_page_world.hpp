@@ -17,11 +17,12 @@ class PipBuckPageWorld : public PipBuckPage
 		GuiScale guiScale;
 		sf::Color hudColor;
 		sf::Sprite mapBg;
+		sf::Text locTitle;
+		sf::Text locDescription;
 		std::vector<Button> mapButtons;
-		std::vector<std::string> locationIds;
 		Button gotoLocationBtn;
 		HoverManager mapButtonHoverMgr;
-		int selectedLocationIdx = NO_LOCATION_SELECTED;
+		int selectedLocationIdx = NO_LOCATION_SELECTED; // note: different from the one in Campaign (only represents selection on page)
 
 	public:
 		PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign);

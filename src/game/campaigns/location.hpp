@@ -10,6 +10,7 @@
 class Location : public sf::Drawable
 {
 	private:
+		std::string id;
 		std::string title;
 		std::string description;
 		uint worldMapX;
@@ -21,7 +22,9 @@ class Location : public sf::Drawable
 		RoomGrid rooms;
 
 	public:
+		Location(std::string id);
 		bool load(std::string locDir, ResourceManager &resMgr);
+		std::string getId();
 		std::string getTitle();
 		std::string getDescription();
 		uint getWorldMapX();

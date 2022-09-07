@@ -12,17 +12,45 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	gotoLocationBtn(scale, BTN_NORMAL, hudColor, resMgr, 1000, 815, "Travel", [this](){
 		// TODO display loading screen
 		if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
-			this->selectedLocationIdx < this->locationIds.size())
+			this->selectedLocationIdx < this->campaign.getLocations().size())
 		{
-			this->campaign.changeLocation(this->locationIds[this->selectedLocationIdx]);
+			this->campaign.changeLocation(this->selectedLocationIdx);
 
-			// reset map buttons
+			// TODO un-highlight old location & hightlight new one
+
+			// reset selection
+			// no need to reset texts as now they are not shown anyway
 			this->mapButtons[this->selectedLocationIdx].setSelected(false);
 			this->selectedLocationIdx = NO_LOCATION_SELECTED;
 		}
 	})
 {
 	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
+
+	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
+	this->locTitle.setPosition(970, 260);
+	this->locTitle.setFillColor(hudColor);
+
+	this->locDescription.setFont(*resMgr.getFont(FONT_NORMAL));
+	this->locDescription.setPosition(970, 300);
+	this->locDescription.setFillColor(hudColor);
+
+	switch (scale)
+	{
+		case GUI_SMALL:
+			this->locTitle.setCharacterSize(FONT_SIZE_SMALL);
+			this->locDescription.setCharacterSize(FONT_SIZE_SMALL);
+			break;
+		case GUI_LARGE:
+			this->locTitle.setCharacterSize(FONT_SIZE_LARGE);
+			this->locDescription.setCharacterSize(FONT_SIZE_LARGE);
+			break;
+		case GUI_NORMAL:
+		default:
+			this->locTitle.setCharacterSize(FONT_SIZE_NORMAL);
+			this->locDescription.setCharacterSize(FONT_SIZE_NORMAL);
+	}
+	
 
 	this->hoverMgr.addHoverable(&this->gotoLocationBtn);
 }
@@ -38,10 +66,12 @@ ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
 			{
 				// deselect old map btn if any
 				if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
-					this->selectedLocationIdx < this->locationIds.size())
+					this->selectedLocationIdx < this->campaign.getLocations().size())
 					this->mapButtons[this->selectedLocationIdx].setSelected(false);
 
 				this->selectedLocationIdx = static_cast<int>(std::distance(this->mapButtons.begin(), it));
+				this->locTitle.setString(this->campaign.getLocations()[this->selectedLocationIdx].getTitle());
+				this->locDescription.setString(this->campaign.getLocations()[this->selectedLocationIdx].getDescription());
 
 				// select new btn
 				it->setSelected(true);
@@ -52,6 +82,7 @@ ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
 	}
 
 	if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
+		this->selectedLocationIdx != this->campaign.getCurrentLocationIdx() &&
 		this->gotoLocationBtn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
 		return CLICK_CONSUMED_CLOSE;
 
@@ -71,7 +102,7 @@ bool PipBuckPageWorld::handleMouseMove(int x, int y)
 			return true;
 	}
 
-	if (this->selectedLocationIdx != NO_LOCATION_SELECTED)
+	if (this->selectedLocationIdx != NO_LOCATION_SELECTED && this->selectedLocationIdx != this->campaign.getCurrentLocationIdx())
 		return this->hoverMgr.handleMouseMove(x, y);
 
 	return false;
@@ -94,20 +125,17 @@ bool PipBuckPageWorld::setupCampaignInfos()
 	this->mapButtonHoverMgr.clear();
 	this->mapButtons.clear();
 
-	for (const auto &loc : this->campaign.getLocations())
+	for (auto &loc : this->campaign.getLocations())
 	{
 		mapButtons.emplace_back(
 			this->guiScale,
 			BTN_NORMAL,
 			this->hudColor,
 			this->resMgr,
-			WORLD_MAP_X + loc.second->getWorldMapX(),
-			WORLD_MAP_Y + loc.second->getWorldMapY(),
-			loc.second->getTitle()
+			WORLD_MAP_X + loc.getWorldMapX(),
+			WORLD_MAP_Y + loc.getWorldMapY(),
+			loc.getTitle()
 		);
-
-		// keep track of location ids in a separate vector
-		locationIds.emplace_back(loc.first);
 	}
 
 	for (auto &btn : this->mapButtons)
@@ -128,5 +156,11 @@ void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) c
 	}
 
 	if (this->selectedLocationIdx != NO_LOCATION_SELECTED)
-		target.draw(this->gotoLocationBtn, states);
+	{
+		target.draw(this->locTitle, states);
+		target.draw(this->locDescription, states);
+
+		if (this->selectedLocationIdx != this->campaign.getCurrentLocationIdx())
+			target.draw(this->gotoLocationBtn, states);
+	}
 }
