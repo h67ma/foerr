@@ -22,7 +22,7 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 				return;
 			}
 
-			if (!pipBuck.setupCampaignInfos(campaign))
+			if (!pipBuck.setupCampaignInfos())
 			{
 				Log::e(STR_PIPBUCK_SETUP_FAILED);
 				return;

@@ -27,6 +27,7 @@
 #define FOERR_JSON_KEY_WORLDMAP_ICON "worldmap_icon"
 #define FOERR_JSON_KEY_WORLDMAP_X "worldmap_x"
 #define FOERR_JSON_KEY_WORLDMAP_Y "worldmap_y"
+#define FOERR_JSON_KEY_WORLDMAP_BACKGROUND "worldmap_background"
 #define FOERR_JSON_KEY_TYPE_GRIND "grind"
 #define FOERR_JSON_KEY_TYPE_BASECAMP "basecamp"
 #define FOERR_JSON_KEY_WIDTH "width"

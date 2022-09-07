@@ -22,6 +22,6 @@ class PipBuckPage : public sf::Drawable, public sf::Transformable
 	public:
 		virtual ClickStatus handleLeftClick(int x, int y) { return CLICK_NOT_CONSUMED; };
 		virtual bool handleMouseMove(int x, int y);
-		virtual bool setupCampaignInfos(Campaign &campaign) { return true; };
+		virtual bool setupCampaignInfos() { return true; };
 		virtual std::string getLabel() = 0;
 };

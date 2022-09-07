@@ -25,7 +25,9 @@
  * states of inactive (invisible) pages; instead only update them on page open.
  *
  * Possible refactor: store each category (and each page in categories) as member,
- * not in an array & store pointers to pages in vector for convenience.
+ * not in an array & store pointers to pages in vector for convenience. This way
+ * we can avoid defining some methods like ::setupCampaignInfos() in PipBuckPage,
+ * and instead define them only in pages that actually use it.
  */
 class PipBuck : public sf::Drawable, public sf::Transformable
 {
@@ -46,7 +48,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		void handleScreenResize(uint screenW, uint screenH);
 		ClickStatus handleLeftClick(int x, int y);
 		void handleMouseMove(int x, int y);
-		bool setupCampaignInfos(Campaign &campaign);
+		bool setupCampaignInfos();
 		void open(bool sound=true);
 		void close();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

@@ -11,6 +11,7 @@ class Campaign : public sf::Drawable
 		std::string title;
 		std::string description;
 		std::string startLocation;
+		std::string worldMapBackgroundId;
 		Location *currentLocation = nullptr;
 		std::unordered_map<std::string, std::unique_ptr<Location>> locations; // maps location id to location. location id is just dir name
 
@@ -19,6 +20,7 @@ class Campaign : public sf::Drawable
 		void unload(ResourceManager &resMgr);
 		std::string getTitle();
 		std::string getDescription();
+		std::string getWorldMapBackground();
 		const std::unordered_map<std::string, std::unique_ptr<Location>>& getLocations();
 		bool changeLocation(std::string locKey);
 		bool isLoaded();

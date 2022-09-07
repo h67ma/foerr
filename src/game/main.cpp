@@ -238,7 +238,7 @@ int main()
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
 
 	campaign.load("res/campaigns/test", resManager); // TODO remove
-	pipBuck.setupCampaignInfos(campaign);
+	pipBuck.setupCampaignInfos();
 	gameState = STATE_PLAYING; // TODO remove
 
 	sf::Event event;

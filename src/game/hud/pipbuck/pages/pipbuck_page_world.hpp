@@ -10,12 +10,19 @@
 class PipBuckPageWorld : public PipBuckPage
 {
 	private:
-		std::vector<Button> buttons;
+		ResourceManager &resMgr;
+		Campaign &campaign;
+		GuiScale guiScale;
+		sf::Color hudColor;
+		sf::Sprite mapBg;
+		std::vector<Button> mapButtons;
+		HoverManager mapButtonHoverMgr;
 
 	public:
 		PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign);
 		ClickStatus handleLeftClick(int x, int y) override;
+		bool handleMouseMove(int x, int y) override;
 		std::string getLabel() override;
-		bool setupCampaignInfos(Campaign &campaign) override;
+		bool setupCampaignInfos() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

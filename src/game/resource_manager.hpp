@@ -72,7 +72,7 @@ class ResourceManager
 		bool loadCore();
 		// TODO? presence of isCoreRes in get method might be a bit confusing, maybe thing about having separate load/get methods
 		sf::Texture* getTexture(std::string path, bool isCoreRes=false);
-		sf::SoundBuffer* getSoundBuffer(std::string path, bool isCoreRes=true);
+		sf::SoundBuffer* getSoundBuffer(std::string path, bool isCoreRes=false);
 		sf::Font* getFont(FontType fontType);
 		void clearAllNonCore();
 };

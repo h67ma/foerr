@@ -127,16 +127,16 @@ void PipBuck::handleMouseMove(int x, int y)
 
 /**
  * Setups the PipBuck pages according to campaign data.
+ * Locations in the campaign should be already loaded.
  *
- * @param campaign reference to campaign object with locations loaded
  * @return true if setup was successful
  * @return false if there was an error during setup
  */
-bool PipBuck::setupCampaignInfos(Campaign &campaign)
+bool PipBuck::setupCampaignInfos()
 {
 	for (auto &cat : this->categories)
 	{
-		if (!cat.setupCampaignInfos(campaign))
+		if (!cat.setupCampaignInfos())
 			return false;
 	}
 

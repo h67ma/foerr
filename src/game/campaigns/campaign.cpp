@@ -40,6 +40,9 @@ bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_START_LOC, this->startLocation))
 		return false;
 
+	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_BACKGROUND, this->worldMapBackgroundId))
+		return false;
+
 	// load locations inside this campaign
 
 	std::string locationsDir = pathCombine(campaignDir, std::string(DIR_LOCATIONS));
@@ -114,6 +117,11 @@ std::string Campaign::getTitle()
 std::string Campaign::getDescription()
 {
 	return this->description;
+}
+
+std::string Campaign::getWorldMapBackground()
+{
+	return this->worldMapBackgroundId;
 }
 
 const std::unordered_map<std::string, std::unique_ptr<Location>>& Campaign::getLocations()
