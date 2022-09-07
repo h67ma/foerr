@@ -69,6 +69,17 @@ bool HoverManager::handleMouseMove(int x, int y)
 	}
 }
 
+/**
+ * Removes hover effect from currently hovered over item, if any.
+ */
+void HoverManager::removeHover()
+{
+	if (this->lastHoveredIdx == NO_HOVER_IDX)
+		return;
+
+	this->hoverables[this->lastHoveredIdx]->setHover(false);
+}
+
 void HoverManager::clear()
 {
 	this->hoverables.clear();

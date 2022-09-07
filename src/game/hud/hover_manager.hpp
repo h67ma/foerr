@@ -39,5 +39,6 @@ class HoverManager
 	public:
 		void addHoverable(Hoverable *hoverable);
 		bool handleMouseMove(int x, int y);
+		void removeHover();
 		void clear();
 };

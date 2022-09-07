@@ -84,7 +84,10 @@ ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
 	if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
 		this->selectedLocationIdx != this->campaign.getCurrentLocationIdx() &&
 		this->gotoLocationBtn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+	{
+		this->hoverMgr.removeHover(); // otherwise the "travel" btn will be highlighted when it next appears
 		return CLICK_CONSUMED_CLOSE;
+	}
 
 	return CLICK_NOT_CONSUMED;
 }
