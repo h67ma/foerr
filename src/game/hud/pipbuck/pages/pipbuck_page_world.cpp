@@ -32,6 +32,22 @@ std::string PipBuckPageWorld::getLabel()
 	return "World"; // TODO translate
 }
 
+bool PipBuckPageWorld::setupCampaignInfos(Campaign &campaign)
+{
+	for (const auto &loc : campaign.getLocations())
+	{
+		/* TODO
+		loc.first
+		loc.second->getTitle()
+		loc.second->getWorldMapX()
+		loc.second->getWorldMapY()
+		loc.second->getWorldMapIconId()
+		*/
+	}
+
+	return true;
+}
+
 void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	for (auto &btn : this->buttons)

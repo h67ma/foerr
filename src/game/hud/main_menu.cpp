@@ -4,9 +4,9 @@
 #include "loading_screen.hpp"
 
 
-MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState) :
+MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState, PipBuck &pipBuck) :
 	buttons({
-		Button(scale, BTN_NORMAL, hudColor, resMgr, 100, 100, STR_CONTINUE, [scale, hudColor, &resMgr, &campaign, &gameState, &window](){
+		Button(scale, BTN_NORMAL, hudColor, resMgr, 100, 100, STR_CONTINUE, [scale, hudColor, &resMgr, &campaign, &gameState, &window, &pipBuck](){
 			// TODO some kind of campaign select
 
 			// this is a pretty terrible way of showing a loading screen, but it will do for now
@@ -16,7 +16,17 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 			window.draw(loadingScreen);
 			window.display();
 
-			campaign.load("res/campaigns/test", resMgr);
+			if (!campaign.load("res/campaigns/test", resMgr))
+			{
+				Log::e(STR_CAMPAIGN_LOAD_FAILED);
+				return;
+			}
+
+			if (!pipBuck.setupCampaignInfos(campaign))
+			{
+				Log::e(STR_PIPBUCK_SETUP_FAILED);
+				return;
+			}
 
 			gameState = STATE_PLAYING;
 		}),

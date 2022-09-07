@@ -76,6 +76,15 @@ bool Location::load(std::string locDir, ResourceManager &resMgr)
 
 	this->backgroundFullSprite.setTexture(*backgroundFull);
 
+	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
+		return false;
+
+	if (!parseJsonUintKey(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_X, this->worldMapX))
+		return false;
+
+	if (!parseJsonUintKey(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_Y, this->worldMapY))
+		return false;
+
 	if (!parseJsonUintKey(root, indexPath.c_str(), FOERR_JSON_KEY_WIDTH, width))
 		return false;
 
@@ -172,6 +181,21 @@ std::string Location::getTitle()
 std::string Location::getDescription()
 {
 	return this->description;
+}
+
+uint Location::getWorldMapX()
+{
+	return this->worldMapX;
+}
+
+uint Location::getWorldMapY()
+{
+	return this->worldMapY;
+}
+
+std::string Location::getWorldMapIconId()
+{
+	return this->worldMapIconId;
 }
 
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const

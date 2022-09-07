@@ -8,6 +8,7 @@
 #include "../button.hpp"
 #include "../hover_manager.hpp"
 #include "pipbuck_page.hpp"
+#include "../../campaigns/campaign.hpp"
 
 /**
  * Represents a single PipBuck category (e.g. "Status").
@@ -31,5 +32,6 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 		void setup();
 		ClickStatus handleLeftClick(int x, int y);
 		bool handleMouseMove(int x, int y);
+		bool setupCampaignInfos(Campaign &campaign);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

@@ -94,6 +94,24 @@ bool PipBuckCategory::handleMouseMove(int x, int y)
 	return this->hoverMgr.handleMouseMove(x, y);
 }
 
+/**
+ * Setups the PipBuck pages according to campaign data.
+ *
+ * @param campaign reference to campaign object with locations loaded
+ * @return true if setup was successful
+ * @return false if there was an error during setup
+ */
+bool PipBuckCategory::setupCampaignInfos(Campaign &campaign)
+{
+	for (const auto &page : this->pages)
+	{
+		if (!page->setupCampaignInfos(campaign))
+			return false;
+	}
+
+	return true;
+}
+
 void PipBuckCategory::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();

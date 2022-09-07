@@ -116,6 +116,11 @@ std::string Campaign::getDescription()
 	return this->description;
 }
 
+const std::unordered_map<std::string, std::unique_ptr<Location>>& Campaign::getLocations()
+{
+	return this->locations;
+}
+
 bool Campaign::changeLocation(std::string locKey)
 {
 	auto search = this->locations.find(locKey);

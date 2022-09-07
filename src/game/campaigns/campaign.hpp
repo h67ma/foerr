@@ -19,6 +19,7 @@ class Campaign : public sf::Drawable
 		void unload(ResourceManager &resMgr);
 		std::string getTitle();
 		std::string getDescription();
+		const std::unordered_map<std::string, std::unique_ptr<Location>>& getLocations();
 		bool changeLocation(std::string locKey);
 		bool isLoaded();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

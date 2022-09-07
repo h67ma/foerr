@@ -5,6 +5,7 @@
 #include "hover_manager.hpp"
 #include "button.hpp"
 #include "../campaigns/campaign.hpp"
+#include "pipbuck/pipbuck.hpp"
 
 class MainMenu : public sf::Drawable, public sf::Transformable
 {
@@ -14,7 +15,7 @@ class MainMenu : public sf::Drawable, public sf::Transformable
 		std::vector<Button> buttons;
 
 	public:
-		MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState);
+		MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState, PipBuck &pipBuck);
 		ClickStatus handleLeftClick(int x, int y);
 		void handleMouseMove(int x, int y);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

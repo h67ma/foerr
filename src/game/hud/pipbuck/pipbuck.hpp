@@ -43,6 +43,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		void handleScreenResize(uint screenW, uint screenH);
 		ClickStatus handleLeftClick(int x, int y);
 		void handleMouseMove(int x, int y);
+		bool setupCampaignInfos(Campaign &campaign);
 		void open(bool sound=true);
 		void close();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

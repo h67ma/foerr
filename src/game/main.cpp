@@ -103,8 +103,8 @@ int main()
 
 	Campaign campaign;
 	HoverManager hoverMgr;
-	MainMenu mainMenu(initialScale, hudColor, initialFxVol, resManager, window, campaign, gameState);
 	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState, settings);
+	MainMenu mainMenu(initialScale, hudColor, initialFxVol, resManager, window, campaign, gameState, pipBuck);
 
 
 
@@ -238,6 +238,7 @@ int main()
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
 
 	campaign.load("res/campaigns/test", resManager); // TODO remove
+	pipBuck.setupCampaignInfos(campaign);
 	gameState = STATE_PLAYING; // TODO remove
 
 	sf::Event event;

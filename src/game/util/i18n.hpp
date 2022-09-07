@@ -32,6 +32,7 @@
 #define STR_CAMPAIGN_LOADED "Finished loading campaign (%s)."
 #define STR_CAMPAIGN_UNLOADING "Unloading campaign..."
 #define STR_CAMPAIGN_UNLOADED "Campaign unloaded."
+#define STR_CAMPAIGN_LOAD_FAILED "Failed to load campaign."
 #define STR_LOADING_LOCATION "Loading location (%s)..."
 #define STR_LOADED_LOCATION "Finished loading location (%s)."
 #define STR_LOADED_FILE "Loaded file (%s)."
@@ -58,3 +59,4 @@
 #define STR_LOADING "Loading..."
 #define STR_EXIT_TO_MAIN_MENU "Exit to main menu"
 #define STR_SAVE_SETTINGS "Save settings"
+#define STR_PIPBUCK_SETUP_FAILED "Failed to setup PipBuck."

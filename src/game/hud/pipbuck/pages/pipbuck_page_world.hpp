@@ -16,5 +16,6 @@ class PipBuckPageWorld : public PipBuckPage
 		PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign);
 		ClickStatus handleLeftClick(int x, int y) override;
 		std::string getLabel() override;
+		bool setupCampaignInfos(Campaign &campaign) override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
