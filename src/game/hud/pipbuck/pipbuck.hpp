@@ -23,6 +23,9 @@
  *
  * TODO what about updating states of individual pages? We should NOT update
  * states of inactive (invisible) pages; instead only update them on page open.
+ *
+ * Possible refactor: store each category (and each page in categories) as member,
+ * not in an array & store pointers to pages in vector for convenience.
  */
 class PipBuck : public sf::Drawable, public sf::Transformable
 {
