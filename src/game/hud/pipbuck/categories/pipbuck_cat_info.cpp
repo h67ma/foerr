@@ -9,8 +9,8 @@ PipBuckCategoryInfo::PipBuckCategoryInfo(GuiScale scale, sf::Color hudColor, uin
 	PipBuckCategory(scale, hudColor, fxVolume, resMgr) {
 		this->pages = { // order matters
 			std::make_shared<PipBuckPageMap>(resMgr),
-			std::make_shared<PipBuckPageQuests>(resMgr),
 			std::make_shared<PipBuckPageWorld>(scale, hudColor, resMgr, campaign),
+			std::make_shared<PipBuckPageQuests>(resMgr),
 			std::make_shared<PipBuckPageNotes>(resMgr),
 			std::make_shared<PipBuckPageEnemies>(resMgr)
 		};

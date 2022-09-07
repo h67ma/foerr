@@ -5,15 +5,15 @@
 #include "../../../campaigns/campaign.hpp"
 
 /**
- * PipBuck -> Main Menu -> Campaign
+ * PipBuck -> Main Menu -> Load
  */
-class PipBuckPageCampaign : public PipBuckPage
+class PipBuckPageLoad : public PipBuckPage
 {
 	private:
 		std::vector<Button> buttons;
 
 	public:
-		PipBuckPageCampaign(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
+		PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
 		ClickStatus handleLeftClick(int x, int y) override;
 		std::string getLabel() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
