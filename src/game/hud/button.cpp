@@ -27,7 +27,7 @@ void Button::setGuiScale(GuiScale scale)
 
 	if (scale == GUI_SMALL)
 	{
-		this->text.setCharacterSize(FONT_SIZE_SMALL);
+		this->text.setCharacterSize(FONT_SIZE_H3_SMALL);
 		textTopOffset = BTN_TEXT_SMALL_TOP_OFFSET;
 
 		switch (size)
@@ -48,7 +48,7 @@ void Button::setGuiScale(GuiScale scale)
 	}
 	else if (scale == GUI_LARGE)
 	{
-		this->text.setCharacterSize(FONT_SIZE_LARGE);
+		this->text.setCharacterSize(FONT_SIZE_H3_LARGE);
 		textTopOffset = BTN_TEXT_LARGE_TOP_OFFSET;
 
 		switch (size)
@@ -69,7 +69,7 @@ void Button::setGuiScale(GuiScale scale)
 	}
 	else // normal/default
 	{
-		this->text.setCharacterSize(FONT_SIZE_NORMAL);
+		this->text.setCharacterSize(FONT_SIZE_H3_NORMAL);
 		textTopOffset = BTN_TEXT_NORMAL_TOP_OFFSET;
 
 		switch (size)

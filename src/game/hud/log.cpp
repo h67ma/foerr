@@ -78,7 +78,7 @@ namespace Log
 
 		// initial offset from top/bottom
 		if (_anchor == CORNER_BOTTOM_LEFT || _anchor == CORNER_BOTTOM_RIGHT)
-			y = _windowH - static_cast<uint>(_history.size()) * FONT_SIZE_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
+			y = _windowH - static_cast<uint>(_history.size()) * FONT_SIZE_H3_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
 		for (auto &item : _history)
 		{
@@ -87,7 +87,7 @@ namespace Log
 
 			item->setPosition(static_cast<float>(x), static_cast<float>(y));
 
-			y += FONT_SIZE_NORMAL_WITH_GAP;
+			y += FONT_SIZE_H3_NORMAL_WITH_GAP;
 		}
 
 		_clock.restart();

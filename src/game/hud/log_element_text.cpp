@@ -14,14 +14,14 @@ void LogElementText::setGuiScale(GuiScale scale)
 	switch (scale)
 	{
 		case GUI_SMALL:
-			this->setCharacterSize(FONT_SIZE_SMALL);
+			this->setCharacterSize(FONT_SIZE_H3_SMALL);
 			break;
 		case GUI_LARGE:
-			this->setCharacterSize(FONT_SIZE_LARGE);
+			this->setCharacterSize(FONT_SIZE_H3_LARGE);
 			break;
 		case GUI_NORMAL:
 		default:
-			this->setCharacterSize(FONT_SIZE_NORMAL);
+			this->setCharacterSize(FONT_SIZE_H3_NORMAL);
 	}
 }
 

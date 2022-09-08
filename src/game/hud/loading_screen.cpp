@@ -1,10 +1,6 @@
 #include "loading_screen.hpp"
 #include "../util/i18n.hpp"
 
-#define LOADINGSCR_FONT_SMALL 30U
-#define LOADINGSCR_FONT_NORMAL 40U
-#define LOADINGSCR_FONT_LARGE 52U
-
 LoadingScreen::LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, uint screenW, uint screenH)
 {
 	this->loadingText.setFont(*resMgr.getFont(FONT_FIXED));
@@ -14,14 +10,14 @@ LoadingScreen::LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager
 	switch (scale)
 	{
 		case GUI_SMALL:
-			this->loadingText.setCharacterSize(LOADINGSCR_FONT_SMALL);
+			this->loadingText.setCharacterSize(FONT_SIZE_H1_SMALL);
 			break;
 		case GUI_LARGE:
-			this->loadingText.setCharacterSize(LOADINGSCR_FONT_LARGE);
+			this->loadingText.setCharacterSize(FONT_SIZE_H1_LARGE);
 			break;
 		case GUI_NORMAL:
 		default:
-			this->loadingText.setCharacterSize(LOADINGSCR_FONT_NORMAL);
+			this->loadingText.setCharacterSize(FONT_SIZE_H1_NORMAL);
 	}
 
 	this->loadingText.setPosition(

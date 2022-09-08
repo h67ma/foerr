@@ -16,14 +16,14 @@ void FpsMeter::setGuiScale(GuiScale scale)
 	switch (scale)
 	{
 		case GUI_SMALL:
-			this->text.setCharacterSize(FONT_SIZE_SMALL);
+			this->text.setCharacterSize(FONT_SIZE_H3_SMALL);
 			break;
 		case GUI_LARGE:
-			this->text.setCharacterSize(FONT_SIZE_LARGE);
+			this->text.setCharacterSize(FONT_SIZE_H3_LARGE);
 			break;
 		case GUI_NORMAL:
 		default:
-			this->text.setCharacterSize(FONT_SIZE_NORMAL);
+			this->text.setCharacterSize(FONT_SIZE_H3_NORMAL);
 	}
 }
 

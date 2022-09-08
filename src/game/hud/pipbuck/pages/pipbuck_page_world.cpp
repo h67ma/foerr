@@ -39,17 +39,17 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	switch (scale)
 	{
 		case GUI_SMALL:
-			this->locTitle.setCharacterSize(FONT_SIZE_SMALL);
-			this->locDescription.setCharacterSize(FONT_SIZE_SMALL);
+			this->locTitle.setCharacterSize(FONT_SIZE_H2_SMALL);
+			this->locDescription.setCharacterSize(FONT_SIZE_SPAN_SMALL);
 			break;
 		case GUI_LARGE:
-			this->locTitle.setCharacterSize(FONT_SIZE_LARGE);
-			this->locDescription.setCharacterSize(FONT_SIZE_LARGE);
+			this->locTitle.setCharacterSize(FONT_SIZE_H2_LARGE);
+			this->locDescription.setCharacterSize(FONT_SIZE_SPAN_LARGE);
 			break;
 		case GUI_NORMAL:
 		default:
-			this->locTitle.setCharacterSize(FONT_SIZE_NORMAL);
-			this->locDescription.setCharacterSize(FONT_SIZE_NORMAL);
+			this->locTitle.setCharacterSize(FONT_SIZE_H2_NORMAL);
+			this->locDescription.setCharacterSize(FONT_SIZE_SPAN_NORMAL);
 	}
 
 	this->hoverMgr.addHoverable(&this->gotoLocationBtn);
