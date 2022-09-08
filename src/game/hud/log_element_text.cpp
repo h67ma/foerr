@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "log_element_text.hpp"
+#include "../util/util.hpp"
 
 LogElementText::LogElementText(std::string text, sf::Font &font, GuiScale scale, sf::Color color)
 {
@@ -11,18 +12,7 @@ LogElementText::LogElementText(std::string text, sf::Font &font, GuiScale scale,
 
 void LogElementText::setGuiScale(GuiScale scale)
 {
-	switch (scale)
-	{
-		case GUI_SMALL:
-			this->setCharacterSize(FONT_SIZE_H3_SMALL);
-			break;
-		case GUI_LARGE:
-			this->setCharacterSize(FONT_SIZE_H3_LARGE);
-			break;
-		case GUI_NORMAL:
-		default:
-			this->setCharacterSize(FONT_SIZE_H3_NORMAL);
-	}
+	this->setCharacterSize(getFontSize(scale, FONT_H3));
 }
 
 bool LogElementText::isTimeUp()

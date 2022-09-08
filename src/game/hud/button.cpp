@@ -1,5 +1,6 @@
 #include "button.hpp"
 #include "../consts.hpp"
+#include "../util/util.hpp"
 
 Button::Button(GuiScale scale, ButtonSize size, sf::Color color, ResourceManager &resMgr, uint x, uint y, std::string text, std::function<void(void)> callback)
 {
@@ -25,9 +26,10 @@ void Button::setGuiScale(GuiScale scale)
 	uint w, h, textTopOffset;
 	this->scale = scale;
 
+	this->text.setCharacterSize(getFontSize(scale, FONT_H3));
+
 	if (scale == GUI_SMALL)
 	{
-		this->text.setCharacterSize(FONT_SIZE_H3_SMALL);
 		textTopOffset = BTN_TEXT_SMALL_TOP_OFFSET;
 
 		switch (size)
@@ -48,7 +50,6 @@ void Button::setGuiScale(GuiScale scale)
 	}
 	else if (scale == GUI_LARGE)
 	{
-		this->text.setCharacterSize(FONT_SIZE_H3_LARGE);
 		textTopOffset = BTN_TEXT_LARGE_TOP_OFFSET;
 
 		switch (size)
@@ -69,7 +70,6 @@ void Button::setGuiScale(GuiScale scale)
 	}
 	else // normal/default
 	{
-		this->text.setCharacterSize(FONT_SIZE_H3_NORMAL);
 		textTopOffset = BTN_TEXT_NORMAL_TOP_OFFSET;
 
 		switch (size)

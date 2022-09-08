@@ -1,5 +1,6 @@
 #include "loading_screen.hpp"
 #include "../util/i18n.hpp"
+#include "../util/util.hpp"
 
 LoadingScreen::LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, uint screenW, uint screenH)
 {
@@ -7,18 +8,7 @@ LoadingScreen::LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager
 	this->loadingText.setFillColor(hudColor);
 	this->loadingText.setString(STR_LOADING);
 
-	switch (scale)
-	{
-		case GUI_SMALL:
-			this->loadingText.setCharacterSize(FONT_SIZE_H1_SMALL);
-			break;
-		case GUI_LARGE:
-			this->loadingText.setCharacterSize(FONT_SIZE_H1_LARGE);
-			break;
-		case GUI_NORMAL:
-		default:
-			this->loadingText.setCharacterSize(FONT_SIZE_H1_NORMAL);
-	}
+	this->loadingText.setCharacterSize(getFontSize(scale, FONT_H1));
 
 	this->loadingText.setPosition(
 		static_cast<float>((screenW - this->loadingText.getLocalBounds().width) / 2),

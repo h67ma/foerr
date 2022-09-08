@@ -1,4 +1,5 @@
 #include "pipbuck_page_world.hpp"
+#include "../../../util/util.hpp"
 
 // relative to the page area
 #define WORLD_MAP_X 400
@@ -36,21 +37,8 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	this->locDescription.setPosition(970, 300);
 	this->locDescription.setFillColor(hudColor);
 
-	switch (scale)
-	{
-		case GUI_SMALL:
-			this->locTitle.setCharacterSize(FONT_SIZE_H2_SMALL);
-			this->locDescription.setCharacterSize(FONT_SIZE_SPAN_SMALL);
-			break;
-		case GUI_LARGE:
-			this->locTitle.setCharacterSize(FONT_SIZE_H2_LARGE);
-			this->locDescription.setCharacterSize(FONT_SIZE_SPAN_LARGE);
-			break;
-		case GUI_NORMAL:
-		default:
-			this->locTitle.setCharacterSize(FONT_SIZE_H2_NORMAL);
-			this->locDescription.setCharacterSize(FONT_SIZE_SPAN_NORMAL);
-	}
+	this->locTitle.setCharacterSize(getFontSize(scale, FONT_H2));
+	this->locDescription.setCharacterSize(getFontSize(scale, FONT_SPAN));
 
 	this->hoverMgr.addHoverable(&this->gotoLocationBtn);
 }

@@ -13,6 +13,7 @@ namespace Log
 	bool _printMsgs = true;
 	bool _verboseDebug = true;
 	GuiScale _scale = GUI_NORMAL;
+	uint _fontGap;
 
 	std::list<std::unique_ptr<LogElementText>> _history;
 	sf::Clock _clock;
@@ -52,6 +53,7 @@ namespace Log
 	void setGuiScale(GuiScale scale)
 	{
 		_scale = scale;
+		_fontGap = getFontGap(scale, FONT_H3);
 		for (const auto &item : _history)
 		{
 			item->setGuiScale(_scale);
@@ -78,7 +80,7 @@ namespace Log
 
 		// initial offset from top/bottom
 		if (_anchor == CORNER_BOTTOM_LEFT || _anchor == CORNER_BOTTOM_RIGHT)
-			y = _windowH - static_cast<uint>(_history.size()) * FONT_SIZE_H3_NORMAL_WITH_GAP - LOG_ANCHOR_NEG_PADDING_BOTTOM;
+			y = _windowH - static_cast<uint>(_history.size()) * _fontGap - LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
 		for (auto &item : _history)
 		{
@@ -87,7 +89,7 @@ namespace Log
 
 			item->setPosition(static_cast<float>(x), static_cast<float>(y));
 
-			y += FONT_SIZE_H3_NORMAL_WITH_GAP;
+			y += _fontGap;
 		}
 
 		_clock.restart();

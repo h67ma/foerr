@@ -34,6 +34,7 @@ namespace Log
 	extern bool _printMsgs;
 	extern bool _verboseDebug;
 	extern GuiScale _scale;
+	extern uint _fontGap;
 	extern std::list<std::unique_ptr<LogElementText>> _history;
 
 	void _logToFile(const char* prefix, std::string msg);

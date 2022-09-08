@@ -3,6 +3,7 @@
 #include <json/reader.h>
 #include <string>
 #include "../consts.hpp"
+#include "../hud/hud.hpp"
 
 // stolen from https://stackoverflow.com/questions/63121776/simplest-syntax-for-string-interpolation-in-c
 template<typename... T>
@@ -26,3 +27,5 @@ bool loadJsonFromFile(Json::Value &root, std::string path);
 bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key, std::string &value);
 bool parseJsonBoolKey(Json::Value &node, const char* filePath, const char* key, bool &value);
 bool parseJsonUintKey(Json::Value &node, const char* filePath, const char* key, uint &value);
+uint getFontSize(GuiScale scale, FontSize size);
+uint getFontGap(GuiScale scale, FontSize size);

@@ -16,3 +16,11 @@ enum GuiScale
 	GUI_LARGE,
 	_GUI_SCALE_CNT
 };
+
+enum FontSize
+{
+	FONT_SPAN,
+	FONT_H3,
+	FONT_H2,
+	FONT_H1,
+};

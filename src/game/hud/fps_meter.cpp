@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "fps_meter.hpp"
 #include "../consts.hpp"
+#include "../util/util.hpp"
 
 FpsMeter::FpsMeter(GuiScale scale, sf::Font &font)
 {
@@ -13,18 +14,7 @@ FpsMeter::FpsMeter(GuiScale scale, sf::Font &font)
 
 void FpsMeter::setGuiScale(GuiScale scale)
 {
-	switch (scale)
-	{
-		case GUI_SMALL:
-			this->text.setCharacterSize(FONT_SIZE_H3_SMALL);
-			break;
-		case GUI_LARGE:
-			this->text.setCharacterSize(FONT_SIZE_H3_LARGE);
-			break;
-		case GUI_NORMAL:
-		default:
-			this->text.setCharacterSize(FONT_SIZE_H3_NORMAL);
-	}
+	this->text.setCharacterSize(getFontSize(scale, FONT_H3));
 }
 
 void FpsMeter::setPosition(ScreenCorner anchor, uint screenW, uint screenH)
