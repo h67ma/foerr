@@ -3,6 +3,7 @@
 // relative to the page area
 #define WORLD_MAP_X 400
 #define WORLD_MAP_Y 260
+#define MAP_GRID_SPACING 110
 
 PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign) :
 	resMgr(resMgr),
@@ -50,7 +51,6 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 			this->locTitle.setCharacterSize(FONT_SIZE_NORMAL);
 			this->locDescription.setCharacterSize(FONT_SIZE_NORMAL);
 	}
-	
 
 	this->hoverMgr.addHoverable(&this->gotoLocationBtn);
 }
@@ -116,6 +116,45 @@ std::string PipBuckPageWorld::getLabel()
 	return "World"; // TODO translate
 }
 
+void PipBuckPageWorld::setupMapDecorations()
+{
+	uint mapW = static_cast<uint>(this->mapBg.getLocalBounds().width);
+	uint mapH = static_cast<uint>(this->mapBg.getLocalBounds().height);
+
+	mapBorder[0] = sf::Vertex({ static_cast<float>(WORLD_MAP_X), static_cast<float>(WORLD_MAP_Y - 1) }, this->hudColor);
+	mapBorder[1] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW + 1), static_cast<float>(WORLD_MAP_Y - 1) }, this->hudColor);
+	mapBorder[2] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW + 1), static_cast<float>(WORLD_MAP_Y + mapH) }, this->hudColor);
+	mapBorder[3] = sf::Vertex({ static_cast<float>(WORLD_MAP_X - 1), static_cast<float>(WORLD_MAP_Y + mapH) }, this->hudColor);
+	// not sure why, but the left bottom corner needs to be moved 1px to the left, otherwise there's a blank pixel
+	mapBorder[4] = mapBorder[0];
+
+	sf::Color gridColor = this->hudColor;
+	gridColor.a = 0x40;
+	
+	float pos = WORLD_MAP_X + MAP_GRID_SPACING;
+	for (uint i = 0; i < 8; i += 2)
+	{
+		if (pos - WORLD_MAP_X > mapW)
+			break; // just in case someone will make a smaller map
+
+		mapGridLines[i] = sf::Vertex({ pos, static_cast<float>(WORLD_MAP_Y) }, gridColor);
+		mapGridLines[i + 1] = sf::Vertex({ pos, static_cast<float>(WORLD_MAP_Y + mapH) }, gridColor);
+		pos += MAP_GRID_SPACING;
+	}
+
+	pos = WORLD_MAP_Y + MAP_GRID_SPACING;
+
+	for (uint i = 8; i < 16; i += 2)
+	{
+		if (pos - WORLD_MAP_Y > mapH)
+			break; // just in case someone will make a smaller map
+
+		mapGridLines[i] = sf::Vertex({ static_cast<float>(WORLD_MAP_X), pos }, gridColor);
+		mapGridLines[i + 1] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW), pos }, gridColor);
+		pos += MAP_GRID_SPACING;
+	}
+}
+
 bool PipBuckPageWorld::setupCampaignInfos()
 {
 	sf::Texture *mapBgTxt = this->resMgr.getTexture(this->campaign.getWorldMapBackground());
@@ -123,6 +162,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 		return false;
 
 	this->mapBg.setTexture(*mapBgTxt);
+	this->setupMapDecorations();
 
 	this->selectedLocationIdx = NO_LOCATION_SELECTED;
 	this->mapButtonHoverMgr.clear();
@@ -152,6 +192,8 @@ bool PipBuckPageWorld::setupCampaignInfos()
 void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->mapBg, states);
+	target.draw(this->mapGridLines, states);
+	target.draw(this->mapBorder, states);
 
 	for (auto &btn : this->mapButtons)
 	{

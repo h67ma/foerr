@@ -17,12 +17,15 @@ class PipBuckPageWorld : public PipBuckPage
 		GuiScale guiScale;
 		sf::Color hudColor;
 		sf::Sprite mapBg;
+		sf::VertexArray mapBorder = sf::VertexArray(sf::LineStrip, 5);
+		sf::VertexArray mapGridLines = sf::VertexArray(sf::Lines, 16); // max 4 horizontal, 4 vertical
 		sf::Text locTitle;
 		sf::Text locDescription;
 		std::vector<Button> mapButtons;
 		Button gotoLocationBtn;
 		HoverManager mapButtonHoverMgr;
 		int selectedLocationIdx = NO_LOCATION_SELECTED; // note: different from the one in Campaign (only represents selection on page)
+		void setupMapDecorations();
 
 	public:
 		PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign);
