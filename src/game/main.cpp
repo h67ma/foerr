@@ -241,6 +241,11 @@ int main()
 	pipBuck.setupCampaignInfos();
 	gameState = STATE_PLAYING; // TODO remove
 
+	// TODO? there's a very minor visual bug that happens if e.g. player hovers over pipbuck btn,
+	// closes pipbuck (by pressing the tab btn), moves cursor somewhere else, reopens pipbuck,
+	// and the "old" hover is still being shown. fixing this would require saving mouse coords
+	// each time mouse moves (yikes), and then calling pipbuck/menu handle mouse move method when
+	// either of them is being opened. doesn't seems like something worth fixing tbh.
 	sf::Event event;
 	while (window.isOpen())
 	{
