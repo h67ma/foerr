@@ -2,7 +2,7 @@
 #include "../pipbuck_page.hpp"
 #include "../../../resource_manager.hpp"
 #include "../../../settings/settings_manager.hpp"
-#include "../../button.hpp"
+#include "../../buttons/button.hpp"
 
 /**
  * PipBuck -> Main Menu -> Settings

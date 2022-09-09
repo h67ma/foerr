@@ -13,7 +13,7 @@
 #include "settings/settings_manager.hpp"
 #include "resource_manager.hpp"
 #include "hud/fps_meter.hpp"
-#include "hud/button.hpp"
+#include "hud/buttons/button.hpp"
 #include "entities/animation.hpp"
 #include "campaigns/campaign.hpp"
 #include "window/util.hpp"

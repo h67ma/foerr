@@ -5,7 +5,7 @@
 #include <SFML/Audio.hpp>
 #include "../../resource_manager.hpp"
 #include "../hud.hpp"
-#include "../button.hpp"
+#include "../buttons/button.hpp"
 #include "../hover_manager.hpp"
 #include "pipbuck_page.hpp"
 #include "../../campaigns/campaign.hpp"

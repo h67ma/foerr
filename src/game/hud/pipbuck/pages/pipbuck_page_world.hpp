@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "../pipbuck_page.hpp"
 #include "../../../resource_manager.hpp"
-#include "../../button.hpp"
+#include "../../buttons/button.hpp"
 #include "../../../campaigns/campaign.hpp"
 
 #define NO_LOCATION_SELECTED -1

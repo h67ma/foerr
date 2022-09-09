@@ -3,7 +3,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "../button.hpp"
+#include "../buttons/button.hpp"
 #include "../../resource_manager.hpp"
 #include "../hover_manager.hpp"
 #include "../hud.hpp"

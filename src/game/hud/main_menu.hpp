@@ -3,7 +3,7 @@
 #include <vector>
 #include "hud.hpp"
 #include "hover_manager.hpp"
-#include "button.hpp"
+#include "buttons/button.hpp"
 #include "../campaigns/campaign.hpp"
 #include "pipbuck/pipbuck.hpp"
 
