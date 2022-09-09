@@ -15,6 +15,7 @@ class Location : public sf::Drawable
 		std::string description;
 		uint worldMapX;
 		uint worldMapY;
+		bool isWorldMapIconBig = false;
 		std::string worldMapIconId;
 		bool isGrind;
 		bool isBasecamp;
@@ -29,6 +30,8 @@ class Location : public sf::Drawable
 		std::string getDescription();
 		uint getWorldMapX();
 		uint getWorldMapY();
+		bool getIsWorldMapIconBig(); // gee, that's a mouthful
+		bool getIsBasecamp();
 		std::string getWorldMapIconId();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

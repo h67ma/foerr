@@ -29,11 +29,12 @@ bool loadJsonFromFile(Json::Value &root, std::string path)
 	return true;
 }
 
-bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key, std::string &value)
+bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key, std::string &value, bool quiet)
 {
 	if (!node.isMember(key))
 	{
-		Log::e(STR_MISSING_KEY, filePath, key);
+		if (!quiet)
+			Log::w(STR_MISSING_KEY, filePath, key);
 		return false;
 	}
 
@@ -53,11 +54,12 @@ bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key
 	return true;
 }
 
-bool parseJsonBoolKey(Json::Value &node, const char* filePath, const char* key, bool &value)
+bool parseJsonBoolKey(Json::Value &node, const char* filePath, const char* key, bool &value, bool quiet)
 {
 	if (!node.isMember(key))
 	{
-		Log::e(STR_MISSING_KEY, filePath, key);
+		if (!quiet)
+			Log::e(STR_MISSING_KEY, filePath, key);
 		return false;
 	}
 
@@ -74,11 +76,12 @@ bool parseJsonBoolKey(Json::Value &node, const char* filePath, const char* key, 
 	return true;
 }
 
-bool parseJsonUintKey(Json::Value &node, const char* filePath, const char* key, uint &value)
+bool parseJsonUintKey(Json::Value &node, const char* filePath, const char* key, uint &value, bool quiet)
 {
 	if (!node.isMember(key))
 	{
-		Log::e(STR_MISSING_KEY, filePath, key);
+		if (!quiet)
+			Log::e(STR_MISSING_KEY, filePath, key);
 		return false;
 	}
 

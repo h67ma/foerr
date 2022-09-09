@@ -14,9 +14,15 @@ Location::Location(std::string id)
  *
  * Location file structure:
  * {
+ *	"title": "Surface",
+ *	"description": "Equestrian Wasteland, harsh and cruel.",
  *	"grind": false,
  *	"basecamp": false,
  *	"background_full": "path/to/img.png",
+ *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
+ *	"worldmap_x": 123,
+ *	"worldmap_y": 456,
+ *	"worldmap_icon_big": false,
  *	"width": 2,
  *	"height": 3,
  *	"room_map": [
@@ -72,14 +78,15 @@ bool Location::load(std::string locDir, ResourceManager &resMgr)
 		return false;
 	}
 
-	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath))
-		return false;
+	// not present -> black background
+	if (parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
+	{
+		sf::Texture *backgroundFull = resMgr.getTexture(backgroundFullPath);
+		if (backgroundFull == nullptr)
+			return false;
 
-	sf::Texture *backgroundFull = resMgr.getTexture(backgroundFullPath);
-	if (backgroundFull == nullptr)
-		return false;
-
-	this->backgroundFullSprite.setTexture(*backgroundFull);
+		this->backgroundFullSprite.setTexture(*backgroundFull);
+	}
 
 	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
 		return false;
@@ -89,6 +96,9 @@ bool Location::load(std::string locDir, ResourceManager &resMgr)
 
 	if (!parseJsonUintKey(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_Y, this->worldMapY))
 		return false;
+
+	// not present -> default value (false)
+	parseJsonBoolKey(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->isWorldMapIconBig, true);
 
 	if (!parseJsonUintKey(root, indexPath.c_str(), FOERR_JSON_KEY_WIDTH, width))
 		return false;
@@ -203,6 +213,16 @@ uint Location::getWorldMapY()
 	return this->worldMapY;
 }
 
+bool Location::getIsBasecamp()
+{
+	return this->isBasecamp;
+}
+
+bool Location::getIsWorldMapIconBig()
+{
+	return this->isWorldMapIconBig;
+}
+
 std::string Location::getWorldMapIconId()
 {
 	return this->worldMapIconId;
@@ -210,7 +230,7 @@ std::string Location::getWorldMapIconId()
 
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(this->backgroundFullSprite, states);
+	target.draw(this->backgroundFullSprite, states); // note: can be empty
 
 	// TODO draw current room
 }

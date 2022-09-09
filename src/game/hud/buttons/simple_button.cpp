@@ -84,6 +84,8 @@ void SimpleButton::setColor(sf::Color color)
 	this->colorHover = color * sf::Color(BTN_COLOR_HOVER_FACTOR, BTN_COLOR_HOVER_FACTOR, BTN_COLOR_HOVER_FACTOR);
 	this->colorSelected = color * sf::Color(BTN_COLOR_SEL_FACTOR, BTN_COLOR_SEL_FACTOR, BTN_COLOR_SEL_FACTOR);
 	this->colorUnselected = color * sf::Color(BTN_COLOR_UNSEL_FACTOR, BTN_COLOR_UNSEL_FACTOR, BTN_COLOR_UNSEL_FACTOR);
+
+	this->updateState();
 }
 
 void SimpleButton::setGuiScale(GuiScale scale)

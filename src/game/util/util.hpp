@@ -24,8 +24,8 @@ inline std::string pathCombine(std::string path1, std::string path2)
 
 bool loadJsonFromFile(Json::Value &root, std::string path);
 
-bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key, std::string &value);
-bool parseJsonBoolKey(Json::Value &node, const char* filePath, const char* key, bool &value);
-bool parseJsonUintKey(Json::Value &node, const char* filePath, const char* key, uint &value);
+bool parseJsonStringKey(Json::Value &node, const char* filePath, const char* key, std::string &value, bool quiet=false);
+bool parseJsonBoolKey(Json::Value &node, const char* filePath, const char* key, bool &value, bool quiet=false);
+bool parseJsonUintKey(Json::Value &node, const char* filePath, const char* key, uint &value, bool quiet=false);
 uint getFontSize(GuiScale scale, FontSize size);
 uint getFontGap(GuiScale scale, FontSize size);

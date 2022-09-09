@@ -9,16 +9,15 @@
 PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign) :
 	resMgr(resMgr),
 	campaign(campaign),
-	guiScale(scale),
 	hudColor(hudColor),
 	gotoLocationBtn(scale, BTN_NORMAL, hudColor, resMgr, 1000, 815, "Travel", [this](){
 		// TODO display loading screen
 		if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
 			this->selectedLocationIdx < this->campaign.getLocations().size())
 		{
+			this->mapButtons[this->campaign.getCurrentLocationIdx()].setActive(false);
 			this->campaign.changeLocation(this->selectedLocationIdx);
-
-			// TODO un-highlight old location & hightlight new one
+			this->mapButtons[this->campaign.getCurrentLocationIdx()].setActive(true);
 
 			// reset selection
 			// no need to reset texts as now they are not shown anyway
@@ -37,8 +36,7 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	this->locDescription.setPosition(970, 300);
 	this->locDescription.setFillColor(hudColor);
 
-	this->locTitle.setCharacterSize(getFontSize(scale, FONT_H2));
-	this->locDescription.setCharacterSize(getFontSize(scale, FONT_SPAN));
+	this->setGuiScale(scale);
 
 	this->hoverMgr.addHoverable(&this->gotoLocationBtn);
 }
@@ -152,22 +150,30 @@ bool PipBuckPageWorld::setupCampaignInfos()
 	this->mapBg.setTexture(*mapBgTxt);
 	this->setupMapDecorations();
 
-	this->selectedLocationIdx = NO_LOCATION_SELECTED;
-	this->mapButtonHoverMgr.clear();
-	this->mapButtons.clear();
+	this->reset();
 
 	for (auto &loc : this->campaign.getLocations())
 	{
-		mapButtons.emplace_back(
+		sf::Texture *iconTxt = this->resMgr.getTexture(loc.getWorldMapIconId());
+		if (iconTxt == nullptr)
+		{
+			this->reset();
+			return false;
+		}
+
+		this->mapButtons.emplace_back(
 			this->guiScale,
-			BTN_NORMAL,
+			loc.getIsWorldMapIconBig(),
+			loc.getIsBasecamp(),
 			this->hudColor,
 			this->resMgr,
 			WORLD_MAP_X + loc.getWorldMapX(),
 			WORLD_MAP_Y + loc.getWorldMapY(),
-			loc.getTitle()
+			*iconTxt
 		);
 	}
+
+	this->mapButtons[this->campaign.getCurrentLocationIdx()].setActive(true);
 
 	for (auto &btn : this->mapButtons)
 	{
@@ -175,6 +181,21 @@ bool PipBuckPageWorld::setupCampaignInfos()
 	}
 
 	return true;
+}
+
+void PipBuckPageWorld::setGuiScale(GuiScale scale)
+{
+	this->guiScale = scale;
+
+	this->locTitle.setCharacterSize(getFontSize(scale, FONT_H2));
+	this->locDescription.setCharacterSize(getFontSize(scale, FONT_SPAN));
+}
+
+void PipBuckPageWorld::reset()
+{
+	this->selectedLocationIdx = NO_LOCATION_SELECTED;
+	this->mapButtonHoverMgr.clear();
+	this->mapButtons.clear();
 }
 
 void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const
