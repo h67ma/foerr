@@ -15,10 +15,10 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 		PipBuckCategoryMain(scale, hudColor, fxVolume, resMgr, campaign, gameState, settings)
 	},
 	categoryButtons { // order matters
-		Button(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS),
-		Button(scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV),
-		Button(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO),
-		Button(scale, BTN_BIG, hudColor, resMgr, 55, 700, STR_PIPBUCK_MAINMENU)
+		SimpleButton(scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS),
+		SimpleButton(scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV),
+		SimpleButton(scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO),
+		SimpleButton(scale, BTN_BIG, hudColor, resMgr, 55, 700, STR_PIPBUCK_MAINMENU)
 	},
 	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 800, STR_PIPBUCK_CLOSE, [this](){
 		this->close();

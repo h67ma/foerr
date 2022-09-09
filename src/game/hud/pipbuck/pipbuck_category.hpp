@@ -5,7 +5,7 @@
 #include <SFML/Audio.hpp>
 #include "../../resource_manager.hpp"
 #include "../hud.hpp"
-#include "../buttons/button.hpp"
+#include "../buttons/simple_button.hpp"
 #include "../hover_manager.hpp"
 #include "pipbuck_page.hpp"
 #include "../../campaigns/campaign.hpp"
@@ -19,7 +19,7 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 	private:
 		HoverManager hoverMgr;
 		uint selectedPage = 0;
-		std::vector<Button> pageButtons;
+		std::vector<SimpleButton> pageButtons;
 		sf::Sound soundPageChange;
 		sf::Sound soundClick;
 		void changePage(uint idx);

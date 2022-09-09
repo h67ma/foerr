@@ -3,7 +3,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "../buttons/button.hpp"
+#include "../buttons/simple_button.hpp"
 #include "../../resource_manager.hpp"
 #include "../hover_manager.hpp"
 #include "../hud.hpp"
@@ -36,8 +36,8 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		sf::Sprite pipBuckSprite;
 		uint selectedCategory = 0;
 		std::vector<PipBuckCategory> categories;
-		std::vector<Button> categoryButtons;
-		Button closeBtn;
+		std::vector<SimpleButton> categoryButtons;
+		SimpleButton closeBtn;
 		sf::Sound soundOpenClose;
 		sf::Sound soundCategoryBtn;
 		GameState &gameState;

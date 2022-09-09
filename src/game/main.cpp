@@ -13,7 +13,7 @@
 #include "settings/settings_manager.hpp"
 #include "resource_manager.hpp"
 #include "hud/fps_meter.hpp"
-#include "hud/buttons/button.hpp"
+#include "hud/buttons/simple_button.hpp"
 #include "entities/animation.hpp"
 #include "campaigns/campaign.hpp"
 #include "window/util.hpp"
@@ -43,7 +43,7 @@ int main()
 
 	sf::RenderWindow window;
 	uint windowW, windowH;
-	std::vector<Button*> buttons; // TODO all buttons should reside inside PipBuck/main menu/etc
+	std::vector<SimpleButton*> buttons; // TODO all buttons should reside inside PipBuck/main menu/etc
 	std::vector<Animation*> animations;
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
@@ -146,61 +146,61 @@ int main()
 	mchavi->setPosition(1200, 100);
 	animations.push_back(mchavi);
 
-	Button mchavi1(initialScale, BTN_NORMAL, hudColor, resManager, 100, 60, "stand", [&mchavi]() {
+	SimpleButton mchavi1(initialScale, BTN_NORMAL, hudColor, resManager, 100, 60, "stand", [&mchavi]() {
 		mchavi->setAnimation(ANIM_STAND);
 	});
 	buttons.push_back(&mchavi1);
 	hoverMgr.addHoverable(&mchavi1);
 
-	Button mchavi2(initialScale, BTN_NORMAL, hudColor, resManager, 100, 90, "walk", [&mchavi]() {
+	SimpleButton mchavi2(initialScale, BTN_NORMAL, hudColor, resManager, 100, 90, "walk", [&mchavi]() {
 		mchavi->setAnimation(ANIM_WALK);
 	});
 	buttons.push_back(&mchavi2);
 	hoverMgr.addHoverable(&mchavi2);
 
-	Button mchavi3(initialScale, BTN_NORMAL, hudColor, resManager, 100, 120, "trot", [&mchavi]() {
+	SimpleButton mchavi3(initialScale, BTN_NORMAL, hudColor, resManager, 100, 120, "trot", [&mchavi]() {
 		mchavi->setAnimation(ANIM_TROT);
 	});
 	buttons.push_back(&mchavi3);
 	hoverMgr.addHoverable(&mchavi3);
 
-	Button mchavi4(initialScale, BTN_NORMAL, hudColor, resManager, 100, 150, "gallop", [&mchavi]() {
+	SimpleButton mchavi4(initialScale, BTN_NORMAL, hudColor, resManager, 100, 150, "gallop", [&mchavi]() {
 		mchavi->setAnimation(ANIM_GALLOP);
 	});
 	buttons.push_back(&mchavi4);
 	hoverMgr.addHoverable(&mchavi4);
 
-	Button mchavi5(initialScale, BTN_NORMAL, hudColor, resManager, 100, 180, "jump", [&mchavi]() {
+	SimpleButton mchavi5(initialScale, BTN_NORMAL, hudColor, resManager, 100, 180, "jump", [&mchavi]() {
 		mchavi->setAnimation(ANIM_JUMP);
 	});
 	buttons.push_back(&mchavi5);
 	hoverMgr.addHoverable(&mchavi5);
 
-	Button mchavi6(initialScale, BTN_NORMAL, hudColor, resManager, 100, 210, "die ground", [&mchavi]() {
+	SimpleButton mchavi6(initialScale, BTN_NORMAL, hudColor, resManager, 100, 210, "die ground", [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_GROUND);
 	});
 	buttons.push_back(&mchavi6);
 	hoverMgr.addHoverable(&mchavi6);
 
-	Button mchavi7(initialScale, BTN_NORMAL, hudColor, resManager, 100, 240, "die air", [&mchavi]() {
+	SimpleButton mchavi7(initialScale, BTN_NORMAL, hudColor, resManager, 100, 240, "die air", [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_AIR);
 	});
 	buttons.push_back(&mchavi7);
 	hoverMgr.addHoverable(&mchavi7);
 
-	Button mchavi8(initialScale, BTN_NORMAL, hudColor, resManager, 100, 270, "tk hold", [&mchavi]() {
+	SimpleButton mchavi8(initialScale, BTN_NORMAL, hudColor, resManager, 100, 270, "tk hold", [&mchavi]() {
 		mchavi->setAnimation(ANIM_TK_HOLD);
 	});
 	buttons.push_back(&mchavi8);
 	hoverMgr.addHoverable(&mchavi8);
 
-	Button mchavi9(initialScale, BTN_NORMAL, hudColor, resManager, 100, 300, "swim", [&mchavi]() {
+	SimpleButton mchavi9(initialScale, BTN_NORMAL, hudColor, resManager, 100, 300, "swim", [&mchavi]() {
 		mchavi->setAnimation(ANIM_SWIM);
 	});
 	buttons.push_back(&mchavi9);
 	hoverMgr.addHoverable(&mchavi9);
 
-	Button mchavi10(initialScale, BTN_NORMAL, hudColor, resManager, 100, 330, "climb", [&mchavi]() {
+	SimpleButton mchavi10(initialScale, BTN_NORMAL, hudColor, resManager, 100, 330, "climb", [&mchavi]() {
 		mchavi->setAnimation(ANIM_CLIMB);
 	});
 	buttons.push_back(&mchavi10);
@@ -210,25 +210,25 @@ int main()
 
 
 
-	Button cursor1(initialScale, BTN_NARROW, hudColor, resManager, 1100, 100, "pointer", [&cursorMgr, &window]() {
+	SimpleButton cursor1(initialScale, BTN_NARROW, hudColor, resManager, 1100, 100, "pointer", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, POINTER);
 	});
 	buttons.push_back(&cursor1);
 	hoverMgr.addHoverable(&cursor1);
 
-	Button cursor2(initialScale, BTN_NARROW, hudColor, resManager, 1100, 150, "x white", [&cursorMgr, &window]() {
+	SimpleButton cursor2(initialScale, BTN_NARROW, hudColor, resManager, 1100, 150, "x white", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 	});
 	buttons.push_back(&cursor2);
 	hoverMgr.addHoverable(&cursor2);
 
-	Button cursor3(initialScale, BTN_NARROW, hudColor, resManager, 1100, 200, "x yellow", [&cursorMgr, &window]() {
+	SimpleButton cursor3(initialScale, BTN_NARROW, hudColor, resManager, 1100, 200, "x yellow", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_YELLOW);
 	});
 	buttons.push_back(&cursor3);
 	hoverMgr.addHoverable(&cursor3);
 
-	Button cursor4(initialScale, BTN_NARROW, hudColor, resManager, 1100, 250, "x red", [&cursorMgr, &window]() {
+	SimpleButton cursor4(initialScale, BTN_NARROW, hudColor, resManager, 1100, 250, "x red", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_RED);
 	});
 	buttons.push_back(&cursor4);

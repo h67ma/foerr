@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "../pipbuck_page.hpp"
 #include "../../../resource_manager.hpp"
-#include "../../buttons/button.hpp"
+#include "../../buttons/simple_button.hpp"
 #include "../../../campaigns/campaign.hpp"
 
 #define NO_LOCATION_SELECTED -1
@@ -21,8 +21,8 @@ class PipBuckPageWorld : public PipBuckPage
 		sf::VertexArray mapGridLines = sf::VertexArray(sf::Lines, 16); // max 4 horizontal, 4 vertical
 		sf::Text locTitle;
 		sf::Text locDescription;
-		std::vector<Button> mapButtons;
-		Button gotoLocationBtn;
+		std::vector<SimpleButton> mapButtons;
+		SimpleButton gotoLocationBtn;
 		HoverManager mapButtonHoverMgr;
 		int selectedLocationIdx = NO_LOCATION_SELECTED; // note: different from the one in Campaign (only represents selection on page)
 		void setupMapDecorations();
