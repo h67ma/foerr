@@ -47,6 +47,7 @@ int main()
 	std::vector<Animation*> animations;
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
+	sf::Clock animationTimer;
 
 	// TODO find a platform-independent way to display stack trace on crash
 	//signal(SIGSEGV, stackTraceHandler);
@@ -359,12 +360,17 @@ int main()
 		if ((gameState == STATE_PLAYING || gameState == STATE_PIPBUCK) && campaign.isLoaded())
 			window.draw(campaign); // TODO ultimately campaign should contain pipbuck and decide to display it or not based on game state
 
+		bool drawNextFrame = animationTimer.getElapsedTime().asMilliseconds() >= ANIM_FRAME_DURATION_MS;
+		if (drawNextFrame)
+			animationTimer.restart();
+
 		if (gameState == STATE_PLAYING || gameState == STATE_PIPBUCK)
 		{
 			for(Animation* animation : animations)
 			{
-				if (gameState == STATE_PLAYING)
-					animation->maybeNextFrame();
+				if (gameState == STATE_PLAYING && drawNextFrame)
+					animation->nextFrame();
+
 				window.draw(*animation);
 			}
 		}

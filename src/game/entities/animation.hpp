@@ -39,7 +39,6 @@ class Animation : public sf::Drawable, public sf::Transformable
 		uint textureHeight;
 		sf::Sprite sprite;
 		sf::IntRect textureRect;
-		sf::Clock clock;
 		uint loadedKindTextureWidth;
 		uint width;
 		uint height;
@@ -47,7 +46,7 @@ class Animation : public sf::Drawable, public sf::Transformable
 
 	public:
 		Animation(const sf::Texture &texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds);
-		void maybeNextFrame();
+		void nextFrame();
 		bool setAnimation(AnimationKind kind);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
