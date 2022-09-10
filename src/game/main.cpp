@@ -105,6 +105,7 @@ int main()
 	Campaign campaign;
 	HoverManager hoverMgr;
 	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState, settings);
+	pipBuck.setRadLevel(0.3f); // TODO remove
 	MainMenu mainMenu(initialScale, hudColor, initialFxVol, resManager, window, campaign, gameState, pipBuck);
 
 
@@ -390,7 +391,10 @@ int main()
 			}
 		}
 		else if (gameState == STATE_PIPBUCK)
+		{
+			pipBuck.nextFrame();
 			window.draw(pipBuck);
+		}
 		else if (gameState == STATE_MAINMENU)
 			window.draw(mainMenu);
 

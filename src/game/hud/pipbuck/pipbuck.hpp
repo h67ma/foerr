@@ -34,6 +34,9 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 	private:
 		HoverManager hoverMgr;
 		sf::Sprite pipBuckSprite;
+		sf::ConvexShape radIndicator;
+		sf::Clock timer;
+		float radIndicatorLevel = 0.f;
 		uint selectedCategory = 0;
 		std::vector<PipBuckCategory> categories;
 		std::vector<SimpleButton> categoryButtons;
@@ -51,5 +54,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		bool setupCampaignInfos();
 		void open(bool sound=true);
 		void close();
+		void setRadLevel(float rads);
+		void nextFrame();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

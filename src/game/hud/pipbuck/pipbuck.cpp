@@ -5,6 +5,7 @@
 #include "categories/pipbuck_cat_inventory.hpp"
 #include "categories/pipbuck_cat_info.hpp"
 #include "categories/pipbuck_cat_main.hpp"
+#include "../util/util.hpp"
 
 PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState, SettingsManager &settings) :
 	gameState(gameState),
@@ -30,6 +31,14 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 	this->soundCategoryBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE, true));
 	this->soundOpenClose.setVolume(static_cast<float>(fxVolume));
 	this->soundCategoryBtn.setVolume(static_cast<float>(fxVolume));
+
+	this->radIndicator.setPointCount(3);
+	this->radIndicator.setOrigin(5.f, 0.f);
+	this->radIndicator.setPosition(130.f, 190.f);
+	this->radIndicator.setPoint(0, { 0.f, 0.f });
+	this->radIndicator.setPoint(1, { 10.f, 0.f });
+	this->radIndicator.setPoint(2, { 5.f, 60.f });
+	this->radIndicator.setFillColor(sf::Color::Black);
 
 	for (auto &cat : this->categories)
 	{
@@ -143,11 +152,33 @@ bool PipBuck::setupCampaignInfos()
 	return true;
 }
 
+/**
+ * Sets the value displayed by "hardware" rad indicator.
+ *
+ * @param rads amount of rads, in fraction (1.0 = max)
+ */
+void PipBuck::setRadLevel(float rads)
+{
+	if (rads > 1.f)
+		this->radIndicatorLevel = 1.f;
+	else
+		this->radIndicatorLevel = rads;
+}
+
+void PipBuck::nextFrame()
+{
+	this->radIndicator.setRotation(
+		this->radIndicatorLevel * -180 +
+		static_cast<float>(getSmoothNoise(this->timer.getElapsedTime().asSeconds())/2)
+	);
+}
+
 void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
 	target.draw(this->pipBuckSprite, states);
+	target.draw(this->radIndicator, states);
 
 	target.draw(this->categories[this->selectedCategory], states);
 

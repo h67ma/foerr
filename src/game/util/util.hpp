@@ -29,3 +29,4 @@ bool parseJsonBoolKey(Json::Value &node, const char* filePath, const char* key, 
 bool parseJsonUintKey(Json::Value &node, const char* filePath, const char* key, uint &value, bool quiet=false);
 uint getFontSize(GuiScale scale, FontSize size);
 uint getFontGap(GuiScale scale, FontSize size);
+double getSmoothNoise(double time);
