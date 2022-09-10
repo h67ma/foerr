@@ -17,6 +17,6 @@ class RoomGrid
 	public:
 		void setDimens(uint width, uint height);
 		bool set(uint x, uint y, std::shared_ptr<Room> room);
-		Room* get(uint x, uint y);
+		Room* get(sf::Vector2u coords);
 		void clear();
 };

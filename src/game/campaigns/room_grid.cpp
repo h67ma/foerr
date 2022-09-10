@@ -44,15 +44,15 @@ bool RoomGrid::set(uint x, uint y, std::shared_ptr<Room> room)
  * @param y the y coordinate
  * @returns a pointer to the Room object at (x, y). If the coordinates are invalid, or contain an empty room, `nullptr` is returned.
  */
-Room* RoomGrid::get(uint x, uint y)
+Room* RoomGrid::get(sf::Vector2u coords)
 {
-	if (x >= this->width || y >= this->height)
+	if (coords.x >= this->width || coords.y >= this->height)
 	{
 		Log::e(STR_IDX_OUTTA_BOUNDS);
 		return nullptr;
 	}
 
-	return this->grid[y * this->width + x].get();
+	return this->grid[coords.y * this->width + coords.x].get();
 }
 
 void RoomGrid::clear()

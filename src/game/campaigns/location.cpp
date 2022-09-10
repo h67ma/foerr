@@ -100,6 +100,18 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 	if (!parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_Y, this->worldMapY))
 		return false;
 
+	if (this->worldMapX > 600)
+	{
+		Log::e(STR_SUS_LARGE_VALUE, this->worldMapX, FOERR_JSON_KEY_WORLDMAP_X);
+		return false;
+	}
+
+	if (this->worldMapY > 600)
+	{
+		Log::e(STR_SUS_LARGE_VALUE, this->worldMapY, FOERR_JSON_KEY_WORLDMAP_Y);
+		return false;
+	}
+
 	// not present -> default value (false)
 	parseJsonBoolKey(root, locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->isWorldMapIconBig, true);
 
@@ -164,6 +176,18 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 
 	if (!parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_HEIGHT, height))
 		return false;
+
+	if (width > 100)
+	{
+		Log::e(STR_SUS_LARGE_VALUE, width, FOERR_JSON_KEY_WIDTH);
+		return false;
+	}
+
+	if (height > 100)
+	{
+		Log::e(STR_SUS_LARGE_VALUE, height, FOERR_JSON_KEY_HEIGHT);
+		return false;
+	}
 
 	this->rooms.setDimens(width, height);
 
@@ -234,6 +258,13 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 				return false;
 			}
 		}
+	}
+
+	// room grid loaded, now check if start room exists
+	if (this->rooms.get(this->startCoords) == nullptr)
+	{
+		Log::e(STR_START_ROOM_INVALID, locPath.c_str(), this->startCoords.x, this->startCoords.y);
+		return false;
 	}
 
 	Log::d(STR_LOADED_LOCATION, locPath.c_str());
