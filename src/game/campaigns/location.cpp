@@ -25,6 +25,8 @@ Location::Location(std::string id)
  *	"worldmap_icon_big": false,
  *	"width": 2,
  *	"height": 3,
+ *	"start_x": 0,
+ *	"start_y": 0,
  *	"room_map": [
  *		["one",		"two"],
  *		["three",	"/EMPTY"],
@@ -100,6 +102,13 @@ bool Location::load(std::string locDir, ResourceManager &resMgr)
 	// not present -> default value (false)
 	parseJsonBoolKey(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->isWorldMapIconBig, true);
 
+	// TODO below is relevant for unique locations - put it in function or inherit classes for unique and grind
+
+	uint startX = 0, startY = 0;
+	parseJsonUintKey(root, indexPath.c_str(), FOERR_JSON_KEY_START_X, startX, true);
+	parseJsonUintKey(root, indexPath.c_str(), FOERR_JSON_KEY_START_Y, startY, true);
+	this->startCoords = { startX, startY };
+
 	if (!parseJsonUintKey(root, indexPath.c_str(), FOERR_JSON_KEY_WIDTH, width))
 		return false;
 
@@ -114,9 +123,7 @@ bool Location::load(std::string locDir, ResourceManager &resMgr)
 		return false;
 	}
 
-	// TODO this is relevant for unique locations - put it in function or inherit classes for unique and grind
 	Json::Value roomMap = root[FOERR_JSON_KEY_ROOM_MAP];
-
 	if (!roomMap.isArray())
 	{
 		Log::e(STR_INVALID_TYPE, indexPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);

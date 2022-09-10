@@ -21,6 +21,7 @@ class Location : public sf::Drawable
 		bool isBasecamp;
 		sf::Sprite backgroundFullSprite;
 		RoomGrid rooms;
+		sf::Vector2u startCoords;
 
 	public:
 		Location(std::string id);
