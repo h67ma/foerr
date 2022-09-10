@@ -25,7 +25,7 @@ class Location : public sf::Drawable
 
 	public:
 		Location(std::string id);
-		bool load(std::string locDir, ResourceManager &resMgr);
+		bool load(std::string locPath, ResourceManager &resMgr);
 		std::string getId();
 		std::string getTitle();
 		std::string getDescription();

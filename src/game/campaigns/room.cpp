@@ -60,6 +60,7 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
  *
  * Room file structure:
  * {
+ *	"id": "room_id",
  *	"blocks": [
  *		"DDDDDDD...",
  *		"Dnnnnnn...",
@@ -74,21 +75,17 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
  *	]
  * }
  *
- * @param roomFilePath path to room's json file
- * @param log pointer to Log object (need to figure out exceptions at some point...)
- * @returns `true` on load success, `false` otherwise
+ * @param root json node containing room data
+ * @param filePath location file path, just for printing
+ * @returns true on load success
+ * @returns false on load fail
  */
-bool Room::load(std::string roomFilePath)
+bool Room::load(Json::Value &root, const char* filePath)
 {
-	Json::Value root;
-
-	if (!loadJsonFromFile(root, roomFilePath))
+	if (!this->loadArray(root, FOERR_JSON_KEY_BLOCKS, filePath, this->blocks))
 		return false;
 
-	if (!this->loadArray(root, FOERR_JSON_KEY_BLOCKS, roomFilePath.c_str(), this->blocks))
-		return false;
-
-	if (!this->loadArray(root, FOERR_JSON_KEY_BACKGROUNDS, roomFilePath.c_str(), this->backgrounds))
+	if (!this->loadArray(root, FOERR_JSON_KEY_BACKGROUNDS, filePath, this->backgrounds))
 		return false;
 
 	return true;

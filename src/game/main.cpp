@@ -239,9 +239,9 @@ int main()
 	// initial size
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
 
-	campaign.load("res/campaigns/test", resManager); // TODO remove
-	pipBuck.setupCampaignInfos();
-	gameState = STATE_PLAYING; // TODO remove
+	// TODO remove
+	if (campaign.load("res/campaigns/test", resManager) && pipBuck.setupCampaignInfos())
+		gameState = STATE_PLAYING;
 
 	// TODO? there's a very minor visual bug that happens if e.g. player hovers over pipbuck btn,
 	// closes pipbuck (by pressing the tab btn), moves cursor somewhere else, reopens pipbuck,

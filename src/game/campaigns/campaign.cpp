@@ -70,7 +70,7 @@ bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 	// for now let's just load everything at start
 	for (const std::filesystem::directory_entry &entry : iter)
 	{
-		std::string locId = entry.path().filename().string();
+		std::string locId = entry.path().stem().string();
 		std::string locPath = entry.path().string();
 
 		this->locations.emplace_back(locId);
@@ -78,6 +78,7 @@ bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 		{
 			// unload everything
 			// mission failed, we'll get em next time
+			Log::e(STR_LOADING_LOCATION_ERROR, locId.c_str());
 			this->unload(resMgr);
 			return false;
 		}

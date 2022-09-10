@@ -21,5 +21,5 @@ class Room
 		bool loadArray(Json::Value &root, const char* key, const char* filename, char (*arr)[ROOM_WIDTH_WITH_BORDER]);
 
 	public:
-		bool load(std::string roomFilePath);
+		bool load(Json::Value &root, const char* filePath);
 };

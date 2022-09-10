@@ -21,6 +21,7 @@
 #define EXT_JSON ".json"
 
 // json keys
+#define FOERR_JSON_KEY_ID "id"
 #define FOERR_JSON_KEY_BLOCKS "blocks"
 #define FOERR_JSON_KEY_BACKGROUNDS "backgrounds"
 #define FOERR_JSON_KEY_BACKGROUND_FULL "background_full"
@@ -36,6 +37,7 @@
 #define FOERR_JSON_KEY_WIDTH "width"
 #define FOERR_JSON_KEY_HEIGHT "height"
 #define FOERR_JSON_KEY_ROOM_MAP "room_map"
+#define FOERR_JSON_KEY_ROOMS "rooms"
 #define FOERR_JSON_KEY_TITLE "title"
 #define FOERR_JSON_KEY_DESCRIPTION "description"
 #define FOERR_JSON_KEY_START_LOC "startLocation"

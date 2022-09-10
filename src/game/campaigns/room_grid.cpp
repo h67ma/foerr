@@ -25,7 +25,7 @@ void RoomGrid::setDimens(uint width, uint height)
  * @param y the y coordinate
  * @param room pointer to the Room object to set
  */
-bool RoomGrid::set(uint x, uint y, Room *room)
+bool RoomGrid::set(uint x, uint y, std::shared_ptr<Room> room)
 {
 	if (x >= this->width || y >= this->height)
 	{
@@ -33,7 +33,7 @@ bool RoomGrid::set(uint x, uint y, Room *room)
 		return false;
 	}
 
-	this->grid[y * this->width + x] = std::unique_ptr<Room>(room);
+	this->grid[y * this->width + x] = room;
 	return true;
 }
 
