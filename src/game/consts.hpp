@@ -40,7 +40,7 @@
 #define FOERR_JSON_KEY_ROOMS "rooms"
 #define FOERR_JSON_KEY_TITLE "title"
 #define FOERR_JSON_KEY_DESCRIPTION "description"
-#define FOERR_JSON_KEY_START_LOC "startLocation"
+#define FOERR_JSON_KEY_START_LOC "start_location"
 
 #define ROOM_EMPTY "/EMPTY" // '/' should be an illegal filename character in both linux and windows
 
