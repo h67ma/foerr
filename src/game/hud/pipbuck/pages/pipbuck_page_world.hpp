@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "../pipbuck_page.hpp"
 #include "../../../resource_manager.hpp"
+#include "../../../sprite_resource.hpp"
 #include "../../buttons/simple_button.hpp"
 #include "../../buttons/location_button.hpp"
 #include "../../../campaigns/campaign.hpp"
@@ -17,7 +18,7 @@ class PipBuckPageWorld : public PipBuckPage
 		Campaign &campaign;
 		GuiScale guiScale;
 		sf::Color hudColor;
-		sf::Sprite mapBg;
+		SpriteResource mapBg;
 		sf::VertexArray mapBorder = sf::VertexArray(sf::LineStrip, 5);
 		sf::VertexArray mapGridLines = sf::VertexArray(sf::Lines, 16); // max 4 horizontal, 4 vertical
 		sf::Text locTitle;

@@ -23,14 +23,14 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 	},
 	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 800, STR_PIPBUCK_CLOSE, [this](){
 		this->close();
-	})
+	}),
+	soundOpenClose(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE)),
+	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
+	pipBuckSprite(resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY))
 {
-	this->pipBuckSprite.setTexture(*resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY, true));
 
-	this->soundOpenClose.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE, true));
-	this->soundCategoryBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE, true));
-	this->soundOpenClose.setVolume(static_cast<float>(fxVolume));
-	this->soundCategoryBtn.setVolume(static_cast<float>(fxVolume));
+	this->soundOpenClose.get().setVolume(static_cast<float>(fxVolume));
+	this->soundCategoryBtn.get().setVolume(static_cast<float>(fxVolume));
 
 	this->radIndicator.setPointCount(3);
 	this->radIndicator.setOrigin(5.f, 0.f);
@@ -58,7 +58,7 @@ void PipBuck::handleScreenResize(uint screenW, uint screenH)
 {
 	// for now copy the behaviour of Remains pipbuck, i.e. display it unscaled in bottom left corner
 	// TODO scale should affect sprite size and individual buttons/labels/etc scale and placement
-	this->setPosition(0, static_cast<float>(screenH - this->pipBuckSprite.getLocalBounds().height));
+	this->setPosition(0, static_cast<float>(screenH - this->pipBuckSprite.get().getLocalBounds().height));
 }
 
 /**
@@ -68,7 +68,7 @@ void PipBuck::open(bool sound)
 {
 	this->gameState = STATE_PIPBUCK;
 	if (sound)
-		this->soundOpenClose.play();
+		this->soundOpenClose.get().play();
 	Log::d(STR_GAME_PAUSED);
 }
 
@@ -78,7 +78,7 @@ void PipBuck::open(bool sound)
 void PipBuck::close()
 {
 	this->gameState = STATE_PLAYING;
-	this->soundOpenClose.play();
+	this->soundOpenClose.get().play();
 	Log::d(STR_GAME_RESUMED);
 }
 
@@ -113,7 +113,7 @@ ClickStatus PipBuck::handleLeftClick(int x, int y)
 			if (idx != this->selectedCategory)
 			{
 				this->changeCategory(idx);
-				this->soundCategoryBtn.play();
+				this->soundCategoryBtn.get().play();
 			}
 			return CLICK_CONSUMED;
 		}
@@ -177,7 +177,7 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
-	target.draw(this->pipBuckSprite, states);
+	target.draw(this->pipBuckSprite.sprite, states);
 	target.draw(this->radIndicator, states);
 
 	target.draw(this->categories[this->selectedCategory], states);

@@ -9,13 +9,13 @@
 #define ACTIVE_INDICATOR_NEG_LEN -14
 #define ACTIVE_INDICATOR_DOUBLE_LEN 28
 
-LocButton::LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, ResourceManager &resMgr, uint x, uint y, sf::Texture &iconTexture, std::function<void(void)> callback) :
-	Button(scale, x, y, callback)
+LocButton::LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, uint x, uint y, std::shared_ptr<sf::Texture> iconTexture, std::function<void(void)> callback) :
+	Button(scale, x, y, callback),
+	icon(iconTexture)
 {
 	this->isBaseCamp = isBaseCamp;
 	this->isBig = isBig;
 	
-	this->icon.setTexture(iconTexture);
 	this->setGuiScale(scale);
 	this->setColor(color);
 	this->setSelected(false);
@@ -111,9 +111,9 @@ void LocButton::setGuiScale(GuiScale scale)
 
 	// center icon
 	// floor the coordinates to avoid pixel misalignment
-	this->icon.setPosition(
-		floor((sideLen - this->icon.getLocalBounds().width) / 2),
-		floor((sideLen - this->icon.getLocalBounds().height) / 2)
+	this->icon.get().setPosition(
+		floor((sideLen - this->icon.get().getLocalBounds().width) / 2),
+		floor((sideLen - this->icon.get().getLocalBounds().height) / 2)
 	);
 
 	float indicatorWidth;
@@ -172,5 +172,5 @@ void LocButton::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	}
 
 	target.draw(this->rect, states);
-	target.draw(this->icon, states);
+	target.draw(this->icon.sprite, states);
 }

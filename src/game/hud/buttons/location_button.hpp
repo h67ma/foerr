@@ -1,7 +1,7 @@
 #pragma once
 
 #include "button.hpp"
-#include "../../resource_manager.hpp"
+#include "../../sprite_resource.hpp"
 #include "hud.hpp"
 
 class LocButton : public Button
@@ -17,14 +17,14 @@ class LocButton : public Button
 		sf::Color colorHover;
 		sf::Color colorBasecamp;
 		sf::RectangleShape rect;
-		sf::Sprite icon;
+		SpriteResource icon;
 		sf::RectangleShape activeIndicator[2];
 		void setThickness();
 		void updateState();
 		uint getSideLen();
 
 	public:
-		LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, ResourceManager &resMgr, uint x, uint y, sf::Texture &iconTexture, std::function<void(void)> callback=nullptr);
+		LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, uint x, uint y, std::shared_ptr<sf::Texture> iconTexture, std::function<void(void)> callback=nullptr);
 		void setSelected(bool selected);
 		bool containsPoint(int x, int y) override;
 		void setGuiScale(GuiScale scale) override;

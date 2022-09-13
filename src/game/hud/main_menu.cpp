@@ -34,10 +34,10 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 			Log::d(STR_SHUTTING_DOWN);
 			window.close();
 		})
-	})
+	}),
+	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
 {
-	this->soundBtn.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK, true));
-	this->soundBtn.setVolume(static_cast<float>(fxVolume));
+	this->btnSound.get().setVolume(static_cast<float>(fxVolume));
 
 	for (auto &btn : this->buttons)
 	{
@@ -55,7 +55,7 @@ ClickStatus MainMenu::handleLeftClick(int x, int y)
 	{
 		if (btn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
 		{
-			this->soundBtn.play();
+			this->btnSound.get().play();
 			return CLICK_CONSUMED;
 		}
 	}

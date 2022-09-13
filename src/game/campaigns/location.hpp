@@ -5,6 +5,7 @@
 #include "room_grid.hpp"
 #include "../consts.hpp"
 #include "../resource_manager.hpp"
+#include "../sprite_resource.hpp"
 
 // TODO? maybe inherit UniqueLocation and GeneratedLocation
 class Location : public sf::Drawable
@@ -19,7 +20,7 @@ class Location : public sf::Drawable
 		std::string worldMapIconId;
 		bool isGrind;
 		bool isBasecamp;
-		sf::Sprite backgroundFullSprite;
+		SpriteResource backgroundFullSprite;
 		RoomGrid rooms;
 		sf::Vector2u startCoords;
 

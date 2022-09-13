@@ -1,17 +1,17 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <vector>
 #include "hud.hpp"
 #include "hover_manager.hpp"
 #include "buttons/simple_button.hpp"
 #include "../campaigns/campaign.hpp"
 #include "pipbuck/pipbuck.hpp"
+#include "../sound_resource.hpp"
 
 class MainMenu : public sf::Drawable, public sf::Transformable
 {
 	private:
 		HoverManager hoverMgr;
-		sf::Sound soundBtn;
+		SoundResource btnSound;
 		std::vector<SimpleButton> buttons;
 
 	public:

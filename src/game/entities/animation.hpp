@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "../consts.hpp"
+#include "../sprite_resource.hpp"
 
 enum AnimationKind
 {
@@ -37,7 +38,7 @@ class Animation : public sf::Drawable, public sf::Transformable
 {
 	private:
 		uint textureHeight;
-		sf::Sprite sprite;
+		SpriteResource sprite;
 		sf::IntRect textureRect;
 		uint loadedKindTextureWidth;
 		uint width;
@@ -45,7 +46,7 @@ class Animation : public sf::Drawable, public sf::Transformable
 		std::unordered_map<AnimationKind, struct anim_kind_details_internal> kinds;
 
 	public:
-		Animation(const sf::Texture &texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds);
+		Animation(std::shared_ptr<sf::Texture> texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds);
 		void nextFrame();
 		bool setAnimation(AnimationKind kind);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

@@ -52,13 +52,13 @@ bool ResourceManager::loadCore()
 
 	for (const char* txt : _coreTextures)
 	{
-		if (!this->getTexture(txt, true))
+		if (!this->getTexture(txt))
 			return false;
 	}
 
 	for (const char* buf : _coreAudio)
 	{
-		if (!this->getSoundBuffer(buf, true))
+		if (!this->getSoundBuffer(buf))
 			return false;
 	}
 
@@ -70,19 +70,18 @@ bool ResourceManager::loadCore()
 /**
  * Loads a texture from specified path into resource manager object.
  * Pointer to the loaded texture is returned. If the texture is already
- * loaded, "duplicate" loading does not occur.
+ * loaded, duplicate loading does not occur.
  *
  * @param path image resource path
- * @param isCoreRes `true` if this resource should not be unloaded when unloading campaigns, `false` otherwise. Has no meaning if the texture is already loaded.
- * @returns pointer to the loaded texture resource, or `nullptr` if loading failed
+ * @returns shared pointer to the loaded texture resource (can be `nullptr` if loading fails)
  */
-sf::Texture* ResourceManager::getTexture(std::string path, bool isCoreRes)
+std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string path)
 {
 	auto search = this->textures.find(path);
 	if (search != this->textures.end())
-		return search->second.payload.get(); // resource already loaded
+		return search->second; // resource already loaded
 
-	std::unique_ptr<sf::Texture> txt = std::make_unique<sf::Texture>();
+	std::shared_ptr<sf::Texture> txt = std::make_shared<sf::Texture>();
 	if (!txt->loadFromFile(path))
 	{
 		Log::e(STR_LOAD_FAIL, path.c_str());
@@ -93,28 +92,25 @@ sf::Texture* ResourceManager::getTexture(std::string path, bool isCoreRes)
 
 	Log::v(STR_LOADED_FILE, path.c_str());
 
-	// TODO refactor
-	this->textures[path].payload = std::move(txt);
-	this->textures[path].isCoreRes = isCoreRes;
-	return this->textures[path].payload.get();
+	this->textures[path] = txt;
+	return txt;
 }
 
 /**
  * Loads audio from specified path into resource manager object.
  * Pointer to the loaded sound buffer is returned. If the buffer is already
- * loaded, "duplicate" loading does not occur.
+ * loaded, duplicate loading does not occur.
  *
  * @param path audio resource path
- * @param isCoreRes `true` if this resource should not be unloaded when unloading campaigns, `false` otherwise. Has no meaning if the sound is already loaded.
- * @return pointer to the loaded sound buffer resource, or `nullptr` if loading failed
+ * @returns shared pointer to the loaded sound buffer resource (can be `nullptr` if loading fails)
  */
-sf::SoundBuffer* ResourceManager::getSoundBuffer(std::string path, bool isCoreRes)
+std::shared_ptr<sf::SoundBuffer> ResourceManager::getSoundBuffer(std::string path)
 {
 	auto search = this->audios.find(path);
 	if (search != this->audios.end())
-		return search->second.payload.get(); // resource already loaded
+		return search->second; // resource already loaded
 
-	std::unique_ptr<sf::SoundBuffer> buf = std::make_unique<sf::SoundBuffer>();
+	std::shared_ptr<sf::SoundBuffer> buf = std::make_shared<sf::SoundBuffer>();
 	if (!buf->loadFromFile(path))
 	{
 		Log::e(STR_LOAD_FAIL, path.c_str());
@@ -123,10 +119,8 @@ sf::SoundBuffer* ResourceManager::getSoundBuffer(std::string path, bool isCoreRe
 
 	Log::v(STR_LOADED_FILE, path.c_str());
 
-	// TODO refactor
-	this->audios[path].payload = std::move(buf);
-	this->audios[path].isCoreRes = isCoreRes;
-	return this->audios[path].payload.get();
+	this->audios[path] = buf;
+	return buf;
 }
 
 /**
@@ -142,22 +136,16 @@ sf::Font* ResourceManager::getFont(FontType fontType)
 }
 
 /**
- * Unloads all resources marked as "not core".
- * Used to clear resources used by campaign after unloading a campaign.
+ * Unloads all unused resources.
+ * Used to clear resources used by campaign after unloading a location, or whole campaign.
  */
-void ResourceManager::clearAllNonCore()
+void ResourceManager::cleanUnused()
 {
-	// note: alternatively, shared pointers could be used to track actual usage of
-	// resources, instead of manually marking them as core/not core. However this
-	// doesn't really give any benefits over current approach, as realistically we'll only
-	// ever want to unload campaign-specific resources, and in addition shared pointers
-	// add a bit of unnecessary overhead.
-
 	size_t oldSize = this->textures.size();
 
 	for (auto it = this->textures.begin(); it != this->textures.end(); )
 	{
-		if (!it->second.isCoreRes)
+		if (it->second.use_count() <= 1) // the only shared ptr exists in res mgr itself
 			it = this->textures.erase(it);
 		else
 			it++;
@@ -169,7 +157,7 @@ void ResourceManager::clearAllNonCore()
 
 	for (auto it = this->audios.begin(); it != this->audios.end(); )
 	{
-		if (!it->second.isCoreRes)
+		if (it->second.use_count() <= 1) // the only shared ptr exists in res mgr itself
 			it = this->audios.erase(it);
 		else
 			it++;

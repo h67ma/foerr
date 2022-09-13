@@ -2,13 +2,13 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include "../../resource_manager.hpp"
 #include "../hud.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../hover_manager.hpp"
 #include "pipbuck_page.hpp"
 #include "../../campaigns/campaign.hpp"
+#include "../../sound_resource.hpp"
 
 /**
  * Represents a single PipBuck category (e.g. "Status").
@@ -20,8 +20,8 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 		HoverManager hoverMgr;
 		uint selectedPage = 0;
 		std::vector<SimpleButton> pageButtons;
-		sf::Sound soundPageChange;
-		sf::Sound soundClick;
+		SoundResource soundPageChange;
+		SoundResource soundClick;
 		void changePage(uint idx);
 
 	protected:

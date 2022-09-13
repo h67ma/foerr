@@ -5,17 +5,17 @@
  * @param height height (in px) of a single animation frame
  * @param kinds vector of animation kinds which the spritesheet contains. Order matters.
  */
-Animation::Animation(const sf::Texture &texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds)
+Animation::Animation(std::shared_ptr<sf::Texture> texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds) :
+	sprite(texture)
 {
 	this->width = width;
 	this->height = height;
 
 	this->textureRect = sf::IntRect(0, 0, width, height);
 
-	this->textureHeight = texture.getSize().y;
+	this->textureHeight = texture->getSize().y;
 
-	this->sprite.setTexture(texture);
-	sprite.setTextureRect(this->textureRect);
+	sprite.get().setTextureRect(this->textureRect);
 
 	uint topOffset = 0;
 	bool first = true;
@@ -43,7 +43,7 @@ void Animation::nextFrame()
 	if (this->textureRect.left >= static_cast<int>(this->loadedKindTextureWidth))
 		this->textureRect.left = 0;
 
-	this->sprite.setTextureRect(this->textureRect);
+	this->sprite.get().setTextureRect(this->textureRect);
 }
 
 /**
@@ -72,5 +72,5 @@ bool Animation::setAnimation(AnimationKind kind)
 void Animation::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
-	target.draw(this->sprite, states);
+	target.draw(this->sprite.sprite, states);
 }

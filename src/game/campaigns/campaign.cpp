@@ -105,7 +105,7 @@ void Campaign::unload(ResourceManager &resMgr)
 	this->currentLocationIdx = 0;
 	this->locations.clear();
 	this->loaded = false;
-	resMgr.clearAllNonCore();
+	resMgr.cleanUnused();
 	Log::d(STR_CAMPAIGN_UNLOADED);
 }
 

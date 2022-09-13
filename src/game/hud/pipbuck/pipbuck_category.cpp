@@ -7,12 +7,12 @@ PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolu
 		SimpleButton(scale, BTN_NARROW, hudColor, resMgr, 665, 210),
 		SimpleButton(scale, BTN_NARROW, hudColor, resMgr, 805, 210),
 		SimpleButton(scale, BTN_NARROW, hudColor, resMgr, 945, 210)
-	}
+	},
+	soundPageChange(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
+	soundClick(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
 {
-	this->soundPageChange.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE, true));
-	this->soundPageChange.setVolume(static_cast<float>(fxVolume));
-	this->soundClick.setBuffer(*resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK, true));
-	this->soundClick.setVolume(static_cast<float>(fxVolume));
+	this->soundPageChange.get().setVolume(static_cast<float>(fxVolume));
+	this->soundClick.get().setVolume(static_cast<float>(fxVolume));
 
 	this->changePage(this->selectedPage); // default page
 }
@@ -60,7 +60,7 @@ ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
 		// so there's no point in having each page keep its own sf::Sound for that.
 		// except the case when pipbuck is being closed, then pipbuck sound should play
 		if (pageResult != CLICK_CONSUMED_CLOSE)
-			this->soundClick.play();
+			this->soundClick.get().play();
 
 		return pageResult;
 	}
@@ -73,7 +73,7 @@ ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
 			if (idx != this->selectedPage)
 			{
 				this->changePage(idx);
-				this->soundPageChange.play();
+				this->soundPageChange.get().play();
 			}
 			return CLICK_CONSUMED;
 		}

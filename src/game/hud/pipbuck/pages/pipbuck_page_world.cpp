@@ -26,7 +26,7 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 		}
 	})
 {
-	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
+	this->mapBg.get().setPosition(WORLD_MAP_X, WORLD_MAP_Y);
 
 	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->locTitle.setPosition(970, 260);
@@ -44,7 +44,7 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
 {
 	// if click was outside map area, then no point in checking map buttons
-	if (this->mapBg.getGlobalBounds().contains(x - this->getPosition().x, y - this->getPosition().y))
+	if (this->mapBg.get().getGlobalBounds().contains(x - this->getPosition().x, y - this->getPosition().y))
 	{
 		for (auto it = this->mapButtons.begin(); it != this->mapButtons.end(); it++)
 		{
@@ -85,7 +85,7 @@ bool PipBuckPageWorld::handleMouseMove(int x, int y)
 	y -= static_cast<int>(this->getPosition().y);
 
 	// if hover was outside map area, then no point in checking map buttons
-	if (this->mapBg.getGlobalBounds().contains(static_cast<float>(x), static_cast<float>(y)))
+	if (this->mapBg.get().getGlobalBounds().contains(static_cast<float>(x), static_cast<float>(y)))
 	{
 		if (this->mapButtonHoverMgr.handleMouseMove(x, y))
 			return true;
@@ -104,8 +104,8 @@ std::string PipBuckPageWorld::getLabel()
 
 void PipBuckPageWorld::setupMapDecorations()
 {
-	uint mapW = static_cast<uint>(this->mapBg.getLocalBounds().width);
-	uint mapH = static_cast<uint>(this->mapBg.getLocalBounds().height);
+	uint mapW = static_cast<uint>(this->mapBg.get().getLocalBounds().width);
+	uint mapH = static_cast<uint>(this->mapBg.get().getLocalBounds().height);
 
 	mapBorder[0] = sf::Vertex({ static_cast<float>(WORLD_MAP_X), static_cast<float>(WORLD_MAP_Y - 1) }, this->hudColor);
 	mapBorder[1] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW + 1), static_cast<float>(WORLD_MAP_Y - 1) }, this->hudColor);
@@ -143,18 +143,18 @@ void PipBuckPageWorld::setupMapDecorations()
 
 bool PipBuckPageWorld::setupCampaignInfos()
 {
-	sf::Texture *mapBgTxt = this->resMgr.getTexture(this->campaign.getWorldMapBackground());
+	std::shared_ptr<sf::Texture> mapBgTxt = this->resMgr.getTexture(this->campaign.getWorldMapBackground());
 	if (mapBgTxt == nullptr)
 		return false;
 
-	this->mapBg.setTexture(*mapBgTxt);
+	this->mapBg.setTexture(mapBgTxt);
 	this->setupMapDecorations();
 
 	this->reset();
 
 	for (auto &loc : this->campaign.getLocations())
 	{
-		sf::Texture *iconTxt = this->resMgr.getTexture(loc.getWorldMapIconId());
+		std::shared_ptr<sf::Texture> iconTxt = this->resMgr.getTexture(loc.getWorldMapIconId());
 		if (iconTxt == nullptr)
 		{
 			this->reset();
@@ -166,10 +166,9 @@ bool PipBuckPageWorld::setupCampaignInfos()
 			loc.getIsWorldMapIconBig(),
 			loc.getIsBasecamp(),
 			this->hudColor,
-			this->resMgr,
 			WORLD_MAP_X + loc.getWorldMapX(),
 			WORLD_MAP_Y + loc.getWorldMapY(),
-			*iconTxt
+			iconTxt
 		);
 	}
 
@@ -200,7 +199,7 @@ void PipBuckPageWorld::reset()
 
 void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(this->mapBg, states);
+	target.draw(this->mapBg.sprite, states);
 	target.draw(this->mapGridLines, states);
 	target.draw(this->mapBorder, states);
 

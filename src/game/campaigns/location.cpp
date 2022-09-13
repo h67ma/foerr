@@ -84,11 +84,11 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 	// not present -> black background
 	if (parseJsonStringKey(root, locPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
 	{
-		sf::Texture *backgroundFull = resMgr.getTexture(backgroundFullPath);
+		std::shared_ptr<sf::Texture> backgroundFull = resMgr.getTexture(backgroundFullPath);
 		if (backgroundFull == nullptr)
 			return false;
 
-		this->backgroundFullSprite.setTexture(*backgroundFull);
+		this->backgroundFullSprite.setTexture(backgroundFull);
 	}
 
 	if (!parseJsonStringKey(root, locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
@@ -313,7 +313,7 @@ std::string Location::getWorldMapIconId()
 
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(this->backgroundFullSprite, states); // note: can be empty
+	target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
 
 	// TODO draw current room
 }

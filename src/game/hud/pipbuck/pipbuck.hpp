@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include "../buttons/simple_button.hpp"
 #include "../../resource_manager.hpp"
 #include "../hover_manager.hpp"
@@ -10,6 +9,8 @@
 #include "pipbuck_category.hpp"
 #include "../campaigns/campaign.hpp"
 #include "../settings/settings_manager.hpp"
+#include "../../sound_resource.hpp"
+#include "../../sprite_resource.hpp"
 
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.
@@ -33,7 +34,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 {
 	private:
 		HoverManager hoverMgr;
-		sf::Sprite pipBuckSprite;
+		SpriteResource pipBuckSprite;
 		sf::ConvexShape radIndicator;
 		sf::Clock timer;
 		float radIndicatorLevel = 0.f;
@@ -41,8 +42,8 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		std::vector<PipBuckCategory> categories;
 		std::vector<SimpleButton> categoryButtons;
 		SimpleButton closeBtn;
-		sf::Sound soundOpenClose;
-		sf::Sound soundCategoryBtn;
+		SoundResource soundOpenClose;
+		SoundResource soundCategoryBtn;
 		GameState &gameState;
 		void changeCategory(uint idx);
 
