@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "../consts.hpp"
-#include "../resource_manager.hpp"
+#include "../resources/resource_manager.hpp"
 #include "hud.hpp"
 
 class LoadingScreen : public sf::Drawable

@@ -3,14 +3,14 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "../buttons/simple_button.hpp"
-#include "../../resource_manager.hpp"
+#include "../../resources/resource_manager.hpp"
 #include "../hover_manager.hpp"
 #include "../hud.hpp"
 #include "pipbuck_category.hpp"
 #include "../campaigns/campaign.hpp"
 #include "../settings/settings_manager.hpp"
-#include "../../sound_resource.hpp"
-#include "../../sprite_resource.hpp"
+#include "../../resources/sound_resource.hpp"
+#include "../../resources/sprite_resource.hpp"
 
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.

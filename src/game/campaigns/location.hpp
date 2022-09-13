@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include "room_grid.hpp"
 #include "../consts.hpp"
-#include "../resource_manager.hpp"
-#include "../sprite_resource.hpp"
+#include "../resources/resource_manager.hpp"
+#include "../resources/sprite_resource.hpp"
 
 // TODO? maybe inherit UniqueLocation and GeneratedLocation
 class Location : public sf::Drawable

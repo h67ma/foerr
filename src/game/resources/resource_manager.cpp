@@ -1,7 +1,7 @@
 #include "resource_manager.hpp"
-#include "util/i18n.hpp"
+#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
-#include "consts.hpp"
+#include "../consts.hpp"
 
 // order matters!
 const char* _fonts[] = {

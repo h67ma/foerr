@@ -11,7 +11,7 @@
 #include "consts.hpp"
 #include "hud/log.hpp"
 #include "settings/settings_manager.hpp"
-#include "resource_manager.hpp"
+#include "resources/resource_manager.hpp"
 #include "hud/fps_meter.hpp"
 #include "hud/buttons/simple_button.hpp"
 #include "entities/animation.hpp"

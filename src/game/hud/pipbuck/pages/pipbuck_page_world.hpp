@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "../pipbuck_page.hpp"
-#include "../../../resource_manager.hpp"
-#include "../../../sprite_resource.hpp"
+#include "../../../resources/resource_manager.hpp"
+#include "../../../resources/sprite_resource.hpp"
 #include "../../buttons/simple_button.hpp"
 #include "../../buttons/location_button.hpp"
 #include "../../../campaigns/campaign.hpp"

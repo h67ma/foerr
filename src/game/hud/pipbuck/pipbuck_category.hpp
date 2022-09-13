@@ -2,13 +2,13 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "../../resource_manager.hpp"
+#include "../../resources/resource_manager.hpp"
 #include "../hud.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../hover_manager.hpp"
 #include "pipbuck_page.hpp"
 #include "../../campaigns/campaign.hpp"
-#include "../../sound_resource.hpp"
+#include "../../resources/sound_resource.hpp"
 
 /**
  * Represents a single PipBuck category (e.g. "Status").

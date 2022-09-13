@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "../pipbuck_page.hpp"
-#include "../../../resource_manager.hpp"
+#include "../../../resources/resource_manager.hpp"
 
 /**
  * PipBuck -> Main Menu -> Log

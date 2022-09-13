@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "../consts.hpp"
-#include "../sprite_resource.hpp"
+#include "../resources/sprite_resource.hpp"
 
 enum AnimationKind
 {

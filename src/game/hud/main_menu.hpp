@@ -5,7 +5,7 @@
 #include "buttons/simple_button.hpp"
 #include "../campaigns/campaign.hpp"
 #include "pipbuck/pipbuck.hpp"
-#include "../sound_resource.hpp"
+#include "../resources/sound_resource.hpp"
 
 class MainMenu : public sf::Drawable, public sf::Transformable
 {

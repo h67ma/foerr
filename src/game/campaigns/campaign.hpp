@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "../resource_manager.hpp"
+#include "../resources/resource_manager.hpp"
 #include "location.hpp"
 
 class Campaign : public sf::Drawable

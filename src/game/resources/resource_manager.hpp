@@ -1,8 +1,9 @@
 #pragma once
 
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 
 // core textures
 #define PATH_TXT_PIPBUCK_OVERLAY "res/hud/pipbuck.png"

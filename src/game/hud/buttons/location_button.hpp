@@ -1,7 +1,7 @@
 #pragma once
 
 #include "button.hpp"
-#include "../../sprite_resource.hpp"
+#include "../../resources/sprite_resource.hpp"
 #include "hud.hpp"
 
 class LocButton : public Button
