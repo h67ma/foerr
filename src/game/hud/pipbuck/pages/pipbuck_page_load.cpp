@@ -3,12 +3,12 @@
 
 PipBuckPageLoad::PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :
 	buttons({
-		SimpleButton(scale, BTN_NORMAL, hudColor, resMgr, 400, 810, STR_EXIT_TO_MAIN_MENU, [&campaign, &gameState, &resMgr]() {
+		{scale, BTN_NORMAL, hudColor, resMgr, 400, 810, STR_EXIT_TO_MAIN_MENU, [&campaign, &gameState, &resMgr]() {
 			// TODO display confirm box
 			// TODO also save game before unloading campaign
 			campaign.unload(resMgr);
 			gameState = STATE_MAINMENU;
-		})
+		}}
 	})
 {
 	for (auto &btn : this->buttons)
