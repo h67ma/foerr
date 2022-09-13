@@ -33,6 +33,7 @@
 class PipBuck : public sf::Drawable, public sf::Transformable
 {
 	private:
+		ResourceManager &resMgr;
 		HoverManager hoverMgr;
 		SpriteResource pipBuckSprite;
 		sf::ConvexShape radIndicator;
@@ -53,6 +54,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		ClickStatus handleLeftClick(int x, int y);
 		void handleMouseMove(int x, int y);
 		bool setupCampaignInfos();
+		void unloadCampaignInfos();
 		void open(bool sound=true);
 		void close();
 		void setRadLevel(float rads);

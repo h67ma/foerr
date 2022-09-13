@@ -35,7 +35,7 @@ class PipBuckPageWorld : public PipBuckPage
 		bool handleMouseMove(int x, int y) override;
 		std::string getLabel() override;
 		bool setupCampaignInfos() override;
+		void unloadCampaignInfos() override;
 		void setGuiScale(GuiScale scale);
-		void reset();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

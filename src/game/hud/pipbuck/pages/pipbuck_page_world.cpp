@@ -143,6 +143,8 @@ void PipBuckPageWorld::setupMapDecorations()
 
 bool PipBuckPageWorld::setupCampaignInfos()
 {
+	this->unloadCampaignInfos();
+
 	std::shared_ptr<sf::Texture> mapBgTxt = this->resMgr.getTexture(this->campaign.getWorldMapBackground());
 	if (mapBgTxt == nullptr)
 		return false;
@@ -150,14 +152,12 @@ bool PipBuckPageWorld::setupCampaignInfos()
 	this->mapBg.setTexture(mapBgTxt);
 	this->setupMapDecorations();
 
-	this->reset();
-
 	for (auto &loc : this->campaign.getLocations())
 	{
 		std::shared_ptr<sf::Texture> iconTxt = this->resMgr.getTexture(loc.getWorldMapIconId());
 		if (iconTxt == nullptr)
 		{
-			this->reset();
+			this->unloadCampaignInfos();
 			return false;
 		}
 
@@ -182,19 +182,20 @@ bool PipBuckPageWorld::setupCampaignInfos()
 	return true;
 }
 
+void PipBuckPageWorld::unloadCampaignInfos()
+{
+	this->mapBg.clearPtr();
+	this->mapButtonHoverMgr.clear();
+	this->mapButtons.clear();
+	this->selectedLocationIdx = NO_LOCATION_SELECTED;
+}
+
 void PipBuckPageWorld::setGuiScale(GuiScale scale)
 {
 	this->guiScale = scale;
 
 	this->locTitle.setCharacterSize(getFontSize(scale, FONT_H2));
 	this->locDescription.setCharacterSize(getFontSize(scale, FONT_SPAN));
-}
-
-void PipBuckPageWorld::reset()
-{
-	this->selectedLocationIdx = NO_LOCATION_SELECTED;
-	this->mapButtonHoverMgr.clear();
-	this->mapButtons.clear();
 }
 
 void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const

@@ -33,5 +33,6 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 		ClickStatus handleLeftClick(int x, int y);
 		bool handleMouseMove(int x, int y);
 		bool setupCampaignInfos();
+		void unloadCampaignInfos();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

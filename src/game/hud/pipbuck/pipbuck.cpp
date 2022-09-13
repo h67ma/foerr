@@ -8,6 +8,7 @@
 #include "../util/util.hpp"
 
 PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState, SettingsManager &settings) :
+	resMgr(resMgr),
 	gameState(gameState),
 	categories { // order matters
 		PipBuckCategoryStatus(scale, hudColor, fxVolume, resMgr),
@@ -146,10 +147,22 @@ bool PipBuck::setupCampaignInfos()
 	for (auto &cat : this->categories)
 	{
 		if (!cat.setupCampaignInfos())
+		{
+			this->unloadCampaignInfos();
+			this->resMgr.cleanUnused();
 			return false;
+		}
 	}
 
 	return true;
+}
+
+void PipBuck::unloadCampaignInfos()
+{
+	for (auto &cat : this->categories)
+	{
+		cat.unloadCampaignInfos();
+	}
 }
 
 /**

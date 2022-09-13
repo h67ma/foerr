@@ -112,6 +112,14 @@ bool PipBuckCategory::setupCampaignInfos()
 	return true;
 }
 
+void PipBuckCategory::unloadCampaignInfos()
+{
+	for (const auto &page : this->pages)
+	{
+		page->unloadCampaignInfos();
+	}
+}
+
 void PipBuckCategory::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
