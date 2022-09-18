@@ -16,6 +16,7 @@
 class Room
 {
 	private:
+		bool drawBackgroundFull = true;
 		char blocks[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
 		char backgrounds[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
 		static bool loadArray(Json::Value &root, const char* key, const char* filename, char (*arr)[ROOM_WIDTH_WITH_BORDER]);

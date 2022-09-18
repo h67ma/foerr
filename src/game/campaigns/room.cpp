@@ -61,6 +61,7 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
  * Room file structure:
  * {
  *	"id": "room_id",
+ *	"bg": false,	// optional
  *	"blocks": [
  *		"DDDDDDD...",
  *		"Dnnnnnn...",
@@ -82,6 +83,9 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
  */
 bool Room::load(Json::Value &root, const char* filePath)
 {
+	// by default all rooms draw background full
+	parseJsonBoolKey(root, filePath, FOERR_JSON_KEY_SHOW_ROOM_BG, this->drawBackgroundFull, true);
+
 	if (!this->loadArray(root, FOERR_JSON_KEY_BLOCKS, filePath, this->blocks))
 		return false;
 

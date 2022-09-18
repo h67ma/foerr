@@ -18,15 +18,15 @@ Location::Location(std::string id)
  *	"description": "Equestrian Wasteland, harsh and cruel.",
  *	"grind": false,
  *	"basecamp": false,
- *	"background_full": "path/to/img.png",
+ *	"background_full": "path/to/img.png",	// optional
  *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
  *	"worldmap_x": 123,
  *	"worldmap_y": 456,
- *	"worldmap_icon_big": false,
+ *	"worldmap_icon_big": false,	// optional
  *	"width": 2,
  *	"height": 3,
- *	"start_x": 0,
- *	"start_y": 0,
+ *	"start_x": 0,	// optional
+ *	"start_y": 0,	// optional
  *	"room_map": [
  *		["one",		"two"],
  *		["three",	"/EMPTY"],

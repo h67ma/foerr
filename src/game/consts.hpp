@@ -24,6 +24,7 @@
 #define FOERR_JSON_KEY_ID "id"
 #define FOERR_JSON_KEY_BLOCKS "blocks"
 #define FOERR_JSON_KEY_BACKGROUNDS "backgrounds"
+#define FOERR_JSON_KEY_SHOW_ROOM_BG "bg"
 #define FOERR_JSON_KEY_BACKGROUND_FULL "background_full"
 #define FOERR_JSON_KEY_WORLDMAP_ICON "worldmap_icon"
 #define FOERR_JSON_KEY_WORLDMAP_X "worldmap_x"
