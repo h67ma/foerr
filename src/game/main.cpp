@@ -119,20 +119,6 @@ int main()
 	//Log::setGuiScale(GUI_SMALL);
 
 
-
-	Animation *fire = new Animation(resManager.getTexture("res/entities/fire.png"), 50, 67, {
-		{ANIM_STATIC, 17}
-	});
-	fire->setPosition(100, 300);
-	animations.push_back(fire);
-
-	Animation *fire2 = new Animation(resManager.getTexture("res/entities/fire.png"), 50, 67, {
-		{ANIM_STATIC, 17}
-	});
-	fire2->setPosition(150, 300);
-	animations.push_back(fire2);
-
-
 	Animation *mchavi = new Animation(resManager.getTexture("res/entities/mchavi.png"), 130, 130, {
 		{ ANIM_STAND, 1 },
 		{ ANIM_TROT, 17 },
@@ -145,7 +131,7 @@ int main()
 		{ ANIM_CLIMB, 12 },
 		{ ANIM_WALK, 24 },
 	});
-	mchavi->setPosition(1200, 100);
+	mchavi->setPosition(1400, 100);
 	animations.push_back(mchavi);
 
 	SimpleButton mchavi1(initialScale, BTN_NORMAL, hudColor, resManager, 100, 60, "stand", [&mchavi]() {
@@ -209,6 +195,20 @@ int main()
 	hoverMgr.addHoverable(&mchavi10);
 
 	mchavi->setAnimation(ANIM_SWIM);
+
+
+
+	Animation *fire = new Animation(resManager.getTexture("res/entities/fire.png"), 50, 67, {
+		{ANIM_STATIC, 17}
+	});
+	fire->setPosition(1400, 180);
+	animations.push_back(fire);
+
+	Animation *fire2 = new Animation(resManager.getTexture("res/entities/fire.png"), 50, 67, {
+		{ANIM_STATIC, 17}
+	});
+	fire2->setPosition(1450, 180);
+	animations.push_back(fire2);
 
 
 
