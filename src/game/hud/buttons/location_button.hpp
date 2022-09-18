@@ -12,6 +12,7 @@ class LocButton : public Button
 		bool selected; // mouse selection
 		bool active = false; // location where we currently are
 		bool hover = false;
+		// TODO showAnimatedHint = false; // four animated arrows showing the next mane quest location
 		GuiScale scale;
 		sf::Color colorBasecampHover;
 		sf::Color colorHover;

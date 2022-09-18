@@ -15,7 +15,7 @@ LocButton::LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color colo
 {
 	this->isBaseCamp = isBaseCamp;
 	this->isBig = isBig;
-	
+
 	this->setGuiScale(scale);
 	this->setColor(color);
 	this->setSelected(false);
