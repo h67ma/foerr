@@ -10,7 +10,7 @@
 class PipBuckPageLoad : public PipBuckPage
 {
 	private:
-		std::vector<SimpleButton> buttons;
+		SimpleButton exitBtn;
 
 	public:
 		PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign, GameState &gameState);

@@ -34,6 +34,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 {
 	private:
 		ResourceManager &resMgr;
+		Campaign &campaign;
 		HoverManager hoverMgr;
 		SpriteResource pipBuckSprite;
 		sf::ConvexShape radIndicator;

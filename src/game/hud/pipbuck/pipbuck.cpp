@@ -10,6 +10,7 @@
 PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState, SettingsManager &settings) :
 	resMgr(resMgr),
 	gameState(gameState),
+	campaign(campaign),
 	categories { // order matters
 		PipBuckCategoryStatus(scale, hudColor, fxVolume, resMgr),
 		PipBuckCategoryInventory(scale, hudColor, fxVolume, resMgr),
@@ -100,9 +101,19 @@ ClickStatus PipBuck::handleLeftClick(int x, int y)
 	ClickStatus catResult = this->categories[this->selectedCategory].handleLeftClick(x, y);
 	if (catResult == CLICK_CONSUMED)
 		return CLICK_CONSUMED;
-	else if(catResult == CLICK_CONSUMED_CLOSE)
+	else if (catResult == CLICK_CONSUMED_CLOSE)
 	{
 		this->close();
+		return CLICK_CONSUMED;
+	}
+	else if (catResult == CLICK_CONSUMED_UNLOAD)
+	{
+		// note: we could unload campaign inside the page (inside btn callback),
+		// but then we'd have to clear resmgr two times (unload campaign + clear resmgr,
+		// unload pipbuck infos, clear resmgr)
+		this->unloadCampaignInfos();
+		this->campaign.unload(resMgr);
+		this->gameState = STATE_MAINMENU;
 		return CLICK_CONSUMED;
 	}
 
@@ -159,6 +170,8 @@ bool PipBuck::setupCampaignInfos()
 
 void PipBuck::unloadCampaignInfos()
 {
+	Log::d(STR_PIPBUCK_UNLOADING_CAMPAIGN);
+
 	for (auto &cat : this->categories)
 	{
 		cat.unloadCampaignInfos();

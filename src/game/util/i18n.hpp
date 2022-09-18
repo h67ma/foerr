@@ -64,3 +64,4 @@
 #define STR_EXIT_TO_MAIN_MENU "Exit to main menu"
 #define STR_SAVE_SETTINGS "Save settings"
 #define STR_PIPBUCK_SETUP_FAILED "Failed to setup PipBuck."
+#define STR_PIPBUCK_UNLOADING_CAMPAIGN "Unloding campaign infos from PipBuck..."
