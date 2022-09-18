@@ -1,18 +1,16 @@
 #include "animation.hpp"
 /**
- * @param textureImg texture resource containing animation spritesheet
+ * @param texture texture resource containing animation spritesheet
  * @param width width (in px) of a single animation frame
  * @param height height (in px) of a single animation frame
  * @param kinds vector of animation kinds which the spritesheet contains. Order matters.
  */
 Animation::Animation(std::shared_ptr<sf::Texture> texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds) :
-	sprite(texture)
+	sprite(texture),
+	textureRect(0, 0, width, height),
+	width(width),
+	height(height)
 {
-	this->width = width;
-	this->height = height;
-
-	this->textureRect = sf::IntRect(0, 0, width, height);
-
 	this->textureHeight = texture->getSize().y;
 
 	sprite.get().setTextureRect(this->textureRect);
@@ -23,7 +21,9 @@ Animation::Animation(std::shared_ptr<sf::Texture> texture, uint width, uint heig
 	{
 		if (first)
 		{
-			this->loadedKindTextureWidth = kind.frameCnt * width; // save frame count for the initial/default animation
+			// initial/default animation
+			this->loadedKindTextureWidth = kind.frameCnt * width;
+			this->loadedKindIsSingleFrame = kind.frameCnt == 1;
 			first = false;
 		}
 
@@ -35,15 +35,22 @@ Animation::Animation(std::shared_ptr<sf::Texture> texture, uint width, uint heig
 	}
 }
 
-void Animation::nextFrame()
+void Animation::moveTexture()
 {
-	// TODO? it is possible that the first frame will not be drawn - will this be a visible problem? a simple solution would be to artificially set the timer to >= ANIM_FRAME_DURATION_MS at initialization
 	this->textureRect.left += this->width;
 
 	if (this->textureRect.left >= static_cast<int>(this->loadedKindTextureWidth))
 		this->textureRect.left = 0;
 
 	this->sprite.get().setTextureRect(this->textureRect);
+}
+
+void Animation::nextFrame()
+{
+	if (this->loadedKindIsSingleFrame)
+		return; // no need to do anything for "static animation"
+
+	this->moveTexture();
 }
 
 /**
@@ -66,6 +73,11 @@ bool Animation::setAnimation(AnimationKind kind)
 
 	this->textureRect.top = details.offsetTop;
 	this->loadedKindTextureWidth = details.frameCnt * this->width;
+	this->loadedKindIsSingleFrame = details.frameCnt == 1;
+
+	if (this->loadedKindIsSingleFrame)
+		this->moveTexture(); // the only txt move that will happen for "static animation"
+
 	return true;
 }
 

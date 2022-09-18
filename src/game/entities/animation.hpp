@@ -41,9 +41,11 @@ class Animation : public sf::Drawable, public sf::Transformable
 		SpriteResource sprite;
 		sf::IntRect textureRect;
 		uint loadedKindTextureWidth;
+		bool loadedKindIsSingleFrame; // whether current animation consists of a single frame
 		uint width;
 		uint height;
 		std::unordered_map<AnimationKind, struct anim_kind_details_internal> kinds;
+		void moveTexture();
 
 	public:
 		Animation(std::shared_ptr<sf::Texture> texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds);
