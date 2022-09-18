@@ -64,3 +64,11 @@ enum ClickStatus
 	CLICK_CONSUMED_CLOSE,	// special status used to signal that PipBuck should be closed when a special child button was pressed
 	CLICK_CONSUMED_UNLOAD,	// special status used to signal that PipBuck should unload its campaign infos
 };
+
+enum Direction
+{
+	DIR_LEFT,
+	DIR_RIGHT,
+	DIR_UP,
+	DIR_DOWN,
+};

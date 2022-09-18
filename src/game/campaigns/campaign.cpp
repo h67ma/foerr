@@ -168,7 +168,24 @@ bool Campaign::isLoaded()
 	return this->loaded;
 }
 
+bool Campaign::gotoRoom(Direction direction)
+{
+	if (!this->loaded)
+		return false;
+
+	return this->locations[this->currentLocationIdx].gotoRoom(direction);
+}
+
+sf::Vector2u Campaign::getPlayerRoomCoords()
+{
+	if (!this->loaded)
+		return { 0, 0 }; // well, what can you do
+
+	return this->locations[this->currentLocationIdx].getPlayerRoomCoords();
+}
+
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+	// TODO? probably could be optimized by storing a ptr to current loc
 	target.draw(this->locations[this->currentLocationIdx], states);
 }

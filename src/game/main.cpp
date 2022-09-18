@@ -236,12 +236,53 @@ int main()
 	buttons.push_back(&cursor4);
 	hoverMgr.addHoverable(&cursor4);
 
+
+
+	// debug room navigation
+	sf::Text debugCoords("(?, ?)", *resManager.getFont(FONT_FIXED), 30);
+	debugCoords.setPosition(570, 493);
+	debugCoords.setFillColor(hudColor);
+
+	SimpleButton btnRoomLeft(initialScale, BTN_NARROW, hudColor, resManager, 430, 500, "<", [&campaign, &debugCoords]() {
+		campaign.gotoRoom(DIR_LEFT);
+		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
+	});
+	buttons.push_back(&btnRoomLeft);
+	hoverMgr.addHoverable(&btnRoomLeft);
+
+	SimpleButton btnRoomRight(initialScale, BTN_NARROW, hudColor, resManager, 670, 500, ">", [&campaign, &debugCoords]() {
+		campaign.gotoRoom(DIR_RIGHT);
+		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
+	});
+	buttons.push_back(&btnRoomRight);
+	hoverMgr.addHoverable(&btnRoomRight);
+
+	SimpleButton btnRoomUp(initialScale, BTN_NARROW, hudColor, resManager, 550, 450, "/\\", [&campaign, &debugCoords]() {
+		campaign.gotoRoom(DIR_UP);
+		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
+	});
+	buttons.push_back(&btnRoomUp);
+	hoverMgr.addHoverable(&btnRoomUp);
+
+	SimpleButton btnRoomDown(initialScale, BTN_NARROW, hudColor, resManager, 550, 550, "\\/", [&campaign, &debugCoords]() {
+		campaign.gotoRoom(DIR_DOWN);
+		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
+	});
+	buttons.push_back(&btnRoomDown);
+	hoverMgr.addHoverable(&btnRoomDown);
+
+
+
+
 	// initial size
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
 
 	// TODO remove
 	if (campaign.load("res/campaigns/test", resManager) && pipBuck.setupCampaignInfos())
+	{
 		gameState = STATE_PLAYING;
+		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
+	}
 
 	// TODO? there's a very minor visual bug that happens if e.g. player hovers over pipbuck btn,
 	// closes pipbuck (by pressing the tab btn), moves cursor somewhere else, reopens pipbuck,
@@ -385,10 +426,12 @@ int main()
 
 		if (gameState == STATE_PLAYING)
 		{
+			// TODO delet this
 			for (Button* btn : buttons)
 			{
 				window.draw(*btn);
 			}
+			window.draw(debugCoords);
 		}
 		else if (gameState == STATE_PIPBUCK)
 		{

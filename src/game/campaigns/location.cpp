@@ -138,6 +138,7 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 	}
 
 	// first load all room data into dictionary, mapping room id -> Room
+	// there are no duplicates in the dictionary (duh), but they can happen in room grid
 	std::unordered_map<std::string, std::shared_ptr<Room>> roomDict;
 
 	for (uint i = 0; i < roomDefs.size(); i++)
@@ -169,7 +170,7 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 	uint startX = 0, startY = 0;
 	parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_START_X, startX, true);
 	parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_START_Y, startY, true);
-	this->startCoords = { startX, startY };
+	this->playerRoomCoords = { startX, startY }; // initial player room coords
 
 	if (!parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_WIDTH, width))
 		return false;
@@ -252,7 +253,10 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 				return false;
 			}
 
-			if (!this->rooms.set(x, y, search->second))
+			// the reason why we copy the Room here is because the room grid
+			// can contain multiple copies of the same base room, but each is
+			// a separate entity, i.e. its state can change independently
+			if (!this->rooms.set(x, y, std::make_shared<Room>(*search->second)))
 			{
 				this->rooms.clear();
 				return false;
@@ -261,11 +265,13 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 	}
 
 	// room grid loaded, now check if start room exists
-	if (this->rooms.get(this->startCoords) == nullptr)
+	std::shared_ptr<Room> room = this->rooms.get(this->playerRoomCoords);
+	if (room == nullptr)
 	{
-		Log::e(STR_START_ROOM_INVALID, locPath.c_str(), this->startCoords.x, this->startCoords.y);
+		Log::e(STR_START_ROOM_INVALID, locPath.c_str(), this->playerRoomCoords.x, this->playerRoomCoords.y);
 		return false;
 	}
+	this->currentRoom = room;
 
 	Log::d(STR_LOADED_LOCATION, locPath.c_str());
 	return true;
@@ -311,9 +317,56 @@ std::string Location::getWorldMapIconId()
 	return this->worldMapIconId;
 }
 
+bool Location::gotoRoom(Direction direction)
+{
+	sf::Vector2u newCoords = this->playerRoomCoords;
+
+	if (direction == DIR_UP)
+	{
+		if (newCoords.y == 0)
+			return false; // can't go any higher
+
+		newCoords.y -= 1;
+	}
+	else if (direction == DIR_LEFT)
+	{
+		if (newCoords.x == 0)
+			return false; // can't go any more left
+
+		newCoords.x -= 1;
+	}
+	else if (direction == DIR_DOWN)
+	{
+		newCoords.y += 1;
+	}
+	else if (direction == DIR_RIGHT)
+	{
+		newCoords.x += 1;
+	}
+
+	std::shared_ptr<Room> room = this->rooms.get(newCoords);
+	if (room == nullptr)
+		// the system you're searching for doesn't exist.
+		// impossible! perhaps the archives are incomplete?
+		return false;
+
+	this->playerRoomCoords = newCoords;
+	currentRoom = room;
+	return true;
+}
+
+sf::Vector2u Location::getPlayerRoomCoords()
+{
+	return this->playerRoomCoords;
+}
+
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
+	if (this->currentRoom->getDrawBackgroundFull())
+		target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
 
-	// TODO draw current room
+	// note: stupid const methods are stupid.
+	// dereferencing currentRoom is not allowed, but calling ::draw() on it is allowed
+	//target.draw(*this->currentRoom, states);
+	this->currentRoom->draw(target, states);
 }

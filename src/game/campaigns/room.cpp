@@ -55,6 +55,11 @@ bool Room::loadArray(Json::Value &root, const char* key, const char* filename, c
 	return true;
 }
 
+bool Room::getDrawBackgroundFull()
+{
+	return this->drawBackgroundFull;
+}
+
 /**
  * Loads the room data and stores it in this object.
  *
@@ -93,4 +98,9 @@ bool Room::load(Json::Value &root, const char* filePath)
 		return false;
 
 	return true;
+}
+
+void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+	// TODO
 }

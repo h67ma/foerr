@@ -22,7 +22,8 @@ class Location : public sf::Drawable
 		bool isBasecamp;
 		SpriteResource backgroundFullSprite;
 		RoomGrid rooms;
-		sf::Vector2u startCoords;
+		sf::Vector2u playerRoomCoords;
+		std::shared_ptr<Room> currentRoom = nullptr;
 
 	public:
 		Location(std::string id);
@@ -35,5 +36,7 @@ class Location : public sf::Drawable
 		bool getIsWorldMapIconBig(); // gee, that's a mouthful
 		bool getIsBasecamp();
 		std::string getWorldMapIconId();
+		bool gotoRoom(Direction direction);
+		sf::Vector2u getPlayerRoomCoords();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

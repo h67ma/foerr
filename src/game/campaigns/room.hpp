@@ -13,7 +13,7 @@
 /**
  * Room class is a representation of a part of a location that fits on a single screen.
  */
-class Room
+class Room : sf::Drawable
 {
 	private:
 		bool drawBackgroundFull = true;
@@ -22,5 +22,7 @@ class Room
 		static bool loadArray(Json::Value &root, const char* key, const char* filename, char (*arr)[ROOM_WIDTH_WITH_BORDER]);
 
 	public:
+		bool getDrawBackgroundFull();
 		bool load(Json::Value &root, const char* filePath);
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
