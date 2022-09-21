@@ -48,6 +48,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		SoundResource soundCategoryBtn;
 		GameState &gameState;
 		void changeCategory(uint idx);
+		static double getSmoothNoise(double time);
 
 	public:
 		PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState, SettingsManager &settings);

@@ -1,4 +1,3 @@
-#include <math.h>
 #include <fstream>
 #include "util.hpp"
 #include "i18n.hpp"
@@ -195,12 +194,4 @@ uint getFontGap(GuiScale scale, FontSize size)
 				return 18;
 		}
 	}
-}
-
-/**
- * No, this won't deploy smooth jazz.
- */
-double getSmoothNoise(double time)
-{
-	return sin(time * 7) + cos(time * 12) - cos(time * 9);
 }

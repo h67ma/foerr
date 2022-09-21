@@ -1,3 +1,4 @@
+#include <math.h>
 #include "pipbuck.hpp"
 #include "../util/i18n.hpp"
 #include "../log.hpp"
@@ -191,11 +192,19 @@ void PipBuck::setRadLevel(float rads)
 		this->radIndicatorLevel = rads;
 }
 
+/**
+ * Don't expect this function to deploy smooth jazz.
+ */
+double PipBuck::getSmoothNoise(double time)
+{
+	return sin(time * 7) + cos(time * 12) - cos(time * 9);
+}
+
 void PipBuck::updateDraw()
 {
 	this->radIndicator.setRotation(
 		this->radIndicatorLevel * -180 +
-		static_cast<float>(getSmoothNoise(this->timer.getElapsedTime().asSeconds())/2)
+		static_cast<float>(this->getSmoothNoise(this->timer.getElapsedTime().asSeconds())/2)
 	);
 }
 
