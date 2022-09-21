@@ -59,6 +59,6 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		void open(bool sound=true);
 		void close();
 		void setRadLevel(float rads);
-		void nextFrame();
+		void updateDraw();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

@@ -191,7 +191,7 @@ void PipBuck::setRadLevel(float rads)
 		this->radIndicatorLevel = rads;
 }
 
-void PipBuck::nextFrame()
+void PipBuck::updateDraw()
 {
 	this->radIndicator.setRotation(
 		this->radIndicatorLevel * -180 +

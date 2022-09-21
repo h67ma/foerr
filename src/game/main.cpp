@@ -402,6 +402,7 @@ int main()
 		if ((gameState == STATE_PLAYING || gameState == STATE_PIPBUCK) && campaign.isLoaded())
 			window.draw(campaign); // TODO ultimately campaign should contain pipbuck and decide to display it or not based on game state
 
+		// used to determine speed of frame-based animations (i.e. loaded from spritesheets)
 		bool drawNextFrame = animationTimer.getElapsedTime().asMilliseconds() >= ANIM_FRAME_DURATION_MS;
 		if (drawNextFrame)
 			animationTimer.restart();
@@ -435,7 +436,7 @@ int main()
 		}
 		else if (gameState == STATE_PIPBUCK)
 		{
-			pipBuck.nextFrame();
+			pipBuck.updateDraw();
 			window.draw(pipBuck);
 		}
 		else if (gameState == STATE_MAINMENU)
