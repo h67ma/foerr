@@ -11,12 +11,15 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	campaign(campaign),
 	hudColor(hudColor),
 	gotoLocationBtn(scale, BTN_NORMAL, hudColor, resMgr, 1000, 815, "Travel", [this](){
-		// TODO display loading screen
 		if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
 			this->selectedLocationIdx < this->campaign.getLocations().size())
 		{
-			this->mapButtons[this->campaign.getCurrentLocationIdx()].setActive(false);
-			this->campaign.changeLocation(this->selectedLocationIdx);
+			// TODO display loading screen
+			uint origIdx = this->campaign.getCurrentLocationIdx();
+			if (!this->campaign.changeLocationByIndex(this->selectedLocationIdx))
+				return;
+
+			this->mapButtons[origIdx].setActive(false);
 			this->mapButtons[this->campaign.getCurrentLocationIdx()].setActive(true);
 
 			// reset selection

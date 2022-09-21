@@ -5,6 +5,7 @@
 #include "../consts.hpp"
 
 /**
+ * "The Grid. A digital frontier..."
  * RoomGrid is used to store rooms for a single location, organized in a 2d grid.
  */
 class RoomGrid

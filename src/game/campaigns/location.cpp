@@ -3,101 +3,55 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-Location::Location(std::string id)
+Location::Location(std::string id, std::string locPath) : id(id), locPath(locPath)
 {
-	this->id = id;
+	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }
 
 /**
- * Loads location details, "big" background, and all rooms located
- * in `locDir` (json files, each one contains a single room).
+ * Loads location details, mainly for display on the world map.
+ * Rooms and background big are loaded separately via ::loadContent().
  *
- * Location file structure:
- * {
- *	"title": "Surface",
- *	"description": "Equestrian Wasteland, harsh and cruel.",
- *	"grind": false,
- *	"basecamp": false,
- *	"background_full": "path/to/img.png",	// optional
- *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
- *	"worldmap_x": 123,
- *	"worldmap_y": 456,
- *	"worldmap_icon_big": false,	// optional
- *	"width": 2,
- *	"height": 3,
- *	"start_x": 0,	// optional
- *	"start_y": 0,	// optional
- *	"room_map": [
- *		["one",		"two"],
- *		["three",	"/EMPTY"],
- *		["five",	"six"]
- *	]
- * }
- *
- * "room_map" contains room ids - room files should be located in the same directory
- * as index file and called the same as their ids, with ".json" extension.
- * Rooms are stored in natural order, i.e. rows represent horizontal strips,
- * columns represent vertical strips.
- * The special value "/EMPTY" will result in an empty room (nullptr) added to the room grid.
- *
- * In case when loading fails, all previously allocated resources (i.e. rooms) will be
- * automatically deallocated.
- *
- * @param locDir path to this location's directory, containing index file and room files
- * @param resMgr reference to resource manager object
- * @returns `true` if load succeeded, `false` otherwise.
+ * @returns true if load succeeded
+ * @returns false if load failed
  */
-bool Location::load(std::string locPath, ResourceManager &resMgr)
+bool Location::loadMeta()
 {
-	std::string backgroundFullPath;
-	uint width, height;
 	Json::Value root;
 
-	this->rooms.clear();
+	Log::d(STR_LOADING_LOCATION_META, this->locPath.c_str());
 
-	Log::d(STR_LOADING_LOCATION, locPath.c_str());
-
-	if (!loadJsonFromFile(root, locPath))
+	if (!loadJsonFromFile(root, this->locPath))
 		return false;
 
-	if (!parseJsonStringKey(root, locPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
+	if (!parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
 		return false;
 
-	if (!parseJsonStringKey(root, locPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
+	if (!parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
 		return false;
 
 	// TODO translate title & description
 
-	if (!parseJsonBoolKey(root, locPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND, this->isGrind))
+	if (!parseJsonBoolKey(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND, this->isGrind))
 		return false;
 
-	if (!parseJsonBoolKey(root, locPath.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP, this->isBasecamp))
+	if (!parseJsonBoolKey(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP, this->isBasecamp))
 		return false;
 
 	if (this->isBasecamp && this->isGrind)
 	{
 		// something stinks here...
-		Log::e(STR_LOC_INVALID_TYPES, locPath.c_str());
+		Log::e(STR_LOC_INVALID_TYPES, this->locPath.c_str());
 		return false;
 	}
 
-	// not present -> black background
-	if (parseJsonStringKey(root, locPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
-	{
-		std::shared_ptr<sf::Texture> backgroundFull = resMgr.getTexture(backgroundFullPath);
-		if (backgroundFull == nullptr)
-			return false;
-
-		this->backgroundFullSprite.setTexture(backgroundFull);
-	}
-
-	if (!parseJsonStringKey(root, locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
+	if (!parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
 		return false;
 
-	if (!parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_X, this->worldMapX))
+	if (!parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_X, this->worldMapX))
 		return false;
 
-	if (!parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_Y, this->worldMapY))
+	if (!parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_Y, this->worldMapY))
 		return false;
 
 	if (this->worldMapX > 600)
@@ -113,13 +67,51 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 	}
 
 	// not present -> default value (false)
-	parseJsonBoolKey(root, locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->isWorldMapIconBig, true);
+	parseJsonBoolKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->isWorldMapIconBig, true);
 
-	// ------- room data ------- //
+	Log::d(STR_LOADED_LOCATION_META, this->locPath.c_str());
+	return true;
+}
+
+/**
+ * Loads room data and big background.
+ *
+ * "room_map" contains room ids. Rooms are stored in natural order, i.e. rows represent
+ * horizontal strips, columns represent vertical strips.
+ * The special value ROOM_EMPTY will result in an empty room (nullptr) added to the room grid.
+ *
+ * In case when loading fails, all previously allocated rooms will be automatically deallocated.
+ *
+ * @param resMgr reference to resource manager object
+ * @returns true if load succeeded
+ * @returns false if load failed
+ */
+bool Location::loadContent(ResourceManager &resMgr)
+{
+	std::string backgroundFullPath;
+	uint width, height;
+	Json::Value root;
+
+	this->unloadContent();
+
+	Log::d(STR_LOADING_LOCATION_CONTENT, this->locPath.c_str());
+
+	if (!loadJsonFromFile(root, this->locPath))
+		return false;
+
+	// not present -> black background
+	if (parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
+	{
+		std::shared_ptr<sf::Texture> backgroundFull = resMgr.getTexture(backgroundFullPath);
+		if (backgroundFull == nullptr)
+			return false;
+
+		this->backgroundFullSprite.setTexture(backgroundFull);
+	}
 
 	if (!root.isMember(FOERR_JSON_KEY_ROOMS))
 	{
-		Log::e(STR_MISSING_KEY, locPath.c_str(), FOERR_JSON_KEY_ROOMS);
+		Log::e(STR_MISSING_KEY, this->locPath.c_str(), FOERR_JSON_KEY_ROOMS);
 		return false;
 	}
 
@@ -133,7 +125,7 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 	Json::Value roomDefs = root[FOERR_JSON_KEY_ROOMS];
 	if (!roomDefs.isArray())
 	{
-		Log::e(STR_INVALID_TYPE, locPath.c_str(), FOERR_JSON_KEY_ROOMS);
+		Log::e(STR_INVALID_TYPE, this->locPath.c_str(), FOERR_JSON_KEY_ROOMS);
 		return false;
 	}
 
@@ -145,37 +137,34 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 	{
 		// this is utterly retarded
 		std::string roomId;
-		if (!parseJsonStringKey(roomDefs[i], locPath.c_str(), FOERR_JSON_KEY_ID, roomId))
+		if (!parseJsonStringKey(roomDefs[i], this->locPath.c_str(), FOERR_JSON_KEY_ID, roomId))
 			return false;
 
 		auto duplicate = roomDict.find(roomId);
 		if (duplicate != roomDict.end())
 		{
-			Log::e(STR_ROOM_DUPLICATE, locPath.c_str(), roomId.c_str());
+			Log::e(STR_ROOM_DUPLICATE, this->locPath.c_str(), roomId.c_str());
 			return false;
 		}
 
 		std::shared_ptr<Room> room = std::make_shared<Room>();
-		if (!room->load(roomDefs[i], locPath.c_str()))
+		if (!room->load(roomDefs[i], this->locPath.c_str()))
 			return false;
 
 		roomDict[roomId] = room;
 	}
 
-	// TODO below is mostly relevant only for unique locations - put it in method or inherit classes for unique and grind
-
-	// ------- room map ------- //
 	// room data loaded, now arrange rooms in a grid, and this is how we'll store them in the end
 
 	uint startX = 0, startY = 0;
-	parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_START_X, startX, true);
-	parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_START_Y, startY, true);
+	parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_START_X, startX, true);
+	parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_START_Y, startY, true);
 	this->playerRoomCoords = { startX, startY }; // initial player room coords
 
-	if (!parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_WIDTH, width))
+	if (!parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WIDTH, width))
 		return false;
 
-	if (!parseJsonUintKey(root, locPath.c_str(), FOERR_JSON_KEY_HEIGHT, height))
+	if (!parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_HEIGHT, height))
 		return false;
 
 	if (width > 100)
@@ -194,20 +183,23 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 
 	if (!root.isMember(FOERR_JSON_KEY_ROOM_MAP))
 	{
-		Log::e(STR_MISSING_KEY, locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+		Log::e(STR_MISSING_KEY, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+		this->unloadContent();
 		return false;
 	}
 
 	Json::Value roomMap = root[FOERR_JSON_KEY_ROOM_MAP];
 	if (!roomMap.isArray())
 	{
-		Log::e(STR_INVALID_TYPE, locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+		Log::e(STR_INVALID_TYPE, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+		this->unloadContent();
 		return false;
 	}
 
 	if (roomMap.size() < height)
 	{
-		Log::e(STR_LOC_MISSING_DATA, locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+		Log::e(STR_LOC_MISSING_DATA, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+		this->unloadContent();
 		return false;
 	}
 
@@ -216,13 +208,15 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 		Json::Value roomMapRow = roomMap[y];
 		if (!roomMapRow.isArray())
 		{
-			Log::e(STR_INVALID_TYPE, locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+			Log::e(STR_INVALID_TYPE, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+			this->unloadContent();
 			return false;
 		}
 
 		if (roomMapRow.size() < width)
 		{
-			Log::e(STR_LOC_MISSING_DATA, locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+			Log::e(STR_LOC_MISSING_DATA, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+			this->unloadContent();
 			return false;
 		}
 
@@ -236,8 +230,8 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 			}
 			catch (const Json::LogicError &ex)
 			{
-				Log::e(STR_INVALID_TYPE_EX, locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP, ex.what());
-				this->rooms.clear();
+				Log::e(STR_INVALID_TYPE_EX, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP, ex.what());
+				this->unloadContent();
 				return false;
 			}
 
@@ -248,8 +242,8 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 			if (search == roomDict.end())
 			{
 				// specified room was not found in room definitions
-				Log::e(STR_ROOM_MISSING, locPath.c_str(), roomName.c_str());
-				this->rooms.clear();
+				Log::e(STR_ROOM_MISSING, this->locPath.c_str(), roomName.c_str());
+				this->unloadContent();
 				return false;
 			}
 
@@ -258,7 +252,7 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 			// a separate entity, i.e. its state can change independently
 			if (!this->rooms.set(x, y, std::make_shared<Room>(*search->second)))
 			{
-				this->rooms.clear();
+				this->unloadContent();
 				return false;
 			}
 		}
@@ -268,13 +262,20 @@ bool Location::load(std::string locPath, ResourceManager &resMgr)
 	std::shared_ptr<Room> room = this->rooms.get(this->playerRoomCoords);
 	if (room == nullptr)
 	{
-		Log::e(STR_START_ROOM_INVALID, locPath.c_str(), this->playerRoomCoords.x, this->playerRoomCoords.y);
+		Log::e(STR_START_ROOM_INVALID, this->locPath.c_str(), this->playerRoomCoords.x, this->playerRoomCoords.y);
+		this->unloadContent();
 		return false;
 	}
 	this->currentRoom = room;
 
-	Log::d(STR_LOADED_LOCATION, locPath.c_str());
+	Log::d(STR_LOADED_LOCATION_CONTENT, this->locPath.c_str());
 	return true;
+}
+
+void Location::unloadContent()
+{
+	this->backgroundFullSprite.clearPtr();
+	this->rooms.clear();
 }
 
 std::string Location::getId()

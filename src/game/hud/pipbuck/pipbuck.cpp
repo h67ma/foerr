@@ -112,7 +112,7 @@ ClickStatus PipBuck::handleLeftClick(int x, int y)
 		// but then we'd have to clear resmgr two times (unload campaign + clear resmgr,
 		// unload pipbuck infos, clear resmgr)
 		this->unloadCampaignInfos();
-		this->campaign.unload(resMgr);
+		this->campaign.unload();
 		this->gameState = STATE_MAINMENU;
 		return CLICK_CONSUMED;
 	}

@@ -16,7 +16,7 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 			window.draw(loadingScreen);
 			window.display();
 
-			if (!campaign.load("res/campaigns/test", resMgr))
+			if (!campaign.load("res/campaigns/test"))
 			{
 				Log::e(STR_CAMPAIGN_LOAD_FAILED);
 				return;

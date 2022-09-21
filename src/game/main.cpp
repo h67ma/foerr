@@ -102,7 +102,7 @@ int main()
 
 	cursorMgr.setCursor(window, POINTER);
 
-	Campaign campaign;
+	Campaign campaign(resManager);
 	HoverManager hoverMgr;
 	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState, settings);
 	pipBuck.setRadLevel(0.3f); // TODO remove
@@ -278,7 +278,7 @@ int main()
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
 
 	// TODO remove
-	if (campaign.load("res/campaigns/test", resManager) && pipBuck.setupCampaignInfos())
+	if (campaign.load("res/campaigns/test") && pipBuck.setupCampaignInfos())
 	{
 		gameState = STATE_PLAYING;
 		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));

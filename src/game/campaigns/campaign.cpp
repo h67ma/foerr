@@ -5,19 +5,24 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
+
+Campaign::Campaign(ResourceManager &resMgr) : resMgr(resMgr)
+{
+	// big iron on his hip
+}
+
 /**
  * Loads a campaign from path. If previous campaign is loaded, it will be automatically unloaded first.
  *
  * @param campaignDir path to campaign directory containing campaign index file.
- * @param resMgr reference to resource manager
  * @return true if load succeeded
  * @return false if load failed
  */
-bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
+bool Campaign::load(std::string campaignDir)
 {
 	Log::d(STR_CAMPAIGN_LOADING, campaignDir.c_str());
 
-	this->unload(resMgr);
+	this->unload();
 
 	// load basic campaign infos
 
@@ -73,13 +78,15 @@ bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 		std::string locId = entry.path().stem().string();
 		std::string locPath = entry.path().string();
 
-		this->locations.emplace_back(locId);
-		if (!this->locations.back().load(locPath, resMgr))
+		this->locations.emplace_back(locId, locPath);
+		// initially we only load metadata such as name, description, world map details, etc.
+		// rooms are loaded separately via ::loadContent() when entering a location.
+		if (!this->locations.back().loadMeta())
 		{
 			// unload everything
 			// mission failed, we'll get em next time
-			Log::e(STR_LOADING_LOCATION_ERROR, locId.c_str());
-			this->unload(resMgr);
+			Log::e(STR_LOADING_LOCATION_META_ERROR, locId.c_str());
+			this->unload();
 			return false;
 		}
 	}
@@ -96,16 +103,16 @@ bool Campaign::load(std::string campaignDir, ResourceManager &resMgr)
 	return true;
 }
 
-void Campaign::unload(ResourceManager &resMgr)
+void Campaign::unload()
 {
 	Log::d(STR_CAMPAIGN_UNLOADING);
 	this->title = "";
 	this->description = "";
 	this->startLocation = "";
-	this->currentLocationIdx = 0;
+	this->currentLocationIdx = -1;
 	this->locations.clear();
 	this->loaded = false;
-	resMgr.cleanUnused();
+	this->resMgr.cleanUnused();
 	Log::d(STR_CAMPAIGN_UNLOADED);
 }
 
@@ -134,16 +141,64 @@ uint Campaign::getCurrentLocationIdx()
 	return this->currentLocationIdx;
 }
 
-bool Campaign::changeLocation(uint locIdx)
+/**
+ * Wow, such a brilliant name for a method.
+ * Basically we want to unload rooms of every location, but keep all already
+ * loaded basecamps because there's a good chance the player will be returning
+ * to these again, and we want the transition to be quick.
+ * Also we don't unload the previous location if player moved from non-basecamp
+ * to basecamp, because player could then return to playing after restocking.
+ *
+ * @param newIdx index of a location which we want to load now, so we won't unload it :)
+ */
+void Campaign::unloadSomeLocations(uint newIdx)
 {
-	if (locIdx >= this->locations.size())
+	uint keepIdx = -1;
+	// when loading first location after creating this object,
+	// or after reset, currentLocationIdx is -1
+	if (this->currentLocationIdx != -1 &&
+		!this->locations[this->currentLocationIdx].getIsBasecamp() &&
+		this->locations[newIdx].getIsBasecamp())
+		keepIdx = this->currentLocationIdx;
+
+	// we can't just unload last location (on the established conditions,
+	// see method description).
+	// consider the following sequence: player is in a non-basecamp location,
+	// travels to a basecamp, then travels to another non-basecamp. we would
+	// then *skip* unloading the first location in this example. this is why
+	// we need to unload all which are not needed, just to be sure.
+	for (uint i = 0; i < this->locations.size(); i++)
+	{
+		if (i == newIdx || i == keepIdx || this->locations[i].getIsBasecamp())
+			continue;
+
+		this->locations[i].unloadContent();
+	}
+
+	this->resMgr.cleanUnused();
+}
+
+bool Campaign::changeLocationByIndex(uint newIdx)
+{
+	if (newIdx >= this->locations.size())
 	{
 		Log::e(STR_IDX_OUTTA_BOUNDS);
 		return false;
 	}
 
-	this->currentLocationIdx = locIdx;
-	Log::d(STR_LOC_CHANGED, this->locations[locIdx].getId().c_str());
+	// load the new location. don't unload the old one yet, as new
+	// one might fail to load and then we need to keep the old one
+	if (!this->locations[newIdx].loadContent(this->resMgr))
+	{
+		Log::e(STR_LOADING_LOCATION_CONTENT_ERROR, this->locations[newIdx].getId().c_str());
+		return false;
+	}
+
+	this->unloadSomeLocations(newIdx);
+
+	this->currentLocationIdx = newIdx;
+
+	Log::d(STR_LOC_CHANGED, this->locations[newIdx].getId().c_str());
 	return true;
 }
 
@@ -153,9 +208,7 @@ bool Campaign::changeLocationById(std::string locId)
 	{
 		if (it->getId() == locId)
 		{
-			this->currentLocationIdx = static_cast<uint>(std::distance(this->locations.begin(), it));
-			Log::d(STR_LOC_CHANGED, locId.c_str());
-			return true;
+			return this->changeLocationByIndex(static_cast<uint>(std::distance(this->locations.begin(), it)));
 		}
 	}
 
