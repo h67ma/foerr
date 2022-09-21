@@ -6,6 +6,7 @@
 #include "../hud/hud.hpp"
 
 // stolen from https://stackoverflow.com/questions/63121776/simplest-syntax-for-string-interpolation-in-c
+// TODO should be a part of Translator
 template<typename... T>
 std::string litSprintf(const char *fmt, T... args)
 {
