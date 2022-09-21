@@ -22,7 +22,7 @@ class PipBuckPageWorld : public PipBuckPage
 		sf::VertexArray mapBorder = sf::VertexArray(sf::LineStrip, 5);
 		sf::VertexArray mapGridLines = sf::VertexArray(sf::Lines, 16); // max 4 horizontal, 4 vertical
 		sf::Text locTitle;
-		sf::Text locDescription;
+		sf::Text locDescription; // also shows recommended lvl, trial count, basecamp, etc.
 		std::vector<LocButton> mapButtons;
 		SimpleButton gotoLocationBtn;
 		HoverManager mapButtonHoverMgr;

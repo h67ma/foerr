@@ -45,6 +45,8 @@ bool Location::loadMeta()
 		return false;
 	}
 
+	parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_RECOMMENDED_LVL, this->recommendedLevel, true);
+
 	if (!parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
 		return false;
 
@@ -311,6 +313,11 @@ bool Location::getIsBasecamp()
 bool Location::getIsWorldMapIconBig()
 {
 	return this->isWorldMapIconBig;
+}
+
+uint Location::getRecommendedLevel()
+{
+	return this->recommendedLevel;
 }
 
 std::string Location::getWorldMapIconId()

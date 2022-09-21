@@ -1,5 +1,6 @@
 #include "pipbuck_page_world.hpp"
 #include "../../../util/util.hpp"
+#include "../../../util/i18n.hpp"
 
 // relative to the page area
 #define WORLD_MAP_X 400
@@ -60,7 +61,14 @@ ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
 
 				this->selectedLocationIdx = static_cast<int>(std::distance(this->mapButtons.begin(), it));
 				this->locTitle.setString(this->campaign.getLocations()[this->selectedLocationIdx].getTitle());
-				this->locDescription.setString(this->campaign.getLocations()[this->selectedLocationIdx].getDescription());
+
+				std::string description = this->campaign.getLocations()[this->selectedLocationIdx].getDescription();
+
+				uint recLvl = this->campaign.getLocations()[this->selectedLocationIdx].getRecommendedLevel();
+				if (recLvl != REC_LVL_EMPTY)
+					description += litSprintf(STR_RECOMMENDED_LVL, recLvl);
+
+				this->locDescription.setString(description);
 
 				// select new btn
 				it->setSelected(true);

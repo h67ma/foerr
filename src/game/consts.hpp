@@ -34,6 +34,7 @@
 #define FOERR_JSON_KEY_WORLDMAP_BACKGROUND "worldmap_background"
 #define FOERR_JSON_KEY_TYPE_GRIND "grind"
 #define FOERR_JSON_KEY_TYPE_BASECAMP "basecamp"
+#define FOERR_JSON_KEY_RECOMMENDED_LVL "rec_lvl"
 #define FOERR_JSON_KEY_WIDTH "width"
 #define FOERR_JSON_KEY_HEIGHT "height"
 #define FOERR_JSON_KEY_ROOM_MAP "room_map"

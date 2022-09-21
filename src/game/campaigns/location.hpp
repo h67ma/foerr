@@ -7,6 +7,8 @@
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 
+#define REC_LVL_EMPTY -1
+
 /**
  * Location file structure:
  * {
@@ -14,6 +16,7 @@
  *	"description": "Description shown on world map page.",
  *	"grind": false,
  *	"basecamp": false,
+ *	"rec_lvl": 42,	// optional
  *	"background_full": "path/to/img.png",	// optional
  *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
  *	"worldmap_x": 123,
@@ -45,6 +48,7 @@ class Location : public sf::Drawable
 		std::string worldMapIconId;
 		bool isGrind;
 		bool isBasecamp;
+		uint recommendedLevel = REC_LVL_EMPTY;
 		SpriteResource backgroundFullSprite;
 		RoomGrid rooms;
 		sf::Vector2u playerRoomCoords = { 0, 0 };
@@ -62,6 +66,7 @@ class Location : public sf::Drawable
 		uint getWorldMapY();
 		bool getIsWorldMapIconBig(); // gee, that's a mouthful
 		bool getIsBasecamp();
+		uint getRecommendedLevel();
 		std::string getWorldMapIconId();
 		bool gotoRoom(Direction direction);
 		sf::Vector2u getPlayerRoomCoords();

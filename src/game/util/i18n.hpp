@@ -69,3 +69,4 @@
 #define STR_SAVE_SETTINGS "Save settings"
 #define STR_PIPBUCK_SETUP_FAILED "Failed to setup PipBuck."
 #define STR_PIPBUCK_UNLOADING_CAMPAIGN "Unloding campaign infos from PipBuck..."
+#define STR_RECOMMENDED_LVL "\n\nRecommended level: %u"
