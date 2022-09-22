@@ -9,12 +9,11 @@
  * @param width new grid width (in rooms)
  * @param height new grid height (in rooms)
  */
-void RoomGrid::setDimens(uint width, uint height)
+void RoomGrid::setDimens(sf::Vector2u dimens)
 {
-	this->width = width;
-	this->height = height;
+	this->dimens = dimens;
 	this->grid.clear(); // just in case
-	this->grid.resize(width * height);
+	this->grid.resize(dimens.x * dimens.y);
 }
 
 /**
@@ -25,15 +24,15 @@ void RoomGrid::setDimens(uint width, uint height)
  * @param y the y coordinate
  * @param room pointer to the Room object to set
  */
-bool RoomGrid::set(uint x, uint y, std::shared_ptr<Room> room)
+bool RoomGrid::set(sf::Vector2u coords, std::shared_ptr<Room> room)
 {
-	if (x >= this->width || y >= this->height)
+	if (coords.x >= this->dimens.x || coords.y >= this->dimens.y)
 	{
 		Log::e(STR_IDX_OUTTA_BOUNDS);
 		return false;
 	}
 
-	this->grid[y * this->width + x] = room;
+	this->grid[coords.y * this->dimens.x + coords.x] = room;
 	return true;
 }
 
@@ -46,15 +45,14 @@ bool RoomGrid::set(uint x, uint y, std::shared_ptr<Room> room)
  */
 std::shared_ptr<Room> RoomGrid::get(sf::Vector2u coords)
 {
-	if (coords.x >= this->width || coords.y >= this->height)
+	if (coords.x >= this->dimens.x || coords.y >= this->dimens.y)
 		return nullptr;
 
-	return this->grid[coords.y * this->width + coords.x];
+	return this->grid[coords.y * this->dimens.x + coords.x];
 }
 
 void RoomGrid::clear()
 {
 	this->grid.clear();
-	this->width = 0;
-	this->height = 0;
+	this->dimens = { 0, 0 };
 }

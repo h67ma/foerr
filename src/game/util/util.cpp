@@ -98,6 +98,46 @@ bool parseJsonUintKey(Json::Value &node, const char* filePath, const char* key, 
 	return true;
 }
 
+/**
+ * Parses a two-element vector from json. Useful for size or coordinates.
+ * Coordinate element in json looks like this: "key": [123, 456]
+ */
+bool parseJsonVector2uKey(Json::Value &node, const char* filePath, const char* key, sf::Vector2u &value, bool quiet)
+{
+	if (!node.isMember(key))
+	{
+		if (!quiet)
+			Log::e(STR_MISSING_KEY, filePath, key);
+		return false;
+	}
+
+	Json::Value vectorNode = node[key];
+
+	if (!vectorNode.isArray())
+	{
+		Log::e(STR_INVALID_TYPE, filePath, key);
+		return false;
+	}
+
+	if (vectorNode.size() != 2)
+	{
+		Log::e(STR_INVALID_ARR_SIZE, filePath, key);
+		return false;
+	}
+
+	try
+	{
+		value = { vectorNode[0].asUInt(), vectorNode[1].asUInt() };
+	}
+	catch (Json::LogicError &ex)
+	{
+		Log::e(STR_SYNTAX_ERROR, filePath, ex.what());
+		return false;
+	}
+
+	return true;
+}
+
 uint getFontSize(GuiScale scale, FontSize size)
 {
 	if (scale == GUI_SMALL)

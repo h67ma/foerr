@@ -3,6 +3,9 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
+#define LOC_MAX_DIMEN 100 // max number of rooms horizontally/vertically
+#define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
+
 Location::Location(std::string id, std::string locPath) : id(id), locPath(locPath)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
@@ -50,21 +53,12 @@ bool Location::loadMeta()
 	if (!parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
 		return false;
 
-	if (!parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_X, this->worldMapX))
+	if (!parseJsonVector2uKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_COORDS, this->worldMapCoords))
 		return false;
 
-	if (!parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_Y, this->worldMapY))
-		return false;
-
-	if (this->worldMapX > 600)
+	if (this->worldMapCoords.x > LOC_WORLDMAP_MAX || this->worldMapCoords.y > LOC_WORLDMAP_MAX)
 	{
-		Log::e(STR_SUS_LARGE_VALUE, this->worldMapX, FOERR_JSON_KEY_WORLDMAP_X);
-		return false;
-	}
-
-	if (this->worldMapY > 600)
-	{
-		Log::e(STR_SUS_LARGE_VALUE, this->worldMapY, FOERR_JSON_KEY_WORLDMAP_Y);
+		Log::e(STR_SUS_LARGE_VALUE, FOERR_JSON_KEY_WORLDMAP_COORDS);
 		return false;
 	}
 
@@ -91,7 +85,6 @@ bool Location::loadMeta()
 bool Location::loadContent(ResourceManager &resMgr)
 {
 	std::string backgroundFullPath;
-	uint width, height;
 	Json::Value root;
 
 	this->unloadContent();
@@ -158,30 +151,20 @@ bool Location::loadContent(ResourceManager &resMgr)
 
 	// room data loaded, now arrange rooms in a grid, and this is how we'll store them in the end
 
-	uint startX = 0, startY = 0;
-	parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_START_X, startX, true);
-	parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_START_Y, startY, true);
-	this->playerRoomCoords = { startX, startY }; // initial player room coords
+	// initial player room coords
+	parseJsonVector2uKey(root, this->locPath.c_str(), FOERR_JSON_KEY_START_COORDS, this->playerRoomCoords, true);
 
-	if (!parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WIDTH, width))
+	sf::Vector2u gridDimens;
+	if (!parseJsonVector2uKey(root, this->locPath.c_str(), FOERR_JSON_KEY_DIMENS, gridDimens))
 		return false;
 
-	if (!parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_HEIGHT, height))
-		return false;
-
-	if (width > 100)
+	if (gridDimens.x > LOC_MAX_DIMEN || gridDimens.y > LOC_MAX_DIMEN)
 	{
-		Log::e(STR_SUS_LARGE_VALUE, width, FOERR_JSON_KEY_WIDTH);
+		Log::e(STR_SUS_LARGE_VALUE, FOERR_JSON_KEY_DIMENS);
 		return false;
 	}
 
-	if (height > 100)
-	{
-		Log::e(STR_SUS_LARGE_VALUE, height, FOERR_JSON_KEY_HEIGHT);
-		return false;
-	}
-
-	this->rooms.setDimens(width, height);
+	this->rooms.setDimens(gridDimens);
 
 	if (!root.isMember(FOERR_JSON_KEY_ROOM_MAP))
 	{
@@ -198,14 +181,14 @@ bool Location::loadContent(ResourceManager &resMgr)
 		return false;
 	}
 
-	if (roomMap.size() < height)
+	if (roomMap.size() < gridDimens.y)
 	{
 		Log::e(STR_LOC_MISSING_DATA, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
 		this->unloadContent();
 		return false;
 	}
 
-	for (uint y = 0; y < height; y++)
+	for (uint y = 0; y < gridDimens.y; y++)
 	{
 		Json::Value roomMapRow = roomMap[y];
 		if (!roomMapRow.isArray())
@@ -215,7 +198,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 			return false;
 		}
 
-		if (roomMapRow.size() < width)
+		if (roomMapRow.size() < gridDimens.x)
 		{
 			Log::e(STR_LOC_MISSING_DATA, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
 			this->unloadContent();
@@ -223,7 +206,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 		}
 
 		// all good, can now read room ids
-		for (uint x = 0; x < width; x++)
+		for (uint x = 0; x < gridDimens.x; x++)
 		{
 			std::string roomName;
 			try
@@ -252,7 +235,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 			// the reason why we copy the Room here is because the room grid
 			// can contain multiple copies of the same base room, but each is
 			// a separate entity, i.e. its state can change independently
-			if (!this->rooms.set(x, y, std::make_shared<Room>(*search->second)))
+			if (!this->rooms.set({ x, y }, std::make_shared<Room>(*search->second)))
 			{
 				this->unloadContent();
 				return false;
@@ -300,14 +283,9 @@ std::string Location::getDescription()
 	return this->description;
 }
 
-uint Location::getWorldMapX()
+sf::Vector2u Location::getWorldMapCoords()
 {
-	return this->worldMapX;
-}
-
-uint Location::getWorldMapY()
-{
-	return this->worldMapY;
+	return this->worldMapCoords;
 }
 
 bool Location::getIsBasecamp()

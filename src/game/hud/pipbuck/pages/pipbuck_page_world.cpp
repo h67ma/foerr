@@ -177,8 +177,8 @@ bool PipBuckPageWorld::setupCampaignInfos()
 			loc.getIsWorldMapIconBig(),
 			loc.getIsBasecamp(),
 			this->hudColor,
-			WORLD_MAP_X + loc.getWorldMapX(),
-			WORLD_MAP_Y + loc.getWorldMapY(),
+			WORLD_MAP_X + loc.getWorldMapCoords().x,
+			WORLD_MAP_Y + loc.getWorldMapCoords().y,
 			iconTxt
 		);
 	}

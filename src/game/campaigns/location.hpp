@@ -19,13 +19,10 @@
  *	"rec_lvl": 42,	// optional
  *	"background_full": "path/to/img.png",	// optional
  *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
- *	"worldmap_x": 123,
- *	"worldmap_y": 456,
  *	"worldmap_icon_big": false,	// optional
- *	"width": 2,
- *	"height": 3,
- *	"start_x": 0,	// optional
- *	"start_y": 0,	// optional
+ *	"worldmap_coords": [123, 456],
+ *	"dimens": [2, 3],
+ *	"start_coords": [1, 2],	// optional
  *	"room_map": [
  *		["one",		"two"],
  *		["three",	"/EMPTY"],
@@ -42,8 +39,7 @@ class Location : public sf::Drawable
 		const std::string locPath;
 		std::string title;
 		std::string description;
-		uint worldMapX;
-		uint worldMapY;
+		sf::Vector2u worldMapCoords;
 		bool isWorldMapIconBig = false;
 		std::string worldMapIconId;
 		bool isGrind;
@@ -62,8 +58,7 @@ class Location : public sf::Drawable
 		std::string getId();
 		std::string getTitle();
 		std::string getDescription();
-		uint getWorldMapX();
-		uint getWorldMapY();
+		sf::Vector2u getWorldMapCoords();
 		bool getIsWorldMapIconBig(); // gee, that's a mouthful
 		bool getIsBasecamp();
 		uint getRecommendedLevel();
