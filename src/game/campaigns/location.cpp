@@ -260,6 +260,11 @@ bool Location::loadContent(ResourceManager &resMgr)
 		}
 	}
 
+	// TODO sanity checks:
+	// at least one MAS terminal
+	// all rooms are reachable (no "holes", or "corner connections" between rooms)
+	// [grind maps only] at least one exit
+
 	// room grid loaded, now check if start room exists
 	std::shared_ptr<Room> room = this->rooms.get(this->playerRoomCoords);
 	if (room == nullptr)
