@@ -19,12 +19,12 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 		PipBuckCategoryMain(scale, hudColor, fxVolume, resMgr, campaign, gameState, settings)
 	},
 	categoryButtons { // order matters
-		{ scale, BTN_BIG, hudColor, resMgr, 650, 900, STR_PIPBUCK_STATUS },
-		{ scale, BTN_BIG, hudColor, resMgr, 855, 915, STR_PIPBUCK_INV },
-		{ scale, BTN_BIG, hudColor, resMgr, 1055, 900, STR_PIPBUCK_INFO },
-		{ scale, BTN_BIG, hudColor, resMgr, 55, 700, STR_PIPBUCK_MAINMENU }
+		{ scale, BTN_BIG, hudColor, resMgr, { 650, 900 }, STR_PIPBUCK_STATUS },
+		{ scale, BTN_BIG, hudColor, resMgr, { 855, 915 }, STR_PIPBUCK_INV },
+		{ scale, BTN_BIG, hudColor, resMgr, { 1055, 900 }, STR_PIPBUCK_INFO },
+		{ scale, BTN_BIG, hudColor, resMgr, { 55, 700 }, STR_PIPBUCK_MAINMENU }
 	},
-	closeBtn(scale, BTN_BIG, hudColor, resMgr, 55, 800, STR_PIPBUCK_CLOSE, [this](){
+	closeBtn(scale, BTN_BIG, hudColor, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, [this](){
 		this->close();
 	}),
 	soundOpenClose(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE)),

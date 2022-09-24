@@ -11,7 +11,7 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	resMgr(resMgr),
 	campaign(campaign),
 	hudColor(hudColor),
-	gotoLocationBtn(scale, BTN_NORMAL, hudColor, resMgr, 1000, 815, "Travel", [this](){
+	gotoLocationBtn(scale, BTN_NORMAL, hudColor, resMgr, { 1000, 815 }, "Travel", [this](){
 		if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
 			this->selectedLocationIdx < this->campaign.getLocations().size())
 		{
@@ -177,8 +177,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 			loc.getIsWorldMapIconBig(),
 			loc.getIsBasecamp(),
 			this->hudColor,
-			WORLD_MAP_X + loc.getWorldMapCoords().x,
-			WORLD_MAP_Y + loc.getWorldMapCoords().y,
+			sf::Vector2u(WORLD_MAP_X + loc.getWorldMapCoords().x, WORLD_MAP_Y + loc.getWorldMapCoords().y),
 			iconTxt
 		);
 	}

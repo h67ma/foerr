@@ -2,11 +2,11 @@
 
 PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr) :
 	pageButtons { // order matters
-		{ scale, BTN_NARROW, hudColor, resMgr, 385, 210 },
-		{ scale, BTN_NARROW, hudColor, resMgr, 525, 210 },
-		{ scale, BTN_NARROW, hudColor, resMgr, 665, 210 },
-		{ scale, BTN_NARROW, hudColor, resMgr, 805, 210 },
-		{ scale, BTN_NARROW, hudColor, resMgr, 945, 210 }
+		{ scale, BTN_NARROW, hudColor, resMgr, { 385, 210 } },
+		{ scale, BTN_NARROW, hudColor, resMgr, { 525, 210 } },
+		{ scale, BTN_NARROW, hudColor, resMgr, { 665, 210 } },
+		{ scale, BTN_NARROW, hudColor, resMgr, { 805, 210 } },
+		{ scale, BTN_NARROW, hudColor, resMgr, { 945, 210 } }
 	},
 	soundPageChange(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	soundClick(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))

@@ -6,7 +6,7 @@
 
 MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState, PipBuck &pipBuck) :
 	buttons({
-		{scale, BTN_NORMAL, hudColor, resMgr, 100, 100, STR_CONTINUE, [scale, hudColor, &resMgr, &campaign, &gameState, &window, &pipBuck](){
+		{scale, BTN_NORMAL, hudColor, resMgr, { 100, 100 }, STR_CONTINUE, [scale, hudColor, &resMgr, &campaign, &gameState, &window, &pipBuck](){
 			// TODO some kind of campaign select
 
 			// this is a pretty terrible way of showing a loading screen, but it will do for now
@@ -30,7 +30,7 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 
 			gameState = STATE_PLAYING;
 		}},
-		{scale, BTN_NORMAL, hudColor, resMgr, 100, 150, STR_QUIT_GAME, [&window](){
+		{scale, BTN_NORMAL, hudColor, resMgr, { 100, 150 }, STR_QUIT_GAME, [&window](){
 			Log::d(STR_SHUTTING_DOWN);
 			window.close();
 		}}

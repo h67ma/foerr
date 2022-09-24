@@ -19,7 +19,7 @@ class Button : public sf::Drawable, public sf::Transformable, public Hoverable
 		std::function<void(void)> callback = nullptr;
 
 	public:
-		Button(GuiScale scale, uint x, uint y, std::function<void(void)> callback = nullptr);
+		Button(GuiScale scale, sf::Vector2u position, std::function<void(void)> callback = nullptr);
 		void setCallback(std::function<void(void)> callback);
 		ClickStatus handleLeftClick(int x, int y);
 		virtual bool containsPoint(int x, int y) = 0;

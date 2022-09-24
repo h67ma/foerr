@@ -2,11 +2,13 @@
 #include "../consts.hpp"
 #include "../util/util.hpp"
 
-Button::Button(GuiScale scale, uint x, uint y, std::function<void(void)> callback)
+Button::Button(GuiScale scale, sf::Vector2u position, std::function<void(void)> callback)
 {
 	this->callback = callback;
-	
-	this->setPosition(static_cast<float>(x), static_cast<float>(y));
+
+	// we use uints because we don't want to have buttons
+	// "in between", because it may cause edges to blur
+	this->setPosition(static_cast<sf::Vector2f>(position));
 }
 
 void Button::setCallback(std::function<void(void)> callback)

@@ -31,7 +31,7 @@ class SimpleButton : public Button
 		void updateState();
 
 	public:
-		SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color color, ResourceManager &resMgr, uint x, uint y, std::string text="Button", std::function<void(void)> callback=nullptr);
+		SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color color, ResourceManager &resMgr, sf::Vector2u position, std::string text="Button", std::function<void(void)> callback=nullptr);
 		bool containsPoint(int x, int y) override;
 		void setGuiScale(GuiScale scale) override;
 		void setHover(bool hover) override;
