@@ -5,11 +5,10 @@
  * @param height height (in px) of a single animation frame
  * @param kinds vector of animation kinds which the spritesheet contains. Order matters.
  */
-Animation::Animation(std::shared_ptr<sf::Texture> texture, uint width, uint height, const std::vector<struct anim_kind_details> kinds) :
+Animation::Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u size, const std::vector<struct anim_kind_details> kinds) :
 	sprite(texture),
-	textureRect(0, 0, width, height),
-	width(width),
-	height(height)
+	textureRect(0, 0, size.x, size.y),
+	size(size)
 {
 	this->textureHeight = texture->getSize().y;
 
@@ -22,7 +21,7 @@ Animation::Animation(std::shared_ptr<sf::Texture> texture, uint width, uint heig
 		if (first)
 		{
 			// initial/default animation
-			this->loadedKindTextureWidth = kind.frameCnt * width;
+			this->loadedKindTextureWidth = kind.frameCnt * size.x;
 			this->loadedKindIsSingleFrame = kind.frameCnt == 1;
 			first = false;
 		}
@@ -31,13 +30,13 @@ Animation::Animation(std::shared_ptr<sf::Texture> texture, uint width, uint heig
 			kind.frameCnt,
 			topOffset
 		};
-		topOffset += height;
+		topOffset += size.y;
 	}
 }
 
 void Animation::moveTexture()
 {
-	this->textureRect.left += this->width;
+	this->textureRect.left += this->size.x;
 
 	if (this->textureRect.left >= static_cast<int>(this->loadedKindTextureWidth))
 		this->textureRect.left = 0;
@@ -68,11 +67,11 @@ bool Animation::setAnimation(AnimationKind kind)
 
 	struct anim_kind_details_internal details = this->kinds[kind];
 
-	if (details.offsetTop + this->height > this->textureHeight)
+	if (details.offsetTop + this->size.y > this->textureHeight)
 		return false; // texture is not tall enough
 
 	this->textureRect.top = details.offsetTop;
-	this->loadedKindTextureWidth = details.frameCnt * this->width;
+	this->loadedKindTextureWidth = details.frameCnt * this->size.x;
 	this->loadedKindIsSingleFrame = details.frameCnt == 1;
 
 	if (this->loadedKindIsSingleFrame)

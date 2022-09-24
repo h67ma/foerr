@@ -119,7 +119,7 @@ int main()
 	//Log::setGuiScale(GUI_SMALL);
 
 
-	Animation *mchavi = new Animation(resManager.getTexture("res/entities/mchavi.png"), 130, 130, {
+	Animation *mchavi = new Animation(resManager.getTexture("res/entities/mchavi.png"), { 130, 130 }, {
 		{ ANIM_STAND, 1 },
 		{ ANIM_TROT, 17 },
 		{ ANIM_GALLOP, 8 },
@@ -198,13 +198,13 @@ int main()
 
 
 
-	Animation *fire = new Animation(resManager.getTexture("res/entities/fire.png"), 50, 67, {
+	Animation *fire = new Animation(resManager.getTexture("res/entities/fire.png"), { 50, 67 }, {
 		{ANIM_STATIC, 17}
 	});
 	fire->setPosition(1400, 180);
 	animations.push_back(fire);
 
-	Animation *fire2 = new Animation(resManager.getTexture("res/entities/fire.png"), 50, 67, {
+	Animation *fire2 = new Animation(resManager.getTexture("res/entities/fire.png"), { 50, 67 }, {
 		{ANIM_STATIC, 17}
 	});
 	fire2->setPosition(1450, 180);
