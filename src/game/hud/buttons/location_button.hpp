@@ -32,6 +32,5 @@ class LocButton : public Button
 		void setColor(sf::Color color);
 		void setHover(bool hover) override;
 		void setActive(bool active);
-		sf::Vector2f getCenter();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
