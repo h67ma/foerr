@@ -13,8 +13,9 @@ bool Room::getDrawBackgroundFull()
  *
  * Room file structure:
  * {
- *	"id": "room_id",
- *	"bg": false,	// optional
+ *	"coords": [2, 1],
+ *	"is_start": true,	// optional, exactly one room in a location must be a start room
+ *	"bg": false,		// optional
  *	"blocks": [
  *		"LD_|LD_|...",
  *		"Lfz|Lf_|...",

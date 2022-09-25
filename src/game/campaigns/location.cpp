@@ -3,7 +3,6 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-#define LOC_MAX_DIMEN 100 // max number of rooms horizontally/vertically
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
 Location::Location(std::string id, std::string locPath) : id(id), locPath(locPath)
@@ -110,153 +109,109 @@ bool Location::loadContent(ResourceManager &resMgr)
 		return false;
 	}
 
-	// note: jsoncpp can't do object iteration, and getMemberNames() is straight up broken.
-	// so for now we store it the stupidass way, as array with member keys :/
-	// {
-	//	"id": "room_id",
-	//	...
-	// }
-
-	Json::Value roomDefs = root[FOERR_JSON_KEY_ROOMS];
-	if (!roomDefs.isArray())
+	Json::Value roomsNode = root[FOERR_JSON_KEY_ROOMS];
+	if (!roomsNode.isArray())
 	{
 		Log::e(STR_INVALID_TYPE, this->locPath.c_str(), FOERR_JSON_KEY_ROOMS);
 		return false;
 	}
 
-	// first load all room data into dictionary, mapping room id -> Room
-	// there are no duplicates in the dictionary (duh), but they can happen in room grid
-	std::unordered_map<std::string, std::shared_ptr<Room>> roomDict;
-
-	for (uint i = 0; i < roomDefs.size(); i++)
+	// initial pass, check if exactly one room is marked as start room, set start coords
+	// (this->playerRoomCoords). also calculate the size of room grid based on rooms coords.
+	bool foundStart = false;
+	sf::Vector2u gridDimens(0, 0);
+	for (uint i = 0; i < roomsNode.size(); i++)
 	{
-		// this is utterly retarded
-		std::string roomId;
-		if (!parseJsonStringKey(roomDefs[i], this->locPath.c_str(), FOERR_JSON_KEY_ID, roomId))
-			return false;
-
-		auto duplicate = roomDict.find(roomId);
-		if (duplicate != roomDict.end())
+		sf::Vector2u roomCoords;
+		if (!parseJsonVector2uKey(roomsNode[i], this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
 		{
-			Log::e(STR_ROOM_DUPLICATE, this->locPath.c_str(), roomId.c_str());
+			this->unloadContent();
 			return false;
 		}
 
-		std::shared_ptr<Room> room = std::make_shared<Room>();
-		if (!room->load(roomDefs[i], this->locPath.c_str()))
-			return false;
+		// adjust required grid size if needed
+		if ((roomCoords.x + 1) > gridDimens.x)
+			gridDimens.x = roomCoords.x + 1;
+		if ((roomCoords.y + 1) > gridDimens.y)
+			gridDimens.y = roomCoords.y + 1;
 
-		roomDict[roomId] = room;
+		bool thisStart = false;
+		parseJsonBoolKey(roomsNode[i], this->locPath.c_str(), FOERR_JSON_KEY_IS_START, thisStart, true);
+
+		if (thisStart)
+		{
+			if (foundStart)
+			{
+				Log::e(STR_DUPLICATE_START_ROOM, this->locPath.c_str(), roomCoords.x, roomCoords.y);
+				this->unloadContent();
+				return false;
+			}
+
+			this->playerRoomCoords = roomCoords;
+			foundStart = true;
+		}
 	}
 
-	// room data loaded, now arrange rooms in a grid, and this is how we'll store them in the end
-
-	// initial player room coords
-	parseJsonVector2uKey(root, this->locPath.c_str(), FOERR_JSON_KEY_START_COORDS, this->playerRoomCoords, true);
-
-	sf::Vector2u gridDimens;
-	if (!parseJsonVector2uKey(root, this->locPath.c_str(), FOERR_JSON_KEY_DIMENS, gridDimens))
-		return false;
-
-	if (gridDimens.x > LOC_MAX_DIMEN || gridDimens.y > LOC_MAX_DIMEN)
+	if (!foundStart)
 	{
-		Log::e(STR_SUS_LARGE_VALUE, FOERR_JSON_KEY_DIMENS);
+		Log::e(STR_MISSING_START_ROOM, this->locPath.c_str());
+		this->unloadContent();
+		return false;
+	}
+
+	// if there really are no rooms, we'll fail before reaching this
+	// because start room won't be found. still better check.
+	if (gridDimens.x == 0 || gridDimens.y == 0)
+	{
+		Log::e(STR_NO_ROOMS_DEFINED, this->locPath.c_str());
+		this->unloadContent();
 		return false;
 	}
 
 	this->rooms.setDimens(gridDimens);
 
-	if (!root.isMember(FOERR_JSON_KEY_ROOM_MAP))
+	// second pass, now we have set the grid size and know which room is the start one
+	for (uint i = 0; i < roomsNode.size(); i++)
 	{
-		Log::e(STR_MISSING_KEY, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
-		this->unloadContent();
-		return false;
-	}
-
-	Json::Value roomMap = root[FOERR_JSON_KEY_ROOM_MAP];
-	if (!roomMap.isArray())
-	{
-		Log::e(STR_INVALID_TYPE, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
-		this->unloadContent();
-		return false;
-	}
-
-	if (roomMap.size() < gridDimens.y)
-	{
-		Log::e(STR_LOC_MISSING_DATA, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
-		this->unloadContent();
-		return false;
-	}
-
-	for (uint y = 0; y < gridDimens.y; y++)
-	{
-		Json::Value roomMapRow = roomMap[y];
-		if (!roomMapRow.isArray())
+		// yes, we need to read coords again
+		sf::Vector2u roomCoords;
+		if (!parseJsonVector2uKey(roomsNode[i], this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
 		{
-			Log::e(STR_INVALID_TYPE, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
 			this->unloadContent();
 			return false;
 		}
 
-		if (roomMapRow.size() < gridDimens.x)
+		if (this->rooms.get(roomCoords) != nullptr)
 		{
-			Log::e(STR_LOC_MISSING_DATA, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP);
+			Log::e(STR_DUPLICATE_ROOM_IN_SAME_COORDS, this->locPath.c_str(), roomCoords.x, roomCoords.y);
 			this->unloadContent();
 			return false;
 		}
 
-		// all good, can now read room ids
-		for (uint x = 0; x < gridDimens.x; x++)
+		std::shared_ptr<Room> room = std::make_shared<Room>();
+		if (!room->load(roomsNode[i], this->locPath.c_str()))
 		{
-			std::string roomName;
-			try
-			{
-				roomName = std::string(roomMapRow[x].asCString());
-			}
-			catch (const Json::LogicError &ex)
-			{
-				Log::e(STR_INVALID_TYPE_EX, this->locPath.c_str(), FOERR_JSON_KEY_ROOM_MAP, ex.what());
-				this->unloadContent();
-				return false;
-			}
-
-			if (roomName == ROOM_EMPTY)
-				continue;
-
-			auto search = roomDict.find(roomName);
-			if (search == roomDict.end())
-			{
-				// specified room was not found in room definitions
-				Log::e(STR_ROOM_MISSING, this->locPath.c_str(), roomName.c_str());
-				this->unloadContent();
-				return false;
-			}
-
-			// the reason why we copy the Room here is because the room grid
-			// can contain multiple copies of the same base room, but each is
-			// a separate entity, i.e. its state can change independently
-			if (!this->rooms.set({ x, y }, std::make_shared<Room>(*search->second)))
-			{
-				this->unloadContent();
-				return false;
-			}
+			this->unloadContent();
+			return false;
 		}
+
+		if (!this->rooms.set(roomCoords, room))
+		{
+			// can't imagine how this could possibly fail, but check just to be sure
+			this->unloadContent();
+			return false;
+		}
+
+		// we set this->playerRoomCoords in previous loop, collection is the same,
+		// so exactly one such room should exist
+		if (this->playerRoomCoords == roomCoords)
+			this->currentRoom = room;
 	}
 
 	// TODO sanity checks:
 	// at least one MAS terminal
-	// all rooms are reachable (no "holes", or "corner connections" between rooms)
+	// all rooms are reachable (every room has connection to at least one other room, unless the location consists of only one room)
 	// [grind maps only] at least one exit
-
-	// room grid loaded, now check if start room exists
-	std::shared_ptr<Room> room = this->rooms.get(this->playerRoomCoords);
-	if (room == nullptr)
-	{
-		Log::e(STR_START_ROOM_INVALID, this->locPath.c_str(), this->playerRoomCoords.x, this->playerRoomCoords.y);
-		this->unloadContent();
-		return false;
-	}
-	this->currentRoom = room;
 
 	Log::d(STR_LOADED_LOCATION_CONTENT, this->locPath.c_str());
 	return true;

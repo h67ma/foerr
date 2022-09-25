@@ -21,12 +21,8 @@
  *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
  *	"worldmap_icon_big": false,	// optional
  *	"worldmap_coords": [123, 456],
- *	"dimens": [2, 3],
- *	"start_coords": [1, 2],	// optional
- *	"room_map": [
- *		["one",		"two"],
- *		["three",	"/EMPTY"],
- *		["five",	"six"]
+ *	"rooms": [
+ *		...	// see room.cpp
  *	]
  * }
  *
