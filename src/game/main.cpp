@@ -273,6 +273,23 @@ int main()
 
 
 
+	sf::RenderTexture renderTxt;
+	if (!renderTxt.create(500, 500))
+		return -1;
+	sf::Sprite vent(*resManager.getTexture("res/texture/rubble/vent.png"));
+	sf::Sprite terminal(*resManager.getTexture("res/texture/rubble/terminal_red.png"));
+	terminal.setPosition(100, 0);
+	sf::Sprite stove(*resManager.getTexture("res/texture/rubble/stove.png"));
+	stove.setPosition(200, 0);
+	renderTxt.clear();
+	renderTxt.draw(vent);
+	renderTxt.draw(terminal);
+	renderTxt.draw(stove);
+	renderTxt.display();
+	sf::Sprite bufferSprite(renderTxt.getTexture());
+	bufferSprite.setPosition(100, 700);
+
+
 
 	// initial size
 	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
@@ -428,6 +445,7 @@ int main()
 		if (gameState == STATE_PLAYING)
 		{
 			// TODO delet this
+			window.draw(bufferSprite);
 			for (Button* btn : buttons)
 			{
 				window.draw(*btn);
