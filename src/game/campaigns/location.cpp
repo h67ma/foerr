@@ -214,8 +214,15 @@ bool Location::loadContent(ResourceManager &resMgr)
 
 	// TODO sanity checks:
 	// at least one MAS terminal
-	// all rooms are reachable (every room has connection to at least one other room, unless the location consists of only one room)
 	// [grind maps only] at least one exit
+
+	// we could also check if room grid is valid, i.e. are all rooms reachable.
+	// we'd have to implement some kind of DFS or something. this would be nice
+	// to have, but could potentialy limit the ability to create some interesting
+	// locations (e.g. ones using teleportation to travel between different
+	// unconnected sections, or ones which can be entered from more than one side).
+	// so for now let's assume that the creator of location will make sure that
+	// all required rooms are reachable.
 
 	Log::d(STR_LOADED_LOCATION_CONTENT, this->locPath.c_str());
 	return true;
