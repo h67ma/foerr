@@ -43,7 +43,6 @@ class Location : public sf::Drawable
 		uint recommendedLevel = REC_LVL_EMPTY;
 		SpriteResource backgroundFullSprite;
 		RoomGrid rooms;
-		sf::Vector2u playerRoomCoords = { 0, 0 };
 		std::shared_ptr<Room> currentRoom = nullptr;
 
 	public:

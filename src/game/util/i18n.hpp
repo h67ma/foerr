@@ -25,6 +25,7 @@
 #define STR_ROOM_MISSING_DATA "Error loading room (%s, \"%s\") - room data is missing."
 #define STR_ROOM_LINE_INVALID "Error loading room (%s, \"%s\") - line length invalid: %u, should be %u."
 #define STR_ROOM_MISSING "Error loading location (%s) - room is missing: \"%s\"."
+#define STR_ROOM_MISSING_COORDS "Error loading location (%s) - room is missing: (%u, %u)."
 #define STR_DUPLICATE_START_ROOM "Error loading location (%s) - multiple start rooms defined (%u, %u)."
 #define STR_MISSING_START_ROOM "Error loading location (%s) - start room is missing."
 #define STR_DUPLICATE_ROOM_IN_SAME_COORDS "Error loading location (%s) - multiple rooms defined for (%u, %u)."

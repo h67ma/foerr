@@ -116,10 +116,11 @@ bool Location::loadContent(ResourceManager &resMgr)
 		return false;
 	}
 
-	// initial pass, check if exactly one room is marked as start room, set start coords
-	// (this->playerRoomCoords). also calculate the size of room grid based on rooms coords.
+	// initial pass, check if exactly one room is marked as start room, set start coords,
+	// and also calculate the size of room grid based on rooms coords.
 	bool foundStart = false;
 	sf::Vector2u gridDimens(0, 0);
+	sf::Vector2u startRoomCoords;
 	for (uint i = 0; i < roomsNode.size(); i++)
 	{
 		sf::Vector2u roomCoords;
@@ -147,7 +148,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 				return false;
 			}
 
-			this->playerRoomCoords = roomCoords;
+			startRoomCoords = roomCoords;
 			foundStart = true;
 		}
 	}
@@ -201,11 +202,14 @@ bool Location::loadContent(ResourceManager &resMgr)
 			this->unloadContent();
 			return false;
 		}
+	}
 
-		// we set this->playerRoomCoords in previous loop, collection is the same,
-		// so exactly one such room should exist
-		if (this->playerRoomCoords == roomCoords)
-			this->currentRoom = room;
+	this->currentRoom = this->rooms.moveTo(startRoomCoords);
+	if (this->currentRoom == nullptr)
+	{
+		Log::e(STR_ROOM_MISSING_COORDS, this->locPath.c_str(), startRoomCoords.x, startRoomCoords.y);
+		this->unloadContent();
+		return false;
 	}
 
 	// TODO sanity checks:
@@ -265,45 +269,17 @@ std::string Location::getWorldMapIconId()
 
 bool Location::gotoRoom(Direction direction)
 {
-	sf::Vector2u newCoords = this->playerRoomCoords;
-
-	if (direction == DIR_UP)
-	{
-		if (newCoords.y == 0)
-			return false; // can't go any higher
-
-		newCoords.y -= 1;
-	}
-	else if (direction == DIR_LEFT)
-	{
-		if (newCoords.x == 0)
-			return false; // can't go any more left
-
-		newCoords.x -= 1;
-	}
-	else if (direction == DIR_DOWN)
-	{
-		newCoords.y += 1;
-	}
-	else if (direction == DIR_RIGHT)
-	{
-		newCoords.x += 1;
-	}
-
-	std::shared_ptr<Room> room = this->rooms.get(newCoords);
-	if (room == nullptr)
-		// the system you're searching for doesn't exist.
-		// impossible! perhaps the archives are incomplete?
+	std::shared_ptr<Room> newRoom = this->rooms.moveToNear(direction);
+	if (newRoom == nullptr)
 		return false;
 
-	this->playerRoomCoords = newCoords;
-	currentRoom = room;
+	this->currentRoom = newRoom;
 	return true;
 }
 
 sf::Vector2u Location::getPlayerRoomCoords()
 {
-	return this->playerRoomCoords;
+	return this->rooms.getCurrentCoords();
 }
 
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
