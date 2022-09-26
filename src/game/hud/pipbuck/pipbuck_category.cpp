@@ -1,50 +1,67 @@
 #include "pipbuck_category.hpp"
 
-PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr) :
-	pageButtons { // order matters
-		{ scale, BTN_NARROW, hudColor, resMgr, { 385, 210 } },
-		{ scale, BTN_NARROW, hudColor, resMgr, { 525, 210 } },
-		{ scale, BTN_NARROW, hudColor, resMgr, { 665, 210 } },
-		{ scale, BTN_NARROW, hudColor, resMgr, { 805, 210 } },
-		{ scale, BTN_NARROW, hudColor, resMgr, { 945, 210 } }
-	},
+#define PIPB_PAGE_BTNS_X_START 385
+#define PIPB_PAGE_BTNS_X_DISTANCE 140
+
+/**
+ * Note: defaultPage *must* be the key of one of the pages, or else ::setup() will fail.
+ */
+PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, PipBuckPageType defaultPage, std::unordered_map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages) :
+	selectedPage(defaultPage),
+	pages(pages),
 	soundPageChange(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	soundClick(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
 {
 	this->soundPageChange.get().setVolume(static_cast<float>(fxVolume));
 	this->soundClick.get().setVolume(static_cast<float>(fxVolume));
 
-	this->changePage(this->selectedPage); // default page
+	// create buttons for switching pages
+	uint x = PIPB_PAGE_BTNS_X_START;
+	for (const auto &page : this->pages)
+	{
+		this->pageButtons.emplace(page.first, SimpleButton(scale, BTN_NARROW, hudColor, resMgr, { x, 210 }, page.second->getLabel()));
+		x += PIPB_PAGE_BTNS_X_DISTANCE;
+	}
 }
 
 /**
  * Setups buttons stored in this object to respond to hover events.
- * Must be called after constructing the object. If the object is
- * moved in memory, there *will* be problems.
  *
- * Also setups button labels.
+ * Also selects the default page.
+ *
+ * Must be called after constructing the object. If the object is
+ * moved in memory, there *will* be problems (because of hover mgr).
+ *
+ * @return true if setup was successful
+ * @return false if setup failed
  */
-void PipBuckCategory::setup()
+bool PipBuckCategory::setup()
 {
+	// set default page
+	if (!this->changePage(this->selectedPage))
+		return false;
+
 	for (auto &btn : this->pageButtons)
 	{
-		this->hoverMgr.addHoverable(&btn);
+		this->hoverMgr.addHoverable(&btn.second);
 	}
 
-	// this is not very safe, but considering we'll always have
-	// exactly 5 buttons and 5 pages, it should be ok
-	for (uint i = 0; i < this->pages.size(); i++)
-	{
-		this->pageButtons[i].setText(this->pages[i]->getLabel());
-	}
+	return true;
 }
 
-void PipBuckCategory::changePage(uint idx)
+bool PipBuckCategory::changePage(PipBuckPageType pageType)
 {
-	this->pageButtons[this->selectedPage].setSelected(false);
-	this->pageButtons[idx].setSelected(true);
+	auto found = this->pages.find(pageType);
+	if (found == this->pages.end())
+		return false;
 
-	this->selectedPage = idx;
+	// ::pageButtons map has the same keys as ::pages map
+	// ...famous last words, right? let's hope not
+	this->pageButtons.at(this->selectedPage).setSelected(false);
+	this->pageButtons.at(pageType).setSelected(true);
+
+	this->selectedPage = pageType;
+	return true;
 }
 
 ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
@@ -53,7 +70,7 @@ ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	ClickStatus pageResult = this->pages[this->selectedPage]->handleLeftClick(x, y);
+	ClickStatus pageResult = this->pages.at(this->selectedPage)->handleLeftClick(x, y);
 	if (pageResult != CLICK_NOT_CONSUMED)
 	{
 		// basically we want every page click to play the same sound
@@ -65,14 +82,13 @@ ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
 		return pageResult;
 	}
 
-	for (auto it = this->pageButtons.begin(); it != this->pageButtons.end(); it++)
+	for (auto btn : this->pageButtons)
 	{
-		if (it->containsPoint(x, y))
+		if (btn.second.containsPoint(x, y))
 		{
-			uint idx = static_cast<uint>(std::distance(this->pageButtons.begin(), it));
-			if (idx != this->selectedPage)
+			if (btn.first != this->selectedPage)
 			{
-				this->changePage(idx);
+				this->changePage(btn.first);
 				this->soundPageChange.get().play();
 			}
 			return CLICK_CONSUMED;
@@ -88,7 +104,7 @@ bool PipBuckCategory::handleMouseMove(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	if (this->pages[this->selectedPage]->handleMouseMove(x, y))
+	if (this->pages.at(this->selectedPage)->handleMouseMove(x, y))
 		return true;
 
 	return this->hoverMgr.handleMouseMove(x, y);
@@ -105,7 +121,7 @@ bool PipBuckCategory::setupCampaignInfos()
 {
 	for (const auto &page : this->pages)
 	{
-		if (!page->setupCampaignInfos())
+		if (!page.second->setupCampaignInfos())
 			return false;
 	}
 
@@ -116,7 +132,40 @@ void PipBuckCategory::unloadCampaignInfos()
 {
 	for (const auto &page : this->pages)
 	{
-		page->unloadCampaignInfos();
+		page.second->unloadCampaignInfos();
+	}
+}
+
+PipBuckCategoryType PipBuckCategory::pageTypeToCategoryType(PipBuckPageType pageType)
+{
+	switch (pageType)
+	{
+		case PIPB_PAGE_LOAD:
+		case PIPB_PAGE_SAVE:
+		case PIPB_PAGE_SETTINGS:
+		case PIPB_PAGE_CONTROLS:
+		case PIPB_PAGE_LOG:
+			return PIPB_CAT_MAIN;
+		case PIPB_PAGE_STATUS_MAIN:
+		case PIPB_PAGE_SKILLS:
+		case PIPB_PAGE_PERKS:
+		case PIPB_PAGE_EFFECTS:
+		case PIPB_PAGE_HEALTH:
+			return PIPB_CAT_STATUS;
+		case PIPB_PAGE_WEAPONS:
+		case PIPB_PAGE_ARMOR:
+		case PIPB_PAGE_EQUIPMENT:
+		case PIPB_PAGE_INVENTORY_OTHER:
+		case PIPB_PAGE_AMMO:
+			return PIPB_CAT_INVENTORY;
+		case PIPB_PAGE_MAP:
+		case PIPB_PAGE_WORLD:
+		case PIPB_PAGE_QUESTS:
+		case PIPB_PAGE_NOTES:
+		case PIPB_PAGE_ENEMIES:
+			return PIPB_CAT_INFO;
+		default:
+			return PIPB_CAT_NO_CAT;
 	}
 }
 
@@ -124,10 +173,10 @@ void PipBuckCategory::draw(sf::RenderTarget &target, sf::RenderStates states) co
 {
 	states.transform *= this->getTransform();
 
-	target.draw(*this->pages[this->selectedPage], states);
+	target.draw(*this->pages.at(this->selectedPage), states);
 
-	for (auto &btn : this->pageButtons)
+	for (const auto &btn : this->pageButtons)
 	{
-		target.draw(btn, states);
+		target.draw(btn.second, states);
 	}
 }

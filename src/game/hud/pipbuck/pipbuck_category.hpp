@@ -10,6 +10,15 @@
 #include "../../campaigns/campaign.hpp"
 #include "../../resources/sound_resource.hpp"
 
+enum PipBuckCategoryType
+{
+	PIPB_CAT_MAIN,
+	PIPB_CAT_STATUS,
+	PIPB_CAT_INVENTORY,
+	PIPB_CAT_INFO,
+	PIPB_CAT_NO_CAT,
+};
+
 /**
  * Represents a single PipBuck category (e.g. "Status").
  * Contains 5 pages.
@@ -18,21 +27,20 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 {
 	private:
 		HoverManager hoverMgr;
-		uint selectedPage = 0;
-		std::vector<SimpleButton> pageButtons;
+		PipBuckPageType selectedPage;
+		std::unordered_map<PipBuckPageType, SimpleButton> pageButtons;
 		SoundResource soundPageChange;
 		SoundResource soundClick;
-		void changePage(uint idx);
-
-	protected:
-		std::vector<std::shared_ptr<PipBuckPage>> pages;
+		const std::unordered_map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages;
 
 	public:
-		PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr);
-		void setup();
+		PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, PipBuckPageType defaultPage, std::unordered_map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages);
+		bool setup();
 		ClickStatus handleLeftClick(int x, int y);
 		bool handleMouseMove(int x, int y);
+		bool changePage(PipBuckPageType pageType);
 		bool setupCampaignInfos();
 		void unloadCampaignInfos();
+		static PipBuckCategoryType pageTypeToCategoryType(PipBuckPageType pageType);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

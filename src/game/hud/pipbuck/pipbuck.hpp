@@ -40,14 +40,14 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		sf::ConvexShape radIndicator;
 		sf::Clock timer;
 		float radIndicatorLevel = 0.f;
-		uint selectedCategory = 0;
-		std::vector<PipBuckCategory> categories;
-		std::vector<SimpleButton> categoryButtons;
+		PipBuckCategoryType selectedCategory = PIPB_CAT_STATUS;
+		std::unordered_map<PipBuckCategoryType, PipBuckCategory> categories;
+		std::unordered_map<PipBuckCategoryType, SimpleButton> categoryButtons;
 		SimpleButton closeBtn;
 		SoundResource soundOpenClose;
 		SoundResource soundCategoryBtn;
 		GameState &gameState;
-		void changeCategory(uint idx);
+		bool changeCategory(PipBuckCategoryType categoryType);
 		static double getSmoothNoise(double time);
 
 	public:
@@ -58,7 +58,9 @@ class PipBuck : public sf::Drawable, public sf::Transformable
 		bool setupCampaignInfos();
 		void unloadCampaignInfos();
 		void open(bool sound=true);
+		bool switchToPage(PipBuckPageType pageType, bool quiet=false);
 		void close();
+		bool setup();
 		void setRadLevel(float rads);
 		void updateDraw();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

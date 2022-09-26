@@ -2,27 +2,67 @@
 #include "pipbuck.hpp"
 #include "../util/i18n.hpp"
 #include "../log.hpp"
-#include "categories/pipbuck_cat_status.hpp"
-#include "categories/pipbuck_cat_inventory.hpp"
-#include "categories/pipbuck_cat_info.hpp"
-#include "categories/pipbuck_cat_main.hpp"
 #include "../util/util.hpp"
+#include "pages/pipbuck_page_status_main.hpp"
+#include "pages/pipbuck_page_skills.hpp"
+#include "pages/pipbuck_page_perks.hpp"
+#include "pages/pipbuck_page_effects.hpp"
+#include "pages/pipbuck_page_health.hpp"
+#include "pages/pipbuck_page_weapons.hpp"
+#include "pages/pipbuck_page_armor.hpp"
+#include "pages/pipbuck_page_equipment.hpp"
+#include "pages/pipbuck_page_inventory_other.hpp"
+#include "pages/pipbuck_page_ammo.hpp"
+#include "pages/pipbuck_page_map.hpp"
+#include "pages/pipbuck_page_quests.hpp"
+#include "pages/pipbuck_page_world.hpp"
+#include "pages/pipbuck_page_notes.hpp"
+#include "pages/pipbuck_page_enemies.hpp"
+#include "pages/pipbuck_page_load.hpp"
+#include "pages/pipbuck_page_save.hpp"
+#include "pages/pipbuck_page_settings.hpp"
+#include "pages/pipbuck_page_controls.hpp"
+#include "pages/pipbuck_page_log.hpp"
 
 PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState, SettingsManager &settings) :
 	resMgr(resMgr),
 	gameState(gameState),
 	campaign(campaign),
-	categories { // order matters
-		PipBuckCategoryStatus(scale, hudColor, fxVolume, resMgr),
-		PipBuckCategoryInventory(scale, hudColor, fxVolume, resMgr),
-		PipBuckCategoryInfo(scale, hudColor, fxVolume, resMgr, campaign),
-		PipBuckCategoryMain(scale, hudColor, fxVolume, resMgr, campaign, gameState, settings)
+	categories {
+		{ PIPB_CAT_STATUS, { scale, hudColor, fxVolume, resMgr, PIPB_PAGE_STATUS_MAIN, {
+			{ PIPB_PAGE_STATUS_MAIN, std::make_shared<PipBuckPageMainStatus>(resMgr) },
+			{ PIPB_PAGE_SKILLS, std::make_shared<PipBuckPageSkills>(resMgr) },
+			{ PIPB_PAGE_PERKS, std::make_shared<PipBuckPagePerks>(resMgr) },
+			{ PIPB_PAGE_EFFECTS, std::make_shared<PipBuckPageEffects>(resMgr) },
+			{ PIPB_PAGE_HEALTH, std::make_shared<PipBuckPageHealth>(resMgr) }
+		} } },
+		{ PIPB_CAT_INVENTORY, { scale, hudColor, fxVolume, resMgr, PIPB_PAGE_WEAPONS, {
+			{ PIPB_PAGE_WEAPONS, std::make_shared<PipBuckPageWeapons>(resMgr) },
+			{ PIPB_PAGE_ARMOR, std::make_shared<PipBuckPageArmor>(resMgr) },
+			{ PIPB_PAGE_EQUIPMENT, std::make_shared<PipBuckPageEquipment>(resMgr) },
+			{ PIPB_PAGE_INVENTORY_OTHER, std::make_shared<PipBuckPageInventoryOther>(resMgr) },
+			{ PIPB_PAGE_AMMO, std::make_shared<PipBuckPageAmmo>(resMgr) }
+		} } },
+		{ PIPB_CAT_INFO, { scale, hudColor, fxVolume, resMgr, PIPB_PAGE_MAP, {
+			{ PIPB_PAGE_MAP, std::make_shared<PipBuckPageMap>(resMgr) },
+			{ PIPB_PAGE_WORLD, std::make_shared<PipBuckPageWorld>(scale, hudColor, resMgr, campaign) },
+			{ PIPB_PAGE_QUESTS, std::make_shared<PipBuckPageQuests>(resMgr) },
+			{ PIPB_PAGE_NOTES, std::make_shared<PipBuckPageNotes>(resMgr) },
+			{ PIPB_PAGE_ENEMIES, std::make_shared<PipBuckPageEnemies>(resMgr) }
+		} } },
+		{ PIPB_CAT_MAIN, { scale, hudColor, fxVolume, resMgr, PIPB_PAGE_LOAD, {
+			{ PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(scale, hudColor, resMgr, campaign, gameState) },
+			{ PIPB_PAGE_SAVE, std::make_shared<PipBuckPageSave>(resMgr) },
+			{ PIPB_PAGE_SETTINGS, std::make_shared<PipBuckPageSettings>(scale, hudColor, resMgr, settings) },
+			{ PIPB_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr) },
+			{ PIPB_PAGE_LOG, std::make_shared<PipBuckPageLog>(resMgr) }
+		} } }
 	},
-	categoryButtons { // order matters
-		{ scale, BTN_BIG, hudColor, resMgr, { 650, 900 }, STR_PIPBUCK_STATUS },
-		{ scale, BTN_BIG, hudColor, resMgr, { 855, 915 }, STR_PIPBUCK_INV },
-		{ scale, BTN_BIG, hudColor, resMgr, { 1055, 900 }, STR_PIPBUCK_INFO },
-		{ scale, BTN_BIG, hudColor, resMgr, { 55, 700 }, STR_PIPBUCK_MAINMENU }
+	categoryButtons {
+		{ PIPB_CAT_STATUS, { scale, BTN_BIG, hudColor, resMgr, { 650, 900 }, STR_PIPBUCK_STATUS } },
+		{ PIPB_CAT_INVENTORY, { scale, BTN_BIG, hudColor, resMgr, { 855, 915 }, STR_PIPBUCK_INV } },
+		{ PIPB_CAT_INFO, { scale, BTN_BIG, hudColor, resMgr, { 1055, 900 }, STR_PIPBUCK_INFO } },
+		{ PIPB_CAT_MAIN, { scale, BTN_BIG, hudColor, resMgr, { 55, 700 }, STR_PIPBUCK_MAINMENU } }
 	},
 	closeBtn(scale, BTN_BIG, hudColor, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, [this](){
 		this->close();
@@ -43,18 +83,11 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 	this->radIndicator.setPoint(2, { 5.f, 60.f });
 	this->radIndicator.setFillColor(sf::Color::Black);
 
-	for (auto &cat : this->categories)
-	{
-		cat.setup();
-	}
-
 	for (auto &btn : this->categoryButtons)
 	{
-		this->hoverMgr.addHoverable(&btn);
+		this->hoverMgr.addHoverable(&btn.second);
 	}
 	this->hoverMgr.addHoverable(&this->closeBtn);
-
-	this->changeCategory(this->selectedCategory); // default category
 }
 
 void PipBuck::handleScreenResize(uint screenW, uint screenH)
@@ -85,12 +118,19 @@ void PipBuck::close()
 	Log::d(STR_GAME_RESUMED);
 }
 
-void PipBuck::changeCategory(uint idx)
+bool PipBuck::changeCategory(PipBuckCategoryType categoryType)
 {
-	this->categoryButtons[this->selectedCategory].setSelected(false);
-	this->categoryButtons[idx].setSelected(true);
+	auto found = this->categories.find(categoryType);
+	if (found == this->categories.end())
+		return false;
 
-	this->selectedCategory = idx;
+	// ::categoryButtons map has the same keys as ::categories map
+	// ...again, famous last words. let's hope not
+	this->categoryButtons.at(this->selectedCategory).setSelected(false);
+	this->categoryButtons.at(categoryType).setSelected(true);
+
+	this->selectedCategory = categoryType;
+	return true;
 }
 
 ClickStatus PipBuck::handleLeftClick(int x, int y)
@@ -99,7 +139,7 @@ ClickStatus PipBuck::handleLeftClick(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	ClickStatus catResult = this->categories[this->selectedCategory].handleLeftClick(x, y);
+	ClickStatus catResult = this->categories.at(this->selectedCategory).handleLeftClick(x, y);
 	if (catResult == CLICK_CONSUMED)
 		return CLICK_CONSUMED;
 	else if (catResult == CLICK_CONSUMED_CLOSE)
@@ -118,14 +158,13 @@ ClickStatus PipBuck::handleLeftClick(int x, int y)
 		return CLICK_CONSUMED;
 	}
 
-	for (auto it = this->categoryButtons.begin(); it != this->categoryButtons.end(); it++)
+	for (auto &btn : this->categoryButtons)
 	{
-		if (it->containsPoint(x, y))
+		if (btn.second.containsPoint(x, y))
 		{
-			uint idx = static_cast<uint>(std::distance(this->categoryButtons.begin(), it));
-			if (idx != this->selectedCategory)
+			if (btn.first != this->selectedCategory)
 			{
-				this->changeCategory(idx);
+				this->changeCategory(btn.first);
 				this->soundCategoryBtn.get().play();
 			}
 			return CLICK_CONSUMED;
@@ -141,7 +180,7 @@ void PipBuck::handleMouseMove(int x, int y)
 	x -= static_cast<int>(this->getPosition().x);
 	y -= static_cast<int>(this->getPosition().y);
 
-	if (this->categories[this->selectedCategory].handleMouseMove(x, y))
+	if (this->categories.at(this->selectedCategory).handleMouseMove(x, y))
 		return; // hover "consumed"
 
 	this->hoverMgr.handleMouseMove(x, y);
@@ -158,7 +197,7 @@ bool PipBuck::setupCampaignInfos()
 {
 	for (auto &cat : this->categories)
 	{
-		if (!cat.setupCampaignInfos())
+		if (!cat.second.setupCampaignInfos())
 		{
 			this->unloadCampaignInfos();
 			this->resMgr.cleanUnused();
@@ -175,8 +214,43 @@ void PipBuck::unloadCampaignInfos()
 
 	for (auto &cat : this->categories)
 	{
-		cat.unloadCampaignInfos();
+		cat.second.unloadCampaignInfos();
 	}
+}
+
+/**
+ * Changes current page.
+ * If the mapping page -> category is incorrect, page will not be changed.
+ *
+ * @param pageType the page type
+ * @param quiet whether to not play a page changing sound
+ * @return true if switch was successful
+ * @return false if page -> category mapping is incorrect
+ */
+bool PipBuck::switchToPage(PipBuckPageType pageType, bool quiet)
+{
+	if (!quiet)
+		this->soundCategoryBtn.get().play();
+
+	PipBuckCategoryType newCat = PipBuckCategory::pageTypeToCategoryType(pageType);
+	if (newCat == PIPB_CAT_NO_CAT)
+		return false;
+
+	return this->changeCategory(newCat) && this->categories.at(newCat).changePage(pageType);
+}
+
+bool PipBuck::setup()
+{
+	for (auto &cat : this->categories)
+	{
+		if (!cat.second.setup())
+			return false;
+	}
+
+	if (!this->changeCategory(this->selectedCategory)) // default category
+		return false;
+
+	return true;
 }
 
 /**
@@ -215,11 +289,11 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	target.draw(this->pipBuckSprite.sprite, states);
 	target.draw(this->radIndicator, states);
 
-	target.draw(this->categories[this->selectedCategory], states);
+	target.draw(this->categories.at(this->selectedCategory), states);
 
 	for (const auto &btn : this->categoryButtons)
 	{
-		target.draw(btn, states);
+		target.draw(btn.second, states);
 	}
 
 	target.draw(this->closeBtn, states);

@@ -105,6 +105,13 @@ int main()
 	Campaign campaign(resManager);
 	HoverManager hoverMgr;
 	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState, settings);
+	if (!pipBuck.setup())
+	{
+		Log::e(STR_PIPBUCK_SETUP_FAILED);
+		window.close();
+		exit(1);
+	}
+
 	pipBuck.setRadLevel(0.3f); // TODO remove
 	MainMenu mainMenu(initialScale, hudColor, initialFxVol, resManager, window, campaign, gameState, pipBuck);
 
@@ -330,6 +337,11 @@ int main()
 					{
 						toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
 					}
+					else if (event.key.code == sf::Keyboard::N)
+					{
+						pipBuck.switchToPage(PIPB_PAGE_WORLD, true);
+						pipBuck.open();
+					}
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
@@ -365,6 +377,10 @@ int main()
 					else if (event.key.code == sf::Keyboard::Tab || event.key.code == sf::Keyboard::Escape)
 					{
 						pipBuck.close();
+					}
+					else if (event.key.code == sf::Keyboard::N)
+					{
+						pipBuck.switchToPage(PIPB_PAGE_WORLD);
 					}
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)
