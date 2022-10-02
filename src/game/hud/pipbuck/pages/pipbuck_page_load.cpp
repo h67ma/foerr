@@ -2,7 +2,7 @@
 #include "../../../util/i18n.hpp"
 
 PipBuckPageLoad::PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :
-	exitBtn(scale, BTN_NORMAL, hudColor, resMgr, { 400, 810 }, STR_EXIT_TO_MAIN_MENU, [&campaign, &gameState, &resMgr]() {
+	exitBtn(scale, BTN_NORMAL, hudColor, resMgr, { 400, 815 }, STR_EXIT_TO_MAIN_MENU, [&campaign, &gameState, &resMgr]() {
 		// TODO display confirm box
 		// TODO also save game before unloading campaign
 	})

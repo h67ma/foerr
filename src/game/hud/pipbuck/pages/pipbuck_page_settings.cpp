@@ -3,7 +3,7 @@
 
 PipBuckPageSettings::PipBuckPageSettings(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, SettingsManager &settings) :
 	buttons({
-		{scale, BTN_NORMAL, hudColor, resMgr, { 400, 815 }, STR_SAVE_SETTINGS, [&settings]() {
+		{scale, BTN_NORMAL, hudColor, resMgr, { 400, 815 }, STR_SAVE, [&settings]() {
 			settings.saveConfig();
 		}}
 	})
