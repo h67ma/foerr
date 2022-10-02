@@ -7,8 +7,8 @@
 #include "../hover_manager.hpp"
 #include "../hud.hpp"
 #include "pipbuck_category.hpp"
-#include "../campaigns/campaign.hpp"
-#include "../settings/settings_manager.hpp"
+#include "../../campaigns/campaign.hpp"
+#include "../../settings/settings_manager.hpp"
 #include "../../resources/sound_resource.hpp"
 #include "../../resources/sprite_resource.hpp"
 

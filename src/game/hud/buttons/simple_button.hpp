@@ -2,9 +2,9 @@
 
 #include <functional>
 #include <SFML/Graphics.hpp>
-#include "hud.hpp"
-#include "../resources/resource_manager.hpp"
-#include "../consts.hpp"
+#include "../hud.hpp"
+#include "../../resources/resource_manager.hpp"
+#include "../../consts.hpp"
 #include "button.hpp"
 
 enum SimpleButtonSize

@@ -2,7 +2,7 @@
 
 #include "button.hpp"
 #include "../../resources/sprite_resource.hpp"
-#include "hud.hpp"
+#include "../hud.hpp"
 
 class LocButton : public Button
 {

@@ -2,9 +2,9 @@
 
 #include <functional>
 #include <SFML/Graphics.hpp>
-#include "hud.hpp"
-#include "hoverable.hpp"
-#include "../consts.hpp"
+#include "../hud.hpp"
+#include "../hoverable.hpp"
+#include "../../consts.hpp"
 
 #define BTN_BORDER_THICKNESS_SMALL 1.f
 #define BTN_BORDER_THICKNESS_SMALL_SELECTED 2.f

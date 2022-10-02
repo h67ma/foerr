@@ -1,6 +1,5 @@
-#include "buttons/simple_button.hpp"
-#include "../consts.hpp"
-#include "../util/util.hpp"
+#include "simple_button.hpp"
+#include "../../util/util.hpp"
 
 Button::Button(GuiScale scale, sf::Vector2u position, std::function<void(void)> callback)
 {

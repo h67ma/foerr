@@ -1,8 +1,8 @@
 #include <math.h>
 #include "pipbuck.hpp"
-#include "../util/i18n.hpp"
+#include "../../util/i18n.hpp"
 #include "../log.hpp"
-#include "../util/util.hpp"
+#include "../../util/util.hpp"
 #include "pages/pipbuck_page_status_main.hpp"
 #include "pages/pipbuck_page_skills.hpp"
 #include "pages/pipbuck_page_perks.hpp"
