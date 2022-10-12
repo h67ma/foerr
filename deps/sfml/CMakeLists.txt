@@ -16,4 +16,4 @@ FetchContent_MakeAvailable(sfml)
 # that vorbis warning will also be fixed btw
 target_compile_definitions(sfml-audio PRIVATE _HAS_AUTO_PTR_ETC)
 
-# TODO copy openal.dll from sfml-src/extlibs/bin/{x64/x86} to root dir
+# TODO copy openal.dll from sfml-src/extlibs/bin/{x64/x86} to root dir or somehow add it to PATH

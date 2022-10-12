@@ -22,4 +22,4 @@ target_link_libraries(foerr PRIVATE sfml-graphics sfml-window sfml-system sfml-a
 
 install(TARGETS foerr DESTINATION foerr)
 install(DIRECTORY "${PROJECT_BINARY_DIR}/../res" DESTINATION foerr)
-# TODO? on binbows also install sfml libs to install dir
+# TODO? on binbows also copy openal to install dir
