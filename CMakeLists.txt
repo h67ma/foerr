@@ -14,4 +14,4 @@ endif()
 
 add_subdirectory(deps/sfml)
 add_subdirectory(deps/nlohmann_json)
-add_subdirectory(src/game)
+add_subdirectory(src)
