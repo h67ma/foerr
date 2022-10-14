@@ -2,7 +2,7 @@
 
 #include <string>
 #include <functional>
-#include <json/json.h>
+#include "../util/json.hpp"
 #include <SFML/Graphics.hpp>
 #include "../hud/hud.hpp"
 #include "../consts.hpp"
@@ -41,6 +41,6 @@ class Setting
 		void setupGuiScale(std::string key, GuiScale guiScale);
 		void resetToDefault();
 		std::string getKey();
-		Json::Value getJsonValue();
-		void loadFromJson(Json::Value value);
+		json getJsonValue();
+		void loadFromJson(const json &node);
 };

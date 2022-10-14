@@ -1,7 +1,7 @@
-#include <json/reader.h>
 #include "location.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../util/json.hpp"
 
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
@@ -19,25 +19,25 @@ Location::Location(std::string id, std::string locPath) : id(id), locPath(locPat
  */
 bool Location::loadMeta()
 {
-	Json::Value root;
+	json root;
 
 	Log::d(STR_LOADING_LOCATION_META, this->locPath.c_str());
 
 	if (!loadJsonFromFile(root, this->locPath))
 		return false;
 
-	if (!parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
+	if (!parseJsonKey<std::string>(root, this->locPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
 		return false;
 
-	if (!parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
+	if (!parseJsonKey<std::string>(root, this->locPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
 		return false;
 
 	// TODO translate title & description
 
-	if (!parseJsonBoolKey(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND, this->isGrind))
+	if (!parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND, this->isGrind))
 		return false;
 
-	if (!parseJsonBoolKey(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP, this->isBasecamp))
+	if (!parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP, this->isBasecamp))
 		return false;
 
 	if (this->isBasecamp && this->isGrind)
@@ -47,9 +47,9 @@ bool Location::loadMeta()
 		return false;
 	}
 
-	parseJsonUintKey(root, this->locPath.c_str(), FOERR_JSON_KEY_RECOMMENDED_LVL, this->recommendedLevel, true);
+	parseJsonKey<uint>(root, this->locPath.c_str(), FOERR_JSON_KEY_RECOMMENDED_LVL, this->recommendedLevel, true);
 
-	if (!parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
+	if (!parseJsonKey<std::string>(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
 		return false;
 
 	if (!parseJsonVector2uKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_COORDS, this->worldMapCoords))
@@ -62,7 +62,7 @@ bool Location::loadMeta()
 	}
 
 	// not present -> default value (false)
-	parseJsonBoolKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->isWorldMapIconBig, true);
+	parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->isWorldMapIconBig, true);
 
 	Log::d(STR_LOADED_LOCATION_META, this->locPath.c_str());
 	return true;
@@ -84,7 +84,7 @@ bool Location::loadMeta()
 bool Location::loadContent(ResourceManager &resMgr)
 {
 	std::string backgroundFullPath;
-	Json::Value root;
+	json root;
 
 	this->unloadContent();
 
@@ -94,7 +94,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 		return false;
 
 	// not present -> black background
-	if (parseJsonStringKey(root, this->locPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
+	if (parseJsonKey<std::string>(root, this->locPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
 	{
 		std::shared_ptr<sf::Texture> backgroundFull = resMgr.getTexture(backgroundFullPath);
 		if (backgroundFull == nullptr)
@@ -103,14 +103,14 @@ bool Location::loadContent(ResourceManager &resMgr)
 		this->backgroundFullSprite.setTexture(backgroundFull);
 	}
 
-	if (!root.isMember(FOERR_JSON_KEY_ROOMS))
+	auto roomsSearch = root.find(FOERR_JSON_KEY_ROOMS);
+	if (roomsSearch == root.end())
 	{
 		Log::e(STR_MISSING_KEY, this->locPath.c_str(), FOERR_JSON_KEY_ROOMS);
 		return false;
 	}
 
-	Json::Value roomsNode = root[FOERR_JSON_KEY_ROOMS];
-	if (!roomsNode.isArray())
+	if (!roomsSearch->is_array())
 	{
 		Log::e(STR_INVALID_TYPE, this->locPath.c_str(), FOERR_JSON_KEY_ROOMS);
 		return false;
@@ -121,10 +121,10 @@ bool Location::loadContent(ResourceManager &resMgr)
 	bool foundStart = false;
 	sf::Vector2u gridDimens(0, 0);
 	sf::Vector2u startRoomCoords;
-	for (uint i = 0; i < roomsNode.size(); i++)
+	for (const auto &roomNode : (*roomsSearch))
 	{
 		sf::Vector2u roomCoords;
-		if (!parseJsonVector2uKey(roomsNode[i], this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
+		if (!parseJsonVector2uKey(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
 		{
 			this->unloadContent();
 			return false;
@@ -137,7 +137,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 			gridDimens.y = roomCoords.y + 1;
 
 		bool thisStart = false;
-		parseJsonBoolKey(roomsNode[i], this->locPath.c_str(), FOERR_JSON_KEY_IS_START, thisStart, true);
+		parseJsonKey<bool>(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_IS_START, thisStart, true);
 
 		if (thisStart)
 		{
@@ -172,11 +172,11 @@ bool Location::loadContent(ResourceManager &resMgr)
 	this->rooms.setDimens(gridDimens);
 
 	// second pass, now we have set the grid size and know which room is the start one
-	for (uint i = 0; i < roomsNode.size(); i++)
+	for (const auto &roomNode : (*roomsSearch))
 	{
 		// yes, we need to read coords again
 		sf::Vector2u roomCoords;
-		if (!parseJsonVector2uKey(roomsNode[i], this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
+		if (!parseJsonVector2uKey(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
 		{
 			this->unloadContent();
 			return false;
@@ -190,7 +190,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 		}
 
 		std::shared_ptr<Room> room = std::make_shared<Room>();
-		if (!room->load(roomsNode[i], this->locPath.c_str()))
+		if (!room->load(roomNode, this->locPath.c_str()))
 		{
 			this->unloadContent();
 			return false;

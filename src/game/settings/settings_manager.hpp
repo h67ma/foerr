@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sfml/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include "../hud/hud.hpp"
 #include "setting.hpp"
 #include "../consts.hpp"

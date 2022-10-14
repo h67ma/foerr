@@ -1,7 +1,7 @@
 # Dependencies
 
 * [SFML](https://www.sfml-dev.org)
-* [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
+* [JSON for Modern C++](https://github.com/nlohmann/json)
 
 # Build
 ```

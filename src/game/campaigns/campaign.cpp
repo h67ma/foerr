@@ -1,6 +1,6 @@
-#include <filesystem>
 #include "campaign.hpp"
-#include "../util/util.hpp"
+#include <filesystem>
+#include "../util/json.hpp"
 #include "../consts.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
@@ -27,25 +27,25 @@ bool Campaign::load(std::string campaignDir)
 	// load basic campaign infos
 
 	std::string indexPath = pathCombine(campaignDir, std::string(FILENAME_INDEX));
-	Json::Value root;
+	json root;
 	if (!loadJsonFromFile(root, indexPath))
 	{
 		Log::e(STR_CAMPAIGN_LOAD_ERR, indexPath.c_str());
 		return false;
 	}
 
-	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
+	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
 		return false;
 
-	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
+	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
 		return false;
 
 	// TODO translate title & description
 
-	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_START_LOC, this->startLocation))
+	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_START_LOC, this->startLocation))
 		return false;
 
-	if (!parseJsonStringKey(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_BACKGROUND, this->worldMapBackgroundId))
+	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_BACKGROUND, this->worldMapBackgroundId))
 		return false;
 
 	// load locations inside this campaign

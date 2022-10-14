@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <json/json.h>
+#include "../util/json.hpp"
 
 #define ROOM_WIDTH_WITH_BORDER 7 // TODO 48
 #define ROOM_HEIGHT_WITH_BORDER 5 // TODO 25
@@ -30,6 +30,6 @@ class Room : sf::Drawable
 
 	public:
 		bool getDrawBackgroundFull();
-		bool load(Json::Value &root, const char* filePath);
+		bool load(const json &root, const char* filePath);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

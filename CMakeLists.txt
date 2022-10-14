@@ -13,5 +13,5 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
 endif()
 
 add_subdirectory(deps/sfml)
-add_subdirectory(deps/json)
+add_subdirectory(deps/nlohmann_json)
 add_subdirectory(src/game)

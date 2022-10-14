@@ -18,7 +18,7 @@ else()
 	add_compile_options(foerr PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
 
-target_link_libraries(foerr PRIVATE sfml-graphics sfml-window sfml-system sfml-audio jsoncpp_static)
+target_link_libraries(foerr PRIVATE sfml-graphics sfml-window sfml-system sfml-audio nlohmann_json)
 
 install(TARGETS foerr DESTINATION foerr)
 install(DIRECTORY "${PROJECT_BINARY_DIR}/../res" DESTINATION foerr)

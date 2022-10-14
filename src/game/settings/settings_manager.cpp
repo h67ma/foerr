@@ -1,10 +1,8 @@
-#include <fstream>
-#include <json/writer.h>
-#include <SFML/Graphics.hpp>
 #include "settings_manager.hpp"
 #include "../consts.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
+#include "../util/json.hpp"
 
 SettingsManager::SettingsManager()
 {
@@ -40,25 +38,21 @@ SettingsManager::SettingsManager()
 
 void SettingsManager::saveConfig()
 {
-	Json::Value root;
+	json root;
 
 	for (size_t i = 0; i < _SETTINGS_CNT; i++)
 	{
 		Setting *sett = &this->settings[i];
-
-		root[sett->getKey().c_str()] = sett->getJsonValue();
+		root.emplace(sett->getKey().c_str(), sett->getJsonValue());
 	}
 
-	std::ofstream file(PATH_SETTINGS);
-	file << root << std::endl;
-	file.close();
-
+	writeJsonToFile(root, PATH_SETTINGS);
 	Log::i("Saved settings");
 }
 
 void SettingsManager::loadConfig()
 {
-	Json::Value root;
+	json root;
 
 	if (!loadJsonFromFile(root, std::string(PATH_SETTINGS)))
 	{
@@ -71,21 +65,18 @@ void SettingsManager::loadConfig()
 	{
 		Setting *sett = &this->settings[i];
 
-		// TODO C related mystery for another time:
-		// why can't we do `key = sett->getKey().c_str();` and use it as a variable later?
-
-		if (!root.isMember(sett->getKey().c_str()))
+		auto search = root.find(sett->getKey());
+		if (search == root.end())
 		{
-			// settings file is missing this key
 			Log::w(STR_SETTINGS_KEY_MISSING, PATH_SETTINGS, sett->getKey().c_str());
 			continue;
 		}
 
 		try
 		{
-			sett->loadFromJson(root[sett->getKey().c_str()]);
+			sett->loadFromJson(search.value());
 		}
-		catch (const Json::LogicError &ex)
+		catch (const json::type_error &ex)
 		{
 			Log::w(STR_INVALID_TYPE_EX, PATH_SETTINGS, sett->getKey().c_str(), ex.what());
 		}

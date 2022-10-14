@@ -1,4 +1,3 @@
-#include <sstream>
 #include "setting.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
@@ -75,23 +74,23 @@ std::string Setting::getKey()
 /**
  * @returns setting's value, as Json node
  */
-Json::Value Setting::getJsonValue()
+json Setting::getJsonValue()
 {
 	Color color;
 
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
-			return Json::Value(val.logic);
+			return json(val.logic);
 			break;
 		case SETTING_COLOR:
 			color = Color(val.numeric);
-			return Json::Value(color.toString().c_str());
+			return json(color.toString());
 		case SETTING_ENUM_SCREEN_CORNER: // enums are ints anyway
 		case SETTING_ENUM_GUI_SCALE: // ditto
 		case SETTING_UINT:
 		default:
-			return Json::Value(val.numeric);
+			return json(val.numeric);
 	}
 }
 
@@ -100,17 +99,17 @@ Json::Value Setting::getJsonValue()
  *
  * @param value Json node with an elementary value
  */
-void Setting::loadFromJson(Json::Value value)
+void Setting::loadFromJson(const json &node)
 {
 	if (this->settingType == SETTING_BOOL)
 	{
-		val.logic = value.asBool();
+		val.logic = node;
 		Log::d(STR_LOADED_SETTING_D, key.c_str(), val.logic);
 	}
 	else if (this->settingType == SETTING_COLOR)
 	{
 		Color readColor;
-		std::string readString = std::string(value.asCString());
+		std::string readString = node;
 		if (!readColor.loadFromColorString(readString))
 		{
 			Log::w(STR_INVALID_COLOR_VALUE, readString.c_str(), key.c_str());
@@ -122,7 +121,7 @@ void Setting::loadFromJson(Json::Value value)
 	}
 	else if (this->settingType == SETTING_ENUM_SCREEN_CORNER )
 	{
-		int readEnum = value.asInt();
+		int readEnum = node;
 		if (readEnum >= _CORNER_CNT)
 		{
 			Log::w(STR_INVALID_VALUE, key.c_str(), readEnum);
@@ -134,7 +133,7 @@ void Setting::loadFromJson(Json::Value value)
 	}
 	else if (this->settingType == SETTING_ENUM_GUI_SCALE)
 	{
-		int readEnum = value.asInt();
+		int readEnum = node;
 		if (readEnum >= _GUI_SCALE_CNT)
 		{
 			Log::w(STR_INVALID_VALUE, key.c_str(), readEnum);
@@ -146,7 +145,7 @@ void Setting::loadFromJson(Json::Value value)
 	}
 	else // SETTING_UINT
 	{
-		uint readUint = value.asUInt();
+		uint readUint = node;
 		if (this->constraint != nullptr && !this->constraint(readUint))
 		{
 			Log::w(STR_INVALID_VALUE, key.c_str(), readUint);

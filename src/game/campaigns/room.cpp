@@ -1,4 +1,3 @@
-#include <json/reader.h>
 #include "room.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
@@ -38,58 +37,60 @@ bool Room::getDrawBackgroundFull()
  * @returns true on load success
  * @returns false on load fail
  */
-bool Room::load(Json::Value &root, const char* filePath)
+bool Room::load(const json &root, const char* filePath)
 {
 	// by default all rooms draw background full
-	parseJsonBoolKey(root, filePath, FOERR_JSON_KEY_SHOW_ROOM_BG, this->drawBackgroundFull, true);
+	parseJsonKey<bool>(root, filePath, FOERR_JSON_KEY_SHOW_ROOM_BG, this->drawBackgroundFull, true);
 
-	if (!root.isMember(FOERR_JSON_KEY_BLOCKS))
+	auto blocksSearch = root.find(FOERR_JSON_KEY_BLOCKS);
+	if (blocksSearch == root.end())
 	{
 		Log::e(STR_MISSING_KEY, filePath, FOERR_JSON_KEY_BLOCKS);
 		return false;
 	}
 
-	Json::Value node = root[FOERR_JSON_KEY_BLOCKS];
-	if (!node.isArray())
+	if (!blocksSearch->is_array())
 	{
 		Log::e(STR_INVALID_TYPE, filePath, FOERR_JSON_KEY_BLOCKS);
 		return false;
 	}
 
-	if (node.size() < ROOM_HEIGHT_WITH_BORDER)
+	if (blocksSearch->size() != ROOM_HEIGHT_WITH_BORDER)
 	{
-		Log::e(STR_ROOM_MISSING_DATA, filePath, FOERR_JSON_KEY_BLOCKS);
+		Log::e(STR_INVALID_ARR_SIZE, filePath, FOERR_JSON_KEY_BLOCKS);
 		return false;
 	}
 
-	for (uint i = 0; i < ROOM_HEIGHT_WITH_BORDER; i++)
+	for (auto it = blocksSearch->begin(); it != blocksSearch->end(); it++)
 	{
-		const char* line;
+		std::string line;
 
 		try
 		{
-			line = node[i].asCString();
+			line = (*it);
 		}
-		catch (const Json::LogicError &ex)
+		catch (const json::type_error &ex)
 		{
 			Log::e(STR_INVALID_TYPE_EX, filePath, FOERR_JSON_KEY_BLOCKS, ex.what());
 			return false;
 		}
 
-		if (strlen(line) != ROOM_LINE_WIDTH_WITH_BORDER)
+		if (line.length() != ROOM_LINE_WIDTH_WITH_BORDER)
 		{
-			Log::e(STR_ROOM_LINE_INVALID, filePath, FOERR_JSON_KEY_BLOCKS, strlen(line), ROOM_LINE_WIDTH_WITH_BORDER);
+			Log::e(STR_ROOM_LINE_INVALID, filePath, FOERR_JSON_KEY_BLOCKS, line.length(), ROOM_LINE_WIDTH_WITH_BORDER);
 			return false;
 		}
 
+		uint y = static_cast<uint>(std::distance(blocksSearch->begin(), it));
+
 		// finally, we can actually read the room data
-		for (uint j = 0; j < ROOM_WIDTH_WITH_BORDER; j++)
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			// j is the "regular" x index here, i.e. it points to an element in blocks/backgrounds array, not in json line
-			this->backgrounds[i][j] = line[j * ROOM_CHARS_PER_CELL];
-			this->backgrounds2[i][j] = line[(j * ROOM_CHARS_PER_CELL) + 1];
-			this->blocks[i][j] = line[(j * ROOM_CHARS_PER_CELL) + 2];
-			// line[(j * ROOM_CHARS_PER_CELL) + 3] should be '|', but we don't actually need to check it, some character just needs to be here.
+			// x is the "regular" horizontal index here, i.e. it points to an element in blocks/backgrounds array, not in json line
+			this->backgrounds[y][x] = line[x * ROOM_CHARS_PER_CELL];
+			this->backgrounds2[y][x] = line[(x * ROOM_CHARS_PER_CELL) + 1];
+			this->blocks[y][x] = line[(x * ROOM_CHARS_PER_CELL) + 2];
+			// line[(x * ROOM_CHARS_PER_CELL) + 3] should be '|', but we don't actually need to check it, some character just needs to be here.
 			// actually, because we skip the '|' at the end of the line, the character at the end would be 0.
 		}
 	}
