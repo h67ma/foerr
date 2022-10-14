@@ -174,8 +174,8 @@ bool PipBuckPageWorld::setupCampaignInfos()
 
 		this->mapButtons.emplace_back(
 			this->guiScale,
-			loc.getIsWorldMapIconBig(),
-			loc.getIsBasecamp(),
+			loc.isWorldMapIconBig(),
+			loc.isBasecamp(),
 			this->hudColor,
 			sf::Vector2u(WORLD_MAP_X + loc.getWorldMapCoords().x, WORLD_MAP_Y + loc.getWorldMapCoords().y),
 			iconTxt

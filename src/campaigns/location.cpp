@@ -34,13 +34,13 @@ bool Location::loadMeta()
 
 	// TODO translate title & description
 
-	if (!parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND, this->isGrind))
+	if (!parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND, this->grind))
 		return false;
 
-	if (!parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP, this->isBasecamp))
+	if (!parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP, this->basecamp))
 		return false;
 
-	if (this->isBasecamp && this->isGrind)
+	if (this->basecamp && this->grind)
 	{
 		// something stinks here...
 		Log::e(STR_LOC_INVALID_TYPES, this->locPath.c_str());
@@ -62,7 +62,7 @@ bool Location::loadMeta()
 	}
 
 	// not present -> default value (false)
-	parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->isWorldMapIconBig, true);
+	parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->worldMapIconBig, true);
 
 	Log::d(STR_LOADED_LOCATION_META, this->locPath.c_str());
 	return true;
@@ -254,14 +254,14 @@ sf::Vector2u Location::getWorldMapCoords()
 	return this->worldMapCoords;
 }
 
-bool Location::getIsBasecamp()
+bool Location::isBasecamp()
 {
-	return this->isBasecamp;
+	return this->basecamp;
 }
 
-bool Location::getIsWorldMapIconBig()
+bool Location::isWorldMapIconBig()
 {
-	return this->isWorldMapIconBig;
+	return this->worldMapIconBig;
 }
 
 uint Location::getRecommendedLevel()
@@ -291,7 +291,7 @@ sf::Vector2u Location::getPlayerRoomCoords()
 
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	if (this->currentRoom->getDrawBackgroundFull())
+	if (this->currentRoom->shouldDrawBackgroundFull())
 		target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
 
 	// note: stupid const methods are stupid.

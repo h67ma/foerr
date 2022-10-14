@@ -157,8 +157,8 @@ void Campaign::unloadSomeLocations(uint newIdx)
 	// when loading first location after creating this object,
 	// or after reset, currentLocationIdx is -1
 	if (this->currentLocationIdx != -1 &&
-		!this->locations[this->currentLocationIdx].getIsBasecamp() &&
-		this->locations[newIdx].getIsBasecamp())
+		!this->locations[this->currentLocationIdx].isBasecamp() &&
+		this->locations[newIdx].isBasecamp())
 		keepIdx = this->currentLocationIdx;
 
 	// we can't just unload last location (on the established conditions,
@@ -169,7 +169,7 @@ void Campaign::unloadSomeLocations(uint newIdx)
 	// we need to unload all which are not needed, just to be sure.
 	for (uint i = 0; i < this->locations.size(); i++)
 	{
-		if (i == newIdx || i == keepIdx || this->locations[i].getIsBasecamp())
+		if (i == newIdx || i == keepIdx || this->locations[i].isBasecamp())
 			continue;
 
 		this->locations[i].unloadContent();

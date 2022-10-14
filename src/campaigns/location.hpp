@@ -36,10 +36,10 @@ class Location : public sf::Drawable
 		std::string title;
 		std::string description;
 		sf::Vector2u worldMapCoords;
-		bool isWorldMapIconBig = false;
 		std::string worldMapIconId;
-		bool isGrind;
-		bool isBasecamp;
+		bool worldMapIconBig = false;
+		bool grind;
+		bool basecamp;
 		uint recommendedLevel = REC_LVL_EMPTY;
 		SpriteResource backgroundFullSprite;
 		RoomGrid rooms;
@@ -54,8 +54,8 @@ class Location : public sf::Drawable
 		std::string getTitle();
 		std::string getDescription();
 		sf::Vector2u getWorldMapCoords();
-		bool getIsWorldMapIconBig(); // gee, that's a mouthful
-		bool getIsBasecamp();
+		bool isWorldMapIconBig();
+		bool isBasecamp();
 		uint getRecommendedLevel();
 		std::string getWorldMapIconId();
 		bool gotoRoom(Direction direction);

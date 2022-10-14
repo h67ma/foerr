@@ -2,7 +2,7 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-bool Room::getDrawBackgroundFull()
+bool Room::shouldDrawBackgroundFull()
 {
 	return this->drawBackgroundFull;
 }

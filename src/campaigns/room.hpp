@@ -29,7 +29,7 @@ class Room : sf::Drawable
 		// TODO void flip(); // for mirroring room vertically, only for grind maps
 
 	public:
-		bool getDrawBackgroundFull();
+		bool shouldDrawBackgroundFull();
 		bool load(const json &root, const char* filePath);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
