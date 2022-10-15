@@ -21,7 +21,7 @@ bool Location::loadMeta()
 {
 	json root;
 
-	Log::d(STR_LOADING_LOCATION_META, this->locPath.c_str());
+	Log::v(STR_LOADING_LOCATION_META, this->locPath.c_str());
 
 	if (!loadJsonFromFile(root, this->locPath))
 		return false;
@@ -64,7 +64,7 @@ bool Location::loadMeta()
 	// not present -> default value (false)
 	parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->worldMapIconBig, true);
 
-	Log::d(STR_LOADED_LOCATION_META, this->locPath.c_str());
+	Log::v(STR_LOADED_LOCATION_META, this->locPath.c_str());
 	return true;
 }
 
@@ -88,7 +88,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 
 	this->unloadContent();
 
-	Log::d(STR_LOADING_LOCATION_CONTENT, this->locPath.c_str());
+	Log::v(STR_LOADING_LOCATION_CONTENT, this->locPath.c_str());
 
 	if (!loadJsonFromFile(root, this->locPath))
 		return false;
@@ -224,7 +224,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 	// so for now let's assume that the creator of location will make sure that
 	// all required rooms are reachable.
 
-	Log::d(STR_LOADED_LOCATION_CONTENT, this->locPath.c_str());
+	Log::v(STR_LOADED_LOCATION_CONTENT, this->locPath.c_str());
 	return true;
 }
 
