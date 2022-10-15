@@ -11,6 +11,7 @@
 
 // paths
 #define PATH_SETTINGS "config.json"
+#define PATH_KEYMAP "keymap.json"
 #define PATH_LOGFILE "foerr.log"
 #define PATH_CURSOR_ARROW "res/hud/cursor/cursor.png"
 #define PATH_CURSOR_CROSS_WHITE "res/hud/cursor/crosshair_white.png"

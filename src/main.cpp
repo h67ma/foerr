@@ -21,6 +21,7 @@
 #include "hud/pipbuck/pipbuck.hpp"
 #include "hud/main_menu.hpp"
 #include "hud/loading_screen.hpp"
+#include "settings/keymap.hpp"
 
 //void stackTraceHandler(int sig) {
 //	void *array[STACKTRACE_MAX_CNT];
@@ -88,6 +89,15 @@ int main()
 		window.close();
 		exit(1);
 	}
+
+	if (!Keymap::setup())
+	{
+		Log::e(STR_KEYMAP_SETUP_FAIL);
+		window.close();
+		exit(1);
+	}
+
+	Keymap::load();
 
 	FpsMeter fpsMeter(initialScale, *resManager.getFont(FONT_NORMAL));
 	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowW, windowH);
@@ -327,20 +337,18 @@ int main()
 				}
 				else if (event.type == sf::Event::KeyPressed)
 				{
-					// TODO get appropriate action from control map
-
-					if (event.key.code == sf::Keyboard::Tab || event.key.code == sf::Keyboard::Escape)
+					switch (Keymap::keyToAction(event.key.code))
 					{
-						pipBuck.open();
-					}
-					else if (event.key.code == sf::Keyboard::F11)
-					{
-						toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
-					}
-					else if (event.key.code == sf::Keyboard::N)
-					{
-						pipBuck.switchToPage(PIPB_PAGE_WORLD, true);
-						pipBuck.open();
+						case ACTION_PIPBUCK_TOGGLE_OPEN:
+							pipBuck.open();
+							break;
+						case ACTION_PIPBUCK_GOTO_WORLDMAP:
+							pipBuck.switchToPage(PIPB_PAGE_WORLD, true);
+							pipBuck.open();
+							break;
+						case ACTION_TOGGLE_FULLSCREEN:
+							toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
+							break;
 					}
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)
@@ -368,19 +376,17 @@ int main()
 				}
 				else if (event.type == sf::Event::KeyPressed)
 				{
-					// TODO get appropriate action from control map
-
-					if (event.key.code == sf::Keyboard::F11)
+					switch (Keymap::keyToAction(event.key.code))
 					{
-						toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
-					}
-					else if (event.key.code == sf::Keyboard::Tab || event.key.code == sf::Keyboard::Escape)
-					{
-						pipBuck.close();
-					}
-					else if (event.key.code == sf::Keyboard::N)
-					{
-						pipBuck.switchToPage(PIPB_PAGE_WORLD);
+						case ACTION_PIPBUCK_TOGGLE_OPEN:
+							pipBuck.close();
+							break;
+						case ACTION_PIPBUCK_GOTO_WORLDMAP:
+							pipBuck.switchToPage(PIPB_PAGE_WORLD);
+							break;
+						case ACTION_TOGGLE_FULLSCREEN:
+							toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
+							break;
 					}
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)

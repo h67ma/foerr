@@ -54,7 +54,7 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 			{ PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(scale, hudColor, resMgr, campaign, gameState) },
 			{ PIPB_PAGE_SAVE, std::make_shared<PipBuckPageSave>(resMgr) },
 			{ PIPB_PAGE_SETTINGS, std::make_shared<PipBuckPageSettings>(scale, hudColor, resMgr, settings) },
-			{ PIPB_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr) },
+			{ PIPB_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr, scale, hudColor) },
 			{ PIPB_PAGE_LOG, std::make_shared<PipBuckPageLog>(resMgr) }
 		} } }
 	},
