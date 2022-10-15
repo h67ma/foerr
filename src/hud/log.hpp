@@ -3,25 +3,12 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include "../util/util.hpp"
 #include "log_element_text.hpp"
 #include "../consts.hpp"
 #include "../hud/hud.hpp"
-
-/**
- * This is pretty bad, but still better than passing the Log object
- * everywhere we need to log something...
- * pls don't access members prefixed with `_` :)
- */
-namespace Log
-{
-#define LOG_UPDATE_FREQUENCY_MS 200U
-
-#define LOG_ANCHOR_PADDING_LEFT 7U
-#define LOG_ANCHOR_NEG_PADDING_RIGHT 7U
-#define LOG_ANCHOR_PADDING_TOP 2U
-#define LOG_ANCHOR_NEG_PADDING_BOTTOM 7U
 
 #define LOG_PREFIX_ERROR	"[ERRO] "
 #define LOG_PREFIX_WARNING	"[WARN] "
@@ -29,101 +16,109 @@ namespace Log
 #define LOG_PREFIX_DEBUG	"[DEBG] "
 #define LOG_PREFIX_VERBOSE	"[VERB] "
 
-	extern sf::Font *_font;
-	extern bool _writeLogToFile;
-	extern bool _printMsgs;
-	extern bool _verboseDebug;
-	extern GuiScale _scale;
-	extern uint _fontGap;
-	extern std::list<std::unique_ptr<LogElementText>> _history;
+class Log
+{
+	private:
+		static sf::Font *font;
+		static ScreenCorner anchor;
+		static uint windowW;
+		static uint windowH;
+		static bool writeLogToFile;
+		static bool printMsgs;
+		static bool verboseDebug;
+		static GuiScale scale;
+		static uint fontGap;
+		static std::list<std::unique_ptr<LogElementText>> history;
+		static sf::Clock clock;
+		static std::ofstream logFile;
+		static void logToFile(const char* prefix, std::string msg);
+		static void logStderr(const char* prefix, std::string msg);
 
-	void _logToFile(const char* prefix, std::string msg);
-	void _logStderr(const char* prefix, std::string msg);
+	public:
+		static void setFont(sf::Font *font);
+		static void setPosition(ScreenCorner anchor, uint windowW, uint windowH);
+		static void setWriteLogToFile(bool writeLogToFile);
+		static void setPrintMsgs(bool printMsgs);
+		static void setVerboseDebug(bool verboseDebug);
+		static void setGuiScale(GuiScale scale);
+		static void maybeUpdate(bool force=false);
+		static void draw(sf::RenderTarget &target);
+		static void close();
 
-	void setFont(sf::Font *font);
-	void setPosition(ScreenCorner anchor, uint windowW, uint windowH);
-	void setWriteLogToFile(bool writeLogToFile);
-	void setPrintMsgs(bool printMsgs);
-	void setVerboseDebug(bool verboseDebug);
-	void setGuiScale(GuiScale scale);
-	void maybeUpdate(bool force=false);
-	void draw(sf::RenderTarget &target);
-	void close();
+		/**
+		 * Adds a formatted message to the game log. Both `fmt` and `args` must not contain newlines.
+		 */
+		template<typename... T>
+		static void log(const char* prefix, sf::Color color, bool hideInGui, const char *fmt, T... args)
+		{
+			// TODO problem: translations will be loaded from file and can specify arbitrary (incorrect) format strings,
+			// e.g. "number format %s" which is supposed to load a %d, not %s. this can lead to crashes and potentially memory exploits.
+			// for now it will do, but in the future replace it with some custom implementation that detects incorrect format string.
+			// e.g. log("user defined %f string %d", "sd", "format", 3000) - "sd" meaning the format string *must* contain %s followed by %d.
+			// otherwise it will print an error msg.
+			// another approach would be to check user format strings as they are loaded from file. this could be pretty tedious, as we'd have to check every single string
 
-	/**
-	 * Adds a formatted message to the game log. Both `fmt` and `args` must not contain newlines.
-	 */
-	template<typename... T>
-	void log(const char* prefix, sf::Color color, bool hideInGui, const char *fmt, T... args)
-	{
-		// TODO problem: translations will be loaded from file and can specify arbitrary (incorrect) format strings,
-		// e.g. "number format %s" which is supposed to load a %d, not %s. this can lead to crashes and potentially memory exploits.
-		// for now it will do, but in the future replace it with some custom implementation that detects incorrect format string.
-		// e.g. log("user defined %f string %d", "sd", "format", 3000) - "sd" meaning the format string *must* contain %s followed by %d.
-		// otherwise it will print an error msg.
-		// another approach would be to check user format strings as they are loaded from file. this could be pretty tedious, as we'd have to check every single string
+			std::string formatted = litSprintf(fmt, args...);
 
-		std::string formatted = litSprintf(fmt, args...);
+			if (Log::printMsgs)
+				Log::logStderr(prefix, formatted);
 
-		if (_printMsgs)
-			_logStderr(prefix, formatted);
+			if (Log::writeLogToFile)
+				Log::logToFile(prefix, formatted);
 
-		if (_writeLogToFile)
-			_logToFile(prefix, formatted);
+			// don't display debug msgs in hud, or any messages whatsoever when gui is not initialized
+			if (hideInGui || Log::font == nullptr)
+				return;
 
-		// don't display debug msgs in hud, or any messages whatsoever when gui is not initialized
-		if (hideInGui || _font == nullptr)
-			return;
+			Log::history.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font, Log::scale, color));
+			maybeUpdate(true);
+		}
 
-		_history.emplace_back(std::make_unique<LogElementText>(formatted, *_font, _scale, color));
-		maybeUpdate(true);
-	}
+		/**
+		 * Logs a critical message.
+		 */
+		template<typename... T>
+		static inline void e(const char *fmt, T... args)
+		{
+			log(LOG_PREFIX_ERROR, sf::Color::Red, false, fmt, args...);
+		}
 
-	/**
-	 * Logs a critical message.
-	 */
-	template<typename... T>
-	inline void e(const char *fmt, T... args)
-	{
-		log(LOG_PREFIX_ERROR, sf::Color::Red, false, fmt, args...);
-	}
+		/**
+		 * Logs a warning message.
+		 */
+		template<typename... T>
+		static inline void w(const char *fmt, T... args)
+		{
+			log(LOG_PREFIX_WARNING, sf::Color::Yellow, false, fmt, args...);
+		}
 
-	/**
-	 * Logs a warning message.
-	 */
-	template<typename... T>
-	inline void w(const char *fmt, T... args)
-	{
-		log(LOG_PREFIX_WARNING, sf::Color::Yellow, false, fmt, args...);
-	}
+		/**
+		 * Logs a message.
+		 */
+		template<typename... T>
+		static inline void i(const char *fmt, T... args)
+		{
+			log(LOG_PREFIX_INFO, sf::Color::White, false, fmt, args...);
+		}
 
-	/**
-	 * Logs a message.
-	 */
-	template<typename... T>
-	inline void i(const char *fmt, T... args)
-	{
-		log(LOG_PREFIX_INFO, sf::Color::White, false, fmt, args...);
-	}
+		/**
+		 * Logs a debug message. Not visible in game hud.
+		 */
+		template<typename... T>
+		static inline void d(const char *fmt, T... args)
+		{
+			log(LOG_PREFIX_DEBUG, sf::Color::Cyan, true, fmt, args...);
+		}
 
-	/**
-	 * Logs a debug message. Not visible in game hud.
-	 */
-	template<typename... T>
-	inline void d(const char *fmt, T... args)
-	{
-		log(LOG_PREFIX_DEBUG, sf::Color::Cyan, true, fmt, args...);
-	}
+		/**
+		 * Logs a verbose message. Not visible in game hud. SETT_VERBOSE_DEBUG needs to be enabled.
+		 */
+		template<typename... T>
+		static void v(const char *fmt, T... args)
+		{
+			if (!Log::verboseDebug)
+				return;
 
-	/**
-	 * Logs a verbose message. Not visible in game hud. SETT_VERBOSE_DEBUG needs to be enabled.
-	 */
-	template<typename... T>
-	void v(const char *fmt, T... args)
-	{
-		if (!_verboseDebug)
-			return;
-
-		log(LOG_PREFIX_VERBOSE, sf::Color::Blue, true, fmt, args...);
-	}
-}
+			log(LOG_PREFIX_VERBOSE, sf::Color::Blue, true, fmt, args...);
+		}
+};
