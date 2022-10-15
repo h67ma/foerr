@@ -564,6 +564,14 @@ int main()
 			{
 				// TODO autosave if campaign loaded
 				Log::d(STR_SHUTTING_DOWN);
+
+				for (Animation* animation : animations)
+				{
+					delete animation;
+				}
+
+				Log::close();
+
 				window.close();
 			}
 			else if (event.type == sf::Event::Resized)
@@ -638,11 +646,6 @@ int main()
 		}
 
 		window.display();
-	}
-
-	for (Animation* animation : animations)
-	{
-		delete animation;
 	}
 
 	return 0;
