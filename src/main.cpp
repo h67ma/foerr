@@ -283,15 +283,15 @@ int main()
 	sf::RenderTexture renderTxt;
 	if (!renderTxt.create(500, 500))
 		return -1;
-	sf::Sprite vent(*resManager.getTexture("res/texture/rubble/vent.png"));
-	sf::Sprite terminal(*resManager.getTexture("res/texture/rubble/terminal_red.png"));
-	terminal.setPosition(100, 0);
-	sf::Sprite stove(*resManager.getTexture("res/texture/rubble/stove.png"));
-	stove.setPosition(200, 0);
+	SpriteResource vent(resManager.getTexture("res/texture/rubble/vent.png"));
+	SpriteResource terminal(resManager.getTexture("res/texture/rubble/terminal_red.png"));
+	terminal.get().setPosition(100, 0);
+	SpriteResource stove(resManager.getTexture("res/texture/rubble/stove.png"));
+	stove.get().setPosition(200, 0);
 	renderTxt.clear();
-	renderTxt.draw(vent);
-	renderTxt.draw(terminal);
-	renderTxt.draw(stove);
+	renderTxt.draw(vent.get());
+	renderTxt.draw(terminal.get());
+	renderTxt.draw(stove.get());
 	renderTxt.display();
 	sf::Sprite bufferSprite(renderTxt.getTexture());
 	bufferSprite.setPosition(100, 700);
