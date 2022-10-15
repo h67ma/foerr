@@ -75,19 +75,19 @@ int main()
 	window.draw(loadingScreen);
 	window.display();
 
-	if (!resManager.loadCore())
-	{
-		Log::e(STR_LOAD_CORE_FAIL);
-		window.close();
-		exit(1);
-	}
-
 	Log::setFont(resManager.getFont(FONT_NORMAL));
 	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowW, windowH);
 	Log::setWriteLogToFile(settings.getBool(SETT_WRITE_LOG_TO_FILE));
 	Log::setPrintMsgs(settings.getBool(SETT_PRINT_MSGS));
 	Log::setVerboseDebug(settings.getBool(SETT_VERBOSE_DEBUG));
 	Log::setGuiScale(initialScale);
+
+	if (!resManager.loadCore())
+	{
+		Log::e(STR_LOAD_CORE_FAIL);
+		window.close();
+		exit(1);
+	}
 
 	FpsMeter fpsMeter(initialScale, *resManager.getFont(FONT_NORMAL));
 	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowW, windowH);
