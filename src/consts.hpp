@@ -53,14 +53,6 @@ enum GameState
 	STATE_PIPBUCK,
 };
 
-enum ClickStatus
-{
-	CLICK_NOT_CONSUMED,
-	CLICK_CONSUMED,
-	CLICK_CONSUMED_CLOSE,	// special status used to signal that PipBuck should be closed when a special child button was pressed
-	CLICK_CONSUMED_UNLOAD,	// special status used to signal that PipBuck should unload its campaign infos
-};
-
 enum Direction
 {
 	DIR_LEFT,

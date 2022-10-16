@@ -6,6 +6,7 @@
 #include "../hud.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../hover_manager.hpp"
+#include "../clickable.hpp"
 #include "pipbuck_page.hpp"
 #include "../../campaigns/campaign.hpp"
 #include "../../resources/sound_resource.hpp"

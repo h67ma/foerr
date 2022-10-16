@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "../hover_manager.hpp"
+#include "../click_manager.hpp"
 #include "../../campaigns/campaign.hpp"
 #include "../../consts.hpp"
 
@@ -41,10 +42,11 @@ class PipBuckPage : public sf::Drawable, public sf::Transformable
 {
 	protected:
 		HoverManager hoverMgr;
+		ClickManager clickMgr; // TODO delet if too many pages will implement a custom ::handleLeftClick()
 		sf::Text dummy; // TODO delet this
 
 	public:
-		virtual ClickStatus handleLeftClick(int x, int y) { return CLICK_NOT_CONSUMED; };
+		virtual ClickStatus handleLeftClick(int x, int y);
 		virtual bool handleMouseMove(int x, int y);
 		virtual bool setupCampaignInfos() { return true; };
 		virtual void unloadCampaignInfos() { };

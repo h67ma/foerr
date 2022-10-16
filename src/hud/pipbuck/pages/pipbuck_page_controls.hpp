@@ -16,7 +16,6 @@ class PipBuckPageControls : public PipBuckPage
 
 	public:
 		PipBuckPageControls(ResourceManager &resMgr, GuiScale scale, sf::Color hudColor);
-		ClickStatus handleLeftClick(int x, int y) override;
 		std::string getLabel() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

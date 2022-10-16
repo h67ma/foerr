@@ -11,18 +11,8 @@ PipBuckPageSettings::PipBuckPageSettings(GuiScale scale, sf::Color hudColor, Res
 	for (auto &btn : this->buttons)
 	{
 		this->hoverMgr.addHoverable(&btn);
+		this->clickMgr.addClickable(&btn);
 	}
-}
-
-ClickStatus PipBuckPageSettings::handleLeftClick(int x, int y)
-{
-	for (auto &btn : this->buttons)
-	{
-		if (btn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
-			return CLICK_CONSUMED;
-	}
-
-	return CLICK_NOT_CONSUMED;
 }
 
 std::string PipBuckPageSettings::getLabel()

@@ -42,25 +42,14 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 	for (auto &btn : this->buttons)
 	{
 		this->hoverMgr.addHoverable(&btn);
+		this->clickMgr.addClickable(&btn);
 	}
 }
 
-ClickStatus MainMenu::handleLeftClick(int x, int y)
+void MainMenu::handleLeftClick(int x, int y)
 {
-	// account for this component's position
-	x -= static_cast<int>(this->getPosition().x);
-	y -= static_cast<int>(this->getPosition().y);
-
-	for (auto &btn : this->buttons)
-	{
-		if (btn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
-		{
-			this->btnSound.get().play();
-			return CLICK_CONSUMED;
-		}
-	}
-
-	return CLICK_NOT_CONSUMED;
+	if (this->clickMgr.handleLeftClick(x, y, this->getPosition()) == CLICK_CONSUMED)
+		this->btnSound.get().play();
 }
 
 void MainMenu::handleMouseMove(int x, int y)

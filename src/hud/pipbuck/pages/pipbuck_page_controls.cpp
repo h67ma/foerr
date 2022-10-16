@@ -20,6 +20,7 @@ PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr, GuiScale scale
 	for (auto &btn : this->buttons)
 	{
 		this->hoverMgr.addHoverable(&btn);
+		this->clickMgr.addClickable(&btn);
 	}
 
 	this->dummyMapDump.setFont(*resMgr.getFont(FONT_NORMAL));
@@ -39,17 +40,6 @@ void PipBuckPageControls::updateDisplay()
 	}
 
 	this->dummyMapDump.setString(dump);
-}
-
-ClickStatus PipBuckPageControls::handleLeftClick(int x, int y)
-{
-	for (auto &btn : this->buttons)
-	{
-		if (btn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
-			return CLICK_CONSUMED;
-	}
-
-	return CLICK_NOT_CONSUMED;
 }
 
 std::string PipBuckPageControls::getLabel()

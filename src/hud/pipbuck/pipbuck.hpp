@@ -5,6 +5,7 @@
 #include "../buttons/simple_button.hpp"
 #include "../../resources/resource_manager.hpp"
 #include "../hover_manager.hpp"
+#include "../clickable.hpp"
 #include "../hud.hpp"
 #include "pipbuck_category.hpp"
 #include "../../campaigns/campaign.hpp"
