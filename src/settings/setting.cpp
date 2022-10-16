@@ -66,7 +66,7 @@ void Setting::resetToDefault()
 	}
 }
 
-std::string Setting::getKey()
+const std::string Setting::getKey()
 {
 	return this->key;
 }
@@ -74,7 +74,7 @@ std::string Setting::getKey()
 /**
  * @returns setting's value, as Json node
  */
-json Setting::getJsonValue()
+const json Setting::getJsonValue()
 {
 	Color color;
 

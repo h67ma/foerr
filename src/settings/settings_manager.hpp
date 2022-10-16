@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <SFML/Graphics/Color.hpp>
 #include "../hud/hud.hpp"
 #include "setting.hpp"
@@ -23,7 +24,7 @@ enum SettingName
 	SETT_WINDOW_HEIGHT,
 	SETT_PRINT_MSGS,
 	SETT_VERBOSE_DEBUG,
-	_SETTINGS_CNT
+	_SETTINGS_CNT // must be the last element
 };
 
 /**
@@ -46,7 +47,8 @@ enum SettingName
 class SettingsManager
 {
 	private:
-		Setting settings[_SETTINGS_CNT];
+		std::vector<Setting> settings;
+
 	public:
 		SettingsManager();
 		void saveConfig();

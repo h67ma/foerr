@@ -6,6 +6,8 @@
 
 SettingsManager::SettingsManager()
 {
+	this->settings.resize(_SETTINGS_CNT);
+
 	// window
 	this->settings[SETT_FULLSCREEN_ENABLED].setupBool("fullscreen_enabled", false);
 	this->settings[SETT_FPS_LIMIT_ENABLED].setupBool("fps_limit_enabled", true);
@@ -40,10 +42,9 @@ void SettingsManager::saveConfig()
 {
 	json root;
 
-	for (size_t i = 0; i < _SETTINGS_CNT; i++)
+	for (auto &sett : this->settings)
 	{
-		Setting *sett = &this->settings[i];
-		root.emplace(sett->getKey().c_str(), sett->getJsonValue());
+		root.emplace(sett.getKey(), sett.getJsonValue());
 	}
 
 	writeJsonToFile(root, PATH_SETTINGS);
@@ -61,24 +62,22 @@ void SettingsManager::loadConfig()
 		return;
 	}
 
-	for (size_t i = 0; i < _SETTINGS_CNT; i++)
+	for (auto &sett : this->settings)
 	{
-		Setting *sett = &this->settings[i];
-
-		auto search = root.find(sett->getKey());
+		auto search = root.find(sett.getKey());
 		if (search == root.end())
 		{
-			Log::w(STR_SETTINGS_KEY_MISSING, PATH_SETTINGS, sett->getKey().c_str());
+			Log::w(STR_SETTINGS_KEY_MISSING, PATH_SETTINGS, sett.getKey().c_str());
 			continue;
 		}
 
 		try
 		{
-			sett->loadFromJson(search.value());
+			sett.loadFromJson(search.value());
 		}
 		catch (const json::type_error &ex)
 		{
-			Log::w(STR_INVALID_TYPE_EX, PATH_SETTINGS, sett->getKey().c_str(), ex.what());
+			Log::w(STR_INVALID_TYPE_EX, PATH_SETTINGS, sett.getKey().c_str(), ex.what());
 		}
 	}
 }

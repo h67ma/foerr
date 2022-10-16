@@ -40,7 +40,7 @@ class Setting
 		void setupScreenCorner(std::string key, ScreenCorner defaultValue);
 		void setupGuiScale(std::string key, GuiScale guiScale);
 		void resetToDefault();
-		std::string getKey();
-		json getJsonValue();
+		const std::string getKey();
+		const json getJsonValue();
 		void loadFromJson(const json &node);
 };
