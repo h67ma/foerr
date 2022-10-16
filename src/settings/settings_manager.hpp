@@ -29,6 +29,19 @@ enum SettingName
 /**
  * The SettingsManager class is a "live" representation of settings.
  * All changes to settings are temporary, unless they are written to the settings file.
+ *
+ * Current strategy:
+ * At the start, we initialize various objects with settings read from the SettingsManager
+ * object. When settings change, main calls the proper update methods for all objects
+ * which should adjust their behaviour/display according to the new settings (new values
+ * passed as args, or via a ref to SettingsManager).
+ *
+ * Alternate strategy:
+ * Objects which rely on various settings could register a callback to SettingsManager
+ * (callbacks would be stored in a vector), the callback being responsible for updating
+ * the object on settings change. We could then simply call all these callbacks from
+ * inside SettingsManager. SettingsManager could be even made static, to avoid passing
+ * the object everywhere.
  */
 class SettingsManager
 {
