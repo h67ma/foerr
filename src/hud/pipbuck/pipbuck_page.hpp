@@ -34,6 +34,9 @@ enum PipBuckPageType
  * Represents an abstract PipBuck page (e.g. Armor).
  * TODO Might display additional elements outside PipBuck screen area (e.g. question mark button).
  *
+ * Note: since pages are not moved relatively to category, there's no need to subtract parent
+ * component position in ::handleLeftClick() and ::handleMouseMove().
+ *
  * TODO define an area where all page contents are contained. Then when handling clicks/hover events
  * first check if coordinates are within the defined area. This way, if the point is outside page bounds,
  * we can skip checking controls inside the page altogether.

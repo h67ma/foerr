@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <SFML/System/Vector2.hpp>
 #include "hoverable.hpp"
 
 #define NO_HOVER_IDX -1
@@ -38,7 +39,7 @@ class HoverManager
 
 	public:
 		void addHoverable(Hoverable *hoverable);
-		bool handleMouseMove(int x, int y);
+		bool handleMouseMove(int x, int y, sf::Vector2f relPosition);
 		void removeHover();
 		void clear();
 };

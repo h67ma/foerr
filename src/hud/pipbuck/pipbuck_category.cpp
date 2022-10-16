@@ -98,16 +98,16 @@ ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
 	return CLICK_NOT_CONSUMED;
 }
 
-bool PipBuckCategory::handleMouseMove(int x, int y)
+bool PipBuckCategory::handleMouseMove(int x, int y, sf::Vector2f relPosition)
 {
 	// account for this component's position
-	x -= static_cast<int>(this->getPosition().x);
-	y -= static_cast<int>(this->getPosition().y);
+	x -= static_cast<int>(relPosition.x);
+	y -= static_cast<int>(relPosition.y);
 
 	if (this->pages.at(this->selectedPage)->handleMouseMove(x, y))
 		return true;
 
-	return this->hoverMgr.handleMouseMove(x, y);
+	return this->hoverMgr.handleMouseMove(x, y, this->getPosition());
 }
 
 /**

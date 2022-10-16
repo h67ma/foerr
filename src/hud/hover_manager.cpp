@@ -2,7 +2,7 @@
 
 void HoverManager::addHoverable(Hoverable *hoverable)
 {
-	this->hoverables.push_back(hoverable);
+	this->hoverables.emplace_back(hoverable);
 }
 
 /**
@@ -32,13 +32,20 @@ bool HoverManager::searchSetHover(int x, int y)
 }
 
 /**
+ * Handles mouse move for managed Hoverables.
+ *
  * @param x the x mouse coordinate
  * @param y the y mouse coordinate
+ * @param relPosition position of the parent component
  * @returns true if any element managed by this object is being hovered over
  * @returns false if no element managed by this object is being hovered over
  */
-bool HoverManager::handleMouseMove(int x, int y)
+bool HoverManager::handleMouseMove(int x, int y, sf::Vector2f relPosition)
 {
+	// account for the component's position
+	x -= static_cast<int>(relPosition.x);
+	y -= static_cast<int>(relPosition.y);
+
 	if (this->lastHoveredIdx == NO_HOVER_IDX)
 	{
 		// there was no item which we hovered over previously.

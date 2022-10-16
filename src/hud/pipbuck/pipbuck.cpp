@@ -176,14 +176,10 @@ ClickStatus PipBuck::handleLeftClick(int x, int y)
 
 void PipBuck::handleMouseMove(int x, int y)
 {
-	// account for this component's position
-	x -= static_cast<int>(this->getPosition().x);
-	y -= static_cast<int>(this->getPosition().y);
-
-	if (this->categories.at(this->selectedCategory).handleMouseMove(x, y))
+	if (this->categories.at(this->selectedCategory).handleMouseMove(x, y, this->getPosition()))
 		return; // hover "consumed"
 
-	this->hoverMgr.handleMouseMove(x, y);
+	this->hoverMgr.handleMouseMove(x, y, this->getPosition());
 }
 
 /**

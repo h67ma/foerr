@@ -91,19 +91,15 @@ ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
 
 bool PipBuckPageWorld::handleMouseMove(int x, int y)
 {
-	// account for this component's position
-	x -= static_cast<int>(this->getPosition().x);
-	y -= static_cast<int>(this->getPosition().y);
-
 	// if hover was outside map area, then no point in checking map buttons
 	if (this->mapBg.get().getGlobalBounds().contains(static_cast<float>(x), static_cast<float>(y)))
 	{
-		if (this->mapButtonHoverMgr.handleMouseMove(x, y))
+		if (this->mapButtonHoverMgr.handleMouseMove(x, y, this->getPosition()))
 			return true;
 	}
 
 	if (this->selectedLocationIdx != NO_LOCATION_SELECTED && this->selectedLocationIdx != this->campaign.getCurrentLocationIdx())
-		return this->hoverMgr.handleMouseMove(x, y);
+		return this->hoverMgr.handleMouseMove(x, y, this->getPosition());
 
 	return false;
 }

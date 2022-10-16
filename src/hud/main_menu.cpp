@@ -54,11 +54,7 @@ void MainMenu::handleLeftClick(int x, int y)
 
 void MainMenu::handleMouseMove(int x, int y)
 {
-	// account for this component's position
-	x -= static_cast<int>(this->getPosition().x);
-	y -= static_cast<int>(this->getPosition().y);
-
-	this->hoverMgr.handleMouseMove(x, y);
+	this->hoverMgr.handleMouseMove(x, y, this->getPosition());
 }
 
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const

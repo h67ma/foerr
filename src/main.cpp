@@ -497,7 +497,7 @@ int main()
 			{
 				if (event.type == sf::Event::MouseMoved)
 				{
-					hoverMgr.handleMouseMove(event.mouseMove.x, event.mouseMove.y);
+					hoverMgr.handleMouseMove(event.mouseMove.x, event.mouseMove.y, { 0.f, 0.f });
 				}
 				else if (event.type == sf::Event::KeyPressed)
 				{
