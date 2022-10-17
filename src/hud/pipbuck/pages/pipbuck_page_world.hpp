@@ -28,11 +28,12 @@ class PipBuckPageWorld : public PipBuckPage
 		HoverManager mapButtonHoverMgr;
 		int selectedLocationIdx = NO_LOCATION_SELECTED; // note: different from the one in Campaign (only represents selection on page)
 		void setupMapDecorations();
+		bool mapContainsPoint(sf::Vector2i point);
 
 	public:
 		PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign);
-		ClickStatus handleLeftClick(int x, int y) override;
-		bool handleMouseMove(int x, int y) override;
+		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
+		bool handleMouseMove(sf::Vector2i mousePos) override;
 		std::string getLabel() override;
 		bool setupCampaignInfos() override;
 		void unloadCampaignInfos() override;

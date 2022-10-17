@@ -18,7 +18,7 @@ class MainMenu : public sf::Drawable, public sf::Transformable
 
 	public:
 		MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState, PipBuck &pipBuck);
-		void handleLeftClick(int x, int y);
-		void handleMouseMove(int x, int y);
+		void handleLeftClick(sf::Vector2i clickPos);
+		void handleMouseMove(sf::Vector2i mousePos);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

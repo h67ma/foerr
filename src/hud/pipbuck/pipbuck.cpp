@@ -133,13 +133,11 @@ bool PipBuck::changeCategory(PipBuckCategoryType categoryType)
 	return true;
 }
 
-ClickStatus PipBuck::handleLeftClick(int x, int y)
+ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 {
-	// account for this component's position
-	x -= static_cast<int>(this->getPosition().x);
-	y -= static_cast<int>(this->getPosition().y);
+	clickPos -= static_cast<sf::Vector2i>(this->getPosition());
 
-	ClickStatus catResult = this->categories.at(this->selectedCategory).handleLeftClick(x, y);
+	ClickStatus catResult = this->categories.at(this->selectedCategory).handleLeftClick(clickPos);
 	if (catResult == CLICK_CONSUMED)
 		return CLICK_CONSUMED;
 	else if (catResult == CLICK_CONSUMED_CLOSE)
@@ -160,7 +158,7 @@ ClickStatus PipBuck::handleLeftClick(int x, int y)
 
 	for (auto &btn : this->categoryButtons)
 	{
-		if (btn.second.containsPoint(x, y))
+		if (btn.second.containsPoint(clickPos))
 		{
 			if (btn.first != this->selectedCategory)
 			{
@@ -171,15 +169,17 @@ ClickStatus PipBuck::handleLeftClick(int x, int y)
 		}
 	}
 
-	return this->closeBtn.handleLeftClick(x, y);
+	return this->closeBtn.handleLeftClick(clickPos);
 }
 
-void PipBuck::handleMouseMove(int x, int y)
+void PipBuck::handleMouseMove(sf::Vector2i mousePos)
 {
-	if (this->categories.at(this->selectedCategory).handleMouseMove(x, y, this->getPosition()))
+	mousePos -= static_cast<sf::Vector2i>(this->getPosition());
+
+	if (this->categories.at(this->selectedCategory).handleMouseMove(mousePos))
 		return; // hover "consumed"
 
-	this->hoverMgr.handleMouseMove(x, y, this->getPosition());
+	this->hoverMgr.handleMouseMove(mousePos);
 }
 
 /**

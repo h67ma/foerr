@@ -10,9 +10,11 @@ PipBuckPageLoad::PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceMan
 	this->hoverMgr.addHoverable(&this->exitBtn);
 }
 
-ClickStatus PipBuckPageLoad::handleLeftClick(int x, int y)
+ClickStatus PipBuckPageLoad::handleLeftClick(sf::Vector2i clickPos)
 {
-	if (this->exitBtn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+	clickPos -= static_cast<sf::Vector2i>(this->getPosition());
+
+	if (this->exitBtn.handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
 		return CLICK_CONSUMED_UNLOAD;
 
 	return CLICK_NOT_CONSUMED;

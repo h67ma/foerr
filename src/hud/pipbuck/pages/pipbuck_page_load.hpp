@@ -14,7 +14,7 @@ class PipBuckPageLoad : public PipBuckPage
 
 	public:
 		PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
-		ClickStatus handleLeftClick(int x, int y) override;
+		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		std::string getLabel() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

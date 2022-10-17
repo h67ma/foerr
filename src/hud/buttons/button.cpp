@@ -19,9 +19,9 @@ void Button::setCallback(std::function<void(void)> callback)
  * Checks if click was placed inside button area.
  * If it was, and the callback function exists, the callback will be called.
 */
-ClickStatus Button::handleLeftClick(int x, int y)
+ClickStatus Button::handleLeftClick(sf::Vector2i clickPos)
 {
-	if (!this->containsPoint(x, y))
+	if (!this->containsPoint(clickPos))
 		return CLICK_NOT_CONSUMED;
 
 	if (this->callback != nullptr)

@@ -64,13 +64,11 @@ bool PipBuckCategory::changePage(PipBuckPageType pageType)
 	return true;
 }
 
-ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
+ClickStatus PipBuckCategory::handleLeftClick(sf::Vector2i clickPos)
 {
-	// account for this component's position
-	x -= static_cast<int>(this->getPosition().x);
-	y -= static_cast<int>(this->getPosition().y);
+	clickPos -= static_cast<sf::Vector2i>(this->getPosition());
 
-	ClickStatus pageResult = this->pages.at(this->selectedPage)->handleLeftClick(x, y);
+	ClickStatus pageResult = this->pages.at(this->selectedPage)->handleLeftClick(clickPos);
 	if (pageResult != CLICK_NOT_CONSUMED)
 	{
 		// basically we want every page click to play the same sound
@@ -84,7 +82,7 @@ ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
 
 	for (auto btn : this->pageButtons)
 	{
-		if (btn.second.containsPoint(x, y))
+		if (btn.second.containsPoint(clickPos))
 		{
 			if (btn.first != this->selectedPage)
 			{
@@ -98,16 +96,14 @@ ClickStatus PipBuckCategory::handleLeftClick(int x, int y)
 	return CLICK_NOT_CONSUMED;
 }
 
-bool PipBuckCategory::handleMouseMove(int x, int y, sf::Vector2f relPosition)
+bool PipBuckCategory::handleMouseMove(sf::Vector2i mousePos)
 {
-	// account for this component's position
-	x -= static_cast<int>(relPosition.x);
-	y -= static_cast<int>(relPosition.y);
+	mousePos -= static_cast<sf::Vector2i>(this->getPosition());
 
-	if (this->pages.at(this->selectedPage)->handleMouseMove(x, y))
+	if (this->pages.at(this->selectedPage)->handleMouseMove(mousePos))
 		return true;
 
-	return this->hoverMgr.handleMouseMove(x, y, this->getPosition());
+	return this->hoverMgr.handleMouseMove(mousePos);
 }
 
 /**

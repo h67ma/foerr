@@ -8,20 +8,14 @@ void ClickManager::addClickable(Clickable *clickable)
 /**
  * Handles left mouse click for managed Clickables.
  *
- * @param x x mouse coordinate
- * @param y y mouse coordinate
- * @param relPosition position of the parent component
+ * @param clickPos click position (parent position already subtracted)
  * @return click status if click was consumed by managed Clickable, or CLICK_NOT_CONSUMED if none consumed the click
  */
-ClickStatus ClickManager::handleLeftClick(int x, int y, sf::Vector2f relPosition)
+ClickStatus ClickManager::handleLeftClick(sf::Vector2i clickPos)
 {
-	// account for the component's position
-	x -= static_cast<int>(relPosition.x);
-	y -= static_cast<int>(relPosition.y);
-
 	for (auto &clickable : this->clickables)
 	{
-		if (clickable->handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+		if (clickable->handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
 			return CLICK_CONSUMED;
 	}
 

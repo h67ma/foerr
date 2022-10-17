@@ -37,8 +37,8 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable
 	public:
 		PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, PipBuckPageType defaultPage, std::unordered_map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages);
 		bool setup();
-		ClickStatus handleLeftClick(int x, int y);
-		bool handleMouseMove(int x, int y, sf::Vector2f relPosition);
+		ClickStatus handleLeftClick(sf::Vector2i clickPos);
+		bool handleMouseMove(sf::Vector2i mousePos);
 		bool changePage(PipBuckPageType pageType);
 		bool setupCampaignInfos();
 		void unloadCampaignInfos();

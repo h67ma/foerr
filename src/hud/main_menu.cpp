@@ -46,15 +46,17 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 	}
 }
 
-void MainMenu::handleLeftClick(int x, int y)
+void MainMenu::handleLeftClick(sf::Vector2i clickPos)
 {
-	if (this->clickMgr.handleLeftClick(x, y, this->getPosition()) == CLICK_CONSUMED)
+	// don't need to subtract anything as menu position is (0, 0)
+	if (this->clickMgr.handleLeftClick(clickPos) == CLICK_CONSUMED)
 		this->btnSound.get().play();
 }
 
-void MainMenu::handleMouseMove(int x, int y)
+void MainMenu::handleMouseMove(sf::Vector2i mousePos)
 {
-	this->hoverMgr.handleMouseMove(x, y, this->getPosition());
+	// don't need to subtract anything as menu position is (0, 0)
+	this->hoverMgr.handleMouseMove(mousePos);
 }
 
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const

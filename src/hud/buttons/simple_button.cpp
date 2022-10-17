@@ -198,24 +198,11 @@ void SimpleButton::setText(std::string text)
 	this->setGuiScale(this->scale); // need to re-center text
 }
 
-/**
- * Checks if button area contains a given point.
- *
- * @param x point x coordinate
- * @param y point y coordinate
- * @returns true if point belongs to button area
- * @returns false if point doesn't belong to button
-*/
-bool SimpleButton::containsPoint(int x, int y)
+bool SimpleButton::containsPoint(sf::Vector2i coords)
 {
-	// basically the entity which bounds we check on click is only moved when it's being drawn,
-	// so ::getGlobalBounds() returns a rectangle starting at (0, 0), so might as well
-	// call ::getLocalBounds() instead.
-	// TODO there might be a better way to handle this
-	x -= static_cast<int>(this->getPosition().x);
-	y -= static_cast<int>(this->getPosition().y);
+	coords -= static_cast<sf::Vector2i>(this->getPosition());
 
-	return this->rect.getLocalBounds().contains(static_cast<float>(x), static_cast<float>(y));
+	return this->rect.getLocalBounds().contains(static_cast<sf::Vector2f>(coords));
 }
 
 void SimpleButton::draw(sf::RenderTarget &target, sf::RenderStates states) const

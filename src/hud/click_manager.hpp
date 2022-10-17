@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <SFML/System/Vector2.hpp>
 #include "clickable.hpp"
 
 /**
@@ -16,6 +15,6 @@ class ClickManager
 
 	public:
 		void addClickable(Clickable *clickable);
-		ClickStatus handleLeftClick(int x, int y, sf::Vector2f relPosition);
+		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void clear();
 };

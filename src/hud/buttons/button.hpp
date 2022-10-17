@@ -22,8 +22,8 @@ class Button : public sf::Drawable, public sf::Transformable, public Hoverable, 
 	public:
 		Button(GuiScale scale, sf::Vector2u position, std::function<void(void)> callback = nullptr);
 		void setCallback(std::function<void(void)> callback);
-		ClickStatus handleLeftClick(int x, int y) override;
-		virtual bool containsPoint(int x, int y) = 0;
+		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
+		virtual bool containsPoint(sf::Vector2i coords) = 0;
 		virtual void setGuiScale(GuiScale scale) = 0;
 		virtual void setHover(bool hover) = 0;
 };

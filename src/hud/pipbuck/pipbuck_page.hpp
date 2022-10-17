@@ -49,8 +49,8 @@ class PipBuckPage : public sf::Drawable, public sf::Transformable
 		sf::Text dummy; // TODO delet this
 
 	public:
-		virtual ClickStatus handleLeftClick(int x, int y);
-		virtual bool handleMouseMove(int x, int y);
+		virtual ClickStatus handleLeftClick(sf::Vector2i clickPos);
+		virtual bool handleMouseMove(sf::Vector2i mousePos);
 		virtual bool setupCampaignInfos() { return true; };
 		virtual void unloadCampaignInfos() { };
 		virtual std::string getLabel() = 0;

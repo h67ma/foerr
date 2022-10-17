@@ -85,20 +85,11 @@ void LocButton::setSelected(bool selected)
 	this->updateState();
 }
 
-/**
- * Checks if button area contains a given point.
- *
- * @param x point x coordinate
- * @param y point y coordinate
- * @returns true if point belongs to button area
- * @returns false if point doesn't belong to button
-*/
-bool LocButton::containsPoint(int x, int y)
+bool LocButton::containsPoint(sf::Vector2i coords)
 {
-	x -= static_cast<int>(this->getPosition().x);
-	y -= static_cast<int>(this->getPosition().y);
+	coords -= static_cast<sf::Vector2i>(this->getPosition());
 
-	return this->rect.getLocalBounds().contains(static_cast<float>(x), static_cast<float>(y));
+	return this->rect.getLocalBounds().contains(static_cast<sf::Vector2f>(coords));
 }
 
 void LocButton::setGuiScale(GuiScale scale)

@@ -45,14 +45,21 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	this->hoverMgr.addHoverable(&this->gotoLocationBtn);
 }
 
-ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
+bool PipBuckPageWorld::mapContainsPoint(sf::Vector2i point)
 {
+	return this->mapBg.get().getGlobalBounds().contains(static_cast<sf::Vector2f>(point));
+}
+
+ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
+{
+	clickPos -= static_cast<sf::Vector2i>(this->getPosition());
+
 	// if click was outside map area, then no point in checking map buttons
-	if (this->mapBg.get().getGlobalBounds().contains(x - this->getPosition().x, y - this->getPosition().y))
+	if (this->mapContainsPoint(clickPos))
 	{
 		for (auto it = this->mapButtons.begin(); it != this->mapButtons.end(); it++)
 		{
-			if (it->handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+			if (it->handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
 			{
 				// deselect old map btn if any
 				if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
@@ -80,7 +87,7 @@ ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
 
 	if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
 		this->selectedLocationIdx != this->campaign.getCurrentLocationIdx() &&
-		this->gotoLocationBtn.handleLeftClick(x, y) != CLICK_NOT_CONSUMED)
+		this->gotoLocationBtn.handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
 	{
 		this->hoverMgr.removeHover(); // otherwise the "travel" btn will be highlighted when it next appears
 		return CLICK_CONSUMED_CLOSE;
@@ -89,17 +96,19 @@ ClickStatus PipBuckPageWorld::handleLeftClick(int x, int y)
 	return CLICK_NOT_CONSUMED;
 }
 
-bool PipBuckPageWorld::handleMouseMove(int x, int y)
+bool PipBuckPageWorld::handleMouseMove(sf::Vector2i mousePos)
 {
+	mousePos -= static_cast<sf::Vector2i>(this->getPosition());
+
 	// if hover was outside map area, then no point in checking map buttons
-	if (this->mapBg.get().getGlobalBounds().contains(static_cast<float>(x), static_cast<float>(y)))
+	if (this->mapContainsPoint(mousePos))
 	{
-		if (this->mapButtonHoverMgr.handleMouseMove(x, y, this->getPosition()))
+		if (this->mapButtonHoverMgr.handleMouseMove(mousePos))
 			return true;
 	}
 
 	if (this->selectedLocationIdx != NO_LOCATION_SELECTED && this->selectedLocationIdx != this->campaign.getCurrentLocationIdx())
-		return this->hoverMgr.handleMouseMove(x, y, this->getPosition());
+		return this->hoverMgr.handleMouseMove(mousePos);
 
 	return false;
 }

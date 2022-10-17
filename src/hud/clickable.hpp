@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/System/Vector2.hpp>
+
 enum ClickStatus
 {
 	CLICK_NOT_CONSUMED,
@@ -11,5 +13,6 @@ enum ClickStatus
 class Clickable
 {
 	public:
-		virtual ClickStatus handleLeftClick(int x, int y) = 0;
+		virtual bool containsPoint(sf::Vector2i coords) = 0;
+		virtual ClickStatus handleLeftClick(sf::Vector2i clickPos) = 0;
 };
