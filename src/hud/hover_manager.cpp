@@ -1,6 +1,11 @@
 #include "hover_manager.hpp"
 
-void HoverManager::addHoverable(Hoverable *hoverable)
+/**
+ * Adds a Hoverable to the collection of Hoverables tracked by this object.
+ *
+ * @param hoverable a Hoverable to add
+ */
+void HoverManager::operator +=(Hoverable *hoverable)
 {
 	this->hoverables.emplace_back(hoverable);
 }

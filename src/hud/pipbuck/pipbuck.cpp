@@ -85,9 +85,9 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 
 	for (auto &btn : this->categoryButtons)
 	{
-		this->hoverMgr.addHoverable(&btn.second);
+		this->hoverMgr += &btn.second;
 	}
-	this->hoverMgr.addHoverable(&this->closeBtn);
+	this->hoverMgr += &this->closeBtn;
 }
 
 void PipBuck::handleScreenResize(uint screenW, uint screenH)

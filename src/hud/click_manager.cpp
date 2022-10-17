@@ -1,6 +1,11 @@
 #include "click_manager.hpp"
 
-void ClickManager::addClickable(Clickable *clickable)
+/**
+ * Adds a Clickable to the collection of Clickables tracked by this object.
+ *
+ * @param clickable a Clickable to add
+ */
+void ClickManager::operator +=(Clickable *clickable)
 {
 	this->clickables.emplace_back(clickable);
 }

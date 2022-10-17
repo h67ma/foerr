@@ -37,7 +37,7 @@ class HoverManager
 		bool searchSetHover(sf::Vector2i mousePos);
 
 	public:
-		void addHoverable(Hoverable *hoverable);
+		void operator +=(Hoverable *hoverable);
 		bool handleMouseMove(sf::Vector2i mousePos);
 		void removeHover();
 		void clear();

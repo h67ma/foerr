@@ -7,7 +7,7 @@ PipBuckPageLoad::PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceMan
 		// TODO also save game before unloading campaign
 	})
 {
-	this->hoverMgr.addHoverable(&this->exitBtn);
+	this->hoverMgr += &this->exitBtn;
 }
 
 ClickStatus PipBuckPageLoad::handleLeftClick(sf::Vector2i clickPos)

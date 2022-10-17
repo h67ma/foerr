@@ -319,61 +319,61 @@ int main()
 		mchavi->setAnimation(ANIM_STAND);
 	});
 	buttons.push_back(&mchavi1);
-	hoverMgr.addHoverable(&mchavi1);
+	hoverMgr += &mchavi1;
 
 	SimpleButton mchavi2(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 90 }, "walk", [&mchavi]() {
 		mchavi->setAnimation(ANIM_WALK);
 	});
 	buttons.push_back(&mchavi2);
-	hoverMgr.addHoverable(&mchavi2);
+	hoverMgr += &mchavi2;
 
 	SimpleButton mchavi3(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 120 }, "trot", [&mchavi]() {
 		mchavi->setAnimation(ANIM_TROT);
 	});
 	buttons.push_back(&mchavi3);
-	hoverMgr.addHoverable(&mchavi3);
+	hoverMgr += &mchavi3;
 
 	SimpleButton mchavi4(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 150 }, "gallop", [&mchavi]() {
 		mchavi->setAnimation(ANIM_GALLOP);
 	});
 	buttons.push_back(&mchavi4);
-	hoverMgr.addHoverable(&mchavi4);
+	hoverMgr += &mchavi4;
 
 	SimpleButton mchavi5(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 180 }, "jump", [&mchavi]() {
 		mchavi->setAnimation(ANIM_JUMP);
 	});
 	buttons.push_back(&mchavi5);
-	hoverMgr.addHoverable(&mchavi5);
+	hoverMgr += &mchavi5;
 
 	SimpleButton mchavi6(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 210 }, "die ground", [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_GROUND);
 	});
 	buttons.push_back(&mchavi6);
-	hoverMgr.addHoverable(&mchavi6);
+	hoverMgr += &mchavi6;
 
 	SimpleButton mchavi7(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 240 }, "die air", [&mchavi]() {
 		mchavi->setAnimation(ANIM_DIE_AIR);
 	});
 	buttons.push_back(&mchavi7);
-	hoverMgr.addHoverable(&mchavi7);
+	hoverMgr += &mchavi7;
 
 	SimpleButton mchavi8(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 270 }, "tk hold", [&mchavi]() {
 		mchavi->setAnimation(ANIM_TK_HOLD);
 	});
 	buttons.push_back(&mchavi8);
-	hoverMgr.addHoverable(&mchavi8);
+	hoverMgr += &mchavi8;
 
 	SimpleButton mchavi9(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 300 }, "swim", [&mchavi]() {
 		mchavi->setAnimation(ANIM_SWIM);
 	});
 	buttons.push_back(&mchavi9);
-	hoverMgr.addHoverable(&mchavi9);
+	hoverMgr += &mchavi9;
 
 	SimpleButton mchavi10(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 330 }, "climb", [&mchavi]() {
 		mchavi->setAnimation(ANIM_CLIMB);
 	});
 	buttons.push_back(&mchavi10);
-	hoverMgr.addHoverable(&mchavi10);
+	hoverMgr += &mchavi10;
 
 	mchavi->setAnimation(ANIM_SWIM);
 
@@ -397,25 +397,25 @@ int main()
 		cursorMgr.setCursor(window, POINTER);
 	});
 	buttons.push_back(&cursor1);
-	hoverMgr.addHoverable(&cursor1);
+	hoverMgr += &cursor1;
 
 	SimpleButton cursor2(initialScale, BTN_NARROW, hudColor, resManager, { 1100, 150 }, "x white", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 	});
 	buttons.push_back(&cursor2);
-	hoverMgr.addHoverable(&cursor2);
+	hoverMgr += &cursor2;
 
 	SimpleButton cursor3(initialScale, BTN_NARROW, hudColor, resManager, { 1100, 200 }, "x yellow", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_YELLOW);
 	});
 	buttons.push_back(&cursor3);
-	hoverMgr.addHoverable(&cursor3);
+	hoverMgr += &cursor3;
 
 	SimpleButton cursor4(initialScale, BTN_NARROW, hudColor, resManager, { 1100, 250 }, "x red", [&cursorMgr, &window]() {
 		cursorMgr.setCursor(window, CROSSHAIR_RED);
 	});
 	buttons.push_back(&cursor4);
-	hoverMgr.addHoverable(&cursor4);
+	hoverMgr += &cursor4;
 
 
 
@@ -429,28 +429,28 @@ int main()
 		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
 	});
 	buttons.push_back(&btnRoomLeft);
-	hoverMgr.addHoverable(&btnRoomLeft);
+	hoverMgr += &btnRoomLeft;
 
 	SimpleButton btnRoomRight(initialScale, BTN_NARROW, hudColor, resManager, { 670, 500 }, ">", [&campaign, &debugCoords]() {
 		campaign.gotoRoom(DIR_RIGHT);
 		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
 	});
 	buttons.push_back(&btnRoomRight);
-	hoverMgr.addHoverable(&btnRoomRight);
+	hoverMgr += &btnRoomRight;
 
 	SimpleButton btnRoomUp(initialScale, BTN_NARROW, hudColor, resManager, { 550, 450 }, "/\\", [&campaign, &debugCoords]() {
 		campaign.gotoRoom(DIR_UP);
 		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
 	});
 	buttons.push_back(&btnRoomUp);
-	hoverMgr.addHoverable(&btnRoomUp);
+	hoverMgr += &btnRoomUp;
 
 	SimpleButton btnRoomDown(initialScale, BTN_NARROW, hudColor, resManager, { 550, 550 }, "\\/", [&campaign, &debugCoords]() {
 		campaign.gotoRoom(DIR_DOWN);
 		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
 	});
 	buttons.push_back(&btnRoomDown);
-	hoverMgr.addHoverable(&btnRoomDown);
+	hoverMgr += &btnRoomDown;
 
 
 

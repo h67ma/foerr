@@ -42,7 +42,7 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 
 	this->setGuiScale(scale);
 
-	this->hoverMgr.addHoverable(&this->gotoLocationBtn);
+	this->hoverMgr += &this->gotoLocationBtn;
 }
 
 bool PipBuckPageWorld::mapContainsPoint(sf::Vector2i point)
@@ -191,7 +191,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 
 	for (auto &btn : this->mapButtons)
 	{
-		this->mapButtonHoverMgr.addHoverable(&btn);
+		this->mapButtonHoverMgr += &btn;
 	}
 
 	return true;

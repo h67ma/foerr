@@ -14,7 +14,7 @@ class ClickManager
 		std::vector<Clickable*> clickables;
 
 	public:
-		void addClickable(Clickable *clickable);
+		void operator +=(Clickable *clickable);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void clear();
 };

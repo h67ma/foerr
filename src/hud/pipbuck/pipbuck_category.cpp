@@ -43,7 +43,7 @@ bool PipBuckCategory::setup()
 
 	for (auto &btn : this->pageButtons)
 	{
-		this->hoverMgr.addHoverable(&btn.second);
+		this->hoverMgr += &btn.second;
 	}
 
 	return true;

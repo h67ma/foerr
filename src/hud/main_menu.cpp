@@ -41,8 +41,8 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 
 	for (auto &btn : this->buttons)
 	{
-		this->hoverMgr.addHoverable(&btn);
-		this->clickMgr.addClickable(&btn);
+		this->hoverMgr += &btn;
+		this->clickMgr += &btn;
 	}
 }
 

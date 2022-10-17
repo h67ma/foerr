@@ -19,8 +19,8 @@ PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr, GuiScale scale
 {
 	for (auto &btn : this->buttons)
 	{
-		this->hoverMgr.addHoverable(&btn);
-		this->clickMgr.addClickable(&btn);
+		this->hoverMgr += &btn;
+		this->clickMgr += &btn;
 	}
 
 	this->dummyMapDump.setFont(*resMgr.getFont(FONT_NORMAL));
