@@ -71,10 +71,6 @@ bool Location::loadMeta()
 /**
  * Loads room data and big background.
  *
- * "room_map" contains room ids. Rooms are stored in natural order, i.e. rows represent
- * horizontal strips, columns represent vertical strips.
- * The special value ROOM_EMPTY will result in an empty room (nullptr) added to the room grid.
- *
  * In case when loading fails, all previously allocated rooms will be automatically deallocated.
  *
  * @param resMgr reference to resource manager object

@@ -39,8 +39,6 @@
 #define FOERR_JSON_KEY_DESCRIPTION "description"
 #define FOERR_JSON_KEY_START_LOC "start_location"
 
-#define ROOM_EMPTY "/EMPTY" // '/' should be an illegal filename character in both linux and windows
-
 // seriously though
 #ifndef uint
 #define uint unsigned int
