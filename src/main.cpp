@@ -15,11 +15,11 @@
 #include "settings/settings_manager.hpp"
 #include "resources/resource_manager.hpp"
 #include "hud/fps_meter.hpp"
-#include "hud/buttons/simple_button.hpp"
-#include "entities/animation.hpp"
+#include "hud/buttons/simple_button.hpp" // TODO delet this
+#include "entities/animation.hpp" // TODO delet this
 #include "campaigns/campaign.hpp"
 #include "window/util.hpp"
-#include "hud/hover_manager.hpp"
+#include "hud/hover_manager.hpp" // TODO delet this
 #include "hud/pipbuck/pipbuck.hpp"
 #include "hud/main_menu.hpp"
 #include "hud/loading_screen.hpp"
@@ -46,8 +46,8 @@ int main()
 
 	sf::RenderWindow window;
 	uint windowW, windowH;
-	std::vector<SimpleButton*> buttons; // TODO all buttons should reside inside PipBuck/main menu/etc
-	std::vector<Animation*> animations;
+	std::vector<SimpleButton*> buttons; // TODO delet this
+	std::vector<Animation*> animations; // TODO delet this
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
 	sf::Clock animationTimer;
@@ -115,7 +115,7 @@ int main()
 	cursorMgr.setCursor(window, POINTER);
 
 	Campaign campaign(resManager);
-	HoverManager hoverMgr;
+	HoverManager hoverMgr; // TODO delet this
 	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState, settings);
 	if (!pipBuck.setup())
 	{
