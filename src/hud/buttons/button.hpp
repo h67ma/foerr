@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <SFML/Graphics.hpp>
+#include "../hud_transformable.hpp"
 #include "../hud.hpp"
 #include "../hoverable.hpp"
 #include "../clickable.hpp"
@@ -14,7 +15,7 @@
 #define BTN_BORDER_THICKNESS_LARGE 2.f
 #define BTN_BORDER_THICKNESS_LARGE_SELECTED 6.f
 
-class Button : public sf::Drawable, public sf::Transformable, public Hoverable, public Clickable
+class Button : public sf::Drawable, public HudTransformable, public Hoverable, public Clickable
 {
 	private:
 		const ClickStatus consumedStatus;

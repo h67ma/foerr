@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "../hud_transformable.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../../resources/resource_manager.hpp"
 #include "../hover_manager.hpp"
@@ -31,7 +32,7 @@
  * we can avoid defining some methods like ::setupCampaignInfos() in PipBuckPage,
  * and instead define them only in pages that actually use it.
  */
-class PipBuck : public sf::Drawable, public sf::Transformable
+class PipBuck : public sf::Drawable, public HudTransformable
 {
 	private:
 		ResourceManager &resMgr;

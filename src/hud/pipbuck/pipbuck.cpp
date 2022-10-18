@@ -133,7 +133,7 @@ bool PipBuck::changeCategory(PipBuckCategoryType categoryType)
 
 void PipBuck::handleLeftClick(sf::Vector2i clickPos)
 {
-	clickPos -= static_cast<sf::Vector2i>(this->getPosition());
+	clickPos -= this->getIntPosition();
 
 	ClickStatus catResult = this->categories.at(this->selectedCategory).handleLeftClick(clickPos);
 	if (catResult == CLICK_CONSUMED)
@@ -173,7 +173,7 @@ void PipBuck::handleLeftClick(sf::Vector2i clickPos)
 
 void PipBuck::handleMouseMove(sf::Vector2i mousePos)
 {
-	mousePos -= static_cast<sf::Vector2i>(this->getPosition());
+	mousePos -= this->getIntPosition();
 
 	if (this->categories.at(this->selectedCategory).handleMouseMove(mousePos))
 		return; // hover "consumed"

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "../hud_transformable.hpp"
 #include "../../resources/resource_manager.hpp"
 #include "../hud.hpp"
 #include "../buttons/simple_button.hpp"
@@ -24,7 +25,7 @@ enum PipBuckCategoryType
  * Represents a single PipBuck category (e.g. "Status").
  * Contains 5 pages.
  */
-class PipBuckCategory : public sf::Drawable, public sf::Transformable
+class PipBuckCategory : public sf::Drawable, public HudTransformable
 {
 	private:
 		HoverManager hoverMgr;

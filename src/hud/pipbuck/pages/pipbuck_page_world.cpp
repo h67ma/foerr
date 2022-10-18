@@ -52,7 +52,7 @@ bool PipBuckPageWorld::mapContainsPoint(sf::Vector2i point)
 
 ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 {
-	clickPos -= static_cast<sf::Vector2i>(this->getPosition());
+	clickPos -= this->getIntPosition();
 
 	// if click was outside map area, then no point in checking map buttons
 	if (this->mapContainsPoint(clickPos))
@@ -98,7 +98,7 @@ ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 
 bool PipBuckPageWorld::handleMouseMove(sf::Vector2i mousePos)
 {
-	mousePos -= static_cast<sf::Vector2i>(this->getPosition());
+	mousePos -= this->getIntPosition();
 
 	// if hover was outside map area, then no point in checking map buttons
 	if (this->mapContainsPoint(mousePos))

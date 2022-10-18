@@ -87,7 +87,7 @@ void LocButton::setSelected(bool selected)
 
 bool LocButton::containsPoint(sf::Vector2i coords)
 {
-	coords -= static_cast<sf::Vector2i>(this->getPosition());
+	coords -= this->getIntPosition();
 
 	return this->rect.getLocalBounds().contains(static_cast<sf::Vector2f>(coords));
 }
