@@ -1,18 +1,13 @@
 #include "simple_button.hpp"
 #include "../../util/util.hpp"
 
-Button::Button(GuiScale scale, sf::Vector2u position, std::function<void(void)> callback)
+Button::Button(GuiScale scale, sf::Vector2u position, std::function<void(void)> callback, ClickStatus consumedStatus) :
+	callback(callback),
+	consumedStatus(consumedStatus)
 {
-	this->callback = callback;
-
 	// we use uints because we don't want to have buttons
 	// "in between", because it may cause edges to blur
 	this->setPosition(static_cast<sf::Vector2f>(position));
-}
-
-void Button::setCallback(std::function<void(void)> callback)
-{
-	this->callback = callback;
 }
 
 /**
@@ -27,5 +22,5 @@ ClickStatus Button::handleLeftClick(sf::Vector2i clickPos)
 	if (this->callback != nullptr)
 		this->callback();
 
-	return CLICK_CONSUMED;
+	return this->consumedStatus;
 }

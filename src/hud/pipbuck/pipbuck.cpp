@@ -64,9 +64,7 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 		{ PIPB_CAT_INFO, { scale, BTN_BIG, hudColor, resMgr, { 1055, 900 }, STR_PIPBUCK_INFO } },
 		{ PIPB_CAT_MAIN, { scale, BTN_BIG, hudColor, resMgr, { 55, 700 }, STR_PIPBUCK_MAINMENU } }
 	},
-	closeBtn(scale, BTN_BIG, hudColor, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, [this](){
-		this->close();
-	}),
+	closeBtn(scale, BTN_BIG, hudColor, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, nullptr, CLICK_CONSUMED_CLOSE),
 	soundOpenClose(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE)),
 	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	pipBuckSprite(resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY))
@@ -133,17 +131,17 @@ bool PipBuck::changeCategory(PipBuckCategoryType categoryType)
 	return true;
 }
 
-ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
+void PipBuck::handleLeftClick(sf::Vector2i clickPos)
 {
 	clickPos -= static_cast<sf::Vector2i>(this->getPosition());
 
 	ClickStatus catResult = this->categories.at(this->selectedCategory).handleLeftClick(clickPos);
 	if (catResult == CLICK_CONSUMED)
-		return CLICK_CONSUMED;
+		return;
 	else if (catResult == CLICK_CONSUMED_CLOSE)
 	{
 		this->close();
-		return CLICK_CONSUMED;
+		return;
 	}
 	else if (catResult == CLICK_CONSUMED_UNLOAD)
 	{
@@ -153,7 +151,7 @@ ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 		this->unloadCampaignInfos();
 		this->campaign.unload();
 		this->gameState = STATE_MAINMENU;
-		return CLICK_CONSUMED;
+		return;
 	}
 
 	for (auto &btn : this->categoryButtons)
@@ -165,11 +163,12 @@ ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 				this->changeCategory(btn.first);
 				this->soundCategoryBtn.get().play();
 			}
-			return CLICK_CONSUMED;
+			return;
 		}
 	}
 
-	return this->closeBtn.handleLeftClick(clickPos);
+	if (this->closeBtn.handleLeftClick(clickPos) == CLICK_CONSUMED_CLOSE)
+		this->close();
 }
 
 void PipBuck::handleMouseMove(sf::Vector2i mousePos)

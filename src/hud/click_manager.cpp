@@ -20,8 +20,9 @@ ClickStatus ClickManager::handleLeftClick(sf::Vector2i clickPos)
 {
 	for (auto &clickable : this->clickables)
 	{
-		if (clickable->handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
-			return CLICK_CONSUMED;
+		ClickStatus status = clickable->handleLeftClick(clickPos);
+		if (status != CLICK_NOT_CONSUMED)
+			return status;
 	}
 
 	return CLICK_NOT_CONSUMED;

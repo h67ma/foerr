@@ -5,19 +5,10 @@ PipBuckPageLoad::PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceMan
 	exitBtn(scale, BTN_NORMAL, hudColor, resMgr, { 400, 815 }, STR_EXIT_TO_MAIN_MENU, [&campaign, &gameState, &resMgr]() {
 		// TODO display confirm box
 		// TODO also save game before unloading campaign
-	})
+	}, CLICK_CONSUMED_UNLOAD)
 {
 	this->hoverMgr += &this->exitBtn;
-}
-
-ClickStatus PipBuckPageLoad::handleLeftClick(sf::Vector2i clickPos)
-{
-	clickPos -= static_cast<sf::Vector2i>(this->getPosition());
-
-	if (this->exitBtn.handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
-		return CLICK_CONSUMED_UNLOAD;
-
-	return CLICK_NOT_CONSUMED;
+	this->clickMgr += &this->exitBtn;
 }
 
 std::string PipBuckPageLoad::getLabel()

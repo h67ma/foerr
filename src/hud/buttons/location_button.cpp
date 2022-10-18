@@ -10,7 +10,7 @@
 #define ACTIVE_INDICATOR_DOUBLE_LEN 28
 
 LocButton::LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture, std::function<void(void)> callback) :
-	Button(scale, position, callback),
+	Button(scale, position, callback, CLICK_CONSUMED),
 	icon(iconTexture)
 {
 	this->isBaseCamp = isBaseCamp;

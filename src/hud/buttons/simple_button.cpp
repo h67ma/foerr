@@ -10,8 +10,8 @@
 #define BTN_COLOR_UNSEL_FACTOR 68
 #define BTN_COLOR_HOVER_FACTOR 140
 
-SimpleButton::SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color color, ResourceManager &resMgr, sf::Vector2u position, std::string text, std::function<void(void)> callback) :
-	Button(scale, position, callback)
+SimpleButton::SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color color, ResourceManager &resMgr, sf::Vector2u position, std::string text, std::function<void(void)> callback, ClickStatus consumedStatus) :
+	Button(scale, position, callback, consumedStatus)
 {
 	this->size = size;
 
