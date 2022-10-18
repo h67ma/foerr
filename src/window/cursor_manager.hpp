@@ -1,6 +1,7 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Window/Cursor.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 #include "custom_cursor.hpp"
 
 enum CursorType {

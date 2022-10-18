@@ -1,9 +1,6 @@
-#include <SFML/Window/Cursor.hpp>
-#include <SFML/Graphics.hpp>
 #include "cursor_manager.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
-#include "../consts.hpp"
 
 /**
  * Loads all cursors.

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/System/Clock.hpp>
 #include "hud.hpp"
 #include "../consts.hpp"
-
-#define LOG_ELEMENT_LIFE_TIME_S 5
 
 class LogElementText: public sf::Text
 {

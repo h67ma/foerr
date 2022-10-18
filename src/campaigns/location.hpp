@@ -1,7 +1,7 @@
 #pragma once
 
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include "room_grid.hpp"
 #include "../consts.hpp"
 #include "../resources/resource_manager.hpp"

@@ -1,6 +1,5 @@
-#include <math.h>
-#include <SFML/Graphics.hpp>
 #include "fps_meter.hpp"
+#include <math.h>
 #include "../consts.hpp"
 #include "../util/util.hpp"
 

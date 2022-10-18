@@ -1,7 +1,8 @@
 #pragma once
 
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include "../consts.hpp"
 #include "../resources/sprite_resource.hpp"
 

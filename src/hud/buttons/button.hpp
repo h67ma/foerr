@@ -1,7 +1,7 @@
 #pragma once
 
 #include <functional>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include "../hud_transformable.hpp"
 #include "../hud.hpp"
 #include "../hoverable.hpp"

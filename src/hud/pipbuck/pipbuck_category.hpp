@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include "../hud_transformable.hpp"
 #include "../../resources/resource_manager.hpp"
 #include "../hud.hpp"

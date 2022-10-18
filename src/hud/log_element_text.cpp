@@ -1,6 +1,7 @@
-#include <SFML/Graphics.hpp>
 #include "log_element_text.hpp"
 #include "../util/util.hpp"
+
+#define LOG_ELEMENT_LIFE_TIME_S 5
 
 LogElementText::LogElementText(std::string text, sf::Font &font, GuiScale scale, sf::Color color)
 {

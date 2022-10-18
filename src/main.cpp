@@ -5,8 +5,9 @@
 #include <stdlib.h>
 //#include <unistd.h>
 
-#include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
+#include <SFML/Window/Event.hpp>
 #include "window/cursor_manager.hpp"
 #include "util/i18n.hpp"
 #include "consts.hpp"

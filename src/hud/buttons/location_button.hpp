@@ -1,6 +1,9 @@
 #pragma once
 
 #include "button.hpp"
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include "../../resources/sprite_resource.hpp"
 #include "../hud.hpp"
 

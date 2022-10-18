@@ -1,4 +1,6 @@
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <vector>
 #include "hud.hpp"
 #include "hover_manager.hpp"

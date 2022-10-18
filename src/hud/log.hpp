@@ -4,7 +4,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/System/Clock.hpp>
 #include "../util/util.hpp"
 #include "log_element_text.hpp"
 #include "../consts.hpp"

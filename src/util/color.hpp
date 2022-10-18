@@ -1,6 +1,7 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <string>
+#include <SFML/Graphics/Color.hpp>
 #include "../consts.hpp"
 
 class Color : public sf::Color

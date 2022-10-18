@@ -3,7 +3,7 @@
 #include <string>
 #include <functional>
 #include "../util/json.hpp"
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include "../hud/hud.hpp"
 #include "../consts.hpp"
 

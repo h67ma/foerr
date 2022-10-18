@@ -1,7 +1,9 @@
 #pragma once
 
 #include <vector>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/ConvexShape.hpp>
+#include <SFML/System/Clock.hpp>
 #include "../hud_transformable.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../../resources/resource_manager.hpp"

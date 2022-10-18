@@ -1,4 +1,6 @@
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include "../consts.hpp"
 #include "../resources/resource_manager.hpp"
 #include "hud.hpp"

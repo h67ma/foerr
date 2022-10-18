@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include "../util/json.hpp"
 
 #define ROOM_WIDTH_WITH_BORDER 7 // TODO 48

@@ -1,7 +1,10 @@
 #pragma once
 
 #include <functional>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include "../hud.hpp"
 #include "../../resources/resource_manager.hpp"
 #include "../../consts.hpp"
