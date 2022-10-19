@@ -17,3 +17,15 @@ target_link_libraries(foerr PRIVATE sfml-graphics sfml-window sfml-system sfml-a
 install(TARGETS foerr DESTINATION foerr)
 install(DIRECTORY "${PROJECT_BINARY_DIR}/../res" DESTINATION foerr)
 # TODO? on binbows also copy openal to install dir
+
+# add version from git-describe
+# based on https://github.com/nocnokneo/cmake-git-versioning-example
+find_package(Git)
+add_custom_target(gitversion
+	${CMAKE_COMMAND} -D SRC=${CMAKE_SOURCE_DIR}/src/git_version.h.in
+					 -D DST=${CMAKE_BINARY_DIR}/include/git_version.h
+					 -D GIT_EXECUTABLE=${GIT_EXECUTABLE}
+					 -P ${CMAKE_SOURCE_DIR}/CMakeGitVersion.cmake
+)
+target_include_directories(foerr PRIVATE ${CMAKE_BINARY_DIR}/include)
+add_dependencies(foerr gitversion)

@@ -1,6 +1,9 @@
+#pragma once
+
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <vector>
 #include "hud.hpp"
 #include "hover_manager.hpp"
@@ -17,10 +20,12 @@ class MainMenu : public sf::Drawable, public sf::Transformable
 		ClickManager clickMgr;
 		SoundResource btnSound;
 		std::vector<SimpleButton> buttons;
+		sf::Text versionText;
 
 	public:
 		MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState, PipBuck &pipBuck);
 		void handleLeftClick(sf::Vector2i clickPos);
 		void handleMouseMove(sf::Vector2i mousePos);
+		void handleScreenResize(sf::Vector2u newSize);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

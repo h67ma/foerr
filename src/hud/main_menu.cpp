@@ -2,6 +2,7 @@
 #include "../util/i18n.hpp"
 #include "log.hpp"
 #include "loading_screen.hpp"
+#include "git_version.h"
 
 
 MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState, PipBuck &pipBuck) :
@@ -44,6 +45,12 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 		this->hoverMgr += &btn;
 		this->clickMgr += &btn;
 	}
+
+	this->versionText.setFont(*resMgr.getFont(FONT_FIXED));
+	this->versionText.setFillColor(hudColor);
+	this->versionText.setString(GIT_VERSION);
+	this->versionText.setCharacterSize(getFontSize(scale, FONT_H3));
+	this->handleScreenResize(window.getSize());
 }
 
 void MainMenu::handleLeftClick(sf::Vector2i clickPos)
@@ -59,6 +66,14 @@ void MainMenu::handleMouseMove(sf::Vector2i mousePos)
 	this->hoverMgr.handleMouseMove(mousePos);
 }
 
+void MainMenu::handleScreenResize(sf::Vector2u newSize)
+{
+	this->versionText.setPosition(
+		newSize.x - 5 - this->versionText.getLocalBounds().width,
+		newSize.y - 10 - this->versionText.getLocalBounds().height
+	);
+}
+
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
@@ -67,4 +82,6 @@ void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	{
 		target.draw(btn, states);
 	}
+
+	target.draw(this->versionText, states);
 }

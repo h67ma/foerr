@@ -216,8 +216,8 @@ int main()
 			pipBuck.switchToPage(PIPB_PAGE_ENEMIES, true);
 			pipBuck.open();
 		} },
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck](){
-			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
+			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 		} },
 	};
 
@@ -285,8 +285,8 @@ int main()
 		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){
 			pipBuck.switchToPage(PIPB_PAGE_ENEMIES);
 		} },
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck](){
-			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
+			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 		} },
 	};
 
@@ -474,7 +474,7 @@ int main()
 
 
 	// initial size
-	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
+	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 
 	// TODO remove
 	if (campaign.load("res/campaigns/test") && pipBuck.setupCampaignInfos())
@@ -577,7 +577,7 @@ int main()
 			}
 			else if (event.type == sf::Event::Resized)
 			{
-				windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck);
+				windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 			}
 			// TODO probably useful for text entry
 			//else if (event.type == sf::Event::TextEntered)
