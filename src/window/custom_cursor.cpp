@@ -2,12 +2,12 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-CustomCursor::CustomCursor(const char* path, uint hotX, uint hotY, sf::Cursor::Type fallback)
+CustomCursor::CustomCursor(const char* path, sf::Vector2u hotPoint, sf::Cursor::Type fallback) :
+	path(path),
+	hotPoint(hotPoint),
+	fallbackCursor(fallback)
 {
-	this->path = path;
-	this->hotX = hotX;
-	this->hotY = hotY;
-	this->fallbackCursor = fallback;
+	// "In a sandwich, it's not the bread that's the most delicious. It's the cucumber inside."
 }
 
 /**
@@ -32,7 +32,7 @@ bool CustomCursor::load(bool preferCustom)
 		return this->cursor.loadFromSystem(this->fallbackCursor);
 	}
 
-	loadSucc = this->cursor.loadFromPixels(img.getPixelsPtr(), img.getSize(), sf::Vector2u(this->hotX, this->hotY));
+	loadSucc = this->cursor.loadFromPixels(img.getPixelsPtr(), img.getSize(), this->hotPoint);
 	if (!loadSucc) {
 		Log::w(STR_CURSOR_LOAD_PIXELS_ERR, this->path);
 		return this->cursor.loadFromSystem(this->fallbackCursor);

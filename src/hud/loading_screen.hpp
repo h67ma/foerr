@@ -11,6 +11,6 @@ class LoadingScreen : public sf::Drawable
 		sf::Text loadingText;
 
 	public:
-		LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, uint screenW, uint screenH);
+		LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, sf::Vector2u windowSize);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

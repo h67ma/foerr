@@ -45,7 +45,6 @@ int main()
 	settings.loadConfig();
 
 	sf::RenderWindow window;
-	uint windowW, windowH;
 	std::vector<SimpleButton*> buttons; // TODO delet this
 	std::vector<Animation*> animations; // TODO delet this
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
@@ -56,9 +55,6 @@ int main()
 	//signal(SIGSEGV, stackTraceHandler);
 
 	recreateWindow(window, settings);
-
-	windowW = window.getSize().x;
-	windowH = window.getSize().y;
 
 	GuiScale initialScale = settings.getGuiScale(SETT_GUI_SCALE);
 	uint initialFxVol = settings.getUint(SETT_FX_VOLUME);
@@ -73,13 +69,13 @@ int main()
 		exit(1);
 	}
 
-	LoadingScreen loadingScreen(initialScale, hudColor, resManager, window.getSize().x, window.getSize().y);
+	LoadingScreen loadingScreen(initialScale, hudColor, resManager, window.getSize());
 	window.clear();
 	window.draw(loadingScreen);
 	window.display();
 
 	Log::setFont(resManager.getFont(FONT_NORMAL));
-	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowW, windowH);
+	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), window.getSize());
 	Log::setWriteLogToFile(settings.getBool(SETT_WRITE_LOG_TO_FILE));
 	Log::setPrintMsgs(settings.getBool(SETT_PRINT_MSGS));
 	Log::setVerboseDebug(settings.getBool(SETT_VERBOSE_DEBUG));
@@ -102,7 +98,7 @@ int main()
 	Keymap::load();
 
 	FpsMeter fpsMeter(initialScale, *resManager.getFont(FONT_NORMAL));
-	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowW, windowH);
+	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), window.getSize());
 	
 	CursorManager cursorMgr;
 	if (!cursorMgr.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
@@ -474,7 +470,7 @@ int main()
 
 
 	// initial size
-	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+	windowSizeChanged(window.getSize(), settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 
 	// TODO remove
 	if (campaign.load("res/campaigns/test") && pipBuck.setupCampaignInfos())
@@ -577,7 +573,7 @@ int main()
 			}
 			else if (event.type == sf::Event::Resized)
 			{
-				windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+				windowSizeChanged(window.getSize(), settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 			}
 			// TODO probably useful for text entry
 			//else if (event.type == sf::Event::TextEntered)

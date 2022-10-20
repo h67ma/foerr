@@ -6,5 +6,5 @@
 #include "../hud/main_menu.hpp"
 
 void recreateWindow(sf::RenderWindow &window, SettingsManager &settings);
-void windowSizeChanged(sf::RenderWindow &window, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck, MainMenu &mainMenu);
+void windowSizeChanged(sf::Vector2u windowSize, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck, MainMenu &mainMenu);
 void toggleFullscreen(sf::RenderWindow &window, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck, MainMenu &mainMenu);

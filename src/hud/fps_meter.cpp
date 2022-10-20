@@ -16,18 +16,18 @@ void FpsMeter::setGuiScale(GuiScale scale)
 	this->text.setCharacterSize(getFontSize(scale, FONT_H3));
 }
 
-void FpsMeter::setPosition(ScreenCorner anchor, uint screenW, uint screenH)
+void FpsMeter::setPosition(ScreenCorner anchor, sf::Vector2u windowSize)
 {
 	switch(anchor)
 	{
 		case CORNER_TOP_RIGHT:
-			this->text.setPosition(screenW - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, FPS_ANCHOR_PADDING_TOP);
+			this->text.setPosition(windowSize.x - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, FPS_ANCHOR_PADDING_TOP);
 			break;
 		case CORNER_BOTTOM_LEFT:
-			this->text.setPosition(FPS_ANCHOR_PADDING_LEFT, screenH - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
+			this->text.setPosition(FPS_ANCHOR_PADDING_LEFT, windowSize.y - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
 			break;
 		case CORNER_BOTTOM_RIGHT:
-			this->text.setPosition(screenW - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, screenH - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
+			this->text.setPosition(windowSize.x - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, windowSize.y - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
 			break;
 		case CORNER_TOP_LEFT:
 		default:

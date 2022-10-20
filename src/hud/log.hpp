@@ -24,8 +24,7 @@ class Log
 	private:
 		static sf::Font *font;
 		static ScreenCorner anchor;
-		static uint windowW;
-		static uint windowH;
+		static sf::Vector2u windowSize;
 		static bool writeLogToFile;
 		static bool printMsgs;
 		static bool verboseDebug;
@@ -39,7 +38,7 @@ class Log
 
 	public:
 		static void setFont(sf::Font *font);
-		static void setPosition(ScreenCorner anchor, uint windowW, uint windowH);
+		static void setPosition(ScreenCorner anchor, sf::Vector2u windowSize);
 		static void setWriteLogToFile(bool writeLogToFile);
 		static void setPrintMsgs(bool printMsgs);
 		static void setVerboseDebug(bool verboseDebug);

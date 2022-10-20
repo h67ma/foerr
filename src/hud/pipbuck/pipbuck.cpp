@@ -88,11 +88,11 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 	this->hoverMgr += &this->closeBtn;
 }
 
-void PipBuck::handleScreenResize(uint screenW, uint screenH)
+void PipBuck::handleScreenResize(sf::Vector2u windowSize)
 {
 	// for now copy the behaviour of Remains pipbuck, i.e. display it unscaled in bottom left corner
 	// TODO scale should affect sprite size and individual buttons/labels/etc scale and placement
-	this->setPosition(0, static_cast<float>(screenH - this->pipBuckSprite.get().getLocalBounds().height));
+	this->setPosition(0, static_cast<float>(windowSize.y - this->pipBuckSprite.get().getLocalBounds().height));
 }
 
 /**

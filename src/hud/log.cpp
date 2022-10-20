@@ -9,8 +9,7 @@
 
 sf::Font* Log::font = nullptr;
 ScreenCorner Log::anchor;
-uint Log::windowW;
-uint Log::windowH;
+sf::Vector2u Log::windowSize;
 
 // default values are only relevant until SettingsManager is loaded
 bool Log::writeLogToFile = false;
@@ -32,11 +31,10 @@ void Log::setFont(sf::Font *font)
 	Log::font = font;
 }
 
-void Log::setPosition(ScreenCorner anchor, uint windowW, uint windowH)
+void Log::setPosition(ScreenCorner anchor, sf::Vector2u windowSize)
 {
 	Log::anchor = anchor;
-	Log::windowW = windowW;
-	Log::windowH = windowH;
+	Log::windowSize = windowSize;
 }
 
 void Log::setWriteLogToFile(bool writeLogToFile)
@@ -84,12 +82,12 @@ void Log::maybeUpdate(bool force)
 
 	// initial offset from top/bottom
 	if (Log::anchor == CORNER_BOTTOM_LEFT || Log::anchor == CORNER_BOTTOM_RIGHT)
-		y = Log::windowH - static_cast<uint>(Log::history.size()) * Log::fontGap - LOG_ANCHOR_NEG_PADDING_BOTTOM;
+		y = Log::windowSize.y - static_cast<uint>(Log::history.size()) * Log::fontGap - LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
 	for (auto &item : Log::history)
 	{
 		if (Log::anchor == CORNER_TOP_RIGHT || Log::anchor == CORNER_BOTTOM_RIGHT)
-			x = Log::windowW - static_cast<uint>(item->getLocalBounds().width) - LOG_ANCHOR_NEG_PADDING_RIGHT;
+			x = Log::windowSize.x - static_cast<uint>(item->getLocalBounds().width) - LOG_ANCHOR_NEG_PADDING_RIGHT;
 
 		item->setPosition(static_cast<float>(x), static_cast<float>(y));
 

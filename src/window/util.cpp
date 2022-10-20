@@ -32,9 +32,9 @@ void recreateWindow(sf::RenderWindow &window, SettingsManager &settings)
  * Stolen from https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view & slightly modified.
  * Really, this should've been build into SFML.
  */
-void setLetterboxView(sf::View &view, uint windowWidth, uint windowHeight)
+void setLetterboxView(sf::View &view, sf::Vector2u windowSize)
 {
-	float windowRatio = windowWidth / static_cast<float>(windowHeight);
+	float windowRatio = windowSize.x / static_cast<float>(windowSize.y);
 	float viewRatio = view.getSize().x / static_cast<float>(view.getSize().y);
 	float sizeX = 1;
 	float sizeY = 1;
@@ -57,20 +57,17 @@ void setLetterboxView(sf::View &view, uint windowWidth, uint windowHeight)
 	view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
 }
 
-void windowSizeChanged(sf::RenderWindow &window, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck, MainMenu &mainMenu)
+void windowSizeChanged(sf::Vector2u windowSize, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck, MainMenu &mainMenu)
 {
-	uint w = window.getSize().x;
-	uint h = window.getSize().y;
-
 	// update position of dockable elements
-	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), w, h);
-	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), w, h);
-	pipBuck.handleScreenResize(w, h);
-	mainMenu.handleScreenResize({ w, h });
+	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowSize);
+	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowSize);
+	pipBuck.handleScreenResize(windowSize);
+	mainMenu.handleScreenResize(windowSize);
 
 	// update views
-	hudView.reset(sf::FloatRect(0.f, 0.f, static_cast<float>(w), static_cast<float>(h)));
-	setLetterboxView(gameWorldView, w, h);
+	hudView.reset({ 0.f, 0.f, static_cast<float>(windowSize.x), static_cast<float>(windowSize.y) });
+	setLetterboxView(gameWorldView, windowSize);
 }
 
 void toggleFullscreen(sf::RenderWindow &window, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck, MainMenu &mainMenu)
@@ -87,5 +84,5 @@ void toggleFullscreen(sf::RenderWindow &window, SettingsManager &settings, FpsMe
 	}
 
 	recreateWindow(window, settings);
-	windowSizeChanged(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+	windowSizeChanged(window.getSize(), settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 }

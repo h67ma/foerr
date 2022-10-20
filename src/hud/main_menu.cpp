@@ -12,7 +12,7 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMa
 
 			// this is a pretty terrible way of showing a loading screen, but it will do for now
 			// TODO load on thread, display loading screen in main loop with a progress bar
-			LoadingScreen loadingScreen(scale, hudColor, resMgr, window.getSize().x, window.getSize().y);
+			LoadingScreen loadingScreen(scale, hudColor, resMgr, window.getSize());
 			window.clear();
 			window.draw(loadingScreen);
 			window.display();

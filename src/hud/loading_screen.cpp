@@ -2,7 +2,7 @@
 #include "../util/i18n.hpp"
 #include "../util/util.hpp"
 
-LoadingScreen::LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, uint screenW, uint screenH)
+LoadingScreen::LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, sf::Vector2u windowSize)
 {
 	this->loadingText.setFont(*resMgr.getFont(FONT_FIXED));
 	this->loadingText.setFillColor(hudColor);
@@ -11,8 +11,8 @@ LoadingScreen::LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager
 	this->loadingText.setCharacterSize(getFontSize(scale, FONT_H1));
 
 	this->loadingText.setPosition(
-		static_cast<float>((screenW - this->loadingText.getLocalBounds().width) / 2),
-		static_cast<float>((screenH - this->loadingText.getLocalBounds().height) / 2)
+		static_cast<float>((windowSize.x - this->loadingText.getLocalBounds().width) / 2),
+		static_cast<float>((windowSize.y - this->loadingText.getLocalBounds().height) / 2)
 	);
 }
 
