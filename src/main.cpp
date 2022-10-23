@@ -568,8 +568,8 @@ int main()
 				}
 
 				Log::close();
-
 				window.close();
+				return 0;
 			}
 			else if (event.type == sf::Event::Resized)
 			{
