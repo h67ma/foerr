@@ -4,7 +4,6 @@ set(CXX_STANDARD_REQUIRED ON)
 
 project(foerr_game
 	LANGUAGES CXX
-	VERSION 0.1
 )
 
 # don't warn about DOWNLOAD_EXTRACT_TIMESTAMP in 3.24+
