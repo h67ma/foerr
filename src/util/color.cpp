@@ -38,6 +38,6 @@ bool Color::loadFromColorString(std::string input)
 std::string Color::toString()
 {
 	char buf[8];
-	sprintf(buf, "#%02x%02x%02x", this->r, this->g, this->b);
+	snprintf(buf, sizeof(buf), "#%02x%02x%02x", this->r, this->g, this->b);
 	return std::string(buf);
 }
