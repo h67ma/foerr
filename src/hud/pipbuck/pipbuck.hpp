@@ -62,8 +62,8 @@ class PipBuck : public sf::Drawable, public HudTransformable
 		void handleMouseMove(sf::Vector2i mousePos);
 		bool setupCampaignInfos();
 		void unloadCampaignInfos();
-		void open(bool sound=true);
-		bool switchToPage(PipBuckPageType pageType, bool quiet=false);
+		void open(bool sound = true);
+		bool switchToPage(PipBuckPageType pageType, bool quiet = false);
 		void close();
 		bool setup();
 		void setRadLevel(float rads);

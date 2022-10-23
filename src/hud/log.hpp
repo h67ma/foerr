@@ -44,7 +44,7 @@ class Log
 		static void setPrintMsgs(bool printMsgs);
 		static void setVerboseDebug(bool verboseDebug);
 		static void setGuiScale(GuiScale scale);
-		static void maybeUpdate(bool force=false);
+		static void maybeUpdate(bool force = false);
 		static void draw(sf::RenderTarget &target);
 		static void close();
 

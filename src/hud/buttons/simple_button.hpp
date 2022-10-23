@@ -35,7 +35,7 @@ class SimpleButton : public Button
 		void updateState();
 
 	public:
-		SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color color, ResourceManager &resMgr, sf::Vector2u position, std::string text="Button", std::function<void(void)> callback=nullptr, ClickStatus consumedStatus = CLICK_CONSUMED);
+		SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color color, ResourceManager &resMgr, sf::Vector2u position, std::string text = "Button", std::function<void(void)> callback = nullptr, ClickStatus consumedStatus = CLICK_CONSUMED);
 		bool containsPoint(sf::Vector2i coords) override;
 		void setGuiScale(GuiScale scale) override;
 		void setHover(bool hover) override;

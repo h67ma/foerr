@@ -70,7 +70,6 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	pipBuckSprite(resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY))
 {
-
 	this->soundOpenClose.get().setVolume(static_cast<float>(fxVolume));
 	this->soundCategoryBtn.get().setVolume(static_cast<float>(fxVolume));
 

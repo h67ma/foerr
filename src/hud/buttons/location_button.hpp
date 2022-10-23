@@ -29,7 +29,7 @@ class LocButton : public Button
 		uint getSideLen();
 
 	public:
-		LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture, std::function<void(void)> callback=nullptr);
+		LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture, std::function<void(void)> callback = nullptr);
 		void setSelected(bool selected);
 		bool containsPoint(sf::Vector2i coords) override;
 		void setGuiScale(GuiScale scale) override;

@@ -134,7 +134,7 @@ void PipBuckPageWorld::setupMapDecorations()
 
 	sf::Color gridColor = this->hudColor;
 	gridColor.a = 0x40;
-	
+
 	float pos = WORLD_MAP_X + MAP_GRID_SPACING;
 	for (uint i = 0; i < 8; i += 2)
 	{
@@ -185,8 +185,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 			loc.isBasecamp(),
 			this->hudColor,
 			sf::Vector2u(WORLD_MAP_X + loc.getWorldMapCoords().x, WORLD_MAP_Y + loc.getWorldMapCoords().y),
-			iconTxt
-		);
+			iconTxt);
 	}
 
 	this->mapButtons[this->campaign.getCurrentLocationIdx()].setActive(true);

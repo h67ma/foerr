@@ -60,7 +60,7 @@ bool HoverManager::handleMouseMove(sf::Vector2i mousePos)
 
 	// previous item lost hover, deselect it
 	this->hoverables[this->lastHoveredIdx]->setHover(false);
-	
+
 	// now we need to check if any new item gained hover, and if none then set NO_HOVER_IDX.
 	if (this->searchSetHover(mousePos))
 	{

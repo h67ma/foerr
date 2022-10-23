@@ -80,7 +80,7 @@ int main()
 
 	FpsMeter fpsMeter(initialScale, *resManager.getFont(FONT_NORMAL));
 	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), window.getSize());
-	
+
 	CursorManager cursorMgr;
 	if (!cursorMgr.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
 	{
