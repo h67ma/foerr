@@ -10,7 +10,7 @@
 class PipBuckPageInventoryOther : public PipBuckPage
 {
 	public:
-		PipBuckPageInventoryOther(ResourceManager &resMgr);
+		explicit PipBuckPageInventoryOther(ResourceManager &resMgr);
 		std::string getLabel() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

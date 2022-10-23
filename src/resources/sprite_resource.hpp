@@ -24,7 +24,7 @@ class SpriteResource
 		sf::Sprite sprite;
 
 		SpriteResource() { /* kappa */ }
-		SpriteResource(std::shared_ptr<sf::Texture> txt);
+		explicit SpriteResource(std::shared_ptr<sf::Texture> txt);
 		void setTexture(std::shared_ptr<sf::Texture> txt);
 		sf::Sprite& get();
 		void clearPtr();

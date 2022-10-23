@@ -10,7 +10,7 @@
 class PipBuckPageMainStatus : public PipBuckPage
 {
 	public:
-		PipBuckPageMainStatus(ResourceManager &resMgr);
+		explicit PipBuckPageMainStatus(ResourceManager &resMgr);
 		std::string getLabel() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

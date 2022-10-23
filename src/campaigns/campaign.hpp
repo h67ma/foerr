@@ -25,7 +25,7 @@ class Campaign : public sf::Drawable
 		void unloadSomeLocations(uint newIdx);
 
 	public:
-		Campaign(ResourceManager &resMgr);
+		explicit Campaign(ResourceManager &resMgr);
 		bool load(std::string campaignDir);
 		void unload();
 		std::string getTitle();

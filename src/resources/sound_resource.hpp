@@ -20,7 +20,7 @@ class SoundResource
 
 	public:
 		SoundResource() { /* kappa */ }
-		SoundResource(std::shared_ptr<sf::SoundBuffer> buffer);
+		explicit SoundResource(std::shared_ptr<sf::SoundBuffer> buffer);
 		void setBuffer(std::shared_ptr<sf::SoundBuffer> buffer);
 		sf::Sound& get();
 		void clear();

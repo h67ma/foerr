@@ -10,7 +10,7 @@
 class PipBuckPageEnemies : public PipBuckPage
 {
 	public:
-		PipBuckPageEnemies(ResourceManager &resMgr);
+		explicit PipBuckPageEnemies(ResourceManager &resMgr);
 		std::string getLabel() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

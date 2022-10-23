@@ -10,7 +10,7 @@
 class PipBuckPageAmmo : public PipBuckPage
 {
 	public:
-		PipBuckPageAmmo(ResourceManager &resMgr);
+		explicit PipBuckPageAmmo(ResourceManager &resMgr);
 		std::string getLabel() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
