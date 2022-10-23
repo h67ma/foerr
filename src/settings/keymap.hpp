@@ -58,7 +58,7 @@ struct action_def
 class Keymap
 {
 	private:
-		const static std::unordered_map<KeyAction, action_def> actionsMap;
+		static const std::unordered_map<KeyAction, action_def> actionsMap;
 		static std::unordered_map<sf::Keyboard::Key, KeyAction> keyToActionMap;
 		static std::unordered_map<std::string, sf::Keyboard::Key> keyStringToKeyMap;
 		static std::unordered_map<std::string, KeyAction> actionStringToActionMap;
@@ -66,7 +66,7 @@ class Keymap
 
 	public:
 		static bool setup();
-		const static std::unordered_map<sf::Keyboard::Key, KeyAction>& getkeyToActionMap();
+		static const std::unordered_map<sf::Keyboard::Key, KeyAction>& getkeyToActionMap();
 		static KeyAction keyToAction(sf::Keyboard::Key key);
 		static std::string keyToString(sf::Keyboard::Key key);
 		static sf::Keyboard::Key keyStringToKey(std::string keyStr);
