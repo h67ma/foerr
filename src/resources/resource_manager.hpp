@@ -71,7 +71,7 @@ enum FontType
 class ResourceManager
 {
 	private:
-		sf::Font fonts[_FONT_CNT];
+		sf::Font fonts[_FONT_CNT]; // NOLINT(runtime/arrays)
 		std::unordered_map<std::string, std::shared_ptr<sf::Texture>> textures;
 		// TODO std::unordered_map<char, sf::Texture*> charToBlock; // map for getting texture resource to draw blocks
 		// TODO std::unordered_map<char, sf::Texture*> charToBackground; // map for getting texture resource to draw backgrounds
