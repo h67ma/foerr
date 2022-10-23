@@ -23,7 +23,7 @@ class SpriteResource
 		// TODO there might be a better way to solve this, but I'm too sleepy to find it now
 		sf::Sprite sprite;
 
-		SpriteResource() { /* kappa */ };
+		SpriteResource() { /* kappa */ }
 		SpriteResource(std::shared_ptr<sf::Texture> txt);
 		void setTexture(std::shared_ptr<sf::Texture> txt);
 		sf::Sprite& get();
