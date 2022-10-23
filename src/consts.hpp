@@ -41,7 +41,7 @@
 
 // seriously though
 #ifndef uint
-#define uint unsigned int
+typedef unsigned int uint;
 #endif
 
 enum GameState

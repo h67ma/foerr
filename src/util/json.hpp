@@ -2,6 +2,7 @@
 
 #include <nlohmann/json.hpp>
 #include <SFML/System/Vector2.hpp>
+#include "../hud/log.hpp"
 #include "i18n.hpp"
 
 using json = nlohmann::json;

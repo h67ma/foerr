@@ -22,7 +22,7 @@ class RoomGrid
 		bool set(sf::Vector2u coords, std::shared_ptr<Room> room);
 		std::shared_ptr<Room> get(sf::Vector2u coords);
 		std::shared_ptr<Room> moveTo(sf::Vector2u coords);
-		bool RoomGrid::nearExists(Direction direction, sf::Vector2u &coords);
+		bool nearExists(Direction direction, sf::Vector2u &coords);
 		std::shared_ptr<Room> moveToNear(Direction direction);
 		void clear();
 };
