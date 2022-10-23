@@ -7,6 +7,7 @@ FetchContent_Declare(
 )
 
 set(JSON_BuildTests OFF)
+set(JSON_CI OFF)
 
 message(STATUS "Fetching JSON for Modern C++...")
 FetchContent_MakeAvailable(nlohmann_json)
