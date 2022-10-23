@@ -1,4 +1,6 @@
 #include "location.hpp"
+#include <string>
+#include <memory>
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 #include "../util/json.hpp"

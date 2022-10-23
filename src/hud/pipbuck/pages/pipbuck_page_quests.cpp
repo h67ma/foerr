@@ -1,4 +1,5 @@
 #include "pipbuck_page_quests.hpp"
+#include <string>
 
 PipBuckPageQuests::PipBuckPageQuests(ResourceManager &resMgr)
 {

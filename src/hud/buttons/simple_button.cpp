@@ -1,4 +1,5 @@
 #include "simple_button.hpp"
+#include <string>
 #include "../../util/util.hpp"
 
 #define BTN_TEXT_SMALL_TOP_OFFSET 8U

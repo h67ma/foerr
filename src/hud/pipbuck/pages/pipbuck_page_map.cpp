@@ -1,4 +1,5 @@
 #include "pipbuck_page_map.hpp"
+#include <string>
 
 PipBuckPageMap::PipBuckPageMap(ResourceManager &resMgr)
 {

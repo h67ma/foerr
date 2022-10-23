@@ -1,4 +1,5 @@
 #include "pipbuck_page_equipment.hpp"
+#include <string>
 
 PipBuckPageEquipment::PipBuckPageEquipment(ResourceManager &resMgr)
 {

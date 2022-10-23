@@ -1,4 +1,5 @@
 #include "room.hpp"
+#include <string>
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 

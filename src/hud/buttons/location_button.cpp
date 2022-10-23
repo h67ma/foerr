@@ -1,5 +1,5 @@
-#include <math.h>
 #include "location_button.hpp"
+#include <math.h>
 
 // values from 0 to 255, where 255 is the original color and 0 is black
 #define BTN_COLOR_BASECAMP_FACTOR 90

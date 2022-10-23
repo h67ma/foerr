@@ -1,4 +1,6 @@
 #include "pipbuck_page_world.hpp"
+#include <string>
+#include <memory>
 #include "../../../util/util.hpp"
 #include "../../../util/i18n.hpp"
 

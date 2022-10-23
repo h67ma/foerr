@@ -1,10 +1,10 @@
 #pragma once
 
+#include <vector>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include <vector>
 #include "hud.hpp"
 #include "hover_manager.hpp"
 #include "click_manager.hpp"

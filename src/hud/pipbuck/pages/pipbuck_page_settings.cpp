@@ -1,4 +1,5 @@
 #include "pipbuck_page_settings.hpp"
+#include <string>
 #include "../../../util/i18n.hpp"
 
 PipBuckPageSettings::PipBuckPageSettings(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, SettingsManager &settings) :

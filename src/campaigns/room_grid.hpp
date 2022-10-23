@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 #include <SFML/System/Vector2.hpp>
 #include "room.hpp"
 #include "../consts.hpp"

@@ -1,4 +1,5 @@
 #include "pipbuck_page_load.hpp"
+#include <string>
 #include "../../../util/i18n.hpp"
 
 PipBuckPageLoad::PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :

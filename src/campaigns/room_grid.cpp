@@ -1,4 +1,5 @@
 #include "room_grid.hpp"
+#include <memory>
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 

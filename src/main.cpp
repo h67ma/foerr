@@ -1,8 +1,7 @@
-#include <iostream>
-#include <functional>
 #include <signal.h>
 #include <stdlib.h>
-
+#include <iostream>
+#include <functional>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Window/Event.hpp>

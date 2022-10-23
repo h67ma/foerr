@@ -1,4 +1,5 @@
 #include "pipbuck_page_controls.hpp"
+#include <string>
 #include "../../../util/i18n.hpp"
 #include "../../log.hpp"
 #include "../../../settings/keymap.hpp"

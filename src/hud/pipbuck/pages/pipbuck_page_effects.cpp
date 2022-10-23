@@ -1,4 +1,5 @@
 #include "pipbuck_page_effects.hpp"
+#include <string>
 
 PipBuckPageEffects::PipBuckPageEffects(ResourceManager &resMgr)
 {

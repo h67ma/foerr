@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+#include <vector>
 #include "../pipbuck_page.hpp"
 #include "../../../resources/resource_manager.hpp"
 #include "../../buttons/simple_button.hpp"

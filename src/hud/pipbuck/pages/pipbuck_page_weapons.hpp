@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "../pipbuck_page.hpp"
 #include "../../../resources/resource_manager.hpp"
 

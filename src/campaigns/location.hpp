@@ -1,6 +1,8 @@
 #pragma once
 
 #include <unordered_map>
+#include <memory>
+#include <string>
 #include <SFML/Graphics/Drawable.hpp>
 #include "room_grid.hpp"
 #include "../consts.hpp"

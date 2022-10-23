@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <unordered_map>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/ConvexShape.hpp>
 #include <SFML/System/Clock.hpp>

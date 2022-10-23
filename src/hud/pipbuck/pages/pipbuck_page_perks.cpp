@@ -1,4 +1,5 @@
 #include "pipbuck_page_perks.hpp"
+#include <string>
 
 PipBuckPagePerks::PipBuckPagePerks(ResourceManager &resMgr)
 {

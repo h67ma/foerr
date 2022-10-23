@@ -1,4 +1,5 @@
 #include "pipbuck_page_log.hpp"
+#include <string>
 
 PipBuckPageLog::PipBuckPageLog(ResourceManager &resMgr)
 {

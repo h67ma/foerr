@@ -1,4 +1,5 @@
 #include "pipbuck_page_armor.hpp"
+#include <string>
 
 PipBuckPageArmor::PipBuckPageArmor(ResourceManager &resMgr)
 {

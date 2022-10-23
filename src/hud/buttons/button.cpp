@@ -1,4 +1,4 @@
-#include "simple_button.hpp"
+#include "button.hpp"
 #include "../../util/util.hpp"
 
 Button::Button(GuiScale scale, sf::Vector2u position, std::function<void(void)> callback, ClickStatus consumedStatus) :

@@ -1,4 +1,5 @@
 #include <math.h>
+#include <memory>
 #include "pipbuck.hpp"
 #include "../../util/i18n.hpp"
 #include "../log.hpp"

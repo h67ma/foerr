@@ -1,4 +1,5 @@
 #include "pipbuck_category.hpp"
+#include <memory>
 
 #define PIPB_PAGE_BTNS_X_START 385
 #define PIPB_PAGE_BTNS_X_DISTANCE 140

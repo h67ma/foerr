@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <nlohmann/json.hpp>
 #include <SFML/System/Vector2.hpp>
 #include "../hud/log.hpp"

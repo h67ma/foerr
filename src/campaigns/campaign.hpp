@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include "../resources/resource_manager.hpp"
 #include "location.hpp"
 

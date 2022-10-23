@@ -3,6 +3,7 @@
 #include <vector>
 #include <map>
 #include <unordered_map>
+#include <memory>
 #include <SFML/Graphics/Drawable.hpp>
 #include "../hud_transformable.hpp"
 #include "../../resources/resource_manager.hpp"

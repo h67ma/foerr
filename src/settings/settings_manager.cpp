@@ -1,4 +1,5 @@
 #include "settings_manager.hpp"
+#include <string>
 #include "../consts.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"

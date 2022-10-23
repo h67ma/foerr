@@ -1,5 +1,6 @@
 #include "campaign.hpp"
 #include <filesystem>
+#include <string>
 #include "../util/json.hpp"
 #include "../consts.hpp"
 #include "../util/i18n.hpp"
