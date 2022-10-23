@@ -1,15 +1,14 @@
 file(GLOB_RECURSE SOURCES *.cpp)
 
-# TODO? for stack trace
-#add_compile_options(-g -rdynamic -Wall)
-
 add_executable(foerr ${SOURCES})
 
-if(MSVC)
+if(WIN32)
 	# set a tolerable warning level
 	add_compile_options(foerr PRIVATE /W4 /WX)
-else()
+elseif(UNIX)
 	add_compile_options(foerr PRIVATE -Wall -Wextra -Wpedantic -Werror)
+else()
+	message(WARNING "Building on unsupported configuration.")
 endif()
 
 target_link_libraries(foerr PRIVATE sfml-graphics sfml-window sfml-system sfml-audio nlohmann_json)

@@ -1,9 +1,7 @@
 #include <iostream>
 #include <functional>
-//#include <execinfo.h>
 #include <signal.h>
 #include <stdlib.h>
-//#include <unistd.h>
 
 #include <SFML/System/Clock.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
@@ -25,19 +23,6 @@
 #include "hud/loading_screen.hpp"
 #include "settings/keymap.hpp"
 
-//void stackTraceHandler(int sig) {
-//	void *array[STACKTRACE_MAX_CNT];
-//	size_t size;
-//
-//	// get void*'s for all entries on the stack
-//	size = backtrace(array, STACKTRACE_MAX_CNT);
-//
-//	// print out all the frames to stderr
-//	std::cerr << "Error: signal " << sig << std::endl;
-//	backtrace_symbols_fd(array, size, STDERR_FILENO);
-//	exit(1);
-//}
-
 int main()
 {
 	GameState gameState = STATE_MAINMENU;
@@ -50,9 +35,6 @@ int main()
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
 	sf::Clock animationTimer;
-
-	// TODO find a platform-independent way to display stack trace on crash
-	//signal(SIGSEGV, stackTraceHandler);
 
 	recreateWindow(window, settings);
 
