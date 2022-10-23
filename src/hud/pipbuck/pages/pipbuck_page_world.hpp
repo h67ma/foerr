@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../pipbuck_page.hpp"
 #include "../../../resources/resource_manager.hpp"
 #include "../../../resources/sprite_resource.hpp"

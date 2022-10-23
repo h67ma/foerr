@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
 #include "../settings/settings_manager.hpp"
