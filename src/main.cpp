@@ -106,9 +106,10 @@ int main()
 
 	// this is kinda messy but probably faster than a very long switch-case.
 	// for each keypress we have to go through two maps: key -> action, action -> callback.
-	// TODO? maybe we could manage with a single map key -> callback. maybe a function that
-	// populates cbs map (this time mapping key to callback), which we call each time the
-	// mapping has changed?
+	// TODO? we could manage with a single map: key -> callback. we'd need a method in Keymap that populates below two
+	// (or more) maps (mapping key to callback), which we'd call each time the mapping has changed and on program start.
+	// while this would improve performance a bit, it would also significantly complicate things and possibly introduce
+	// bugs. for now the current simple solution is fine, until we face issues with keypress response time.
 	std::unordered_map<KeyAction, std::function<void(void)>> playingCbs {
 		{ ACTION_PIPBUCK_TOGGLE_OPEN, [&pipBuck](){
 			pipBuck.open();
