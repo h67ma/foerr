@@ -268,6 +268,11 @@ int main()
 		} },
 	};
 
+	std::unordered_map<KeyAction, std::function<void(void)>> mainMenuCbs {
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
+			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+		} }
+	};
 
 
 	// TODO remove all comments below
@@ -535,6 +540,12 @@ int main()
 					{
 						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });
 					}
+				}
+				else if (event.type == sf::Event::KeyPressed)
+				{
+					auto search = mainMenuCbs.find(Keymap::keyToAction(event.key.code));
+					if (search != mainMenuCbs.end())
+						search->second();
 				}
 			}
 
