@@ -66,10 +66,10 @@ void SettingsManager::loadConfig()
 	json root;
 	std::string path = pathCombine(this->gameRootDir, PATH_SETTINGS);
 
-	if (!loadJsonFromFile(root, path))
+	if (!loadJsonFromFile(root, path, true))
 	{
 		// we'll just run on default settings (which are already assigned)
-		Log::w(STR_SETTINGS_OPEN_ERROR);
+		Log::d(STR_SETTINGS_OPEN_ERROR);
 		return;
 	}
 

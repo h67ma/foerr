@@ -291,9 +291,9 @@ void Keymap::load()
 {
 	json root;
 
-	if (!loadJsonFromFile(root, pathCombine(SettingsManager::getGameRootDir(), std::string(PATH_KEYMAP))))
+	if (!loadJsonFromFile(root, pathCombine(SettingsManager::getGameRootDir(), std::string(PATH_KEYMAP)), true))
 	{
-		Log::w(STR_KEYMAP_OPEN_ERROR);
+		Log::d(STR_KEYMAP_OPEN_ERROR);
 		return;
 	}
 

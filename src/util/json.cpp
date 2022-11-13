@@ -9,13 +9,14 @@ void writeJsonToFile(const json &root, std::string path)
 	writer.close();
 }
 
-bool loadJsonFromFile(json &root, std::string path)
+bool loadJsonFromFile(json &root, std::string path, bool quiet)
 {
 	std::ifstream reader(path);
 
 	if (!reader.is_open())
 	{
-		Log::e(STR_FILE_OPEN_ERROR, path.c_str());
+		if (!quiet)
+			Log::e(STR_FILE_OPEN_ERROR, path.c_str());
 		return false;
 	}
 

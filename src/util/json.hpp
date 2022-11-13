@@ -9,7 +9,7 @@
 using json = nlohmann::json;
 
 void writeJsonToFile(const json &root, std::string path);
-bool loadJsonFromFile(json &root, std::string path);
+bool loadJsonFromFile(json &root, std::string path, bool quiet = false);
 bool parseJsonVector2uKey(const json &node, const char* filePath, const char* key, sf::Vector2u &value, bool quiet = false);
 
 template<typename T>
