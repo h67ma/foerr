@@ -1,9 +1,18 @@
 #include "settings_manager.hpp"
+#ifdef __linux__
+#include <unistd.h>
+#include <pwd.h>
+#endif /* __linux__ */
 #include <string>
+#include <filesystem>
 #include "../consts.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
+
+// TODO should we care about this cpplint warning?
+std::string SettingsManager::gameRootDir;
+std::string SettingsManager::saveDir;
 
 SettingsManager::SettingsManager()
 {
@@ -48,15 +57,16 @@ void SettingsManager::saveConfig()
 		root.emplace(sett.getKey(), sett.getJsonValue());
 	}
 
-	writeJsonToFile(root, PATH_SETTINGS);
+	writeJsonToFile(root, pathCombine(this->gameRootDir, PATH_SETTINGS));
 	Log::i("Saved settings");
 }
 
 void SettingsManager::loadConfig()
 {
 	json root;
+	std::string path = pathCombine(this->gameRootDir, PATH_SETTINGS);
 
-	if (!loadJsonFromFile(root, std::string(PATH_SETTINGS)))
+	if (!loadJsonFromFile(root, path))
 	{
 		// we'll just run on default settings (which are already assigned)
 		Log::w(STR_SETTINGS_OPEN_ERROR);
@@ -68,7 +78,7 @@ void SettingsManager::loadConfig()
 		auto search = root.find(sett.getKey());
 		if (search == root.end())
 		{
-			Log::w(STR_SETTINGS_KEY_MISSING, PATH_SETTINGS, sett.getKey().c_str());
+			Log::w(STR_SETTINGS_KEY_MISSING, path.c_str(), sett.getKey().c_str());
 			continue;
 		}
 
@@ -78,7 +88,7 @@ void SettingsManager::loadConfig()
 		}
 		catch (const json::type_error &ex)
 		{
-			Log::w(STR_INVALID_TYPE_EX, PATH_SETTINGS, sett.getKey().c_str(), ex.what());
+			Log::w(STR_INVALID_TYPE_EX, path.c_str(), sett.getKey().c_str(), ex.what());
 		}
 	}
 }
@@ -176,4 +186,54 @@ void SettingsManager::setGuiScale(SettingName idx, GuiScale newValue)
 	}
 
 	this->settings[idx].val.guiScale = newValue;
+}
+
+/**
+ * @brief Generates game root and savegame dirs and creates directories for both.
+ *
+ * Can be called before calling ::loadConfig(), as paths do not depend on any custom config (it would be impossible, as
+ * config.json is stored *inside* game root dir).
+ *
+ * @return true if paths are valid and mkdir succeeded
+ * @return false if paths are invalid or mkdir failed
+ */
+bool SettingsManager::generatePathsAndMkdir()
+{
+	const char* homeDir;
+#ifdef __linux__
+	homeDir = getenv("HOME");
+	if (homeDir == NULL)
+		homeDir = getpwuid(getuid())->pw_dir;
+#elif defined(_WIN32)
+	homeDir = getenv("USERPROFILE"));
+#else // TODO add a case for macos
+	homedir = "."; // I guess just store files in current directory
+#endif
+
+	if (!std::filesystem::exists(homeDir))
+		homeDir = "."; // fallback to current dir
+
+	SettingsManager::gameRootDir = pathCombine(homeDir, PATH_DIR_GAMEDATA);
+	SettingsManager::saveDir = pathCombine(gameRootDir, PATH_DIR_SAVES);
+
+	if (std::filesystem::exists(saveDir))
+		return true;
+
+	if (std::filesystem::create_directories(saveDir))
+	{
+		Log::d(STR_CREATED_GAME_DIRS);
+		return true;
+	}
+
+	return false;
+}
+
+std::string SettingsManager::getGameRootDir()
+{
+	return SettingsManager::gameRootDir;
+}
+
+std::string SettingsManager::getSaveDir()
+{
+	return SettingsManager::saveDir;
 }

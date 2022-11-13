@@ -3,6 +3,7 @@
 #include "../consts.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "settings_manager.hpp"
 
 #define CONFUSION "???"
 
@@ -290,7 +291,7 @@ void Keymap::load()
 {
 	json root;
 
-	if (!loadJsonFromFile(root, std::string(PATH_KEYMAP)))
+	if (!loadJsonFromFile(root, pathCombine(SettingsManager::getGameRootDir(), std::string(PATH_KEYMAP))))
 	{
 		Log::w(STR_KEYMAP_OPEN_ERROR);
 		return;
@@ -309,7 +310,7 @@ void Keymap::load()
 }
 
 /**
- * Saves the current keymap to a file (PATH_KEYMAP).
+ * Saves the current keymap to a file.
  */
 void Keymap::save()
 {
@@ -332,6 +333,6 @@ void Keymap::save()
 		root.emplace(keyStr, actionStr);
 	}
 
-	writeJsonToFile(root, PATH_KEYMAP);
+	writeJsonToFile(root, pathCombine(SettingsManager::getGameRootDir(), std::string(PATH_KEYMAP)));
 	Log::i(STR_KEYMAP_SAVED);
 }

@@ -21,20 +21,24 @@ uint Log::fontGap;
 std::list<std::unique_ptr<LogElementText>> Log::history;
 sf::Clock Log::clock;
 
-// empty file will be created even if user has disabled writing to log file.
-// if user enables writing to log mid-game we'll have somewhere to write to.
-// otherwise we'd have to check if the file exists every time we write.
-std::ofstream Log::logFile = std::ofstream(PATH_LOGFILE);
+std::ofstream Log::logFile;
 
 void Log::setFont(sf::Font *font)
 {
 	Log::font = font;
 }
 
+// TODO when we'll have the ability to modify settings during runtime,
+// we need to call this when setting SETT_WRITE_LOG_TO_FILE = true
 void Log::setPosition(ScreenCorner anchor, sf::Vector2u windowSize)
 {
 	Log::anchor = anchor;
 	Log::windowSize = windowSize;
+}
+
+void Log::openLogFile(std::string logFilePath)
+{
+	Log::logFile.open(logFilePath);
 }
 
 void Log::setWriteLogToFile(bool writeLogToFile)
@@ -123,6 +127,8 @@ void Log::logStderr(const char* prefix, std::string msg)
 	std::cerr << prefix << msg << std::endl;
 }
 
+// TODO when we'll have the ability to modify settings during runtime,
+// we need to call this when setting SETT_WRITE_LOG_TO_FILE = false
 void Log::close()
 {
 	Log::logFile.close();

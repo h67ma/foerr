@@ -10,6 +10,8 @@
 #define GAME_AREA_MID_Y 500.f
 
 // paths
+#define PATH_DIR_GAMEDATA ".foerr"
+#define PATH_DIR_SAVES "savegames"
 #define PATH_SETTINGS "config.json"
 #define PATH_KEYMAP "keymap.json"
 #define PATH_LOGFILE "foerr.log"

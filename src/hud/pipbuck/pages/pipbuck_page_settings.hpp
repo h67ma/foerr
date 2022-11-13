@@ -15,6 +15,7 @@ class PipBuckPageSettings : public PipBuckPage
 {
 	private:
 		std::vector<SimpleButton> buttons;
+		sf::Text infoText;
 
 	public:
 		PipBuckPageSettings(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, SettingsManager &settings);

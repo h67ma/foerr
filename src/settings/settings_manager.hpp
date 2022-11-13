@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include <SFML/Graphics/Color.hpp>
 #include "../hud/hud.hpp"
 #include "setting.hpp"
@@ -41,13 +42,20 @@ enum SettingName
  * Objects which rely on various settings could register a callback to SettingsManager
  * (callbacks would be stored in a vector), the callback being responsible for updating
  * the object on settings change. We could then simply call all these callbacks from
- * inside SettingsManager. SettingsManager could be even made static, to avoid passing
- * the object everywhere.
+ * inside SettingsManager.
+ *
+ * TODO? make SettingsManager static to avoid passing the object everywhere.
  */
 class SettingsManager
 {
 	private:
 		std::vector<Setting> settings;
+
+		// SettingsManager is a kinda dumb place to put paths, but can't think of a better place rn.
+		// paths are not stored in the main settings vector. they are instead generated based on user home dir,
+		// with ::generatePathsAndMkdir()
+		static std::string gameRootDir;
+		static std::string saveDir;
 
 	public:
 		SettingsManager();
@@ -63,4 +71,7 @@ class SettingsManager
 		void setColor(SettingName idx, sf::Color newValue);
 		void setScreenCorner(SettingName idx, ScreenCorner newValue);
 		void setGuiScale(SettingName idx, GuiScale newValue);
+		static bool generatePathsAndMkdir();
+		static std::string getGameRootDir();
+		static std::string getSaveDir();
 };

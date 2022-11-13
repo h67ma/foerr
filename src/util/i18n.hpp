@@ -84,3 +84,5 @@
 #define STR_KEYMAP_SAVED "Saved keymap"
 #define STR_KEYMAP_INIT_FAIL_ACTION_STR_DUPL "Error setting up keymap - duplicate action string \"%s\""
 #define STR_KEYMAP_INIT_FAIL_KEY_STR_DUPL "Error setting up keymap - duplicate key string \"%s\""
+#define STR_CREATED_GAME_DIRS "Created game directories."
+#define STR_CREATE_DIRS_FAIL "Failed to create directories for saving game files."

@@ -25,6 +25,13 @@
 int main()
 {
 	GameState gameState = STATE_MAINMENU;
+
+	if (!SettingsManager::generatePathsAndMkdir())
+	{
+		Log::e(STR_CREATE_DIRS_FAIL);
+		exit(1);
+	}
+
 	SettingsManager settings;
 	settings.loadConfig();
 
@@ -55,12 +62,17 @@ int main()
 	window.draw(loadingScreen);
 	window.display();
 
+	if (settings.getBool(SETT_WRITE_LOG_TO_FILE))
+		Log::openLogFile(pathCombine(SettingsManager::getGameRootDir(), PATH_LOGFILE));
+
 	Log::setFont(resManager.getFont(FONT_NORMAL));
 	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), window.getSize());
 	Log::setWriteLogToFile(settings.getBool(SETT_WRITE_LOG_TO_FILE));
 	Log::setPrintMsgs(settings.getBool(SETT_PRINT_MSGS));
 	Log::setVerboseDebug(settings.getBool(SETT_VERBOSE_DEBUG));
 	Log::setGuiScale(initialScale);
+
+	Log::d("Save dir = %s", settings.getSaveDir().c_str());
 
 	if (!resManager.loadCore())
 	{

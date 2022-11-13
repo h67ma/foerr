@@ -40,6 +40,7 @@ class Log
 	public:
 		static void setFont(sf::Font *font);
 		static void setPosition(ScreenCorner anchor, sf::Vector2u windowSize);
+		static void openLogFile(std::string logFilePath);
 		static void setWriteLogToFile(bool writeLogToFile);
 		static void setPrintMsgs(bool printMsgs);
 		static void setVerboseDebug(bool verboseDebug);
