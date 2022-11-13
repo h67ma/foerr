@@ -221,7 +221,7 @@ bool SettingsManager::generatePathsAndMkdir()
 	if (homeDir == NULL)
 		homeDir = getpwuid(getuid())->pw_dir;
 #elif defined(_WIN32)
-	homeDir = getenv("USERPROFILE"));
+	homeDir = getenv("USERPROFILE");
 #else // TODO add a case for macos
 	homedir = "."; // I guess just store files in current directory
 #endif
