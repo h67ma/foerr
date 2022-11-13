@@ -21,7 +21,6 @@
 #define PATH_CURSOR_CROSS_RED "res/hud/cursor/crosshair_red.png"
 #define DIR_LOCATIONS "locations"
 #define FILENAME_INDEX "_index.json"
-#define EXT_JSON ".json"
 
 // json keys
 #define FOERR_JSON_KEY_BLOCKS "blocks"
