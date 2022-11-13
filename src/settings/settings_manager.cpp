@@ -26,7 +26,12 @@ SettingsManager::SettingsManager()
 	// TODO? windowed size + position override
 
 	// hud
+#ifdef __linux__
+	// currently custom cursor (with color support) is broken on linux
+	this->settings[SETT_PREFER_CUSTOM_CURSOR].setupBool("prefer_custom_cursor", false);
+#else
 	this->settings[SETT_PREFER_CUSTOM_CURSOR].setupBool("prefer_custom_cursor", true);
+#endif /* __linux__ */
 	this->settings[SETT_SHOW_FPS_COUNTER].setupBool("show_fps_counter", true);
 	this->settings[SETT_ANCHOR_LOG].setupScreenCorner("log_anchor", CORNER_TOP_RIGHT);
 	this->settings[SETT_ANCHOR_FPS].setupScreenCorner("fps_anchor", CORNER_TOP_LEFT);
