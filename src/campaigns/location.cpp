@@ -213,8 +213,9 @@ bool Location::loadContent(ResourceManager &resMgr)
 	}
 
 	// TODO sanity checks:
-	// at least one MAS terminal
-	// [grind maps only] at least one exit
+	// - at least one MAS terminal
+	// - [grind maps only] at least one exit
+	// - all doors/vents/etc must have a counterpart in another room, so that all passages actually lead to other rooms
 
 	// we could also check if room grid is valid, i.e. are all rooms reachable.
 	// we'd have to implement some kind of DFS. checking if every room has at least one neighbor is not enough - two
