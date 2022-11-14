@@ -64,16 +64,6 @@ bool Campaign::load(std::string campaignDir)
 		return false;
 	}
 
-	// TODO? don't load all locations at the same time. we could load locations
-	// when they are entered (maybe leaving basecamps loaded at all times)
-	// that's problematic though, as player could start playing, first location loads,
-	// player plays a bit, then enters other location and there's load error...
-	// what then? this is unacceptable. a somewhat compromise solution would be to only
-	// load resources, but then we also can end up in situation where some file is e.g.
-	// missing in the middle of playing.
-	// the best solution would be to check if all files are present and don't have any errors,
-	// and somehow lock changing those files until campaign is unloaded.
-	// for now let's just load everything at start
 	for (const std::filesystem::directory_entry &entry : iter)
 	{
 		std::string locId = entry.path().stem().string();
@@ -82,6 +72,9 @@ bool Campaign::load(std::string campaignDir)
 		this->locations.emplace_back(locId, locPath);
 		// initially we only load metadata such as name, description, world map details, etc.
 		// rooms are loaded separately via ::loadContent() when entering a location.
+		// there's a possibility that some location will fail to load in the middle of gameplay, but even then the
+		// player could save game and fix/report the faulty location without losing progress.
+		// TODO? we could add a button in campaign selector which would trigger test-loading all locations.
 		if (!this->locations.back().loadMeta())
 		{
 			// unload everything
