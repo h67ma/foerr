@@ -18,10 +18,10 @@
  *	"description": "Description shown on world map page.",
  *	"grind": false,
  *	"basecamp": false,
- *	"rec_lvl": 42,	// optional
+ *	"rec_lvl": 42,							// optional
  *	"background_full": "path/to/img.png",	// optional
  *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
- *	"worldmap_icon_big": false,	// optional
+ *	"worldmap_icon_big": false,				// optional
  *	"worldmap_coords": [123, 456],
  *	"rooms": [
  *		...	// see room.cpp

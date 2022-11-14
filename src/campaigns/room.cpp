@@ -13,9 +13,10 @@ bool Room::shouldDrawBackgroundFull()
  *
  * Room file structure:
  * {
- *	"coords": [2, 1],
- *	"is_start": true,	// optional, exactly one room in a location must be a start room
- *	"bg": false,		// optional
+ *	"coords": [2, 0, 1],	// (X, Y, Z). Z=0 is the front/main layer, Z=1 is backstage-1, Z=2 is backstage-2, etc.
+ *	"is_start": true,		// optional, exactly one room in a location must be a start room
+ *	"bg": false,			// optional, false means that background_full is not displayed for this room even if
+ *							// the location specifies it (useful for e.g. underground or backstage rooms)
  *	"blocks": [
  *		"LD_|LD_|...",
  *		"Lfz|Lf_|...",
@@ -87,11 +88,13 @@ bool Room::load(const json &root, const char* filePath)
 		// finally, we can actually read the room data
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			// x is the "regular" horizontal index here, i.e. it points to an element in blocks/backgrounds array, not in json line
+			// x is the "regular" horizontal index here, i.e. it points to an element in blocks/backgrounds array,
+			// not in json line
 			this->backgrounds[y][x] = line[x * ROOM_CHARS_PER_CELL];
 			this->backgrounds2[y][x] = line[(x * ROOM_CHARS_PER_CELL) + 1];
 			this->blocks[y][x] = line[(x * ROOM_CHARS_PER_CELL) + 2];
-			// line[(x * ROOM_CHARS_PER_CELL) + 3] should be '|', but we don't actually need to check it, some character just needs to be here.
+			// line[(x * ROOM_CHARS_PER_CELL) + 3] should be '|', but we don't actually need to check it.
+			// some character just needs to be here.
 			// actually, because we skip the '|' at the end of the line, the character at the end would be 0.
 		}
 	}

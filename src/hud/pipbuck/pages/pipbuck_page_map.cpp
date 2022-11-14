@@ -7,7 +7,11 @@ PipBuckPageMap::PipBuckPageMap(ResourceManager &resMgr)
 	this->dummy.setPosition(500.f, 500.f);
 	this->dummy.setString("map");
 
-	// TODO if player enters the backstage, display on map should also change to backrooms. same for minimap
+	// TODO map should display the current layer, not only front/main layer. if player enters backstage, map should also
+	// change to backstage. same for minimap.
+
+	// TODO map should allow the player to browse other layers (fore/back), but opening pipbuck should reset display
+	// to current layer
 }
 
 std::string PipBuckPageMap::getLabel()
