@@ -416,37 +416,75 @@ int main()
 
 
 	// debug room navigation
-	sf::Text debugCoords("(?, ?)", *resManager.getFont(FONT_FIXED), 30);
-	debugCoords.setPosition(570, 493);
+	sf::Text debugCoords("(?, ?, ?)", *resManager.getFont(FONT_FIXED), 30);
+	debugCoords.setPosition(550, 493);
 	debugCoords.setFillColor(hudColor);
 
-	SimpleButton btnRoomLeft(initialScale, BTN_NARROW, hudColor, resManager, { 430, 500 }, "<", [&campaign, &debugCoords]() {
-		campaign.gotoRoom(DIR_LEFT);
-		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
-	});
+	SimpleButton btnRoomLeft(initialScale, BTN_NARROW, hudColor, resManager, { 400, 500 }, "<",
+		[&campaign, &debugCoords]() {
+			campaign.gotoRoom(DIR_LEFT);
+			debugCoords.setString(litSprintf("(%u, %u, %u)",
+											 campaign.getPlayerRoomCoords().x,
+											 campaign.getPlayerRoomCoords().y,
+											 campaign.getPlayerRoomCoords().z));
+		});
 	buttons.push_back(&btnRoomLeft);
 	hoverMgr += &btnRoomLeft;
 
-	SimpleButton btnRoomRight(initialScale, BTN_NARROW, hudColor, resManager, { 670, 500 }, ">", [&campaign, &debugCoords]() {
-		campaign.gotoRoom(DIR_RIGHT);
-		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
-	});
+	SimpleButton btnRoomRight(initialScale, BTN_NARROW, hudColor, resManager, { 700, 500 }, ">",
+		[&campaign, &debugCoords]() {
+			campaign.gotoRoom(DIR_RIGHT);
+			debugCoords.setString(litSprintf("(%u, %u, %u)",
+											 campaign.getPlayerRoomCoords().x,
+											 campaign.getPlayerRoomCoords().y,
+											 campaign.getPlayerRoomCoords().z));
+		});
 	buttons.push_back(&btnRoomRight);
 	hoverMgr += &btnRoomRight;
 
-	SimpleButton btnRoomUp(initialScale, BTN_NARROW, hudColor, resManager, { 550, 450 }, "/\\", [&campaign, &debugCoords]() {
-		campaign.gotoRoom(DIR_UP);
-		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
-	});
+	SimpleButton btnRoomUp(initialScale, BTN_NARROW, hudColor, resManager, { 550, 450 }, "/\\",
+		[&campaign, &debugCoords]() {
+			campaign.gotoRoom(DIR_UP);
+			debugCoords.setString(litSprintf("(%u, %u, %u)",
+											 campaign.getPlayerRoomCoords().x,
+											 campaign.getPlayerRoomCoords().y,
+											 campaign.getPlayerRoomCoords().z));
+		});
 	buttons.push_back(&btnRoomUp);
 	hoverMgr += &btnRoomUp;
 
-	SimpleButton btnRoomDown(initialScale, BTN_NARROW, hudColor, resManager, { 550, 550 }, "\\/", [&campaign, &debugCoords]() {
-		campaign.gotoRoom(DIR_DOWN);
-		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
-	});
+	SimpleButton btnRoomDown(initialScale, BTN_NARROW, hudColor, resManager, { 550, 550 }, "\\/",
+		[&campaign, &debugCoords]() {
+			campaign.gotoRoom(DIR_DOWN);
+			debugCoords.setString(litSprintf("(%u, %u, %u)",
+											 campaign.getPlayerRoomCoords().x,
+											 campaign.getPlayerRoomCoords().y,
+											 campaign.getPlayerRoomCoords().z));
+		});
 	buttons.push_back(&btnRoomDown);
 	hoverMgr += &btnRoomDown;
+
+	SimpleButton btnRoomFront(initialScale, BTN_NARROW, hudColor, resManager, { 700, 450 }, "fore",
+		[&campaign, &debugCoords]() {
+			campaign.gotoRoom(DIR_FRONT);
+			debugCoords.setString(litSprintf("(%u, %u, %u)",
+											 campaign.getPlayerRoomCoords().x,
+											 campaign.getPlayerRoomCoords().y,
+											 campaign.getPlayerRoomCoords().z));
+		});
+	buttons.push_back(&btnRoomFront);
+	hoverMgr += &btnRoomFront;
+
+	SimpleButton btnRoomBack(initialScale, BTN_NARROW, hudColor, resManager, { 700, 550 }, "back",
+		[&campaign, &debugCoords]() {
+			campaign.gotoRoom(DIR_BACK);
+			debugCoords.setString(litSprintf("(%u, %u, %u)",
+											 campaign.getPlayerRoomCoords().x,
+											 campaign.getPlayerRoomCoords().y,
+											 campaign.getPlayerRoomCoords().z));
+		});
+	buttons.push_back(&btnRoomBack);
+	hoverMgr += &btnRoomBack;
 
 
 
@@ -475,7 +513,10 @@ int main()
 	if (campaign.load("res/campaigns/test") && pipBuck.setupCampaignInfos())
 	{
 		gameState = STATE_PLAYING;
-		debugCoords.setString(litSprintf("(%u, %u)", campaign.getPlayerRoomCoords().x, campaign.getPlayerRoomCoords().y));
+		debugCoords.setString(litSprintf("(%u, %u, %u)",
+										 campaign.getPlayerRoomCoords().x,
+										 campaign.getPlayerRoomCoords().y,
+										 campaign.getPlayerRoomCoords().z));
 	}
 
 	// TODO? there's a very minor visual bug that happens if e.g. player hovers over pipbuck btn,

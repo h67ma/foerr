@@ -61,6 +61,6 @@ class Location : public sf::Drawable
 		uint getRecommendedLevel();
 		std::string getWorldMapIconId();
 		bool gotoRoom(Direction direction);
-		sf::Vector2u getPlayerRoomCoords();
+		Vector3u getPlayerRoomCoords();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

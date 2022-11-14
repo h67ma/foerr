@@ -75,3 +75,43 @@ bool parseJsonVector2uKey(const json &node, const char* filePath, const char* ke
 
 	return true;
 }
+
+/**
+ * Parses a three-element vector from json. Useful for sizes, coordinates, etc.
+ * Coordinate element in json looks like this: "key": [123, 456, 1]
+ */
+bool parseJsonVector3uKey(const json &node, const char* filePath, const char* key, Vector3u &value, bool quiet)
+{
+	auto search = node.find(key);
+	if (search == node.end())
+	{
+		if (!quiet)
+			Log::w(STR_MISSING_KEY, filePath, key);
+
+		return false;
+	}
+
+	if (!search->is_array())
+	{
+		Log::e(STR_INVALID_TYPE, filePath, key);
+		return false;
+	}
+
+	if (search->size() != 3)
+	{
+		Log::e(STR_INVALID_ARR_SIZE, filePath, key);
+		return false;
+	}
+
+	try
+	{
+		value = { (*search)[0], (*search)[1], (*search)[2] };
+	}
+	catch (const json::type_error &ex)
+	{
+		Log::e(STR_INVALID_TYPE_EX, filePath, key, ex.what());
+		return false;
+	}
+
+	return true;
+}

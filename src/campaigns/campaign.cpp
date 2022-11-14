@@ -223,10 +223,10 @@ bool Campaign::gotoRoom(Direction direction)
 	return this->locations[this->currentLocationIdx].gotoRoom(direction);
 }
 
-sf::Vector2u Campaign::getPlayerRoomCoords()
+Vector3u Campaign::getPlayerRoomCoords()
 {
 	if (!this->loaded)
-		return { 0, 0 }; // well, what can you do
+		return { 0, 0, 0 }; // well, what can you do
 
 	return this->locations[this->currentLocationIdx].getPlayerRoomCoords();
 }

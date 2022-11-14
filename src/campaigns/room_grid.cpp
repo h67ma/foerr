@@ -9,19 +9,19 @@
  *
  * @param dimens new grid size
  */
-void RoomGrid::setDimens(sf::Vector2u dimens)
+void RoomGrid::setDimens(Vector3u dimens)
 {
 	this->dimens = dimens;
 	this->grid.clear(); // just in case
-	this->grid.resize(dimens.x * dimens.y);
+	this->grid.resize(dimens.x * dimens.y * dimens.z);
 }
 
 /**
  * Gets current room coordinates in the room grid.
  *
- * @return sf::Vector2u current room coordinates
+ * @return current room coordinates
  */
-sf::Vector2u RoomGrid::getCurrentCoords()
+Vector3u RoomGrid::getCurrentCoords()
 {
 	return this->currentCoords;
 }
@@ -35,15 +35,15 @@ sf::Vector2u RoomGrid::getCurrentCoords()
  * @return true if set was successful
  * @return false if set failed
  */
-bool RoomGrid::set(sf::Vector2u coords, std::shared_ptr<Room> room)
+bool RoomGrid::set(Vector3u coords, std::shared_ptr<Room> room)
 {
-	if (coords.x >= this->dimens.x || coords.y >= this->dimens.y)
+	if (coords.x >= this->dimens.x || coords.y >= this->dimens.y || coords.z >= this->dimens.z)
 	{
 		Log::e(STR_IDX_OUTTA_BOUNDS);
 		return false;
 	}
 
-	this->grid[coords.y * this->dimens.x + coords.x] = room;
+	this->grid[coords.x + (this->dimens.x * coords.y) + (this->dimens.x * this->dimens.y * coords.z)] = room;
 	return true;
 }
 
@@ -54,12 +54,12 @@ bool RoomGrid::set(sf::Vector2u coords, std::shared_ptr<Room> room)
  * @return a shared pointer to the Room object at specified coords, if it exists
  * @return nullptr, if the coordinates are invalid, or contain an empty room
  */
-std::shared_ptr<Room> RoomGrid::get(sf::Vector2u coords)
+std::shared_ptr<Room> RoomGrid::get(Vector3u coords)
 {
-	if (coords.x >= this->dimens.x || coords.y >= this->dimens.y)
+	if (coords.x >= this->dimens.x || coords.y >= this->dimens.y || coords.z >= this->dimens.z)
 		return nullptr;
 
-	return this->grid[coords.y * this->dimens.x + coords.x];
+	return this->grid[coords.x + (this->dimens.x * coords.y) + (this->dimens.x * this->dimens.y * coords.z)];
 }
 
 /**
@@ -70,7 +70,7 @@ std::shared_ptr<Room> RoomGrid::get(sf::Vector2u coords)
  * @return a shared pointer to the Room object at specified coords, if it exists
  * @return nullptr, if the coordinates are invalid, or contain an empty room
  */
-std::shared_ptr<Room> RoomGrid::moveTo(sf::Vector2u coords)
+std::shared_ptr<Room> RoomGrid::moveTo(Vector3u coords)
 {
 	std::shared_ptr<Room> found = this->get(coords);
 	if (found != nullptr)
@@ -87,7 +87,7 @@ std::shared_ptr<Room> RoomGrid::moveTo(sf::Vector2u coords)
  * @return true if newCoords are valid
  * @return false if newCoords are not valid
  */
-bool RoomGrid::nearExists(Direction direction, sf::Vector2u &newCoords)
+bool RoomGrid::nearExists(Direction direction, Vector3u &newCoords)
 {
 	newCoords = this->currentCoords;
 
@@ -105,6 +105,13 @@ bool RoomGrid::nearExists(Direction direction, sf::Vector2u &newCoords)
 
 		newCoords.x -= 1;
 	}
+	else if (direction == DIR_FRONT)
+	{
+		if (newCoords.z == 0)
+			return false; // can't go any more to the front
+
+		newCoords.z -= 1;
+	}
 	else if (direction == DIR_DOWN)
 	{
 		newCoords.y += 1;
@@ -112,6 +119,10 @@ bool RoomGrid::nearExists(Direction direction, sf::Vector2u &newCoords)
 	else if (direction == DIR_RIGHT)
 	{
 		newCoords.x += 1;
+	}
+	else if (direction == DIR_BACK)
+	{
+		newCoords.z += 1;
 	}
 
 	if (this->get(newCoords) == nullptr)
@@ -133,7 +144,7 @@ bool RoomGrid::nearExists(Direction direction, sf::Vector2u &newCoords)
  */
 std::shared_ptr<Room> RoomGrid::moveToNear(Direction direction)
 {
-	sf::Vector2u newCoords;
+	Vector3u newCoords;
 	if (!this->nearExists(direction, newCoords))
 		return nullptr;
 
@@ -144,5 +155,5 @@ std::shared_ptr<Room> RoomGrid::moveToNear(Direction direction)
 void RoomGrid::clear()
 {
 	this->grid.clear();
-	this->dimens = { 0, 0 };
+	this->dimens = { 0, 0, 0 };
 }

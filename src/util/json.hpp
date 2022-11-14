@@ -5,12 +5,14 @@
 #include <SFML/System/Vector2.hpp>
 #include "../hud/log.hpp"
 #include "i18n.hpp"
+#include "../consts.hpp"
 
 using json = nlohmann::json;
 
 void writeJsonToFile(const json &root, std::string path);
 bool loadJsonFromFile(json &root, std::string path, bool quiet = false);
 bool parseJsonVector2uKey(const json &node, const char* filePath, const char* key, sf::Vector2u &value, bool quiet = false);
+bool parseJsonVector3uKey(const json &node, const char* filePath, const char* key, Vector3u &value, bool quiet = false);
 
 template<typename T>
 bool parseJsonKey(const json &node, const char* filePath, const char* key, T &value, bool quiet = false)

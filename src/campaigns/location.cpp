@@ -117,12 +117,12 @@ bool Location::loadContent(ResourceManager &resMgr)
 	// initial pass, check if exactly one room is marked as start room, set start coords,
 	// and also calculate the size of room grid based on rooms coords.
 	bool foundStart = false;
-	sf::Vector2u gridDimens(0, 0);
-	sf::Vector2u startRoomCoords;
+	Vector3u gridDimens(0, 0, 0);
+	Vector3u startRoomCoords;
 	for (const auto &roomNode : (*roomsSearch))
 	{
-		sf::Vector2u roomCoords;
-		if (!parseJsonVector2uKey(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
+		Vector3u roomCoords;
+		if (!parseJsonVector3uKey(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
 		{
 			this->unloadContent();
 			return false;
@@ -133,6 +133,8 @@ bool Location::loadContent(ResourceManager &resMgr)
 			gridDimens.x = roomCoords.x + 1;
 		if ((roomCoords.y + 1) > gridDimens.y)
 			gridDimens.y = roomCoords.y + 1;
+		if ((roomCoords.z + 1) > gridDimens.z)
+			gridDimens.z = roomCoords.z + 1;
 
 		bool thisStart = false;
 		parseJsonKey<bool>(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_IS_START, thisStart, true);
@@ -173,8 +175,8 @@ bool Location::loadContent(ResourceManager &resMgr)
 	for (const auto &roomNode : (*roomsSearch))
 	{
 		// yes, we need to read coords again
-		sf::Vector2u roomCoords;
-		if (!parseJsonVector2uKey(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
+		Vector3u roomCoords;
+		if (!parseJsonVector3uKey(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
 		{
 			this->unloadContent();
 			return false;
@@ -282,7 +284,7 @@ bool Location::gotoRoom(Direction direction)
 	return true;
 }
 
-sf::Vector2u Location::getPlayerRoomCoords()
+Vector3u Location::getPlayerRoomCoords()
 {
 	return this->rooms.getCurrentCoords();
 }
