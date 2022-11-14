@@ -32,7 +32,6 @@ class RoomGrid
 		bool set(Vector3u coords, std::shared_ptr<Room> room);
 		std::shared_ptr<Room> get(Vector3u coords);
 		std::shared_ptr<Room> moveTo(Vector3u coords);
-		bool nearExists(Direction direction, Vector3u &coords);
 		std::shared_ptr<Room> moveToNear(Direction direction);
 		void clear();
 };

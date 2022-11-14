@@ -80,35 +80,34 @@ std::shared_ptr<Room> RoomGrid::moveTo(Vector3u coords)
 }
 
 /**
- * Checks if a room near the current one exists and returns its coordinates if it does.
+ * Finds the room in the specified direction from current one and sets it as current coordinates if it exists.
  *
  * @param direction direction to search from current room
- * @param coords reference to coordinates of nearby room, valid only if return value is true
- * @return true if newCoords are valid
- * @return false if newCoords are not valid
+ * @return shared pointer to new room, if it exists
+ * @return nullptr, if new room does not exist
  */
-bool RoomGrid::nearExists(Direction direction, Vector3u &newCoords)
+std::shared_ptr<Room> RoomGrid::moveToNear(Direction direction)
 {
-	newCoords = this->currentCoords;
+	Vector3u newCoords = this->currentCoords;
 
 	if (direction == DIR_UP)
 	{
 		if (newCoords.y == 0)
-			return false; // can't go any higher
+			return nullptr; // can't go any higher
 
 		newCoords.y -= 1;
 	}
 	else if (direction == DIR_LEFT)
 	{
 		if (newCoords.x == 0)
-			return false; // can't go any more left
+			return nullptr; // can't go any more left
 
 		newCoords.x -= 1;
 	}
 	else if (direction == DIR_FRONT)
 	{
 		if (newCoords.z == 0)
-			return false; // can't go any more to the front
+			return nullptr; // can't go any more to the front
 
 		newCoords.z -= 1;
 	}
@@ -128,24 +127,6 @@ bool RoomGrid::nearExists(Direction direction, Vector3u &newCoords)
 	if (this->get(newCoords) == nullptr)
 		// the system you're searching for doesn't exist.
 		// impossible! perhaps the archives are incomplete?
-		return false;
-
-	newCoords = newCoords;
-	return true;
-}
-
-/**
- * Finds the room in the specified direction from current one and if it exists
- * and sets current coordinates to it.
- *
- * @param direction direction to search from current room
- * @return shared pointer to new room, if it exists
- * @return nullptr, if new room does not exist
- */
-std::shared_ptr<Room> RoomGrid::moveToNear(Direction direction)
-{
-	Vector3u newCoords;
-	if (!this->nearExists(direction, newCoords))
 		return nullptr;
 
 	this->currentCoords = newCoords;
