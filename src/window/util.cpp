@@ -5,18 +5,23 @@
 
 void recreateWindow(sf::RenderWindow &window, SettingsManager &settings)
 {
-	// TODO settings activity should detect valid video modes and list them, with the standard "confirm in 15 seconds" dialog after changing resolution.
+	// TODO settings activity should detect valid video modes and list them, with the standard "confirm in 15 seconds"
+	// dialog after changing resolution.
 	// the selected mode should be saved to settings file.
 	// when loading settings, game should check if the specified video mode exists - sf::VideoMode::isValid()
 	// when settings are uninitialized, game should pick *some* mode - either best, or "safe"
 
+	sf::ContextSettings context;
+	context.antialiasingLevel = 8; // TODO should be configurable in settings
+
 	if (settings.getBool(SETT_FULLSCREEN_ENABLED))
 		// TODO support overriding fullscreen resolution via settings
-		window.create(sf::VideoMode::getDesktopMode(), STR_WINDOW_TITLE, sf::Style::Fullscreen);
+		window.create(sf::VideoMode::getDesktopMode(),
+					  STR_WINDOW_TITLE, sf::Style::Fullscreen, context);
 	else
 		window.create(sf::VideoMode(settings.getUint(SETT_WINDOW_WIDTH),
 									settings.getUint(SETT_WINDOW_HEIGHT)),
-					  STR_WINDOW_TITLE);
+					  STR_WINDOW_TITLE, sf::Style::Default, context);
 
 	if (settings.getBool(SETT_FPS_LIMIT_ENABLED))
 		window.setFramerateLimit(settings.getUint(SETT_FPS_LIMIT));
