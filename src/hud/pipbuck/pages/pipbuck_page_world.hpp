@@ -8,6 +8,7 @@
 #include "../../buttons/simple_button.hpp"
 #include "../../buttons/location_button.hpp"
 #include "../../../campaigns/campaign.hpp"
+#include <SFML/Graphics/CircleShape.hpp>
 
 #define NO_LOCATION_SELECTED -1
 
@@ -26,12 +27,14 @@ class PipBuckPageWorld : public PipBuckPage
 		sf::VertexArray mapGridLines = sf::VertexArray(sf::Lines, 16); // max 4 horizontal, 4 vertical
 		sf::Text locTitle;
 		sf::Text locDescription; // also shows recommended lvl, trial count, basecamp, etc.
+		sf::CircleShape activeLocIndicator;
 		std::vector<LocButton> mapButtons;
 		SimpleButton gotoLocationBtn;
 		HoverManager mapButtonHoverMgr;
 		int selectedLocationIdx = NO_LOCATION_SELECTED; // note: different from the one in Campaign (only represents selection on page)
 		void setupMapDecorations();
 		bool mapContainsPoint(sf::Vector2i point);
+		void updateActiveIndicator();
 
 	public:
 		PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign);

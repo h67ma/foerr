@@ -6,11 +6,9 @@
 #define BTN_COLOR_BASECAMP_HOVER_FACTOR 120
 #define BTN_COLOR_HOVER_FACTOR 60
 
-#define ACTIVE_INDICATOR_NEG_LEN -14
-#define ACTIVE_INDICATOR_DOUBLE_LEN 28
-
-LocButton::LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture, std::function<void(void)> callback) :
-	Button(scale, position, callback, CLICK_CONSUMED),
+LocButton::LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color,
+					 sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture) :
+	Button(scale, position, nullptr, CLICK_CONSUMED),
 	icon(iconTexture)
 {
 	this->isBaseCamp = isBaseCamp;
@@ -35,25 +33,25 @@ void LocButton::updateState()
 	this->setThickness(); // thickness changes between selected/deselected state
 }
 
-uint LocButton::getSideLen()
+uint LocButton::getSideLen(GuiScale scale, bool big)
 {
 	if (scale == GUI_SMALL)
 	{
-		if (this->isBig)
+		if (big)
 			return 39;
 		else
 			return 31;
 	}
 	else if (scale == GUI_LARGE)
 	{
-		if (this->isBig)
+		if (big)
 			return 67;
 		else
 			return 53;
 	}
 	else // normal/default
 	{
-		if (this->isBig)
+		if (big)
 			return 50;
 		else
 			return 40;
@@ -95,7 +93,7 @@ bool LocButton::containsPoint(sf::Vector2i coords)
 void LocButton::setGuiScale(GuiScale scale)
 {
 	this->scale = scale;
-	float sideLen = static_cast<float>(this->getSideLen());
+	float sideLen = static_cast<float>(this->getSideLen(this->scale, this->isBig));
 
 	this->rect.setSize(sf::Vector2f(sideLen, sideLen));
 	this->setThickness();
@@ -106,34 +104,13 @@ void LocButton::setGuiScale(GuiScale scale)
 		floor((sideLen - this->icon.get().getLocalBounds().width) / 2),
 		floor((sideLen - this->icon.get().getLocalBounds().height) / 2)
 	);
-
-	float indicatorWidth;
-	if (scale == GUI_SMALL)
-		indicatorWidth = 2;
-	else if (scale == GUI_LARGE)
-		indicatorWidth = 6;
-	else // normal/default
-		indicatorWidth = 4;
-
-	float centerOffset = sideLen/2 - indicatorWidth/2;
-
-	float indicatorLength = sideLen + ACTIVE_INDICATOR_DOUBLE_LEN;
-
-	this->activeIndicator[0].setSize({ indicatorLength, indicatorWidth });
-	this->activeIndicator[1].setSize({ indicatorWidth, indicatorLength });
-
-	this->activeIndicator[0].setPosition({ ACTIVE_INDICATOR_NEG_LEN, centerOffset });
-	this->activeIndicator[1].setPosition({ centerOffset, ACTIVE_INDICATOR_NEG_LEN });
 }
 
 void LocButton::setColor(sf::Color color)
 {
-	// rectangle border, active indicator
 	this->rect.setOutlineColor(color);
-	this->activeIndicator[0].setFillColor(color);
-	this->activeIndicator[1].setFillColor(color);
 
-	// TODO? somehow change icon tint
+	// TODO somehow change icon tint
 
 	// hover/selected/deselected colors are the same color toned down
 	this->colorHover = color * sf::Color(BTN_COLOR_HOVER_FACTOR, BTN_COLOR_HOVER_FACTOR, BTN_COLOR_HOVER_FACTOR);
@@ -147,20 +124,14 @@ void LocButton::setHover(bool hover)
 	this->updateState();
 }
 
-void LocButton::setActive(bool active)
+bool LocButton::getIsBig()
 {
-	this->active = active;
+	return this->isBig;
 }
 
 void LocButton::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
-
-	if (this->active)
-	{
-		target.draw(this->activeIndicator[0], states);
-		target.draw(this->activeIndicator[1], states);
-	}
 
 	target.draw(this->rect, states);
 	target.draw(this->icon.sprite, states);

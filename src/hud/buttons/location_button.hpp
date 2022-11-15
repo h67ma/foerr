@@ -14,7 +14,6 @@ class LocButton : public Button
 		bool isBaseCamp;
 		bool isBig; // some locations are just bigger than other, that's how it is
 		bool selected; // mouse selection
-		bool active = false; // location where we currently are
 		bool hover = false;
 		// TODO showAnimatedHint = false; // four animated arrows showing the next mane quest location
 		GuiScale scale;
@@ -23,18 +22,17 @@ class LocButton : public Button
 		sf::Color colorBasecamp;
 		sf::RectangleShape rect;
 		SpriteResource icon;
-		sf::RectangleShape activeIndicator[2];
 		void setThickness();
 		void updateState();
-		uint getSideLen();
 
 	public:
-		LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture, std::function<void(void)> callback = nullptr);
+		LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture);
 		void setSelected(bool selected);
 		bool containsPoint(sf::Vector2i coords) override;
 		void setGuiScale(GuiScale scale) override;
 		void setColor(sf::Color color);
 		void setHover(bool hover) override;
-		void setActive(bool active);
+		bool getIsBig();
+		static uint getSideLen(GuiScale scale, bool big);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

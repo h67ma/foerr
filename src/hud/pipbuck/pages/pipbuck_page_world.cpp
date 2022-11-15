@@ -7,7 +7,9 @@
 // relative to the page area
 #define WORLD_MAP_X 400
 #define WORLD_MAP_Y 260
+
 #define MAP_GRID_SPACING 110
+#define SQRT_2 1.414213562f
 
 PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign) :
 	resMgr(resMgr),
@@ -18,12 +20,10 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 			this->selectedLocationIdx < this->campaign.getLocations().size())
 		{
 			// TODO display loading screen
-			uint origIdx = this->campaign.getCurrentLocationIdx();
 			if (!this->campaign.changeLocationByIndex(this->selectedLocationIdx))
 				return;
 
-			this->mapButtons[origIdx].setActive(false);
-			this->mapButtons[this->campaign.getCurrentLocationIdx()].setActive(true);
+			this->updateActiveIndicator();
 
 			// reset selection
 			// no need to reset texts as now they are not shown anyway
@@ -42,6 +42,10 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	this->locDescription.setPosition(970, 300);
 	this->locDescription.setFillColor(hudColor);
 
+	this->activeLocIndicator.setOutlineColor(hudColor);
+	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
+	this->activeLocIndicator.setOutlineThickness(2.f);
+
 	this->setGuiScale(scale);
 
 	this->hoverMgr += &this->gotoLocationBtn;
@@ -50,6 +54,19 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 bool PipBuckPageWorld::mapContainsPoint(sf::Vector2i point)
 {
 	return this->mapBg.get().getGlobalBounds().contains(static_cast<sf::Vector2f>(point));
+}
+
+void PipBuckPageWorld::updateActiveIndicator()
+{
+	sf::Vector2f position = this->mapButtons[this->campaign.getCurrentLocationIdx()].getPosition();
+	bool big = this->mapButtons[this->campaign.getCurrentLocationIdx()].getIsBig();
+
+	uint halfSide = LocButton::getSideLen(this->guiScale, big) / 2;
+	float radius = halfSide * SQRT_2;
+	float offset = radius - halfSide;
+
+	this->activeLocIndicator.setPosition(position - sf::Vector2f(offset, offset));
+	this->activeLocIndicator.setRadius(radius);
 }
 
 ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
@@ -188,7 +205,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 			iconTxt);
 	}
 
-	this->mapButtons[this->campaign.getCurrentLocationIdx()].setActive(true);
+	this->updateActiveIndicator();
 
 	for (auto &btn : this->mapButtons)
 	{
@@ -212,6 +229,9 @@ void PipBuckPageWorld::setGuiScale(GuiScale scale)
 
 	this->locTitle.setCharacterSize(getFontSize(scale, FONT_H2));
 	this->locDescription.setCharacterSize(getFontSize(scale, FONT_SPAN));
+
+	if (this->selectedLocationIdx != NO_LOCATION_SELECTED)
+		this->updateActiveIndicator();
 }
 
 void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -224,6 +244,8 @@ void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) c
 	{
 		target.draw(btn, states);
 	}
+
+	target.draw(this->activeLocIndicator, states);
 
 	if (this->selectedLocationIdx != NO_LOCATION_SELECTED)
 	{
