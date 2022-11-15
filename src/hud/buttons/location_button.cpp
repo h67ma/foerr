@@ -1,5 +1,6 @@
 #include "location_button.hpp"
 #include <math.h>
+#include "../../util/util.hpp"
 
 // values from 0 to 255, where 255 is the original color and 0 is black
 #define BTN_COLOR_BASECAMP_FACTOR 90
@@ -113,9 +114,9 @@ void LocButton::setColor(sf::Color color)
 	// TODO somehow change icon tint
 
 	// hover/selected/deselected colors are the same color toned down
-	this->colorHover = color * sf::Color(BTN_COLOR_HOVER_FACTOR, BTN_COLOR_HOVER_FACTOR, BTN_COLOR_HOVER_FACTOR);
-	this->colorBasecampHover = color * sf::Color(BTN_COLOR_BASECAMP_HOVER_FACTOR, BTN_COLOR_BASECAMP_HOVER_FACTOR, BTN_COLOR_BASECAMP_HOVER_FACTOR);
-	this->colorBasecamp = color * sf::Color(BTN_COLOR_BASECAMP_FACTOR, BTN_COLOR_BASECAMP_FACTOR, BTN_COLOR_BASECAMP_FACTOR);
+	this->colorHover = DIM_COLOR(color, BTN_COLOR_HOVER_FACTOR);
+	this->colorBasecampHover = DIM_COLOR(color, BTN_COLOR_BASECAMP_HOVER_FACTOR);
+	this->colorBasecamp = DIM_COLOR(color, BTN_COLOR_BASECAMP_FACTOR);
 }
 
 void LocButton::setHover(bool hover)
