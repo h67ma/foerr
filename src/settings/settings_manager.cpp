@@ -5,6 +5,7 @@
 #endif /* __linux__ */
 #include <string>
 #include <filesystem>
+#include <SFML/Graphics/RenderTexture.hpp>
 #include "../consts.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
@@ -50,12 +51,18 @@ SettingsManager::SettingsManager()
 	// 100 is max volume
 	this->settings[SETT_FX_VOLUME].setupUint("fx_volume", 100, [](uint val){ return val <= 100; });
 
-	// +++++ debug +++++
-	// TODO maybe we could save window w&h on program exit and then restore it?
+	// +++++ video +++++
 
+	this->settings[SETT_AA].setupUint("antialiasing", 8, [](uint val){
+		return val % 2 == 0 && val <= sf::RenderTexture::getMaximumAntialiasingLevel();
+	});
+
+	// TODO maybe we could save window w&h on program exit and then restore it?
 	// let's be realistic about max window size
 	this->settings[SETT_WINDOW_WIDTH].setupUint("window_w", 1280, [](uint val){ return val <= 7680; });
 	this->settings[SETT_WINDOW_HEIGHT].setupUint("window_h", 720, [](uint val){ return val <= 7680; });
+
+	// +++++ debug +++++
 
 	this->settings[SETT_WRITE_LOG_TO_FILE].setupBool("write_log_to_file", true);
 	this->settings[SETT_PRINT_MSGS].setupBool("print_msgs_cout", false);

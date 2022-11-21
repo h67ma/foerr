@@ -12,7 +12,7 @@ void recreateWindow(sf::RenderWindow &window, SettingsManager &settings)
 	// when settings are uninitialized, game should pick *some* mode - either best, or "safe"
 
 	sf::ContextSettings context;
-	context.antialiasingLevel = 8; // TODO should be configurable in settings
+	context.antialiasingLevel = settings.getUint(SETT_AA);
 
 	if (settings.getBool(SETT_FULLSCREEN_ENABLED))
 		// TODO support overriding fullscreen resolution via settings
