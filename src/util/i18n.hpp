@@ -57,7 +57,7 @@
 #define STR_WINDOW_WINDOWED "Switching to windowed mode"
 #define STR_WINDOW_FULLSCREEN "Switching to fullscreen mode"
 #define STR_IDX_OUTTA_BOUNDS "Index out of bounds!"
-#define STR_IDX_OUTTA_BOUNDS_SETT_NOT_SET "Index out of bounds! Skipping setting a setting."
+#define STR_SETT_NOT_PRESENT "Setting (%d) not present."
 #define STR_CLEANED_UNUSED_RES "Cleaned %u unused resources."
 #define STR_PIPBUCK_CLOSE "Close [TAB]"
 #define STR_PIPBUCK_STATUS "Status"

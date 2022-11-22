@@ -22,23 +22,29 @@ union setting_value_t
 	bool logic;
 	ScreenCorner enumScreenCorner;
 	GuiScale guiScale;
+
+	// wow, this sucks
+	setting_value_t(uint numeric): numeric(numeric) {}
+	setting_value_t(bool logic): logic(logic) {}
+	setting_value_t(ScreenCorner enumScreenCorner): enumScreenCorner(enumScreenCorner) {}
+	setting_value_t(GuiScale guiScale): guiScale(guiScale) {}
 };
 
 class Setting
 {
 	private:
-		std::string key;
-		setting_value_t defaultValue;
-		SettingType settingType;
-		std::function<bool(uint)> constraint = nullptr;
+		const std::string key; // for serialization
+		const setting_value_t defaultValue;
+		const SettingType settingType;
+		const std::function<bool(uint)> constraint;
 
 	public:
 		setting_value_t val; // solution with templates is also possible, but more messy
-		void setupUint(std::string key, uint defaultValue, const std::function<bool(uint)> constraint = nullptr);
-		void setupBool(std::string key, bool defaultValue);
-		void setupColor(std::string key, sf::Color color);
-		void setupScreenCorner(std::string key, ScreenCorner defaultValue);
-		void setupGuiScale(std::string key, GuiScale guiScale);
+		explicit Setting(std::string key, uint defaultValue, const std::function<bool(uint)> constraint = nullptr);
+		explicit Setting(std::string key, bool defaultValue);
+		explicit Setting(std::string key, sf::Color color);
+		explicit Setting(std::string key, ScreenCorner defaultValue);
+		explicit Setting(std::string key, GuiScale guiScale);
 		void resetToDefault();
 		const std::string getKey();
 		const json getJsonValue();

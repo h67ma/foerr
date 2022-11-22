@@ -3,46 +3,41 @@
 #include "../util/i18n.hpp"
 #include "../util/color.hpp"
 
-void Setting::setupUint(std::string key, uint defaultValue, const std::function<bool(uint)> constraint)
-{
-	this->key = key;
-	this->defaultValue.numeric = defaultValue;
-	this->val.numeric = defaultValue;
-	this->constraint = constraint;
-	this->settingType = SETTING_UINT;
-}
+Setting::Setting(std::string key, uint defaultValue, const std::function<bool(uint)> constraint) :
+	key(key),
+	defaultValue(defaultValue),
+	val(defaultValue),
+	constraint(constraint),
+	settingType(SETTING_UINT)
+{}
 
-void Setting::setupBool(std::string key, bool defaultValue)
-{
-	this->key = key;
-	this->defaultValue.logic = defaultValue;
-	this->val.logic = defaultValue;
-	this->settingType = SETTING_BOOL;
-}
+Setting::Setting(std::string key, bool defaultValue) :
+	key(key),
+	defaultValue(defaultValue),
+	val(defaultValue),
+	settingType(SETTING_BOOL)
+{}
 
-void Setting::setupColor(std::string key, sf::Color color)
-{
-	this->key = key;
-	this->defaultValue.numeric = color.toInteger();
-	this->val.numeric = color.toInteger();
-	this->settingType = SETTING_COLOR;
-}
+Setting::Setting(std::string key, sf::Color defaultValue) :
+	key(key),
+	defaultValue(defaultValue.toInteger()),
+	val(defaultValue.toInteger()),
+	settingType(SETTING_COLOR)
+{}
 
-void Setting::setupScreenCorner(std::string key, ScreenCorner defaultValue)
-{
-	this->key = key;
-	this->defaultValue.enumScreenCorner = defaultValue;
-	this->val.enumScreenCorner = defaultValue;
-	this->settingType = SETTING_ENUM_SCREEN_CORNER;
-}
+Setting::Setting(std::string key, ScreenCorner defaultValue) :
+	key(key),
+	defaultValue(defaultValue),
+	val(defaultValue),
+	settingType(SETTING_ENUM_SCREEN_CORNER)
+{}
 
-void Setting::setupGuiScale(std::string key, GuiScale defaultValue)
-{
-	this->key = key;
-	this->defaultValue.guiScale = defaultValue;
-	this->val.guiScale = defaultValue;
-	this->settingType = SETTING_ENUM_GUI_SCALE;
-}
+Setting::Setting(std::string key, GuiScale defaultValue) :
+	key(key),
+	defaultValue(defaultValue),
+	val(defaultValue),
+	settingType(SETTING_ENUM_GUI_SCALE)
+{}
 
 // TODO do we actually need this?
 void Setting::resetToDefault()

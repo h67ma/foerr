@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <unordered_map>
 #include <string>
 #include <SFML/Graphics/Color.hpp>
 #include "../hud/hud.hpp"
@@ -26,7 +26,6 @@ enum SettingName
 	SETT_WINDOW_HEIGHT,
 	SETT_PRINT_MSGS,
 	SETT_VERBOSE_DEBUG,
-	_SETTINGS_CNT // must be the last element
 };
 
 /**
@@ -50,7 +49,7 @@ enum SettingName
 class SettingsManager
 {
 	private:
-		std::vector<Setting> settings;
+		std::unordered_map<SettingName, Setting> settings;
 
 		// SettingsManager is a kinda dumb place to put paths, but can't think of a better place rn.
 		// paths are not stored in the main settings vector. they are instead generated based on user home dir,
