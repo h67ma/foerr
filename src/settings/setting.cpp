@@ -116,7 +116,7 @@ void Setting::loadFromJson(const json &node)
 		val.numeric = readColor.toInteger();
 		Log::d(STR_LOADED_SETTING_S, key.c_str(), readString.c_str());
 	}
-	else if (this->settingType == SETTING_ENUM_SCREEN_CORNER )
+	else if (this->settingType == SETTING_ENUM_SCREEN_CORNER)
 	{
 		int readEnum = node;
 		if (readEnum >= _CORNER_CNT)
