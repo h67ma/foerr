@@ -37,10 +37,12 @@ class Setting
 		const setting_value_t defaultValue;
 		const SettingType settingType;
 		const std::function<bool(uint)> constraint;
+		const std::string valueHint = ""; // describes valid values of the setting, should be used along with constraint
 
 	public:
 		setting_value_t val; // solution with templates is also possible, but more messy
-		explicit Setting(std::string key, uint defaultValue, const std::function<bool(uint)> constraint = nullptr);
+		explicit Setting(std::string key, uint defaultValue, const std::function<bool(uint)> constraint = nullptr,
+						 std::string valueHint = "");
 		explicit Setting(std::string key, bool defaultValue);
 		explicit Setting(std::string key, sf::Color color);
 		explicit Setting(std::string key, ScreenCorner defaultValue);

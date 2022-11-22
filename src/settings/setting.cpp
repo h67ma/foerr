@@ -3,10 +3,12 @@
 #include "../util/i18n.hpp"
 #include "../util/color.hpp"
 
-Setting::Setting(std::string key, uint defaultValue, const std::function<bool(uint)> constraint) :
+Setting::Setting(std::string key, uint defaultValue, const std::function<bool(uint)> constraint,
+				 std::string valueHint) :
 	key(key),
 	defaultValue(defaultValue),
 	val(defaultValue),
+	valueHint(valueHint),
 	constraint(constraint),
 	settingType(SETTING_UINT)
 {}
@@ -107,7 +109,7 @@ void Setting::loadFromJson(const json &node)
 		std::string readString = node;
 		if (!readColor.loadFromColorString(readString))
 		{
-			Log::w(STR_INVALID_COLOR_VALUE, readString.c_str(), key.c_str());
+			Log::w(STR_INVALID_VALUE_COLOR, key.c_str(), readString.c_str());
 			return;
 		}
 
@@ -143,7 +145,7 @@ void Setting::loadFromJson(const json &node)
 		uint readUint = node;
 		if (this->constraint != nullptr && !this->constraint(readUint))
 		{
-			Log::w(STR_INVALID_VALUE, key.c_str(), readUint);
+			Log::w(STR_INVALID_VALUE_HINT, key.c_str(), readUint, this->valueHint.c_str());
 		}
 		else
 		{

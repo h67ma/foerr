@@ -10,6 +10,9 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
+#include "../util/util.hpp"
+
+#define SANE_MAX_RESOLUTION 7680
 
 // TODO should we care about this cpplint warning?
 std::string SettingsManager::gameRootDir;
@@ -47,18 +50,20 @@ SettingsManager::SettingsManager() :
 		// +++++ audio +++++
 
 		// 100 is max volume
-		{ SETT_FX_VOLUME, Setting("fx_volume", 100U, [](uint val){ return val <= 100; }) },
+		{ SETT_FX_VOLUME, Setting("fx_volume", 100U, [](uint val){ return val <= 100; }, "between 0 and 100") },
 
 		// +++++ video +++++
 
-		{ SETT_AA, Setting("antialiasing", 8, [](uint val){
+		{ SETT_AA, Setting("antialiasing", 8U, [](uint val){
 			return val % 2 == 0 && val <= sf::RenderTexture::getMaximumAntialiasingLevel();
-		}) },
+		}, litSprintf("a power of 2, between 0 and %d", sf::RenderTexture::getMaximumAntialiasingLevel())) },
 
 		// TODO maybe we could save window w&h on program exit and then restore it?
 		// let's be realistic about max window size
-		{ SETT_WINDOW_WIDTH, Setting("window_w", 1280, [](uint val){ return val <= 7680; }) },
-		{ SETT_WINDOW_HEIGHT, Setting("window_h", 720, [](uint val){ return val <= 7680; }) },
+		{ SETT_WINDOW_WIDTH, Setting("window_w", 1280U, [](uint val){ return val <= SANE_MAX_RESOLUTION; },
+			litSprintf("between 0 and %d", SANE_MAX_RESOLUTION)) },
+		{ SETT_WINDOW_HEIGHT, Setting("window_h", 720U, [](uint val){ return val <= SANE_MAX_RESOLUTION; },
+			litSprintf("between 0 and %d", SANE_MAX_RESOLUTION)) },
 
 		// +++++ debug +++++
 
