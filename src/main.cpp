@@ -509,14 +509,20 @@ int main()
 	// initial size
 	windowSizeChanged(window.getSize(), settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 
-	// TODO remove
-	if (campaign.load("res/campaigns/test") && pipBuck.setupCampaignInfos())
+	// autoload campaign
+	std::string autoLoadPath = settings.getText(SETT_AUTOLOAD_CAMPAIGN);
+	if (autoLoadPath != "")
 	{
-		gameState = STATE_PLAYING;
-		debugCoords.setString(litSprintf("(%u, %u, %u)",
-										 campaign.getPlayerRoomCoords().x,
-										 campaign.getPlayerRoomCoords().y,
-										 campaign.getPlayerRoomCoords().z));
+		Log::d(STR_AUTLOADING_CAMPAIGN);
+
+		if (campaign.load(pathCombine("res/campaigns", autoLoadPath)) && pipBuck.setupCampaignInfos())
+		{
+			gameState = STATE_PLAYING;
+			debugCoords.setString(litSprintf("(%u, %u, %u)",
+											 campaign.getPlayerRoomCoords().x,
+											 campaign.getPlayerRoomCoords().y,
+											 campaign.getPlayerRoomCoords().z));
+		}
 	}
 
 	// TODO? there's a very minor visual bug that happens if e.g. player hovers over pipbuck btn,

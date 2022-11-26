@@ -67,6 +67,7 @@ SettingsManager::SettingsManager() :
 
 		// +++++ debug +++++
 
+		{ SETT_AUTOLOAD_CAMPAIGN, Setting("autoload_campaign", std::string("")) }, // "" = do not autoload
 		{ SETT_WRITE_LOG_TO_FILE, Setting("write_log_to_file", true) },
 		{ SETT_PRINT_MSGS, Setting("print_msgs_cout", false) },
 		{ SETT_VERBOSE_DEBUG, Setting("verbose_debug", false) }
@@ -107,7 +108,7 @@ void SettingsManager::loadConfig()
 		auto search = root.find(sett.second.getKey());
 		if (search == root.end())
 		{
-			Log::w(STR_SETTINGS_KEY_MISSING, path.c_str(), sett.second.getKey().c_str());
+			Log::w(STR_SETTINGS_KEY_MISSING, sett.second.getKey().c_str());
 			continue;
 		}
 
@@ -167,6 +168,15 @@ GuiScale SettingsManager::getGuiScale(SettingName name)
 	return search->second.val.guiScale;
 }
 
+std::string SettingsManager::getText(SettingName name)
+{
+	auto search = this->settings.find(name);
+	if (search == this->settings.end())
+		return ""; // default value is better than crash
+
+	return search->second.textVal;
+}
+
 void SettingsManager::setUint(SettingName name, uint newValue)
 {
 	auto search = this->settings.find(name);
@@ -213,6 +223,18 @@ void SettingsManager::setScreenCorner(SettingName name, ScreenCorner newValue)
 	}
 
 	search->second.val.enumScreenCorner = newValue;
+}
+
+void SettingsManager::setText(SettingName name, std::string newValue)
+{
+	auto search = this->settings.find(name);
+	if (search == this->settings.end())
+	{
+		Log::w(STR_SETT_NOT_PRESENT, name);
+		return;
+	}
+
+	search->second.textVal = newValue;
 }
 
 void SettingsManager::setGuiScale(SettingName name, GuiScale newValue)

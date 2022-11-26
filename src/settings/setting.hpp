@@ -14,6 +14,7 @@ enum SettingType
 	SETTING_COLOR, // note: stored in setting_value_t::numeric
 	SETTING_ENUM_SCREEN_CORNER,
 	SETTING_ENUM_GUI_SCALE,
+	SETTING_TEXT,
 };
 
 union setting_value_t
@@ -24,6 +25,7 @@ union setting_value_t
 	GuiScale guiScale;
 
 	// wow, this sucks
+	setting_value_t() = default;
 	setting_value_t(uint numeric): numeric(numeric) {}
 	setting_value_t(bool logic): logic(logic) {}
 	setting_value_t(ScreenCorner enumScreenCorner): enumScreenCorner(enumScreenCorner) {}
@@ -35,18 +37,21 @@ class Setting
 	private:
 		const std::string key; // for serialization
 		const setting_value_t defaultValue;
+		const std::string defaultTextVal; // TODO find a way to make this all ok
 		const SettingType settingType;
 		const std::function<bool(uint)> constraint;
 		const std::string valueHint = ""; // describes valid values of the setting, should be used along with constraint
 
 	public:
 		setting_value_t val; // solution with templates is also possible, but more messy
+		std::string textVal; // TODO find a way to make this all ok
 		explicit Setting(std::string key, uint defaultValue, const std::function<bool(uint)> constraint = nullptr,
 						 std::string valueHint = "");
 		explicit Setting(std::string key, bool defaultValue);
 		explicit Setting(std::string key, sf::Color color);
 		explicit Setting(std::string key, ScreenCorner defaultValue);
 		explicit Setting(std::string key, GuiScale guiScale);
+		explicit Setting(std::string key, std::string text);
 		void resetToDefault();
 		const std::string getKey();
 		const json getJsonValue();

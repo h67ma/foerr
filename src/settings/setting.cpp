@@ -41,6 +41,14 @@ Setting::Setting(std::string key, GuiScale defaultValue) :
 	settingType(SETTING_ENUM_GUI_SCALE)
 {}
 
+Setting::Setting(std::string key, std::string defaultValue) :
+	key(key),
+	defaultValue(0U), // note: unused in case of SETTING_TEXT
+	defaultTextVal(defaultValue),
+	textVal(defaultValue),
+	settingType(SETTING_TEXT)
+{}
+
 // TODO do we actually need this?
 void Setting::resetToDefault()
 {
@@ -55,6 +63,9 @@ void Setting::resetToDefault()
 			break;
 		case SETTING_ENUM_GUI_SCALE:
 			this->val.guiScale = this->defaultValue.guiScale;
+			break;
+		case SETTING_TEXT:
+			this->textVal = this->defaultTextVal;
 			break;
 		case SETTING_UINT:
 		case SETTING_COLOR:
@@ -78,16 +89,18 @@ const json Setting::getJsonValue()
 	switch (this->settingType)
 	{
 		case SETTING_BOOL:
-			return json(val.logic);
+			return json(this->val.logic);
 			break;
 		case SETTING_COLOR:
-			color = Color(val.numeric);
+			color = Color(this->val.numeric);
 			return json(color.toString());
+		case SETTING_TEXT:
+			return json(this->textVal);
 		case SETTING_ENUM_SCREEN_CORNER: // enums are ints anyway
 		case SETTING_ENUM_GUI_SCALE: // ditto
 		case SETTING_UINT:
 		default:
-			return json(val.numeric);
+			return json(this->val.numeric);
 	}
 }
 
@@ -139,6 +152,11 @@ void Setting::loadFromJson(const json &node)
 
 		val.guiScale = static_cast<GuiScale>(readEnum);
 		Log::d(STR_LOADED_SETTING_D, key.c_str(), val.guiScale);
+	}
+	else if (this->settingType == SETTING_TEXT)
+	{
+		this->textVal = node;
+		Log::d(STR_LOADED_SETTING_S, key.c_str(), this->textVal.c_str());
 	}
 	else // SETTING_UINT
 	{

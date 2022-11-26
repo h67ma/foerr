@@ -24,6 +24,7 @@ enum SettingName
 	SETT_AA,
 	SETT_WINDOW_WIDTH,
 	SETT_WINDOW_HEIGHT,
+	SETT_AUTOLOAD_CAMPAIGN,
 	SETT_PRINT_MSGS,
 	SETT_VERBOSE_DEBUG,
 };
@@ -66,11 +67,13 @@ class SettingsManager
 		sf::Color getColor(SettingName idx);
 		ScreenCorner getScreenCorner(SettingName idx);
 		GuiScale getGuiScale(SettingName idx);
+		std::string getText(SettingName idx);
 		void setUint(SettingName idx, uint newValue);
 		void setBool(SettingName idx, bool newValue);
 		void setColor(SettingName idx, sf::Color newValue);
 		void setScreenCorner(SettingName idx, ScreenCorner newValue);
 		void setGuiScale(SettingName idx, GuiScale newValue);
+		void setText(SettingName idx, std::string newValue);
 		static bool generatePathsAndMkdir();
 		static std::string getGameRootDir();
 		static std::string getSaveDir();
