@@ -4,6 +4,8 @@
 #include "../consts.hpp"
 #include "../hud/hud.hpp"
 
+#define PATH_DELIM '/'
+
 // stolen from https://stackoverflow.com/questions/63121776/simplest-syntax-for-string-interpolation-in-c
 // TODO should be a part of Translator
 template<typename... T>
@@ -19,7 +21,15 @@ std::string litSprintf(const char *fmt, T... args)
 
 inline std::string pathCombine(std::string path1, std::string path2)
 {
-	return path1 + '/' + path2;
+	return path1 + PATH_DELIM + path2;
+}
+
+/**
+ * eh, why not
+ */
+inline std::string pathCombine(std::string path1, std::string path2, std::string path3)
+{
+	return path1 + PATH_DELIM + path2 + PATH_DELIM + path3;
 }
 
 uint getFontSize(GuiScale scale, FontSize size);

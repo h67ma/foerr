@@ -1,5 +1,4 @@
 #include "campaign.hpp"
-#include <filesystem>
 #include <string>
 #include "../util/json.hpp"
 #include "../consts.hpp"
@@ -46,36 +45,34 @@ bool Campaign::load(std::string campaignDir)
 	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_START_LOC, this->startLocation))
 		return false;
 
-	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_BACKGROUND, this->worldMapBackgroundId))
+	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_BACKGROUND,
+								   this->worldMapBackgroundId))
 		return false;
 
-	// load locations inside this campaign
+	// load metadata for all locations inside this campaign.
+	// Initially we only load metadata such as name, description, world map details, etc. Rooms are loaded separately
+	// via ::loadContent() when entering a location. There's a possibility that some location will fail to load in the
+	// middle of gameplay, but even then the player could save game and fix/report the faulty location without losing
+	// progress. Metadata for all locations is kept in a single file, separate from room data (and background big path),
+	// to avoid processing all files containing all room data when we only want to get metadata for each location to
+	// display it on the world map.
+	// TODO? we could add a button in campaign selector which would trigger test-loading all locations along with all rooms.
 
-	std::string locationsDir = pathCombine(campaignDir, std::string(DIR_LOCATIONS));
-	std::filesystem::directory_iterator iter;
-
-	try
+	std::string locMetaPath = pathCombine(campaignDir, std::string(PATH_LOCATIONS_META));
+	root.clear();
+	if (!loadJsonFromFile(root, locMetaPath))
 	{
-		iter = std::filesystem::directory_iterator(locationsDir);
-	}
-	catch(const std::filesystem::filesystem_error &ex)
-	{
-		Log::e(STR_FILE_NOT_FOUND, ex.what());
+		Log::e(STR_CAMPAIGN_LOAD_ERR, locMetaPath.c_str());
 		return false;
 	}
 
-	for (const std::filesystem::directory_entry &entry : iter)
+	for (const auto &loc : root.items())
 	{
-		std::string locId = entry.path().stem().string();
-		std::string locPath = entry.path().string();
-
-		this->locations.emplace_back(locId, locPath);
-		// initially we only load metadata such as name, description, world map details, etc.
-		// rooms are loaded separately via ::loadContent() when entering a location.
-		// there's a possibility that some location will fail to load in the middle of gameplay, but even then the
-		// player could save game and fix/report the faulty location without losing progress.
-		// TODO? we could add a button in campaign selector which would trigger test-loading all locations.
-		if (!this->locations.back().loadMeta())
+		std::string locId = loc.key();
+		// room data must be stored in campaign_name/rooms/location_id.json
+		std::string roomDataPath = pathCombine(campaignDir, std::string(PATH_DIR_ROOMS), locId + ".json");
+		this->locations.emplace_back(locId, roomDataPath);
+		if (!this->locations.back().loadMeta(loc.value()))
 		{
 			// unload everything
 			// mission failed, we'll get em next time

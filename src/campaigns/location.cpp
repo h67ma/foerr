@@ -7,7 +7,7 @@
 
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
-Location::Location(std::string id, std::string locPath) : id(id), locPath(locPath)
+Location::Location(std::string id, std::string roomDataPath) : id(id), roomDataPath(roomDataPath)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }
@@ -16,45 +16,41 @@ Location::Location(std::string id, std::string locPath) : id(id), locPath(locPat
  * Loads location details, mainly for display on the world map.
  * Rooms and background big are loaded separately via ::loadContent().
  *
+ * @param locMetaNode reference to json node containing only this location's metadata
  * @returns true if load succeeded
  * @returns false if load failed
  */
-bool Location::loadMeta()
+bool Location::loadMeta(const json &locMetaNode)
 {
-	json root;
+	Log::v(STR_LOADING_LOCATION_META, this->id.c_str());
 
-	Log::v(STR_LOADING_LOCATION_META, this->locPath.c_str());
-
-	if (!loadJsonFromFile(root, this->locPath))
+	if (!parseJsonKey<std::string>(locMetaNode, this->id.c_str(), FOERR_JSON_KEY_TITLE, this->title))
 		return false;
 
-	if (!parseJsonKey<std::string>(root, this->locPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
-		return false;
-
-	if (!parseJsonKey<std::string>(root, this->locPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
+	if (!parseJsonKey<std::string>(locMetaNode, this->id.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
 		return false;
 
 	// TODO translate title & description
 
-	if (!parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_GRIND, this->grind))
+	if (!parseJsonKey<bool>(locMetaNode, this->id.c_str(), FOERR_JSON_KEY_TYPE_GRIND, this->grind))
 		return false;
 
-	if (!parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP, this->basecamp))
+	if (!parseJsonKey<bool>(locMetaNode, this->id.c_str(), FOERR_JSON_KEY_TYPE_BASECAMP, this->basecamp))
 		return false;
 
 	if (this->basecamp && this->grind)
 	{
 		// something stinks here...
-		Log::e(STR_LOC_INVALID_TYPES, this->locPath.c_str());
+		Log::e(STR_LOC_INVALID_TYPES, this->id.c_str());
 		return false;
 	}
 
-	parseJsonKey<uint>(root, this->locPath.c_str(), FOERR_JSON_KEY_RECOMMENDED_LVL, this->recommendedLevel, true);
+	parseJsonKey<uint>(locMetaNode, this->id.c_str(), FOERR_JSON_KEY_RECOMMENDED_LVL, this->recommendedLevel, true);
 
-	if (!parseJsonKey<std::string>(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
+	if (!parseJsonKey<std::string>(locMetaNode, this->id.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
 		return false;
 
-	if (!parseJsonVector2uKey(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_COORDS, this->worldMapCoords))
+	if (!parseJsonVector2uKey(locMetaNode, this->id.c_str(), FOERR_JSON_KEY_WORLDMAP_COORDS, this->worldMapCoords))
 		return false;
 
 	if (this->worldMapCoords.x > LOC_WORLDMAP_MAX || this->worldMapCoords.y > LOC_WORLDMAP_MAX)
@@ -64,9 +60,9 @@ bool Location::loadMeta()
 	}
 
 	// not present -> default value (false)
-	parseJsonKey<bool>(root, this->locPath.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->worldMapIconBig, true);
+	parseJsonKey<bool>(locMetaNode, this->id.c_str(), FOERR_JSON_KEY_WORLDMAP_ICON_BIG, this->worldMapIconBig, true);
 
-	Log::v(STR_LOADED_LOCATION_META, this->locPath.c_str());
+	Log::v(STR_LOADED_LOCATION_META, this->id.c_str());
 	return true;
 }
 
@@ -86,13 +82,14 @@ bool Location::loadContent(ResourceManager &resMgr)
 
 	this->unloadContent();
 
-	Log::v(STR_LOADING_LOCATION_CONTENT, this->locPath.c_str());
+	Log::v(STR_LOADING_LOCATION_CONTENT, this->id.c_str());
 
-	if (!loadJsonFromFile(root, this->locPath))
+	if (!loadJsonFromFile(root, this->roomDataPath))
 		return false;
 
 	// not present -> black background
-	if (parseJsonKey<std::string>(root, this->locPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
+	if (parseJsonKey<std::string>(root, this->roomDataPath.c_str(), FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath,
+								  true))
 	{
 		std::shared_ptr<sf::Texture> backgroundFull = resMgr.getTexture(backgroundFullPath);
 		if (backgroundFull == nullptr)
@@ -104,13 +101,13 @@ bool Location::loadContent(ResourceManager &resMgr)
 	auto roomsSearch = root.find(FOERR_JSON_KEY_ROOMS);
 	if (roomsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, this->locPath.c_str(), FOERR_JSON_KEY_ROOMS);
+		Log::e(STR_MISSING_KEY, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS);
 		return false;
 	}
 
 	if (!roomsSearch->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, this->locPath.c_str(), FOERR_JSON_KEY_ROOMS);
+		Log::e(STR_INVALID_TYPE, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS);
 		return false;
 	}
 
@@ -122,7 +119,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 	for (const auto &roomNode : (*roomsSearch))
 	{
 		Vector3u roomCoords;
-		if (!parseJsonVector3uKey(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
+		if (!parseJsonVector3uKey(roomNode, this->roomDataPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
 		{
 			this->unloadContent();
 			return false;
@@ -137,13 +134,13 @@ bool Location::loadContent(ResourceManager &resMgr)
 			gridDimens.z = roomCoords.z + 1;
 
 		bool thisStart = false;
-		parseJsonKey<bool>(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_IS_START, thisStart, true);
+		parseJsonKey<bool>(roomNode, this->roomDataPath.c_str(), FOERR_JSON_KEY_IS_START, thisStart, true);
 
 		if (thisStart)
 		{
 			if (foundStart)
 			{
-				Log::e(STR_DUPLICATE_START_ROOM, this->locPath.c_str(), roomCoords.x, roomCoords.y);
+				Log::e(STR_DUPLICATE_START_ROOM, this->roomDataPath.c_str(), roomCoords.x, roomCoords.y);
 				this->unloadContent();
 				return false;
 			}
@@ -155,7 +152,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 
 	if (!foundStart)
 	{
-		Log::e(STR_MISSING_START_ROOM, this->locPath.c_str());
+		Log::e(STR_MISSING_START_ROOM, this->roomDataPath.c_str());
 		this->unloadContent();
 		return false;
 	}
@@ -164,7 +161,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 	// because start room won't be found. still better check.
 	if (gridDimens.x == 0 || gridDimens.y == 0)
 	{
-		Log::e(STR_NO_ROOMS_DEFINED, this->locPath.c_str());
+		Log::e(STR_NO_ROOMS_DEFINED, this->roomDataPath.c_str());
 		this->unloadContent();
 		return false;
 	}
@@ -176,7 +173,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 	{
 		// yes, we need to read coords again
 		Vector3u roomCoords;
-		if (!parseJsonVector3uKey(roomNode, this->locPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
+		if (!parseJsonVector3uKey(roomNode, this->roomDataPath.c_str(), FOERR_JSON_KEY_COORDS, roomCoords))
 		{
 			this->unloadContent();
 			return false;
@@ -184,13 +181,13 @@ bool Location::loadContent(ResourceManager &resMgr)
 
 		if (this->rooms.get(roomCoords) != nullptr)
 		{
-			Log::e(STR_DUPLICATE_ROOM_IN_SAME_COORDS, this->locPath.c_str(), roomCoords.x, roomCoords.y);
+			Log::e(STR_DUPLICATE_ROOM_IN_SAME_COORDS, this->roomDataPath.c_str(), roomCoords.x, roomCoords.y);
 			this->unloadContent();
 			return false;
 		}
 
 		std::shared_ptr<Room> room = std::make_shared<Room>();
-		if (!room->load(roomNode, this->locPath.c_str()))
+		if (!room->load(roomNode, this->roomDataPath.c_str()))
 		{
 			this->unloadContent();
 			return false;
@@ -207,7 +204,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 	this->currentRoom = this->rooms.moveTo(startRoomCoords);
 	if (this->currentRoom == nullptr)
 	{
-		Log::e(STR_ROOM_MISSING_COORDS, this->locPath.c_str(), startRoomCoords.x, startRoomCoords.y);
+		Log::e(STR_ROOM_MISSING_COORDS, this->roomDataPath.c_str(), startRoomCoords.x, startRoomCoords.y);
 		this->unloadContent();
 		return false;
 	}
@@ -225,7 +222,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 	// than one side). so for now let's assume that the creator of location will make sure that all required rooms are
 	// reachable.
 
-	Log::v(STR_LOADED_LOCATION_CONTENT, this->locPath.c_str());
+	Log::v(STR_LOADED_LOCATION_CONTENT, this->roomDataPath.c_str());
 	return true;
 }
 

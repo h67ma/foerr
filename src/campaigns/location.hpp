@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include "room_grid.hpp"
 #include "../consts.hpp"
+#include "../util/json.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 
@@ -34,7 +35,7 @@ class Location : public sf::Drawable
 {
 	private:
 		const std::string id;
-		const std::string locPath;
+		const std::string roomDataPath;
 		std::string title;
 		std::string description;
 		sf::Vector2u worldMapCoords;
@@ -48,8 +49,8 @@ class Location : public sf::Drawable
 		std::shared_ptr<Room> currentRoom = nullptr;
 
 	public:
-		Location(std::string id, std::string locPath);
-		bool loadMeta();
+		explicit Location(std::string id, std::string roomDataPath);
+		bool loadMeta(const json &locMetaNode);
 		bool loadContent(ResourceManager &resMgr);
 		void unloadContent();
 		std::string getId();

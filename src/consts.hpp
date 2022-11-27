@@ -16,12 +16,13 @@
 #define PATH_DIR_SAVES "savegames"
 #define PATH_SETTINGS "config.json"
 #define PATH_KEYMAP "keymap.json"
+#define PATH_LOCATIONS_META "locations.json"
 #define PATH_LOGFILE "foerr.log"
 #define PATH_CURSOR_ARROW "res/hud/cursor/cursor.png"
 #define PATH_CURSOR_CROSS_WHITE "res/hud/cursor/crosshair_white.png"
 #define PATH_CURSOR_CROSS_YELLOW "res/hud/cursor/crosshair_yellow.png"
 #define PATH_CURSOR_CROSS_RED "res/hud/cursor/crosshair_red.png"
-#define DIR_LOCATIONS "locations"
+#define PATH_DIR_ROOMS "rooms"
 #define FILENAME_INDEX "_index.json"
 
 // json keys
