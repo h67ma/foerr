@@ -31,6 +31,12 @@ bool loadJsonFromFile(json &root, std::string path, bool quiet)
 		return false;
 	}
 
+	// check api version
+	int apiVersion = -1;
+	parseJsonKey<int>(root, path.c_str(), FOERR_JSON_API_VERSION, apiVersion, true);
+	if (apiVersion != JSON_API_VERSION)
+		Log::w(STR_JSON_API_VERSION_MISMATCH, path.c_str(), apiVersion, JSON_API_VERSION);
+
 	reader.close();
 	Log::v(STR_LOADED_FILE, path.c_str());
 	return true;

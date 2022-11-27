@@ -15,6 +15,7 @@
 #define STR_KEYMAP_OPEN_ERROR "Cannot read keymap file - using default keymap"
 #define STR_FILE_OPEN_ERROR "Error opening file (%s)."
 #define STR_ERROR_PARSING_JSON_FILE "Error parsing file (%s): %s"
+#define STR_JSON_API_VERSION_MISMATCH "API version mismatch (%s): got %d, should be %d"
 #define STR_SETTINGS_KEY_MISSING "Key is missing from settings file: \"%s\" - using default value."
 #define STR_INVALID_TYPE_EX "Error loading file (%s) - invalid value for key \"%s\": \"%s\""
 #define STR_INVALID_VALUE "Invalid value for %s: \"%u\" - using default value."

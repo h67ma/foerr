@@ -7,6 +7,8 @@
 #include "i18n.hpp"
 #include "../consts.hpp"
 
+#define JSON_API_VERSION 1
+
 using json = nlohmann::json;
 
 void writeJsonToFile(const json &root, std::string path);

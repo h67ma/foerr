@@ -42,6 +42,7 @@
 #define FOERR_JSON_KEY_TITLE "title"
 #define FOERR_JSON_KEY_DESCRIPTION "description"
 #define FOERR_JSON_KEY_START_LOC "start_location"
+#define FOERR_JSON_API_VERSION "api_version"
 
 // seriously though
 #ifndef uint
