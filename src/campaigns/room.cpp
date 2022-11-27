@@ -11,7 +11,7 @@ bool Room::shouldDrawBackgroundFull()
 /**
  * Loads the room data and stores it in this object.
  *
- * Room file structure:
+ * Room node structure:
  * {
  *	"coords": [2, 0, 1],	// (X, Y, Z). Z=0 is the front/main layer, Z=1 is backstage-1, Z=2 is backstage-2, etc.
  *	"is_start": true,		// optional, exactly one room in a location must be a start room

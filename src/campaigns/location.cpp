@@ -16,6 +16,21 @@ Location::Location(std::string id, std::string roomDataPath) : id(id), roomDataP
  * Loads location details, mainly for display on the world map.
  * Rooms and background big are loaded separately via ::loadContent().
  *
+ * Location metadata node structure:
+ * {
+ *	"title": "Location Name",
+ *	"description": "Description shown on world map page.",
+ *	"grind": false,
+ *	"basecamp": false,
+ *	"rec_lvl": 42,							// optional
+ *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
+ *	"worldmap_icon_big": false,				// optional
+ *	"worldmap_coords": [123, 456],
+ *	"rooms": [
+ *		...	// see room.cpp
+ *	]
+ * }
+ *
  * @param locMetaNode reference to json node containing only this location's metadata
  * @returns true if load succeeded
  * @returns false if load failed
@@ -70,6 +85,18 @@ bool Location::loadMeta(const json &locMetaNode)
  * Loads room data and big background.
  *
  * In case when loading fails, all previously allocated rooms will be automatically deallocated.
+ *
+ * Rooms file structure:
+ * {
+ *	"api_version": 1,
+ *	"background_full": "path/to/img.png",	// optional
+ *	"rooms": [
+ *		{
+ *			// see room.cpp
+ *		},
+ *		...
+ *	]
+ * }
  *
  * @param resMgr reference to resource manager object
  * @returns true if load succeeded

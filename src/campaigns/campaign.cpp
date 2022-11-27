@@ -14,6 +14,26 @@ Campaign::Campaign(ResourceManager &resMgr) : resMgr(resMgr)
 /**
  * Loads a campaign from path. If previous campaign is loaded, it will be automatically unloaded first.
  *
+ * Campaign file structure:
+ * {
+ *	"api_version": 1,
+ *	"title": "Test",
+ *	"description": "Test campaign.",
+ *	"start_location": "test_location",
+ *	"worldmap_background": "path/to/world_map.png"
+ * }
+ *
+ * Locations file structure:
+ * {
+ *	"api_version": 1,
+ *	"locations": {
+ *		"location_id": {
+ *			// see location.cpp
+ *		},
+ *		...
+ *	}
+ * }
+ *
  * @param campaignDir path to campaign directory containing campaign index file.
  * @return true if load succeeded
  * @return false if load failed
@@ -65,7 +85,20 @@ bool Campaign::load(std::string campaignDir)
 		return false;
 	}
 
-	for (const auto &loc : root.items())
+	auto locsSearch = root.find(FOERR_JSON_KEY_LOCATIONS);
+	if (locsSearch == root.end())
+	{
+		Log::e(STR_MISSING_KEY, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS);
+		return false;
+	}
+
+	if (!locsSearch->is_object())
+	{
+		Log::e(STR_INVALID_TYPE, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS);
+		return false;
+	}
+
+	for (const auto &loc : locsSearch->items())
 	{
 		std::string locId = loc.key();
 		// room data must be stored in campaign_name/rooms/location_id.json

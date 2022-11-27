@@ -12,25 +12,7 @@
 
 #define REC_LVL_EMPTY -1
 
-/**
- * Location file structure:
- * {
- *	"title": "Location Name",
- *	"description": "Description shown on world map page.",
- *	"grind": false,
- *	"basecamp": false,
- *	"rec_lvl": 42,							// optional
- *	"background_full": "path/to/img.png",	// optional
- *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
- *	"worldmap_icon_big": false,				// optional
- *	"worldmap_coords": [123, 456],
- *	"rooms": [
- *		...	// see room.cpp
- *	]
- * }
- *
- * TODO inherit UniqueLocation and GeneratedLocation
- */
+// TODO inherit UniqueLocation and GeneratedLocation
 class Location : public sf::Drawable
 {
 	private:
