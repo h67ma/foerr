@@ -19,7 +19,10 @@ class Campaign : public sf::Drawable
 		std::string title;
 		std::string description;
 		std::string startLocation;
+
+		// could be hardcoded, but it would prevent reusing images from other campaigns
 		std::string worldMapBackgroundId;
+
 		uint currentLocationIdx = -1;
 		std::vector<Location> locations;
 		void unloadSomeLocations(uint newIdx);
