@@ -1,21 +1,9 @@
 #pragma once
 
 #include <string>
-#include <functional>
 #include "../util/json.hpp"
-#include <SFML/Graphics/Color.hpp>
 #include "../hud/hud.hpp"
 #include "../consts.hpp"
-
-enum SettingType
-{
-	SETTING_UINT,
-	SETTING_BOOL,
-	SETTING_COLOR, // note: stored in setting_value_t::numeric
-	SETTING_ENUM_SCREEN_CORNER,
-	SETTING_ENUM_GUI_SCALE,
-	SETTING_TEXT,
-};
 
 union setting_value_t
 {
@@ -36,24 +24,20 @@ class Setting
 {
 	private:
 		const std::string key; // for serialization
-		const setting_value_t defaultValue;
-		const std::string defaultTextVal; // TODO find a way to make this all ok
-		const SettingType settingType;
-		const std::function<bool(uint)> constraint;
-		const std::string valueHint = ""; // describes valid values of the setting, should be used along with constraint
+
+	protected:
+		explicit Setting(std::string key, uint value);
+		explicit Setting(std::string key, bool value);
+		explicit Setting(std::string key, std::string value);
+		explicit Setting(std::string key, GuiScale guiScale);
+		explicit Setting(std::string key, ScreenCorner defaultValue);
 
 	public:
 		setting_value_t val; // solution with templates is also possible, but more messy
 		std::string textVal; // TODO find a way to make this all ok
-		explicit Setting(std::string key, uint defaultValue, const std::function<bool(uint)> constraint = nullptr,
-						 std::string valueHint = "");
-		explicit Setting(std::string key, bool defaultValue);
-		explicit Setting(std::string key, sf::Color color);
-		explicit Setting(std::string key, ScreenCorner defaultValue);
-		explicit Setting(std::string key, GuiScale guiScale);
-		explicit Setting(std::string key, std::string text);
-		void resetToDefault();
+
 		const std::string getKey();
-		const json getJsonValue();
-		void loadFromJson(const json &node);
+		virtual void resetToDefault() = 0;
+		const virtual json getJsonValue() = 0;
+		void virtual loadFromJson(const json &node) = 0;
 };

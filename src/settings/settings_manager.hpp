@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <memory>
 #include <string>
 #include <SFML/Graphics/Color.hpp>
 #include "../hud/hud.hpp"
@@ -50,7 +51,7 @@ enum SettingName
 class SettingsManager
 {
 	private:
-		std::unordered_map<SettingName, Setting> settings;
+		std::unordered_map<SettingName, std::unique_ptr<Setting>> settings;
 
 		// SettingsManager is a kinda dumb place to put paths, but can't think of a better place rn.
 		// paths are not stored in the main settings vector. they are instead generated based on user home dir,
