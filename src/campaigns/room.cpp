@@ -34,6 +34,13 @@ bool Room::shouldDrawBackgroundFull()
  * A special character '_' must be used to signal absence of block/background in a cell.
  * The dimensions of block grid are always 48x25 blocks (including "border" blocks).
  *
+ * Note: while it would be the most efficient (both in storage and in processing time) to store room data in binary
+ * format, this approach has downsides. First, text is easily editable, which allows casual hackers to experiment with
+ * modifying rooms using only a text editor. It also makes it much easier to develop and debug the game, or tools used
+ * for creating levels. Secondly, it makes it possible to track changes in data using version control, which is useful
+ * for keeping file history, blaming, etc. This applies to all data files, but rooms are the most obvious candidate for
+ * binarization as they are the largest in volume.
+ *
  * @param root reference to json node containing room data
  * @param filePath location file path, just for printing
  * @returns true on load success
