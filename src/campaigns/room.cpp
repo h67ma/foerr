@@ -46,7 +46,7 @@ bool Room::shouldDrawBackgroundFull()
  * @returns true on load success
  * @returns false on load fail
  */
-bool Room::load(const json &root, const char* filePath)
+bool Room::load(const json &root, const std::string &filePath)
 {
 	// by default all rooms draw background full
 	parseJsonKey<bool>(root, filePath, FOERR_JSON_KEY_SHOW_ROOM_BG, this->drawBackgroundFull, true);
@@ -54,19 +54,19 @@ bool Room::load(const json &root, const char* filePath)
 	auto blocksSearch = root.find(FOERR_JSON_KEY_BLOCKS);
 	if (blocksSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, filePath, FOERR_JSON_KEY_BLOCKS);
+		Log::e(STR_MISSING_KEY, filePath.c_str(), FOERR_JSON_KEY_BLOCKS);
 		return false;
 	}
 
 	if (!blocksSearch->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, filePath, FOERR_JSON_KEY_BLOCKS);
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_BLOCKS);
 		return false;
 	}
 
 	if (blocksSearch->size() != ROOM_HEIGHT_WITH_BORDER)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath, FOERR_JSON_KEY_BLOCKS);
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_BLOCKS);
 		return false;
 	}
 
@@ -80,13 +80,13 @@ bool Room::load(const json &root, const char* filePath)
 		}
 		catch (const json::type_error &ex)
 		{
-			Log::e(STR_INVALID_TYPE_EX, filePath, FOERR_JSON_KEY_BLOCKS, ex.what());
+			Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), FOERR_JSON_KEY_BLOCKS, ex.what());
 			return false;
 		}
 
 		if (line.length() != ROOM_LINE_WIDTH_WITH_BORDER)
 		{
-			Log::e(STR_ROOM_LINE_INVALID, filePath, FOERR_JSON_KEY_BLOCKS, line.length(), ROOM_LINE_WIDTH_WITH_BORDER);
+			Log::e(STR_ROOM_LINE_INVALID, filePath.c_str(), FOERR_JSON_KEY_BLOCKS, line.length(), ROOM_LINE_WIDTH_WITH_BORDER);
 			return false;
 		}
 

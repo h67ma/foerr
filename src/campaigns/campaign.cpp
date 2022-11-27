@@ -34,19 +34,18 @@ bool Campaign::load(std::string campaignDir)
 		return false;
 	}
 
-	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_TITLE, this->title))
+	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_TITLE, this->title))
 		return false;
 
-	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_DESCRIPTION, this->description))
+	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_DESCRIPTION, this->description))
 		return false;
 
 	// TODO translate title & description
 
-	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_START_LOC, this->startLocation))
+	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_START_LOC, this->startLocation))
 		return false;
 
-	if (!parseJsonKey<std::string>(root, indexPath.c_str(), FOERR_JSON_KEY_WORLDMAP_BACKGROUND,
-								   this->worldMapBackgroundId))
+	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_WORLDMAP_BACKGROUND, this->worldMapBackgroundId))
 		return false;
 
 	// load metadata for all locations inside this campaign.

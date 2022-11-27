@@ -33,7 +33,7 @@ bool loadJsonFromFile(json &root, std::string path, bool quiet)
 
 	// check api version
 	int apiVersion = -1;
-	parseJsonKey<int>(root, path.c_str(), FOERR_JSON_API_VERSION, apiVersion, true);
+	parseJsonKey<int>(root, path, FOERR_JSON_API_VERSION, apiVersion, true);
 	if (apiVersion != JSON_API_VERSION)
 		Log::w(STR_JSON_API_VERSION_MISMATCH, path.c_str(), apiVersion, JSON_API_VERSION);
 
@@ -46,26 +46,27 @@ bool loadJsonFromFile(json &root, std::string path, bool quiet)
  * Parses a two-element vector from json. Useful for sizes, coordinates, etc.
  * Coordinate element in json looks like this: "key": [123, 456]
  */
-bool parseJsonVector2uKey(const json &node, const char* filePath, const char* key, sf::Vector2u &value, bool quiet)
+bool parseJsonVector2uKey(const json &node, const std::string &filePath, const char* key, sf::Vector2u &value,
+						  bool quiet)
 {
 	auto search = node.find(key);
 	if (search == node.end())
 	{
 		if (!quiet)
-			Log::w(STR_MISSING_KEY, filePath, key);
+			Log::w(STR_MISSING_KEY, filePath.c_str(), key);
 
 		return false;
 	}
 
 	if (!search->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, filePath, key);
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), key);
 		return false;
 	}
 
 	if (search->size() != 2)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath, key);
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), key);
 		return false;
 	}
 
@@ -75,7 +76,7 @@ bool parseJsonVector2uKey(const json &node, const char* filePath, const char* ke
 	}
 	catch (const json::type_error &ex)
 	{
-		Log::e(STR_INVALID_TYPE_EX, filePath, key, ex.what());
+		Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), key, ex.what());
 		return false;
 	}
 
@@ -86,26 +87,26 @@ bool parseJsonVector2uKey(const json &node, const char* filePath, const char* ke
  * Parses a three-element vector from json. Useful for sizes, coordinates, etc.
  * Coordinate element in json looks like this: "key": [123, 456, 1]
  */
-bool parseJsonVector3uKey(const json &node, const char* filePath, const char* key, Vector3u &value, bool quiet)
+bool parseJsonVector3uKey(const json &node, const std::string &filePath, const char* key, Vector3u &value, bool quiet)
 {
 	auto search = node.find(key);
 	if (search == node.end())
 	{
 		if (!quiet)
-			Log::w(STR_MISSING_KEY, filePath, key);
+			Log::w(STR_MISSING_KEY, filePath.c_str(), key);
 
 		return false;
 	}
 
 	if (!search->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, filePath, key);
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), key);
 		return false;
 	}
 
 	if (search->size() != 3)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath, key);
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), key);
 		return false;
 	}
 
@@ -115,7 +116,7 @@ bool parseJsonVector3uKey(const json &node, const char* filePath, const char* ke
 	}
 	catch (const json::type_error &ex)
 	{
-		Log::e(STR_INVALID_TYPE_EX, filePath, key, ex.what());
+		Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), key, ex.what());
 		return false;
 	}
 

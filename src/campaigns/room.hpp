@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <SFML/Graphics/Drawable.hpp>
 #include "../util/json.hpp"
 
@@ -30,6 +31,6 @@ class Room : sf::Drawable
 
 	public:
 		bool shouldDrawBackgroundFull();
-		bool load(const json &root, const char* filePath);
+		bool load(const json &root, const std::string &filePath);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
