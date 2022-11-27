@@ -1,4 +1,4 @@
-#include "color.hpp"
+#include "serializable_color.hpp"
 #include "../consts.hpp"
 
 /**
@@ -7,7 +7,7 @@
  *   - /#[0-9a-f]{3}/i
  *   - /#[0-9a-f]{6}/i
  */
-bool Color::loadFromColorString(std::string input)
+bool SerializableColor::loadFromColorString(std::string input)
 {
 	uint r, g, b;
 
@@ -35,7 +35,7 @@ bool Color::loadFromColorString(std::string input)
 	return false;
 }
 
-std::string Color::toString()
+std::string SerializableColor::toString()
 {
 	char buf[8];
 	snprintf(buf, sizeof(buf), "#%02x%02x%02x", this->r, this->g, this->b);

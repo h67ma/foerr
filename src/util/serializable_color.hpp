@@ -4,11 +4,11 @@
 #include <SFML/Graphics/Color.hpp>
 #include "../consts.hpp"
 
-class Color : public sf::Color
+class SerializableColor : public sf::Color
 {
 	public:
-		Color() : sf::Color() {}
-		explicit Color(uint color) : sf::Color(color) {}
+		SerializableColor() : sf::Color() {}
+		explicit SerializableColor(uint color) : sf::Color(color) {}
 		bool loadFromColorString(std::string input);
 		std::string toString();
 };

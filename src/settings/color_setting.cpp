@@ -1,7 +1,7 @@
 #include "color_setting.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
-#include "../util/color.hpp"
+#include "../util/serializable_color.hpp"
 
 ColorSetting::ColorSetting(std::string key, sf::Color defaultVal) :
 	Setting(key, defaultVal.toInteger()),
@@ -15,13 +15,13 @@ void ColorSetting::resetToDefault()
 
 const json ColorSetting::getJsonValue()
 {
-	Color color = Color(this->val.numeric);
+	SerializableColor color = SerializableColor(this->val.numeric);
 	return json(color.toString());
 }
 
 void ColorSetting::loadFromJson(const json &node)
 {
-	Color readColor;
+	SerializableColor readColor;
 	std::string readString = node;
 	if (!readColor.loadFromColorString(readString))
 	{
