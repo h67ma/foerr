@@ -9,6 +9,27 @@
 
 #define JSON_API_VERSION 1
 
+#define FOERR_JSON_KEY_BLOCKS "blocks"
+#define FOERR_JSON_KEY_SHOW_ROOM_BG "bg"
+#define FOERR_JSON_KEY_BACKGROUND_FULL "background_full"
+#define FOERR_JSON_KEY_WORLDMAP_ICON "worldmap_icon"
+#define FOERR_JSON_KEY_WORLDMAP_COORDS "worldmap_coords"
+#define FOERR_JSON_KEY_COORDS "coords"
+#define FOERR_JSON_KEY_IS_START "is_start"
+#define FOERR_JSON_KEY_WORLDMAP_ICON_BIG "worldmap_icon_big"
+#define FOERR_JSON_KEY_WORLDMAP_BACKGROUND "worldmap_background"
+#define FOERR_JSON_KEY_TYPE_GRIND "grind"
+#define FOERR_JSON_KEY_TYPE_BASECAMP "basecamp"
+#define FOERR_JSON_KEY_RECOMMENDED_LVL "rec_lvl"
+#define FOERR_JSON_KEY_ROOMS "rooms"
+#define FOERR_JSON_KEY_LOCATIONS "locations"
+#define FOERR_JSON_KEY_KEYS "keys"
+#define FOERR_JSON_KEY_SETTINGS "settings"
+#define FOERR_JSON_KEY_TITLE "title"
+#define FOERR_JSON_KEY_DESCRIPTION "description"
+#define FOERR_JSON_KEY_START_LOC "start_location"
+#define FOERR_JSON_API_VERSION "api_version"
+
 using json = nlohmann::json;
 
 void writeJsonToFile(const json &root, std::string path);
