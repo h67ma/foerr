@@ -49,10 +49,13 @@ struct action_def
  *
  * Keymap file structure:
  * {
- *		"A": "move_left",
- *		"Esc": "pipbuck_toggle_open",
- "		"Tab": "pipbuck_toggle_open"	// multiple keys can map to the same action
- *		...
+ *		"api_version": 1,
+ *		"keys": {
+ *			"A": "move_left",
+ *			"Esc": "pipbuck_toggle_open",
+ "			"Tab": "pipbuck_toggle_open"	// multiple keys can map to the same action
+ *			...
+ *		}
  *	},
  */
 class Keymap

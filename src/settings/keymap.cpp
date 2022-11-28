@@ -280,9 +280,9 @@ void Keymap::resetToDefault()
 }
 
 /**
- * Loads keymap from file. For every key-action mapping defined in the file,
- * creates an entry in ::keyToActionMap, or replaces the default one if it exists.
- * Basicaly the settings file overwrites default mapping.
+ * Loads keymap from file. For every key-action mapping defined in the file, creates an entry in ::keyToActionMap, or
+ * replaces the default one if it exists. Basicaly the settings file overwrites the default mapping, while keeping
+ * default keybindings (if they are not overwritten).
  *
  * Keys with invalid actions, or "no_action" will be also added with ACTION_NO_ACTION.
  * If file cannot be read, default actions are already loaded.
@@ -297,7 +297,20 @@ void Keymap::load()
 		return;
 	}
 
-	for (const auto &node : root.items())
+	auto keysSearch = root.find(FOERR_JSON_KEY_KEYS);
+	if (keysSearch == root.end())
+	{
+		Log::w(STR_MISSING_KEY, PATH_KEYMAP, FOERR_JSON_KEY_KEYS);
+		return;
+	}
+
+	if (!keysSearch->is_object())
+	{
+		Log::w(STR_INVALID_TYPE, PATH_KEYMAP, FOERR_JSON_KEY_KEYS);
+		return;
+	}
+
+	for (const auto &node : keysSearch->items())
 	{
 		sf::Keyboard::Key key = Keymap::keyStringToKey(node.key());
 		if (key == sf::Keyboard::Unknown)
@@ -316,6 +329,9 @@ void Keymap::save()
 {
 	json root;
 
+	root.emplace(FOERR_JSON_API_VERSION, JSON_API_VERSION);
+
+	json keysNode;
 	for (const auto &item : Keymap::keyToActionMap)
 	{
 		// translate bolth key and action to strings.
@@ -330,8 +346,10 @@ void Keymap::save()
 		if (actionStr == CONFUSION)
 			continue;
 
-		root.emplace(keyStr, actionStr);
+		keysNode.emplace(keyStr, actionStr);
 	}
+
+	root.emplace(FOERR_JSON_KEY_KEYS, keysNode);
 
 	writeJsonToFile(root, pathCombine(SettingsManager::getGameRootDir(), std::string(PATH_KEYMAP)));
 	Log::i(STR_KEYMAP_SAVED);
