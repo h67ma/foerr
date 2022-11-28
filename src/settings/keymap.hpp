@@ -39,7 +39,9 @@ struct action_def
 {
 	std::string serializeKey;
 	std::string displayName;
-	std::vector<sf::Keyboard::Key> defaultKeys; // could be a set, but it wouldn't really change anything, just add a bit of complexity
+
+	// could be a set, but it wouldn't really change anything, just add a bit of complexity
+	std::vector<sf::Keyboard::Key> defaultKeys;
 };
 
 /**
@@ -49,14 +51,14 @@ struct action_def
  *
  * Keymap file structure:
  * {
- *		"api_version": 1,
- *		"keys": {
- *			"A": "move_left",
- *			"Esc": "pipbuck_toggle_open",
- "			"Tab": "pipbuck_toggle_open"	// multiple keys can map to the same action
- *			...
- *		}
- *	},
+ *	"api_version": 1,
+ *	"keys": {
+ *		"A": "move_left",
+ *		"Esc": "pipbuck_toggle_open",
+ "		"Tab": "pipbuck_toggle_open"	// multiple keys can map to the same action
+ *		...
+ *	}
+ * }
  */
 class Keymap
 {
