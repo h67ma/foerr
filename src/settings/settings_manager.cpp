@@ -94,10 +94,15 @@ void SettingsManager::saveConfig()
 {
 	json root;
 
+	root.emplace(FOERR_JSON_API_VERSION, JSON_API_VERSION);
+
+	json keysNode;
 	for (auto &sett : this->settings)
 	{
-		root.emplace(sett.second->getKey(), sett.second->getJsonValue());
+		keysNode.emplace(sett.second->getKey(), sett.second->getJsonValue());
 	}
+
+	root.emplace(FOERR_JSON_KEY_SETTINGS, keysNode);
 
 	writeJsonToFile(root, pathCombine(this->gameRootDir, PATH_SETTINGS));
 	Log::i("Saved settings");
@@ -115,10 +120,23 @@ void SettingsManager::loadConfig()
 		return;
 	}
 
+	auto keysSearch = root.find(FOERR_JSON_KEY_SETTINGS);
+	if (keysSearch == root.end())
+	{
+		Log::w(STR_MISSING_KEY, PATH_SETTINGS, FOERR_JSON_KEY_SETTINGS);
+		return;
+	}
+
+	if (!keysSearch->is_object())
+	{
+		Log::w(STR_INVALID_TYPE, PATH_SETTINGS, FOERR_JSON_KEY_SETTINGS);
+		return;
+	}
+
 	for (auto &sett : this->settings)
 	{
-		auto search = root.find(sett.second->getKey());
-		if (search == root.end())
+		auto search = keysSearch->find(sett.second->getKey());
+		if (search == keysSearch->end())
 		{
 			Log::w(STR_SETTINGS_KEY_MISSING, sett.second->getKey().c_str());
 			continue;

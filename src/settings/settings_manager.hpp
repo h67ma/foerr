@@ -46,6 +46,16 @@ enum SettingName
  * the object on settings change. We could then simply call all these callbacks from
  * inside SettingsManager.
  *
+ * Settings file structure:
+ * {
+ *	"api_version": 1,
+ *	"settings": {
+ *		"setting_key": "value",
+ *		"key2": 42,
+ *		...
+ *	}
+ * }
+ *
  * TODO? make SettingsManager static to avoid passing the object everywhere.
  */
 class SettingsManager

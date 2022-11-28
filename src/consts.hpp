@@ -41,6 +41,7 @@
 #define FOERR_JSON_KEY_ROOMS "rooms"
 #define FOERR_JSON_KEY_LOCATIONS "locations"
 #define FOERR_JSON_KEY_KEYS "keys"
+#define FOERR_JSON_KEY_SETTINGS "settings"
 #define FOERR_JSON_KEY_TITLE "title"
 #define FOERR_JSON_KEY_DESCRIPTION "description"
 #define FOERR_JSON_KEY_START_LOC "start_location"
