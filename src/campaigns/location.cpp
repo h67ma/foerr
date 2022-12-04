@@ -89,7 +89,7 @@ bool Location::loadMeta(const json &locMetaNode)
  * Rooms file structure:
  * {
  *	"api_version": 1,
- *	"background_full": "path/to/img.png",	// optional
+ *	"backwall": "path/to/img.png",	// optional
  *	"rooms": [
  *		{
  *			// see room.cpp
@@ -115,7 +115,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 		return false;
 
 	// not present -> black background
-	if (parseJsonKey<std::string>(root, this->roomDataPath, FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
+	if (parseJsonKey<std::string>(root, this->roomDataPath, FOERR_JSON_KEY_BACKWALL, backgroundFullPath, true))
 	{
 		std::shared_ptr<sf::Texture> backgroundFull = resMgr.getTexture(backgroundFullPath);
 		if (backgroundFull == nullptr)
