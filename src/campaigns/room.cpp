@@ -15,7 +15,7 @@ bool Room::shouldDrawBackgroundFull()
  * {
  *	"coords": [2, 0, 1],	// (X, Y, Z). Z=0 is the front/main layer, Z=1 is backstage-1, Z=2 is backstage-2, etc.
  *	"is_start": true,		// optional, exactly one room in a location must be a start room
- *	"bg": false,			// optional, false means that backwall is not displayed for this room even if
+ *	"bg": false,			// optional, false means that background_full is not displayed for this room even if
  *							// the location specifies it (useful for e.g. underground or backstage rooms)
  *	"blocks": [
  *		"LD_|LD_|...",
