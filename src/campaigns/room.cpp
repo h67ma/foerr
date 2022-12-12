@@ -134,6 +134,12 @@ bool Room::load(const json &root, const std::string &filePath)
 			Log::e(STR_ROOM_ROW_TOO_SHORT, filePath.c_str(), FOERR_JSON_KEY_CELLS, y);
 			return false;
 		}
+
+		for (const auto &cell : this->cells[y])
+		{
+			if (!cell.validate())
+				return false;
+		}
 	}
 
 	return true;
