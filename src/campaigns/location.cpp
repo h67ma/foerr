@@ -195,6 +195,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 	this->rooms.setDimens(gridDimens);
 
 	// second pass, now we have set the grid size and know which room is the start one
+	// TODO this is a prime candidate for parallelisation - run N threads, each gets a few rooms
 	for (const auto &roomNode : (*roomsSearch))
 	{
 		// yes, we need to read coords again
