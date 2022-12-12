@@ -1,15 +1,14 @@
 import os
-import re
 import json
 import argparse
 from typing import List
 import xml.etree.ElementTree as ET
 from consts import *
-from common import log_verbose, log_info, log_warn, log_err, sane_object_pairs_hook
+from common import log_verbose, log_info, log_warn, log_err, sane_object_pairs_hook, write_rooms_json
 from convert_data import loc_names_map, bg_full_name_map, flag_part_height, FLAG_WATER
 
 
-def translate_rooms(input_filename: str, output_filename: str, gamedata_data, fill_cnt: int, symbol_maps, mat_data) -> List[bool]:
+def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
 	log_verbose("Translating " + input_filename + " to " + output_filename)
 
 	try:
@@ -103,7 +102,7 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, fi
 				# encoding/decoding the cell more complicated (e.g. some pairs of symbols were combined into one symbol
 				# to save cell width, while also preserving support for rare cell cases, e.g. part-height + solid +
 				# + water). it was eventually decided to stick with Remains-style cell encoding, with added possibility
-				# to fill cell with nothing ('_') up to a constant length to align cells, for debugging purposes.
+				# to pad cell with nothing ('_') up to a constant length to align cells, for debugging purposes.
 
 				# in the end, RR cell uses two maps: one for the first symbol (solid), and second for rest of the
 				# symbols following the first. this is necessary, because we want each symbol to be easily readable and
@@ -252,12 +251,12 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, fi
 
 					this_cell_symbols += out_symbol
 
-				if fill_cnt is not None:
-					if len(this_cell_symbols) > fill_cnt:
-						log_warn("Room " + room_name + " at " + str((x, y)) + ": cell is wider than requested fill size, trimming")
-						this_cell_symbols = this_cell_symbols[:fill_cnt]
+				if pad_cnt is not None:
+					if len(this_cell_symbols) > pad_cnt:
+						log_warn("Room " + room_name + " at " + str((x, y)) + ": cell is wider than requested pad size, trimming")
+						this_cell_symbols = this_cell_symbols[:pad_cnt]
 					else:
-						for _ in range(len(this_cell_symbols), fill_cnt):
+						for _ in range(len(this_cell_symbols), pad_cnt):
 							this_cell_symbols += SYMBOL_EMPTY
 				elif len(this_cell_symbols) > max_cell_length:
 					max_cell_length = len(this_cell_symbols)
@@ -285,13 +284,7 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, fi
 
 	output_root[FOERR_JSON_KEY_ROOMS] = output_rooms
 
-	output_serialized = json.dumps(output_root, indent='\t')
-
-	# YEET these ugly multiline coords
-	output_serialized = re.sub(r"\"coords\": \[\s*(\d+),\s*(\d+),\s*(\d+)\s*\]", r""""coords": [\1, \2, \3]""", output_serialized)
-
-	with open(output_filename, "w") as f:
-		f.write(output_serialized)
+	write_rooms_json(output_filename, output_root)
 
 	return max_cell_length
 
@@ -428,7 +421,7 @@ if __name__ == "__main__":
 	parser.add_argument("-m", "--materials", action="store", required=True, type=str, help=("Path to materials.json"))
 	parser.add_argument("-o", "--output", action="store", required=False, type=str, help=("Path to output json file, or directory if -a is used"))
 	parser.add_argument("-a", "--all", action="store_true", help=("Translate all files in input dir. If enabled, input/output should be a paths to directories, not files."))
-	parser.add_argument("-f", "--fill", action="store", type=int, help=("Fill each cell to this size to align cells"))
+	parser.add_argument("-p", "--pad", action="store", type=int, help=("Pad each cell to this number of characters to align cells"))
 	args = parser.parse_args()
 
 	symbol_maps, mat_data = load_verify_maps(args.materials)
@@ -456,7 +449,7 @@ if __name__ == "__main__":
 			if input_basename not in gamedata_data:
 				log_err("GameData does not contain data for " + input_basename + ", skipping")
 			else:
-				max_cell_length = translate_rooms(os.path.join(args.input, filename), output_path, gamedata_data[input_basename], args.fill, symbol_maps, mat_data)
+				max_cell_length = translate_rooms(os.path.join(args.input, filename), output_path, gamedata_data[input_basename], args.pad, symbol_maps, mat_data)
 				if max_cell_length > total_max_cell_length:
 					total_max_cell_length = max_cell_length
 
@@ -472,7 +465,7 @@ if __name__ == "__main__":
 		if input_basename not in gamedata_data:
 			log_err("GameData does not contain data for " + input_basename)
 		else:
-			total_max_cell_length = translate_rooms(args.input, output_filename, gamedata_data[input_basename], args.fill, symbol_maps, mat_data)
+			total_max_cell_length = translate_rooms(args.input, output_filename, gamedata_data[input_basename], args.pad, symbol_maps, mat_data)
 
-	if args.fill is None:
+	if args.pad is None:
 		log_verbose("Max cell size was " + str(total_max_cell_length))
