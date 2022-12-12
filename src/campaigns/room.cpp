@@ -5,6 +5,7 @@
 
 #define ROOM_SYMBOL_SEPARATOR '|'
 #define ROOM_SYMBOL_EMPTY '_'
+#define ROOM_SYMBOL_UNKNOWN '?'
 
 bool Room::shouldDrawBackgroundFull()
 {
@@ -106,8 +107,13 @@ bool Room::load(const json &root, const std::string &filePath)
 
 			if (firstCellSymbol)
 			{
+				// first symbol (solid)
 				firstCellSymbol = false;
-				if (symbol != ROOM_SYMBOL_EMPTY)
+				if (symbol == ROOM_SYMBOL_UNKNOWN)
+				{
+					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
+				}
+				else if (symbol != ROOM_SYMBOL_EMPTY)
 				{
 					if (!this->cells[y][x].addSolidSymbol(symbol))
 						return false;
@@ -115,9 +121,18 @@ bool Room::load(const json &root, const std::string &filePath)
 			}
 			else if (symbol != ROOM_SYMBOL_EMPTY)
 			{
-				if (!this->cells[y][x].addOtherSymbol(symbol))
+				// 2nd, 3rd, etc. symbol, not empty
+				if (symbol == ROOM_SYMBOL_UNKNOWN)
+					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
+				else if (!this->cells[y][x].addOtherSymbol(symbol))
 					return false;
 			}
+		}
+
+		if (x != ROOM_WIDTH_WITH_BORDER - 1)
+		{
+			Log::e(STR_ROOM_ROW_TOO_SHORT, filePath.c_str(), FOERR_JSON_KEY_CELLS, y);
+			return false;
 		}
 	}
 

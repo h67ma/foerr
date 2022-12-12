@@ -27,6 +27,8 @@
 #define STR_INVALID_ARR_SIZE "Error loading file (%s) - invalid array size for key \"%s\""
 #define STR_MISSING_KEY "Problem loading file (%s) - key is missing: \"%s\"."
 #define STR_ROOM_LINE_TOO_LONG "Error loading room (%s, \"%s\") - line longer than %u, skipping remaining cells."
+#define STR_ROOM_ROW_TOO_SHORT "Error loading room (%s, \"%s\") - row %d too short."
+#define STR_UNKNOWN_SYMBOL_AT_POS "Error loading room (%s, \"%s\") - unknown symbol at (%d, %d)."
 #define STR_ROOM_MISSING "Error loading location (%s) - room is missing: \"%s\"."
 #define STR_ROOM_MISSING_COORDS "Error loading location (%s) - room is missing: (%u, %u)."
 #define STR_DUPLICATE_START_ROOM "Error loading location (%s) - multiple start rooms defined (%u, %u)."
