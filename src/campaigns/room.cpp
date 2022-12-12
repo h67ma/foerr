@@ -17,7 +17,7 @@ bool Room::shouldDrawBackgroundFull()
  *	"is_start": true,		// optional, exactly one room in a location must be a start room
  *	"bg": false,			// optional, false means that background_full is not displayed for this room even if
  *							// the location specifies it (useful for e.g. underground or backstage rooms)
- *	"blocks": [
+ *	"cells": [
  *		"LD_|LD_|...",
  *		"Lfz|Lf_|...",
  *		"LD_|L_z|...",
@@ -25,14 +25,14 @@ bool Room::shouldDrawBackgroundFull()
  *	]
  * }
  *
- * The block data is separated into 3-character "cells", separated by '|' character (for readability).
+ * The cell data is separated into 3-character "cells", separated by '|' symbol (for readability).
  * Each of the three letters corresponds to a different layer:
  *	- First letter defines the background
  *	- Second letter defines the background drawn on top of first background
- *	- Third letter defines the physical block
- * All three characters must be defined for every cell.
- * A special character '_' must be used to signal absence of block/background in a cell.
- * The dimensions of block grid are always 48x25 blocks (including "border" blocks).
+ *	- Third letter defines solid
+ * All three symbols must be defined for every cell.
+ * A special symbol '_' must be used to signal absence of solid/background in a cell.
+ * The dimensions of cell grid are always 48x25 cells (including border cells).
  *
  * Note: while it would be the most efficient (both in storage and in processing time) to store room data in binary
  * format, this approach has downsides. First, text is easily editable, which allows casual hackers to experiment with
@@ -51,26 +51,26 @@ bool Room::load(const json &root, const std::string &filePath)
 	// by default all rooms draw background full
 	parseJsonKey<bool>(root, filePath, FOERR_JSON_KEY_SHOW_ROOM_BG, this->drawBackgroundFull, true);
 
-	auto blocksSearch = root.find(FOERR_JSON_KEY_BLOCKS);
-	if (blocksSearch == root.end())
+	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
+	if (cellsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, filePath.c_str(), FOERR_JSON_KEY_BLOCKS);
+		Log::e(STR_MISSING_KEY, filePath.c_str(), FOERR_JSON_KEY_CELLS);
 		return false;
 	}
 
-	if (!blocksSearch->is_array())
+	if (!cellsSearch->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_BLOCKS);
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_CELLS);
 		return false;
 	}
 
-	if (blocksSearch->size() != ROOM_HEIGHT_WITH_BORDER)
+	if (cellsSearch->size() != ROOM_HEIGHT_WITH_BORDER)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_BLOCKS);
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_CELLS);
 		return false;
 	}
 
-	for (auto it = blocksSearch->begin(); it != blocksSearch->end(); it++)
+	for (auto it = cellsSearch->begin(); it != cellsSearch->end(); it++)
 	{
 		std::string line;
 
@@ -80,26 +80,26 @@ bool Room::load(const json &root, const std::string &filePath)
 		}
 		catch (const json::type_error &ex)
 		{
-			Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), FOERR_JSON_KEY_BLOCKS, ex.what());
+			Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), FOERR_JSON_KEY_CELLS, ex.what());
 			return false;
 		}
 
 		if (line.length() != ROOM_LINE_WIDTH_WITH_BORDER)
 		{
-			Log::e(STR_ROOM_LINE_INVALID, filePath.c_str(), FOERR_JSON_KEY_BLOCKS, line.length(), ROOM_LINE_WIDTH_WITH_BORDER);
+			Log::e(STR_ROOM_LINE_INVALID, filePath.c_str(), FOERR_JSON_KEY_CELLS, line.length(), ROOM_LINE_WIDTH_WITH_BORDER);
 			return false;
 		}
 
-		uint y = static_cast<uint>(std::distance(blocksSearch->begin(), it));
+		uint y = static_cast<uint>(std::distance(cellsSearch->begin(), it));
 
 		// finally, we can actually read the room data
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			// x is the "regular" horizontal index here, i.e. it points to an element in blocks/backgrounds array,
+			// x is the "regular" horizontal index here, i.e. it points to an element in solids/backgrounds array,
 			// not in json line
 			this->backgrounds[y][x] = line[x * ROOM_CHARS_PER_CELL];
 			this->backgrounds2[y][x] = line[(x * ROOM_CHARS_PER_CELL) + 1];
-			this->blocks[y][x] = line[(x * ROOM_CHARS_PER_CELL) + 2];
+			this->cells[y][x] = line[(x * ROOM_CHARS_PER_CELL) + 2];
 			// line[(x * ROOM_CHARS_PER_CELL) + 3] should be '|', but we don't actually need to check it.
 			// some character just needs to be here.
 			// actually, because we skip the '|' at the end of the line, the character at the end would be 0.

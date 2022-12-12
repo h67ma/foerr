@@ -9,7 +9,7 @@
 
 #define JSON_API_VERSION 1
 
-#define FOERR_JSON_KEY_BLOCKS "blocks"
+#define FOERR_JSON_KEY_CELLS "cells"
 #define FOERR_JSON_KEY_SHOW_ROOM_BG "bg"
 #define FOERR_JSON_KEY_BACKGROUND_FULL "background_full"
 #define FOERR_JSON_KEY_WORLDMAP_ICON "worldmap_icon"

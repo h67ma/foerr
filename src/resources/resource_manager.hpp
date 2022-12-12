@@ -33,7 +33,7 @@ enum FontType
  * in needlessly high usage of memory and lots of resources left unused in most cases.
  *
  * A better approach works like this: each room defines resources it needs to use, e.g. it needs
- * certain textures for texturing blocks. When a location loads its list of rooms, it compiles all
+ * certain textures for texturing cells. When a location loads its list of rooms, it compiles all
  * resources required by its rooms into a set. When a location is being loaded, it can request all
  * needed resources from resource manager, which then loads resources that are currently missing.
  * When loading next location, a different one than current one (excluding basecamps), we can
@@ -73,8 +73,6 @@ class ResourceManager
 	private:
 		sf::Font fonts[_FONT_CNT]; // NOLINT(runtime/arrays)
 		std::unordered_map<std::string, std::shared_ptr<sf::Texture>> textures;
-		// TODO std::unordered_map<char, sf::Texture*> charToBlock; // map for getting texture resource to draw blocks
-		// TODO std::unordered_map<char, sf::Texture*> charToBackground; // map for getting texture resource to draw backgrounds
 
 		// it would be more convenient to store sf::Sound, however then we'd be unable
 		// to play the same sound multiple times at the same time, which will definitely happen
