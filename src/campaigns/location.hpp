@@ -17,7 +17,7 @@ class Location : public sf::Drawable
 {
 	private:
 		const std::string id;
-		const std::string roomDataPath;
+		std::string roomDataPath;
 		std::string title;
 		std::string description;
 		sf::Vector2u worldMapCoords;
@@ -31,8 +31,8 @@ class Location : public sf::Drawable
 		std::shared_ptr<Room> currentRoom = nullptr;
 
 	public:
-		explicit Location(std::string id, std::string roomDataPath);
-		bool loadMeta(const json &locMetaNode);
+		explicit Location(std::string id);
+		bool loadMeta(const json &locMetaNode, const std::string &campaignDir);
 		bool loadContent(ResourceManager &resMgr);
 		void unloadContent();
 		std::string getId();

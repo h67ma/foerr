@@ -7,7 +7,7 @@
 
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
-Location::Location(std::string id, std::string roomDataPath) : id(id), roomDataPath(roomDataPath)
+Location::Location(std::string id) : id(id)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }
@@ -22,9 +22,11 @@ Location::Location(std::string id, std::string roomDataPath) : id(id), roomDataP
  *	"description": "Description shown on world map page.",
  *	"grind": false,
  *	"basecamp": false,
- *	"rec_lvl": 42,							// optional
+ *	"rec_lvl": 42,					// optional
+ *	"rooms": "rooms_file_id",		// optional, name of the rooms file, located in campaigns/campaign_id/rooms,
+ *									   without extension. defaults to location id
  *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
- *	"worldmap_icon_big": false,				// optional
+ *	"worldmap_icon_big": false,		// optional, defaults to false
  *	"worldmap_coords": [123, 456],
  *	"rooms": [
  *		...	// see room.cpp
@@ -35,7 +37,7 @@ Location::Location(std::string id, std::string roomDataPath) : id(id), roomDataP
  * @returns true if load succeeded
  * @returns false if load failed
  */
-bool Location::loadMeta(const json &locMetaNode)
+bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
 {
 	Log::v(STR_LOADING_LOCATION_META, this->id.c_str());
 
@@ -61,6 +63,15 @@ bool Location::loadMeta(const json &locMetaNode)
 	}
 
 	parseJsonKey<uint>(locMetaNode, this->id, FOERR_JSON_KEY_RECOMMENDED_LVL, this->recommendedLevel, true);
+
+	std::string roomsFilename = "";
+	parseJsonKey<std::string>(locMetaNode, this->id, FOERR_JSON_KEY_ROOMS, roomsFilename, true);
+
+	// default to location id if not specified
+	if (roomsFilename == "")
+		roomsFilename = this->id;
+
+	this->roomDataPath = pathCombine(campaignDir, std::string(PATH_DIR_ROOMS), roomsFilename + ".json");
 
 	if (!parseJsonKey<std::string>(locMetaNode, this->id, FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
 		return false;

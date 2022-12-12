@@ -101,10 +101,8 @@ bool Campaign::load(std::string campaignDir)
 	for (const auto &loc : locsSearch->items())
 	{
 		std::string locId = loc.key();
-		// room data must be stored in campaign_name/rooms/location_id.json
-		std::string roomDataPath = pathCombine(campaignDir, std::string(PATH_DIR_ROOMS), locId + ".json");
-		this->locations.emplace_back(locId, roomDataPath);
-		if (!this->locations.back().loadMeta(loc.value()))
+		this->locations.emplace_back(locId);
+		if (!this->locations.back().loadMeta(loc.value(), campaignDir))
 		{
 			// unload everything
 			// mission failed, we'll get em next time
