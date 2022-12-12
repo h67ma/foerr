@@ -11,6 +11,7 @@
 
 #define FOERR_JSON_KEY_CELLS "cells"
 #define FOERR_JSON_KEY_SHOW_ROOM_BG "bg"
+#define FOERR_JSON_KEY_BACKWALL "backwall"
 #define FOERR_JSON_KEY_BACKGROUND_FULL "background_full"
 #define FOERR_JSON_KEY_WORLDMAP_ICON "worldmap_icon"
 #define FOERR_JSON_KEY_WORLDMAP_COORDS "worldmap_coords"

@@ -26,7 +26,7 @@
 #define STR_INVALID_TYPE "Error loading file (%s) - invalid value for key \"%s\""
 #define STR_INVALID_ARR_SIZE "Error loading file (%s) - invalid array size for key \"%s\""
 #define STR_MISSING_KEY "Problem loading file (%s) - key is missing: \"%s\"."
-#define STR_ROOM_LINE_INVALID "Error loading room (%s, \"%s\") - line length invalid: %u, should be %u."
+#define STR_ROOM_LINE_TOO_LONG "Error loading room (%s, \"%s\") - line longer than %u, skipping remaining cells."
 #define STR_ROOM_MISSING "Error loading location (%s) - room is missing: \"%s\"."
 #define STR_ROOM_MISSING_COORDS "Error loading location (%s) - room is missing: (%u, %u)."
 #define STR_DUPLICATE_START_ROOM "Error loading location (%s) - multiple start rooms defined (%u, %u)."

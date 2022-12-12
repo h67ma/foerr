@@ -3,6 +3,9 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
+#define ROOM_SYMBOL_SEPARATOR '|'
+#define ROOM_SYMBOL_EMPTY '_'
+
 bool Room::shouldDrawBackgroundFull()
 {
 	return this->drawBackgroundFull;
@@ -17,21 +20,17 @@ bool Room::shouldDrawBackgroundFull()
  *	"is_start": true,		// optional, exactly one room in a location must be a start room
  *	"bg": false,			// optional, false means that background_full is not displayed for this room even if
  *							// the location specifies it (useful for e.g. underground or backstage rooms)
+ *	"backwall": "tName",	// optional, name of texture which should be displayed where no cell background is defined
  *	"cells": [
- *		"LD_|LD_|...",
- *		"Lfz|Lf_|...",
- *		"LD_|L_z|...",
+ *		"H|_-|...",
+ *		"_Ka|G;|...",
  *		...
  *	]
  * }
  *
- * The cell data is separated into 3-character "cells", separated by '|' symbol (for readability).
- * Each of the three letters corresponds to a different layer:
- *	- First letter defines the background
- *	- Second letter defines the background drawn on top of first background
- *	- Third letter defines solid
- * All three symbols must be defined for every cell.
- * A special symbol '_' must be used to signal absence of solid/background in a cell.
+ * The cell data is separated by ROOM_SYMBOL_SEPARATOR ('_'). Each cell is of 1 or more characters in length.
+ * First character in a cell corresponds to a solid, and can be empty ('_').
+ * Rest of the symbols define various elements, such as background, stairs, ladder, water.
  * The dimensions of cell grid are always 48x25 cells (including border cells).
  *
  * Note: while it would be the most efficient (both in storage and in processing time) to store room data in binary
@@ -50,6 +49,8 @@ bool Room::load(const json &root, const std::string &filePath)
 {
 	// by default all rooms draw background full
 	parseJsonKey<bool>(root, filePath, FOERR_JSON_KEY_SHOW_ROOM_BG, this->drawBackgroundFull, true);
+
+	// TODO load and use backwall
 
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
 	if (cellsSearch == root.end())
@@ -84,25 +85,39 @@ bool Room::load(const json &root, const std::string &filePath)
 			return false;
 		}
 
-		if (line.length() != ROOM_LINE_WIDTH_WITH_BORDER)
-		{
-			Log::e(STR_ROOM_LINE_INVALID, filePath.c_str(), FOERR_JSON_KEY_CELLS, line.length(), ROOM_LINE_WIDTH_WITH_BORDER);
-			return false;
-		}
-
 		uint y = static_cast<uint>(std::distance(cellsSearch->begin(), it));
+		uint x = 0;
 
-		// finally, we can actually read the room data
-		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		bool firstCellSymbol = true;
+		for (const auto symbol : line)
 		{
-			// x is the "regular" horizontal index here, i.e. it points to an element in solids/backgrounds array,
-			// not in json line
-			this->backgrounds[y][x] = line[x * ROOM_CHARS_PER_CELL];
-			this->backgrounds2[y][x] = line[(x * ROOM_CHARS_PER_CELL) + 1];
-			this->cells[y][x] = line[(x * ROOM_CHARS_PER_CELL) + 2];
-			// line[(x * ROOM_CHARS_PER_CELL) + 3] should be '|', but we don't actually need to check it.
-			// some character just needs to be here.
-			// actually, because we skip the '|' at the end of the line, the character at the end would be 0.
+			if (symbol == ROOM_SYMBOL_SEPARATOR)
+			{
+				x++;
+				firstCellSymbol = true;
+				continue;
+			}
+
+			if (x >= ROOM_WIDTH_WITH_BORDER)
+			{
+				Log::w(STR_ROOM_LINE_TOO_LONG, filePath.c_str(), FOERR_JSON_KEY_CELLS, ROOM_WIDTH_WITH_BORDER);
+				break;
+			}
+
+			if (firstCellSymbol)
+			{
+				firstCellSymbol = false;
+				if (symbol != ROOM_SYMBOL_EMPTY)
+				{
+					if (!this->cells[y][x].addSolidSymbol(symbol))
+						return false;
+				}
+			}
+			else if (symbol != ROOM_SYMBOL_EMPTY)
+			{
+				if (!this->cells[y][x].addOtherSymbol(symbol))
+					return false;
+			}
 		}
 	}
 
