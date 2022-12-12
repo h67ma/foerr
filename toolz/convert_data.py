@@ -1,7 +1,7 @@
 # more meaningful location names translations
 loc_names_map = {
 	# "rooms2": "", # test loc
-	"rooms_art": "fort_focks",
+	"rooms_art": "fort_rocks",
 	"rooms_begin": "technical_tunnels",
 	"rooms_canter": "canterlot_ruins",
 	"rooms_comm": "command_post",
