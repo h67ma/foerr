@@ -18,12 +18,10 @@
 class Room : sf::Drawable
 {
 	private:
-		bool drawBackgroundFull = true;
 		RoomCell cells[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
 		// TODO void flip(); // for mirroring room vertically, only for grind maps
 
 	public:
-		bool shouldDrawBackgroundFull();
 		bool load(const json &root, const std::string &filePath);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

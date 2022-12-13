@@ -327,8 +327,7 @@ Vector3u Location::getPlayerRoomCoords()
 
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	if (this->currentRoom->shouldDrawBackgroundFull())
-		target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
+	target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
 
 	// note: stupid const methods are stupid.
 	// dereferencing currentRoom is not allowed, but calling ::draw() on it is allowed

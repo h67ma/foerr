@@ -7,11 +7,6 @@
 #define ROOM_SYMBOL_EMPTY '_'
 #define ROOM_SYMBOL_UNKNOWN '?'
 
-bool Room::shouldDrawBackgroundFull()
-{
-	return this->drawBackgroundFull;
-}
-
 /**
  * Loads the room data and stores it in this object.
  *
@@ -19,8 +14,6 @@ bool Room::shouldDrawBackgroundFull()
  * {
  *	"coords": [2, 0, 1],	// (X, Y, Z). Z=0 is the front/main layer, Z=1 is backstage-1, Z=2 is backstage-2, etc.
  *	"is_start": true,		// optional, exactly one room in a location must be a start room
- *	"bg": false,			// optional, false means that background_full is not displayed for this room even if
- *							// the location specifies it (useful for e.g. underground or backstage rooms)
  *	"backwall": "tName",	// optional, name of texture which should be displayed where no cell background is defined
  *	"cells": [
  *		"H|_-|...",
@@ -33,6 +26,8 @@ bool Room::shouldDrawBackgroundFull()
  * First character in a cell corresponds to a solid, and can be empty ('_').
  * Rest of the symbols define various elements, such as background, stairs, ladder, water.
  * The dimensions of cell grid are always 48x25 cells (including border cells).
+ *
+ * To overwrite full background, just define a backwall for the room.
  *
  * Note: while it would be the most efficient (both in storage and in processing time) to store room data in binary
  * format, this approach has downsides. First, text is easily editable, which allows casual hackers to experiment with
@@ -48,9 +43,6 @@ bool Room::shouldDrawBackgroundFull()
  */
 bool Room::load(const json &root, const std::string &filePath)
 {
-	// by default all rooms draw background full
-	parseJsonKey<bool>(root, filePath, FOERR_JSON_KEY_SHOW_ROOM_BG, this->drawBackgroundFull, true);
-
 	// TODO load and use backwall
 
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
