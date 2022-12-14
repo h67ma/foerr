@@ -28,6 +28,7 @@ bool RoomCell::addSolidSymbol(char symbol)
  *     - Solid (covered by ::addSolidSymbol)
  *     - Background
  *     - Platform
+ *     - Stairs
  *     - Ladder
  *     - Liquid
  *     - Part-height directive
