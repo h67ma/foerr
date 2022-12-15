@@ -87,7 +87,8 @@ bool parseJsonVector2uKey(const json &node, const std::string &filePath, const c
  * Parses a three-element vector from json. Useful for sizes, coordinates, etc.
  * Coordinate element in json looks like this: "key": [123, 456, 1]
  */
-bool parseJsonVector3uKey(const json &node, const std::string &filePath, const char* key, Vector3u &value, bool quiet)
+bool parseJsonVector3iKey(const json &node, const std::string &filePath, const char* key, sf::Vector3i &value,
+						  bool quiet)
 {
 	auto search = node.find(key);
 	if (search == node.end())

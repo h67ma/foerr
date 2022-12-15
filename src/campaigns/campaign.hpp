@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <SFML/System/Vector3.hpp>
 #include "../resources/resource_manager.hpp"
 #include "location.hpp"
 
@@ -9,7 +10,7 @@
  * Not all locations are kept loaded at the same time. Apart from the
  * current location, all basecamps visited since the program start are
  * kept loaded, as well as previous non-basecamp location, if player
- * travelled from it to a basecamp.
+ * traveled from it to a basecamp.
  */
 class Campaign : public sf::Drawable
 {
@@ -40,6 +41,6 @@ class Campaign : public sf::Drawable
 		bool changeLocationById(std::string locId);
 		bool isLoaded();
 		bool gotoRoom(Direction direction);
-		Vector3u getPlayerRoomCoords();
+		sf::Vector3i getPlayerRoomCoords();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

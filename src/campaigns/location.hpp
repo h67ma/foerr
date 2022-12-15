@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/System/Vector3.hpp>
 #include "room_grid.hpp"
 #include "../consts.hpp"
 #include "../util/json.hpp"
@@ -44,6 +45,6 @@ class Location : public sf::Drawable
 		uint getRecommendedLevel();
 		std::string getWorldMapIconId();
 		bool gotoRoom(Direction direction);
-		Vector3u getPlayerRoomCoords();
+		sf::Vector3i getPlayerRoomCoords();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

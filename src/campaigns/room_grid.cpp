@@ -1,50 +1,27 @@
 #include "room_grid.hpp"
-#include <memory>
-#include "../hud/log.hpp"
-#include "../util/i18n.hpp"
 
 /**
- * Sets the grid dimensions and sizes the internal vector accordingly.
- * Old grid contents are removed.
- *
- * @param dimens new grid size
- */
-void RoomGrid::setDimens(Vector3u dimens)
-{
-	this->dimens = dimens;
-	this->grid.clear(); // just in case
-	this->grid.resize(dimens.x * dimens.y * dimens.z);
-}
-
-/**
- * Gets current room coordinates in the room grid.
+ * Gets the current room coordinates.
  *
  * @return current room coordinates
  */
-Vector3u RoomGrid::getCurrentCoords()
+HashableVector3i RoomGrid::getCurrentCoords()
 {
 	return this->currentCoords;
 }
 
 /**
- * Sets the room at specified coordinates to a Room object pointer.
- * If an object is already assigned, it will be deallocated.
+ * Creates a new room at specified coordinates.
+ * If another room already exists at this coordinates, it will be overwritten without any warning
+ * (this case should be handled by the caller, see Location::loadContent()).
  *
  * @param coords the room coordinates
  * @param room shared pointer to the Room object to set
- * @return true if set was successful
- * @return false if set failed
  */
-bool RoomGrid::set(Vector3u coords, std::shared_ptr<Room> room)
+void RoomGrid::set(HashableVector3i coords, std::shared_ptr<Room> room)
 {
-	if (coords.x >= this->dimens.x || coords.y >= this->dimens.y || coords.z >= this->dimens.z)
-	{
-		Log::e(STR_IDX_OUTTA_BOUNDS);
-		return false;
-	}
-
-	this->grid[coords.x + (this->dimens.x * coords.y) + (this->dimens.x * this->dimens.y * coords.z)] = room;
-	return true;
+	// emplacing on existing idx removes the old element, and because it's a smart ptr, it will be deallocated
+	this->grid.emplace(coords, room);
 }
 
 /**
@@ -54,12 +31,15 @@ bool RoomGrid::set(Vector3u coords, std::shared_ptr<Room> room)
  * @return a shared pointer to the Room object at specified coords, if it exists
  * @return nullptr, if the coordinates are invalid, or contain an empty room
  */
-std::shared_ptr<Room> RoomGrid::get(Vector3u coords)
+std::shared_ptr<Room> RoomGrid::get(HashableVector3i coords)
 {
-	if (coords.x >= this->dimens.x || coords.y >= this->dimens.y || coords.z >= this->dimens.z)
+	auto search = this->grid.find(coords);
+	if (search == this->grid.end())
+		// "The system you're searching for doesn't exist."
+		// "Impossible! Perhaps the archives are incomplete?"
 		return nullptr;
 
-	return this->grid[coords.x + (this->dimens.x * coords.y) + (this->dimens.x * this->dimens.y * coords.z)];
+	return search->second;
 }
 
 /**
@@ -70,7 +50,7 @@ std::shared_ptr<Room> RoomGrid::get(Vector3u coords)
  * @return a shared pointer to the Room object at specified coords, if it exists
  * @return nullptr, if the coordinates are invalid, or contain an empty room
  */
-std::shared_ptr<Room> RoomGrid::moveTo(Vector3u coords)
+std::shared_ptr<Room> RoomGrid::moveTo(HashableVector3i coords)
 {
 	std::shared_ptr<Room> found = this->get(coords);
 	if (found != nullptr)
@@ -88,53 +68,41 @@ std::shared_ptr<Room> RoomGrid::moveTo(Vector3u coords)
  */
 std::shared_ptr<Room> RoomGrid::moveToNear(Direction direction)
 {
-	Vector3u newCoords = this->currentCoords;
+	HashableVector3i newCoords = this->currentCoords;
 
-	if (direction == DIR_UP)
+	switch (direction)
 	{
-		if (newCoords.y == 0)
-			return nullptr; // can't go any higher
-
-		newCoords.y -= 1;
-	}
-	else if (direction == DIR_LEFT)
-	{
-		if (newCoords.x == 0)
-			return nullptr; // can't go any more left
-
-		newCoords.x -= 1;
-	}
-	else if (direction == DIR_FRONT)
-	{
-		if (newCoords.z == 0)
-			return nullptr; // can't go any more to the front
-
-		newCoords.z -= 1;
-	}
-	else if (direction == DIR_DOWN)
-	{
-		newCoords.y += 1;
-	}
-	else if (direction == DIR_RIGHT)
-	{
-		newCoords.x += 1;
-	}
-	else if (direction == DIR_BACK)
-	{
-		newCoords.z += 1;
+		case DIR_LEFT:
+			newCoords.x -= 1;
+			break;
+		case DIR_RIGHT:
+			newCoords.x += 1;
+			break;
+		case DIR_UP:
+			newCoords.y -= 1;
+			break;
+		case DIR_DOWN:
+			newCoords.y += 1;
+			break;
+		case DIR_FRONT:
+			newCoords.z -= 1;
+			break;
+		case DIR_BACK:
+			newCoords.z += 1;
+			break;
+		default:
+			break; // a horrible chill goes down your spine...
 	}
 
-	if (this->get(newCoords) == nullptr)
-		// the system you're searching for doesn't exist.
-		// impossible! perhaps the archives are incomplete?
+	std::shared_ptr<Room> newRoom = this->get(newCoords);
+	if (newRoom == nullptr)
 		return nullptr;
 
 	this->currentCoords = newCoords;
-	return this->get(newCoords);
+	return newRoom;
 }
 
 void RoomGrid::clear()
 {
 	this->grid.clear();
-	this->dimens = { 0, 0, 0 };
 }

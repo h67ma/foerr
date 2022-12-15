@@ -3,6 +3,7 @@
 #include <string>
 #include <nlohmann/json.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vector3.hpp>
 #include "../hud/log.hpp"
 #include "i18n.hpp"
 #include "../consts.hpp"
@@ -36,7 +37,7 @@ void writeJsonToFile(const json &root, std::string path);
 bool loadJsonFromFile(json &root, std::string path, bool quiet = false);
 bool parseJsonVector2uKey(const json &node, const std::string &filePath, const char* key, sf::Vector2u &value,
 						  bool quiet = false);
-bool parseJsonVector3uKey(const json &node, const std::string &filePath, const char* key, Vector3u &value,
+bool parseJsonVector3iKey(const json &node, const std::string &filePath, const char* key, sf::Vector3i &value,
 						  bool quiet = false);
 
 template<typename T>

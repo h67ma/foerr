@@ -1,7 +1,5 @@
 #pragma once
 
-#include <SFML/System/Vector3.hpp>
-
 #define STACKTRACE_MAX_CNT 10
 #define ANIM_FRAME_DURATION_MS 33 // around 30fps
 
@@ -29,8 +27,6 @@
 #ifndef uint
 typedef unsigned int uint;
 #endif
-
-typedef sf::Vector3<unsigned int> Vector3u;
 
 enum GameState
 {

@@ -36,3 +36,12 @@ uint getFontSize(GuiScale scale, FontSize size);
 uint getFontGap(GuiScale scale, FontSize size);
 
 #define DIM_COLOR(color, shade) color * sf::Color(shade, shade, shade)
+
+/**
+ * "Just do it like the Boost guys did it" ~ SO proverb, circa 2010
+ */
+template <class T>
+inline void hash_combine(std::size_t& seed, const T& v)
+{
+	seed ^= std::hash<T>{}(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+}

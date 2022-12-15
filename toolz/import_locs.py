@@ -59,9 +59,6 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 			room_z = room_node.attrib.get("z", 0) # z is optional, assume 0 if not present
 
 			room_coords = (int(room_x), int(room_y), int(room_z))
-			for coord in room_coords:
-				if coord < 0:
-					log_warn("Room " + str(room_coords) + ": negative coordinates")
 
 			out_room_node[FOERR_JSON_KEY_COORDS] = room_coords
 

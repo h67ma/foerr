@@ -148,70 +148,13 @@ bool Location::loadContent(ResourceManager &resMgr)
 		return false;
 	}
 
-	// initial pass, check if exactly one room is marked as start room, set start coords,
-	// and also calculate the size of room grid based on rooms coords.
+	// TODO this is a prime candidate for parallelization - run N threads, each gets a few rooms
 	bool foundStart = false;
-	Vector3u gridDimens(0, 0, 0);
-	Vector3u startRoomCoords;
+	HashableVector3i startRoomCoords;
 	for (const auto &roomNode : (*roomsSearch))
 	{
-		Vector3u roomCoords;
-		if (!parseJsonVector3uKey(roomNode, this->roomDataPath, FOERR_JSON_KEY_COORDS, roomCoords))
-		{
-			this->unloadContent();
-			return false;
-		}
-
-		// adjust required grid size if needed
-		if ((roomCoords.x + 1) > gridDimens.x)
-			gridDimens.x = roomCoords.x + 1;
-		if ((roomCoords.y + 1) > gridDimens.y)
-			gridDimens.y = roomCoords.y + 1;
-		if ((roomCoords.z + 1) > gridDimens.z)
-			gridDimens.z = roomCoords.z + 1;
-
-		bool thisStart = false;
-		parseJsonKey<bool>(roomNode, this->roomDataPath, FOERR_JSON_KEY_IS_START, thisStart, true);
-
-		if (thisStart)
-		{
-			if (foundStart)
-			{
-				Log::e(STR_DUPLICATE_START_ROOM, this->roomDataPath.c_str(), roomCoords.x, roomCoords.y);
-				this->unloadContent();
-				return false;
-			}
-
-			startRoomCoords = roomCoords;
-			foundStart = true;
-		}
-	}
-
-	if (!foundStart)
-	{
-		Log::e(STR_MISSING_START_ROOM, this->roomDataPath.c_str());
-		this->unloadContent();
-		return false;
-	}
-
-	// if there really are no rooms, we'll fail before reaching this
-	// because start room won't be found. still better check.
-	if (gridDimens.x == 0 || gridDimens.y == 0)
-	{
-		Log::e(STR_NO_ROOMS_DEFINED, this->roomDataPath.c_str());
-		this->unloadContent();
-		return false;
-	}
-
-	this->rooms.setDimens(gridDimens);
-
-	// second pass, now we have set the grid size and know which room is the start one
-	// TODO this is a prime candidate for parallelisation - run N threads, each gets a few rooms
-	for (const auto &roomNode : (*roomsSearch))
-	{
-		// yes, we need to read coords again
-		Vector3u roomCoords;
-		if (!parseJsonVector3uKey(roomNode, this->roomDataPath, FOERR_JSON_KEY_COORDS, roomCoords))
+		HashableVector3i roomCoords;
+		if (!parseJsonVector3iKey(roomNode, this->roomDataPath, FOERR_JSON_KEY_COORDS, roomCoords))
 		{
 			this->unloadContent();
 			return false;
@@ -219,30 +162,53 @@ bool Location::loadContent(ResourceManager &resMgr)
 
 		if (this->rooms.get(roomCoords) != nullptr)
 		{
-			Log::e(STR_DUPLICATE_ROOM_IN_SAME_COORDS, this->roomDataPath.c_str(), roomCoords.x, roomCoords.y);
+			Log::e(STR_DUPLICATE_ROOM_IN_SAME_COORDS, this->roomDataPath.c_str(),
+				   roomCoords.x, roomCoords.y, roomCoords.z);
 			this->unloadContent();
 			return false;
+		}
+
+		bool thisStart = false;
+		parseJsonKey<bool>(roomNode, this->roomDataPath, FOERR_JSON_KEY_IS_START, thisStart, true);
+
+		// check if exactly one room is marked as start room
+		if (thisStart)
+		{
+			if (foundStart)
+			{
+				Log::e(STR_DUPLICATE_START_ROOM, this->roomDataPath.c_str(), roomCoords.x, roomCoords.y, roomCoords.z);
+				this->unloadContent();
+				return false;
+			}
+
+			startRoomCoords = roomCoords;
+			foundStart = true;
 		}
 
 		std::shared_ptr<Room> room = std::make_shared<Room>();
-		if (!room->load(roomNode, this->roomDataPath.c_str()))
+		if (!room->load(roomNode, this->roomDataPath))
 		{
 			this->unloadContent();
 			return false;
 		}
 
-		if (!this->rooms.set(roomCoords, room))
-		{
-			// can't imagine how this could possibly fail, but check just to be sure
-			this->unloadContent();
-			return false;
-		}
+		this->rooms.set(roomCoords, room);
 	}
 
+	if (!foundStart)
+	{
+		// also covers the case where we have zero rooms
+		Log::e(STR_MISSING_START_ROOM, this->roomDataPath.c_str());
+		this->unloadContent();
+		return false;
+	}
+
+	// enter the starting room
 	this->currentRoom = this->rooms.moveTo(startRoomCoords);
 	if (this->currentRoom == nullptr)
 	{
-		Log::e(STR_ROOM_MISSING_COORDS, this->roomDataPath.c_str(), startRoomCoords.x, startRoomCoords.y);
+		Log::e(STR_ROOM_MISSING_COORDS, this->roomDataPath.c_str(),
+			   startRoomCoords.x, startRoomCoords.y, startRoomCoords.z);
 		this->unloadContent();
 		return false;
 	}
@@ -255,7 +221,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 	// we could also check if room grid is valid, i.e. are all rooms reachable.
 	// we'd have to implement some kind of DFS. checking if every room has at least one neighbor is not enough - two
 	// rooms could be connected only to each other and not to the rest of the location, which would fool this check.
-	// this would be nice to have, but could potentialy limit the ability to create some interesting locations (e.g.
+	// this would be nice to have, but could potentially limit the ability to create some interesting locations (e.g.
 	// ones using teleportation to travel between different unconnected sections, or ones which can be entered from more
 	// than one side). so for now let's assume that the creator of location will make sure that all required rooms are
 	// reachable.
@@ -320,8 +286,9 @@ bool Location::gotoRoom(Direction direction)
 	return true;
 }
 
-Vector3u Location::getPlayerRoomCoords()
+sf::Vector3i Location::getPlayerRoomCoords()
 {
+	// note: here we downcast HashableVector to Vector, as the specialized type is not needed anymore
 	return this->rooms.getCurrentCoords();
 }
 

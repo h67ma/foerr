@@ -250,7 +250,7 @@ bool Campaign::gotoRoom(Direction direction)
 	return this->locations[this->currentLocationIdx].gotoRoom(direction);
 }
 
-Vector3u Campaign::getPlayerRoomCoords()
+sf::Vector3i Campaign::getPlayerRoomCoords()
 {
 	if (!this->loaded)
 		return { 0, 0, 0 }; // well, what can you do
