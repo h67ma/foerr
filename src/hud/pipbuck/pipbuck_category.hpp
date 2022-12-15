@@ -39,7 +39,8 @@ class PipBuckCategory : public sf::Drawable, public HudTransformable
 		const std::unordered_map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages;
 
 	public:
-		PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, PipBuckPageType defaultPage, std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages);
+		PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr,
+						PipBuckPageType defaultPage, std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages);
 		bool setup();
 		PipBuckPageType getSelectedPage();
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);

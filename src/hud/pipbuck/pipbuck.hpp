@@ -20,7 +20,7 @@
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.
  * PipBuck contains 4 *categories*, each of them containing 5 *pages*. Some pages
- * (settings, controls) can also be acccessed via main menu.
+ * (settings, controls) can also be accessed via main menu.
  *
  * The convention is to keep all categories and their child pages in memory.
  * This way we can switch between them instantaneously, without the need to
@@ -56,7 +56,8 @@ class PipBuck : public sf::Drawable, public HudTransformable
 		static double getSmoothNoise(double time);
 
 	public:
-		PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState, SettingsManager &settings);
+		PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign,
+				GameState &gameState, SettingsManager &settings);
 		void handleScreenResize(sf::Vector2u windowSize);
 		void handleLeftClick(sf::Vector2i clickPos);
 		void handleMouseMove(sf::Vector2i mousePos);

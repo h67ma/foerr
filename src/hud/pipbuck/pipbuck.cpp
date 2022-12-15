@@ -25,7 +25,8 @@
 #include "pages/pipbuck_page_controls.hpp"
 #include "pages/pipbuck_page_log.hpp"
 
-PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign, GameState &gameState, SettingsManager &settings) :
+PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign,
+				 GameState &gameState, SettingsManager &settings) :
 	resMgr(resMgr),
 	gameState(gameState),
 	campaign(campaign),

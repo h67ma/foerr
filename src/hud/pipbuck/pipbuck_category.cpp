@@ -9,7 +9,9 @@
  * Note: pages can't be passed as an unordered map, because order is important for creating buttons.
  * However nothing prevents internal pages and buttons maps from being unordered.
  */
-PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, PipBuckPageType defaultPage, std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages) :
+PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr,
+								 PipBuckPageType defaultPage, std::map<PipBuckPageType,
+								 std::shared_ptr<PipBuckPage>> pages) :
 	selectedPage(defaultPage),
 	pages(pages.begin(), pages.end()),
 	soundPageChange(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
@@ -22,7 +24,8 @@ PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolu
 	uint x = PIPB_PAGE_BTNS_X_START;
 	for (const auto &page : pages)
 	{
-		this->pageButtons.emplace(page.first, SimpleButton(scale, BTN_NARROW, hudColor, resMgr, { x, 210 }, page.second->getLabel()));
+		this->pageButtons.emplace(page.first, SimpleButton(scale, BTN_NARROW, hudColor, resMgr, { x, 210 },
+								  page.second->getLabel()));
 		x += PIPB_PAGE_BTNS_X_DISTANCE;
 	}
 }
