@@ -127,84 +127,64 @@ int main()
 			pipBuck.open();
 		} },
 		{ ACTION_PIPB_GOTO_LOAD, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_LOAD, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_LOAD);
 		} },
 		{ ACTION_PIPB_GOTO_SAVE, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_SAVE, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_SAVE);
 		} },
 		{ ACTION_PIPB_GOTO_SETTINGS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_SETTINGS, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_SETTINGS);
 		} },
 		{ ACTION_PIPB_GOTO_CONTROLS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_CONTROLS, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_CONTROLS);
 		} },
 		{ ACTION_PIPB_GOTO_LOG, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_LOG, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_LOG);
 		} },
 		{ ACTION_PIPB_GOTO_STATUS_MAIN, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN);
 		} },
 		{ ACTION_PIPB_GOTO_SKILLS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_SKILLS, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_SKILLS);
 		} },
 		{ ACTION_PIPB_GOTO_PERKS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_PERKS, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_PERKS);
 		} },
 		{ ACTION_PIPB_GOTO_EFFECTS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_EFFECTS, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_EFFECTS);
 		} },
 		{ ACTION_PIPB_GOTO_HEALTH, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_HEALTH, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_HEALTH);
 		} },
 		{ ACTION_PIPB_GOTO_WEAPONS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_WEAPONS, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_WEAPONS);
 		} },
 		{ ACTION_PIPB_GOTO_ARMOR, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_ARMOR, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_ARMOR);
 		} },
 		{ ACTION_PIPB_GOTO_EQUIPMENT, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT);
 		} },
 		{ ACTION_PIPB_GOTO_INVENTORY_OTHER, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER);
 		} },
 		{ ACTION_PIPB_GOTO_AMMO, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_AMMO, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_AMMO);
 		} },
 		{ ACTION_PIPB_GOTO_MAP, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_MAP, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_MAP);
 		} },
 		{ ACTION_PIPB_GOTO_WORLD, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_WORLD, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_WORLD);
 		} },
 		{ ACTION_PIPB_GOTO_QUESTS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_QUESTS, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_QUESTS);
 		} },
 		{ ACTION_PIPB_GOTO_NOTES, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_NOTES, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_NOTES);
 		} },
 		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_ENEMIES, true);
-			pipBuck.open();
+			pipBuck.switchToPage(PIPB_PAGE_ENEMIES);
 		} },
 		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
 			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);

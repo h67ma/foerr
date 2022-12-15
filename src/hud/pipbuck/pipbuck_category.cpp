@@ -52,6 +52,11 @@ bool PipBuckCategory::setup()
 	return true;
 }
 
+PipBuckPageType PipBuckCategory::getSelectedPage()
+{
+	return this->selectedPage;
+}
+
 bool PipBuckCategory::changePage(PipBuckPageType pageType)
 {
 	auto found = this->pages.find(pageType);

@@ -63,7 +63,7 @@ class PipBuck : public sf::Drawable, public HudTransformable
 		bool setupCampaignInfos();
 		void unloadCampaignInfos();
 		void open(bool sound = true);
-		bool switchToPage(PipBuckPageType pageType, bool quiet = false);
+		bool switchToPage(PipBuckPageType pageType);
 		void close();
 		bool setup();
 		void setRadLevel(float rads);

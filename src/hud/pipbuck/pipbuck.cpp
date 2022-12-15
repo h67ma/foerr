@@ -216,20 +216,34 @@ void PipBuck::unloadCampaignInfos()
 /**
  * Changes current page.
  * If the mapping page -> category is incorrect, page will not be changed.
+ * If requested page is already open, PipBuck will be closed.
  *
  * @param pageType the page type
- * @param quiet whether to not play a page changing sound
  * @return true if switch was successful
  * @return false if page -> category mapping is incorrect
  */
-bool PipBuck::switchToPage(PipBuckPageType pageType, bool quiet)
+bool PipBuck::switchToPage(PipBuckPageType pageType)
 {
-	if (!quiet)
-		this->soundCategoryBtn.get().play();
-
 	PipBuckCategoryType newCat = PipBuckCategory::pageTypeToCategoryType(pageType);
+
 	if (newCat == PIPB_CAT_NO_CAT)
 		return false;
+
+	if (this->gameState == STATE_PIPBUCK)
+	{
+		if (newCat == this->selectedCategory && this->categories.at(newCat).getSelectedPage() == pageType)
+		{
+			// we're already on requested category & page and switch was requested again, close PipBuck
+			this->close();
+			return true;
+		}
+
+		// we only want to play category change sound if we're not opening/closing PipBuck,
+		// as then another sound will play
+		this->soundCategoryBtn.get().play();
+	}
+	else
+		this->open();
 
 	return this->changeCategory(newCat) && this->categories.at(newCat).changePage(pageType);
 }
