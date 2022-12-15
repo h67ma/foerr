@@ -15,7 +15,7 @@
 /**
  * Room class is a representation of a part of a location that fits on a single screen.
  */
-class Room : sf::Drawable
+class Room : public sf::Drawable
 {
 	private:
 		RoomCell cells[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];

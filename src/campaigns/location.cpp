@@ -295,9 +295,5 @@ sf::Vector3i Location::getPlayerRoomCoords()
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
-
-	// note: stupid const methods are stupid.
-	// dereferencing currentRoom is not allowed, but calling ::draw() on it is allowed
-	//target.draw(*this->currentRoom, states);
-	this->currentRoom->draw(target, states);
+	target.draw(*this->currentRoom, states);
 }
