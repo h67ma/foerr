@@ -3,7 +3,7 @@ import argparse
 import xml.etree.ElementTree as ET
 from consts import *
 from common import log_verbose, log_info, log_warn, log_err
-from convert_data import symbol_trans_map, extra_translations, missing_mats
+from convert_data import symbol_trans_map, extra_translations, missing_mats, mat_blacklist
 
 
 def make_mat_translation_map(editoren_root):
@@ -78,6 +78,9 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 		mat_symbol = mat.attrib.get("id")
 		if mat_symbol is None:
 			log_warn("Material \"" + mat_name + "\" is missing symbol id")
+			continue
+
+		if mat_symbol in mat_blacklist:
 			continue
 
 		# translate symbol if translation is defined

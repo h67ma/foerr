@@ -73,9 +73,6 @@ symbol_trans_map = {
 	'\u041f': 'r',
 	'\u0421': 's',
 	'\u0422': 't',
-
-	# border solid
-	"100": '~',
 }
 
 extra_translations = {
@@ -95,3 +92,8 @@ missing_mats = {
 		"type": 6
 	}
 }
+
+# materials not actually used in any room
+mat_blacklist = [
+	"100",	# border solid
+]
