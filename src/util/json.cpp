@@ -9,6 +9,17 @@ void writeJsonToFile(const json &root, std::string path)
 	writer.close();
 }
 
+/**
+ * @brief Loads a json file.
+ *
+ * Automatically checks if the file contains a proper key with api version, and if the version equals game api version.
+ *
+ * @param root reference to json root
+ * @param path path to json file to load
+ * @param quiet if true, warnings won't be outputted
+ * @return true if loading succeeded
+ * @return false if loading failed
+ */
 bool loadJsonFromFile(json &root, std::string path, bool quiet)
 {
 	std::ifstream reader(path);
