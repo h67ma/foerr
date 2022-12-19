@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
+#include "texture_resource.hpp"
 
 // core textures
 #define PATH_TXT_PIPBUCK_OVERLAY "res/hud/pipbuck.png"
@@ -74,6 +75,9 @@ class ResourceManager
 		sf::Font fonts[_FONT_CNT]; // NOLINT(runtime/arrays)
 		std::unordered_map<std::string, std::shared_ptr<sf::Texture>> textures;
 
+		// returned when requested texture could not be loaded. ptr stored here in order to always keep it loaded.
+		TextureResource notFoundTexture;
+
 		// it would be more convenient to store sf::Sound, however then we'd be unable
 		// to play the same sound multiple times at the same time, which will definitely happen
 		std::unordered_map<std::string, std::shared_ptr<sf::SoundBuffer>> audios;
@@ -81,7 +85,7 @@ class ResourceManager
 	public:
 		bool loadFonts();
 		bool loadCore();
-		std::shared_ptr<sf::Texture> getTexture(std::string path);
+		std::shared_ptr<sf::Texture> getTexture(std::string path, bool returnSomething = true);
 		std::shared_ptr<sf::SoundBuffer> getSoundBuffer(std::string path);
 		sf::Font* getFont(FontType fontType);
 		void cleanUnused();

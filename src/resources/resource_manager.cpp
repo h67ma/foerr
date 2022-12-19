@@ -63,6 +63,12 @@ bool ResourceManager::loadCore()
 			return false;
 	}
 
+	std::shared_ptr<sf::Texture> missingTxt = this->getTexture(PATH_TEXT_MISSING, false);
+	if (missingTxt == nullptr)
+		return false; // missing texture could not be loaded
+
+	this->notFoundTexture.set(missingTxt);
+
 	Log::d(STR_LOADING_CORE_RES_DONE);
 
 	return true;
@@ -74,9 +80,10 @@ bool ResourceManager::loadCore()
  * loaded, duplicate loading does not occur.
  *
  * @param path image resource path
- * @returns shared pointer to the loaded texture resource (can be `nullptr` if loading fails)
+ * @param returnSomething if true, and requested texture is not found, a dummy texture will be returned instead of nullptr
+ * @returns shared pointer to the loaded texture resource (can be `nullptr` if loading fails and !returnSomething)
  */
-std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string path)
+std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string path, bool returnSomething)
 {
 	auto search = this->textures.find(path);
 	if (search != this->textures.end())
@@ -85,11 +92,20 @@ std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string path)
 	std::shared_ptr<sf::Texture> txt = std::make_shared<sf::Texture>();
 	if (!txt->loadFromFile(path))
 	{
-		Log::e(STR_LOAD_FAIL, path.c_str());
-		return nullptr;
+		if (returnSomething)
+		{
+			// do not output a warning as it would produce way too much spam. the problem will be clearly visible anyway
+			return this->notFoundTexture.get();
+		}
+		else
+		{
+			Log::e(STR_LOAD_FAIL, path.c_str());
+			return nullptr;
+		}
 	}
 
 	txt->setSmooth(true);
+	txt->setRepeated(true);
 
 	Log::v(STR_LOADED_FILE, path.c_str());
 
