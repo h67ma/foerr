@@ -1,3 +1,4 @@
+import os
 import json
 import argparse
 import xml.etree.ElementTree as ET
@@ -73,7 +74,7 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 						   .replace("steps", "stairs") \
 						   .replace("beam", "platform")
 
-		out_mat[FOERR_JSON_KEY_TEXTURE] = mat_name
+		out_mat[FOERR_JSON_KEY_TEXTURE] = os.path.join(FOERR_PATH_CELL_TEXTURES, mat_name + ".png")
 
 		mat_symbol = mat.attrib.get("id")
 		if mat_symbol is None:
