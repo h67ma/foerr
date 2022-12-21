@@ -32,6 +32,8 @@ const std::unordered_map<KeyAction, action_def> Keymap::actionsMap {
 	{ ACTION_PIPB_GOTO_NOTES, { "pipbuck_open_notes", "Open Notes page", { } } },
 	{ ACTION_PIPB_GOTO_ENEMIES, { "pipbuck_open_enemies", "Open Enemies page", { } } },
 	{ ACTION_TOGGLE_FULLSCREEN, { "toggle_fullscreen", "Toggle fullscreen mode", { sf::Keyboard::F11 } } },
+	// TODO { ACTION_CONSOLE_OPEN, { "console_open", "Open console", { sf::Keyboard::Slash } } },
+	// TODO { ACTION_CONSOLE_REPEAT_LAST, { "console_repeat_last", "Repeat last console command", { sf::Keyboard::Slash + shift or ctrl } } },
 	{ ACTION_NO_ACTION, { "no_action", "No action", { } } },
 };
 
