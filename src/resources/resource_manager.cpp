@@ -1,4 +1,5 @@
 #include "resource_manager.hpp"
+#include <filesystem>
 #include <string>
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
@@ -90,7 +91,7 @@ std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string path, bool 
 		return search->second; // resource already loaded
 
 	std::shared_ptr<sf::Texture> txt = std::make_shared<sf::Texture>();
-	if (!txt->loadFromFile(path))
+	if (!std::filesystem::exists(path) || !txt->loadFromFile(path))
 	{
 		if (returnSomething)
 		{
