@@ -215,6 +215,9 @@ bool Campaign::changeLocationByIndex(uint newIdx)
 		return false;
 	}
 
+	// it's important to unload old location after loading the next one, because there's a good chance that new location
+	// uses some of the resources which are already loaded by the old one. therefore we avoid unloading and immediately
+	// loading the same resource.
 	this->unloadSomeLocations(newIdx);
 
 	this->currentLocationIdx = newIdx;
