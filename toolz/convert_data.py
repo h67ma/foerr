@@ -75,10 +75,6 @@ symbol_trans_map = {
 	'\u0422': 't',
 }
 
-extra_translations = {
-	"Граница": "Border",
-}
-
 flag_part_height = [
 	',', # 3/4 cell height
 	';', # 1/2 cell height

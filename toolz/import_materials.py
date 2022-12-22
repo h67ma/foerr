@@ -4,7 +4,7 @@ import argparse
 import xml.etree.ElementTree as ET
 from consts import *
 from common import log_verbose, log_info, log_warn, log_err
-from convert_data import symbol_trans_map, extra_translations, missing_mats, mat_blacklist
+from convert_data import symbol_trans_map, missing_mats, mat_blacklist
 
 
 def make_mat_translation_map(editoren_root):
@@ -62,8 +62,6 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 
 		if mat_name in mat_name_map:
 			mat_name = mat_name_map[mat_name] # thanks Alex for translations
-		elif mat_name in extra_translations:
-			mat_name = extra_translations[mat_name]
 
 		# nicify filename
 		mat_name = mat_name.replace("\\\\", "down") \
@@ -74,7 +72,15 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 						   .replace("steps", "stairs") \
 						   .replace("beam", "platform")
 
-		out_mat[FOERR_JSON_KEY_TEXTURE] = os.path.join(FOERR_PATH_CELL_TEXTURES, mat_name + ".png")
+		# get texture name if it's defined for this mat, else we'll fallback to material name
+		texture_name = mat_name
+		mat_main_node = mat.find("main")
+		if mat_main_node is not None:
+			texture_attrib = mat_main_node.attrib.get("tex")
+			if texture_attrib is not None:
+				texture_name = texture_attrib
+
+		out_mat[FOERR_JSON_KEY_TEXTURE] = os.path.join(FOERR_PATH_CELL_TEXTURES, texture_name + ".png")
 
 		mat_symbol = mat.attrib.get("id")
 		if mat_symbol is None:
