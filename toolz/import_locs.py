@@ -268,9 +268,15 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 		if in_options_node is not None:
 			in_backwall = in_options_node.attrib.get("backwall")
 			if in_backwall is not None:
-				# TODO? we could think of reading this before solids, and instead of writing a separate key,
-				# just add the background to every solid which doesn't have background
-				out_room_node[FOERR_JSON_KEY_BACKWALL] = os.path.join(FOERR_PATH_CELL_TEXTURES, in_backwall + ".png")
+				# "sky" as backwall value is some kind of special case.
+				# in ::drawBackWall() in Grafon.as backwall is not drawn if "sky"
+				# TODO figure out what exactly this special value does
+				if in_backwall == "sky":
+					log_warn("Room " + room_name + " requests \"sky\" backwall, ignoring backwall")
+				else:
+					# TODO? we could think of reading this before solids, and instead of writing a separate key,
+					# just add the background to every solid which doesn't have background
+					out_room_node[FOERR_JSON_KEY_BACKWALL] = os.path.join(FOERR_PATH_CELL_TEXTURES, in_backwall + ".png")
 
 		output_rooms.append(out_room_node)
 
