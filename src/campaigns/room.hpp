@@ -3,6 +3,8 @@
 #include <string>
 #include <SFML/Graphics/Drawable.hpp>
 #include "../util/json.hpp"
+#include "../materials/material_manager.hpp"
+#include "../resources/resource_manager.hpp"
 #include "room_cell.hpp"
 
 #define ROOM_WIDTH_WITH_BORDER 48
@@ -22,6 +24,8 @@ class Room : public sf::Drawable
 		// TODO void flip(); // for mirroring room vertically, only for grind maps
 
 	public:
-		bool load(const json &root, const std::string &filePath);
+		bool load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root,
+				  const std::string &filePath);
+		// TODO drawCell() const;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

@@ -91,3 +91,8 @@
 #define STR_CREATED_GAME_DIRS "Created game directories."
 #define STR_CREATE_DIRS_FAIL "Failed to create directories for saving game files."
 #define STR_AUTLOADING_CAMPAIGN "Autoloading campaign"
+#define STR_LOADING_MATERIALS "Loading materials..."
+#define STR_LOADING_MATERIALS_DONE "Finished loading materials"
+#define STR_MAT_LOAD_KEY_NOT_1CHAR "Cannot load material \"%s\": symbol should be a single character."
+#define STR_MAT_SYMBOL_TYPE_ALREADY_PRESENT "Symbol type already present in cell ('%c')"
+#define STR_MAT_MISSING_OR_WRONG_TYPE "Material '%c' is missing or has invalid type"

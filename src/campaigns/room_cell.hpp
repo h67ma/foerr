@@ -1,5 +1,12 @@
 #pragma once
 
+#include <SFML/Graphics/Drawable.hpp>
+#include "../materials/material_manager.hpp"
+#include "../resources/resource_manager.hpp"
+#include "../resources/texture_resource.hpp"
+
+#define CELL_SIDE_LEN 40
+
 /**
  * RoomCell is the basic building block of all Rooms. It represents a static (unmovable), square area, roughly half the
  * height/width of the player in size. In that area, multiple elements can be present at the same time, including:
@@ -24,10 +31,16 @@
  * Each element type can appear only once in a cell (e.g. there can't be two backgrounds defined). There are also other
  * restrictions (see ::addSolidSymbol() and ::addOtherSymbol() for details).
  */
-class RoomCell
+class RoomCell : public sf::Drawable, public sf::Transformable
 {
+	private:
+		TextureResource solidTxt;
+		TextureResource solidTxtMask;
+		bool hasSolid = false; // TODO? could be potentially replaced with flags, along with other elements
+
 	public:
-		bool addSolidSymbol(char symbol);
+		bool addSolidSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
 		bool addOtherSymbol(char symbol);
 		bool validate() const;
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

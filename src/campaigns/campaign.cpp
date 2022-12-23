@@ -13,6 +13,7 @@ Campaign::Campaign(ResourceManager &resMgr) : resMgr(resMgr)
 
 /**
  * Loads a campaign from path. If previous campaign is loaded, it will be automatically unloaded first.
+ * Also loads materials into Material Manager.
  *
  * Campaign file structure:
  * {
@@ -116,6 +117,10 @@ bool Campaign::load(std::string campaignDir)
 	// TODO restore game state from save
 
 	// TODO restore from save
+
+	if (!this->matMgr.load())
+		return false;
+
 	if (!this->changeLocationById(this->startLocation))
 		return false;
 
@@ -209,7 +214,7 @@ bool Campaign::changeLocationByIndex(uint newIdx)
 
 	// load the new location. don't unload the old one yet, as new
 	// one might fail to load and then we need to keep the old one
-	if (!this->locations[newIdx].loadContent(this->resMgr))
+	if (!this->locations[newIdx].loadContent(this->resMgr, this->matMgr))
 	{
 		Log::e(STR_LOADING_LOCATION_CONTENT_ERROR, this->locations[newIdx].getId().c_str());
 		return false;

@@ -1,6 +1,7 @@
 #include "location.hpp"
 #include <string>
 #include <memory>
+#include <SFML/Graphics/RenderTexture.hpp>
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 #include "../util/json.hpp"
@@ -113,7 +114,7 @@ bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
  * @returns true if load succeeded
  * @returns false if load failed
  */
-bool Location::loadContent(ResourceManager &resMgr)
+bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMgr)
 {
 	std::string backgroundFullPath;
 	json root;
@@ -186,7 +187,7 @@ bool Location::loadContent(ResourceManager &resMgr)
 		}
 
 		std::shared_ptr<Room> room = std::make_shared<Room>();
-		if (!room->load(roomNode, this->roomDataPath))
+		if (!room->load(resMgr, matMgr, roomNode, this->roomDataPath))
 		{
 			this->unloadContent();
 			return false;
@@ -212,6 +213,8 @@ bool Location::loadContent(ResourceManager &resMgr)
 		this->unloadContent();
 		return false;
 	}
+
+	this->preRenderRoomStatic();
 
 	// TODO sanity checks:
 	// - at least one MAS terminal
@@ -283,6 +286,7 @@ bool Location::gotoRoom(Direction direction)
 		return false;
 
 	this->currentRoom = newRoom;
+	this->preRenderRoomStatic();
 	return true;
 }
 
@@ -292,8 +296,32 @@ sf::Vector3i Location::getPlayerRoomCoords()
 	return this->rooms.getCurrentCoords();
 }
 
+/**
+ * @brief Draws all static Room elements to a RenderTexture
+ *
+ * Should be called only when entering a new Room. Further updates to Room's static elements should be covered via
+ * ::drawCell().
+ */
+void Location::preRenderRoomStatic()
+{
+	sf::RenderTexture roomRenderTxt;
+	roomRenderTxt.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
+	roomRenderTxt.clear(sf::Color::Transparent);
+	roomRenderTxt.draw(*this->currentRoom);
+	roomRenderTxt.display();
+
+	// sf::RenderTexture can't be a private member because it inherits NonCopyable.
+	// because of this we need to store the result in a standard sf::Texture
+	this->roomStaticTxt = roomRenderTxt.getTexture();
+	this->roomStatic.setTexture(this->roomStaticTxt);
+}
+
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
-	target.draw(*this->currentRoom, states);
+
+	// TODO room's backwall
+
+	// ::roomStatic was pre-rendered in ::preRenderRoomStatic()
+	target.draw(this->roomStatic, states);
 }

@@ -3,8 +3,9 @@
 #include <vector>
 #include <string>
 #include <SFML/System/Vector3.hpp>
-#include "../resources/resource_manager.hpp"
 #include "location.hpp"
+#include "../resources/resource_manager.hpp"
+#include "../materials/material_manager.hpp"
 
 /**
  * Not all locations are kept loaded at the same time. Apart from the
@@ -16,6 +17,7 @@ class Campaign : public sf::Drawable
 {
 	private:
 		ResourceManager &resMgr;
+		MaterialManager matMgr;
 		bool loaded = false;
 		std::string title;
 		std::string description;

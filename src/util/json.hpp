@@ -30,6 +30,12 @@
 #define FOERR_JSON_KEY_DESCRIPTION "description"
 #define FOERR_JSON_KEY_START_LOC "start_location"
 #define FOERR_JSON_API_VERSION "api_version"
+#define FOERR_JSON_KEY_SOLIDS "solids"
+#define FOERR_JSON_KEY_OTHER "other"
+#define FOERR_JSON_KEY_TEXTURE "txt"
+#define FOERR_JSON_KEY_MASK "mask"
+#define FOERR_JSON_KEY_TYPE "type"
+#define FOERR_JSON_KEY_IS_RIGHT "is_right"
 
 using json = nlohmann::json;
 

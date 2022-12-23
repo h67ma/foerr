@@ -41,7 +41,7 @@
  * @returns true on load success
  * @returns false on load fail
  */
-bool Room::load(const json &root, const std::string &filePath)
+bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root, const std::string &filePath)
 {
 	// TODO load and use backwall
 
@@ -101,13 +101,17 @@ bool Room::load(const json &root, const std::string &filePath)
 			{
 				// first symbol (solid)
 				firstCellSymbol = false;
+
+				// the cell needs to know its position to properly set texture rect, and to draw itself in correct place
+				this->cells[y][x].setPosition(x * CELL_SIDE_LEN, y * CELL_SIDE_LEN);
+
 				if (symbol == ROOM_SYMBOL_UNKNOWN)
 				{
 					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
 				}
 				else if (symbol != ROOM_SYMBOL_EMPTY)
 				{
-					if (!this->cells[y][x].addSolidSymbol(symbol))
+					if (!this->cells[y][x].addSolidSymbol(symbol, resMgr, matMgr))
 						return false;
 				}
 			}
@@ -137,7 +141,18 @@ bool Room::load(const json &root, const std::string &filePath)
 	return true;
 }
 
+/**
+ * @brief Draws all cells in the Room.
+ *
+ * Should be called *only once* per entering the Room. After that, use ::drawCell() to update cells.
+ */
 void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	// TODO
+	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			target.draw(this->cells[y][x], states);
+		}
+	}
 }

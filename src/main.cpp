@@ -3,7 +3,6 @@
 #include <iostream>
 #include <functional>
 #include <SFML/System/Clock.hpp>
-#include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Window/Event.hpp>
 #include "window/cursor_manager.hpp"
 #include "util/i18n.hpp"
@@ -468,24 +467,6 @@ int main()
 
 
 
-	sf::RenderTexture renderTxt;
-	if (!renderTxt.create(500, 500))
-		return -1;
-	SpriteResource vent(resManager.getTexture("res/texture/rubble/vent.png"));
-	SpriteResource terminal(resManager.getTexture("res/texture/rubble/terminal_red.png"));
-	terminal.get().setPosition(100, 0);
-	SpriteResource stove(resManager.getTexture("res/texture/rubble/stove.png"));
-	stove.get().setPosition(200, 0);
-	renderTxt.clear();
-	renderTxt.draw(vent.get());
-	renderTxt.draw(terminal.get());
-	renderTxt.draw(stove.get());
-	renderTxt.display();
-	sf::Sprite bufferSprite(renderTxt.getTexture());
-	bufferSprite.setPosition(100, 700);
-
-
-
 	// initial size
 	windowSizeChanged(window.getSize(), settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 
@@ -649,7 +630,6 @@ int main()
 		if (gameState == STATE_PLAYING)
 		{
 			// TODO delet this
-			window.draw(bufferSprite);
 			for (Button* btn : buttons)
 			{
 				window.draw(*btn);

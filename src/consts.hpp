@@ -4,8 +4,8 @@
 #define ANIM_FRAME_DURATION_MS 33 // around 30fps
 
 // game area size
-#define GAME_AREA_WIDTH 1920.f
-#define GAME_AREA_HEIGHT 1000.f
+#define GAME_AREA_WIDTH 1920
+#define GAME_AREA_HEIGHT 1000
 #define GAME_AREA_MID_X 960.f
 #define GAME_AREA_MID_Y 500.f
 
@@ -16,6 +16,7 @@
 #define PATH_KEYMAP "keymap.json"
 #define PATH_LOCATIONS_META "locations.json"
 #define PATH_LOGFILE "foerr.log"
+#define PATH_MATERIALS "res/materials.json"
 #define PATH_CURSOR_ARROW "res/hud/cursor/cursor.png"
 #define PATH_CURSOR_CROSS_WHITE "res/hud/cursor/crosshair_white.png"
 #define PATH_CURSOR_CROSS_YELLOW "res/hud/cursor/crosshair_yellow.png"
