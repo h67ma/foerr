@@ -35,7 +35,8 @@ inline std::string pathCombine(std::string path1, std::string path2, std::string
 uint getFontSize(GuiScale scale, FontSize size);
 uint getFontGap(GuiScale scale, FontSize size);
 
-#define DIM_COLOR(color, shade) color * sf::Color(shade, shade, shade)
+#define COLOR_GRAY(shade) sf::Color(shade, shade, shade)
+#define DIM_COLOR(color, shade) color * COLOR_GRAY(shade)
 
 /**
  * "Just do it like the Boost guys did it" ~ SO proverb, circa 2010

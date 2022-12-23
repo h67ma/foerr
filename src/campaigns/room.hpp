@@ -5,6 +5,7 @@
 #include "../util/json.hpp"
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
+#include "../resources/sprite_resource.hpp"
 #include "room_cell.hpp"
 
 #define ROOM_WIDTH_WITH_BORDER 48
@@ -21,6 +22,7 @@ class Room : public sf::Drawable
 {
 	private:
 		RoomCell cells[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
+		SpriteResource backwall;
 		// TODO void flip(); // for mirroring room vertically, only for grind maps
 
 	public:

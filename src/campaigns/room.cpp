@@ -7,6 +7,9 @@
 #define ROOM_SYMBOL_EMPTY '_'
 #define ROOM_SYMBOL_UNKNOWN '?'
 
+// TODO figure out the exact value (but looks about right)
+#define BACKWALL_COLOR COLOR_GRAY(80)
+
 /**
  * Loads the room data and stores it in this object.
  *
@@ -43,7 +46,15 @@
  */
 bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root, const std::string &filePath)
 {
-	// TODO load and use backwall
+	// backwall can be empty
+	std::string backwallTxtPath = "";
+	parseJsonKey<std::string>(root, filePath, FOERR_JSON_KEY_BACKWALL, backwallTxtPath, true);
+	if (backwallTxtPath != "")
+	{
+		this->backwall.setTexture(resMgr.getTexture(backwallTxtPath));
+		this->backwall.get().setTextureRect({ 0, 0, GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
+		this->backwall.get().setColor(BACKWALL_COLOR);
+	}
 
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
 	if (cellsSearch == root.end())
@@ -148,6 +159,8 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
  */
 void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+	target.draw(this->backwall.sprite, states); // can be empty
+
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
