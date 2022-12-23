@@ -10,12 +10,12 @@
 #define ROOM_WIDTH_WITH_BORDER 48
 #define ROOM_HEIGHT_WITH_BORDER 25
 
-// TODO rooms CAN and WILL appear multiple times per location, especially in grind
-// locations, so Room objects would either have to be cloned (easy), or we'd need to
-// create some kind of RoomInstance class or whatever
-
 /**
- * Room class is a representation of a part of a location that fits on a single screen.
+ * Room is a representation of a part of a location that fits on a single screen.
+ *
+ * TODO rooms CAN and WILL appear multiple times per location in grind locations, so it would be good to clone the
+ * already loaded rooms when loading duplicate rooms, to avoid repeating the complicated loading process. Of course
+ * the clone will need to go through rest of the setup separately (e.g. spawning objects).
  */
 class Room : public sf::Drawable
 {

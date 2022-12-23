@@ -73,7 +73,7 @@ bool RoomCell::addOtherSymbol(char symbol)
 }
 
 /**
- * @brief Performs santy checks after all symbols have already been added. This includes:
+ * @brief Performs sanity checks after all symbols have already been added. This includes:
  *   1. Liquid + solid without height flag is an invalid case
  *
  * @return true if the cell is sane
