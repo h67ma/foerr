@@ -39,8 +39,10 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 	output_root = {}
 	output_root[FOERR_JSON_KEY_API_VERSION] = JSON_API_VERSION
 
+	loc_backwall_path = None
 	if FOERR_JSON_KEY_BACKWALL in gamedata_data:
-		output_root[FOERR_JSON_KEY_BACKWALL] = gamedata_data[FOERR_JSON_KEY_BACKWALL]
+		loc_backwall_path = os.path.join(FOERR_PATH_CELL_TEXTURES, gamedata_data[FOERR_JSON_KEY_BACKWALL] + ".png")
+
 	if FOERR_JSON_KEY_BACKGROUND_FULL in gamedata_data:
 		output_root[FOERR_JSON_KEY_BACKGROUND_FULL] = gamedata_data[FOERR_JSON_KEY_BACKGROUND_FULL]
 
@@ -264,19 +266,23 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 
 		out_room_node[FOERR_JSON_KEY_CELLS] = out_cells
 
+		room_backwall_defined = False
 		in_options_node = room_node.find("options")
 		if in_options_node is not None:
 			in_backwall = in_options_node.attrib.get("backwall")
 			if in_backwall is not None:
-				# "sky" as backwall value is some kind of special case.
-				# in ::drawBackWall() in Grafon.as backwall is not drawn if "sky"
-				# TODO figure out what exactly this special value does
-				if in_backwall == "sky":
-					log_warn("Room " + room_name + " requests \"sky\" backwall, ignoring backwall")
-				else:
-					# TODO? we could think of reading this before solids, and instead of writing a separate key,
-					# just add the background to every solid which doesn't have background
+				# "sky" as backwall value is a special case.
+				# in ::drawBackWall() in Grafon.as room backwall is not drawn if "sky"
+				# let's handle this differently than in Remains: let's not define backwall for location, as it can be
+				# overwritten by room's backwall. let's just store backwall only in each room. if Remains location
+				# defines backwall, just add it to every room which doesn't define its own backwall. additionally skip
+				# "sky" as it causes room backwall to be ignored - with current approach we don't need it.
+				room_backwall_defined = True
+				if in_backwall != "sky":
 					out_room_node[FOERR_JSON_KEY_BACKWALL] = os.path.join(FOERR_PATH_CELL_TEXTURES, in_backwall + ".png")
+
+		if not room_backwall_defined and loc_backwall_path is not None:
+			out_room_node[FOERR_JSON_KEY_BACKWALL] = loc_backwall_path
 
 		output_rooms.append(out_room_node)
 
