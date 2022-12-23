@@ -129,11 +129,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 	// not present -> black background
 	if (parseJsonKey<std::string>(root, this->roomDataPath, FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
 	{
-		std::shared_ptr<sf::Texture> backgroundFull = resMgr.getTexture(backgroundFullPath);
-		if (backgroundFull == nullptr)
-			return false;
-
-		this->backgroundFullSprite.setTexture(backgroundFull);
+		this->backgroundFullSprite.setTexture(resMgr.getTexture(backgroundFullPath));
 	}
 
 	auto roomsSearch = root.find(FOERR_JSON_KEY_ROOMS);
