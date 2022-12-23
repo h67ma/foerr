@@ -270,8 +270,7 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 			if in_backwall is not None:
 				# TODO? we could think of reading this before solids, and instead of writing a separate key,
 				# just add the background to every solid which doesn't have background
-				# TODO? translate to a new name
-				out_room_node[FOERR_JSON_KEY_BACKWALL] = in_backwall
+				out_room_node[FOERR_JSON_KEY_BACKWALL] = os.path.join(FOERR_PATH_CELL_TEXTURES, in_backwall + ".png")
 
 		output_rooms.append(out_room_node)
 
@@ -350,7 +349,6 @@ def get_gamedata_data(gamedata_path: str):
 				this_loc_data[FOERR_JSON_KEY_BACKGROUND_FULL] = background_full
 			backwall = options_node.attrib.get("backwall")
 			if backwall is not None:
-				# TODO? translate to a new name
 				this_loc_data[FOERR_JSON_KEY_BACKWALL] = backwall
 
 		out_data[room_filename] = this_loc_data
