@@ -402,7 +402,7 @@ int main()
 	SimpleButton btnRoomLeft(initialScale, BTN_NARROW, hudColor, resManager, { 400, 500 }, "<",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_LEFT);
-			debugCoords.setString(litSprintf("(%u, %u, %u)",
+			debugCoords.setString(litSprintf("(%d, %d, %d)",
 											 campaign.getPlayerRoomCoords().x,
 											 campaign.getPlayerRoomCoords().y,
 											 campaign.getPlayerRoomCoords().z));
@@ -413,7 +413,7 @@ int main()
 	SimpleButton btnRoomRight(initialScale, BTN_NARROW, hudColor, resManager, { 700, 500 }, ">",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_RIGHT);
-			debugCoords.setString(litSprintf("(%u, %u, %u)",
+			debugCoords.setString(litSprintf("(%d, %d, %d)",
 											 campaign.getPlayerRoomCoords().x,
 											 campaign.getPlayerRoomCoords().y,
 											 campaign.getPlayerRoomCoords().z));
@@ -424,7 +424,7 @@ int main()
 	SimpleButton btnRoomUp(initialScale, BTN_NARROW, hudColor, resManager, { 550, 450 }, "/\\",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_UP);
-			debugCoords.setString(litSprintf("(%u, %u, %u)",
+			debugCoords.setString(litSprintf("(%d, %d, %d)",
 											 campaign.getPlayerRoomCoords().x,
 											 campaign.getPlayerRoomCoords().y,
 											 campaign.getPlayerRoomCoords().z));
@@ -435,7 +435,7 @@ int main()
 	SimpleButton btnRoomDown(initialScale, BTN_NARROW, hudColor, resManager, { 550, 550 }, "\\/",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_DOWN);
-			debugCoords.setString(litSprintf("(%u, %u, %u)",
+			debugCoords.setString(litSprintf("(%d, %d, %d)",
 											 campaign.getPlayerRoomCoords().x,
 											 campaign.getPlayerRoomCoords().y,
 											 campaign.getPlayerRoomCoords().z));
@@ -446,7 +446,7 @@ int main()
 	SimpleButton btnRoomFront(initialScale, BTN_NARROW, hudColor, resManager, { 700, 450 }, "fore",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_FRONT);
-			debugCoords.setString(litSprintf("(%u, %u, %u)",
+			debugCoords.setString(litSprintf("(%d, %d, %d)",
 											 campaign.getPlayerRoomCoords().x,
 											 campaign.getPlayerRoomCoords().y,
 											 campaign.getPlayerRoomCoords().z));
@@ -457,7 +457,7 @@ int main()
 	SimpleButton btnRoomBack(initialScale, BTN_NARROW, hudColor, resManager, { 700, 550 }, "back",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_BACK);
-			debugCoords.setString(litSprintf("(%u, %u, %u)",
+			debugCoords.setString(litSprintf("(%d, %d, %d)",
 											 campaign.getPlayerRoomCoords().x,
 											 campaign.getPlayerRoomCoords().y,
 											 campaign.getPlayerRoomCoords().z));
@@ -479,7 +479,7 @@ int main()
 		if (campaign.load(pathCombine("res/campaigns", autoLoadPath)) && pipBuck.setupCampaignInfos())
 		{
 			gameState = STATE_PLAYING;
-			debugCoords.setString(litSprintf("(%u, %u, %u)",
+			debugCoords.setString(litSprintf("(%d, %d, %d)",
 											 campaign.getPlayerRoomCoords().x,
 											 campaign.getPlayerRoomCoords().y,
 											 campaign.getPlayerRoomCoords().z));
