@@ -86,15 +86,18 @@ bool RoomCell::addOtherSymbol(char symbol, ResourceManager &resMgr, const Materi
 			return false;
 		}
 
+		// check 3 (part-height only)
 		if (this->topOffset == 0)
 		{
 			this->topOffset = heightFlagSearch->second;
 			this->move({ 0, static_cast<float>(this->topOffset) });
+			return true;
 		}
 		else
-			Log::w(STR_HEIGHT_FLAG_ALREADY_PRESENT, symbol);
-
-		return true;
+		{
+			Log::e(STR_HEIGHT_FLAG_ALREADY_PRESENT, symbol);
+			return false;
+		}
 	}
 
 	return true;

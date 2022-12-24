@@ -96,5 +96,5 @@
 #define STR_MAT_LOAD_KEY_NOT_1CHAR "Cannot load material \"%s\": symbol should be a single character."
 #define STR_MAT_SYMBOL_TYPE_ALREADY_PRESENT "Symbol type already present in cell ('%c')"
 #define STR_MAT_MISSING_OR_WRONG_TYPE "Material '%c' is missing or has invalid type"
-#define STR_HEIGHT_FLAG_ALREADY_PRESENT "Part-height is already defined for the cell, ignoring '%c'."
+#define STR_HEIGHT_FLAG_ALREADY_PRESENT "Part-height requested ('%c'), but part-height is already defined for the cell."
 #define STR_HEIGHT_FLAG_NO_SOLID "Part-height flag defined ('%c'), but no solid defined."
