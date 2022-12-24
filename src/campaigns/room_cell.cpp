@@ -4,6 +4,12 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
+const std::unordered_map<char, int> RoomCell::heightFlags {
+	{ ',', 10},	// 3/4 height
+	{ ';', 20},	// 1/2 height
+	{ ':', 30}	// 1/4 height
+};
+
 /**
  * @brief Adds a solid symbol to the cell
  * It is expected that the solid will be added to the cell before any other symbols.
@@ -39,6 +45,7 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
 	if (mat->maskTexturePath != "")
 		this->solidTxtMask.set(resMgr.getTexture(mat->maskTexturePath));
 
+	this->hasSolid = true;
 	return true;
 }
 
@@ -47,8 +54,9 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
  * It is expected that a solid has already been added to the cell if necessary.
  *
  * Performs checks before adding the symbol to ensure that the cell will be sane. This includes:
- *   1. Material exists and its type is not solid
- *   2. Only one of each symbol type can be added to the cell:
+ *   1. Height flag without solid is an invalid case
+ *   2. Material exists and its type is not solid
+ *   3. Only one of each symbol type can be added to the cell:
  *     - Solid (covered by ::addSolidSymbol)
  *     - Background
  *     - Platform
@@ -56,19 +64,39 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
  *     - Ladder
  *     - Liquid
  *     - Part-height directive
- *   3. Ladder + solid is an invalid case
- *   4. Stairs + solid is an invalid case
- *   5. Platform + solid is an invalid case
- *   6. Platform + stairs is an invalid case
- *   7. Height flag without solid is an invalid case
+ *   4. Ladder + solid is an invalid case
+ *   5. Stairs + solid is an invalid case
+ *   6. Platform + solid is an invalid case
+ *   7. Platform + stairs is an invalid case
  *
  * @param symbol symbol character
  * @return true if the symbol was added successfully
  * @return false if the symbol cannot be added
  */
-bool RoomCell::addOtherSymbol(char symbol)
+bool RoomCell::addOtherSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr)
 {
-	// TODO
+	// first check if symbol is a height flag, as it won't be present in mat mgr
+	auto heightFlagSearch = RoomCell::heightFlags.find(symbol);
+	if (heightFlagSearch != RoomCell::heightFlags.end())
+	{
+		// check 1
+		if (!this->hasSolid)
+		{
+			Log::w(STR_HEIGHT_FLAG_NO_SOLID, symbol);
+			return false;
+		}
+
+		if (this->topOffset == 0)
+		{
+			this->topOffset = heightFlagSearch->second;
+			this->move({ 0, static_cast<float>(this->topOffset) });
+		}
+		else
+			Log::w(STR_HEIGHT_FLAG_ALREADY_PRESENT, symbol);
+
+		return true;
+	}
+
 	return true;
 }
 
@@ -109,7 +137,7 @@ void RoomCell::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		static_cast<int>(this->getPosition().x),
 		static_cast<int>(this->getPosition().y),
 		CELL_SIDE_LEN,
-		CELL_SIDE_LEN
+		CELL_SIDE_LEN - this->topOffset
 	});
 
 	// TODO background, others

@@ -131,7 +131,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 				// 2nd, 3rd, etc. symbol, not empty
 				if (symbol == ROOM_SYMBOL_UNKNOWN)
 					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
-				else if (!this->cells[y][x].addOtherSymbol(symbol))
+				else if (!this->cells[y][x].addOtherSymbol(symbol, resMgr, matMgr))
 					return false;
 			}
 		}

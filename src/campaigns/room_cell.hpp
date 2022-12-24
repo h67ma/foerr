@@ -1,5 +1,6 @@
 #pragma once
 
+#include <unordered_map>
 #include <SFML/Graphics/Drawable.hpp>
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
@@ -37,10 +38,12 @@ class RoomCell : public sf::Drawable, public sf::Transformable
 		TextureResource solidTxt;
 		TextureResource solidTxtMask;
 		bool hasSolid = false; // TODO? could be potentially replaced with flags, along with other elements
+		int topOffset = 0; // offset from top of cell area, used to create part-height cells
+		static const std::unordered_map<char, int> heightFlags;
 
 	public:
 		bool addSolidSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
-		bool addOtherSymbol(char symbol);
+		bool addOtherSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
 		bool validate() const;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
