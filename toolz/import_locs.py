@@ -40,7 +40,7 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 	output_root[FOERR_JSON_KEY_API_VERSION] = JSON_API_VERSION
 
 	loc_backwall_path = None
-	if FOERR_JSON_KEY_BACKWALL in gamedata_data:
+	if FOERR_JSON_KEY_BACKWALL in gamedata_data and gamedata_data[FOERR_JSON_KEY_BACKWALL] != "sky":
 		loc_backwall_path = os.path.join(FOERR_PATH_CELL_TEXTURES, gamedata_data[FOERR_JSON_KEY_BACKWALL] + ".png")
 
 	if FOERR_JSON_KEY_BACKGROUND_FULL in gamedata_data:
