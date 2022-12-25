@@ -19,6 +19,8 @@ const std::unordered_map<char, int> RoomCell::heightFlags {
  *   2. Material exists and its type is solid
  *
  * @param symbol symbol character
+ * @param resMgr reference to resource manager
+ * @param matMgr reference to material manager
  * @return true if the symbol was added successfully
  * @return false if the symbol cannot be added
  */
@@ -75,10 +77,14 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
  *   8. Stairs + solid is an invalid case
  *
  * @param symbol symbol character
+ * @param topCellBlocksLadderDelim whether the cell at (x, y-1) has blocked this cell from drawing ladder delim
+ * @param resMgr reference to resource manager
+ * @param matMgr reference to material manager
  * @return true if the symbol was added successfully
  * @return false if the symbol cannot be added
  */
-bool RoomCell::addOtherSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr)
+bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, ResourceManager &resMgr,
+							  const MaterialManager &matMgr)
 {
 	// first check if symbol is a height flag, as it won't be present in mat mgr
 	auto heightFlagSearch = RoomCell::heightFlags.find(symbol);
@@ -142,6 +148,9 @@ bool RoomCell::addOtherSymbol(char symbol, ResourceManager &resMgr, const Materi
 		}
 
 		this->ladderTxt.set(resMgr.getTexture(mat->texturePath));
+		this->ladderDelimTxt.set(resMgr.getTexture(mat->textureDelimPath));
+		this->ladderDelimOffset = mat->delimOffset;
+		this->topCellBlocksLadderDelim = topCellBlocksLadderDelim;
 		this->ladderLeftOffset = mat->offsetLeft;
 		this->hasLadder = true;
 	}
@@ -218,6 +227,14 @@ bool RoomCell::addOtherSymbol(char symbol, ResourceManager &resMgr, const Materi
 	}
 
 	return true;
+}
+
+/**
+ * Determines if the cell below this cell should draw a ladder delimeter (if it's a ladder)
+ */
+bool RoomCell::blocksBottomCellLadderDelim() const
+{
+	return this->hasLadder || this->hasSolid;
 }
 
 /**
@@ -304,8 +321,18 @@ void RoomCell::draw2(sf::RenderTarget &target, sf::RenderStates states) const
 		target.draw(tmpSprite, states);
 	}
 
-	tmpSprite.setPosition({ static_cast<float>(this->ladderLeftOffset), 0 });
-	txt = this->ladderTxt.get();
+
+	if (this->hasPlatform || this->hasStairs || this->topCellBlocksLadderDelim)
+	{
+		tmpSprite.setPosition({ static_cast<float>(this->ladderLeftOffset), 0 });
+		txt = this->ladderTxt.get();
+	}
+	else
+	{
+		tmpSprite.setPosition(static_cast<sf::Vector2f>(this->ladderDelimOffset));
+		txt = this->ladderDelimTxt.get();
+	}
+
 	if (txt != nullptr)
 	{
 		tmpSprite.setTexture(*txt);

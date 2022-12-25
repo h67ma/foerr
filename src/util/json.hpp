@@ -33,6 +33,8 @@
 #define FOERR_JSON_KEY_SOLIDS "solids"
 #define FOERR_JSON_KEY_OTHER "other"
 #define FOERR_JSON_KEY_TEXTURE "txt"
+#define FOERR_JSON_KEY_TEXTURE_DELIM "txt_delim"
+#define FOERR_JSON_KEY_TEXTURE_DELIM_OFFSET "txt_delim_offset"
 #define FOERR_JSON_KEY_MASK "mask"
 #define FOERR_JSON_KEY_TYPE "type"
 #define FOERR_JSON_KEY_IS_RIGHT "is_right"
@@ -43,7 +45,9 @@ using json = nlohmann::json;
 void writeJsonToFile(const json &root, std::string path);
 bool loadJsonFromFile(json &root, std::string path, bool quiet = false);
 bool parseJsonVector2uKey(const json &node, const std::string &filePath, const char* key, sf::Vector2u &value,
-						  bool quiet = false);
+						  bool quiet = false); // TODO template
+bool parseJsonVector2iKey(const json &node, const std::string &filePath, const char* key, sf::Vector2i &value,
+						  bool quiet = false); // TODO template
 bool parseJsonVector3iKey(const json &node, const std::string &filePath, const char* key, sf::Vector3i &value,
 						  bool quiet = false);
 

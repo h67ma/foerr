@@ -129,9 +129,15 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 			else if (symbol != ROOM_SYMBOL_EMPTY)
 			{
 				// 2nd, 3rd, etc. symbol, not empty
+
+				// because we load cells Frgt/10 style (from the top to the bottom), we already know if a particular
+				// cell needs to draw ladder delim based on the cell above it.
+				// if y = 0 we don't want to draw delim
+				bool topBlocksLadderDelim = y == 0 || this->cells[y - 1][x].blocksBottomCellLadderDelim();
+
 				if (symbol == ROOM_SYMBOL_UNKNOWN)
 					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
-				else if (!this->cells[y][x].addOtherSymbol(symbol, resMgr, matMgr))
+				else if (!this->cells[y][x].addOtherSymbol(symbol, topBlocksLadderDelim, resMgr, matMgr))
 					return false;
 			}
 		}

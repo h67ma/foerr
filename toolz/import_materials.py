@@ -136,8 +136,11 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 				log_warn("Ladder \"" + mat_name + "\" is missing direction, skipping")
 				continue
 
-			out_mat[FOERR_JSON_KEY_IS_RIGHT] = ladder_direction == "1"
-			out_mat[FOERR_JSON_KEY_OFFSET_LEFT] = LADDER_RIGHT_OFFSET_LEFT if out_mat[FOERR_JSON_KEY_IS_RIGHT] else LADDER_LEFT_OFFSET_LEFT
+			is_right = ladder_direction == "1"
+			out_mat[FOERR_JSON_KEY_IS_RIGHT] = is_right
+			out_mat[FOERR_JSON_KEY_OFFSET_LEFT] = LADDER_RIGHT_OFFSET_LEFT if is_right else LADDER_LEFT_OFFSET_LEFT
+			out_mat[FOERR_JSON_KEY_TEXTURE_DELIM] = os.path.join(FOERR_PATH_CELL_TEXTURES, texture_name + "_delim.png")
+			out_mat[FOERR_JSON_KEY_TEXTURE_DELIM_OFFSET] = LADDER_RIGHT_DELIM_OFFSET if is_right else LADDER_LEFT_DELIM_OFFSET
 		elif mat_type == "4":
 			# 4 is stairs/platform
 			out_type = FOERR_JSON_KEY_OTHER

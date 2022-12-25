@@ -46,8 +46,11 @@ class RoomCell : public sf::Transformable
 		TextureResource platformTxt;
 		TextureResource stairsTxt;
 		TextureResource ladderTxt;
+		TextureResource ladderDelimTxt;
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
 		int ladderLeftOffset = 0;
+		sf::Vector2i ladderDelimOffset;
+		bool topCellBlocksLadderDelim;
 		static const std::unordered_map<char, int> heightFlags;
 
 		// TODO? could be potentially replaced with flags, along with other elements
@@ -60,8 +63,10 @@ class RoomCell : public sf::Transformable
 
 	public:
 		bool addSolidSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
-		bool addOtherSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
+		bool addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, ResourceManager &resMgr,
+							const MaterialManager &matMgr);
 		bool validate() const;
+		bool blocksBottomCellLadderDelim() const;
 		void draw1(sf::RenderTarget &target, sf::RenderStates states) const;
 		void draw2(sf::RenderTarget &target, sf::RenderStates states) const;
 		void draw3(sf::RenderTarget &target, sf::RenderStates states) const;

@@ -49,9 +49,13 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
 				return false;
 		}
 
+		std::string textureDelimPath = "";
+		parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM,
+								  textureDelimPath, true);
+
 		std::string maskTexturePath = "";
 		parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_MASK, maskTexturePath,
-								  true); // mask is optional
+								  true);
 
 		bool matIsRight;
 		if (matType == MAT_LADDER || matType == MAT_STAIRS)
@@ -63,12 +67,18 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
 		int offsetLeft = 0;
 		parseJsonKey<int>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_OFFSET_LEFT, offsetLeft, true);
 
+		sf::Vector2i delimOffset(0, 0);
+		parseJsonVector2iKey(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM_OFFSET,
+							 delimOffset, true);
+
 		theMap.emplace(matSymbol, material {
 			.type = matType,
 			.texturePath = texturePath,
+			.textureDelimPath = textureDelimPath,
 			.maskTexturePath = maskTexturePath,
 			.isRight = matIsRight,
 			.offsetLeft = offsetLeft,
+			.delimOffset = delimOffset
 		});
 	}
 
