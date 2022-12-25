@@ -33,8 +33,8 @@
  * (::roomStaticTxt). Location keeps this texture, on which the current Room is rendered via ::draw(). The whole Room is
  * rendered only once, when entering the Room, and then the cached texture is displayed on each frame. We can do that,
  * because static elements rarely change appearance, so on each frame most of them would have been drawn exactly the
- * same. When a cell (or other static element) is damaged/destroyed/etc, Room's ::drawCell() is called and only redraws
- * the cell that changed on the cached texture.
+ * same. When a cell (or other static element) is damaged/destroyed/etc, Room's ::redrawCell() is called and only
+ * redraws the cell that changed on the cached texture.
  *
  * TODO? the current concept of loading resources could potentially be optimized memory-wise, i.e. we could preload
  * resources only for nearby Rooms, instead of all Rooms in the Location. This would have to be done in the background.

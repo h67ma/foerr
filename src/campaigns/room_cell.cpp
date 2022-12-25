@@ -245,7 +245,7 @@ bool RoomCell::validate() const
  * set a texture on that single shape and draw it. Or we could have a map translating texture -> list of cells using it,
  * to avoid even more texture swapping. But again - this might not actually give us any performance benefits,
  * additionally complicating the code. For now let's keep all drawing logic inside the Cell. It also avoids duplicated
- * code in drawing a single cell (::drawCell()), not whole room.
+ * code in drawing a single cell (::redrawCell()), not whole room.
  */
 void RoomCell::draw1(sf::RenderTarget &target, sf::RenderStates states) const
 {

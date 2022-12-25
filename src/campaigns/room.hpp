@@ -28,6 +28,6 @@ class Room : public sf::Drawable
 	public:
 		bool load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root,
 				  const std::string &filePath);
-		// TODO drawCell() const;
+		void redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const; // TODO use me
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

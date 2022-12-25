@@ -296,7 +296,7 @@ sf::Vector3i Location::getPlayerRoomCoords()
  * @brief Draws all static Room elements to a RenderTexture
  *
  * Should be called only when entering a new Room. Further updates to Room's static elements should be covered via
- * ::drawCell().
+ * ::redrawCell().
  */
 void Location::preRenderRoomStatic()
 {

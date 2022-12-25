@@ -153,9 +153,30 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 }
 
 /**
+ * @brief Redraws a single cell. For drawing the entire Room, use ::draw()
+ *
+ * If cell coordinates are invalid, nothing will happen.
+ *
+ * @param x cell x coordinate
+ * @param y cell y coordinate
+ * @param target reference to render target
+ * @param states render states
+ */
+void Room::redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const
+{
+	if (x >= ROOM_WIDTH_WITH_BORDER || y >= ROOM_HEIGHT_WITH_BORDER)
+		return;
+
+	const RoomCell *cell = &this->cells[y][x];
+	cell->draw1(target, states);
+	cell->draw2(target, states);
+	cell->draw3(target, states);
+}
+
+/**
  * @brief Draws all cells in the Room.
  *
- * Should be called *only once* per entering the Room. After that, use ::drawCell() to update cells.
+ * Should be called *only once* per entering the Room. After that, use ::redrawCell() to update cells.
  */
 void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
