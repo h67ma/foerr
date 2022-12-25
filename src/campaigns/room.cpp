@@ -1,5 +1,6 @@
 #include "room.hpp"
 #include <string>
+#include <memory>
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
@@ -51,7 +52,9 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 	parseJsonKey<std::string>(root, filePath, FOERR_JSON_KEY_BACKWALL, backwallTxtPath, true);
 	if (backwallTxtPath != "")
 	{
-		this->backwall.setTexture(resMgr.getTexture(backwallTxtPath));
+		std::shared_ptr<sf::Texture> backwallTxt = resMgr.getTexture(backwallTxtPath);
+		backwallTxt->setRepeated(true);
+		this->backwall.setTexture(backwallTxt);
 		this->backwall.get().setTextureRect({ 0, 0, GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 		this->backwall.get().setColor(BACKWALL_COLOR);
 	}

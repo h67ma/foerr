@@ -40,10 +40,14 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
 	}
 
 	this->solidTxt.set(resMgr.getTexture(mat->texturePath));
+	this->solidTxt.get()->setRepeated(true);
 
 	// TODO mask will probably be handled elsewhere
 	if (mat->maskTexturePath != "")
+	{
 		this->solidTxtMask.set(resMgr.getTexture(mat->maskTexturePath));
+		this->solidTxtMask.get()->setRepeated(true);
+	}
 
 	this->hasSolid = true;
 	return true;

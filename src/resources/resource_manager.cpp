@@ -68,6 +68,7 @@ bool ResourceManager::loadCore()
 	if (missingTxt == nullptr)
 		return false; // missing texture could not be loaded
 
+	missingTxt->setRepeated(true);
 	this->notFoundTexture.set(missingTxt);
 
 	Log::d(STR_LOADING_CORE_RES_DONE);
@@ -106,7 +107,6 @@ std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string path, bool 
 	}
 
 	txt->setSmooth(true);
-	txt->setRepeated(true);
 
 	Log::v(STR_LOADED_FILE, path.c_str());
 
