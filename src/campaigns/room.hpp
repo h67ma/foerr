@@ -23,7 +23,7 @@ class Room : public sf::Drawable
 	private:
 		RoomCell cells[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
 		SpriteResource backwall;
-		// TODO void flip(); // for mirroring room vertically, only for grind maps
+		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
 
 	public:
 		bool load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root,
