@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -47,6 +48,7 @@ class RoomCell : public sf::Transformable
 		TextureResource stairsTxt;
 		TextureResource ladderTxt;
 		TextureResource ladderDelimTxt;
+		sf::RectangleShape liquid{ sf::Vector2f(CELL_SIDE_LEN, CELL_SIDE_LEN) };
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
 		int leftOffset = 0;
 		sf::Vector2i ladderDelimOffset;

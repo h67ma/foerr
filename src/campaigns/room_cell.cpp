@@ -217,7 +217,8 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, Resour
 			return false;
 		}
 
-		// TODO do something
+		// TODO find out what exact color should we put here
+		this->liquid.setFillColor(sf::Color(30, 110, 190, 154));
 		this->hasLiquid = true;
 	}
 	else
@@ -368,7 +369,8 @@ void RoomCell::draw3(sf::RenderTarget &target, sf::RenderStates states) const
 		CELL_SIDE_LEN - this->topOffset
 	});
 
-	// TODO draw liquid
+	if (this->hasLiquid)
+		target.draw(this->liquid, states);
 
 	txt = this->solidTxt.get();
 	if (txt != nullptr)
