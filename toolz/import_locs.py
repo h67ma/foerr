@@ -281,6 +281,13 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 				if in_backwall != "sky":
 					out_room_node[FOERR_JSON_KEY_BACKWALL] = os.path.join(FOERR_PATH_CELL_TEXTURES, in_backwall + ".png")
 
+			liquid_level = in_options_node.attrib.get("wlevel")
+			if liquid_level is not None:
+				# wlevel is defined as "0 -> full room submerged". change it to "0 -> room not submerged" to be more intuitive
+				liquid_level = ROOM_HEIGHT_WITH_BORDER - int(liquid_level)
+				if liquid_level > 0:
+					out_room_node[FOERR_JSON_KEY_LIQUID_LEVEL] = liquid_level
+
 		if not room_backwall_defined and loc_backwall_path is not None:
 			out_room_node[FOERR_JSON_KEY_BACKWALL] = loc_backwall_path
 

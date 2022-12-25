@@ -56,6 +56,18 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 		this->backwall.get().setColor(BACKWALL_COLOR);
 	}
 
+	// if liquid level is defined and > 0, room is fully submerged to that level (counting from bottom, in cells).
+	// solids are also submerged
+	uint liquidLevel = 0;
+	parseJsonKey<uint>(root, filePath, FOERR_JSON_KEY_LIQUID_LEVEL, liquidLevel, true);
+	if (liquidLevel > 0)
+	{
+		uint liquidLevelPx = CELL_SIDE_LEN * liquidLevel;
+		this->liquid.setSize(sf::Vector2f(GAME_AREA_WIDTH, liquidLevelPx));
+		this->liquid.setPosition(0, GAME_AREA_HEIGHT - liquidLevelPx);
+		this->liquid.setFillColor(sf::Color(30, 110, 190, 154)); // TODO set proper color
+	}
+
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
 	if (cellsSearch == root.end())
 	{
@@ -213,4 +225,7 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 			this->cells[y][x].draw3(target, states);
 		}
 	}
+
+	// liquid is drawn over all cell elements, including solids. if it's not set, nothing will be drawn.
+	target.draw(this->liquid, states);
 }

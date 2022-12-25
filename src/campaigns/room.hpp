@@ -2,6 +2,7 @@
 
 #include <string>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include "../util/json.hpp"
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
@@ -23,6 +24,7 @@ class Room : public sf::Drawable
 	private:
 		RoomCell cells[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
 		SpriteResource backwall;
+		sf::RectangleShape liquid;
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
 
 	public:
