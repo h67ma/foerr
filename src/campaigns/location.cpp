@@ -77,7 +77,7 @@ bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
 	if (!parseJsonKey<std::string>(locMetaNode, this->id, FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
 		return false;
 
-	if (!parseJsonVector2uKey(locMetaNode, this->id, FOERR_JSON_KEY_WORLDMAP_COORDS, this->worldMapCoords))
+	if (!parseJsonVector2Key<uint>(locMetaNode, this->id, FOERR_JSON_KEY_WORLDMAP_COORDS, this->worldMapCoords))
 		return false;
 
 	if (this->worldMapCoords.x > LOC_WORLDMAP_MAX || this->worldMapCoords.y > LOC_WORLDMAP_MAX)

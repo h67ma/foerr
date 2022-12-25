@@ -44,12 +44,50 @@ using json = nlohmann::json;
 
 void writeJsonToFile(const json &root, std::string path);
 bool loadJsonFromFile(json &root, std::string path, bool quiet = false);
-bool parseJsonVector2uKey(const json &node, const std::string &filePath, const char* key, sf::Vector2u &value,
-						  bool quiet = false); // TODO template
-bool parseJsonVector2iKey(const json &node, const std::string &filePath, const char* key, sf::Vector2i &value,
-						  bool quiet = false); // TODO template
 bool parseJsonVector3iKey(const json &node, const std::string &filePath, const char* key, sf::Vector3i &value,
 						  bool quiet = false);
+
+/**
+ * Parses a two-element vector from json. Useful for sizes, coordinates, etc.
+ * Coordinate element in json looks like this: "key": [123, 456]
+ */
+template<typename T>
+bool parseJsonVector2Key(const json &node, const std::string &filePath, const char* key, sf::Vector2<T> &value,
+						  bool quiet = false)
+{
+	auto search = node.find(key);
+	if (search == node.end())
+	{
+		if (!quiet)
+			Log::w(STR_MISSING_KEY, filePath.c_str(), key);
+
+		return false;
+	}
+
+	if (!search->is_array())
+	{
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), key);
+		return false;
+	}
+
+	if (search->size() != 2)
+	{
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), key);
+		return false;
+	}
+
+	try
+	{
+		value = { (*search)[0], (*search)[1] };
+	}
+	catch (const json::type_error &ex)
+	{
+		Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), key, ex.what());
+		return false;
+	}
+
+	return true;
+}
 
 template<typename T>
 bool parseJsonKey(const json &node, const std::string &filePath, const char* key, T &value, bool quiet = false)

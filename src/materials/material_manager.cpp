@@ -68,8 +68,8 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
 		parseJsonKey<int>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_OFFSET_LEFT, offsetLeft, true);
 
 		sf::Vector2i delimOffset(0, 0);
-		parseJsonVector2iKey(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM_OFFSET,
-							 delimOffset, true);
+		parseJsonVector2Key<int>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM_OFFSET,
+								 delimOffset, true);
 
 		theMap.emplace(matSymbol, material {
 			.type = matType,
