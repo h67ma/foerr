@@ -36,6 +36,7 @@
 #define FOERR_JSON_KEY_MASK "mask"
 #define FOERR_JSON_KEY_TYPE "type"
 #define FOERR_JSON_KEY_IS_RIGHT "is_right"
+#define FOERR_JSON_KEY_OFFSET_LEFT "offset_left"
 
 using json = nlohmann::json;
 

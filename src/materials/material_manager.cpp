@@ -60,11 +60,15 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
 				return false;
 		}
 
+		int offsetLeft = 0;
+		parseJsonKey<int>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_OFFSET_LEFT, offsetLeft, true);
+
 		theMap.emplace(matSymbol, material {
 			.type = matType,
 			.texturePath = texturePath,
 			.maskTexturePath = maskTexturePath,
-			.isRight = matIsRight
+			.isRight = matIsRight,
+			.offsetLeft = offsetLeft,
 		});
 	}
 

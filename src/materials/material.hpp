@@ -18,4 +18,5 @@ struct material
 	std::string texturePath;
 	std::string maskTexturePath;
 	bool isRight; // stairs, ladders
+	int offsetLeft; // can be negative
 };

@@ -142,6 +142,7 @@ bool RoomCell::addOtherSymbol(char symbol, ResourceManager &resMgr, const Materi
 		}
 
 		this->ladderTxt.set(resMgr.getTexture(mat->texturePath));
+		this->ladderLeftOffset = mat->offsetLeft;
 		this->hasLadder = true;
 	}
 	else if (mat->type == MAT_PLATFORM)
@@ -303,6 +304,7 @@ void RoomCell::draw2(sf::RenderTarget &target, sf::RenderStates states) const
 		target.draw(tmpSprite, states);
 	}
 
+	tmpSprite.setPosition({ static_cast<float>(this->ladderLeftOffset), 0 });
 	txt = this->ladderTxt.get();
 	if (txt != nullptr)
 	{

@@ -137,6 +137,7 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 				continue
 
 			out_mat[FOERR_JSON_KEY_IS_RIGHT] = ladder_direction == "1"
+			out_mat[FOERR_JSON_KEY_OFFSET_LEFT] = LADDER_RIGHT_OFFSET_LEFT if out_mat[FOERR_JSON_KEY_IS_RIGHT] else LADDER_LEFT_OFFSET_LEFT
 		elif mat_type == "4":
 			# 4 is stairs/platform
 			out_type = FOERR_JSON_KEY_OTHER

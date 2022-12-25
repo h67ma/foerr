@@ -47,6 +47,7 @@ class RoomCell : public sf::Transformable
 		TextureResource stairsTxt;
 		TextureResource ladderTxt;
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
+		int ladderLeftOffset = 0;
 		static const std::unordered_map<char, int> heightFlags;
 
 		// TODO? could be potentially replaced with flags, along with other elements
