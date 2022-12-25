@@ -8,9 +8,6 @@
 #define ROOM_SYMBOL_EMPTY '_'
 #define ROOM_SYMBOL_UNKNOWN '?'
 
-// TODO figure out the exact value (but looks about right)
-#define BACKWALL_COLOR COLOR_GRAY(80)
-
 /**
  * Loads the room data and stores it in this object.
  *
@@ -164,11 +161,29 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->backwall.sprite, states); // can be empty
 
+	// TODO? calling the same nested loop three times is pretty lame, maybe find some better way to handle this
+
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			target.draw(this->cells[y][x], states);
+			this->cells[y][x].draw1(target, states);
+		}
+	}
+
+	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			this->cells[y][x].draw2(target, states);
+		}
+	}
+
+	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			this->cells[y][x].draw3(target, states);
 		}
 	}
 }

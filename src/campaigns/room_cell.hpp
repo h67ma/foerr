@@ -1,12 +1,17 @@
 #pragma once
 
 #include <unordered_map>
-#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/texture_resource.hpp"
 
 #define CELL_SIDE_LEN 40
+
+// TODO figure out the exact value (but looks about right)
+#define BACKWALL_COLOR COLOR_GRAY(80)
 
 /**
  * RoomCell is the basic building block of all Rooms. It represents a static (unmovable), square area, roughly half the
@@ -32,18 +37,31 @@
  * Each element type can appear only once in a cell (e.g. there can't be two backgrounds defined). There are also other
  * restrictions (see ::addSolidSymbol() and ::addOtherSymbol() for details).
  */
-class RoomCell : public sf::Drawable, public sf::Transformable
+class RoomCell : public sf::Transformable
 {
 	private:
 		TextureResource solidTxt;
 		TextureResource solidTxtMask;
-		bool hasSolid = false; // TODO? could be potentially replaced with flags, along with other elements
+		TextureResource backgroundTxt;
+		TextureResource platformTxt;
+		TextureResource stairsTxt;
+		TextureResource ladderTxt;
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
 		static const std::unordered_map<char, int> heightFlags;
+
+		// TODO? could be potentially replaced with flags, along with other elements
+		bool hasSolid = false;
+		bool hasBackground = false;
+		bool hasPlatform = false;
+		bool hasStairs = false;
+		bool hasLadder = false;
+		bool hasLiquid = false;
 
 	public:
 		bool addSolidSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
 		bool addOtherSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
 		bool validate() const;
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw1(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw2(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw3(sf::RenderTarget &target, sf::RenderStates states) const;
 };

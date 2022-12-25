@@ -98,3 +98,6 @@
 #define STR_MAT_MISSING_OR_WRONG_TYPE "Material '%c' is missing or has invalid type"
 #define STR_HEIGHT_FLAG_ALREADY_PRESENT "Part-height requested ('%c'), but part-height is already defined for the cell."
 #define STR_HEIGHT_FLAG_NO_SOLID "Part-height flag defined ('%c'), but no solid defined."
+#define STR_SOLID_PRESENT_CANT_ADD "Solid present in cell, can't add '%c'."
+#define STR_STAIRS_PRESENT_CANT_ADD "Stairs present in cell, can't add platform '%c'."
+#define STR_PLATFORM_PRESENT_CANT_ADD "Platform present in cell, can't add stairs '%c'."

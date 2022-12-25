@@ -59,8 +59,9 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
  *
  * Performs checks before adding the symbol to ensure that the cell will be sane. This includes:
  *   1. Height flag without solid is an invalid case
- *   2. Material exists and its type is not solid
- *   3. Only one of each symbol type can be added to the cell:
+ *   2. Material exists
+ *   3. Material type is not solid
+ *   4. Only one of each symbol type can be added to the cell:
  *     - Solid (covered by ::addSolidSymbol)
  *     - Background
  *     - Platform
@@ -68,10 +69,10 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
  *     - Ladder
  *     - Liquid
  *     - Part-height directive
- *   4. Ladder + solid is an invalid case
- *   5. Stairs + solid is an invalid case
+ *   5. Ladder + solid is an invalid case
  *   6. Platform + solid is an invalid case
  *   7. Platform + stairs is an invalid case
+ *   8. Stairs + solid is an invalid case
  *
  * @param symbol symbol character
  * @return true if the symbol was added successfully
@@ -90,11 +91,10 @@ bool RoomCell::addOtherSymbol(char symbol, ResourceManager &resMgr, const Materi
 			return false;
 		}
 
-		// check 3 (part-height only)
+		// check 4 (part-height)
 		if (this->topOffset == 0)
 		{
 			this->topOffset = heightFlagSearch->second;
-			this->move({ 0, static_cast<float>(this->topOffset) });
 			return true;
 		}
 		else
@@ -102,6 +102,118 @@ bool RoomCell::addOtherSymbol(char symbol, ResourceManager &resMgr, const Materi
 			Log::e(STR_HEIGHT_FLAG_ALREADY_PRESENT, symbol);
 			return false;
 		}
+	}
+
+	// check 2
+	const struct material *mat = matMgr.getOther(symbol);
+	if (mat == nullptr)
+	{
+		Log::e(STR_MAT_MISSING_OR_WRONG_TYPE, symbol);
+		return false;
+	}
+
+	if (mat->type == MAT_BG)
+	{
+		// check 4 (background)
+		if (this->hasBackground)
+		{
+			Log::e(STR_MAT_SYMBOL_TYPE_ALREADY_PRESENT, symbol);
+			return false;
+		}
+
+		this->backgroundTxt.set(resMgr.getTexture(mat->texturePath));
+		this->backgroundTxt.get()->setRepeated(true);
+		this->hasBackground = true;
+	}
+	else if (mat->type == MAT_LADDER)
+	{
+		// check 4 (ladder)
+		if (this->hasLadder)
+		{
+			Log::e(STR_MAT_SYMBOL_TYPE_ALREADY_PRESENT, symbol);
+			return false;
+		}
+
+		// check 5
+		if (this->hasSolid)
+		{
+			Log::e(STR_SOLID_PRESENT_CANT_ADD, symbol);
+			return false;
+		}
+
+		this->ladderTxt.set(resMgr.getTexture(mat->texturePath));
+		this->hasLadder = true;
+	}
+	else if (mat->type == MAT_PLATFORM)
+	{
+		// check 4 (platform)
+		if (this->hasPlatform)
+		{
+			Log::e(STR_MAT_SYMBOL_TYPE_ALREADY_PRESENT, symbol);
+			return false;
+		}
+
+		// check 6
+		if (this->hasSolid)
+		{
+			Log::e(STR_SOLID_PRESENT_CANT_ADD, symbol);
+			return false;
+		}
+
+		// check 7
+		if (this->hasStairs)
+		{
+			Log::e(STR_STAIRS_PRESENT_CANT_ADD, symbol);
+			return false;
+		}
+
+		this->platformTxt.set(resMgr.getTexture(mat->texturePath));
+		this->platformTxt.get()->setRepeated(true);
+		this->hasPlatform = true;
+	}
+	else if (mat->type == MAT_STAIRS)
+	{
+		// check 4 (stairs)
+		if (this->hasStairs)
+		{
+			Log::e(STR_MAT_SYMBOL_TYPE_ALREADY_PRESENT, symbol);
+			return false;
+		}
+
+		// check 7
+		if (this->hasPlatform)
+		{
+			Log::e(STR_PLATFORM_PRESENT_CANT_ADD, symbol);
+			return false;
+		}
+
+		// check 8
+		if (this->hasSolid)
+		{
+			Log::e(STR_SOLID_PRESENT_CANT_ADD, symbol);
+			return false;
+		}
+
+		this->stairsTxt.set(resMgr.getTexture(mat->texturePath));
+		this->hasStairs = true;
+	}
+	else if (mat->type == MAT_LIQUID)
+	{
+		// check 4 (liquid)
+		if (this->hasLiquid)
+		{
+			Log::e(STR_MAT_SYMBOL_TYPE_ALREADY_PRESENT, symbol);
+			return false;
+		}
+
+		// TODO do something
+		this->hasLiquid = true;
+	}
+	else
+	{
+		// check 3
+		Log::e(STR_MAT_MISSING_OR_WRONG_TYPE, symbol);
+		return false;
 	}
 
 	return true;
@@ -121,6 +233,8 @@ bool RoomCell::validate() const
 }
 
 /**
+ * First stage of drawing the cell. Draws background and platform.
+ *
  * This could potentially be optimized.
  *
  * One way to do this might be to have the sprite in Room::draw(), set it to one of Cell's textures, draw it. Do it in a
@@ -133,26 +247,102 @@ bool RoomCell::validate() const
  * additionally complicating the code. For now let's keep all drawing logic inside the Cell. It also avoids duplicated
  * code in drawing a single cell (::drawCell()), not whole room.
  */
-void RoomCell::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void RoomCell::draw1(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
 	std::shared_ptr<sf::Texture> txt;
+	sf::Sprite tmpSprite;
 
-	sf::Sprite cellSprite;
-	cellSprite.setTextureRect({
+	tmpSprite.setTextureRect({
+		static_cast<int>(this->getPosition().x),
+		static_cast<int>(this->getPosition().y),
+		CELL_SIDE_LEN,
+		CELL_SIDE_LEN
+	});
+
+	txt = this->backgroundTxt.get();
+	if (txt != nullptr)
+	{
+		tmpSprite.setColor(BACKWALL_COLOR); // darken background
+		tmpSprite.setTexture(*txt);
+		target.draw(tmpSprite, states);
+		tmpSprite.setColor(sf::Color::White); // un-darken
+	}
+
+	txt = this->platformTxt.get();
+	if (txt != nullptr)
+	{
+		tmpSprite.setTexture(*txt);
+		target.draw(tmpSprite, states);
+	}
+}
+
+/**
+ * Second stage of drawing the cell. Draws stairs and ladder.
+ *
+ * Should be called after ::draw1() was already called for all cells.
+ *
+ * Stairs and ladders have sprites with parts visible outside of cell area, therefore they need to drawn differently
+ * than elements contained within cell area. That is, they don't use texture repeating.
+ *
+ * These elements need to be drawn after ::draw1(), as the surrounding cells might draw background over the parts of
+ * stairs/ladder outside cell area, which is undesirable.
+ */
+void RoomCell::draw2(sf::RenderTarget &target, sf::RenderStates states) const
+{
+	states.transform *= this->getTransform();
+
+	std::shared_ptr<sf::Texture> txt;
+	sf::Sprite tmpSprite;
+
+	txt = this->stairsTxt.get();
+	if (txt != nullptr)
+	{
+		tmpSprite.setTexture(*txt);
+		target.draw(tmpSprite, states);
+	}
+
+	txt = this->ladderTxt.get();
+	if (txt != nullptr)
+	{
+		tmpSprite.setTexture(*txt);
+		target.draw(tmpSprite, states);
+	}
+}
+
+/**
+ * Third stage of drawing a cell. Draws solid and liquid.
+ *
+ * Should be called after ::draw1() and ::draw2() were already called for all cells.
+ *
+ * Liquid and solid need to be drawn over ladders and stairs. In case of liquid, it will create the effect of submerging
+ * stuff. In case of solid, it will prevent the parts of stairs/ladders that are sticking out of their cell from being
+ * displayed over solids, which would not make sense.
+ */
+void RoomCell::draw3(sf::RenderTarget &target, sf::RenderStates states) const
+{
+	states.transform *= this->getTransform();
+
+	std::shared_ptr<sf::Texture> txt;
+	sf::Sprite tmpSprite;
+
+	// for solid we want to take part-height flag into account, by moving the sprite down and decreasing height of the
+	// texture rect.
+	tmpSprite.setPosition({ 0, static_cast<float>(this->topOffset) });
+	tmpSprite.setTextureRect({
 		static_cast<int>(this->getPosition().x),
 		static_cast<int>(this->getPosition().y),
 		CELL_SIDE_LEN,
 		CELL_SIDE_LEN - this->topOffset
 	});
 
-	// TODO background, others
+	// TODO draw liquid
 
 	txt = this->solidTxt.get();
 	if (txt != nullptr)
 	{
-		cellSprite.setTexture(*txt);
-		target.draw(cellSprite, states);
+		tmpSprite.setTexture(*txt);
+		target.draw(tmpSprite, states);
 	}
 }
