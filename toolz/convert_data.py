@@ -93,3 +93,15 @@ missing_mats = {
 mat_blacklist = [
 	"100",	# border solid
 ]
+
+LADDER_LEFT_OFFSET_LEFT = -2
+LADDER_RIGHT_OFFSET_LEFT = 21
+LADDER_LEFT_DELIM_OFFSET = [-2, -30]
+LADDER_RIGHT_DELIM_OFFSET = [2, -30]
+
+STAIRS_OFFSETS_LEFT = {
+	"canterlot_stairs_up": -3,
+	"cloud_stairs_up": -2,
+	"steel_stairs_up": -4,
+	"wooden_stairs_up": -4,
+}

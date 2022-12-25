@@ -151,7 +151,7 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, Resour
 		this->ladderDelimTxt.set(resMgr.getTexture(mat->textureDelimPath));
 		this->ladderDelimOffset = mat->delimOffset;
 		this->topCellBlocksLadderDelim = topCellBlocksLadderDelim;
-		this->ladderLeftOffset = mat->offsetLeft;
+		this->leftOffset = mat->offsetLeft;
 		this->hasLadder = true;
 	}
 	else if (mat->type == MAT_PLATFORM)
@@ -205,6 +205,7 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, Resour
 		}
 
 		this->stairsTxt.set(resMgr.getTexture(mat->texturePath));
+		this->leftOffset = mat->offsetLeft;
 		this->hasStairs = true;
 	}
 	else if (mat->type == MAT_LIQUID)
@@ -314,6 +315,7 @@ void RoomCell::draw2(sf::RenderTarget &target, sf::RenderStates states) const
 	std::shared_ptr<sf::Texture> txt;
 	sf::Sprite tmpSprite;
 
+	tmpSprite.setPosition({ static_cast<float>(this->leftOffset), 0 });
 	txt = this->stairsTxt.get();
 	if (txt != nullptr)
 	{
@@ -324,7 +326,7 @@ void RoomCell::draw2(sf::RenderTarget &target, sf::RenderStates states) const
 
 	if (this->hasPlatform || this->hasStairs || this->topCellBlocksLadderDelim)
 	{
-		tmpSprite.setPosition({ static_cast<float>(this->ladderLeftOffset), 0 });
+		// we've already set left offset above
 		txt = this->ladderTxt.get();
 	}
 	else

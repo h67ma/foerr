@@ -4,8 +4,8 @@ import argparse
 from typing import List
 import xml.etree.ElementTree as ET
 from consts import *
+from convert_data import *
 from common import log_verbose, log_info, log_warn, log_err, sane_object_pairs_hook, write_rooms_json
-from convert_data import loc_names_map, bg_full_name_map, flag_part_height, FLAG_WATER
 
 
 def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:

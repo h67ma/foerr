@@ -3,8 +3,8 @@ import json
 import argparse
 import xml.etree.ElementTree as ET
 from consts import *
+from convert_data import *
 from common import log_verbose, log_info, log_warn, log_err
-from convert_data import symbol_trans_map, missing_mats, mat_blacklist
 
 
 def make_mat_translation_map(editoren_root):
@@ -155,6 +155,9 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 				# stairs
 				out_mat[FOERR_JSON_KEY_IS_RIGHT] = stairs_value == "1"
 				out_mat[FOERR_JSON_KEY_TYPE] = 5
+
+				if texture_name in STAIRS_OFFSETS_LEFT:
+					out_mat[FOERR_JSON_KEY_OFFSET_LEFT] = STAIRS_OFFSETS_LEFT[texture_name]
 			else:
 				log_warn("Material \"" + mat_name + "\" is neither platform nor stairs, or both at the same time, skipping")
 		else:

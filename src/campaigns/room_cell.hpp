@@ -48,7 +48,7 @@ class RoomCell : public sf::Transformable
 		TextureResource ladderTxt;
 		TextureResource ladderDelimTxt;
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
-		int ladderLeftOffset = 0;
+		int leftOffset = 0;
 		sf::Vector2i ladderDelimOffset;
 		bool topCellBlocksLadderDelim;
 		static const std::unordered_map<char, int> heightFlags;
