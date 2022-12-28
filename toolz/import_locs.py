@@ -41,7 +41,7 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 
 	loc_backwall_path = None
 	if FOERR_JSON_KEY_BACKWALL in gamedata_data and gamedata_data[FOERR_JSON_KEY_BACKWALL] != "sky":
-		loc_backwall_path = os.path.join(FOERR_PATH_CELL_TEXTURES, gamedata_data[FOERR_JSON_KEY_BACKWALL] + ".png")
+		loc_backwall_path = gamedata_data[FOERR_JSON_KEY_BACKWALL]
 
 	if FOERR_JSON_KEY_BACKGROUND_FULL in gamedata_data:
 		output_root[FOERR_JSON_KEY_BACKGROUND_FULL] = gamedata_data[FOERR_JSON_KEY_BACKGROUND_FULL]
@@ -279,7 +279,7 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 				# "sky" as it causes room backwall to be ignored - with current approach we don't need it.
 				room_backwall_defined = True
 				if in_backwall != "sky":
-					out_room_node[FOERR_JSON_KEY_BACKWALL] = os.path.join(FOERR_PATH_CELL_TEXTURES, in_backwall + ".png")
+					out_room_node[FOERR_JSON_KEY_BACKWALL] = in_backwall
 
 			liquid_level = in_options_node.attrib.get("wlevel")
 			if liquid_level is not None:
@@ -364,7 +364,6 @@ def get_gamedata_data(gamedata_path: str):
 					background_full = bg_full_name_map[background_full]
 				else:
 					log_warn("Background name \"" + background_full + "\" not translated")
-				background_full = "res/texture/full_backgrounds/" + background_full + ".png"
 				this_loc_data[FOERR_JSON_KEY_BACKGROUND_FULL] = background_full
 			backwall = options_node.attrib.get("backwall")
 			if backwall is not None:

@@ -129,6 +129,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 	// not present -> black background
 	if (parseJsonKey<std::string>(root, this->roomDataPath, FOERR_JSON_KEY_BACKGROUND_FULL, backgroundFullPath, true))
 	{
+		backgroundFullPath = pathCombine(PATH_BACKGROUNDS_FULL, backgroundFullPath + ".png");
 		this->backgroundFullSprite.setTexture(resMgr.getTexture(backgroundFullPath));
 	}
 

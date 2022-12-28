@@ -22,6 +22,8 @@
 #define PATH_CURSOR_CROSS_YELLOW "res/hud/cursor/crosshair_yellow.png"
 #define PATH_CURSOR_CROSS_RED "res/hud/cursor/crosshair_red.png"
 #define PATH_TEXT_MISSING "res/texture/missing.png"
+#define PATH_BACKGROUNDS_FULL "res/texture/full_backgrounds"
+#define PATH_TEXT_CELLS "res/texture/cells"
 #define PATH_DIR_ROOMS "rooms"
 #define FILENAME_INDEX "_index.json"
 

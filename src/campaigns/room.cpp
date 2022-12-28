@@ -49,6 +49,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 	parseJsonKey<std::string>(root, filePath, FOERR_JSON_KEY_BACKWALL, backwallTxtPath, true);
 	if (backwallTxtPath != "")
 	{
+		backwallTxtPath = pathCombine(PATH_TEXT_CELLS, backwallTxtPath + ".png");
 		std::shared_ptr<sf::Texture> backwallTxt = resMgr.getTexture(backwallTxtPath);
 		backwallTxt->setRepeated(true);
 		this->backwall.setTexture(backwallTxt);

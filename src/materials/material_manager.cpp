@@ -47,15 +47,23 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
 			if (!parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE,
 										   texturePath))
 				return false;
+
+			texturePath = pathCombine(PATH_TEXT_CELLS, texturePath + ".png");
 		}
 
 		std::string textureDelimPath = "";
-		parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM,
-								  textureDelimPath, true);
+		if (parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM,
+									  textureDelimPath, true))
+		{
+			textureDelimPath = pathCombine(PATH_TEXT_CELLS, textureDelimPath + ".png");
+		}
 
 		std::string maskTexturePath = "";
-		parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_MASK, maskTexturePath,
-								  true);
+		if (parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_MASK,
+									  maskTexturePath, true))
+		{
+			maskTexturePath = pathCombine(PATH_TEXT_CELLS, maskTexturePath + ".png");
+		}
 
 		bool matIsRight;
 		if (matType == MAT_LADDER || matType == MAT_STAIRS)

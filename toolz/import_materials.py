@@ -1,4 +1,3 @@
-import os
 import json
 import argparse
 import xml.etree.ElementTree as ET
@@ -80,7 +79,7 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 			if texture_attrib is not None:
 				texture_name = texture_attrib
 
-		out_mat[FOERR_JSON_KEY_TEXTURE] = os.path.join(FOERR_PATH_CELL_TEXTURES, texture_name + ".png")
+		out_mat[FOERR_JSON_KEY_TEXTURE] = texture_name
 
 		mat_symbol = mat.attrib.get("id")
 		if mat_symbol is None:
@@ -139,7 +138,7 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 			is_right = ladder_direction == "1"
 			out_mat[FOERR_JSON_KEY_IS_RIGHT] = is_right
 			out_mat[FOERR_JSON_KEY_OFFSET_LEFT] = LADDER_RIGHT_OFFSET_LEFT if is_right else LADDER_LEFT_OFFSET_LEFT
-			out_mat[FOERR_JSON_KEY_TEXTURE_DELIM] = os.path.join(FOERR_PATH_CELL_TEXTURES, texture_name + "_delim.png")
+			out_mat[FOERR_JSON_KEY_TEXTURE_DELIM] = texture_name + "_delim"
 			out_mat[FOERR_JSON_KEY_TEXTURE_DELIM_OFFSET] = LADDER_RIGHT_DELIM_OFFSET if is_right else LADDER_LEFT_DELIM_OFFSET
 		elif mat_type == "4":
 			# 4 is stairs/platform
