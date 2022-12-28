@@ -317,8 +317,6 @@ void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
 
-	// TODO room's backwall
-
 	// ::roomStatic was pre-rendered in ::preRenderRoomStatic()
 	target.draw(this->roomStatic, states);
 }
