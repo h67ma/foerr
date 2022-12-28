@@ -364,7 +364,7 @@ void RoomCell::draw3(sf::RenderTarget &target, sf::RenderStates states) const
 	tmpSprite.setPosition({ 0, static_cast<float>(this->topOffset) });
 	tmpSprite.setTextureRect({
 		static_cast<int>(this->getPosition().x),
-		static_cast<int>(this->getPosition().y),
+		static_cast<int>(this->getPosition().y) + this->topOffset,
 		CELL_SIDE_LEN,
 		CELL_SIDE_LEN - this->topOffset
 	});
