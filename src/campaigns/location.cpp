@@ -233,6 +233,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 void Location::unloadContent()
 {
 	this->backgroundFullSprite.clearPtr();
+	this->roomStaticTxt = sf::Texture();
 	this->rooms.clear();
 }
 
