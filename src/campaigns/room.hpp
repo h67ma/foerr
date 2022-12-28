@@ -25,11 +25,15 @@ class Room : public sf::Drawable
 		RoomCell cells[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
 		SpriteResource backwall;
 		sf::RectangleShape liquid;
+		sf::Texture cachedCellsTxt;
+		sf::Sprite cachedCells;
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
 
 	public:
 		bool load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root,
 				  const std::string &filePath);
+		void preRenderCells();
+		void purgeCachedCells();
 		void redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const; // TODO use me
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

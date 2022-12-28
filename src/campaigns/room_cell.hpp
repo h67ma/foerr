@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Transformable.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
@@ -69,7 +68,7 @@ class RoomCell : public sf::Transformable
 							const MaterialManager &matMgr);
 		bool validate() const;
 		bool blocksBottomCellLadderDelim() const;
-		void draw1(sf::RenderTarget &target, sf::RenderStates states) const;
-		void draw2(sf::RenderTarget &target, sf::RenderStates states) const;
-		void draw3(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw1(sf::RenderTarget &target) const;
+		void draw2(sf::RenderTarget &target) const;
+		void draw3(sf::RenderTarget &target) const;
 };

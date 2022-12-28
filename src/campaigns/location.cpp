@@ -1,7 +1,6 @@
 #include "location.hpp"
 #include <string>
 #include <memory>
-#include <SFML/Graphics/RenderTexture.hpp>
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 #include "../util/json.hpp"
@@ -211,7 +210,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 		return false;
 	}
 
-	this->preRenderRoomStatic();
+	this->currentRoom->preRenderCells();
 
 	// TODO sanity checks:
 	// - at least one MAS terminal
@@ -233,7 +232,6 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 void Location::unloadContent()
 {
 	this->backgroundFullSprite.clearPtr();
-	this->roomStaticTxt = sf::Texture();
 	this->rooms.clear();
 }
 
@@ -283,8 +281,11 @@ bool Location::gotoRoom(Direction direction)
 	if (newRoom == nullptr)
 		return false;
 
+	this->currentRoom->purgeCachedCells();
+
 	this->currentRoom = newRoom;
-	this->preRenderRoomStatic();
+	this->currentRoom->preRenderCells();
+
 	return true;
 }
 
@@ -294,30 +295,9 @@ sf::Vector3i Location::getPlayerRoomCoords()
 	return this->rooms.getCurrentCoords();
 }
 
-/**
- * @brief Draws all static Room elements to a RenderTexture
- *
- * Should be called only when entering a new Room. Further updates to Room's static elements should be covered via
- * ::redrawCell().
- */
-void Location::preRenderRoomStatic()
-{
-	sf::RenderTexture roomRenderTxt;
-	roomRenderTxt.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
-	roomRenderTxt.clear(sf::Color::Transparent);
-	roomRenderTxt.draw(*this->currentRoom);
-	roomRenderTxt.display();
-
-	// sf::RenderTexture can't be a private member because it inherits NonCopyable.
-	// because of this we need to store the result in a standard sf::Texture
-	this->roomStaticTxt = roomRenderTxt.getTexture();
-	this->roomStatic.setTexture(this->roomStaticTxt);
-}
-
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
 
-	// ::roomStatic was pre-rendered in ::preRenderRoomStatic()
-	target.draw(this->roomStatic, states);
+	target.draw(*this->currentRoom, states);
 }

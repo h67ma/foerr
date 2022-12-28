@@ -57,8 +57,6 @@ class Location : public sf::Drawable
 		SpriteResource backgroundFullSprite;
 		RoomGrid rooms;
 		std::shared_ptr<Room> currentRoom = nullptr;
-		sf::Texture roomStaticTxt;
-		sf::Sprite roomStatic;
 
 	public:
 		explicit Location(std::string id);
@@ -75,6 +73,5 @@ class Location : public sf::Drawable
 		std::string getWorldMapIconId();
 		bool gotoRoom(Direction direction);
 		sf::Vector3i getPlayerRoomCoords();
-		void preRenderRoomStatic();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

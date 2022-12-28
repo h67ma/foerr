@@ -1,5 +1,6 @@
 #include "room_cell.hpp"
 #include <memory>
+#include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
@@ -267,9 +268,9 @@ bool RoomCell::validate() const
  * additionally complicating the code. For now let's keep all drawing logic inside the Cell. It also avoids duplicated
  * code in drawing a single cell (::redrawCell()), not whole room.
  */
-void RoomCell::draw1(sf::RenderTarget &target, sf::RenderStates states) const
+void RoomCell::draw1(sf::RenderTarget &target) const
 {
-	states.transform *= this->getTransform();
+	sf::RenderStates states(this->getTransform());
 
 	std::shared_ptr<sf::Texture> txt;
 	sf::Sprite tmpSprite;
@@ -309,9 +310,9 @@ void RoomCell::draw1(sf::RenderTarget &target, sf::RenderStates states) const
  * These elements need to be drawn after ::draw1(), as the surrounding cells might draw background over the parts of
  * stairs/ladder outside cell area, which is undesirable.
  */
-void RoomCell::draw2(sf::RenderTarget &target, sf::RenderStates states) const
+void RoomCell::draw2(sf::RenderTarget &target) const
 {
-	states.transform *= this->getTransform();
+	sf::RenderStates states(this->getTransform());
 
 	std::shared_ptr<sf::Texture> txt;
 	sf::Sprite tmpSprite;
@@ -352,9 +353,9 @@ void RoomCell::draw2(sf::RenderTarget &target, sf::RenderStates states) const
  * stuff. In case of solid, it will prevent the parts of stairs/ladders that are sticking out of their cell from being
  * displayed over solids, which would not make sense.
  */
-void RoomCell::draw3(sf::RenderTarget &target, sf::RenderStates states) const
+void RoomCell::draw3(sf::RenderTarget &target) const
 {
-	states.transform *= this->getTransform();
+	sf::RenderStates states(this->getTransform());
 
 	std::shared_ptr<sf::Texture> txt;
 	sf::Sprite tmpSprite;

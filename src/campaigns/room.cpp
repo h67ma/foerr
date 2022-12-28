@@ -1,6 +1,7 @@
 #include "room.hpp"
 #include <string>
 #include <memory>
+#include <SFML/Graphics/RenderTexture.hpp>
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
@@ -172,6 +173,58 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 }
 
 /**
+ * Should be called *only once* per entering the Room. After that, use ::redrawCell() to update cells.
+ */
+void Room::preRenderCells()
+{
+	sf::RenderTexture roomRenderTxt;
+	roomRenderTxt.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
+	roomRenderTxt.clear(sf::Color::Transparent);
+
+	// TODO? calling the same nested loop three times is pretty lame, maybe find some better way to handle this
+
+	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			this->cells[y][x].draw1(roomRenderTxt);
+		}
+	}
+
+	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			this->cells[y][x].draw2(roomRenderTxt);
+		}
+	}
+
+	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			this->cells[y][x].draw3(roomRenderTxt);
+		}
+	}
+
+	roomRenderTxt.display();
+
+	// sf::RenderTexture can't be a private member because it inherits NonCopyable.
+	// because of this we need to store the result in a standard sf::Texture
+	this->cachedCellsTxt = roomRenderTxt.getTexture();
+	this->cachedCells.setTexture(this->cachedCellsTxt);
+}
+
+/**
+ * Clears the cached texture containing pre-rendered cells.
+ * Should be called when the Room is no longer displayed.
+ */
+void Room::purgeCachedCells()
+{
+	this->cachedCellsTxt = sf::Texture();
+}
+
+/**
  * @brief Redraws a single cell. For drawing the entire Room, use ::draw()
  *
  * If cell coordinates are invalid, nothing will happen.
@@ -187,45 +240,16 @@ void Room::redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates
 		return;
 
 	const RoomCell *cell = &this->cells[y][x];
-	cell->draw1(target, states);
-	cell->draw2(target, states);
-	cell->draw3(target, states);
+	cell->draw1(target);
+	cell->draw2(target);
+	cell->draw3(target);
 }
 
-/**
- * @brief Draws all cells in the Room.
- *
- * Should be called *only once* per entering the Room. After that, use ::redrawCell() to update cells.
- */
 void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->backwall.sprite, states); // can be empty
 
-	// TODO? calling the same nested loop three times is pretty lame, maybe find some better way to handle this
-
-	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
-	{
-		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
-		{
-			this->cells[y][x].draw1(target, states);
-		}
-	}
-
-	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
-	{
-		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
-		{
-			this->cells[y][x].draw2(target, states);
-		}
-	}
-
-	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
-	{
-		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
-		{
-			this->cells[y][x].draw3(target, states);
-		}
-	}
+	target.draw(this->cachedCells, states);
 
 	// liquid is drawn over all cell elements, including solids. if it's not set, nothing will be drawn.
 	target.draw(this->liquid, states);
