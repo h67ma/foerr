@@ -32,7 +32,7 @@ class Campaign : public sf::Drawable
 
 	public:
 		explicit Campaign(ResourceManager &resMgr);
-		bool load(std::string campaignDir);
+		bool load(std::string campaignDir, uint transitionTimeMs);
 		void unload();
 		std::string getTitle();
 		std::string getDescription();
@@ -44,5 +44,6 @@ class Campaign : public sf::Drawable
 		bool isLoaded();
 		bool gotoRoom(Direction direction);
 		sf::Vector3i getPlayerRoomCoords();
+		void updateState();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

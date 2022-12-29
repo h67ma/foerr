@@ -46,6 +46,7 @@ int main()
 	GuiScale initialScale = settings.getGuiScale(SETT_GUI_SCALE);
 	uint initialFxVol = settings.getUint(SETT_FX_VOLUME);
 	sf::Color hudColor = settings.getColor(SETT_HUD_COLOR);
+	uint transitionTimeMs = settings.getUint(SETT_ROOM_TRANSITION_DURATION_MS);
 
 	ResourceManager resManager;
 
@@ -113,7 +114,8 @@ int main()
 	}
 
 	pipBuck.setRadLevel(0.3f); // TODO remove
-	MainMenu mainMenu(initialScale, hudColor, initialFxVol, resManager, window, campaign, gameState, pipBuck);
+	MainMenu mainMenu(initialScale, hudColor, initialFxVol, transitionTimeMs, resManager, window, campaign, gameState,
+					  pipBuck);
 
 	// this is kinda messy but probably faster than a very long switch-case.
 	// for each keypress we have to go through two maps: key -> action, action -> callback.
@@ -476,7 +478,7 @@ int main()
 	{
 		Log::d(STR_AUTLOADING_CAMPAIGN);
 
-		if (campaign.load(pathCombine("res/campaigns", autoLoadPath)) && pipBuck.setupCampaignInfos())
+		if (campaign.load(pathCombine("res/campaigns", autoLoadPath), transitionTimeMs) && pipBuck.setupCampaignInfos())
 		{
 			gameState = STATE_PLAYING;
 			debugCoords.setString(litSprintf("(%d, %d, %d)",
@@ -635,6 +637,8 @@ int main()
 				window.draw(*btn);
 			}
 			window.draw(debugCoords);
+
+			campaign.updateState();
 		}
 		else if (gameState == STATE_PIPBUCK)
 		{

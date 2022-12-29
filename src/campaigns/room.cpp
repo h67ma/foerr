@@ -247,6 +247,8 @@ void Room::redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates
 
 void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+	states.transform *= this->getTransform();
+
 	target.draw(this->backwall.sprite, states); // can be empty
 
 	target.draw(this->cachedCells, states);

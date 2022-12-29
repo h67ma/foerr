@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/System/Clock.hpp>
 #include <SFML/System/Vector3.hpp>
 #include "room_grid.hpp"
 #include "../consts.hpp"
@@ -36,6 +37,13 @@
  * same. When a cell (or other static element) is damaged/destroyed/etc, Room's ::redrawCell() is called and only
  * redraws the cell that changed on the cached texture.
  *
+ * Location is responsible for animating room transition. For this purpose, it uses the internal state flag
+ * ::roomTransitionInProgress (separate from global GameState). When room change is initiated (via ::gotoRoom()),
+ * the old room, along with new room, are both rendered into a caching texture (::roomTransitionTxt), which is displayed
+ * instead of room during the transition. The caching texture is moved during the animation to create a linear
+ * transition effect. When the animation finishes, Location returns to displaying the current room. During the
+ * animation, the simulation state is not being updated.
+ *
  * TODO? the current concept of loading resources could potentially be optimized memory-wise, i.e. we could preload
  * resources only for nearby Rooms, instead of all Rooms in the Location. This would have to be done in the background.
  *
@@ -58,8 +66,20 @@ class Location : public sf::Drawable
 		RoomGrid rooms;
 		std::shared_ptr<Room> currentRoom = nullptr;
 
+		// room transition is *not* another GameState (see ::gameState in main), but rather an internal state of
+		// Location. from main's perspective, the state could be still STATE_PLAYING, but the Location, instead of
+		// actually continuing simulation (via ::updateState()), will be in the process of room transition and will act
+		// as if the simulation was paused (for the time of transition).
+		bool roomTransitionInProgress = false;
+		uint transitionTimeMs;
+		enum Direction roomTransitionDirection;
+		uint roomTransitionOffset = 0;
+		sf::Clock roomTransitionTimer;
+		sf::Texture roomTransitionTxt;
+		sf::Sprite roomTransitionSprite;
+
 	public:
-		explicit Location(std::string id);
+		Location(std::string id, uint transitionTimeMs);
 		bool loadMeta(const json &locMetaNode, const std::string &campaignDir);
 		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr);
 		void unloadContent();
@@ -73,5 +93,6 @@ class Location : public sf::Drawable
 		std::string getWorldMapIconId();
 		bool gotoRoom(Direction direction);
 		sf::Vector3i getPlayerRoomCoords();
+		void updateState();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

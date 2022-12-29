@@ -39,8 +39,13 @@ SettingsManager::SettingsManager()
 	this->settings.emplace(SETT_FPS_LIMIT_ENABLED, std::make_unique<LogicSetting>("fps_limit_enabled", true));
 	this->settings.emplace(SETT_FPS_LIMIT, std::make_unique<NumericSetting>("fps_limit", 60));
 	this->settings.emplace(SETT_FAKE_VSYNC_ENABLED, std::make_unique<LogicSetting>("fake_vsync_enabled", false));
-	// TODO this->settings.emplace(SETT_ROOM_TRANSITION_DURATION_MS, std::make_unique<NumericSetting>("room_transition_duration_ms", 500)); // 0 = disable transition effect
 	// TODO? windowed size + position override
+
+	// 0 = disable transition effect
+	this->settings.emplace(SETT_ROOM_TRANSITION_DURATION_MS,
+						   std::make_unique<NumericSetting>("room_transition_duration_ms", 200, [](uint val){
+			return val <= 5000;
+		}, "at most 5000ms"));
 
 	// +++++ hud +++++
 

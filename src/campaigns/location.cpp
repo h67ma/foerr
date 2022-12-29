@@ -1,13 +1,14 @@
 #include "location.hpp"
 #include <string>
 #include <memory>
+#include <SFML/Graphics/RenderTexture.hpp>
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 #include "../util/json.hpp"
 
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
-Location::Location(std::string id) : id(id)
+Location::Location(std::string id, uint transitionTimeMs) : id(id), transitionTimeMs(transitionTimeMs)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }
@@ -281,10 +282,81 @@ bool Location::gotoRoom(Direction direction)
 	if (newRoom == nullptr)
 		return false;
 
+	if (this->transitionTimeMs == 0 || direction == DIR_BACK || direction == DIR_FRONT)
+	{
+		// no transition when transition duration is 0, or when changing the Z coordinate
+
+		// old room no longer needed
+		this->currentRoom->purgeCachedCells();
+
+		this->currentRoom = newRoom;
+		this->currentRoom->preRenderCells();
+
+		this->roomTransitionInProgress = false;
+
+		return true;
+	}
+
+	this->roomTransitionDirection = direction;
+
+	sf::RenderTexture tmpTxt;
+
+	// TODO? not sure why, but if we create (W * 2, H), then on *next call* (W, H * 2), the size will change, but it
+	// will work as if the actual size was *still* the one we set on first call. maybe this has something to do with
+	// NonCopyable. for now let's just use 2x as much memory for nothing :|
+	tmpTxt.create(GAME_AREA_WIDTH * 2, GAME_AREA_HEIGHT * 2);
+
+	tmpTxt.clear(sf::Color::Transparent);
+
+	// render old room to transition texture
+
+	// in case of right and down, the old room stays at (0, 0), and the new one is rendered at the side or below.
+	// in case of left and up, the roles are reversed.
+	// we assume that room's position is (0, 0), as we reset it at the end of room transition.
+
+	if (direction == DIR_LEFT)
+		this->currentRoom->setPosition(GAME_AREA_WIDTH, 0);
+	else if (direction == DIR_UP)
+		this->currentRoom->setPosition(0, GAME_AREA_HEIGHT);
+
+	tmpTxt.draw(*this->currentRoom);
+
+	// old room no longer needed
 	this->currentRoom->purgeCachedCells();
+
+	// reset old room position
+	this->currentRoom->setPosition(0, 0);
 
 	this->currentRoom = newRoom;
 	this->currentRoom->preRenderCells();
+
+	// render new room to the transition texture (same as old room, but in different position
+
+	// reversed (see above)
+	if (direction == DIR_RIGHT)
+		this->currentRoom->setPosition(GAME_AREA_WIDTH, 0);
+	else if (direction == DIR_DOWN)
+		this->currentRoom->setPosition(0, GAME_AREA_HEIGHT);
+
+	tmpTxt.draw(*this->currentRoom);
+
+	// reset current room position
+	this->currentRoom->setPosition(0, 0);
+
+	tmpTxt.display();
+	this->roomTransitionTxt = tmpTxt.getTexture();
+	this->roomTransitionSprite.setTexture(this->roomTransitionTxt);
+
+	// set initial transition sprite position
+	if (direction == DIR_RIGHT || direction == DIR_DOWN)
+		this->roomTransitionSprite.setPosition(0, 0);
+	else if (direction == DIR_LEFT)
+		this->roomTransitionSprite.setPosition(-GAME_AREA_WIDTH, 0);
+	else if (direction == DIR_UP)
+		this->roomTransitionSprite.setPosition(0, -GAME_AREA_HEIGHT);
+
+	this->roomTransitionTimer.restart();
+	this->roomTransitionInProgress = true;
 
 	return true;
 }
@@ -295,9 +367,55 @@ sf::Vector3i Location::getPlayerRoomCoords()
 	return this->rooms.getCurrentCoords();
 }
 
+void Location::updateState()
+{
+	if (this->roomTransitionInProgress)
+	{
+		uint elapsed = this->roomTransitionTimer.getElapsedTime().asMilliseconds();
+
+		if (elapsed >= this->transitionTimeMs)
+		{
+			this->roomTransitionInProgress = false;
+			return;
+		}
+
+		sf::Vector2f pos;
+
+		switch (this->roomTransitionDirection)
+		{
+			case DIR_UP:
+				pos.y = static_cast<int>(elapsed * GAME_AREA_HEIGHT / this->transitionTimeMs) - GAME_AREA_HEIGHT;
+				break;
+			case DIR_DOWN:
+				pos.y = - static_cast<int>(elapsed * GAME_AREA_HEIGHT / this->transitionTimeMs);
+				break;
+			case DIR_LEFT:
+				pos.x = static_cast<int>(elapsed * GAME_AREA_WIDTH / this->transitionTimeMs) - GAME_AREA_WIDTH;
+				break;
+			case DIR_RIGHT:
+				pos.x = - static_cast<int>(elapsed * GAME_AREA_WIDTH / this->transitionTimeMs);
+				break;
+			default:
+				// this should never happen
+				this->roomTransitionInProgress = false;
+				return;
+		}
+
+		this->roomTransitionSprite.setPosition(pos);
+	}
+}
+
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+	// background full is drawn the same during transition and regular gameplay - it's "far away" so it shouldn't move
 	target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
 
-	target.draw(*this->currentRoom, states);
+	if (!this->roomTransitionInProgress)
+	{
+		target.draw(*this->currentRoom, states);
+	}
+	else
+	{
+		target.draw(this->roomTransitionSprite, states);
+	}
 }

@@ -39,7 +39,7 @@ Campaign::Campaign(ResourceManager &resMgr) : resMgr(resMgr)
  * @return true if load succeeded
  * @return false if load failed
  */
-bool Campaign::load(std::string campaignDir)
+bool Campaign::load(std::string campaignDir, uint transitionTimeMs)
 {
 	Log::d(STR_CAMPAIGN_LOADING, campaignDir.c_str());
 
@@ -102,7 +102,7 @@ bool Campaign::load(std::string campaignDir)
 	for (const auto &loc : locsSearch->items())
 	{
 		std::string locId = loc.key();
-		this->locations.emplace_back(locId);
+		this->locations.emplace_back(locId, transitionTimeMs);
 		if (!this->locations.back().loadMeta(loc.value(), campaignDir))
 		{
 			// unload everything
@@ -264,6 +264,14 @@ sf::Vector3i Campaign::getPlayerRoomCoords()
 		return { 0, 0, 0 }; // well, what can you do
 
 	return this->locations[this->currentLocationIdx].getPlayerRoomCoords();
+}
+
+void Campaign::updateState()
+{
+	if (!this->loaded)
+		return;
+
+	this->locations[this->currentLocationIdx].updateState();
 }
 
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
