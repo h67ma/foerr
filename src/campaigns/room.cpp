@@ -173,9 +173,10 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 }
 
 /**
+ * Prepares the Room to be drawn.
  * Should be called *only once* per entering the Room. After that, use ::redrawCell() to update cells.
  */
-void Room::preRenderCells()
+void Room::init()
 {
 	sf::RenderTexture roomRenderTxt;
 	roomRenderTxt.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
@@ -219,7 +220,7 @@ void Room::preRenderCells()
  * Clears the cached texture containing pre-rendered cells.
  * Should be called when the Room is no longer displayed.
  */
-void Room::purgeCachedCells()
+void Room::deinit()
 {
 	this->cachedCellsTxt = sf::Texture();
 }

@@ -211,7 +211,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 		return false;
 	}
 
-	this->currentRoom->preRenderCells();
+	this->currentRoom->init();
 
 	// TODO sanity checks:
 	// - at least one MAS terminal
@@ -287,10 +287,10 @@ bool Location::gotoRoom(Direction direction)
 		// no transition when transition duration is 0, or when changing the Z coordinate
 
 		// old room no longer needed
-		this->currentRoom->purgeCachedCells();
+		this->currentRoom->deinit();
 
 		this->currentRoom = newRoom;
-		this->currentRoom->preRenderCells();
+		this->currentRoom->init();
 
 		this->roomTransitionInProgress = false;
 
@@ -322,13 +322,13 @@ bool Location::gotoRoom(Direction direction)
 	tmpTxt.draw(*this->currentRoom);
 
 	// old room no longer needed
-	this->currentRoom->purgeCachedCells();
+	this->currentRoom->deinit();
 
 	// reset old room position
 	this->currentRoom->setPosition(0, 0);
 
 	this->currentRoom = newRoom;
-	this->currentRoom->preRenderCells();
+	this->currentRoom->init();
 
 	// render new room to the transition texture (same as old room, but in different position
 

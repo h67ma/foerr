@@ -33,8 +33,8 @@ class Room : public sf::Drawable, public sf::Transformable
 	public:
 		bool load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root,
 				  const std::string &filePath);
-		void preRenderCells();
-		void purgeCachedCells();
+		void init();
+		void deinit();
 		void redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const; // TODO use me
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
