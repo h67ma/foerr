@@ -64,10 +64,29 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 	parseJsonKey<uint>(root, filePath, FOERR_JSON_KEY_LIQUID_LEVEL, liquidLevel, true);
 	if (liquidLevel > 0)
 	{
+		std::string liquidSymbolStr;
+		if (!parseJsonKey<std::string>(root, filePath, FOERR_JSON_KEY_LIQUID_SYMBOL, liquidSymbolStr))
+			return false;
+
+		if (liquidSymbolStr.length() != 1)
+		{
+			Log::e(STR_MAT_LOAD_KEY_NOT_1CHAR, liquidSymbolStr.c_str());
+			return false;
+		}
+
+		char liquidSymbol = liquidSymbolStr[0];
+
+		const struct material *liquidMat = matMgr.getOther(liquidSymbol);
+		if (liquidMat == nullptr || liquidMat->type != MAT_LIQUID)
+		{
+			Log::e(STR_MAT_MISSING_OR_WRONG_TYPE, liquidSymbol);
+			return false;
+		}
+
 		uint liquidLevelPx = CELL_SIDE_LEN * liquidLevel;
 		this->liquid.setSize(sf::Vector2f(GAME_AREA_WIDTH, liquidLevelPx));
 		this->liquid.setPosition(0, GAME_AREA_HEIGHT - liquidLevelPx);
-		this->liquid.setFillColor(sf::Color(30, 110, 190, 154)); // TODO set proper color
+		this->liquid.setFillColor(liquidMat->color);
 	}
 
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
@@ -252,7 +271,12 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	target.draw(this->backwall.sprite, states); // can be empty
 
+	// because we render stuff first to RenderTexture, and then the texture to target, alpha gets blended two times,
+	// and therefore gets screwed up. to fix it, use a custom blending mode.
+	// credits to oomek on https://en.sfml-dev.org/forums/index.php?topic=24250.msg164091#msg164091
+	states.blendMode = sf::BlendMode(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
 	target.draw(this->cachedCells, states);
+	states.blendMode = sf::BlendAlpha;
 
 	// liquid is drawn over all cell elements, including solids. if it's not set, nothing will be drawn.
 	target.draw(this->liquid, states);

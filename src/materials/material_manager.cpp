@@ -1,7 +1,10 @@
 #include "material_manager.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
+#include "../util/serializable_color.hpp"
 
+// TODO find the exact value, or just store it in materials.json
+#define LIQUID_OPACITY 0x9A
 
 bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct material> &theMap, const char* nodeKey)
 {
@@ -79,6 +82,13 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
 		parseJsonVector2Key<int>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM_OFFSET,
 								 delimOffset, true);
 
+		SerializableColor color;
+		std::string colorString;
+		parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_COLOR, colorString,
+								  true);
+		color.loadFromColorString(colorString);
+		color.a = LIQUID_OPACITY;
+
 		theMap.emplace(matSymbol, material {
 			.type = matType,
 			.texturePath = texturePath,
@@ -86,7 +96,8 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
 			.maskTexturePath = maskTexturePath,
 			.isRight = matIsRight,
 			.offsetLeft = offsetLeft,
-			.delimOffset = delimOffset
+			.delimOffset = delimOffset,
+			.color = color
 		});
 	}
 

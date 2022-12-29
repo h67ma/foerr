@@ -2,6 +2,7 @@
 
 #include <string>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 enum MaterialType
 {
@@ -22,4 +23,5 @@ struct material
 	bool isRight; // stairs, ladders
 	int offsetLeft; // can be negative
 	sf::Vector2i delimOffset;
+	sf::Color color;
 };

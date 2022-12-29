@@ -218,8 +218,7 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, Resour
 			return false;
 		}
 
-		// TODO find out what exact color should we put here
-		this->liquid.setFillColor(sf::Color(30, 110, 190, 154));
+		this->liquid.setFillColor(mat->color);
 		this->hasLiquid = true;
 	}
 	else

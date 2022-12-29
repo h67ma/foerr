@@ -43,6 +43,10 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 	if FOERR_JSON_KEY_BACKWALL in gamedata_data and gamedata_data[FOERR_JSON_KEY_BACKWALL] != "sky":
 		loc_backwall_path = gamedata_data[FOERR_JSON_KEY_BACKWALL]
 
+	loc_liquid_type = None
+	if "liquid_symbol" in gamedata_data:
+		loc_liquid_type = gamedata_data["liquid_symbol"]
+
 	if FOERR_JSON_KEY_BACKGROUND_FULL in gamedata_data:
 		output_root[FOERR_JSON_KEY_BACKGROUND_FULL] = gamedata_data[FOERR_JSON_KEY_BACKGROUND_FULL]
 
@@ -69,6 +73,38 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 			if room_coords == start_room_coords:
 				out_room_node[FOERR_JSON_KEY_IS_START] = True
 				start_room_found = True
+
+		##### liquids #####
+
+		# liquids are handled differently than in Remains. Remains stores all liquids as the same symbol ('*'), and adds
+		# information about its color in location or room settings ("wtip"). since there are only four possible liquids,
+		# it makes more sense to define them as different materials and just place directly in cells. this approach also
+		# makes it possible to have multiple types of liquids in a single room.
+		room_liquid_symbol = liquid_type_map[0] # default (blue)
+
+		# overwrite default liquid type with location-defined type
+		if loc_liquid_type is not None:
+			room_liquid_symbol = loc_liquid_type
+
+		in_options_node = room_node.find("options")
+		if in_options_node is not None:
+			liquid_type = in_options_node.attrib.get("wtip")
+			if liquid_type is not None:
+				liquid_type = int(liquid_type)
+				if liquid_type in liquid_type_map:
+					# overwrite default liquid type, or location-defined type, with room-defined type
+					room_liquid_symbol = liquid_type_map[liquid_type]
+				else:
+					log_warn(room_name + " has an unknown liquid type, ignoring")
+
+			liquid_level = in_options_node.attrib.get("wlevel")
+			if liquid_level is not None:
+				# "wlevel" is defined as "0 -> full room submerged". change it to "0 -> room not submerged" to be more intuitive
+				liquid_level = ROOM_HEIGHT_WITH_BORDER - int(liquid_level)
+				if liquid_level > 0:
+					out_room_node[FOERR_JSON_KEY_LIQUID_LEVEL] = liquid_level
+					# since we've placed a room-wide liquid level, we also need to define which liquid it is
+					out_room_node[FOERR_JSON_KEY_LIQUID_SYMBOL] = room_liquid_symbol
 
 		grid_rows = room_node.findall("a")
 		if len(grid_rows) != ROOM_HEIGHT_WITH_BORDER:
@@ -176,7 +212,7 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 						this_part_height = True
 						this_cell_symbols += character
 						continue
-					elif character == FLAG_WATER:
+					elif character == '*':
 						if this_liquid:
 							log_warn(err_prefix + "more than one liquid defined, skipping rest")
 							continue
@@ -187,7 +223,7 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 							log_info(err_prefix + "liquid defined for full-sized cell containing a solid, skipping liquid")
 							continue
 						this_liquid = True
-						this_cell_symbols += character
+						this_cell_symbols += room_liquid_symbol # swap '*' for the correct liquid type
 						continue
 
 					out_symbol = symbol_maps[FOERR_JSON_KEY_OTHER].get(character, SYMBOL_UNKNOWN)
@@ -267,7 +303,6 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 		out_room_node[FOERR_JSON_KEY_CELLS] = out_cells
 
 		room_backwall_defined = False
-		in_options_node = room_node.find("options")
 		if in_options_node is not None:
 			in_backwall = in_options_node.attrib.get("backwall")
 			if in_backwall is not None:
@@ -280,13 +315,6 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 				room_backwall_defined = True
 				if in_backwall != "sky":
 					out_room_node[FOERR_JSON_KEY_BACKWALL] = in_backwall
-
-			liquid_level = in_options_node.attrib.get("wlevel")
-			if liquid_level is not None:
-				# wlevel is defined as "0 -> full room submerged". change it to "0 -> room not submerged" to be more intuitive
-				liquid_level = ROOM_HEIGHT_WITH_BORDER - int(liquid_level)
-				if liquid_level > 0:
-					out_room_node[FOERR_JSON_KEY_LIQUID_LEVEL] = liquid_level
 
 		if not room_backwall_defined and loc_backwall_path is not None:
 			out_room_node[FOERR_JSON_KEY_BACKWALL] = loc_backwall_path
@@ -326,6 +354,7 @@ def get_gamedata_data(gamedata_path: str):
 			"backwall": "texture_name",
 			"start_room_x": x,
 			"start_room_y": y,
+			"liquid_symbol": '*'
 		},
 		...
 	}
@@ -365,9 +394,18 @@ def get_gamedata_data(gamedata_path: str):
 				else:
 					log_warn("Background name \"" + background_full + "\" not translated")
 				this_loc_data[FOERR_JSON_KEY_BACKGROUND_FULL] = background_full
+
 			backwall = options_node.attrib.get("backwall")
 			if backwall is not None:
 				this_loc_data[FOERR_JSON_KEY_BACKWALL] = backwall
+
+			liquid_type = options_node.attrib.get("wtip")
+			if liquid_type is not None:
+				liquid_type = int(liquid_type)
+				if liquid_type in liquid_type_map:
+					this_loc_data["liquid_symbol"] = liquid_type_map[liquid_type]
+				else:
+					log_warn(room_filename + " has an unknown liquid, ignoring")
 
 		out_data[room_filename] = this_loc_data
 
@@ -376,7 +414,7 @@ def get_gamedata_data(gamedata_path: str):
 
 def materials_to_map(map_node, name: str):
 	"""Reads materials node containing a dictionary of symbol: { material details }.
-	Returns a dictionary mappping legacy symbol to translated symbol, based on data in materials file.
+	Returns a dictionary mapping legacy symbol to translated symbol, based on data in materials file.
 	If a material doesn't contain a legacy symbol, the normal (translated) symbol is used as key instead.
 	"""
 	out_map = {}

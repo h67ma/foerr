@@ -1,3 +1,5 @@
+from consts import *
+
 # more meaningful location names translations
 loc_names_map = {
 	# "rooms2": "", # test loc
@@ -81,12 +83,31 @@ flag_part_height = [
 	':', # 1/4 cell height
 ]
 
-FLAG_WATER = '*'
-
 missing_mats = {
-	FLAG_WATER: {
-		"type": 6
-	}
+	'*': {
+		FOERR_JSON_KEY_TYPE: 6,
+		FOERR_JSON_KEY_COLOR: "#0064C9"	# blue (default)
+	},
+	'&': {
+		FOERR_JSON_KEY_TYPE: 6,
+		FOERR_JSON_KEY_COLOR: "#76982E"	# green
+	},
+	'^': {
+		FOERR_JSON_KEY_TYPE: 6,
+		FOERR_JSON_KEY_COLOR: "#383E41"	# black (??)
+	},
+	'%': {
+		FOERR_JSON_KEY_TYPE: 6,
+		FOERR_JSON_KEY_COLOR: "#FF66AA"	# pink
+	},
+}
+
+# maps "wtip" to liquid material symbol
+liquid_type_map = {
+	0: '*',	# blue (default)
+	1: '&',	# green
+	2: '^',	# black (??)
+	3: '%',	# pink
 }
 
 # materials not actually used in any room
