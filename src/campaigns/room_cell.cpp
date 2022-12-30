@@ -210,8 +210,9 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 			return false;
 		}
 
-		this->stairsTxt.set(resMgr.getTexture(mat->texturePath));
-		this->leftOffset = mat->offsetLeft;
+		this->stairs.setTexture(resMgr.getTexture(mat->texturePath));
+		this->stairs.get().setPosition({ static_cast<float>(mat->offsetLeft), 0 });
+
 		this->hasStairs = true;
 	}
 	else if (mat->type == MAT_LIQUID)
@@ -335,16 +336,8 @@ void RoomCell::draw2(sf::RenderTarget &target) const
 {
 	sf::RenderStates states(this->getTransform());
 
-	std::shared_ptr<sf::Texture> txt;
-	sf::Sprite tmpSprite;
-
-	tmpSprite.setPosition({ static_cast<float>(this->leftOffset), 0 });
-	txt = this->stairsTxt.get();
-	if (txt != nullptr)
-	{
-		tmpSprite.setTexture(*txt);
-		target.draw(tmpSprite, states);
-	}
+	if (this->hasStairs)
+		target.draw(this->stairs.sprite, states);
 
 	if (this->hasPlatform || this->hasStairs || this->topCellBlocksLadderDelim)
 		target.draw(this->ladder.sprite, states);

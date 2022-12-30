@@ -45,13 +45,12 @@ class RoomCell : public sf::Transformable
 		TextureResource solidTxtMask;
 		TextureResource backgroundTxt;
 		TextureResource platformTxt;
-		TextureResource stairsTxt;
+		SpriteResource stairs;
 		SpriteResource ladder;
 		SpriteResource ladderDelim;
 		SpriteResource liquidDelim;
 		sf::RectangleShape liquid{ sf::Vector2f(CELL_SIDE_LEN, CELL_SIDE_LEN) };
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
-		int leftOffset = 0;
 		bool topCellBlocksLadderDelim;
 		bool topCellBlocksLiquidDelim;
 		static const std::unordered_map<char, int> heightFlags;
