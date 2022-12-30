@@ -151,11 +151,13 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 			return false;
 		}
 
-		this->ladderTxt.set(resMgr.getTexture(mat->texturePath));
-		this->ladderDelimTxt.set(resMgr.getTexture(mat->textureDelimPath));
-		this->ladderDelimOffset = mat->delimOffset;
+		this->ladder.setTexture(resMgr.getTexture(mat->texturePath));
+		this->ladder.get().setPosition({ static_cast<float>(mat->offsetLeft), 0 });
+
+		this->ladderDelim.setTexture(resMgr.getTexture(mat->textureDelimPath));
+		this->ladderDelim.get().setPosition(static_cast<sf::Vector2f>(mat->delimOffset));
+
 		this->topCellBlocksLadderDelim = topCellBlocksLadderDelim;
-		this->leftOffset = mat->offsetLeft;
 		this->hasLadder = true;
 	}
 	else if (mat->type == MAT_PLATFORM)
@@ -344,23 +346,10 @@ void RoomCell::draw2(sf::RenderTarget &target) const
 		target.draw(tmpSprite, states);
 	}
 
-
 	if (this->hasPlatform || this->hasStairs || this->topCellBlocksLadderDelim)
-	{
-		// we've already set left offset above
-		txt = this->ladderTxt.get();
-	}
+		target.draw(this->ladder.sprite, states);
 	else
-	{
-		tmpSprite.setPosition(static_cast<sf::Vector2f>(this->ladderDelimOffset));
-		txt = this->ladderDelimTxt.get();
-	}
-
-	if (txt != nullptr)
-	{
-		tmpSprite.setTexture(*txt);
-		target.draw(tmpSprite, states);
-	}
+		target.draw(this->ladderDelim.sprite, states);
 }
 
 /**
