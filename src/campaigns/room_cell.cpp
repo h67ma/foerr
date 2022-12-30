@@ -44,14 +44,20 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
 		return false;
 	}
 
-	this->solidTxt.set(resMgr.getTexture(mat->texturePath));
-	this->solidTxt.get()->setRepeated(true);
+	std::shared_ptr<sf::Texture> txt = resMgr.getTexture(mat->texturePath);
+	if (txt != nullptr)
+		txt->setRepeated(true);
+
+	this->solid.setTexture(txt);
 
 	// TODO mask will probably be handled elsewhere
 	if (mat->maskTexturePath != "")
 	{
-		this->solidTxtMask.set(resMgr.getTexture(mat->maskTexturePath));
-		this->solidTxtMask.get()->setRepeated(true);
+		txt = resMgr.getTexture(mat->maskTexturePath);
+		if (txt != nullptr)
+			txt->setRepeated(true);
+
+		this->solidMask.setTexture(txt);
 	}
 
 	this->hasSolid = true;
@@ -263,15 +269,29 @@ bool RoomCell::getHasSolid() const
 }
 
 /**
- * @brief Performs sanity checks after all symbols have already been added. This includes:
+ * @brief Finalizes Cell setup after all symbols have been added and performs sanity checks.
+ *
+ * Checks include:
  *   1. Liquid + solid without height flag is an invalid case
  *
  * @return true if the cell is sane
  * @return false if the cell contains errors
  */
-bool RoomCell::validate() const
+bool RoomCell::finishSetup()
 {
-	// TODO
+	// TODO check 1
+
+	// set the correct texture rect for solid. we also want to take part-height flag into account, by moving the sprite
+	// down and decreasing height of the texture rect. we can't do it inside ::addSolidSymbol(), as the height flag (if
+	// any) is not yet added at that point.
+	this->solid.get().setPosition({ 0, static_cast<float>(this->topOffset) });
+	this->solid.get().setTextureRect({
+		static_cast<int>(this->getPosition().x),
+		static_cast<int>(this->getPosition().y) + this->topOffset,
+		CELL_SIDE_LEN,
+		CELL_SIDE_LEN - this->topOffset
+	});
+
 	return true;
 }
 
@@ -358,9 +378,6 @@ void RoomCell::draw3(sf::RenderTarget &target) const
 {
 	sf::RenderStates states(this->getTransform());
 
-	std::shared_ptr<sf::Texture> txt;
-	sf::Sprite tmpSprite;
-
 	if (this->hasLiquid)
 	{
 		if (this->topCellBlocksLiquidDelim)
@@ -369,20 +386,6 @@ void RoomCell::draw3(sf::RenderTarget &target) const
 			target.draw(this->liquidDelim.sprite, states);
 	}
 
-	// for solid we want to take part-height flag into account, by moving the sprite down and decreasing height of the
-	// texture rect.
-	tmpSprite.setPosition({ 0, static_cast<float>(this->topOffset) });
-	tmpSprite.setTextureRect({
-		static_cast<int>(this->getPosition().x),
-		static_cast<int>(this->getPosition().y) + this->topOffset,
-		CELL_SIDE_LEN,
-		CELL_SIDE_LEN - this->topOffset
-	});
-
-	txt = this->solidTxt.get();
-	if (txt != nullptr)
-	{
-		tmpSprite.setTexture(*txt);
-		target.draw(tmpSprite, states);
-	}
+	if (this->hasSolid)
+		target.draw(this->solid.sprite, states);
 }

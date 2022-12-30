@@ -185,9 +185,9 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 			return false;
 		}
 
-		for (const auto &cell : this->cells[y])
+		for (auto &cell : this->cells[y])
 		{
-			if (!cell.validate())
+			if (!cell.finishSetup())
 				return false;
 		}
 	}

@@ -41,8 +41,8 @@
 class RoomCell : public sf::Transformable
 {
 	private:
-		TextureResource solidTxt;
-		TextureResource solidTxtMask;
+		SpriteResource solid;
+		SpriteResource solidMask;
 		TextureResource backgroundTxt;
 		TextureResource platformTxt;
 		SpriteResource stairs;
@@ -68,7 +68,7 @@ class RoomCell : public sf::Transformable
 		bool addSolidSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
 		bool addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool topCellBlocksLiquidDelim,
 							ResourceManager &resMgr, const MaterialManager &matMgr);
-		bool validate() const;
+		bool finishSetup();
 		bool blocksBottomCellLadderDelim() const;
 		bool blocksBottomCellLiquidDelim() const;
 		bool getHasSolid() const;
