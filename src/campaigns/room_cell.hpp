@@ -47,11 +47,13 @@ class RoomCell : public sf::Transformable
 		TextureResource stairsTxt;
 		TextureResource ladderTxt;
 		TextureResource ladderDelimTxt;
+		TextureResource liquidDelimTxt;
 		sf::RectangleShape liquid{ sf::Vector2f(CELL_SIDE_LEN, CELL_SIDE_LEN) };
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
 		int leftOffset = 0;
 		sf::Vector2i ladderDelimOffset;
 		bool topCellBlocksLadderDelim;
+		bool topCellBlocksLiquidDelim;
 		static const std::unordered_map<char, int> heightFlags;
 
 		// TODO? could be potentially replaced with flags, along with other elements
@@ -63,11 +65,14 @@ class RoomCell : public sf::Transformable
 		bool hasLiquid = false;
 
 	public:
+		static const sf::Color liquidSpriteColor;
 		bool addSolidSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
-		bool addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, ResourceManager &resMgr,
-							const MaterialManager &matMgr);
+		bool addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool topCellBlocksLiquidDelim,
+							ResourceManager &resMgr, const MaterialManager &matMgr);
 		bool validate() const;
 		bool blocksBottomCellLadderDelim() const;
+		bool blocksBottomCellLiquidDelim() const;
+		bool getHasSolid() const;
 		void draw1(sf::RenderTarget &target) const;
 		void draw2(sf::RenderTarget &target) const;
 		void draw3(sf::RenderTarget &target) const;

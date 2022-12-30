@@ -11,6 +11,8 @@ const std::unordered_map<char, int> RoomCell::heightFlags {
 	{ ':', 30}	// 1/4 height
 };
 
+const sf::Color RoomCell::liquidSpriteColor = sf::Color(255, 255, 255, LIQUID_OPACITY);
+
 /**
  * @brief Adds a solid symbol to the cell
  * It is expected that the solid will be added to the cell before any other symbols.
@@ -79,13 +81,14 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
  *
  * @param symbol symbol character
  * @param topCellBlocksLadderDelim whether the cell at (x, y-1) has blocked this cell from drawing ladder delim
+ * @param topCellBlocksLiquidDelim whether the cell at (x, y-1) has blocked this cell from drawing water delim (surface)
  * @param resMgr reference to resource manager
  * @param matMgr reference to material manager
  * @return true if the symbol was added successfully
  * @return false if the symbol cannot be added
  */
-bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, ResourceManager &resMgr,
-							  const MaterialManager &matMgr)
+bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool topCellBlocksLiquidDelim,
+							  ResourceManager &resMgr, const MaterialManager &matMgr)
 {
 	// first check if symbol is a height flag, as it won't be present in mat mgr
 	auto heightFlagSearch = RoomCell::heightFlags.find(symbol);
@@ -218,6 +221,8 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, Resour
 			return false;
 		}
 
+		this->liquidDelimTxt.set(resMgr.getTexture(mat->textureDelimPath));
+		this->topCellBlocksLiquidDelim = topCellBlocksLiquidDelim;
 		this->liquid.setFillColor(mat->color);
 		this->hasLiquid = true;
 	}
@@ -237,6 +242,19 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, Resour
 bool RoomCell::blocksBottomCellLadderDelim() const
 {
 	return this->hasLadder || this->hasSolid;
+}
+
+/**
+ * Determines if the cell below this cell should draw a liquid delimeter (surface) (if it's a liquid)
+ */
+bool RoomCell::blocksBottomCellLiquidDelim() const
+{
+	return this->hasLiquid || this->hasSolid;
+}
+
+bool RoomCell::getHasSolid() const
+{
+	return this->hasSolid;
 }
 
 /**
@@ -359,6 +377,25 @@ void RoomCell::draw3(sf::RenderTarget &target) const
 	std::shared_ptr<sf::Texture> txt;
 	sf::Sprite tmpSprite;
 
+	if (this->hasLiquid)
+	{
+		if (this->topCellBlocksLiquidDelim)
+		{
+			target.draw(this->liquid, states);
+		}
+		else
+		{
+			txt = this->liquidDelimTxt.get();
+			if (txt != nullptr)
+			{
+				tmpSprite.setTexture(*txt);
+				tmpSprite.setColor(liquidSpriteColor);
+				target.draw(tmpSprite, states);
+				tmpSprite.setColor(sf::Color::White);
+			}
+		}
+	}
+
 	// for solid we want to take part-height flag into account, by moving the sprite down and decreasing height of the
 	// texture rect.
 	tmpSprite.setPosition({ 0, static_cast<float>(this->topOffset) });
@@ -368,9 +405,6 @@ void RoomCell::draw3(sf::RenderTarget &target) const
 		CELL_SIDE_LEN,
 		CELL_SIDE_LEN - this->topOffset
 	});
-
-	if (this->hasLiquid)
-		target.draw(this->liquid, states);
 
 	txt = this->solidTxt.get();
 	if (txt != nullptr)

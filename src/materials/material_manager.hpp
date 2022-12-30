@@ -5,6 +5,9 @@
 #include "material.hpp"
 #include "../util/json.hpp"
 
+// TODO find the exact value, or just store it in materials.json
+#define LIQUID_OPACITY 0x9A
+
 /**
  * Material Manager stores information about materials and allows retrieving it. This data must be loaded from a file.
  *

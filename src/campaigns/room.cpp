@@ -60,9 +60,9 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 
 	// if liquid level is defined and > 0, room is fully submerged to that level (counting from bottom, in cells).
 	// solids are also submerged
-	uint liquidLevel = 0;
-	parseJsonKey<uint>(root, filePath, FOERR_JSON_KEY_LIQUID_LEVEL, liquidLevel, true);
-	if (liquidLevel > 0)
+	this->liquidLevelHeight = 0;
+	parseJsonKey<uint>(root, filePath, FOERR_JSON_KEY_LIQUID_LEVEL, this->liquidLevelHeight, true);
+	if (this->liquidLevelHeight > 0)
 	{
 		std::string liquidSymbolStr;
 		if (!parseJsonKey<std::string>(root, filePath, FOERR_JSON_KEY_LIQUID_SYMBOL, liquidSymbolStr))
@@ -83,10 +83,12 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 			return false;
 		}
 
-		uint liquidLevelPx = CELL_SIDE_LEN * liquidLevel;
+		uint liquidLevelPx = CELL_SIDE_LEN * this->liquidLevelHeight;
 		this->liquid.setSize(sf::Vector2f(GAME_AREA_WIDTH, liquidLevelPx));
 		this->liquid.setPosition(0, GAME_AREA_HEIGHT - liquidLevelPx);
 		this->liquid.setFillColor(liquidMat->color);
+		this->liquidDelim.setTexture(resMgr.getTexture(liquidMat->textureDelimPath));
+		this->liquidDelim.get().setColor(RoomCell::liquidSpriteColor);
 	}
 
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
@@ -164,13 +166,15 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 				// 2nd, 3rd, etc. symbol, not empty
 
 				// because we load cells Frgt/10 style (from the top to the bottom), we already know if a particular
-				// cell needs to draw ladder delim based on the cell above it.
+				// cell needs to draw ladder or liquid delim based on the cell above it.
 				// if y = 0 we don't want to draw delim
 				bool topBlocksLadderDelim = y == 0 || this->cells[y - 1][x].blocksBottomCellLadderDelim();
+				bool topBlocksLiquidDelim = y == 0 || this->cells[y - 1][x].blocksBottomCellLiquidDelim();
 
 				if (symbol == ROOM_SYMBOL_UNKNOWN)
 					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
-				else if (!this->cells[y][x].addOtherSymbol(symbol, topBlocksLadderDelim, resMgr, matMgr))
+				else if (!this->cells[y][x].addOtherSymbol(symbol, topBlocksLadderDelim, topBlocksLiquidDelim, resMgr,
+														   matMgr))
 					return false;
 			}
 		}
@@ -233,15 +237,44 @@ void Room::init()
 	// because of this we need to store the result in a standard sf::Texture
 	this->cachedCellsTxt = roomRenderTxt.getTexture();
 	this->cachedCells.setTexture(this->cachedCellsTxt);
+
+	// we also need to pre-render liquid level. because of transparency and a sprite used for surface, the alpha will
+	// get messed up if we simply draw it on top of liquid level rectangle. to counter this, we use sf::BlendNone.
+	// but it would be difficult to use it along other elements (cells, backwall, etc.), therefore RenderTexture.
+	// we can use the same RenderTexture which we used to draw cells as it's already the right size.
+	roomRenderTxt.clear(sf::Color::Transparent);
+	sf::RenderStates states(sf::BlendNone);
+
+	// liquid level rectangle
+	roomRenderTxt.draw(this->liquid, states);
+
+	// delims (surface)
+	if (this->liquidLevelHeight > 0 && this->liquidLevelHeight < ROOM_HEIGHT_WITH_BORDER)
+	{
+		// we only need to check the row above room-wide water level
+		uint y = ROOM_HEIGHT_WITH_BORDER - this->liquidLevelHeight;
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			if (!this->cells[y - 1][x].blocksBottomCellLiquidDelim() && !this->cells[y][x].getHasSolid())
+			{
+				this->liquidDelim.get().setPosition(x * CELL_SIDE_LEN, y * CELL_SIDE_LEN);
+				roomRenderTxt.draw(this->liquidDelim.get(), states);
+			}
+		}
+	}
+
+	this->cachedLiquidLevelTxt = roomRenderTxt.getTexture();
+	this->cachedLiquidLevel.setTexture(this->cachedLiquidLevelTxt);
 }
 
 /**
- * Clears the cached texture containing pre-rendered cells.
+ * Clears cached textures used for rendering the Room.
  * Should be called when the Room is no longer displayed.
  */
 void Room::deinit()
 {
 	this->cachedCellsTxt = sf::Texture();
+	this->cachedLiquidLevelTxt = sf::Texture();
 }
 
 /**
@@ -276,8 +309,13 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	// credits to oomek on https://en.sfml-dev.org/forums/index.php?topic=24250.msg164091#msg164091
 	states.blendMode = sf::BlendMode(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
 	target.draw(this->cachedCells, states);
-	states.blendMode = sf::BlendAlpha;
 
-	// liquid is drawn over all cell elements, including solids. if it's not set, nothing will be drawn.
-	target.draw(this->liquid, states);
+	// liquid is drawn over all cell elements, including solids
+	// liquids were also rendered to RenderTexture, but using sf::BlendNone, therefore the default blending mode works
+	// correctly here.
+	if (this->liquidLevelHeight > 0)
+	{
+		states.blendMode = sf::BlendAlpha;
+		target.draw(this->cachedLiquidLevel, states);
+	}
 }

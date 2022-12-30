@@ -3,9 +3,6 @@
 #include "../util/i18n.hpp"
 #include "../util/serializable_color.hpp"
 
-// TODO find the exact value, or just store it in materials.json
-#define LIQUID_OPACITY 0x9A
-
 bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct material> &theMap, const char* nodeKey)
 {
 	auto nodeSearch = root.find(nodeKey);

@@ -25,9 +25,13 @@ class Room : public sf::Drawable, public sf::Transformable
 	private:
 		RoomCell cells[ROOM_HEIGHT_WITH_BORDER][ROOM_WIDTH_WITH_BORDER];
 		SpriteResource backwall;
+		SpriteResource liquidDelim;
 		sf::RectangleShape liquid;
 		sf::Texture cachedCellsTxt;
 		sf::Sprite cachedCells;
+		uint liquidLevelHeight;
+		sf::Texture cachedLiquidLevelTxt;
+		sf::Sprite cachedLiquidLevel;
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
 
 	public:

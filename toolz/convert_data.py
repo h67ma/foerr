@@ -86,19 +86,23 @@ flag_part_height = [
 missing_mats = {
 	'*': {
 		FOERR_JSON_KEY_TYPE: 6,
-		FOERR_JSON_KEY_COLOR: "#0064C9"	# blue (default)
+		FOERR_JSON_KEY_COLOR: "#0064C9",	# blue (default)
+		FOERR_JSON_KEY_TEXTURE_DELIM: "liquid_water_delim",
 	},
 	'&': {
 		FOERR_JSON_KEY_TYPE: 6,
-		FOERR_JSON_KEY_COLOR: "#76982E"	# green
+		FOERR_JSON_KEY_COLOR: "#76982E",	# green
+		FOERR_JSON_KEY_TEXTURE_DELIM: "liquid_goo_delim",
 	},
 	'^': {
 		FOERR_JSON_KEY_TYPE: 6,
-		FOERR_JSON_KEY_COLOR: "#383E41"	# black (??)
+		FOERR_JSON_KEY_COLOR: "#383E41",	# black (??)
+		FOERR_JSON_KEY_TEXTURE_DELIM: "liquid_tar_delim",
 	},
 	'%': {
 		FOERR_JSON_KEY_TYPE: 6,
-		FOERR_JSON_KEY_COLOR: "#FF66AA"	# pink
+		FOERR_JSON_KEY_COLOR: "#FF66AA",	# pink
+		FOERR_JSON_KEY_TEXTURE_DELIM: "liquid_pink_delim",
 	},
 }
 
