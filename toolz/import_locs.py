@@ -36,8 +36,10 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 	else:
 		log_verbose("Detected grind location")
 
-	output_root = {}
-	output_root[FOERR_JSON_KEY_API_VERSION] = JSON_API_VERSION
+	output_root = {
+		FOERR_JSON_KEY_API_VERSION: JSON_API_VERSION,
+		FOERR_JSON_KEY_VERSION: 1,
+	}
 
 	loc_backwall_path = None
 	if FOERR_JSON_KEY_BACKWALL in gamedata_data and gamedata_data[FOERR_JSON_KEY_BACKWALL] != "sky":

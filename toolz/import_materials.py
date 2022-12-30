@@ -43,6 +43,7 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 
 	materials_root = {
 		FOERR_JSON_KEY_API_VERSION: JSON_API_VERSION,
+		FOERR_JSON_KEY_VERSION: 1,
 		FOERR_JSON_KEY_SOLIDS: {},
 		FOERR_JSON_KEY_OTHER: {},
 	}
