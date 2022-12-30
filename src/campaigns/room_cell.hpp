@@ -43,7 +43,7 @@ class RoomCell : public sf::Transformable
 	private:
 		SpriteResource solid;
 		SpriteResource solidMask;
-		TextureResource backgroundTxt;
+		SpriteResource background;
 		TextureResource platformTxt;
 		SpriteResource stairs;
 		SpriteResource ladder;
@@ -55,7 +55,7 @@ class RoomCell : public sf::Transformable
 		bool topCellBlocksLiquidDelim;
 		static const std::unordered_map<char, int> heightFlags;
 
-		// TODO? could be potentially replaced with flags, along with other elements
+		// TODO? all flags could potentially be moved to a single int to save a bit of memory
 		bool hasSolid = false;
 		bool hasBackground = false;
 		bool hasPlatform = false;

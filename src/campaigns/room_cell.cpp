@@ -137,8 +137,19 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 			return false;
 		}
 
-		this->backgroundTxt.set(resMgr.getTexture(mat->texturePath));
-		this->backgroundTxt.get()->setRepeated(true);
+		std::shared_ptr<sf::Texture> txt = resMgr.getTexture(mat->texturePath);
+		if (txt != nullptr)
+			txt->setRepeated(true);
+
+		this->background.setTexture(txt);
+		this->background.get().setTextureRect({
+			static_cast<int>(this->getPosition().x),
+			static_cast<int>(this->getPosition().y),
+			CELL_SIDE_LEN,
+			CELL_SIDE_LEN
+		});
+		this->background.get().setColor(BACKWALL_COLOR); // darken background
+
 		this->hasBackground = true;
 	}
 	else if (mat->type == MAT_LADDER)
@@ -317,21 +328,15 @@ void RoomCell::draw1(sf::RenderTarget &target) const
 	std::shared_ptr<sf::Texture> txt;
 	sf::Sprite tmpSprite;
 
+	if (this->hasBackground)
+		target.draw(this->background.sprite, states);
+
 	tmpSprite.setTextureRect({
 		static_cast<int>(this->getPosition().x),
 		static_cast<int>(this->getPosition().y),
 		CELL_SIDE_LEN,
 		CELL_SIDE_LEN
 	});
-
-	txt = this->backgroundTxt.get();
-	if (txt != nullptr)
-	{
-		tmpSprite.setColor(BACKWALL_COLOR); // darken background
-		tmpSprite.setTexture(*txt);
-		target.draw(tmpSprite, states);
-		tmpSprite.setColor(sf::Color::White); // un-darken
-	}
 
 	txt = this->platformTxt.get();
 	if (txt != nullptr)
