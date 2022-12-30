@@ -306,8 +306,7 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	// because we render stuff first to RenderTexture, and then the texture to target, alpha gets blended two times,
 	// and therefore gets screwed up. to fix it, use a custom blending mode.
-	// credits to oomek on https://en.sfml-dev.org/forums/index.php?topic=24250.msg164091#msg164091
-	states.blendMode = sf::BlendMode(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
+	states.blendMode = BlendAlphaTransparent;
 	target.draw(this->cachedCells, states);
 
 	// liquid is drawn over all cell elements, including solids

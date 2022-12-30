@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics/BlendMode.hpp>
+
 #define STACKTRACE_MAX_CNT 10
 #define ANIM_FRAME_DURATION_MS 33 // around 30fps
 
@@ -48,3 +50,6 @@ enum Direction
 	DIR_FRONT,
 	DIR_BACK, // the backrooms o_O
 };
+
+// credits to oomek on https://en.sfml-dev.org/forums/index.php?topic=24250.msg164091#msg164091
+const sf::BlendMode BlendAlphaTransparent(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
