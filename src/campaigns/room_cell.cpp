@@ -221,7 +221,9 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 			return false;
 		}
 
-		this->liquidDelimTxt.set(resMgr.getTexture(mat->textureDelimPath));
+		this->liquidDelim.setTexture(resMgr.getTexture(mat->textureDelimPath));
+		this->liquidDelim.get().setColor(liquidSpriteColor);
+
 		this->topCellBlocksLiquidDelim = topCellBlocksLiquidDelim;
 		this->liquid.setFillColor(mat->color);
 		this->hasLiquid = true;
@@ -380,20 +382,9 @@ void RoomCell::draw3(sf::RenderTarget &target) const
 	if (this->hasLiquid)
 	{
 		if (this->topCellBlocksLiquidDelim)
-		{
 			target.draw(this->liquid, states);
-		}
 		else
-		{
-			txt = this->liquidDelimTxt.get();
-			if (txt != nullptr)
-			{
-				tmpSprite.setTexture(*txt);
-				tmpSprite.setColor(liquidSpriteColor);
-				target.draw(tmpSprite, states);
-				tmpSprite.setColor(sf::Color::White);
-			}
-		}
+			target.draw(this->liquidDelim.sprite, states);
 	}
 
 	// for solid we want to take part-height flag into account, by moving the sprite down and decreasing height of the

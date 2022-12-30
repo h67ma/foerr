@@ -2,12 +2,15 @@
 
 SpriteResource::SpriteResource(std::shared_ptr<sf::Texture> txt) : txt(txt)
 {
-	this->sprite.setTexture(*txt);
+	if (txt != nullptr)
+		this->sprite.setTexture(*txt);
 }
 
 void SpriteResource::setTexture(std::shared_ptr<sf::Texture> txt)
 {
-	this->sprite.setTexture(*txt);
+	if (txt != nullptr)
+		this->sprite.setTexture(*txt);
+
 	this->txt = txt;
 }
 

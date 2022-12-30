@@ -7,6 +7,7 @@
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/texture_resource.hpp"
+#include "../resources/sprite_resource.hpp"
 
 #define CELL_SIDE_LEN 40
 
@@ -47,7 +48,7 @@ class RoomCell : public sf::Transformable
 		TextureResource stairsTxt;
 		TextureResource ladderTxt;
 		TextureResource ladderDelimTxt;
-		TextureResource liquidDelimTxt;
+		SpriteResource liquidDelim;
 		sf::RectangleShape liquid{ sf::Vector2f(CELL_SIDE_LEN, CELL_SIDE_LEN) };
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
 		int leftOffset = 0;
