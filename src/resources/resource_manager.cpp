@@ -69,7 +69,7 @@ bool ResourceManager::loadCore()
 		return false; // missing texture could not be loaded
 
 	missingTxt->setRepeated(true);
-	this->notFoundTexture.set(missingTxt);
+	this->notFoundTexture = missingTxt;
 
 	Log::d(STR_LOADING_CORE_RES_DONE);
 
@@ -97,7 +97,7 @@ std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string path, bool 
 		if (returnSomething)
 		{
 			// do not output a warning as it would produce way too much spam. the problem will be clearly visible anyway
-			return this->notFoundTexture.get();
+			return this->notFoundTexture;
 		}
 		else
 		{
