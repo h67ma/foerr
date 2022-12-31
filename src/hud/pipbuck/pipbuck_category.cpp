@@ -17,8 +17,8 @@ PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolu
 	soundPageChange(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	soundClick(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
 {
-	this->soundPageChange.get().setVolume(static_cast<float>(fxVolume));
-	this->soundClick.get().setVolume(static_cast<float>(fxVolume));
+	this->soundPageChange.setVolume(static_cast<float>(fxVolume));
+	this->soundClick.setVolume(static_cast<float>(fxVolume));
 
 	// create buttons for switching pages
 	uint x = PIPB_PAGE_BTNS_X_START;
@@ -86,7 +86,7 @@ ClickStatus PipBuckCategory::handleLeftClick(sf::Vector2i clickPos)
 		// so there's no point in having each page keep its own sf::Sound for that.
 		// except the case when pipbuck is being closed, then pipbuck sound should play
 		if (pageResult != CLICK_CONSUMED_CLOSE)
-			this->soundClick.get().play();
+			this->soundClick.play();
 
 		return pageResult;
 	}
@@ -98,7 +98,7 @@ ClickStatus PipBuckCategory::handleLeftClick(sf::Vector2i clickPos)
 			if (btn.first != this->selectedPage)
 			{
 				this->changePage(btn.first);
-				this->soundPageChange.get().play();
+				this->soundPageChange.play();
 			}
 			return CLICK_CONSUMED;
 		}

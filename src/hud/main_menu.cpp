@@ -40,7 +40,7 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, uint trans
 	}),
 	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
 {
-	this->btnSound.get().setVolume(static_cast<float>(fxVolume));
+	this->btnSound.setVolume(static_cast<float>(fxVolume));
 
 	for (auto &btn : this->buttons)
 	{
@@ -59,7 +59,7 @@ void MainMenu::handleLeftClick(sf::Vector2i clickPos)
 {
 	// don't need to subtract anything as menu position is (0, 0)
 	if (this->clickMgr.handleLeftClick(clickPos) == CLICK_CONSUMED)
-		this->btnSound.get().play();
+		this->btnSound.play();
 }
 
 void MainMenu::handleMouseMove(sf::Vector2i mousePos)

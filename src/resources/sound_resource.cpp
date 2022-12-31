@@ -2,22 +2,20 @@
 
 SoundResource::SoundResource(std::shared_ptr<sf::SoundBuffer> buffer) : buffer(buffer)
 {
-	this->sound.setBuffer(*buffer);
+	if (buffer != nullptr)
+		sf::Sound::setBuffer(*buffer);
 }
 
 void SoundResource::setBuffer(std::shared_ptr<sf::SoundBuffer> buffer)
 {
-	this->sound.setBuffer(*buffer);
-	this->buffer = buffer;
-}
+	if (buffer != nullptr)
+		sf::Sound::setBuffer(*buffer);
 
-sf::Sound& SoundResource::get()
-{
-	return this->sound;
+	this->buffer = buffer;
 }
 
 void SoundResource::clear()
 {
-	this->sound.resetBuffer();
+	this->resetBuffer();
 	this->buffer = nullptr;
 }

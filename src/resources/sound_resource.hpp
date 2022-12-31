@@ -12,16 +12,14 @@
  * to type Resource<sf::SoundBuffer, sf::Sound>, etc. everywhere.
  * Besides, we can conveniently set sf::Sound buffer here as a little bonus.
  */
-class SoundResource
+class SoundResource : public sf::Sound
 {
 	private:
 		std::shared_ptr<sf::SoundBuffer> buffer;
-		sf::Sound sound;
 
 	public:
 		SoundResource() { /* kappa */ }
 		explicit SoundResource(std::shared_ptr<sf::SoundBuffer> buffer);
 		void setBuffer(std::shared_ptr<sf::SoundBuffer> buffer);
-		sf::Sound& get();
 		void clear();
 };

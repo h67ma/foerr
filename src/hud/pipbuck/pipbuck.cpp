@@ -71,8 +71,8 @@ PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceMana
 	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	pipBuckSprite(resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY))
 {
-	this->soundOpenClose.get().setVolume(static_cast<float>(fxVolume));
-	this->soundCategoryBtn.get().setVolume(static_cast<float>(fxVolume));
+	this->soundOpenClose.setVolume(static_cast<float>(fxVolume));
+	this->soundCategoryBtn.setVolume(static_cast<float>(fxVolume));
 
 	this->radIndicator.setPointCount(3);
 	this->radIndicator.setOrigin(5.f, 0.f);
@@ -103,7 +103,7 @@ void PipBuck::open(bool sound)
 {
 	this->gameState = STATE_PIPBUCK;
 	if (sound)
-		this->soundOpenClose.get().play();
+		this->soundOpenClose.play();
 	Log::d(STR_GAME_PAUSED);
 }
 
@@ -113,7 +113,7 @@ void PipBuck::open(bool sound)
 void PipBuck::close()
 {
 	this->gameState = STATE_PLAYING;
-	this->soundOpenClose.get().play();
+	this->soundOpenClose.play();
 	Log::d(STR_GAME_RESUMED);
 }
 
@@ -162,7 +162,7 @@ void PipBuck::handleLeftClick(sf::Vector2i clickPos)
 			if (btn.first != this->selectedCategory)
 			{
 				this->changeCategory(btn.first);
-				this->soundCategoryBtn.get().play();
+				this->soundCategoryBtn.play();
 			}
 			return;
 		}
@@ -241,7 +241,7 @@ bool PipBuck::switchToPage(PipBuckPageType pageType)
 
 		// we only want to play category change sound if we're not opening/closing PipBuck,
 		// as then another sound will play
-		this->soundCategoryBtn.get().play();
+		this->soundCategoryBtn.play();
 	}
 	else
 		this->open();
