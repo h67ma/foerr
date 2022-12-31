@@ -101,3 +101,4 @@
 #define STR_SOLID_PRESENT_CANT_ADD "Solid present in cell, can't add '%c'."
 #define STR_STAIRS_PRESENT_CANT_ADD "Stairs present in cell, can't add platform '%c'."
 #define STR_PLATFORM_PRESENT_CANT_ADD "Platform present in cell, can't add stairs '%c'."
+#define STR_LIQUID_SOLID_NO_HEIGHT_FLAG "Liquid and solid defined, but no height flag defined."

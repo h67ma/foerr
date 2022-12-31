@@ -300,7 +300,11 @@ bool RoomCell::getHasSolid() const
  */
 bool RoomCell::finishSetup()
 {
-	// TODO check 1
+	if (this->hasLiquid && this->hasSolid && this->topOffset == 0)
+	{
+		Log::e(STR_LIQUID_SOLID_NO_HEIGHT_FLAG);
+		return false;
+	}
 
 	// set the correct texture rect for solid. we also want to take part-height flag into account, by moving the sprite
 	// down and decreasing height of the texture rect. we can't do it inside ::addSolidSymbol(), as the height flag (if
