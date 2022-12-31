@@ -415,7 +415,7 @@ void Location::updateState()
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// background full is drawn the same during transition and regular gameplay - it's "far away" so it shouldn't move
-	target.draw(this->backgroundFullSprite.sprite, states); // note: can be empty
+	target.draw(this->backgroundFullSprite, states); // note: can be empty
 
 	if (!this->roomTransitionInProgress)
 	{

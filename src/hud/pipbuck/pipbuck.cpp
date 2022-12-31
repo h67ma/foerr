@@ -93,7 +93,7 @@ void PipBuck::handleScreenResize(sf::Vector2u windowSize)
 {
 	// for now copy the behaviour of Remains pipbuck, i.e. display it unscaled in bottom left corner
 	// TODO scale should affect sprite size and individual buttons/labels/etc scale and placement
-	this->setPosition(0, static_cast<float>(windowSize.y - this->pipBuckSprite.get().getLocalBounds().height));
+	this->setPosition(0, static_cast<float>(windowSize.y - this->pipBuckSprite.getLocalBounds().height));
 }
 
 /**
@@ -296,7 +296,7 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
-	target.draw(this->pipBuckSprite.sprite, states);
+	target.draw(this->pipBuckSprite, states);
 	target.draw(this->radIndicator, states);
 
 	target.draw(this->categories.at(this->selectedCategory), states);

@@ -12,20 +12,14 @@
  * to type Resource<sf::Texture, sf::Sprite>, etc. everywhere.
  * Besides, we can conveniently set sprite's texture here here as a little bonus.
  */
-class SpriteResource
+class SpriteResource : public sf::Sprite
 {
 	private:
 		std::shared_ptr<sf::Texture> txt;
 
 	public:
-		// can't use ::get() for SFML's ::draw() which requires a const value :/
-		// member access should be used *only* in ::draw()
-		// TODO there might be a better way to solve this, but I'm too sleepy to find it now
-		sf::Sprite sprite;
-
 		SpriteResource() { /* kappa */ }
 		explicit SpriteResource(std::shared_ptr<sf::Texture> txt);
 		void setTexture(std::shared_ptr<sf::Texture> txt);
-		sf::Sprite& get();
 		void clearPtr();
 };

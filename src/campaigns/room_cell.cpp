@@ -142,13 +142,13 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 			txt->setRepeated(true);
 
 		this->background.setTexture(txt);
-		this->background.get().setTextureRect({
+		this->background.setTextureRect({
 			static_cast<int>(this->getPosition().x),
 			static_cast<int>(this->getPosition().y),
 			CELL_SIDE_LEN,
 			CELL_SIDE_LEN
 		});
-		this->background.get().setColor(BACKWALL_COLOR); // darken background
+		this->background.setColor(BACKWALL_COLOR); // darken background
 
 		this->hasBackground = true;
 	}
@@ -169,10 +169,10 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 		}
 
 		this->ladder.setTexture(resMgr.getTexture(mat->texturePath));
-		this->ladder.get().setPosition({ static_cast<float>(mat->offsetLeft), 0 });
+		this->ladder.setPosition({ static_cast<float>(mat->offsetLeft), 0 });
 
 		this->ladderDelim.setTexture(resMgr.getTexture(mat->textureDelimPath));
-		this->ladderDelim.get().setPosition(static_cast<sf::Vector2f>(mat->delimOffset));
+		this->ladderDelim.setPosition(static_cast<sf::Vector2f>(mat->delimOffset));
 
 		this->topCellBlocksLadderDelim = topCellBlocksLadderDelim;
 		this->hasLadder = true;
@@ -205,7 +205,7 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 			txt->setRepeated(true);
 
 		this->platform.setTexture(txt);
-		this->platform.get().setTextureRect({
+		this->platform.setTextureRect({
 			static_cast<int>(this->getPosition().x),
 			static_cast<int>(this->getPosition().y),
 			CELL_SIDE_LEN,
@@ -238,7 +238,7 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 		}
 
 		this->stairs.setTexture(resMgr.getTexture(mat->texturePath));
-		this->stairs.get().setPosition({ static_cast<float>(mat->offsetLeft), 0 });
+		this->stairs.setPosition({ static_cast<float>(mat->offsetLeft), 0 });
 
 		this->hasStairs = true;
 	}
@@ -252,7 +252,7 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 		}
 
 		this->liquidDelim.setTexture(resMgr.getTexture(mat->textureDelimPath));
-		this->liquidDelim.get().setColor(liquidSpriteColor);
+		this->liquidDelim.setColor(liquidSpriteColor);
 
 		this->topCellBlocksLiquidDelim = topCellBlocksLiquidDelim;
 		this->liquid.setFillColor(mat->color);
@@ -305,8 +305,8 @@ bool RoomCell::finishSetup()
 	// set the correct texture rect for solid. we also want to take part-height flag into account, by moving the sprite
 	// down and decreasing height of the texture rect. we can't do it inside ::addSolidSymbol(), as the height flag (if
 	// any) is not yet added at that point.
-	this->solid.get().setPosition({ 0, static_cast<float>(this->topOffset) });
-	this->solid.get().setTextureRect({
+	this->solid.setPosition({ 0, static_cast<float>(this->topOffset) });
+	this->solid.setTextureRect({
 		static_cast<int>(this->getPosition().x),
 		static_cast<int>(this->getPosition().y) + this->topOffset,
 		CELL_SIDE_LEN,
@@ -336,10 +336,10 @@ void RoomCell::draw1(sf::RenderTarget &target) const
 	sf::RenderStates states(this->getTransform());
 
 	if (this->hasBackground)
-		target.draw(this->background.sprite, states);
+		target.draw(this->background, states);
 
 	if (this->hasPlatform)
-		target.draw(this->platform.sprite, states);
+		target.draw(this->platform, states);
 }
 
 /**
@@ -358,12 +358,12 @@ void RoomCell::draw2(sf::RenderTarget &target) const
 	sf::RenderStates states(this->getTransform());
 
 	if (this->hasStairs)
-		target.draw(this->stairs.sprite, states);
+		target.draw(this->stairs, states);
 
 	if (this->hasPlatform || this->hasStairs || this->topCellBlocksLadderDelim)
-		target.draw(this->ladder.sprite, states);
+		target.draw(this->ladder, states);
 	else
-		target.draw(this->ladderDelim.sprite, states);
+		target.draw(this->ladderDelim, states);
 }
 
 /**
@@ -384,9 +384,9 @@ void RoomCell::draw3(sf::RenderTarget &target) const
 		if (this->topCellBlocksLiquidDelim)
 			target.draw(this->liquid, states);
 		else
-			target.draw(this->liquidDelim.sprite, states);
+			target.draw(this->liquidDelim, states);
 	}
 
 	if (this->hasSolid)
-		target.draw(this->solid.sprite, states);
+		target.draw(this->solid, states);
 }

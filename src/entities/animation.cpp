@@ -12,7 +12,7 @@ Animation::Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u size, co
 {
 	this->textureHeight = texture->getSize().y;
 
-	sprite.get().setTextureRect(this->textureRect);
+	sprite.setTextureRect(this->textureRect);
 
 	uint topOffset = 0;
 	bool first = true;
@@ -41,7 +41,7 @@ void Animation::moveTexture()
 	if (this->textureRect.left >= static_cast<int>(this->loadedKindTextureWidth))
 		this->textureRect.left = 0;
 
-	this->sprite.get().setTextureRect(this->textureRect);
+	this->sprite.setTextureRect(this->textureRect);
 }
 
 void Animation::nextFrame()
@@ -83,5 +83,5 @@ bool Animation::setAnimation(AnimationKind kind)
 void Animation::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
-	target.draw(this->sprite.sprite, states);
+	target.draw(this->sprite, states);
 }

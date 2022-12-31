@@ -101,9 +101,9 @@ void LocButton::setGuiScale(GuiScale scale)
 
 	// center icon
 	// floor the coordinates to avoid pixel misalignment
-	this->icon.get().setPosition(
-		floor((sideLen - this->icon.get().getLocalBounds().width) / 2),
-		floor((sideLen - this->icon.get().getLocalBounds().height) / 2)
+	this->icon.setPosition(
+		floor((sideLen - this->icon.getLocalBounds().width) / 2),
+		floor((sideLen - this->icon.getLocalBounds().height) / 2)
 	);
 }
 
@@ -135,5 +135,5 @@ void LocButton::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	states.transform *= this->getTransform();
 
 	target.draw(this->rect, states);
-	target.draw(this->icon.sprite, states);
+	target.draw(this->icon, states);
 }

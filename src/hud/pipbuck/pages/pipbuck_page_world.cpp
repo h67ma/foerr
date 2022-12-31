@@ -32,7 +32,7 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 		}
 	})
 {
-	this->mapBg.get().setPosition(WORLD_MAP_X, WORLD_MAP_Y);
+	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
 
 	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->locTitle.setPosition(970, 260);
@@ -53,7 +53,7 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 
 bool PipBuckPageWorld::mapContainsPoint(sf::Vector2i point)
 {
-	return this->mapBg.get().getGlobalBounds().contains(static_cast<sf::Vector2f>(point));
+	return this->mapBg.getGlobalBounds().contains(static_cast<sf::Vector2f>(point));
 }
 
 void PipBuckPageWorld::updateActiveIndicator()
@@ -139,8 +139,8 @@ std::string PipBuckPageWorld::getLabel()
 
 void PipBuckPageWorld::setupMapDecorations()
 {
-	uint mapW = static_cast<uint>(this->mapBg.get().getLocalBounds().width);
-	uint mapH = static_cast<uint>(this->mapBg.get().getLocalBounds().height);
+	uint mapW = static_cast<uint>(this->mapBg.getLocalBounds().width);
+	uint mapH = static_cast<uint>(this->mapBg.getLocalBounds().height);
 
 	mapBorder[0] = sf::Vertex({ static_cast<float>(WORLD_MAP_X), static_cast<float>(WORLD_MAP_Y - 1) }, this->hudColor);
 	mapBorder[1] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW + 1), static_cast<float>(WORLD_MAP_Y - 1) }, this->hudColor);
@@ -236,7 +236,7 @@ void PipBuckPageWorld::setGuiScale(GuiScale scale)
 
 void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(this->mapBg.sprite, states);
+	target.draw(this->mapBg, states);
 	target.draw(this->mapGridLines, states);
 	target.draw(this->mapBorder, states);
 

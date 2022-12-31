@@ -54,8 +54,8 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 		std::shared_ptr<sf::Texture> backwallTxt = resMgr.getTexture(backwallTxtPath);
 		backwallTxt->setRepeated(true);
 		this->backwall.setTexture(backwallTxt);
-		this->backwall.get().setTextureRect({ 0, 0, GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
-		this->backwall.get().setColor(BACKWALL_COLOR);
+		this->backwall.setTextureRect({ 0, 0, GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
+		this->backwall.setColor(BACKWALL_COLOR);
 	}
 
 	// if liquid level is defined and > 0, room is fully submerged to that level (counting from bottom, in cells).
@@ -88,7 +88,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 		this->liquid.setPosition(0, GAME_AREA_HEIGHT - liquidLevelPx);
 		this->liquid.setFillColor(liquidMat->color);
 		this->liquidDelim.setTexture(resMgr.getTexture(liquidMat->textureDelimPath));
-		this->liquidDelim.get().setColor(RoomCell::liquidSpriteColor);
+		this->liquidDelim.setColor(RoomCell::liquidSpriteColor);
 	}
 
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
@@ -257,8 +257,8 @@ void Room::init()
 		{
 			if (!this->cells[y - 1][x].blocksBottomCellLiquidDelim() && !this->cells[y][x].getHasSolid())
 			{
-				this->liquidDelim.get().setPosition(x * CELL_SIDE_LEN, y * CELL_SIDE_LEN);
-				roomRenderTxt.draw(this->liquidDelim.get(), states);
+				this->liquidDelim.setPosition(x * CELL_SIDE_LEN, y * CELL_SIDE_LEN);
+				roomRenderTxt.draw(this->liquidDelim, states);
 			}
 		}
 	}
@@ -302,7 +302,7 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
-	target.draw(this->backwall.sprite, states); // can be empty
+	target.draw(this->backwall, states); // can be empty
 
 	// because we render stuff first to RenderTexture, and then the texture to target, alpha gets blended two times,
 	// and therefore gets screwed up. to fix it, use a custom blending mode.
