@@ -184,6 +184,13 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 		}
 
 		std::shared_ptr<Room> room = std::make_shared<Room>();
+
+		// TODO currently we keep all Rooms of the Location loaded in memory, which seems fine, because we want to do
+		// all the complicated setup when loading the Location, not when moving between Rooms. but this approach
+		// consumes a lot of memory, keeping track of all Rooms, while we really only need one. a solution might be to
+		// only keep the current and nearby Rooms loaded. nearby Rooms could be loaded (along with the resources they
+		// need) in a background thread. we'd only need to keep some light-weight version of Location data, e.g. a json
+		// object, or some kind of meta-location, with some of the data preliminarily parsed.
 		if (!room->load(resMgr, matMgr, roomNode, this->roomDataPath))
 		{
 			this->unloadContent();
