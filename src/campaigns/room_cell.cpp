@@ -200,8 +200,18 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 			return false;
 		}
 
-		this->platformTxt.set(resMgr.getTexture(mat->texturePath));
-		this->platformTxt.get()->setRepeated(true);
+		std::shared_ptr<sf::Texture> txt = resMgr.getTexture(mat->texturePath);
+		if (txt != nullptr)
+			txt->setRepeated(true);
+
+		this->platform.setTexture(txt);
+		this->platform.get().setTextureRect({
+			static_cast<int>(this->getPosition().x),
+			static_cast<int>(this->getPosition().y),
+			CELL_SIDE_LEN,
+			CELL_SIDE_LEN
+		});
+
 		this->hasPlatform = true;
 	}
 	else if (mat->type == MAT_STAIRS)
@@ -325,25 +335,11 @@ void RoomCell::draw1(sf::RenderTarget &target) const
 {
 	sf::RenderStates states(this->getTransform());
 
-	std::shared_ptr<sf::Texture> txt;
-	sf::Sprite tmpSprite;
-
 	if (this->hasBackground)
 		target.draw(this->background.sprite, states);
 
-	tmpSprite.setTextureRect({
-		static_cast<int>(this->getPosition().x),
-		static_cast<int>(this->getPosition().y),
-		CELL_SIDE_LEN,
-		CELL_SIDE_LEN
-	});
-
-	txt = this->platformTxt.get();
-	if (txt != nullptr)
-	{
-		tmpSprite.setTexture(*txt);
-		target.draw(tmpSprite, states);
-	}
+	if (this->hasPlatform)
+		target.draw(this->platform.sprite, states);
 }
 
 /**

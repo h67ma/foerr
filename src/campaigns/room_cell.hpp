@@ -6,7 +6,6 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
-#include "../resources/texture_resource.hpp"
 #include "../resources/sprite_resource.hpp"
 
 #define CELL_SIDE_LEN 40
@@ -44,7 +43,7 @@ class RoomCell : public sf::Transformable
 		SpriteResource solid;
 		SpriteResource solidMask;
 		SpriteResource background;
-		TextureResource platformTxt;
+		SpriteResource platform;
 		SpriteResource stairs;
 		SpriteResource ladder;
 		SpriteResource ladderDelim;
