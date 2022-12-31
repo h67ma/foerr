@@ -54,7 +54,9 @@ class RoomCell : public sf::Transformable
 		bool topCellBlocksLiquidDelim;
 		static const std::unordered_map<char, int> heightFlags;
 
-		// TODO? all flags could potentially be moved to a single int to save a bit of memory
+		// all these flags could potentially be moved to a single uint to save a bit of memory, but it seems that the
+		// compiler is already doing a similar optimization by itself. it also makes the code less readable, so let's
+		// skip it for now.
 		bool hasSolid = false;
 		bool hasBackground = false;
 		bool hasPlatform = false;
