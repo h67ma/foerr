@@ -1,9 +1,8 @@
-import json
 import argparse
 import xml.etree.ElementTree as ET
 from consts import *
 from convert_data import *
-from common import log_verbose, log_info, log_warn, log_err
+from common import log_verbose, log_info, log_warn, log_err, write_nicer_json
 
 
 def import_materials(alldata_path: str, no_legacy: bool, output_filename: str):
@@ -138,9 +137,7 @@ def import_materials(alldata_path: str, no_legacy: bool, output_filename: str):
 			continue
 		materials_root[FOERR_JSON_KEY_OTHER][key] = node
 
-	output_serialized = json.dumps(materials_root, indent='\t')
-	with open(output_filename, "w") as f:
-		f.write(output_serialized)
+	write_nicer_json(output_filename, materials_root)
 	log_info("Imported " + str(imported_cnt) + " materials")
 
 

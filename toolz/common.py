@@ -35,13 +35,12 @@ def log_err(msg):
 	log_msg("ERRO", msg, Fore.RED)
 
 
-def write_rooms_json(output_filename: str, output_root):
+def write_nicer_json(output_filename: str, output_root):
 	output_serialized = json.dumps(output_root, indent='\t')
 
 	# YEET these ugly multiline coords
-	output_serialized = re.sub(r"\"coords\": \[\s*(-?\d+),\s*(-?\d+),\s*(-?\d+)\s*\]", r""""coords": [\1, \2, \3]""", output_serialized)
-	output_serialized = re.sub(r"\"coords\": \[\s*(-?\d+),\s*(-?\d+)\s*\]", r""""coords": [\1, \2]""", output_serialized)
-	output_serialized = re.sub(r"\"spawn_coords\": \[\s*(-?\d+),\s*(-?\d+)\s*\]", r""""spawn_coords": [\1, \2]""", output_serialized)
+	output_serialized = re.sub(r"\[\s*(-?\d+),\s*(-?\d+),\s*(-?\d+)\s*\]", r"[\1, \2, \3]", output_serialized)
+	output_serialized = re.sub(r"\[\s*(-?\d+),\s*(-?\d+)\s*\]", r"[\1, \2]", output_serialized)
 
 	with open(output_filename, "w") as f:
 		f.write(output_serialized)

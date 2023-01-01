@@ -5,7 +5,7 @@ from typing import List
 import xml.etree.ElementTree as ET
 from consts import *
 from convert_data import *
-from common import log_verbose, log_info, log_warn, log_err, sane_object_pairs_hook, write_rooms_json
+from common import log_verbose, log_info, log_warn, log_err, sane_object_pairs_hook, write_nicer_json
 
 
 def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
@@ -420,7 +420,7 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 
 	output_root[FOERR_JSON_KEY_ROOMS] = output_rooms
 
-	write_rooms_json(output_filename, output_root)
+	write_nicer_json(output_filename, output_root)
 
 	return max_cell_length
 

@@ -1,7 +1,7 @@
 import os
 import json
 import argparse
-from common import sane_object_pairs_hook, log_err, write_rooms_json
+from common import sane_object_pairs_hook, log_err, write_nicer_json
 from consts import FOERR_JSON_KEY_CELLS, FOERR_JSON_KEY_ROOMS, OUT_DELIM, SYMBOL_EMPTY
 
 # let's be realistic
@@ -62,7 +62,7 @@ def pad_loc(target_filename: str, pad_cnt: int):
 		# writeback
 		loc_root[FOERR_JSON_KEY_ROOMS][room_idx] = room_node
 
-	write_rooms_json(target_filename, loc_root)
+	write_nicer_json(target_filename, loc_root)
 
 
 if __name__ == "__main__":
