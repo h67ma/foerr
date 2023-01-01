@@ -59,6 +59,8 @@ SettingsManager::SettingsManager()
 	// default is greenish, same as in Remains
 	this->settings.emplace(SETT_HUD_COLOR, std::make_unique<ColorSetting>("hud_color", sf::Color(0, 255, 153)));
 
+	this->settings.emplace(SETT_PAUSE_ON_FOCUS_LOSS, std::make_unique<LogicSetting>("pause_on_focus_loss", true));
+
 	// TODO is this really necessary?
 	//this->settings.emplace(SETT_LOG_MSG_TIMEOUT, std::make_unique<NumericSetting>("log_msg_timeout", 3));
 

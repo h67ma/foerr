@@ -525,7 +525,8 @@ int main()
 				}
 				else if (event.type == sf::Event::LostFocus)
 				{
-					pipBuck.open(false);
+					if (settings.getBool(SETT_PAUSE_ON_FOCUS_LOSS))
+						pipBuck.open(false);
 				}
 			}
 			else if (gameState == STATE_PIPBUCK)
