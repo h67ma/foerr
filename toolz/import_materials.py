@@ -6,24 +6,7 @@ from convert_data import *
 from common import log_verbose, log_info, log_warn, log_err
 
 
-def make_mat_translation_map(editoren_root):
-	log_verbose("Preparing material translations from editor_en.xml")
-	out_map = {}
-	for in_obj_node in editoren_root.findall("obj"):
-		pyccknn = in_obj_node.attrib.get("id")
-		if pyccknn is None:
-			log_warn("Translation is missing id, skipping")
-			continue
-		in_n_node = in_obj_node.find("n")
-		if in_n_node is None or in_n_node.text == "":
-			log_warn("\"" + pyccknn + "\" is missing translation, skipping")
-			continue
-		english = in_n_node.text
-		out_map[pyccknn] = english
-	return out_map
-
-
-def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, output_filename: str):
+def import_materials(alldata_path: str, no_legacy: bool, output_filename: str):
 	log_verbose("Importing materials")
 	try:
 		alldata_tree = ET.parse(alldata_path)
@@ -31,15 +14,6 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 		log_err(ex)
 		return
 	alldata_root = alldata_tree.getroot()
-
-	try:
-		editoren_tree = ET.parse(editoren_path)
-	except (FileNotFoundError, ET.ParseError) as ex:
-		log_err(ex)
-		return
-	editoren_root = editoren_tree.getroot()
-
-	mat_name_map = make_mat_translation_map(editoren_root)
 
 	materials_root = {
 		FOERR_JSON_KEY_API_VERSION: JSON_API_VERSION,
@@ -57,20 +31,8 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 			log_warn("Material is missing name, skipping")
 			continue
 
-		# escape the escape
-		mat_name = mat_name.replace("\\\\", "\\")
-
-		if mat_name in mat_name_map:
-			mat_name = mat_name_map[mat_name] # thanks Alex for translations
-
-		# nicify filename
-		mat_name = mat_name.replace("\\\\", "down") \
-						   .replace("\\", "down") \
-						   .replace("/", "up") \
-						   .replace(" ", "_") \
-						   .lower() \
-						   .replace("steps", "stairs") \
-						   .replace("beam", "platform")
+		if mat_name in mat_translations_map:
+			mat_name = mat_translations_map[mat_name]
 
 		# get texture name if it's defined for this mat, else we'll fallback to material name
 		texture_name = mat_name
@@ -185,9 +147,8 @@ def import_materials(alldata_path: str, editoren_path: str, no_legacy: bool, out
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="A tool for extracting material data from AllData to use in FoERR.")
 	parser.add_argument("-d", "--alldata", action="store", required=True, type=str, help=("Path to AllData.xml (just remove beginning and end from AllData.as)"))
-	parser.add_argument("-e", "--editoren", action="store", required=True, type=str, help=("Path to editor_en.xml"))
 	parser.add_argument("-n", "--nolegacy", action="store_true", help=("Don't add legacy symbols"))
 	parser.add_argument("-o", "--output", action="store", default="materials.json", type=str, help=("Output filename"))
 	args = parser.parse_args()
 
-	import_materials(args.alldata, args.editoren, args.nolegacy, args.output)
+	import_materials(args.alldata, args.nolegacy, args.output)

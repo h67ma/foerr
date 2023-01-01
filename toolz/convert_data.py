@@ -35,6 +35,24 @@ loc_names_map = {
 	# "z_shablon": "", # room template
 }
 
+# wake me up insideeeee
+mat_translations_map = {
+	"\u041b\u0435\u0441\u0442\u043d\u0438\u0446\u0430 \u0441\u043f\u0440\u0430\u0432\u0430": "ladder_right",
+	"\u041b\u0435\u0441\u0442\u043d\u0438\u0446\u0430 \u0441\u043b\u0435\u0432\u0430": "ladder_left",
+	"\u0421\u0442\u0443\u043f\u0435\u043d\u044c\u043a\u0438 /": "stairs_up",
+	"\u0421\u0442\u0443\u043f\u0435\u043d\u044c\u043a\u0438 \\\\": "stairs_down",
+	"\u0414\u0435\u0440\u0435\u0432\u044f\u043d\u043d\u044b\u0435 \u0441\u0442. /": "wooden_stairs_up",
+	"\u0414\u0435\u0440\u0435\u0432\u044f\u043d\u043d\u044b\u0435 \u0441\u0442. \\\\": "wooden_stairs_down",
+	"\u0421\u0442\u0430\u043b\u044c\u043d\u044b\u0435 \u0441\u0442. /": "steel_stairs_up",
+	"\u0421\u0442\u0430\u043b\u044c\u043d\u044b\u0435 \u0441\u0442. \\\\": "steel_stairs_down",
+	"\u0411\u0435\u0442\u043e\u043d\u043d\u044b\u0435 \u0441\u0442. /": "concrete_stairs_up",
+	"\u0411\u0435\u0442\u043e\u043d\u043d\u044b\u0435 \u0441\u0442. \\\\": "concrete_stairs_down",
+	"\u041a\u0430\u043d\u0442 \u0441\u0442. /": "canterlot_stairs_up",
+	"\u041a\u0430\u043d\u0442 \u0441\u0442. \\\\": "canterlot_stairs_down",
+	"\u041e\u0431\u043b\u0430\u0447\u043d\u044b\u0435 \u0441\u0442. /": "cloud_stairs_up",
+	"\u041e\u0431\u043b\u0430\u0447\u043d\u044b\u0435 \u0441\u0442. \\\\": "cloud_stairs_down",
+}
+
 # more meaningful background full names
 # GameData -> <land> -> <options fon="...">
 bg_full_name_map = {
