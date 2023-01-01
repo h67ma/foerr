@@ -8,7 +8,7 @@ from convert_data import *
 from common import log_verbose, log_info, log_warn, log_err, sane_object_pairs_hook, write_rooms_json
 
 
-def translate_rooms(input_filename: str, output_filename: str, loc_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
+def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
 	log_verbose("Translating " + input_filename + " to " + output_filename)
 
 	try:
@@ -327,25 +327,62 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, pad_cnt
 		if not room_backwall_defined and loc_backwall_path is not None:
 			out_room_node[FOERR_JSON_KEY_BACKWALL] = loc_backwall_path
 
-		##### big background objects #####
+		##### background objects #####
 
-		out_back_objs = []
+		# Remains defines a layer value ("s" attribute) for (almost all) back objs (undefined means layer 0).
+		# because of this, the game has to sort objs according to their layer when loading the room.
+		# RR handles this differently: instead of defining layer values, we assume that objs in Room are listed in
+		# correct order. therefore, we need to sort objs by layer number when importing Rooms.
+		# objects with higher layer values are drawn over objects with lower layer values.
+		# objects with negative layer value are displayed behind backwall and background, so we need to store them in a
+		# separate collection ("far_back_objs")
+
+		back_objs_sorter = {}
+		far_back_objs_sorter = {}
 		for back_obj in room_node.findall("back"):
-			back_txt_id = back_obj.attrib.get("id")
+			back_id = back_obj.attrib.get("id")
 			back_x = back_obj.attrib.get("x")
 			back_y = back_obj.attrib.get("y")
 
-			if back_txt_id is None or back_x is None or back_y is None:
-				log_warn("Room" + room_name + ": back object " + str((back_txt_id, back_x, back_y)) + " is missing attributes, skipping")
+			if back_id is None or back_x is None or back_y is None:
+				log_warn("Room" + room_name + ": back object " + str((back_id, back_x, back_y)) + " is missing attributes, skipping")
 				continue
 
-			out_back_objs.append({
+			if back_id not in obj_data:
+				log_warn("Room" + room_name + ": back object " + back_id, + " is missing from AllData, assuming layer 0")
+				back_layer = 0
+			else:
+				back_layer = obj_data[back_id]
+
+			out_back_obj = {
 				FOERR_JSON_KEY_COORDS: [int(back_x), int(back_y)],
-				FOERR_JSON_KEY_TEXTURE: "back_" + back_txt_id
-			})
+				FOERR_JSON_KEY_TEXTURE: "back_" + back_id
+			}
+
+			if back_layer >= 0:
+				if back_layer not in back_objs_sorter:
+					back_objs_sorter[back_layer] = []
+				back_objs_sorter[back_layer].append(out_back_obj)
+			else:
+				if back_layer not in far_back_objs_sorter:
+					far_back_objs_sorter[back_layer] = []
+				far_back_objs_sorter[back_layer].append(out_back_obj)
+
+		out_back_objs = []
+		for layer_number in sorted(back_objs_sorter.keys()):
+			for out_obj in back_objs_sorter[layer_number]:
+				out_back_objs.append(out_obj)
 
 		if len(out_back_objs) > 0:
 			out_room_node[FOERR_JSON_KEY_BACK_OBJS] = out_back_objs
+
+		out_far_back_objs = []
+		for layer_number in sorted(far_back_objs_sorter.keys()):
+			for out_obj in far_back_objs_sorter[layer_number]:
+				out_far_back_objs.append(out_obj)
+
+		if len(out_far_back_objs) > 0:
+			out_room_node[FOERR_JSON_KEY_FAR_BACK_OBJS] = out_far_back_objs
 
 		##### movable objects #####
 
@@ -468,6 +505,49 @@ def get_gamedata_data(gamedata_path: str):
 	return out_data
 
 
+def get_alldata_data(alldata_path: str):
+	"""
+	Reads useful data from AllData.xml and converts it to a dictionary:
+	{
+		"obj_id": 3,	// layer number
+		...
+	}
+	"""
+	try:
+		input_tree = ET.parse(alldata_path)
+	except (FileNotFoundError, ET.ParseError) as ex:
+		log_err(str(ex))
+		return None
+
+	input_root = input_tree.getroot()
+	out_data = {}
+	for back_node in input_root.findall("back"):
+		back_id = back_node.attrib.get("id")
+		if back_id is None:
+			log_warn("AllData <back/> is missing \"id\" attribute, skipping.")
+			continue
+
+		if back_id == "":
+			# that's a super weird way of storing comments, what the hay
+			continue
+
+		layer = back_node.attrib.get("s")
+		if layer is None:
+			# for some reason some objs don't have layer attribute - defaults to 0
+			log_info("AllData <back/> id=\"" + back_id + "\" is missing \"s\" attribute, assuming " + str(UNDEFINED_LAYER_NUMBER))
+			layer = UNDEFINED_LAYER_NUMBER
+
+		# note: we can also get obj size in cells from this node (x2, y2 attributes), if it's ever needed
+
+		if back_id in out_data:
+			log_warn("Duplicate <back/> id=\"" + back_id + "\" in AllData, skipping")
+			continue
+
+		out_data[back_id] = int(layer)
+
+	return out_data
+
+
 def materials_to_map(map_node, name: str):
 	"""Reads materials node containing a dictionary of symbol: { material details }.
 	Returns a dictionary mapping legacy symbol to translated symbol, based on data in materials file.
@@ -525,6 +605,7 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="A tool for translating room data from Remains into FoERR format.")
 	parser.add_argument("-i", "--input", action="store", required=True, type=str, help=("Path to xml file containing rooms stored in Remains format, or a directory containing them if -a is used"))
 	parser.add_argument("-g", "--gamedata", action="store", required=True, type=str, help=("Path to GameData.xml (just remove beginning and end from GameData.as)"))
+	parser.add_argument("-d", "--alldata", action="store", required=True, type=str, help=("Path to AllData.xml (just remove beginning and end from AllData.as)"))
 	parser.add_argument("-m", "--materials", action="store", required=True, type=str, help=("Path to materials.json"))
 	parser.add_argument("-o", "--output", action="store", required=False, type=str, help=("Path to output json file, or directory if -a is used"))
 	parser.add_argument("-a", "--all", action="store_true", help=("Translate all files in input dir. If enabled, input/output should be a paths to directories, not files."))
@@ -537,6 +618,10 @@ if __name__ == "__main__":
 
 	loc_data = get_gamedata_data(args.gamedata)
 	if loc_data is None:
+		exit()
+
+	obj_data = get_alldata_data(args.alldata)
+	if obj_data is None:
 		exit()
 
 	total_max_cell_length = 0
@@ -556,7 +641,7 @@ if __name__ == "__main__":
 			if input_basename not in loc_data:
 				log_err("GameData does not contain data for " + input_basename + ", skipping")
 			else:
-				max_cell_length = translate_rooms(os.path.join(args.input, filename), output_path, loc_data[input_basename], args.pad, symbol_maps, mat_data)
+				max_cell_length = translate_rooms(os.path.join(args.input, filename), output_path, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
 				if max_cell_length > total_max_cell_length:
 					total_max_cell_length = max_cell_length
 
@@ -572,7 +657,7 @@ if __name__ == "__main__":
 		if input_basename not in loc_data:
 			log_err("GameData does not contain data for " + input_basename)
 		else:
-			total_max_cell_length = translate_rooms(args.input, output_filename, loc_data[input_basename], args.pad, symbol_maps, mat_data)
+			total_max_cell_length = translate_rooms(args.input, output_filename, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
 
 	if args.pad is None:
 		log_verbose("Max cell size was " + str(total_max_cell_length))

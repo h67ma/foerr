@@ -213,13 +213,25 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 
 	///// background objects /////
 
+	if (!Room::parseBackObjsNode(root, filePath, resMgr, FOERR_JSON_KEY_BACK_OBJS, this->backObjects))
+		return false;
+
+	if (!Room::parseBackObjsNode(root, filePath, resMgr, FOERR_JSON_KEY_FAR_BACK_OBJS, this->farBackObjects))
+		return false;
+
+	return true;
+}
+
+bool Room::parseBackObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr, const char* key,
+							 std::vector<SpriteResource> &collection)
+{
 	// the room doesn't have to define any background objects (this is not an error)
-	auto bgObjsSearch = root.find(FOERR_JSON_KEY_BACK_OBJS);
+	auto bgObjsSearch = root.find(key);
 	if (bgObjsSearch != root.end())
 	{
 		if (!bgObjsSearch->is_array())
 		{
-			Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_BACK_OBJS);
+			Log::e(STR_INVALID_TYPE, filePath.c_str(), key);
 			return false;
 		}
 
@@ -241,7 +253,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 			backObj.setPosition(static_cast<sf::Vector2f>(objCoords));
 			backObj.setColor(BACK_OBJ_COLOR);
 
-			this->backObjects.push_back(backObj);
+			collection.push_back(backObj);
 		}
 	}
 
@@ -262,6 +274,14 @@ void Room::init()
 	///// background cache /////
 
 	tmpRender.clear(sf::Color::Transparent);
+
+	// we could draw far back objects on another texture, along with background full, so that far back objects won't
+	// move during room transition. the current approach looks visually ok though, so let's keep it. as a bonus we don't
+	// have to add another caching texture.
+	for (const auto &backObj : this->farBackObjects)
+	{
+		tmpRender.draw(backObj);
+	}
 
 	tmpRender.draw(this->backwall); // can be empty
 

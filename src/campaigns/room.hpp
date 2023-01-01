@@ -39,7 +39,10 @@ class Room : public sf::Drawable, public sf::Transformable
 		sf::Vector2u spawnCoords;
 		sf::CircleShape dummyPlayerSpawn; // TODO delet this
 		std::vector<SpriteResource> backObjects;
+		std::vector<SpriteResource> farBackObjects;
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
+		static bool parseBackObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr,
+									  const char* key, std::vector<SpriteResource> &collection);
 
 	public:
 		bool load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root,

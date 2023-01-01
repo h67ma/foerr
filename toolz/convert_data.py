@@ -148,3 +148,5 @@ STAIRS_OFFSETS_LEFT = {
 	"steel_stairs_up": -4,
 	"wooden_stairs_up": -4,
 }
+
+UNDEFINED_LAYER_NUMBER = 0
