@@ -258,6 +258,8 @@ void Room::init()
 	roomRenderTxt.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
 	roomRenderTxt.clear(sf::Color::Transparent);
 
+	roomRenderTxt.draw(this->backwall); // can be empty
+
 	// TODO? calling the same nested loop four times is pretty lame, maybe find some better way to handle this
 
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
@@ -368,8 +370,6 @@ void Room::redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates
 void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
-
-	target.draw(this->backwall, states); // can be empty
 
 	// because we render stuff first to RenderTexture, and then the texture to target, alpha gets blended two times,
 	// and therefore gets screwed up. to fix it, use a custom blending mode.
