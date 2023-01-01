@@ -8,7 +8,7 @@ from convert_data import *
 from common import log_verbose, log_info, log_warn, log_err, sane_object_pairs_hook, write_rooms_json
 
 
-def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
+def translate_rooms(input_filename: str, output_filename: str, loc_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
 	log_verbose("Translating " + input_filename + " to " + output_filename)
 
 	try:
@@ -26,12 +26,12 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 	if in_land_node is not None and in_land_node.attrib.get("serial") == "1":
 		log_verbose("Detected unique location")
 		is_unique_loc = True
-		if "start_room_x" not in gamedata_data or "start_room_y" not in gamedata_data:
+		if "start_room_x" not in loc_data or "start_room_y" not in loc_data:
 			log_err("Starting room not specified, skipping location")
 			return
 		
 		# note: "locz" is never specified in Remains, so we can assume z=0
-		start_room_coords = (gamedata_data["start_room_x"], gamedata_data["start_room_y"], 0)
+		start_room_coords = (loc_data["start_room_x"], loc_data["start_room_y"], 0)
 		start_room_found = False
 	else:
 		log_verbose("Detected grind location")
@@ -42,15 +42,15 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 	}
 
 	loc_backwall_path = None
-	if FOERR_JSON_KEY_BACKWALL in gamedata_data and gamedata_data[FOERR_JSON_KEY_BACKWALL] != "sky":
-		loc_backwall_path = gamedata_data[FOERR_JSON_KEY_BACKWALL]
+	if FOERR_JSON_KEY_BACKWALL in loc_data and loc_data[FOERR_JSON_KEY_BACKWALL] != "sky":
+		loc_backwall_path = loc_data[FOERR_JSON_KEY_BACKWALL]
 
 	loc_liquid_type = None
-	if "liquid_symbol" in gamedata_data:
-		loc_liquid_type = gamedata_data["liquid_symbol"]
+	if "liquid_symbol" in loc_data:
+		loc_liquid_type = loc_data["liquid_symbol"]
 
-	if FOERR_JSON_KEY_BACKGROUND_FULL in gamedata_data:
-		output_root[FOERR_JSON_KEY_BACKGROUND_FULL] = gamedata_data[FOERR_JSON_KEY_BACKGROUND_FULL]
+	if FOERR_JSON_KEY_BACKGROUND_FULL in loc_data:
+		output_root[FOERR_JSON_KEY_BACKGROUND_FULL] = loc_data[FOERR_JSON_KEY_BACKGROUND_FULL]
 
 	for room_node in input_root.findall("room"):
 		out_room_node = {}
@@ -535,8 +535,8 @@ if __name__ == "__main__":
 	if symbol_maps is None or mat_data is None:
 		exit()
 
-	gamedata_data = get_gamedata_data(args.gamedata)
-	if gamedata_data is None:
+	loc_data = get_gamedata_data(args.gamedata)
+	if loc_data is None:
 		exit()
 
 	total_max_cell_length = 0
@@ -553,10 +553,10 @@ if __name__ == "__main__":
 			else:
 				output_path = output_filename
 
-			if input_basename not in gamedata_data:
+			if input_basename not in loc_data:
 				log_err("GameData does not contain data for " + input_basename + ", skipping")
 			else:
-				max_cell_length = translate_rooms(os.path.join(args.input, filename), output_path, gamedata_data[input_basename], args.pad, symbol_maps, mat_data)
+				max_cell_length = translate_rooms(os.path.join(args.input, filename), output_path, loc_data[input_basename], args.pad, symbol_maps, mat_data)
 				if max_cell_length > total_max_cell_length:
 					total_max_cell_length = max_cell_length
 
@@ -569,10 +569,10 @@ if __name__ == "__main__":
 		else:
 			output_filename = get_output_filename(input_basename)
 
-		if input_basename not in gamedata_data:
+		if input_basename not in loc_data:
 			log_err("GameData does not contain data for " + input_basename)
 		else:
-			total_max_cell_length = translate_rooms(args.input, output_filename, gamedata_data[input_basename], args.pad, symbol_maps, mat_data)
+			total_max_cell_length = translate_rooms(args.input, output_filename, loc_data[input_basename], args.pad, symbol_maps, mat_data)
 
 	if args.pad is None:
 		log_verbose("Max cell size was " + str(total_max_cell_length))
