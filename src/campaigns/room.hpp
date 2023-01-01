@@ -29,8 +29,10 @@ class Room : public sf::Drawable, public sf::Transformable
 		SpriteResource backwall;
 		SpriteResource liquidDelim;
 		sf::RectangleShape liquid;
-		sf::Texture cachedCellsTxt;
-		sf::Sprite cachedCells;
+		sf::Texture backCacheTxt;
+		sf::Texture frontCacheTxt;
+		sf::Sprite backCache; // immutable elements - background, room backwall, background objects
+		sf::Sprite frontCache; // mutable elements - solids, ladders, stairs, platforms, liquids
 		uint liquidLevelHeight;
 		sf::Texture cachedLiquidLevelTxt;
 		sf::Sprite cachedLiquidLevel;

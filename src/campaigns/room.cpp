@@ -254,13 +254,16 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
  */
 void Room::init()
 {
+	// TODO? calling the same nested loop multiple times is pretty lame, maybe find some better way to handle this
+
 	sf::RenderTexture roomRenderTxt;
 	roomRenderTxt.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
+
+	///// background cache /////
+
 	roomRenderTxt.clear(sf::Color::Transparent);
 
 	roomRenderTxt.draw(this->backwall); // can be empty
-
-	// TODO? calling the same nested loop four times is pretty lame, maybe find some better way to handle this
 
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 	{
@@ -274,6 +277,17 @@ void Room::init()
 	{
 		roomRenderTxt.draw(backObj);
 	}
+
+	roomRenderTxt.display();
+
+	// sf::RenderTexture can't be a private member because it inherits NonCopyable.
+	// because of this we need to store the result in a standard sf::Texture
+	this->backCacheTxt = roomRenderTxt.getTexture();
+	this->backCache.setTexture(this->backCacheTxt);
+
+	///// front cache /////
+
+	roomRenderTxt.clear(sf::Color::Transparent);
 
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 	{
@@ -301,15 +315,15 @@ void Room::init()
 
 	roomRenderTxt.display();
 
-	// sf::RenderTexture can't be a private member because it inherits NonCopyable.
-	// because of this we need to store the result in a standard sf::Texture
-	this->cachedCellsTxt = roomRenderTxt.getTexture();
-	this->cachedCells.setTexture(this->cachedCellsTxt);
+	// again, can't keep sf::RenderTexture as a member (see above)
+	this->frontCacheTxt = roomRenderTxt.getTexture();
+	this->frontCache.setTexture(this->frontCacheTxt);
+
+	///// room-wide liquid level /////
 
 	// we also need to pre-render liquid level. because of transparency and a sprite used for surface, the alpha will
 	// get messed up if we simply draw it on top of liquid level rectangle. to counter this, we use sf::BlendNone.
 	// but it would be difficult to use it along other elements (cells, backwall, etc.), therefore RenderTexture.
-	// we can use the same RenderTexture which we used to draw cells as it's already the right size.
 	roomRenderTxt.clear(sf::Color::Transparent);
 	sf::RenderStates states(sf::BlendNone);
 
@@ -331,6 +345,7 @@ void Room::init()
 		}
 	}
 
+	// again, can't keep sf::RenderTexture as a member (see above)
 	this->cachedLiquidLevelTxt = roomRenderTxt.getTexture();
 	this->cachedLiquidLevel.setTexture(this->cachedLiquidLevelTxt);
 }
@@ -341,7 +356,8 @@ void Room::init()
  */
 void Room::deinit()
 {
-	this->cachedCellsTxt = sf::Texture();
+	this->backCacheTxt = sf::Texture();
+	this->frontCacheTxt = sf::Texture();
 	this->cachedLiquidLevelTxt = sf::Texture();
 }
 
@@ -374,7 +390,8 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	// because we render stuff first to RenderTexture, and then the texture to target, alpha gets blended two times,
 	// and therefore gets screwed up. to fix it, use a custom blending mode.
 	states.blendMode = BlendAlphaTransparent;
-	target.draw(this->cachedCells, states);
+	target.draw(this->backCache, states);
+	target.draw(this->frontCache, states);
 
 	// liquid is drawn over all cell elements, including solids
 	// liquids were also rendered to RenderTexture, but using sf::BlendNone, therefore the default blending mode works
