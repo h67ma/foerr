@@ -75,7 +75,7 @@ bool parseJsonVector2Key(const json &node, const std::string &filePath, const ch
 
 	if (search->size() != 2)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), key);
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), key, 2, search->size());
 		return false;
 	}
 

@@ -77,7 +77,7 @@ bool parseJsonVector3iKey(const json &node, const std::string &filePath, const c
 
 	if (search->size() != 3)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), key);
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), key, 3, search->size());
 		return false;
 	}
 

@@ -24,7 +24,7 @@
 #define STR_SUS_LARGE_VALUE "Suspiciously large value for key \"%s\""
 #define STR_RESETTING_TO_DEFAULT "Resetting %s to default value"
 #define STR_INVALID_TYPE "Error loading file (%s) - invalid value for key \"%s\""
-#define STR_INVALID_ARR_SIZE "Error loading file (%s) - invalid array size for key \"%s\""
+#define STR_INVALID_ARR_SIZE "Error loading file (%s) - invalid array size for key \"%s\", expected %u, got %u."
 #define STR_MISSING_KEY "Problem loading file (%s) - key is missing: \"%s\"."
 #define STR_ROOM_LINE_TOO_LONG "Error loading room (%s, \"%s\") - line longer than %u, skipping remaining cells."
 #define STR_ROOM_ROW_TOO_SHORT "Error loading room (%s, \"%s\") - row %d too short."

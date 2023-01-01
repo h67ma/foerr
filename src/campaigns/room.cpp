@@ -106,7 +106,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 
 	if (cellsSearch->size() != ROOM_HEIGHT_WITH_BORDER)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_CELLS);
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_CELLS, ROOM_HEIGHT_WITH_BORDER, cellsSearch->size());
 		return false;
 	}
 
