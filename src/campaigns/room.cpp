@@ -256,44 +256,44 @@ void Room::init()
 {
 	// TODO? calling the same nested loop multiple times is pretty lame, maybe find some better way to handle this
 
-	sf::RenderTexture roomRenderTxt;
-	roomRenderTxt.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
+	sf::RenderTexture tmpRender;
+	tmpRender.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
 
 	///// background cache /////
 
-	roomRenderTxt.clear(sf::Color::Transparent);
+	tmpRender.clear(sf::Color::Transparent);
 
-	roomRenderTxt.draw(this->backwall); // can be empty
+	tmpRender.draw(this->backwall); // can be empty
 
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			this->cells[y][x].drawBackground(roomRenderTxt);
+			this->cells[y][x].drawBackground(tmpRender);
 		}
 	}
 
 	for (const auto &backObj : this->backObjects)
 	{
-		roomRenderTxt.draw(backObj);
+		tmpRender.draw(backObj);
 	}
 
-	roomRenderTxt.display();
+	tmpRender.display();
 
 	// sf::RenderTexture can't be a private member because it inherits NonCopyable.
 	// because of this we need to store the result in a standard sf::Texture
-	this->backCacheTxt = roomRenderTxt.getTexture();
+	this->backCacheTxt = tmpRender.getTexture();
 	this->backCache.setTexture(this->backCacheTxt);
 
 	///// front cache /////
 
-	roomRenderTxt.clear(sf::Color::Transparent);
+	tmpRender.clear(sf::Color::Transparent);
 
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			this->cells[y][x].drawPlatform(roomRenderTxt);
+			this->cells[y][x].drawPlatform(tmpRender);
 		}
 	}
 
@@ -301,7 +301,7 @@ void Room::init()
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			this->cells[y][x].draw3(roomRenderTxt);
+			this->cells[y][x].draw3(tmpRender);
 		}
 	}
 
@@ -309,14 +309,14 @@ void Room::init()
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			this->cells[y][x].draw4(roomRenderTxt);
+			this->cells[y][x].draw4(tmpRender);
 		}
 	}
 
-	roomRenderTxt.display();
+	tmpRender.display();
 
 	// again, can't keep sf::RenderTexture as a member (see above)
-	this->frontCacheTxt = roomRenderTxt.getTexture();
+	this->frontCacheTxt = tmpRender.getTexture();
 	this->frontCache.setTexture(this->frontCacheTxt);
 
 	///// room-wide liquid level /////
@@ -324,11 +324,11 @@ void Room::init()
 	// we also need to pre-render liquid level. because of transparency and a sprite used for surface, the alpha will
 	// get messed up if we simply draw it on top of liquid level rectangle. to counter this, we use sf::BlendNone.
 	// but it would be difficult to use it along other elements (cells, backwall, etc.), therefore RenderTexture.
-	roomRenderTxt.clear(sf::Color::Transparent);
+	tmpRender.clear(sf::Color::Transparent);
 	sf::RenderStates states(sf::BlendNone);
 
 	// liquid level rectangle
-	roomRenderTxt.draw(this->liquid, states);
+	tmpRender.draw(this->liquid, states);
 
 	// delims (surface)
 	if (this->liquidLevelHeight > 0 && this->liquidLevelHeight < ROOM_HEIGHT_WITH_BORDER)
@@ -340,13 +340,13 @@ void Room::init()
 			if (!this->cells[y - 1][x].blocksBottomCellLiquidDelim() && !this->cells[y][x].getHasSolid())
 			{
 				this->liquidDelim.setPosition(x * CELL_SIDE_LEN, y * CELL_SIDE_LEN);
-				roomRenderTxt.draw(this->liquidDelim, states);
+				tmpRender.draw(this->liquidDelim, states);
 			}
 		}
 	}
 
 	// again, can't keep sf::RenderTexture as a member (see above)
-	this->cachedLiquidLevelTxt = roomRenderTxt.getTexture();
+	this->cachedLiquidLevelTxt = tmpRender.getTexture();
 	this->cachedLiquidLevel.setTexture(this->cachedLiquidLevelTxt);
 }
 
