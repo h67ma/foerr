@@ -314,16 +314,14 @@ bool RoomCell::finishSetup()
 		static_cast<int>(this->getPosition().x),
 		static_cast<int>(this->getPosition().y) + this->topOffset,
 		CELL_SIDE_LEN,
-		CELL_SIDE_LEN - this->topOffset
+		static_cast<int>(CELL_SIDE_LEN) - this->topOffset
 	});
 
 	return true;
 }
 
-/**
- * First stage of drawing the cell. Draws background and platform.
- *
- * This could potentially be optimized.
+/*
+ * Cell drawing could potentially be optimized.
  *
  * One way to do this might be to have the sprite in Room::draw(), set it to one of Cell's textures, draw it. Do it in a
  * loop, then use another loop to draw other texture (e.g. background) for each Cell. This could prevent setting the
@@ -335,21 +333,35 @@ bool RoomCell::finishSetup()
  * additionally complicating the code. For now let's keep all drawing logic inside the Cell. It also avoids duplicated
  * code in drawing a single cell (::redrawCell()), not whole room.
  */
-void RoomCell::draw1(sf::RenderTarget &target) const
+
+/**
+ * First stage of drawing the cell. Draws background.
+ */
+void RoomCell::drawBackground(sf::RenderTarget &target) const
 {
 	sf::RenderStates states(this->getTransform());
 
 	if (this->hasBackground)
 		target.draw(this->background, states);
+}
+
+/**
+ * Second stage of drawing the cell. Draws platform.
+ *
+ * Should be called after ::drawBackground() was already called for this cell.
+ */
+void RoomCell::drawPlatform(sf::RenderTarget &target) const
+{
+	sf::RenderStates states(this->getTransform());
 
 	if (this->hasPlatform)
 		target.draw(this->platform, states);
 }
 
 /**
- * Second stage of drawing the cell. Draws stairs and ladder.
+ * Third stage of drawing the cell. Draws stairs and ladder.
  *
- * Should be called after ::draw1() was already called for all cells.
+ * Should be called after ::drawBackground() and ::drawPlatform() were already called for all cells.
  *
  * Stairs and ladders have sprites with parts visible outside of cell area, therefore they need to drawn differently
  * than elements contained within cell area. That is, they don't use texture repeating.
@@ -357,7 +369,7 @@ void RoomCell::draw1(sf::RenderTarget &target) const
  * These elements need to be drawn after ::draw1(), as the surrounding cells might draw background over the parts of
  * stairs/ladder outside cell area, which is undesirable.
  */
-void RoomCell::draw2(sf::RenderTarget &target) const
+void RoomCell::draw3(sf::RenderTarget &target) const
 {
 	sf::RenderStates states(this->getTransform());
 
@@ -371,15 +383,15 @@ void RoomCell::draw2(sf::RenderTarget &target) const
 }
 
 /**
- * Third stage of drawing a cell. Draws solid and liquid.
+ * Fourth stage of drawing a cell. Draws solid and liquid.
  *
- * Should be called after ::draw1() and ::draw2() were already called for all cells.
+ * Should be called after ::drawBackground(), ::drawPlatform() and ::draw3() were already called for all cells.
  *
  * Liquid and solid need to be drawn over ladders and stairs. In case of liquid, it will create the effect of submerging
  * stuff. In case of solid, it will prevent the parts of stairs/ladders that are sticking out of their cell from being
  * displayed over solids, which would not make sense.
  */
-void RoomCell::draw3(sf::RenderTarget &target) const
+void RoomCell::draw4(sf::RenderTarget &target) const
 {
 	sf::RenderStates states(this->getTransform());
 

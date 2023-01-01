@@ -8,7 +8,7 @@
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 
-#define CELL_SIDE_LEN 40
+#define CELL_SIDE_LEN 40U
 
 // TODO figure out the exact value (but looks about right)
 #define BACKWALL_COLOR COLOR_GRAY(80)
@@ -73,7 +73,8 @@ class RoomCell : public sf::Transformable
 		bool blocksBottomCellLadderDelim() const;
 		bool blocksBottomCellLiquidDelim() const;
 		bool getHasSolid() const;
-		void draw1(sf::RenderTarget &target) const;
-		void draw2(sf::RenderTarget &target) const;
+		void drawBackground(sf::RenderTarget &target) const;
+		void drawPlatform(sf::RenderTarget &target) const;
 		void draw3(sf::RenderTarget &target) const;
+		void draw4(sf::RenderTarget &target) const;
 };

@@ -11,6 +11,7 @@
 #define JSON_API_VERSION 1
 
 #define FOERR_JSON_KEY_CELLS "cells"
+#define FOERR_JSON_KEY_BACK_OBJS "back_objs"
 #define FOERR_JSON_KEY_BACKWALL "backwall"
 #define FOERR_JSON_KEY_LIQUID_LEVEL "liquid_level"
 #define FOERR_JSON_KEY_LIQUID_SYMBOL "liquid_symbol"
@@ -42,6 +43,7 @@
 #define FOERR_JSON_KEY_TYPE "type"
 #define FOERR_JSON_KEY_IS_RIGHT "is_right"
 #define FOERR_JSON_KEY_OFFSET_LEFT "offset_left"
+#define FOERR_JSON_KEY_SPAWN_COORDS "spawn_coords"
 
 using json = nlohmann::json;
 

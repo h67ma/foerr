@@ -55,6 +55,8 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 	for room_node in input_root.findall("room"):
 		out_room_node = {}
 
+		##### basic infos #####
+
 		room_name = "\"" + room_node.attrib.get("name", "?") + "\""
 
 		if is_unique_loc:
@@ -107,6 +109,8 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 					out_room_node[FOERR_JSON_KEY_LIQUID_LEVEL] = liquid_level
 					# since we've placed a room-wide liquid level, we also need to define which liquid it is
 					out_room_node[FOERR_JSON_KEY_LIQUID_SYMBOL] = room_liquid_symbol
+
+		##### cells #####
 
 		grid_rows = room_node.findall("a")
 		if len(grid_rows) != ROOM_HEIGHT_WITH_BORDER:
@@ -304,6 +308,8 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 
 		out_room_node[FOERR_JSON_KEY_CELLS] = out_cells
 
+		##### room backwall #####
+
 		room_backwall_defined = False
 		if in_options_node is not None:
 			in_backwall = in_options_node.attrib.get("backwall")
@@ -320,6 +326,54 @@ def translate_rooms(input_filename: str, output_filename: str, gamedata_data, pa
 
 		if not room_backwall_defined and loc_backwall_path is not None:
 			out_room_node[FOERR_JSON_KEY_BACKWALL] = loc_backwall_path
+
+		##### big background objects #####
+
+		out_back_objs = []
+		for back_obj in room_node.findall("back"):
+			back_txt_id = back_obj.attrib.get("id")
+			back_x = back_obj.attrib.get("x")
+			back_y = back_obj.attrib.get("y")
+
+			if back_txt_id is None or back_x is None or back_y is None:
+				log_warn("Room" + room_name + ": back object " + str((back_txt_id, back_x, back_y)) + " is missing attributes, skipping")
+				continue
+
+			out_back_objs.append({
+				FOERR_JSON_KEY_COORDS: [int(back_x), int(back_y)],
+				FOERR_JSON_KEY_TEXTURE: "back_" + back_txt_id
+			})
+
+		if len(out_back_objs) > 0:
+			out_room_node[FOERR_JSON_KEY_BACK_OBJS] = out_back_objs
+
+		##### movable objects #####
+
+		#out_objs = []
+		for back_obj in room_node.findall("obj"):
+			obj_id = back_obj.attrib.get("id")
+			obj_x = back_obj.attrib.get("x")
+			obj_y = back_obj.attrib.get("y")
+
+			if obj_id is None or obj_x is None or obj_y is None:
+				log_warn("Room" + room_name + ": object " + str((obj_id, obj_x, obj_y)) + " is missing attributes, skipping")
+				continue
+
+			obj_coords = [int(obj_x), int(obj_y)]
+
+			if obj_id == "player":
+				out_room_node[FOERR_JSON_KEY_SPAWN_COORDS] = obj_coords
+				continue
+
+			# TODO detect static, movable, enemies, npcs, area, etc, separate into proper collections
+
+			#out_objs.append({
+			#	FOERR_JSON_KEY_COORDS: obj_coords,
+			#	FOERR_JSON_KEY_TEXTURE: obj_id
+			#})
+
+		#if len(out_objs) > 0:
+		#	out_room_node[FOERR_JSON_KEY_OBJS] = out_objs
 
 		output_rooms.append(out_room_node)
 

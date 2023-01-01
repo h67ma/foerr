@@ -9,6 +9,9 @@
 #define ROOM_SYMBOL_EMPTY '_'
 #define ROOM_SYMBOL_UNKNOWN '?'
 
+// TODO find out the exact shade
+#define BACK_OBJ_COLOR COLOR_GRAY(110)
+
 /**
  * Loads the room data and stores it in this object.
  *
@@ -45,6 +48,8 @@
  */
 bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root, const std::string &filePath)
 {
+	///// room-wide backwall /////
+
 	// backwall can be empty
 	std::string backwallTxtPath = "";
 	parseJsonKey<std::string>(root, filePath, FOERR_JSON_KEY_BACKWALL, backwallTxtPath, true);
@@ -57,6 +62,8 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 		this->backwall.setTextureRect({ 0, 0, GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 		this->backwall.setColor(BACKWALL_COLOR);
 	}
+
+	///// room-wide liquid level /////
 
 	// if liquid level is defined and > 0, room is fully submerged to that level (counting from bottom, in cells).
 	// solids are also submerged
@@ -90,6 +97,18 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 		this->liquidDelim.setTexture(resMgr.getTexture(liquidMat->textureDelimPath));
 		this->liquidDelim.setColor(RoomCell::liquidSpriteColor);
 	}
+
+	///// spawn coords /////
+
+	// spawn coords are usually only defined for the first room
+	if (parseJsonVector2Key<uint>(root, filePath, FOERR_JSON_KEY_SPAWN_COORDS, this->spawnCoords, true))
+	{
+		this->dummyPlayerSpawn.setFillColor(sf::Color::Red);
+		this->dummyPlayerSpawn.setRadius(10.0f);
+		this->dummyPlayerSpawn.setPosition(static_cast<sf::Vector2f>(this->spawnCoords * CELL_SIDE_LEN));
+	}
+
+	///// cells /////
 
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
 	if (cellsSearch == root.end())
@@ -192,6 +211,40 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 		}
 	}
 
+	///// background objects /////
+
+	// the room doesn't have to define any background objects (this is not an error)
+	auto bgObjsSearch = root.find(FOERR_JSON_KEY_BACK_OBJS);
+	if (bgObjsSearch != root.end())
+	{
+		if (!bgObjsSearch->is_array())
+		{
+			Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_BACK_OBJS);
+			return false;
+		}
+
+		for (const auto &backObjNode : *bgObjsSearch)
+		{
+			sf::Vector2u objCoords;
+			if (!parseJsonVector2Key<uint>(backObjNode, filePath, FOERR_JSON_KEY_COORDS, objCoords))
+				return false;
+
+			std::string objTxtId;
+			if (!parseJsonKey<std::string>(backObjNode, filePath, FOERR_JSON_KEY_TEXTURE, objTxtId))
+				return false;
+
+			objCoords *= CELL_SIDE_LEN;
+
+			objTxtId = pathCombine(PATH_TEXT_OBJS, objTxtId + "_t_1.png"); // TODO choose one of the txt variants
+
+			SpriteResource backObj(resMgr.getTexture(objTxtId));
+			backObj.setPosition(static_cast<sf::Vector2f>(objCoords));
+			backObj.setColor(BACK_OBJ_COLOR);
+
+			this->backObjects.push_back(backObj);
+		}
+	}
+
 	return true;
 }
 
@@ -205,21 +258,26 @@ void Room::init()
 	roomRenderTxt.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
 	roomRenderTxt.clear(sf::Color::Transparent);
 
-	// TODO? calling the same nested loop three times is pretty lame, maybe find some better way to handle this
+	// TODO? calling the same nested loop four times is pretty lame, maybe find some better way to handle this
 
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			this->cells[y][x].draw1(roomRenderTxt);
+			this->cells[y][x].drawBackground(roomRenderTxt);
 		}
+	}
+
+	for (const auto &backObj : this->backObjects)
+	{
+		roomRenderTxt.draw(backObj);
 	}
 
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			this->cells[y][x].draw2(roomRenderTxt);
+			this->cells[y][x].drawPlatform(roomRenderTxt);
 		}
 	}
 
@@ -228,6 +286,14 @@ void Room::init()
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
 			this->cells[y][x].draw3(roomRenderTxt);
+		}
+	}
+
+	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			this->cells[y][x].draw4(roomRenderTxt);
 		}
 	}
 
@@ -293,9 +359,10 @@ void Room::redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates
 		return;
 
 	const RoomCell *cell = &this->cells[y][x];
-	cell->draw1(target);
-	cell->draw2(target);
+	cell->drawBackground(target);
+	cell->drawPlatform(target);
 	cell->draw3(target);
+	cell->draw4(target);
 }
 
 void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -317,4 +384,6 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		states.blendMode = sf::BlendAlpha;
 		target.draw(this->cachedLiquidLevel, states);
 	}
+
+	target.draw(this->dummyPlayerSpawn, states);
 }

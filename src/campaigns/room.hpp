@@ -1,9 +1,11 @@
 #pragma once
 
 #include <string>
-#include <SFML/Graphics/Drawable.hpp>
+#include <vector>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include "../util/json.hpp"
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
@@ -32,6 +34,9 @@ class Room : public sf::Drawable, public sf::Transformable
 		uint liquidLevelHeight;
 		sf::Texture cachedLiquidLevelTxt;
 		sf::Sprite cachedLiquidLevel;
+		sf::Vector2u spawnCoords;
+		sf::CircleShape dummyPlayerSpawn; // TODO delet this
+		std::vector<SpriteResource> backObjects;
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
 
 	public:
