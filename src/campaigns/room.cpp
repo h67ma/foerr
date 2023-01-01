@@ -362,7 +362,9 @@ void Room::deinit()
 }
 
 /**
- * @brief Redraws a single cell. For drawing the entire Room, use ::draw()
+ * @brief Redraws front elements of a single Cell. For drawing the entire Room, use ::draw()
+ *
+ * We'll never want to redraw Cell background, as it will never change.
  *
  * If cell coordinates are invalid, nothing will happen.
  *
@@ -377,7 +379,6 @@ void Room::redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates
 		return;
 
 	const RoomCell *cell = &this->cells[y][x];
-	cell->drawBackground(target);
 	cell->drawPlatform(target);
 	cell->draw3(target);
 	cell->draw4(target);
