@@ -289,7 +289,7 @@ int main()
 		{ ANIM_CLIMB, 12 },
 		{ ANIM_WALK, 24 },
 	});
-	mchavi->setPosition(1400, 100);
+	mchavi->setPosition(350, 100);
 	animations.push_back(mchavi);
 
 	SimpleButton mchavi1(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 60 }, "stand", [&mchavi]() {
@@ -359,49 +359,25 @@ int main()
 	Animation *fire = new Animation(resManager.getTexture("res/entities/fire.png"), { 50, 67 }, {
 		{ANIM_STATIC, 17}
 	});
-	fire->setPosition(1400, 180);
+	fire->setPosition(350, 180);
 	animations.push_back(fire);
 
 	Animation *fire2 = new Animation(resManager.getTexture("res/entities/fire.png"), { 50, 67 }, {
 		{ANIM_STATIC, 17}
 	});
-	fire2->setPosition(1450, 180);
+	fire2->setPosition(400, 180);
 	animations.push_back(fire2);
 
 
-
-	SimpleButton cursor1(initialScale, BTN_NARROW, hudColor, resManager, { 1100, 100 }, "pointer", [&cursorMgr, &window]() {
-		cursorMgr.setCursor(window, POINTER);
-	});
-	buttons.push_back(&cursor1);
-	hoverMgr += &cursor1;
-
-	SimpleButton cursor2(initialScale, BTN_NARROW, hudColor, resManager, { 1100, 150 }, "x white", [&cursorMgr, &window]() {
-		cursorMgr.setCursor(window, CROSSHAIR_WHITE);
-	});
-	buttons.push_back(&cursor2);
-	hoverMgr += &cursor2;
-
-	SimpleButton cursor3(initialScale, BTN_NARROW, hudColor, resManager, { 1100, 200 }, "x yellow", [&cursorMgr, &window]() {
-		cursorMgr.setCursor(window, CROSSHAIR_YELLOW);
-	});
-	buttons.push_back(&cursor3);
-	hoverMgr += &cursor3;
-
-	SimpleButton cursor4(initialScale, BTN_NARROW, hudColor, resManager, { 1100, 250 }, "x red", [&cursorMgr, &window]() {
-		cursorMgr.setCursor(window, CROSSHAIR_RED);
-	});
-	buttons.push_back(&cursor4);
-	hoverMgr += &cursor4;
-
+	// TODO delet this: howto change cursor type: cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 
 
 	// debug room navigation
 	sf::Text debugCoords("(?, ?, ?)", *resManager.getFont(FONT_FIXED), 30);
-	debugCoords.setPosition(550, 493);
+	debugCoords.setPosition(900, 793);
 	debugCoords.setFillColor(hudColor);
 
-	SimpleButton btnRoomLeft(initialScale, BTN_NARROW, hudColor, resManager, { 400, 500 }, "<",
+	SimpleButton btnRoomLeft(initialScale, BTN_NARROW, hudColor, resManager, { 750, 800 }, "<",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_LEFT);
 			debugCoords.setString(litSprintf("(%d, %d, %d)",
@@ -412,7 +388,7 @@ int main()
 	buttons.push_back(&btnRoomLeft);
 	hoverMgr += &btnRoomLeft;
 
-	SimpleButton btnRoomRight(initialScale, BTN_NARROW, hudColor, resManager, { 700, 500 }, ">",
+	SimpleButton btnRoomRight(initialScale, BTN_NARROW, hudColor, resManager, { 1050, 800 }, ">",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_RIGHT);
 			debugCoords.setString(litSprintf("(%d, %d, %d)",
@@ -423,7 +399,7 @@ int main()
 	buttons.push_back(&btnRoomRight);
 	hoverMgr += &btnRoomRight;
 
-	SimpleButton btnRoomUp(initialScale, BTN_NARROW, hudColor, resManager, { 550, 450 }, "/\\",
+	SimpleButton btnRoomUp(initialScale, BTN_NARROW, hudColor, resManager, { 900, 750 }, "/\\",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_UP);
 			debugCoords.setString(litSprintf("(%d, %d, %d)",
@@ -434,7 +410,7 @@ int main()
 	buttons.push_back(&btnRoomUp);
 	hoverMgr += &btnRoomUp;
 
-	SimpleButton btnRoomDown(initialScale, BTN_NARROW, hudColor, resManager, { 550, 550 }, "\\/",
+	SimpleButton btnRoomDown(initialScale, BTN_NARROW, hudColor, resManager, { 900, 850 }, "\\/",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_DOWN);
 			debugCoords.setString(litSprintf("(%d, %d, %d)",
@@ -445,7 +421,7 @@ int main()
 	buttons.push_back(&btnRoomDown);
 	hoverMgr += &btnRoomDown;
 
-	SimpleButton btnRoomFront(initialScale, BTN_NARROW, hudColor, resManager, { 700, 450 }, "fore",
+	SimpleButton btnRoomFront(initialScale, BTN_NARROW, hudColor, resManager, { 1050, 750 }, "fore",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_FRONT);
 			debugCoords.setString(litSprintf("(%d, %d, %d)",
@@ -456,7 +432,7 @@ int main()
 	buttons.push_back(&btnRoomFront);
 	hoverMgr += &btnRoomFront;
 
-	SimpleButton btnRoomBack(initialScale, BTN_NARROW, hudColor, resManager, { 700, 550 }, "back",
+	SimpleButton btnRoomBack(initialScale, BTN_NARROW, hudColor, resManager, { 1050, 850 }, "back",
 		[&campaign, &debugCoords]() {
 			campaign.gotoRoom(DIR_BACK);
 			debugCoords.setString(litSprintf("(%d, %d, %d)",
