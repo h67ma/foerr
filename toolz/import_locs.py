@@ -429,7 +429,8 @@ def get_output_filename(input_basename: str):
 	if input_basename in loc_names_map:
 		input_basename = loc_names_map[input_basename] # translate loc name if possible
 	else:
-		log_warn("Location name \"" + input_basename + "\" not translated, skipping")
+		log_level = log_info if input_basename in ["z_shablon", "rooms2"] else log_warn
+		log_level("Location name \"" + input_basename + "\" not translated, skipping")
 		return None
 
 	output_filename = input_basename + ".json"
