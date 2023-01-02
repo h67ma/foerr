@@ -228,6 +228,9 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 							# Sewers/Canterlot are special cases as they have a map-wide liquid level.
 							log_info(err_prefix + "liquid defined for full-sized cell containing a solid, skipping liquid")
 							continue
+						if liquid_level is not None and liquid_level >= ROOM_HEIGHT_WITH_BORDER - y:
+							log_info(err_prefix + "liquid defined, but room-wide liquid level is already " + str(liquid_level) + ", skipping cell liquid")
+							continue
 						this_liquid = True
 						this_cell_symbols += room_liquid_symbol # swap '*' for the correct liquid type
 						continue
