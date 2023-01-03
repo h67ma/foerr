@@ -359,7 +359,7 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 
 			out_back_obj = {
 				FOERR_JSON_KEY_COORDS: [int(back_x), int(back_y)],
-				FOERR_JSON_KEY_TEXTURE: "back_" + back_id
+				FOERR_JSON_KEY_ID: "back_" + back_id
 			}
 
 			if back_layer >= 0:
@@ -409,7 +409,7 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 
 			#out_objs.append({
 			#	FOERR_JSON_KEY_COORDS: obj_coords,
-			#	FOERR_JSON_KEY_TEXTURE: obj_id
+			#	FOERR_JSON_KEY_ID: obj_id
 			#})
 
 		#if len(out_objs) > 0:

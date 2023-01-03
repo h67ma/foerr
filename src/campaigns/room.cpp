@@ -241,15 +241,15 @@ bool Room::parseBackObjsNode(const json &root, const std::string &filePath, Reso
 			if (!parseJsonVector2Key<uint>(backObjNode, filePath, FOERR_JSON_KEY_COORDS, objCoords))
 				return false;
 
-			std::string objTxtId;
-			if (!parseJsonKey<std::string>(backObjNode, filePath, FOERR_JSON_KEY_TEXTURE, objTxtId))
+			std::string objId;
+			if (!parseJsonKey<std::string>(backObjNode, filePath, FOERR_JSON_KEY_ID, objId))
 				return false;
 
 			objCoords *= CELL_SIDE_LEN;
 
-			objTxtId = pathCombine(PATH_TEXT_OBJS, objTxtId + "_t_1.png"); // TODO choose one of the txt variants
+			objId = pathCombine(PATH_TEXT_OBJS, objId + "_t_1.png"); // TODO choose one of the txt variants
 
-			SpriteResource backObj(resMgr.getTexture(objTxtId));
+			SpriteResource backObj(resMgr.getTexture(objId));
 			backObj.setPosition(static_cast<sf::Vector2f>(objCoords));
 			backObj.setColor(BACK_OBJ_COLOR);
 

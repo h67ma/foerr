@@ -10,6 +10,7 @@
 
 #define JSON_API_VERSION 1
 
+#define FOERR_JSON_KEY_ID "id"
 #define FOERR_JSON_KEY_CELLS "cells"
 #define FOERR_JSON_KEY_BACK_OBJS "back_objs"
 #define FOERR_JSON_KEY_FAR_BACK_OBJS "far_back_objs"
