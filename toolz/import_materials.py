@@ -5,7 +5,7 @@ from convert_data import *
 from common import log_verbose, log_info, log_warn, log_err, write_nicer_json
 
 
-def import_materials(alldata_path: str, no_legacy: bool, output_filename: str):
+def import_materials(alldata_path: str, add_legacy: bool, output_filename: str):
 	log_verbose("Importing materials")
 	try:
 		alldata_tree = ET.parse(alldata_path)
@@ -61,7 +61,7 @@ def import_materials(alldata_path: str, no_legacy: bool, output_filename: str):
 			continue
 
 		# add legacy symbol if it's different from the translated one
-		if not no_legacy and mat_symbol_translated != mat_symbol:
+		if add_legacy and mat_symbol_translated != mat_symbol:
 			out_mat[FOERR_JSON_KEY_SYMBOL_LEGACY] = mat_symbol
 
 		mat_type = mat.attrib.get("ed")
@@ -144,8 +144,8 @@ def import_materials(alldata_path: str, no_legacy: bool, output_filename: str):
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="A tool for extracting material data from AllData to use in FoERR.")
 	parser.add_argument("-d", "--alldata", action="store", required=True, type=str, help=("Path to AllData.xml (just remove beginning and end from AllData.as)"))
-	parser.add_argument("-n", "--nolegacy", action="store_true", help=("Don't add legacy symbols"))
+	parser.add_argument("-l", "--legacy", action="store_true", help=("Add information about legacy symbols"))
 	parser.add_argument("-o", "--output", action="store", default="materials.json", type=str, help=("Output filename"))
 	args = parser.parse_args()
 
-	import_materials(args.alldata, args.nolegacy, args.output)
+	import_materials(args.alldata, args.legacy, args.output)
