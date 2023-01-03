@@ -20,18 +20,22 @@ def log_msg(level: str, msg: str, color):
 
 
 def log_verbose(msg):
+	"""Log not a very important message"""
 	log_msg("VERB", msg, Fore.LIGHTBLACK_EX)
 
 
 def log_info(msg):
+	"""Log an informational message. Should be used for cases which are expected to happen."""
 	log_msg("INFO", msg, Fore.GREEN)
 
 
 def log_warn(msg):
+	"""Log an informational message. Should be used for cases which are not expected to happen."""
 	log_msg("WARN", msg, Fore.YELLOW)
 
 
 def log_err(msg):
+	"""Log a critical error."""
 	log_msg("ERRO", msg, Fore.RED)
 
 
