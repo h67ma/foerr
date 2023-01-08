@@ -19,6 +19,7 @@
 #define PATH_LOCATIONS_META "locations.json"
 #define PATH_LOGFILE "foerr.log"
 #define PATH_MATERIALS "res/materials.json"
+#define PATH_OBJS "res/objs.json"
 #define PATH_CURSOR_ARROW "res/hud/cursor/cursor.png"
 #define PATH_CURSOR_CROSS_WHITE "res/hud/cursor/crosshair_white.png"
 #define PATH_CURSOR_CROSS_YELLOW "res/hud/cursor/crosshair_yellow.png"
@@ -54,3 +55,12 @@ enum Direction
 
 // credits to oomek on https://en.sfml-dev.org/forums/index.php?topic=24250.msg164091#msg164091
 const sf::BlendMode BlendAlphaTransparent(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
+
+// makes a hole in dst
+const sf::BlendMode BlendSubtractOrSomething(sf::BlendMode::Zero, sf::BlendMode::OneMinusSrcAlpha);
+
+// mixes src and dst where alpha != 0, makes src transparent where dst alpha == 0
+// TODO? this looks pretty ok, but in the future could be replaced with a shader, or maybe some better blend mode
+const sf::BlendMode BlendOverlayOrSomething(sf::BlendMode::SrcColor, sf::BlendMode::One,
+											sf::BlendMode::ReverseSubtract, sf::BlendMode::OneMinusDstColor,
+											sf::BlendMode::One, sf::BlendMode::ReverseSubtract);

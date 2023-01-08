@@ -6,6 +6,7 @@
 #include "location.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../materials/material_manager.hpp"
+#include "../objects/object_manager.hpp"
 
 /**
  * Not all locations are kept loaded at the same time. Apart from the
@@ -18,6 +19,7 @@ class Campaign : public sf::Drawable
 	private:
 		ResourceManager &resMgr;
 		MaterialManager matMgr;
+		ObjectManager objMgr;
 		bool loaded = false;
 		std::string title;
 		std::string description;

@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import argparse
 from typing import List
@@ -6,6 +7,38 @@ import xml.etree.ElementTree as ET
 from consts import *
 from convert_data import *
 from common import log_verbose, log_info, log_warn, log_err, sane_object_pairs_hook, write_nicer_json
+
+
+reg_remove_end_variant = re.compile(r"(.+)(\d+)$")
+
+
+def maybe_write_objs_node(objs_sorter, out_node, key):
+	out_back_objs = []
+	for layer_number in sorted(objs_sorter.keys()):
+		for out_obj in objs_sorter[layer_number]:
+			out_back_objs.append(out_obj)
+
+	if len(out_back_objs) > 0:
+		out_node[key] = out_back_objs
+
+
+def maybe_separate_variant(obj_id: str):
+	"""
+	Detects if an object id wants to be a specific variant of an object which defines several variants.
+	e.g. chole1 -> chole, variant 1
+	e.g. chole -> random chole
+	Returns a tuple of (real_object_id, variant_number) if variant was found, or None if variant was not found.
+	"""
+	search = reg_remove_end_variant.findall(obj_id)
+	if len(search) != 1:
+		return None
+	
+	obj_id = search[0][0]
+	obj_variant = search[0][1]
+	if obj_id in ["hole", "chole"]:
+		return (obj_id, int(obj_variant) - 1) # also change index to be zero-based (more based than one-based)
+
+	return None
 
 
 def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
@@ -342,6 +375,7 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 
 		back_objs_sorter = {}
 		far_back_objs_sorter = {}
+		back_holes_sorter = {} # sorting in this case probably doesn't matter, but let's do it anyway just in case
 		for back_obj in room_node.findall("back"):
 			back_id = back_obj.attrib.get("id")
 			back_x = back_obj.attrib.get("x")
@@ -357,35 +391,37 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 			else:
 				back_layer = obj_data[back_id]
 
+			maybe_separated_id = maybe_separate_variant(back_id)
+			if maybe_separated_id is not None:
+				back_id = maybe_separated_id[0]
+
+			rr_back_id = "back_" + back_id
+
 			out_back_obj = {
 				FOERR_JSON_KEY_COORDS: [int(back_x), int(back_y)],
-				FOERR_JSON_KEY_ID: "back_" + back_id
+				FOERR_JSON_KEY_ID: rr_back_id
 			}
 
-			if back_layer >= 0:
-				if back_layer not in back_objs_sorter:
-					back_objs_sorter[back_layer] = []
-				back_objs_sorter[back_layer].append(out_back_obj)
+			if maybe_separated_id is not None:
+				out_back_obj[FOERR_JSON_KEY_VARIANT] = maybe_separated_id[1]
+
+			if rr_back_id in hole_ids:
+				if back_layer not in back_holes_sorter:
+					back_holes_sorter[back_layer] = []
+				back_holes_sorter[back_layer].append(out_back_obj)
 			else:
-				if back_layer not in far_back_objs_sorter:
-					far_back_objs_sorter[back_layer] = []
-				far_back_objs_sorter[back_layer].append(out_back_obj)
+				if back_layer >= 0:
+					if back_layer not in back_objs_sorter:
+						back_objs_sorter[back_layer] = []
+					back_objs_sorter[back_layer].append(out_back_obj)
+				else:
+					if back_layer not in far_back_objs_sorter:
+						far_back_objs_sorter[back_layer] = []
+					far_back_objs_sorter[back_layer].append(out_back_obj)
 
-		out_back_objs = []
-		for layer_number in sorted(back_objs_sorter.keys()):
-			for out_obj in back_objs_sorter[layer_number]:
-				out_back_objs.append(out_obj)
-
-		if len(out_back_objs) > 0:
-			out_room_node[FOERR_JSON_KEY_BACK_OBJS] = out_back_objs
-
-		out_far_back_objs = []
-		for layer_number in sorted(far_back_objs_sorter.keys()):
-			for out_obj in far_back_objs_sorter[layer_number]:
-				out_far_back_objs.append(out_obj)
-
-		if len(out_far_back_objs) > 0:
-			out_room_node[FOERR_JSON_KEY_FAR_BACK_OBJS] = out_far_back_objs
+		maybe_write_objs_node(back_objs_sorter, out_room_node, FOERR_JSON_KEY_BACK_OBJS)
+		maybe_write_objs_node(far_back_objs_sorter, out_room_node, FOERR_JSON_KEY_FAR_BACK_OBJS)
+		maybe_write_objs_node(back_holes_sorter, out_room_node, FOERR_JSON_KEY_BACK_HOLES)
 
 		##### movable objects #####
 

@@ -14,6 +14,7 @@
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
+#include "../objects/object_manager.hpp"
 
 #define REC_LVL_EMPTY -1
 
@@ -81,7 +82,7 @@ class Location : public sf::Drawable
 	public:
 		Location(std::string id, uint transitionTimeMs);
 		bool loadMeta(const json &locMetaNode, const std::string &campaignDir);
-		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr);
+		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr);
 		void unloadContent();
 		std::string getId();
 		std::string getTitle();

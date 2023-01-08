@@ -110,11 +110,13 @@ bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
  *	]
  * }
  *
- * @param resMgr reference to resource manager object
+ * @param resMgr reference to Resource Manager object
+ * @param matMgr reference to Material Manager object
+ * @param objMgr reference to Object Manager object
  * @returns true if load succeeded
  * @returns false if load failed
  */
-bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMgr)
+bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr)
 {
 	std::string backgroundFullPath;
 	json root;
@@ -191,7 +193,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 		// only keep the current and nearby Rooms loaded. nearby Rooms could be loaded (along with the resources they
 		// need) in a background thread. we'd only need to keep some light-weight version of Location data, e.g. a json
 		// object, or some kind of meta-location, with some of the data preliminarily parsed.
-		if (!room->load(resMgr, matMgr, roomNode, this->roomDataPath))
+		if (!room->load(resMgr, matMgr, objMgr, roomNode, this->roomDataPath))
 		{
 			this->unloadContent();
 			return false;

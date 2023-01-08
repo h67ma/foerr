@@ -4,13 +4,11 @@
 #include <SFML/Graphics/RenderTexture.hpp>
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../objects/back_obj.hpp"
 
 #define ROOM_SYMBOL_SEPARATOR '|'
 #define ROOM_SYMBOL_EMPTY '_'
 #define ROOM_SYMBOL_UNKNOWN '?'
-
-// TODO find out the exact shade
-#define BACK_OBJ_COLOR COLOR_GRAY(110)
 
 /**
  * Loads the room data and stores it in this object.
@@ -41,12 +39,16 @@
  * for keeping file history, blaming, etc. This applies to all data files, but rooms are the most obvious candidate for
  * binarization as they are the largest in volume.
  *
+ * @param resMgr reference to Resource Manager
+ * @param matMgr reference to Material Manager
+ * @param objMgr reference to Object Manager
  * @param root reference to json node containing room data
  * @param filePath location file path, just for printing
  * @returns true on load success
  * @returns false on load fail
  */
-bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const json &root, const std::string &filePath)
+bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
+				const json &root, const std::string &filePath)
 {
 	///// room-wide backwall /////
 
@@ -213,17 +215,20 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const js
 
 	///// background objects /////
 
-	if (!Room::parseBackObjsNode(root, filePath, resMgr, FOERR_JSON_KEY_BACK_OBJS, this->backObjects))
+	if (!Room::parseBackObjsNode(root, filePath, resMgr, objMgr, FOERR_JSON_KEY_BACK_OBJS, false))
 		return false;
 
-	if (!Room::parseBackObjsNode(root, filePath, resMgr, FOERR_JSON_KEY_FAR_BACK_OBJS, this->farBackObjects))
+	if (!Room::parseBackObjsNode(root, filePath, resMgr, objMgr, FOERR_JSON_KEY_FAR_BACK_OBJS, true))
+		return false;
+
+	if (!Room::parseBackHoleObjsNode(root, filePath, resMgr, objMgr))
 		return false;
 
 	return true;
 }
 
-bool Room::parseBackObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr, const char* key,
-							 std::vector<SpriteResource> &collection)
+bool Room::parseBackObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr,
+							 const ObjectManager &objMgr, const char* key, bool far)
 {
 	// the room doesn't have to define any background objects (this is not an error)
 	auto bgObjsSearch = root.find(key);
@@ -245,15 +250,87 @@ bool Room::parseBackObjsNode(const json &root, const std::string &filePath, Reso
 			if (!parseJsonKey<std::string>(backObjNode, filePath, FOERR_JSON_KEY_ID, objId))
 				return false;
 
+			int variantIdx;
+			if (!parseJsonKey<int>(backObjNode, filePath, FOERR_JSON_KEY_VARIANT, variantIdx, true))
+				variantIdx = -1;
+
 			objCoords *= CELL_SIDE_LEN;
 
-			objId = pathCombine(PATH_TEXT_OBJS, objId + "_t_1.png"); // TODO choose one of the txt variants
+			SpriteResource backObjMain;
+			SpriteResource backObjLight;
+			if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objId, variantIdx))
+			{
+				Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objId.c_str());
+				continue;
+			}
 
-			SpriteResource backObj(resMgr.getTexture(objId));
-			backObj.setPosition(static_cast<sf::Vector2f>(objCoords));
-			backObj.setColor(BACK_OBJ_COLOR);
+			// note: move instead of setPosition, as objects were already moved according to offset
+			backObjMain.move(static_cast<sf::Vector2f>(objCoords));
 
-			collection.push_back(backObj);
+			if (far)
+			{
+				this->farBackObjectsMain.push_back(backObjMain);
+				// light is unsupported for far back objects
+			}
+			else
+			{
+				//backObjLight.move(static_cast<sf::Vector2f>(objCoords)); // TODO
+				this->backObjectsMain.push_back(backObjMain);
+				//this->backObjects.push_back(backObjLight); // TODO
+			}
+		}
+	}
+
+	return true;
+}
+
+bool Room::parseBackHoleObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr,
+								 const ObjectManager &objMgr)
+{
+	// the room doesn't have to define any hole objects (this is not an error)
+	auto bgHolesSearch = root.find(FOERR_JSON_KEY_BACK_HOLES);
+	if (bgHolesSearch != root.end())
+	{
+		if (!bgHolesSearch->is_array())
+		{
+			Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_BACK_HOLES);
+			return false;
+		}
+
+		for (const auto &backHoleNode : *bgHolesSearch)
+		{
+			sf::Vector2u objCoords;
+			if (!parseJsonVector2Key<uint>(backHoleNode, filePath, FOERR_JSON_KEY_COORDS, objCoords))
+				return false;
+
+			std::string objId;
+			if (!parseJsonKey<std::string>(backHoleNode, filePath, FOERR_JSON_KEY_ID, objId))
+				return false;
+
+			int variantIdx;
+			if (!parseJsonKey<int>(backHoleNode, filePath, FOERR_JSON_KEY_VARIANT, variantIdx, true))
+				variantIdx = -1;
+
+			objCoords *= CELL_SIDE_LEN;
+
+			SpriteResource backObjMain;
+			SpriteResource backObjHole;
+			bool blend;
+			if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objId, variantIdx))
+			{
+				Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objId.c_str());
+				continue;
+			}
+
+			// note: move instead of setPosition, as objects were already moved according to offset
+			backObjMain.move(static_cast<sf::Vector2f>(objCoords));
+			backObjHole.move(static_cast<sf::Vector2f>(objCoords));
+
+			this->backHoleObjectsMain.push_back({
+				.spriteRes = backObjMain,
+				.blend = blend
+			});
+			this->backHoleObjectsHoles.push_back(backObjHole);
 		}
 	}
 
@@ -268,6 +345,7 @@ void Room::init()
 {
 	// TODO? calling the same nested loop multiple times is pretty lame, maybe find some better way to handle this
 
+	sf::RenderStates states;
 	sf::RenderTexture tmpRender;
 	tmpRender.create(GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
 
@@ -278,12 +356,17 @@ void Room::init()
 	// we could draw far back objects on another texture, along with background full, so that far back objects won't
 	// move during room transition. the current approach looks visually ok though, so let's keep it. as a bonus we don't
 	// have to add another caching texture.
-	for (const auto &backObj : this->farBackObjects)
-	{
-		tmpRender.draw(backObj);
-	}
 
 	tmpRender.draw(this->backwall); // can be empty
+
+	// note: in Remains far back object drawing seems to work a bit differently: they seem to be drawn over cell
+	// backgrounds, but it makes little sense. in that case just use a regular, non-far back object. because of this,
+	// some rooms might look a bit different than in Remains. for an example compare M.A.S. (2, 8, 0).
+	for (const auto &backObj : this->farBackObjectsMain)
+	{
+		// blend mode not supported for far back objects
+		tmpRender.draw(backObj);
+	}
 
 	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 	{
@@ -293,7 +376,23 @@ void Room::init()
 		}
 	}
 
-	for (const auto &backObj : this->backObjects)
+	for (const auto &backObj : this->backHoleObjectsMain)
+	{
+		if (backObj.blend)
+			states.blendMode = BlendOverlayOrSomething;
+		else
+			states.blendMode = sf::BlendAlpha;
+
+		tmpRender.draw(backObj.spriteRes, states);
+	}
+
+	states.blendMode = BlendSubtractOrSomething;
+	for (const auto &backObj : this->backHoleObjectsHoles)
+	{
+		tmpRender.draw(backObj, states);
+	}
+
+	for (const auto &backObj : this->backObjectsMain)
 	{
 		tmpRender.draw(backObj);
 	}
@@ -345,7 +444,7 @@ void Room::init()
 	// get messed up if we simply draw it on top of liquid level rectangle. to counter this, we use sf::BlendNone.
 	// but it would be difficult to use it along other elements (cells, backwall, etc.), therefore RenderTexture.
 	tmpRender.clear(sf::Color::Transparent);
-	sf::RenderStates states(sf::BlendNone);
+	states.blendMode = sf::BlendNone;
 
 	// liquid level rectangle
 	tmpRender.draw(this->liquid, states);

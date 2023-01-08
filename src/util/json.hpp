@@ -11,9 +11,15 @@
 #define JSON_API_VERSION 1
 
 #define FOERR_JSON_KEY_ID "id"
+#define FOERR_JSON_KEY_OFFSET "offset"
+#define FOERR_JSON_KEY_VARIANT "var"
+#define FOERR_JSON_KEY_BLEND "blend"
+#define FOERR_JSON_KEY_MAIN_CNT "main_cnt"
+#define FOERR_JSON_KEY_LIGHT_CNT "light_cnt"
 #define FOERR_JSON_KEY_CELLS "cells"
 #define FOERR_JSON_KEY_BACK_OBJS "back_objs"
 #define FOERR_JSON_KEY_FAR_BACK_OBJS "far_back_objs"
+#define FOERR_JSON_KEY_BACK_HOLES "back_holes"
 #define FOERR_JSON_KEY_BACKWALL "backwall"
 #define FOERR_JSON_KEY_LIQUID_LEVEL "liquid_level"
 #define FOERR_JSON_KEY_LIQUID_SYMBOL "liquid_symbol"

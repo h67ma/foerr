@@ -121,6 +121,9 @@ bool Campaign::load(std::string campaignDir, uint transitionTimeMs)
 	if (!this->matMgr.load())
 		return false;
 
+	if (!this->objMgr.load())
+		return false;
+
 	if (!this->changeLocationById(this->startLocation))
 		return false;
 
@@ -214,7 +217,7 @@ bool Campaign::changeLocationByIndex(uint newIdx)
 
 	// load the new location. don't unload the old one yet, as new
 	// one might fail to load and then we need to keep the old one
-	if (!this->locations[newIdx].loadContent(this->resMgr, this->matMgr))
+	if (!this->locations[newIdx].loadContent(this->resMgr, this->matMgr, this->objMgr))
 	{
 		Log::e(STR_LOADING_LOCATION_CONTENT_ERROR, this->locations[newIdx].getId().c_str());
 		return false;
