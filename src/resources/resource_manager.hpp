@@ -73,6 +73,7 @@ class ResourceManager
 		bool loadFonts();
 		bool loadCore();
 		std::shared_ptr<sf::Texture> getTexture(std::string path, bool returnSomething = true);
+		std::shared_ptr<sf::Texture> getNotFoundTexture();
 		std::shared_ptr<sf::SoundBuffer> getSoundBuffer(std::string path);
 		sf::Font* getFont(FontType fontType);
 		void cleanUnused();

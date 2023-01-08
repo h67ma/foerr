@@ -75,7 +75,11 @@ bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource
 {
 	auto search = this->objects.find(objId);
 	if (search == this->objects.end())
+	{
+		// setup main sprite with missing texture
+		mainSpriteRes.setTexture(resMgr.getNotFoundTexture());
 		return false;
+	}
 
 	search->second.setupBgSprites(mainSpriteRes, lightSpriteRes, resMgr, objId, variantIdx);
 	return true;
@@ -98,7 +102,11 @@ bool ObjectManager::setupBgHoleSprites(SpriteResource &mainSpriteRes, SpriteReso
 {
 	auto search = this->holeObjects.find(objId);
 	if (search == this->holeObjects.end())
+	{
+		// setup main sprite with missing texture
+		mainSpriteRes.setTexture(resMgr.getNotFoundTexture());
 		return false;
+	}
 
 	search->second.setupBgSprites(mainSpriteRes, holeSpriteRes, blend, resMgr, objId, variantIdx);
 	return true;

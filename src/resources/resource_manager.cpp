@@ -114,6 +114,11 @@ std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string path, bool 
 	return txt;
 }
 
+std::shared_ptr<sf::Texture> ResourceManager::getNotFoundTexture()
+{
+	return this->notFoundTexture;
+}
+
 /**
  * Loads audio from specified path into resource manager object.
  * Pointer to the loaded sound buffer is returned. If the buffer is already

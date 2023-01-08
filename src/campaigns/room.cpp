@@ -259,10 +259,7 @@ bool Room::parseBackObjsNode(const json &root, const std::string &filePath, Reso
 			SpriteResource backObjMain;
 			SpriteResource backObjLight;
 			if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objId, variantIdx))
-			{
 				Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objId.c_str());
-				continue;
-			}
 
 			// note: move instead of setPosition, as objects were already moved according to offset
 			backObjMain.move(static_cast<sf::Vector2f>(objCoords));
@@ -317,10 +314,7 @@ bool Room::parseBackHoleObjsNode(const json &root, const std::string &filePath, 
 			SpriteResource backObjHole;
 			bool blend;
 			if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objId, variantIdx))
-			{
 				Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objId.c_str());
-				continue;
-			}
 
 			// note: move instead of setPosition, as objects were already moved according to offset
 			backObjMain.move(static_cast<sf::Vector2f>(objCoords));
