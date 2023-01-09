@@ -122,6 +122,14 @@ missing_mats = {
 		FOERR_JSON_KEY_COLOR: "#FF66AA",	# pink
 		FOERR_JSON_KEY_TEXTURE_DELIM: "liquid_pink_delim",
 	},
+	'u': {
+		FOERR_JSON_KEY_TYPE: 2,
+		FOERR_JSON_KEY_TEXTURE: "tWindows",
+	},
+	'v': {
+		FOERR_JSON_KEY_TYPE: 2,
+		FOERR_JSON_KEY_TEXTURE: "tLeaking",
+	},
 }
 
 # maps "wtip" to liquid material symbol

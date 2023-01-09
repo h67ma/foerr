@@ -143,6 +143,60 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 					# since we've placed a room-wide liquid level, we also need to define which liquid it is
 					out_room_node[FOERR_JSON_KEY_LIQUID_SYMBOL] = room_liquid_symbol
 
+		##### backform #####
+
+		# a few rooms in Remains define "backform" attribute, which means that backwall needs to be partially displayed.
+		# there are two possible values:
+		#   1 - display backwall only on left and right side, about 11 cells wide on each side (incl. border)
+		#   2 - display backwall only on bottom side, about 9 cells high (incl. border)
+		# instead of implementing this special case just for a handful of Rooms, let's instead use cell backgrounds to
+		# achieve the desired effect, i.e. for cells included in the pattern which do not define background, we'll add
+		# background set to backwall.
+		room_backform = None
+		if in_options_node is not None:
+			room_backform = in_options_node.attrib.get("backform")
+			if room_backform is not None:
+				if room_backform in ["1", "2"]:
+					log_verbose(room_name + " defines backform, adding background to some cells")
+					room_backform = int(room_backform)
+				else:
+					log_warn(room_name + " defines unknown backform, ignoring")
+
+		##### room backwall #####
+
+		room_backwall_defined = False
+		backwall_value = None
+		if in_options_node is not None: # skip backwall if backform was used
+			in_backwall = in_options_node.attrib.get("backwall")
+			if in_backwall is not None:
+				# "sky" as backwall value is a special case.
+				# in ::drawBackWall() in Grafon.as room backwall is not drawn if "sky"
+				# let's handle this differently than in Remains: let's not define backwall for location, as it can be
+				# overwritten by room's backwall. let's just store backwall only in each room. if Remains location
+				# defines backwall, just add it to every room which doesn't define its own backwall. additionally skip
+				# "sky" as it causes room backwall to be ignored - with current approach we don't need it.
+				room_backwall_defined = True
+				if in_backwall != "sky":
+					backwall_value = in_backwall
+
+		if not room_backwall_defined and loc_backwall_path is not None:
+			backwall_value = loc_backwall_path
+
+		backwall_symbol = None
+		if backwall_value is not None:
+			if room_backform is None:
+				# write backwall normally
+				out_room_node[FOERR_JSON_KEY_BACKWALL] = backwall_value
+			else:
+				# backform was specified, get character which we need to put instead of backwall into cells backgrounds
+				# because so few rooms actually use backform, let's just hardcode symbols for these two textures here
+				if backwall_value == "tWindows":
+					backwall_symbol = 'u'
+				elif backwall_value == "tLeaking":
+					backwall_symbol = 'v'
+				else:
+					log_err(room_name + " no mapping found for " + backwall_value)
+
 		##### cells #####
 
 		grid_rows = room_node.findall("a")
@@ -328,6 +382,13 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 
 					this_cell_symbols += out_symbol
 
+				if room_backform is not None and not this_background and backwall_symbol is not None:
+					# add backwall as cell background in specified places
+					# we've already checked for unknown backform values when reading xml above
+					if (room_backform == 1 and (x < 11 or x > 36)) or (room_backform == 2 and y > 15):
+						# just add the symbol at the end as it's background
+						this_cell_symbols += backwall_symbol
+
 				if pad_cnt is not None:
 					if len(this_cell_symbols) > pad_cnt:
 						log_warn("Room " + room_name + " at " + str((x, y)) + ": cell is wider than requested pad size, trimming")
@@ -343,25 +404,6 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 			out_cells.append(OUT_DELIM.join(out_cell_strip))
 
 		out_room_node[FOERR_JSON_KEY_CELLS] = out_cells
-
-		##### room backwall #####
-
-		room_backwall_defined = False
-		if in_options_node is not None:
-			in_backwall = in_options_node.attrib.get("backwall")
-			if in_backwall is not None:
-				# "sky" as backwall value is a special case.
-				# in ::drawBackWall() in Grafon.as room backwall is not drawn if "sky"
-				# let's handle this differently than in Remains: let's not define backwall for location, as it can be
-				# overwritten by room's backwall. let's just store backwall only in each room. if Remains location
-				# defines backwall, just add it to every room which doesn't define its own backwall. additionally skip
-				# "sky" as it causes room backwall to be ignored - with current approach we don't need it.
-				room_backwall_defined = True
-				if in_backwall != "sky":
-					out_room_node[FOERR_JSON_KEY_BACKWALL] = in_backwall
-
-		if not room_backwall_defined and loc_backwall_path is not None:
-			out_room_node[FOERR_JSON_KEY_BACKWALL] = loc_backwall_path
 
 		##### background objects #####
 
