@@ -76,7 +76,7 @@ def import_objs(path_in: str, path_out: str, objs_out_path: str):
 	out_meta_root[FOERR_JSON_KEY_BACK_OBJS] = {key: val for key, val in sorted(out_objs_node.items(), key = lambda item: item[0])}
 	out_meta_root[FOERR_JSON_KEY_BACK_HOLES] = {key: val for key, val in sorted(out_holes_node.items(), key = lambda item: item[0])}
 	write_nicer_json(objs_out_path, out_meta_root)
-	log_warn("Please manually fix trimmed & unpadded \"back_chole\", \"back_hole\", \"back_skel\" textures!")
+	log_warn("Please manually fix trimmed and/or unpadded textures for: \"" + ("\", \"".join(obj_copy_blacklist) + "\"!"))
 
 
 if __name__ == "__main__":
