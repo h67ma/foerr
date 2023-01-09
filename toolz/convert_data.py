@@ -165,6 +165,8 @@ pad_img_data = {
 	"back_hole_2_e.png": (0, 18),
 	"back_hole_3_e.png": (14, 6),
 	"back_hole_4_e.png": (8, 13),
+	"back_skel_1.png": (0, 7),
+	"back_skel_2.png": (0, 10),
 }
 
 # set this manually, based on extract_svg_offsets.py
@@ -219,7 +221,7 @@ obj_offsets = {
 	"back_rak": (0, 30),
 	"back_remains1": (8, 17),
 	"back_remains2": (345, -12),
-	"back_skel": (-4, 5),
+	"back_skel": (-4, 2),
 	"back_stbanner": (-5, 0),
 	"back_stenka1": (2, 0),
 	"back_stenka2": (2, 0),
@@ -235,7 +237,7 @@ obj_offsets = {
 	"back_tree": (-10, 7),
 	"back_unitaz": (5, 20),
 	"back_unitazm": (5, 20),
-	"back_vase": (-5, 7),
+	"back_vase": (-5, 9), # TODO fix obj order in MoI (0, 0, 0) (must be behind back_celest)
 	"back_vent": (-5, -5),
 	"back_vyt": (10, 0),
 	"back_zavod1": (1, 0),
@@ -428,6 +430,7 @@ obj_txt_blacklist = [
 obj_copy_blacklist = [
 	"back_hole",
 	"back_chole",
+	"back_skel"
 ]
 
 objs_add_blend_flag = [
