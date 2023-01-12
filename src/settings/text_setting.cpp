@@ -2,7 +2,7 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-TextSetting::TextSetting(std::string key, std::string defaultVal) :
+TextSetting::TextSetting(const std::string &key, const std::string &defaultVal) :
 	Setting(key, defaultVal),
 	defaultVal(defaultVal)
 {}

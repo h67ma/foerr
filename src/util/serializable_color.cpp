@@ -7,7 +7,7 @@
  *   - /#[0-9a-f]{3}/i
  *   - /#[0-9a-f]{6}/i
  */
-bool SerializableColor::loadFromColorString(std::string input)
+bool SerializableColor::loadFromColorString(const std::string &input)
 {
 	uint r, g, b;
 

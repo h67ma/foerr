@@ -11,7 +11,7 @@ class ScreenCornerSetting: public Setting
 		const ScreenCorner defaultVal;
 
 	public:
-		ScreenCornerSetting(std::string key, ScreenCorner defaultVal);
+		ScreenCornerSetting(const std::string &key, ScreenCorner defaultVal);
 		void resetToDefault() override;
 		const json getJsonValue() override;
 		void loadFromJson(const json &node) override;

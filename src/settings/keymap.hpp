@@ -82,9 +82,9 @@ class Keymap
 		static const std::unordered_map<sf::Keyboard::Key, KeyAction>& getkeyToActionMap();
 		static KeyAction keyToAction(sf::Keyboard::Key key);
 		static std::string keyToString(sf::Keyboard::Key key);
-		static sf::Keyboard::Key keyStringToKey(std::string keyStr);
+		static sf::Keyboard::Key keyStringToKey(const std::string &keyStr);
 		static std::string actionToString(KeyAction action);
-		static KeyAction actionStringToAction(std::string actionStr);
+		static KeyAction actionStringToAction(const std::string &actionStr);
 		static std::string actionToDisplayString(KeyAction action);
 		static void resetToDefault();
 		static void load();

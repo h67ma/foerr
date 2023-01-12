@@ -80,7 +80,7 @@ class Location : public sf::Drawable
 		sf::Sprite roomTransitionSprite;
 
 	public:
-		Location(std::string id, uint transitionTimeMs);
+		Location(const std::string &id, uint transitionTimeMs);
 		bool loadMeta(const json &locMetaNode, const std::string &campaignDir);
 		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr);
 		void unloadContent();

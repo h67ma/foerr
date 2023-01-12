@@ -10,7 +10,7 @@ class LogicSetting: public Setting
 		const bool defaultVal;
 
 	public:
-		LogicSetting(std::string key, bool defaultVal);
+		LogicSetting(const std::string &key, bool defaultVal);
 		void resetToDefault() override;
 		const json getJsonValue() override;
 		void loadFromJson(const json &node) override;

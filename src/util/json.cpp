@@ -2,7 +2,7 @@
 #include <fstream>
 #include "../hud/log.hpp"
 
-void writeJsonToFile(const json &root, std::string path)
+void writeJsonToFile(const json &root, const std::string &path)
 {
 	std::ofstream writer(path);
 	writer << std::setfill('\t') << std::setw(1) << root << std::endl;
@@ -20,7 +20,7 @@ void writeJsonToFile(const json &root, std::string path)
  * @return true if loading succeeded
  * @return false if loading failed
  */
-bool loadJsonFromFile(json &root, std::string path, bool quiet)
+bool loadJsonFromFile(json &root, const std::string &path, bool quiet)
 {
 	std::ifstream reader(path);
 

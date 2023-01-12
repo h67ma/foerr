@@ -8,7 +8,7 @@
 
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
-Location::Location(std::string id, uint transitionTimeMs) : id(id), transitionTimeMs(transitionTimeMs)
+Location::Location(const std::string &id, uint transitionTimeMs) : id(id), transitionTimeMs(transitionTimeMs)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }

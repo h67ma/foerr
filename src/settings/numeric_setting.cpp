@@ -2,15 +2,15 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-NumericSetting::NumericSetting(std::string key, uint defaultVal) :
+NumericSetting::NumericSetting(const std::string &key, uint defaultVal) :
 	Setting(key, defaultVal),
 	defaultVal(defaultVal),
 	constraint(nullptr),
 	valueHint("")
 {}
 
-NumericSetting::NumericSetting(std::string key, uint defaultVal, const std::function<bool(uint)> constraint,
-							   std::string valueHint) :
+NumericSetting::NumericSetting(const std::string &key, uint defaultVal, const std::function<bool(uint)> constraint,
+							   const std::string &valueHint) :
 	Setting(key, defaultVal),
 	defaultVal(defaultVal),
 	constraint(constraint),

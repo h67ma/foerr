@@ -87,7 +87,7 @@ class SettingsManager
 		void setColor(SettingName idx, sf::Color newValue);
 		void setScreenCorner(SettingName idx, ScreenCorner newValue);
 		void setGuiScale(SettingName idx, GuiScale newValue);
-		void setText(SettingName idx, std::string newValue);
+		void setText(SettingName idx, const std::string &newValue);
 		static bool generatePathsAndMkdir();
 		static std::string getGameRootDir();
 		static std::string getSaveDir();

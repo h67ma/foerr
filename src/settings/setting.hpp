@@ -26,11 +26,11 @@ class Setting
 		const std::string key; // for serialization
 
 	protected:
-		explicit Setting(std::string key, uint value);
-		explicit Setting(std::string key, bool value);
-		explicit Setting(std::string key, std::string value);
-		explicit Setting(std::string key, GuiScale guiScale);
-		explicit Setting(std::string key, ScreenCorner defaultValue);
+		explicit Setting(const std::string &key, uint value);
+		explicit Setting(const std::string &key, bool value);
+		explicit Setting(const std::string &key, const std::string &value);
+		explicit Setting(const std::string &key, GuiScale guiScale);
+		explicit Setting(const std::string &key, ScreenCorner defaultValue);
 
 	public:
 		setting_value_t val; // solution with templates is also possible, but more messy

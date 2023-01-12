@@ -264,7 +264,7 @@ void SettingsManager::setScreenCorner(SettingName name, ScreenCorner newValue)
 	search->second->val.enumScreenCorner = newValue;
 }
 
-void SettingsManager::setText(SettingName name, std::string newValue)
+void SettingsManager::setText(SettingName name, const std::string &newValue)
 {
 	auto search = this->settings.find(name);
 	if (search == this->settings.end())

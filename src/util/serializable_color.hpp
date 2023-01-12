@@ -9,6 +9,6 @@ class SerializableColor : public sf::Color
 	public:
 		SerializableColor() : sf::Color() {}
 		explicit SerializableColor(uint color) : sf::Color(color) {}
-		bool loadFromColorString(std::string input);
+		bool loadFromColorString(const std::string &input);
 		std::string toString();
 };

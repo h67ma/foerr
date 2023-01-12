@@ -39,7 +39,7 @@ Campaign::Campaign(ResourceManager &resMgr) : resMgr(resMgr)
  * @return true if load succeeded
  * @return false if load failed
  */
-bool Campaign::load(std::string campaignDir, uint transitionTimeMs)
+bool Campaign::load(const std::string &campaignDir, uint transitionTimeMs)
 {
 	Log::d(STR_CAMPAIGN_LOADING, campaignDir.c_str());
 
@@ -234,7 +234,7 @@ bool Campaign::changeLocationByIndex(uint newIdx)
 	return true;
 }
 
-bool Campaign::changeLocationById(std::string locId)
+bool Campaign::changeLocationById(const std::string &locId)
 {
 	for (auto it = this->locations.begin(); it != this->locations.end(); it++)
 	{

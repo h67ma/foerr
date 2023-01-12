@@ -55,8 +55,8 @@
 
 using json = nlohmann::json;
 
-void writeJsonToFile(const json &root, std::string path);
-bool loadJsonFromFile(json &root, std::string path, bool quiet = false);
+void writeJsonToFile(const json &root, const std::string &path);
+bool loadJsonFromFile(json &root, const std::string &path, bool quiet = false);
 bool parseJsonVector3iKey(const json &node, const std::string &filePath, const char* key, sf::Vector3i &value,
 						  bool quiet = false);
 

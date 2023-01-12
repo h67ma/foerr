@@ -3,7 +3,7 @@
 #include "../util/i18n.hpp"
 #include "../util/serializable_color.hpp"
 
-ColorSetting::ColorSetting(std::string key, sf::Color defaultVal) :
+ColorSetting::ColorSetting(const std::string &key, sf::Color defaultVal) :
 	Setting(key, defaultVal.toInteger()),
 	defaultVal(defaultVal.toInteger())
 {}

@@ -36,7 +36,7 @@ void Log::setPosition(ScreenCorner anchor, sf::Vector2u windowSize)
 	Log::windowSize = windowSize;
 }
 
-void Log::openLogFile(std::string logFilePath)
+void Log::openLogFile(const std::string &logFilePath)
 {
 	Log::logFile.open(logFilePath);
 }
@@ -112,7 +112,7 @@ void Log::draw(sf::RenderTarget &target)
 /**
  * Writes a formatted message to log file.
  */
-void Log::logToFile(const char* prefix, std::string msg)
+void Log::logToFile(const char* prefix, const std::string &msg)
 {
 	Log::logFile << prefix << msg << std::endl;
 }
@@ -122,7 +122,7 @@ void Log::logToFile(const char* prefix, std::string msg)
  *
  * Use only if no Log object is available (writing to hud or log file is preferred).
  */
-void Log::logStderr(const char* prefix, std::string msg)
+void Log::logStderr(const char* prefix, const std::string &msg)
 {
 	std::cerr << prefix << msg << std::endl;
 }

@@ -1,26 +1,26 @@
 #include "setting.hpp"
 
-Setting::Setting(std::string key, uint value) :
+Setting::Setting(const std::string &key, uint value) :
 	key(key),
 	val(value)
 {}
 
-Setting::Setting(std::string key, bool value) :
+Setting::Setting(const std::string &key, bool value) :
 	key(key),
 	val(value)
 {}
 
-Setting::Setting(std::string key, std::string value) :
+Setting::Setting(const std::string &key, const std::string &value) :
 	key(key),
 	textVal(value)
 {}
 
-Setting::Setting(std::string key, GuiScale value) :
+Setting::Setting(const std::string &key, GuiScale value) :
 	key(key),
 	val(value)
 {}
 
-Setting::Setting(std::string key, ScreenCorner value) :
+Setting::Setting(const std::string &key, ScreenCorner value) :
 	key(key),
 	val(value)
 {}

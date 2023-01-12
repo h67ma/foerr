@@ -13,7 +13,7 @@ class CustomCursor
 		sf::Cursor cursor;
 
 	public:
-		CustomCursor(std::string path, sf::Vector2u hotPoint, sf::Cursor::Type fallback);
+		CustomCursor(const std::string &path, sf::Vector2u hotPoint, sf::Cursor::Type fallback);
 		bool load(bool preferCustom);
 		const sf::Cursor& getCursor();
 };

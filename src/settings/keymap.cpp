@@ -226,7 +226,7 @@ std::string Keymap::keyToString(sf::Keyboard::Key key)
 	return search->second;
 }
 
-sf::Keyboard::Key Keymap::keyStringToKey(std::string keyStr)
+sf::Keyboard::Key Keymap::keyStringToKey(const std::string &keyStr)
 {
 	auto search = Keymap::keyStringToKeyMap.find(keyStr);
 	if (search == Keymap::keyStringToKeyMap.end())
@@ -250,7 +250,7 @@ std::string Keymap::actionToString(KeyAction action)
 	return search->second.serializeKey;
 }
 
-KeyAction Keymap::actionStringToAction(std::string actionStr)
+KeyAction Keymap::actionStringToAction(const std::string &actionStr)
 {
 	auto search = Keymap::actionStringToActionMap.find(actionStr);
 	if (search == Keymap::actionStringToActionMap.end())

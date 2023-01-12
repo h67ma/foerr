@@ -4,7 +4,7 @@
 
 #define LOG_ELEMENT_LIFE_TIME_S 5
 
-LogElementText::LogElementText(std::string text, sf::Font &font, GuiScale scale, sf::Color color)
+LogElementText::LogElementText(const std::string &text, sf::Font &font, GuiScale scale, sf::Color color)
 {
 	this->setString(text);
 	this->setFont(font);

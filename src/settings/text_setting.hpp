@@ -10,7 +10,7 @@ class TextSetting: public Setting
 		const std::string defaultVal;
 
 	public:
-		TextSetting(std::string key, std::string defaultVal);
+		TextSetting(const std::string &key, const std::string &defaultVal);
 		void resetToDefault() override;
 		const json getJsonValue() override;
 		void loadFromJson(const json &node) override;

@@ -34,13 +34,13 @@ class Log
 		static std::list<std::unique_ptr<LogElementText>> history;
 		static sf::Clock clock;
 		static std::ofstream logFile;
-		static void logToFile(const char* prefix, std::string msg);
-		static void logStderr(const char* prefix, std::string msg);
+		static void logToFile(const char* prefix, const std::string &msg);
+		static void logStderr(const char* prefix, const std::string &msg);
 
 	public:
 		static void setFont(sf::Font *font);
 		static void setPosition(ScreenCorner anchor, sf::Vector2u windowSize);
-		static void openLogFile(std::string logFilePath);
+		static void openLogFile(const std::string &logFilePath);
 		static void setWriteLogToFile(bool writeLogToFile);
 		static void setPrintMsgs(bool printMsgs);
 		static void setVerboseDebug(bool verboseDebug);

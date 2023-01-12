@@ -2,7 +2,7 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-LogicSetting::LogicSetting(std::string key, bool defaultVal) :
+LogicSetting::LogicSetting(const std::string &key, bool defaultVal) :
 	Setting(key, defaultVal),
 	defaultVal(defaultVal)
 {}

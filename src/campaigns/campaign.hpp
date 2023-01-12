@@ -34,7 +34,7 @@ class Campaign : public sf::Drawable
 
 	public:
 		explicit Campaign(ResourceManager &resMgr);
-		bool load(std::string campaignDir, uint transitionTimeMs);
+		bool load(const std::string &campaignDir, uint transitionTimeMs);
 		void unload();
 		std::string getTitle();
 		std::string getDescription();
@@ -42,7 +42,7 @@ class Campaign : public sf::Drawable
 		std::vector<Location>& getLocations();
 		uint getCurrentLocationIdx();
 		bool changeLocationByIndex(uint newIdx);
-		bool changeLocationById(std::string locId);
+		bool changeLocationById(const std::string &locId);
 		bool isLoaded();
 		bool gotoRoom(Direction direction);
 		void logWhereAmI();

@@ -11,7 +11,9 @@
 #define BTN_COLOR_UNSEL_FACTOR 68
 #define BTN_COLOR_HOVER_FACTOR 140
 
-SimpleButton::SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color color, ResourceManager &resMgr, sf::Vector2u position, std::string text, std::function<void(void)> callback, ClickStatus consumedStatus) :
+SimpleButton::SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color color, ResourceManager &resMgr,
+						   sf::Vector2u position, const std::string &text, std::function<void(void)> callback,
+						   ClickStatus consumedStatus) :
 	Button(scale, position, callback, consumedStatus)
 {
 	this->size = size;
@@ -193,7 +195,7 @@ void SimpleButton::setGuiScale(GuiScale scale)
 	);
 }
 
-void SimpleButton::setText(std::string text)
+void SimpleButton::setText(const std::string &text)
 {
 	this->text.setString(text);
 	this->setGuiScale(this->scale); // need to re-center text

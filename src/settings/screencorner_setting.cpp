@@ -2,7 +2,7 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-ScreenCornerSetting::ScreenCornerSetting(std::string key, ScreenCorner defaultVal) :
+ScreenCornerSetting::ScreenCornerSetting(const std::string &key, ScreenCorner defaultVal) :
 	Setting(key, defaultVal),
 	defaultVal(defaultVal)
 {}

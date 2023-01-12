@@ -14,7 +14,7 @@ class ColorSetting: public Setting
 		const uint defaultVal;
 
 	public:
-		ColorSetting(std::string key, sf::Color defaultVal);
+		ColorSetting(const std::string &key, sf::Color defaultVal);
 		void resetToDefault() override;
 		const json getJsonValue() override;
 		void loadFromJson(const json &node) override;

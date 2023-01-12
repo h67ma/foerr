@@ -2,7 +2,7 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-GuiScaleSetting::GuiScaleSetting(std::string key, GuiScale defaultVal) :
+GuiScaleSetting::GuiScaleSetting(const std::string &key, GuiScale defaultVal) :
 	Setting(key, defaultVal),
 	defaultVal(defaultVal)
 {}
