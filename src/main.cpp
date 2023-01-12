@@ -11,11 +11,9 @@
 #include "settings/settings_manager.hpp"
 #include "resources/resource_manager.hpp"
 #include "hud/fps_meter.hpp"
-#include "hud/buttons/simple_button.hpp" // TODO delet this
 #include "entities/animation.hpp" // TODO delet this
 #include "campaigns/campaign.hpp"
 #include "window/util.hpp"
-#include "hud/hover_manager.hpp" // TODO delet this
 #include "hud/pipbuck/pipbuck.hpp"
 #include "hud/main_menu.hpp"
 #include "hud/loading_screen.hpp"
@@ -35,7 +33,6 @@ int main()
 	settings.loadConfig();
 
 	sf::RenderWindow window;
-	std::vector<SimpleButton*> buttons; // TODO delet this
 	std::vector<Animation*> animations; // TODO delet this
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
@@ -47,6 +44,7 @@ int main()
 	uint initialFxVol = settings.getUint(SETT_FX_VOLUME);
 	sf::Color hudColor = settings.getColor(SETT_HUD_COLOR);
 	uint transitionTimeMs = settings.getUint(SETT_ROOM_TRANSITION_DURATION_MS);
+	bool debugNavigation = settings.getBool(SETT_DEBUG_NAVIGATION);
 
 	ResourceManager resManager;
 
@@ -104,7 +102,6 @@ int main()
 	cursorMgr.setCursor(window, POINTER);
 
 	Campaign campaign(resManager);
-	HoverManager hoverMgr; // TODO delet this
 	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState, settings);
 	if (!pipBuck.setup())
 	{
@@ -186,6 +183,30 @@ int main()
 		} },
 		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){
 			pipBuck.switchToPage(PIPB_PAGE_ENEMIES);
+		} },
+		{ ACTION_DEBUG_NAV_LEFT, [&campaign, debugNavigation](){
+			if (debugNavigation && campaign.gotoRoom(DIR_LEFT))
+				campaign.logWhereAmI();
+		} },
+		{ ACTION_DEBUG_NAV_RIGHT, [&campaign, debugNavigation](){
+			if (debugNavigation && campaign.gotoRoom(DIR_RIGHT))
+				campaign.logWhereAmI();
+		} },
+		{ ACTION_DEBUG_NAV_UP, [&campaign, debugNavigation](){
+			if (debugNavigation && campaign.gotoRoom(DIR_UP))
+				campaign.logWhereAmI();
+		} },
+		{ ACTION_DEBUG_NAV_DOWN, [&campaign, debugNavigation](){
+			if (debugNavigation && campaign.gotoRoom(DIR_DOWN))
+				campaign.logWhereAmI();
+		} },
+		{ ACTION_DEBUG_NAV_FRONT, [&campaign, debugNavigation](){
+			if (debugNavigation && campaign.gotoRoom(DIR_FRONT))
+				campaign.logWhereAmI();
+		} },
+		{ ACTION_DEBUG_NAV_BACK, [&campaign, debugNavigation](){
+			if (debugNavigation && campaign.gotoRoom(DIR_BACK))
+				campaign.logWhereAmI();
 		} },
 		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
 			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
@@ -311,79 +332,6 @@ int main()
 	// TODO delet this: howto change cursor type: cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 
 
-	// debug room navigation
-	sf::Text debugCoords("(?, ?, ?)", *resManager.getFont(FONT_FIXED), 30);
-	debugCoords.setPosition(900, 793);
-	debugCoords.setFillColor(hudColor);
-
-	SimpleButton btnRoomLeft(initialScale, BTN_NARROW, hudColor, resManager, { 750, 800 }, "<",
-		[&campaign, &debugCoords]() {
-			campaign.gotoRoom(DIR_LEFT);
-			debugCoords.setString(litSprintf("(%d, %d, %d)",
-											 campaign.getPlayerRoomCoords().x,
-											 campaign.getPlayerRoomCoords().y,
-											 campaign.getPlayerRoomCoords().z));
-		});
-	buttons.push_back(&btnRoomLeft);
-	hoverMgr += &btnRoomLeft;
-
-	SimpleButton btnRoomRight(initialScale, BTN_NARROW, hudColor, resManager, { 1050, 800 }, ">",
-		[&campaign, &debugCoords]() {
-			campaign.gotoRoom(DIR_RIGHT);
-			debugCoords.setString(litSprintf("(%d, %d, %d)",
-											 campaign.getPlayerRoomCoords().x,
-											 campaign.getPlayerRoomCoords().y,
-											 campaign.getPlayerRoomCoords().z));
-		});
-	buttons.push_back(&btnRoomRight);
-	hoverMgr += &btnRoomRight;
-
-	SimpleButton btnRoomUp(initialScale, BTN_NARROW, hudColor, resManager, { 900, 750 }, "/\\",
-		[&campaign, &debugCoords]() {
-			campaign.gotoRoom(DIR_UP);
-			debugCoords.setString(litSprintf("(%d, %d, %d)",
-											 campaign.getPlayerRoomCoords().x,
-											 campaign.getPlayerRoomCoords().y,
-											 campaign.getPlayerRoomCoords().z));
-		});
-	buttons.push_back(&btnRoomUp);
-	hoverMgr += &btnRoomUp;
-
-	SimpleButton btnRoomDown(initialScale, BTN_NARROW, hudColor, resManager, { 900, 850 }, "\\/",
-		[&campaign, &debugCoords]() {
-			campaign.gotoRoom(DIR_DOWN);
-			debugCoords.setString(litSprintf("(%d, %d, %d)",
-											 campaign.getPlayerRoomCoords().x,
-											 campaign.getPlayerRoomCoords().y,
-											 campaign.getPlayerRoomCoords().z));
-		});
-	buttons.push_back(&btnRoomDown);
-	hoverMgr += &btnRoomDown;
-
-	SimpleButton btnRoomFront(initialScale, BTN_NARROW, hudColor, resManager, { 1050, 750 }, "fore",
-		[&campaign, &debugCoords]() {
-			campaign.gotoRoom(DIR_FRONT);
-			debugCoords.setString(litSprintf("(%d, %d, %d)",
-											 campaign.getPlayerRoomCoords().x,
-											 campaign.getPlayerRoomCoords().y,
-											 campaign.getPlayerRoomCoords().z));
-		});
-	buttons.push_back(&btnRoomFront);
-	hoverMgr += &btnRoomFront;
-
-	SimpleButton btnRoomBack(initialScale, BTN_NARROW, hudColor, resManager, { 1050, 850 }, "back",
-		[&campaign, &debugCoords]() {
-			campaign.gotoRoom(DIR_BACK);
-			debugCoords.setString(litSprintf("(%d, %d, %d)",
-											 campaign.getPlayerRoomCoords().x,
-											 campaign.getPlayerRoomCoords().y,
-											 campaign.getPlayerRoomCoords().z));
-		});
-	buttons.push_back(&btnRoomBack);
-	hoverMgr += &btnRoomBack;
-
-
-
 	// initial size
 	windowSizeChanged(window.getSize(), settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 
@@ -396,10 +344,6 @@ int main()
 		if (campaign.load(pathCombine("res/campaigns", autoLoadPath), transitionTimeMs) && pipBuck.setupCampaignInfos())
 		{
 			gameState = STATE_PLAYING;
-			debugCoords.setString(litSprintf("(%d, %d, %d)",
-											 campaign.getPlayerRoomCoords().x,
-											 campaign.getPlayerRoomCoords().y,
-											 campaign.getPlayerRoomCoords().z));
 		}
 	}
 
@@ -416,27 +360,11 @@ int main()
 			// TODO? probably logic for different game states could be handled by objects such as pipbuck/mainmenu/campaign, etc. instead of here
 			if (gameState == STATE_PLAYING)
 			{
-				if (event.type == sf::Event::MouseMoved)
-				{
-					hoverMgr.handleMouseMove({ event.mouseMove.x, event.mouseMove.y });
-				}
-				else if (event.type == sf::Event::KeyPressed)
+				if (event.type == sf::Event::KeyPressed)
 				{
 					auto search = playingCbs.find(Keymap::keyToAction(event.key.code));
 					if (search != playingCbs.end())
 						search->second();
-				}
-				else if (event.type == sf::Event::MouseButtonPressed)
-				{
-					//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-					if (event.mouseButton.button == sf::Mouse::Left)
-					{
-						for (Button* btn : buttons)
-						{
-							if (btn->handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) != CLICK_NOT_CONSUMED)
-								break;
-						}
-					}
 				}
 				else if (event.type == sf::Event::LostFocus)
 				{
@@ -458,7 +386,7 @@ int main()
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
-					//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+					// TODO might be useful later: sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
 						pipBuck.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });
@@ -547,13 +475,6 @@ int main()
 
 		if (gameState == STATE_PLAYING)
 		{
-			// TODO delet this
-			for (Button* btn : buttons)
-			{
-				window.draw(*btn);
-			}
-			window.draw(debugCoords);
-
 			campaign.updateState();
 		}
 		else if (gameState == STATE_PIPBUCK)

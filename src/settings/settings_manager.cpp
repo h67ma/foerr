@@ -94,6 +94,7 @@ SettingsManager::SettingsManager()
 	this->settings.emplace(SETT_WRITE_LOG_TO_FILE, std::make_unique<LogicSetting>("write_log_to_file", true));
 	this->settings.emplace(SETT_PRINT_MSGS, std::make_unique<LogicSetting>("print_msgs_cout", false));
 	this->settings.emplace(SETT_VERBOSE_DEBUG, std::make_unique<LogicSetting>("verbose_debug", false));
+	this->settings.emplace(SETT_DEBUG_NAVIGATION, std::make_unique<LogicSetting>("debug_navigation", false));
 	// TODO this->settings.emplace(SETT_SHOW_BOUNDING_BOXEN, std::make_unique<LogicSetting>(("show_bounding_boxen", false));
 	// TODO this->settings.emplace(SETT_DEV_CONSOLE_ENABLED, std::make_unique<LogicSetting>(("dev_console_enabled", false));
 }

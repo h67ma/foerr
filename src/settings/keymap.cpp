@@ -34,6 +34,12 @@ const std::unordered_map<KeyAction, action_def> Keymap::actionsMap {
 	{ ACTION_TOGGLE_FULLSCREEN, { "toggle_fullscreen", "Toggle fullscreen mode", { sf::Keyboard::F11 } } },
 	// TODO { ACTION_CONSOLE_OPEN, { "console_open", "Open console", { sf::Keyboard::Slash } } },
 	// TODO { ACTION_CONSOLE_REPEAT_LAST, { "console_repeat_last", "Repeat last console command", { sf::Keyboard::Slash + shift or ctrl } } },
+	{ ACTION_DEBUG_NAV_LEFT, { "debug_nav_left", "Debug navigation left", { sf::Keyboard::Left } } },
+	{ ACTION_DEBUG_NAV_RIGHT, { "debug_nav_right", "Debug navigation right", { sf::Keyboard::Right } } },
+	{ ACTION_DEBUG_NAV_UP, { "debug_nav_up", "Debug navigation up", { sf::Keyboard::Up } } },
+	{ ACTION_DEBUG_NAV_DOWN, { "debug_nav_down", "Debug navigation down", { sf::Keyboard::Down } } },
+	{ ACTION_DEBUG_NAV_FRONT, { "debug_nav_front", "Debug navigation front", { sf::Keyboard::PageUp } } },
+	{ ACTION_DEBUG_NAV_BACK, { "debug_nav_back", "Debug navigation back", { sf::Keyboard::PageDown } } },
 	{ ACTION_NO_ACTION, { "no_action", "No action", { } } },
 };
 

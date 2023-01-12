@@ -261,12 +261,22 @@ bool Campaign::gotoRoom(Direction direction)
 	return this->locations[this->currentLocationIdx].gotoRoom(direction);
 }
 
-sf::Vector3i Campaign::getPlayerRoomCoords()
+/**
+ * Logs a message containing current Location name and Room coordinates.
+ * The message is logged as a warning to be clearly visible.
+ * If the Campaign is not loaded, nothing will happen.
+ * This should be used *only* for debug purposes.
+ * TODO? this could also include player location within the Room.
+ */
+void Campaign::logWhereAmI()
 {
 	if (!this->loaded)
-		return { 0, 0, 0 }; // well, what can you do
+		return;
 
-	return this->locations[this->currentLocationIdx].getPlayerRoomCoords();
+	sf::Vector3i coords = this->locations[this->currentLocationIdx].getPlayerRoomCoords();
+
+	Log::w(STR_DEBUG_WHEREAMI, this->locations[this->currentLocationIdx].getTitle().c_str(),
+		   coords.x, coords.y, coords.z);
 }
 
 void Campaign::updateState()

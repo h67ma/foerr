@@ -30,6 +30,7 @@ enum SettingName
 	SETT_AUTOLOAD_CAMPAIGN,
 	SETT_PRINT_MSGS,
 	SETT_VERBOSE_DEBUG,
+	SETT_DEBUG_NAVIGATION, // TODO this should also include `testmode` (i.e. ability to travel to any location). should be settable only via command line/settings file editing
 };
 
 /**

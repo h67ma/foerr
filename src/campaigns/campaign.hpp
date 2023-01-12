@@ -45,7 +45,7 @@ class Campaign : public sf::Drawable
 		bool changeLocationById(std::string locId);
 		bool isLoaded();
 		bool gotoRoom(Direction direction);
-		sf::Vector3i getPlayerRoomCoords();
+		void logWhereAmI();
 		void updateState();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
