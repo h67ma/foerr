@@ -291,67 +291,6 @@ int main()
 	});
 	mchavi->setPosition(350, 100);
 	animations.push_back(mchavi);
-
-	SimpleButton mchavi1(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 60 }, "stand", [&mchavi]() {
-		mchavi->setAnimation(ANIM_STAND);
-	});
-	buttons.push_back(&mchavi1);
-	hoverMgr += &mchavi1;
-
-	SimpleButton mchavi2(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 90 }, "walk", [&mchavi]() {
-		mchavi->setAnimation(ANIM_WALK);
-	});
-	buttons.push_back(&mchavi2);
-	hoverMgr += &mchavi2;
-
-	SimpleButton mchavi3(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 120 }, "trot", [&mchavi]() {
-		mchavi->setAnimation(ANIM_TROT);
-	});
-	buttons.push_back(&mchavi3);
-	hoverMgr += &mchavi3;
-
-	SimpleButton mchavi4(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 150 }, "gallop", [&mchavi]() {
-		mchavi->setAnimation(ANIM_GALLOP);
-	});
-	buttons.push_back(&mchavi4);
-	hoverMgr += &mchavi4;
-
-	SimpleButton mchavi5(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 180 }, "jump", [&mchavi]() {
-		mchavi->setAnimation(ANIM_JUMP);
-	});
-	buttons.push_back(&mchavi5);
-	hoverMgr += &mchavi5;
-
-	SimpleButton mchavi6(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 210 }, "die ground", [&mchavi]() {
-		mchavi->setAnimation(ANIM_DIE_GROUND);
-	});
-	buttons.push_back(&mchavi6);
-	hoverMgr += &mchavi6;
-
-	SimpleButton mchavi7(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 240 }, "die air", [&mchavi]() {
-		mchavi->setAnimation(ANIM_DIE_AIR);
-	});
-	buttons.push_back(&mchavi7);
-	hoverMgr += &mchavi7;
-
-	SimpleButton mchavi8(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 270 }, "tk hold", [&mchavi]() {
-		mchavi->setAnimation(ANIM_TK_HOLD);
-	});
-	buttons.push_back(&mchavi8);
-	hoverMgr += &mchavi8;
-
-	SimpleButton mchavi9(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 300 }, "swim", [&mchavi]() {
-		mchavi->setAnimation(ANIM_SWIM);
-	});
-	buttons.push_back(&mchavi9);
-	hoverMgr += &mchavi9;
-
-	SimpleButton mchavi10(initialScale, BTN_NORMAL, hudColor, resManager, { 100, 330 }, "climb", [&mchavi]() {
-		mchavi->setAnimation(ANIM_CLIMB);
-	});
-	buttons.push_back(&mchavi10);
-	hoverMgr += &mchavi10;
-
 	mchavi->setAnimation(ANIM_SWIM);
 
 
