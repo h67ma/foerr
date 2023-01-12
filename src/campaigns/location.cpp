@@ -285,6 +285,15 @@ std::string Location::getWorldMapIconId()
 	return this->worldMapIconId;
 }
 
+/**
+ * Changes the current Room to a nearest Room in the specified direction.
+ * If such Room does not exist, nothing will happen.
+ * Also prepares the texture and timer used for Room transition animation.
+ *
+ * @param direction direction from current Room to go
+ * @return true if Room was changed
+ * @return false if current Room didn't change
+ */
 bool Location::gotoRoom(Direction direction)
 {
 	std::shared_ptr<Room> newRoom = this->rooms.moveToNear(direction);
