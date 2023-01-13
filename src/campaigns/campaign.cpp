@@ -63,7 +63,8 @@ bool Campaign::load(const std::string &campaignDir, uint transitionTimeMs)
 
 	// TODO translate title & description
 
-	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_START_LOC, this->startLocation))
+	std::string startLocation;
+	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_START_LOC, startLocation))
 		return false;
 
 	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_WORLDMAP_BACKGROUND, this->worldMapBackgroundId))
@@ -132,7 +133,7 @@ bool Campaign::load(const std::string &campaignDir, uint transitionTimeMs)
 	if (!this->objMgr.load())
 		return false;
 
-	if (!this->changeLocation(this->startLocation))
+	if (!this->changeLocation(startLocation))
 		return false;
 
 	Log::d(STR_CAMPAIGN_LOADED, campaignDir.c_str());
@@ -144,7 +145,6 @@ void Campaign::unload()
 	Log::d(STR_CAMPAIGN_UNLOADING);
 	this->title = "";
 	this->description = "";
-	this->startLocation = "";
 	this->currentLocation = nullptr;
 	this->lastUnloadableLocation = nullptr;
 	this->locations.clear();
