@@ -8,7 +8,7 @@ PipBuckPageWeapons::PipBuckPageWeapons(ResourceManager &resMgr)
 	this->dummy.setString("weapons");
 }
 
-std::string PipBuckPageWeapons::getLabel()
+std::string PipBuckPageWeapons::getLabel() const
 {
 	return "Weapons"; // TODO translate
 }

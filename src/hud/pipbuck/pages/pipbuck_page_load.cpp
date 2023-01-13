@@ -12,7 +12,7 @@ PipBuckPageLoad::PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceMan
 	this->clickMgr += &this->exitBtn;
 }
 
-std::string PipBuckPageLoad::getLabel()
+std::string PipBuckPageLoad::getLabel() const
 {
 	return "Load"; // TODO translate
 }

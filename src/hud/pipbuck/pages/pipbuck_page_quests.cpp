@@ -8,7 +8,7 @@ PipBuckPageQuests::PipBuckPageQuests(ResourceManager &resMgr)
 	this->dummy.setString("quests");
 }
 
-std::string PipBuckPageQuests::getLabel()
+std::string PipBuckPageQuests::getLabel() const
 {
 	return "Quests"; // TODO translate
 }

@@ -13,7 +13,7 @@ void ColorSetting::resetToDefault()
 	this->val.numeric = this->defaultVal;
 }
 
-const json ColorSetting::getJsonValue()
+const json ColorSetting::getJsonValue() const
 {
 	SerializableColor color = SerializableColor(this->val.numeric);
 	return json(color.toString());

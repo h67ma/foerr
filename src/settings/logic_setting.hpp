@@ -12,6 +12,6 @@ class LogicSetting: public Setting
 	public:
 		LogicSetting(const std::string &key, bool defaultVal);
 		void resetToDefault() override;
-		const json getJsonValue() override;
+		const json getJsonValue() const override;
 		void loadFromJson(const json &node) override;
 };

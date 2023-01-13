@@ -41,7 +41,7 @@ bool CustomCursor::load(bool preferCustom)
 	return true;
 }
 
-const sf::Cursor& CustomCursor::getCursor()
+const sf::Cursor& CustomCursor::getCursor() const
 {
 	return this->cursor;
 }

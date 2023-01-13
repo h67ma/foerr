@@ -8,7 +8,7 @@ PipBuckPageLog::PipBuckPageLog(ResourceManager &resMgr)
 	this->dummy.setString("log");
 }
 
-std::string PipBuckPageLog::getLabel()
+std::string PipBuckPageLog::getLabel() const
 {
 	return "Log"; // TODO translate
 }

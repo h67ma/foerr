@@ -125,7 +125,7 @@ void LocButton::setHover(bool hover)
 	this->updateState();
 }
 
-bool LocButton::getIsBig()
+bool LocButton::getIsBig() const
 {
 	return this->isBig;
 }

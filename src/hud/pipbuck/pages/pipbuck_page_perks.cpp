@@ -8,7 +8,7 @@ PipBuckPagePerks::PipBuckPagePerks(ResourceManager &resMgr)
 	this->dummy.setString("perks");
 }
 
-std::string PipBuckPagePerks::getLabel()
+std::string PipBuckPagePerks::getLabel() const
 {
 	return "Perks"; // TODO translate
 }

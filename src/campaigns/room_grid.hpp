@@ -21,9 +21,9 @@ class RoomGrid
 		std::unordered_map<HashableVector3<int>, std::shared_ptr<Room>, Vector3Hasher<int>> grid;
 
 	public:
-		HashableVector3i getCurrentCoords();
+		HashableVector3i getCurrentCoords() const;
 		void set(HashableVector3i coords, std::shared_ptr<Room> room);
-		std::shared_ptr<Room> get(HashableVector3i coords);
+		std::shared_ptr<Room> get(HashableVector3i coords) const;
 		std::shared_ptr<Room> moveTo(HashableVector3i coords);
 		std::shared_ptr<Room> moveToNear(Direction direction);
 		void clear();

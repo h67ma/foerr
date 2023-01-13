@@ -32,7 +32,7 @@ class LocButton : public Button
 		void setGuiScale(GuiScale scale) override;
 		void setColor(sf::Color color);
 		void setHover(bool hover) override;
-		bool getIsBig();
+		bool getIsBig() const;
 		static uint getSideLen(GuiScale scale, bool big);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

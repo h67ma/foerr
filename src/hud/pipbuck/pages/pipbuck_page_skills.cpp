@@ -8,7 +8,7 @@ PipBuckPageSkills::PipBuckPageSkills(ResourceManager &resMgr)
 	this->dummy.setString("skills");
 }
 
-std::string PipBuckPageSkills::getLabel()
+std::string PipBuckPageSkills::getLabel() const
 {
 	return "Skills"; // TODO translate
 }

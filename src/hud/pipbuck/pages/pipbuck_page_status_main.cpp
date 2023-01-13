@@ -8,7 +8,7 @@ PipBuckPageMainStatus::PipBuckPageMainStatus(ResourceManager &resMgr)
 	this->dummy.setString("main");
 }
 
-std::string PipBuckPageMainStatus::getLabel()
+std::string PipBuckPageMainStatus::getLabel() const
 {
 	return "Main"; // TODO translate
 }

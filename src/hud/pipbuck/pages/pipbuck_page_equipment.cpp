@@ -8,7 +8,7 @@ PipBuckPageEquipment::PipBuckPageEquipment(ResourceManager &resMgr)
 	this->dummy.setString("equipment");
 }
 
-std::string PipBuckPageEquipment::getLabel()
+std::string PipBuckPageEquipment::getLabel() const
 {
 	return "Equipment"; // TODO translate
 }

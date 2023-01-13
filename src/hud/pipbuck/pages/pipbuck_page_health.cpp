@@ -8,7 +8,7 @@ PipBuckPageHealth::PipBuckPageHealth(ResourceManager &resMgr)
 	this->dummy.setString("health");
 }
 
-std::string PipBuckPageHealth::getLabel()
+std::string PipBuckPageHealth::getLabel() const
 {
 	return "Health"; // TODO translate
 }

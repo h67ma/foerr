@@ -5,7 +5,7 @@
  *
  * @return current room coordinates
  */
-HashableVector3i RoomGrid::getCurrentCoords()
+HashableVector3i RoomGrid::getCurrentCoords() const
 {
 	return this->currentCoords;
 }
@@ -31,7 +31,7 @@ void RoomGrid::set(HashableVector3i coords, std::shared_ptr<Room> room)
  * @return a shared pointer to the Room object at specified coords, if it exists
  * @return nullptr, if the coordinates are invalid, or contain an empty room
  */
-std::shared_ptr<Room> RoomGrid::get(HashableVector3i coords)
+std::shared_ptr<Room> RoomGrid::get(HashableVector3i coords) const
 {
 	auto search = this->grid.find(coords);
 	if (search == this->grid.end())

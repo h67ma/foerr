@@ -38,6 +38,6 @@ class Setting
 
 		const std::string getKey();
 		virtual void resetToDefault() = 0;
-		const virtual json getJsonValue() = 0;
+		const virtual json getJsonValue() const = 0;
 		void virtual loadFromJson(const json &node) = 0;
 };

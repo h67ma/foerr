@@ -8,7 +8,7 @@ PipBuckPageEffects::PipBuckPageEffects(ResourceManager &resMgr)
 	this->dummy.setString("effects");
 }
 
-std::string PipBuckPageEffects::getLabel()
+std::string PipBuckPageEffects::getLabel() const
 {
 	return "Effects"; // TODO translate
 }

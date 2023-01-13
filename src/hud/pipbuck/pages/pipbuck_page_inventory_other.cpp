@@ -8,7 +8,7 @@ PipBuckPageInventoryOther::PipBuckPageInventoryOther(ResourceManager &resMgr)
 	this->dummy.setString("inv other");
 }
 
-std::string PipBuckPageInventoryOther::getLabel()
+std::string PipBuckPageInventoryOther::getLabel() const
 {
 	return "Other"; // TODO translate
 }

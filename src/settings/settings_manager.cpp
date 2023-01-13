@@ -162,7 +162,7 @@ void SettingsManager::loadConfig()
 	}
 }
 
-uint SettingsManager::getUint(SettingName name)
+uint SettingsManager::getUint(SettingName name) const
 {
 	auto search = this->settings.find(name);
 	if (search == this->settings.end())
@@ -171,7 +171,7 @@ uint SettingsManager::getUint(SettingName name)
 	return search->second->val.numeric;
 }
 
-bool SettingsManager::getBool(SettingName name)
+bool SettingsManager::getBool(SettingName name) const
 {
 	auto search = this->settings.find(name);
 	if (search == this->settings.end())
@@ -180,7 +180,7 @@ bool SettingsManager::getBool(SettingName name)
 	return search->second->val.logic;
 }
 
-sf::Color SettingsManager::getColor(SettingName name)
+sf::Color SettingsManager::getColor(SettingName name) const
 {
 	auto search = this->settings.find(name);
 	if (search == this->settings.end())
@@ -189,7 +189,7 @@ sf::Color SettingsManager::getColor(SettingName name)
 	return sf::Color(search->second->val.numeric);
 }
 
-ScreenCorner SettingsManager::getScreenCorner(SettingName name)
+ScreenCorner SettingsManager::getScreenCorner(SettingName name) const
 {
 	auto search = this->settings.find(name);
 	if (search == this->settings.end())
@@ -198,7 +198,7 @@ ScreenCorner SettingsManager::getScreenCorner(SettingName name)
 	return search->second->val.enumScreenCorner;
 }
 
-GuiScale SettingsManager::getGuiScale(SettingName name)
+GuiScale SettingsManager::getGuiScale(SettingName name) const
 {
 	auto search = this->settings.find(name);
 	if (search == this->settings.end())
@@ -207,7 +207,7 @@ GuiScale SettingsManager::getGuiScale(SettingName name)
 	return search->second->val.guiScale;
 }
 
-std::string SettingsManager::getText(SettingName name)
+std::string SettingsManager::getText(SettingName name) const
 {
 	auto search = this->settings.find(name);
 	if (search == this->settings.end())

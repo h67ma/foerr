@@ -8,7 +8,7 @@ PipBuckPageNotes::PipBuckPageNotes(ResourceManager &resMgr)
 	this->dummy.setString("notes");
 }
 
-std::string PipBuckPageNotes::getLabel()
+std::string PipBuckPageNotes::getLabel() const
 {
 	return "Notes"; // TODO translate
 }

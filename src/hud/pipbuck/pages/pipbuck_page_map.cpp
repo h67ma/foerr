@@ -14,7 +14,7 @@ PipBuckPageMap::PipBuckPageMap(ResourceManager &resMgr)
 	// to current layer
 }
 
-std::string PipBuckPageMap::getLabel()
+std::string PipBuckPageMap::getLabel() const
 {
 	return "Map"; // TODO translate
 }

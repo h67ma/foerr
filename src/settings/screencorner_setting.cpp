@@ -12,7 +12,7 @@ void ScreenCornerSetting::resetToDefault()
 	this->val.enumScreenCorner = this->defaultVal;
 }
 
-const json ScreenCornerSetting::getJsonValue()
+const json ScreenCornerSetting::getJsonValue() const
 {
 	return json(this->val.numeric);
 }

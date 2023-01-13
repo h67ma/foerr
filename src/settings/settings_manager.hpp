@@ -76,12 +76,12 @@ class SettingsManager
 		SettingsManager();
 		void saveConfig();
 		void loadConfig();
-		uint getUint(SettingName idx);
-		bool getBool(SettingName idx);
-		sf::Color getColor(SettingName idx);
-		ScreenCorner getScreenCorner(SettingName idx);
-		GuiScale getGuiScale(SettingName idx);
-		std::string getText(SettingName idx);
+		uint getUint(SettingName idx) const;
+		bool getBool(SettingName idx) const;
+		sf::Color getColor(SettingName idx) const;
+		ScreenCorner getScreenCorner(SettingName idx) const;
+		GuiScale getGuiScale(SettingName idx) const;
+		std::string getText(SettingName idx) const;
 		void setUint(SettingName idx, uint newValue);
 		void setBool(SettingName idx, bool newValue);
 		void setColor(SettingName idx, sf::Color newValue);

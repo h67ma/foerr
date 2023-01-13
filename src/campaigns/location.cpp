@@ -245,22 +245,22 @@ void Location::unloadContent()
 	this->rooms.clear();
 }
 
-std::string Location::getId()
+std::string Location::getId() const
 {
 	return this->id;
 }
 
-std::string Location::getTitle()
+std::string Location::getTitle() const
 {
 	return this->title;
 }
 
-std::string Location::getDescription()
+std::string Location::getDescription() const
 {
 	return this->description;
 }
 
-sf::Vector2u Location::getWorldMapCoords()
+sf::Vector2u Location::getWorldMapCoords() const
 {
 	return this->worldMapCoords;
 }
@@ -275,12 +275,12 @@ bool Location::isWorldMapIconBig()
 	return this->worldMapIconBig;
 }
 
-uint Location::getRecommendedLevel()
+uint Location::getRecommendedLevel() const
 {
 	return this->recommendedLevel;
 }
 
-std::string Location::getWorldMapIconId()
+std::string Location::getWorldMapIconId() const
 {
 	return this->worldMapIconId;
 }
@@ -379,7 +379,7 @@ bool Location::gotoRoom(Direction direction)
 	return true;
 }
 
-sf::Vector3i Location::getPlayerRoomCoords()
+sf::Vector3i Location::getPlayerRoomCoords() const
 {
 	// note: here we downcast HashableVector to Vector, as the specialized type is not needed anymore
 	return this->rooms.getCurrentCoords();

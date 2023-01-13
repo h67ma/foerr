@@ -12,7 +12,7 @@ void LogicSetting::resetToDefault()
 	this->val.logic = this->defaultVal;
 }
 
-const json LogicSetting::getJsonValue()
+const json LogicSetting::getJsonValue() const
 {
 	return json(this->val.logic);
 }

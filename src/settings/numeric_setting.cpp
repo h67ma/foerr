@@ -22,7 +22,7 @@ void NumericSetting::resetToDefault()
 	this->val.numeric = this->defaultVal;
 }
 
-const json NumericSetting::getJsonValue()
+const json NumericSetting::getJsonValue() const
 {
 	return json(this->val.numeric);
 }

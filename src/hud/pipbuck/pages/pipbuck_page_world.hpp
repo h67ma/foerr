@@ -42,7 +42,7 @@ class PipBuckPageWorld : public PipBuckPage
 		PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		bool handleMouseMove(sf::Vector2i mousePos) override;
-		std::string getLabel() override;
+		std::string getLabel() const override;
 		bool setupCampaignInfos() override;
 		void unloadCampaignInfos() override;
 		void setGuiScale(GuiScale scale);

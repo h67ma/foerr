@@ -12,7 +12,7 @@ void TextSetting::resetToDefault()
 	this->textVal = this->defaultVal;
 }
 
-const json TextSetting::getJsonValue()
+const json TextSetting::getJsonValue() const
 {
 	return json(this->textVal);
 }

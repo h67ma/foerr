@@ -8,7 +8,7 @@ PipBuckPageSave::PipBuckPageSave(ResourceManager &resMgr)
 	this->dummy.setString("save");
 }
 
-std::string PipBuckPageSave::getLabel()
+std::string PipBuckPageSave::getLabel() const
 {
 	return "Save"; // TODO translate
 }

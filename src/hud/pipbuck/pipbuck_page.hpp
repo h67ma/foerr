@@ -57,5 +57,5 @@ class PipBuckPage : public sf::Drawable, public HudTransformable
 		virtual bool handleMouseMove(sf::Vector2i mousePos);
 		virtual bool setupCampaignInfos() { return true; }
 		virtual void unloadCampaignInfos() { }
-		virtual std::string getLabel() = 0;
+		virtual std::string getLabel() const = 0;
 };

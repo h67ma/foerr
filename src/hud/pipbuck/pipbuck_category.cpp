@@ -55,7 +55,7 @@ bool PipBuckCategory::setup()
 	return true;
 }
 
-PipBuckPageType PipBuckCategory::getSelectedPage()
+PipBuckPageType PipBuckCategory::getSelectedPage() const
 {
 	return this->selectedPage;
 }

@@ -16,6 +16,6 @@ class PipBuckPageLoad : public PipBuckPage
 
 	public:
 		PipBuckPageLoad(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
-		std::string getLabel() override;
+		std::string getLabel() const override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

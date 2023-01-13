@@ -8,7 +8,7 @@ PipBuckPageArmor::PipBuckPageArmor(ResourceManager &resMgr)
 	this->dummy.setString("armor");
 }
 
-std::string PipBuckPageArmor::getLabel()
+std::string PipBuckPageArmor::getLabel() const
 {
 	return "Armor"; // TODO translate
 }

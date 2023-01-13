@@ -43,7 +43,7 @@ void PipBuckPageControls::updateDisplay()
 	this->dummyMapDump.setString(dump);
 }
 
-std::string PipBuckPageControls::getLabel()
+std::string PipBuckPageControls::getLabel() const
 {
 	return "Controls"; // TODO translate
 }

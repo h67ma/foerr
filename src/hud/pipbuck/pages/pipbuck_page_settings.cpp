@@ -25,7 +25,7 @@ PipBuckPageSettings::PipBuckPageSettings(GuiScale scale, sf::Color hudColor, Res
 										settings.getSaveDir().c_str()));
 }
 
-std::string PipBuckPageSettings::getLabel()
+std::string PipBuckPageSettings::getLabel() const
 {
 	return "Settings"; // TODO translate
 }

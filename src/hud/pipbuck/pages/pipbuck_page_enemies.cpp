@@ -8,7 +8,7 @@ PipBuckPageEnemies::PipBuckPageEnemies(ResourceManager &resMgr)
 	this->dummy.setString("enemies");
 }
 
-std::string PipBuckPageEnemies::getLabel()
+std::string PipBuckPageEnemies::getLabel() const
 {
 	return "Enemies"; // TODO translate
 }

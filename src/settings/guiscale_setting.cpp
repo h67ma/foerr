@@ -12,7 +12,7 @@ void GuiScaleSetting::resetToDefault()
 	this->val.guiScale = this->defaultVal;
 }
 
-const json GuiScaleSetting::getJsonValue()
+const json GuiScaleSetting::getJsonValue() const
 {
 	return json(this->val.numeric);
 }

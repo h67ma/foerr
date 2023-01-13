@@ -147,7 +147,7 @@ bool PipBuckPageWorld::handleMouseMove(sf::Vector2i mousePos)
 	return false;
 }
 
-std::string PipBuckPageWorld::getLabel()
+std::string PipBuckPageWorld::getLabel() const
 {
 	return "World"; // TODO translate
 }

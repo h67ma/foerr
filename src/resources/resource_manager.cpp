@@ -114,7 +114,7 @@ std::shared_ptr<sf::Texture> ResourceManager::getTexture(const std::string &path
 	return txt;
 }
 
-std::shared_ptr<sf::Texture> ResourceManager::getNotFoundTexture()
+std::shared_ptr<sf::Texture> ResourceManager::getNotFoundTexture() const
 {
 	return this->notFoundTexture;
 }
