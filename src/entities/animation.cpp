@@ -56,7 +56,7 @@ void Animation::nextFrame()
  * Switches animation to the specified kind. If the requested kind is not defined for this object,
  * or the texture image is not tall enough, current animation won't be changed and previously
  * selected animation will continue playing.
- * 
+ *
  * @param kind animation kind
  * @returns `true` if animation was successfuly changed, `false` otherwise.
  */
