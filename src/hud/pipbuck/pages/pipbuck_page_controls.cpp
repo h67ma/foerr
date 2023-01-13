@@ -35,7 +35,7 @@ void PipBuckPageControls::updateDisplay()
 	// for now only dump the current mapping as text. TODO proper scrollable table
 	std::string dump("");
 
-	for (const auto item : Keymap::getkeyToActionMap())
+	for (const auto item : Keymap::getKeyToActionMap())
 	{
 		dump += Keymap::actionToDisplayString(item.second) + " -> " + Keymap::keyToString(item.first) + '\n';
 	}

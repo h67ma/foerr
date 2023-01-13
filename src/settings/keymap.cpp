@@ -194,7 +194,7 @@ bool Keymap::setup()
 	return true;
 }
 
-const std::unordered_map<sf::Keyboard::Key, KeyAction>& Keymap::getkeyToActionMap()
+const std::unordered_map<sf::Keyboard::Key, KeyAction>& Keymap::getKeyToActionMap()
 {
 	return Keymap::keyToActionMap;
 }

@@ -79,7 +79,7 @@ class Keymap
 
 	public:
 		static bool setup();
-		static const std::unordered_map<sf::Keyboard::Key, KeyAction>& getkeyToActionMap();
+		static const std::unordered_map<sf::Keyboard::Key, KeyAction>& getKeyToActionMap();
 		static KeyAction keyToAction(sf::Keyboard::Key key);
 		static std::string keyToString(sf::Keyboard::Key key);
 		static sf::Keyboard::Key keyStringToKey(const std::string &keyStr);
