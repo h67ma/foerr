@@ -16,20 +16,21 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	campaign(campaign),
 	hudColor(hudColor),
 	gotoLocationBtn(scale, BTN_NORMAL, hudColor, resMgr, { 1000, 815 }, "Travel", [this](){
-		if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
-			this->selectedLocationIdx < this->campaign.getLocations().size())
-		{
-			// TODO display loading screen
-			if (!this->campaign.changeLocationByIndex(this->selectedLocationIdx))
-				return;
+		auto search = this->mapButtons.find(this->selectedLocId);
+		if (search == this->mapButtons.end())
+			return;
 
-			this->updateActiveIndicator();
+		// TODO display a loading screen
+		if (!this->campaign.changeLocation(this->selectedLocId))
+			return;
 
-			// reset selection
-			// no need to reset texts as now they are not shown anyway
-			this->mapButtons[this->selectedLocationIdx].setSelected(false);
-			this->selectedLocationIdx = NO_LOCATION_SELECTED;
-		}
+		this->updateActiveIndicator();
+
+		// reset selection
+		// no need to reset texts as now they are not shown anyway
+		search->second.setSelected(false);
+		this->selectedLocId = NO_LOCATION_SELECTED;
+		this->travelButtonAvailable = false;
 	})
 {
 	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
@@ -58,14 +59,15 @@ bool PipBuckPageWorld::mapContainsPoint(sf::Vector2i point)
 
 void PipBuckPageWorld::updateActiveIndicator()
 {
-	sf::Vector2f position = this->mapButtons[this->campaign.getCurrentLocationIdx()].getPosition();
-	bool big = this->mapButtons[this->campaign.getCurrentLocationIdx()].getIsBig();
+	auto search = this->mapButtons.find(this->campaign.getCurrentLocation()->getId());
+	if (search == this->mapButtons.end())
+		return;
 
-	uint halfSide = LocButton::getSideLen(this->guiScale, big) / 2;
+	uint halfSide = LocButton::getSideLen(this->guiScale, search->second.getIsBig()) / 2;
 	float radius = halfSide * SQRT_2;
 	float offset = radius - halfSide;
 
-	this->activeLocIndicator.setPosition(position - sf::Vector2f(offset, offset));
+	this->activeLocIndicator.setPosition(search->second.getPosition() - sf::Vector2f(offset, offset));
 	this->activeLocIndicator.setRadius(radius);
 }
 
@@ -76,36 +78,49 @@ ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 	// if click was outside map area, then no point in checking map buttons
 	if (this->mapContainsPoint(clickPos))
 	{
-		for (auto it = this->mapButtons.begin(); it != this->mapButtons.end(); it++)
+		auto oldBtnSearch = this->mapButtons.find(this->selectedLocId);
+
+		for (auto &btn : this->mapButtons)
 		{
-			if (it->handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
+			if (btn.second.handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
 			{
-				// deselect old map btn if any
-				if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
-					this->selectedLocationIdx < this->campaign.getLocations().size())
-					this->mapButtons[this->selectedLocationIdx].setSelected(false);
+				if (oldBtnSearch != this->mapButtons.end())
+				{
+					if (oldBtnSearch->first == btn.first)
+						return CLICK_CONSUMED; // selected location btn is already highlighted, no need to do anything
 
-				this->selectedLocationIdx = static_cast<int>(std::distance(this->mapButtons.begin(), it));
-				this->locTitle.setString(this->campaign.getLocations()[this->selectedLocationIdx].getTitle());
+					// deselect old map btn
+					oldBtnSearch->second.setSelected(false);
+				}
 
-				std::string description = this->campaign.getLocations()[this->selectedLocationIdx].getDescription();
+				this->selectedLocId = btn.first;
 
-				uint recLvl = this->campaign.getLocations()[this->selectedLocationIdx].getRecommendedLevel();
-				if (recLvl != REC_LVL_EMPTY)
-					description += litSprintf(STR_RECOMMENDED_LVL, recLvl);
+				const std::shared_ptr<Location> selectedLoc = this->campaign.getLocation(this->selectedLocId);
+				if (selectedLoc != nullptr)
+				{
+					this->locTitle.setString(selectedLoc->getTitle());
 
-				this->locDescription.setString(description);
+					std::string description = selectedLoc->getDescription();
+
+					uint recLvl = selectedLoc->getRecommendedLevel();
+					if (recLvl != REC_LVL_EMPTY)
+						description += litSprintf(STR_RECOMMENDED_LVL, recLvl);
+
+					this->locDescription.setString(description);
+				}
 
 				// select new btn
-				it->setSelected(true);
+				btn.second.setSelected(true);
+
+				// prevent traveling to the location which is already active
+				this->travelButtonAvailable = this->selectedLocId != this->campaign.getCurrentLocation()->getId();
 
 				return CLICK_CONSUMED;
 			}
 		}
 	}
 
-	if (this->selectedLocationIdx != NO_LOCATION_SELECTED &&
-		this->selectedLocationIdx != this->campaign.getCurrentLocationIdx() &&
+	if (this->travelButtonAvailable &&
 		this->gotoLocationBtn.handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
 	{
 		this->hoverMgr.removeHover(); // otherwise the "travel" btn will be highlighted when it next appears
@@ -126,7 +141,7 @@ bool PipBuckPageWorld::handleMouseMove(sf::Vector2i mousePos)
 			return true;
 	}
 
-	if (this->selectedLocationIdx != NO_LOCATION_SELECTED && this->selectedLocationIdx != this->campaign.getCurrentLocationIdx())
+	if (this->selectedLocId != NO_LOCATION_SELECTED && this->travelButtonAvailable)
 		return this->hoverMgr.handleMouseMove(mousePos);
 
 	return false;
@@ -187,21 +202,23 @@ bool PipBuckPageWorld::setupCampaignInfos()
 	this->mapBg.setTexture(mapBgTxt);
 	this->setupMapDecorations();
 
-	for (auto &loc : this->campaign.getLocations())
+	for (const auto &loc : this->campaign.getLocations())
 	{
-		std::shared_ptr<sf::Texture> iconTxt = this->resMgr.getTexture(loc.getWorldMapIconId());
+		std::shared_ptr<sf::Texture> iconTxt = this->resMgr.getTexture(loc.second->getWorldMapIconId());
 		if (iconTxt == nullptr)
 		{
 			this->unloadCampaignInfos();
 			return false;
 		}
 
-		this->mapButtons.emplace_back(
+		this->mapButtons.try_emplace(
+			loc.first,
 			this->guiScale,
-			loc.isWorldMapIconBig(),
-			loc.isBasecamp(),
+			loc.second->isWorldMapIconBig(),
+			loc.second->isBasecamp(),
 			this->hudColor,
-			sf::Vector2u(WORLD_MAP_X + loc.getWorldMapCoords().x, WORLD_MAP_Y + loc.getWorldMapCoords().y),
+			sf::Vector2u(WORLD_MAP_X + loc.second->getWorldMapCoords().x,
+						 WORLD_MAP_Y + loc.second->getWorldMapCoords().y),
 			iconTxt);
 	}
 
@@ -209,7 +226,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 
 	for (auto &btn : this->mapButtons)
 	{
-		this->mapButtonHoverMgr += &btn;
+		this->mapButtonHoverMgr += &btn.second;
 	}
 
 	return true;
@@ -220,7 +237,8 @@ void PipBuckPageWorld::unloadCampaignInfos()
 	this->mapBg.clearPtr();
 	this->mapButtonHoverMgr.clear();
 	this->mapButtons.clear();
-	this->selectedLocationIdx = NO_LOCATION_SELECTED;
+	this->selectedLocId = NO_LOCATION_SELECTED;
+	this->travelButtonAvailable = false;
 }
 
 void PipBuckPageWorld::setGuiScale(GuiScale scale)
@@ -230,7 +248,7 @@ void PipBuckPageWorld::setGuiScale(GuiScale scale)
 	this->locTitle.setCharacterSize(getFontSize(scale, FONT_H2));
 	this->locDescription.setCharacterSize(getFontSize(scale, FONT_SPAN));
 
-	if (this->selectedLocationIdx != NO_LOCATION_SELECTED)
+	if (this->selectedLocId != NO_LOCATION_SELECTED)
 		this->updateActiveIndicator();
 }
 
@@ -240,19 +258,19 @@ void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) c
 	target.draw(this->mapGridLines, states);
 	target.draw(this->mapBorder, states);
 
-	for (auto &btn : this->mapButtons)
+	for (const auto &btn : this->mapButtons)
 	{
-		target.draw(btn, states);
+		target.draw(btn.second, states);
 	}
 
 	target.draw(this->activeLocIndicator, states);
 
-	if (this->selectedLocationIdx != NO_LOCATION_SELECTED)
+	if (this->selectedLocId != NO_LOCATION_SELECTED)
 	{
 		target.draw(this->locTitle, states);
 		target.draw(this->locDescription, states);
 
-		if (this->selectedLocationIdx != this->campaign.getCurrentLocationIdx())
+		if (travelButtonAvailable)
 			target.draw(this->gotoLocationBtn, states);
 	}
 }

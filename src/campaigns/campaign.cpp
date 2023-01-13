@@ -99,11 +99,17 @@ bool Campaign::load(const std::string &campaignDir, uint transitionTimeMs)
 		return false;
 	}
 
-	for (const auto &loc : locsSearch->items())
+	for (const auto &locNode : locsSearch->items())
 	{
-		std::string locId = loc.key();
-		this->locations.emplace_back(locId, transitionTimeMs);
-		if (!this->locations.back().loadMeta(loc.value(), campaignDir))
+		std::string locId = locNode.key();
+		if (locId.length() == 0)
+		{
+			Log::e(STR_LOC_ID_ZEROLEN, locMetaPath.c_str());
+			return false;
+		}
+
+		std::shared_ptr<Location> loc = std::make_shared<Location>(locId, transitionTimeMs);
+		if (!loc->loadMeta(locNode.value(), campaignDir))
 		{
 			// unload everything
 			// mission failed, we'll get em next time
@@ -111,6 +117,8 @@ bool Campaign::load(const std::string &campaignDir, uint transitionTimeMs)
 			this->unload();
 			return false;
 		}
+
+		this->locations.emplace(locId, loc);
 	}
 
 	// TODO load other stuffs (most probably campaign-specific resources, so just /audio, /texture, etc)
@@ -124,10 +132,9 @@ bool Campaign::load(const std::string &campaignDir, uint transitionTimeMs)
 	if (!this->objMgr.load())
 		return false;
 
-	if (!this->changeLocationById(this->startLocation))
+	if (!this->changeLocation(this->startLocation))
 		return false;
 
-	this->loaded = true;
 	Log::d(STR_CAMPAIGN_LOADED, campaignDir.c_str());
 	return true;
 }
@@ -138,127 +145,146 @@ void Campaign::unload()
 	this->title = "";
 	this->description = "";
 	this->startLocation = "";
-	this->currentLocationIdx = -1;
+	this->currentLocation = nullptr;
+	this->lastUnloadableLocation = nullptr;
 	this->locations.clear();
-	this->loaded = false;
 	this->resMgr.cleanUnused();
 	Log::d(STR_CAMPAIGN_UNLOADED);
 }
 
-std::string Campaign::getTitle()
+std::string Campaign::getTitle() const
 {
 	return this->title;
 }
 
-std::string Campaign::getDescription()
+std::string Campaign::getDescription() const
 {
 	return this->description;
 }
 
-std::string Campaign::getWorldMapBackground()
+std::string Campaign::getWorldMapBackground() const
 {
 	return this->worldMapBackgroundId;
 }
 
-std::vector<Location>& Campaign::getLocations()
+const std::unordered_map<std::string, std::shared_ptr<Location>>& Campaign::getLocations() const
 {
 	return this->locations;
 }
 
-uint Campaign::getCurrentLocationIdx()
+const std::shared_ptr<Location> Campaign::getCurrentLocation() const
 {
-	return this->currentLocationIdx;
+	return this->currentLocation;
 }
 
 /**
- * Wow, such a brilliant name for a method.
- * Basically we want to unload rooms of every location, but keep all already
- * loaded basecamps because there's a good chance the player will be returning
- * to these again, and we want the transition to be quick.
- * Also we don't unload the previous location if player moved from non-basecamp
- * to basecamp, because player could then return to playing after restocking.
+ * Searches Locations by locId and returns a pointer to Location, or nullptr if Location with such id does not exist.
  *
- * @param newIdx index of a location which we want to load now, so we won't unload it :)
+ * @param locId requested Location id
+ * @return const shared pointer to requested Location, or nullptr if not found
  */
-void Campaign::unloadSomeLocations(uint newIdx)
+const std::shared_ptr<Location> Campaign::getLocation(const std::string &locId) const
 {
-	uint keepIdx = -1;
-	// when loading first location after creating this object,
-	// or after reset, currentLocationIdx is -1
-	if (this->currentLocationIdx != -1 &&
-		!this->locations[this->currentLocationIdx].isBasecamp() &&
-		this->locations[newIdx].isBasecamp())
-		keepIdx = this->currentLocationIdx;
+	const auto search = this->locations.find(locId);
+	if (search == this->locations.end())
+		return nullptr;
 
-	// we can't just unload last location (on the established conditions,
-	// see method description).
-	// consider the following sequence: player is in a non-basecamp location,
-	// travels to a basecamp, then travels to another non-basecamp. we would
-	// then *skip* unloading the first location in this example. this is why
-	// we need to unload all which are not needed, just to be sure.
-	for (uint i = 0; i < this->locations.size(); i++)
-	{
-		if (i == newIdx || i == keepIdx || this->locations[i].isBasecamp())
-			continue;
-
-		this->locations[i].unloadContent();
-	}
-
-	this->resMgr.cleanUnused();
+	return search->second;
 }
 
-bool Campaign::changeLocationByIndex(uint newIdx)
+/**
+ * Changes current location to the one specified by newLocId and in some cases unloads the previous location.
+ *
+ * @param newLocId new location id
+ * @return true if location change was successful
+ * @return false if location change failed
+ */
+bool Campaign::changeLocation(const std::string &newLocId)
 {
-	if (newIdx >= this->locations.size())
+	if (this->currentLocation != nullptr && this->currentLocation->getId() == newLocId)
+		return true; // we're already in this location, silly
+
+	auto newLocSearch = this->locations.find(newLocId);
+	if (newLocSearch == this->locations.end())
 	{
-		Log::e(STR_IDX_OUTTA_BOUNDS);
+		Log::e(STR_LOC_NOT_FOUND, newLocId.c_str());
 		return false;
 	}
 
-	// load the new location. don't unload the old one yet, as new
-	// one might fail to load and then we need to keep the old one
-	if (!this->locations[newIdx].loadContent(this->resMgr, this->matMgr, this->objMgr))
+	std::shared_ptr<Location> newLoc = newLocSearch->second;
+
+	// load the new location. don't unload the old one yet, as the new one might fail to load and then we need to keep
+	// the old one
+	if (!newLoc->loadContent(this->resMgr, this->matMgr, this->objMgr))
 	{
-		Log::e(STR_LOADING_LOCATION_CONTENT_ERROR, this->locations[newIdx].getId().c_str());
+		Log::e(STR_LOADING_LOCATION_CONTENT_ERROR, newLocSearch->first.c_str());
 		return false;
 	}
 
-	// it's important to unload old location after loading the next one, because there's a good chance that new location
-	// uses some of the resources which are already loaded by the old one. therefore we avoid unloading and immediately
-	// loading the same resource.
-	this->unloadSomeLocations(newIdx);
+	// it's important to unload old location only after loading the new one, because there's a good chance that the new
+	// location uses some of the resources which are already loaded by the old one. therefore we avoid unloading and
+	// immediately loading the same resource.
 
-	this->currentLocationIdx = newIdx;
+	// sometimes we don't actually unload the old location. the unloading should happen only if the player was
+	// previously visiting a non-basecamp location, and currently we're loading another non-basecamp location.
+	// we never unload already loaded basecamps, because there's a good chance the player will be returning to these,
+	// and we want the transition to be as quick as possible.
+	// vice versa, we also don't unload the previous location if player moved from non-basecamp to basecamp, because
+	// the player could then return to playing after e.g. restocking.
+	// however, under established conditions, we can't simply unload last location.
+	// consider the following sequence: player is in a non-basecamp location, travels to a basecamp, then travels to
+	// another non-basecamp. we would then *skip* unloading the first location in this example. this is why we need to
+	// keep track of last "unloadable" location.
 
-	Log::d(STR_LOC_CHANGED, this->locations[newIdx].getId().c_str());
-	return true;
-}
-
-bool Campaign::changeLocationById(const std::string &locId)
-{
-	for (auto it = this->locations.begin(); it != this->locations.end(); it++)
+	// no point unloading anything if current location is not set (this means that the Campaign was just created or has
+	// been unloaded)
+	if (this->currentLocation != nullptr)
 	{
-		if (it->getId() == locId)
+		if (!this->currentLocation->isBasecamp() && newLoc->isBasecamp())
 		{
-			return this->changeLocationByIndex(static_cast<uint>(std::distance(this->locations.begin(), it)));
+			// non-basecamp -> basecamp: set last unloadable as old location, as it's a non-basecamp
+			this->lastUnloadableLocation = this->currentLocation;
 		}
+		else if (!this->currentLocation->isBasecamp() && !newLoc->isBasecamp())
+		{
+			// non-basecamp -> non-basecamp: unload old location
+			this->currentLocation->unloadContent();
+			this->resMgr.cleanUnused();
+			// we don't care about last unloadable loc in this case.
+			// we'll take care of it when we transition to a basecamp (see first branch)
+		}
+		else if (this->currentLocation->isBasecamp() && !newLoc->isBasecamp())
+		{
+			// basecamp -> non-basecamp: unload last unloadable (if it exists and is not the location which we're
+			// trying to load now) and unset it
+			if (this->lastUnloadableLocation != nullptr && this->lastUnloadableLocation != newLoc)
+			{
+				this->lastUnloadableLocation->unloadContent();
+				this->resMgr.cleanUnused();
+			}
+
+			this->lastUnloadableLocation = nullptr;
+		}
+		// else: basecamp -> basecamp: we don't unload anything
 	}
 
-	Log::e(STR_LOC_NOT_FOUND, locId.c_str());
-	return false;
+	this->currentLocation = newLoc;
+
+	Log::d(STR_LOC_CHANGED, this->currentLocation->getId().c_str());
+	return true;
 }
 
 bool Campaign::isLoaded()
 {
-	return this->loaded;
+	return this->currentLocation != nullptr;
 }
 
 bool Campaign::gotoRoom(Direction direction)
 {
-	if (!this->loaded)
+	if (this->currentLocation == nullptr)
 		return false;
 
-	return this->locations[this->currentLocationIdx].gotoRoom(direction);
+	return this->currentLocation->gotoRoom(direction);
 }
 
 /**
@@ -270,25 +296,23 @@ bool Campaign::gotoRoom(Direction direction)
  */
 void Campaign::logWhereAmI()
 {
-	if (!this->loaded)
+	if (this->currentLocation == nullptr)
 		return;
 
-	sf::Vector3i coords = this->locations[this->currentLocationIdx].getPlayerRoomCoords();
+	sf::Vector3i coords = this->currentLocation->getPlayerRoomCoords();
 
-	Log::w(STR_DEBUG_WHEREAMI, this->locations[this->currentLocationIdx].getTitle().c_str(),
-		   coords.x, coords.y, coords.z);
+	Log::w(STR_DEBUG_WHEREAMI, this->currentLocation->getTitle().c_str(), coords.x, coords.y, coords.z);
 }
 
 void Campaign::updateState()
 {
-	if (!this->loaded)
+	if (this->currentLocation == nullptr)
 		return;
 
-	this->locations[this->currentLocationIdx].updateState();
+	this->currentLocation->updateState();
 }
 
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	// TODO? probably could be optimized by storing a ptr to current loc
-	target.draw(this->locations[this->currentLocationIdx], states);
+	target.draw(*this->currentLocation, states);
 }

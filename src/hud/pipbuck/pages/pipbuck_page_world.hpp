@@ -1,7 +1,7 @@
 #pragma once
 
+#include <unordered_map>
 #include <string>
-#include <vector>
 #include "../pipbuck_page.hpp"
 #include "../../../resources/resource_manager.hpp"
 #include "../../../resources/sprite_resource.hpp"
@@ -10,7 +10,8 @@
 #include "../../../campaigns/campaign.hpp"
 #include <SFML/Graphics/CircleShape.hpp>
 
-#define NO_LOCATION_SELECTED -1
+// valid loc id length is guaranteed to have len > 0, as checked in Campaign::load()
+#define NO_LOCATION_SELECTED ""
 
 /**
  * PipBuck -> Information -> World
@@ -28,10 +29,11 @@ class PipBuckPageWorld : public PipBuckPage
 		sf::Text locTitle;
 		sf::Text locDescription; // also shows recommended lvl, trial count, basecamp, etc.
 		sf::CircleShape activeLocIndicator;
-		std::vector<LocButton> mapButtons;
+		std::unordered_map<std::string, LocButton> mapButtons;
 		SimpleButton gotoLocationBtn;
 		HoverManager mapButtonHoverMgr;
-		int selectedLocationIdx = NO_LOCATION_SELECTED; // note: different from the one in Campaign (only represents selection on page)
+		std::string selectedLocId = NO_LOCATION_SELECTED; // represents selection on page, not currently active location
+		bool travelButtonAvailable = false;
 		void setupMapDecorations();
 		bool mapContainsPoint(sf::Vector2i point);
 		void updateActiveIndicator();

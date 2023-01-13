@@ -1,7 +1,8 @@
 #pragma once
 
-#include <vector>
+#include <unordered_map>
 #include <string>
+#include <memory>
 #include <SFML/System/Vector3.hpp>
 #include "location.hpp"
 #include "../resources/resource_manager.hpp"
@@ -9,10 +10,11 @@
 #include "../objects/object_manager.hpp"
 
 /**
- * Not all locations are kept loaded at the same time. Apart from the
- * current location, all basecamps visited since the program start are
- * kept loaded, as well as previous non-basecamp location, if player
- * traveled from it to a basecamp.
+ * The Campaign class stores Locations and other useful information related to the currently loaded campaign.
+ *
+ * Metadata for all Locations is kept loaded, but not all Location content is kept loaded at the same time. Apart from
+ * the current Location, all basecamps visited since the Campaign was created are kept fully loaded, as well as the
+ * previous non-basecamp Location, if the player traveled from it to a basecamp.
  */
 class Campaign : public sf::Drawable
 {
@@ -20,7 +22,6 @@ class Campaign : public sf::Drawable
 		ResourceManager &resMgr;
 		MaterialManager matMgr;
 		ObjectManager objMgr;
-		bool loaded = false;
 		std::string title;
 		std::string description;
 		std::string startLocation;
@@ -28,21 +29,24 @@ class Campaign : public sf::Drawable
 		// could be hardcoded, but it would prevent reusing images from other campaigns
 		std::string worldMapBackgroundId;
 
-		uint currentLocationIdx = -1;
-		std::vector<Location> locations;
-		void unloadSomeLocations(uint newIdx);
+		std::shared_ptr<Location> currentLocation = nullptr;
+
+		// last visited non-basecamp location which should be unloaded when traveling to a new non-basecamp location
+		std::shared_ptr<Location> lastUnloadableLocation = nullptr;
+
+		std::unordered_map<std::string, std::shared_ptr<Location>> locations;
 
 	public:
 		explicit Campaign(ResourceManager &resMgr);
 		bool load(const std::string &campaignDir, uint transitionTimeMs);
 		void unload();
-		std::string getTitle();
-		std::string getDescription();
-		std::string getWorldMapBackground();
-		std::vector<Location>& getLocations();
-		uint getCurrentLocationIdx();
-		bool changeLocationByIndex(uint newIdx);
-		bool changeLocationById(const std::string &locId);
+		std::string getTitle() const;
+		std::string getDescription() const;
+		std::string getWorldMapBackground() const;
+		const std::unordered_map<std::string, std::shared_ptr<Location>>& getLocations() const;
+		const std::shared_ptr<Location> getCurrentLocation() const;
+		const std::shared_ptr<Location> getLocation(const std::string &locId) const;
+		bool changeLocation(const std::string &newLocId);
 		bool isLoaded();
 		bool gotoRoom(Direction direction);
 		void logWhereAmI();

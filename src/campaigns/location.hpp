@@ -22,6 +22,14 @@
  * Location represents a collection of Rooms connected to each other. Player is able to move between Rooms belonging to
  * the same Location.
  *
+ * The Location class has three stages of being loaded, each stage allows the next to be executed:
+ *   1. The object was created
+ *   2. Metadata was loaded with ::loadMeta()
+ *   3. Content was loaded with ::loadContent()
+ * Only in 3rd stage (after loading content), the Location is usable (the player can travel to it).
+ * Location should load its metadata once, then its content can be loaded and unloaded as many times as it is necessary,
+ * in order to save memory when the Location is not being actively used.
+ *
  * Drawing a particular Room is a complicated and expensive process, so measures are taken in order to optimize it.
  *
  * First, only one Room is shown at any time (except transitions). This means that we should always only draw a single
