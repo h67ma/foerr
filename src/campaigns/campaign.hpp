@@ -37,7 +37,7 @@ class Campaign : public sf::Drawable
 
 	public:
 		explicit Campaign(ResourceManager &resMgr);
-		bool load(const std::string &campaignDir, uint transitionTimeMs);
+		bool load(const std::string &campaignDir);
 		void unload();
 		std::string getTitle() const;
 		std::string getDescription() const;

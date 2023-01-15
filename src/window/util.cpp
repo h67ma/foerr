@@ -1,9 +1,10 @@
 #include "util.hpp"
+#include "../settings/settings_manager.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 #include "../consts.hpp"
 
-void recreateWindow(sf::RenderWindow &window, SettingsManager &settings)
+void recreateWindow(sf::RenderWindow &window)
 {
 	// TODO settings activity should detect valid video modes and list them, with the standard "confirm in 15 seconds"
 	// dialog after changing resolution.
@@ -12,21 +13,21 @@ void recreateWindow(sf::RenderWindow &window, SettingsManager &settings)
 	// when settings are uninitialized, game should pick *some* mode - either best, or "safe"
 
 	sf::ContextSettings context;
-	context.antialiasingLevel = settings.getUint(SETT_AA);
+	context.antialiasingLevel = SettingsManager::getUint(SETT_AA);
 
-	if (settings.getBool(SETT_FULLSCREEN_ENABLED))
+	if (SettingsManager::getBool(SETT_FULLSCREEN_ENABLED))
 		// TODO support overriding fullscreen resolution via settings
 		window.create(sf::VideoMode::getDesktopMode(),
 					  STR_WINDOW_TITLE, sf::Style::Fullscreen, context);
 	else
-		window.create(sf::VideoMode(settings.getUint(SETT_WINDOW_WIDTH),
-									settings.getUint(SETT_WINDOW_HEIGHT)),
+		window.create(sf::VideoMode(SettingsManager::getUint(SETT_WINDOW_WIDTH),
+									SettingsManager::getUint(SETT_WINDOW_HEIGHT)),
 					  STR_WINDOW_TITLE, sf::Style::Default, context);
 
-	if (settings.getBool(SETT_FPS_LIMIT_ENABLED))
-		window.setFramerateLimit(settings.getUint(SETT_FPS_LIMIT));
+	if (SettingsManager::getBool(SETT_FPS_LIMIT_ENABLED))
+		window.setFramerateLimit(SettingsManager::getUint(SETT_FPS_LIMIT));
 
-	window.setVerticalSyncEnabled(settings.getBool(SETT_FAKE_VSYNC_ENABLED));
+	window.setVerticalSyncEnabled(SettingsManager::getBool(SETT_FAKE_VSYNC_ENABLED));
 }
 
 /**
@@ -62,11 +63,12 @@ void setLetterboxView(sf::View &view, sf::Vector2u windowSize)
 	view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
 }
 
-void windowSizeChanged(sf::Vector2u windowSize, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck, MainMenu &mainMenu)
+void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView,
+					   PipBuck &pipBuck, MainMenu &mainMenu)
 {
 	// update position of dockable elements
-	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), windowSize);
-	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), windowSize);
+	Log::setPosition(SettingsManager::getScreenCorner(SETT_ANCHOR_LOG), windowSize);
+	fpsMeter.setPosition(windowSize);
 	pipBuck.handleScreenResize(windowSize);
 	mainMenu.handleScreenResize(windowSize);
 
@@ -75,19 +77,20 @@ void windowSizeChanged(sf::Vector2u windowSize, SettingsManager &settings, FpsMe
 	setLetterboxView(gameWorldView, windowSize);
 }
 
-void toggleFullscreen(sf::RenderWindow &window, SettingsManager &settings, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView, PipBuck &pipBuck, MainMenu &mainMenu)
+void toggleFullscreen(sf::RenderWindow &window, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView,
+					  PipBuck &pipBuck, MainMenu &mainMenu)
 {
-	if (settings.getBool(SETT_FULLSCREEN_ENABLED))
+	if (SettingsManager::getBool(SETT_FULLSCREEN_ENABLED))
 	{
-		settings.setBool(SETT_FULLSCREEN_ENABLED, false);
+		SettingsManager::setBool(SETT_FULLSCREEN_ENABLED, false);
 		Log::d(STR_WINDOW_WINDOWED);
 	}
 	else
 	{
-		settings.setBool(SETT_FULLSCREEN_ENABLED, true);
+		SettingsManager::setBool(SETT_FULLSCREEN_ENABLED, true);
 		Log::d(STR_WINDOW_FULLSCREEN);
 	}
 
-	recreateWindow(window, settings);
-	windowSizeChanged(window.getSize(), settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+	recreateWindow(window);
+	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 }

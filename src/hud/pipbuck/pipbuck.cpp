@@ -25,54 +25,54 @@
 #include "pages/pipbuck_page_controls.hpp"
 #include "pages/pipbuck_page_log.hpp"
 
-PipBuck::PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign,
-				 GameState &gameState, SettingsManager &settings) :
+PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :
 	resMgr(resMgr),
 	gameState(gameState),
 	campaign(campaign),
 	categories {
-		{ PIPB_CAT_STATUS, { scale, hudColor, fxVolume, resMgr, PIPB_PAGE_STATUS_MAIN, {
+		{ PIPB_CAT_STATUS, { resMgr, PIPB_PAGE_STATUS_MAIN, {
 			{ PIPB_PAGE_STATUS_MAIN, std::make_shared<PipBuckPageMainStatus>(resMgr) },
 			{ PIPB_PAGE_SKILLS, std::make_shared<PipBuckPageSkills>(resMgr) },
 			{ PIPB_PAGE_PERKS, std::make_shared<PipBuckPagePerks>(resMgr) },
 			{ PIPB_PAGE_EFFECTS, std::make_shared<PipBuckPageEffects>(resMgr) },
 			{ PIPB_PAGE_HEALTH, std::make_shared<PipBuckPageHealth>(resMgr) }
 		} } },
-		{ PIPB_CAT_INVENTORY, { scale, hudColor, fxVolume, resMgr, PIPB_PAGE_WEAPONS, {
+		{ PIPB_CAT_INVENTORY, { resMgr, PIPB_PAGE_WEAPONS, {
 			{ PIPB_PAGE_WEAPONS, std::make_shared<PipBuckPageWeapons>(resMgr) },
 			{ PIPB_PAGE_ARMOR, std::make_shared<PipBuckPageArmor>(resMgr) },
 			{ PIPB_PAGE_EQUIPMENT, std::make_shared<PipBuckPageEquipment>(resMgr) },
 			{ PIPB_PAGE_INVENTORY_OTHER, std::make_shared<PipBuckPageInventoryOther>(resMgr) },
 			{ PIPB_PAGE_AMMO, std::make_shared<PipBuckPageAmmo>(resMgr) }
 		} } },
-		{ PIPB_CAT_INFO, { scale, hudColor, fxVolume, resMgr, PIPB_PAGE_MAP, {
+		{ PIPB_CAT_INFO, { resMgr, PIPB_PAGE_MAP, {
 			{ PIPB_PAGE_MAP, std::make_shared<PipBuckPageMap>(resMgr) },
-			{ PIPB_PAGE_WORLD, std::make_shared<PipBuckPageWorld>(scale, hudColor, resMgr, campaign) },
+			{ PIPB_PAGE_WORLD, std::make_shared<PipBuckPageWorld>(resMgr, campaign) },
 			{ PIPB_PAGE_QUESTS, std::make_shared<PipBuckPageQuests>(resMgr) },
 			{ PIPB_PAGE_NOTES, std::make_shared<PipBuckPageNotes>(resMgr) },
 			{ PIPB_PAGE_ENEMIES, std::make_shared<PipBuckPageEnemies>(resMgr) }
 		} } },
-		{ PIPB_CAT_MAIN, { scale, hudColor, fxVolume, resMgr, PIPB_PAGE_LOAD, {
-			{ PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(scale, hudColor, resMgr, campaign, gameState) },
+		{ PIPB_CAT_MAIN, { resMgr, PIPB_PAGE_LOAD, {
+			{ PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr, campaign, gameState) },
 			{ PIPB_PAGE_SAVE, std::make_shared<PipBuckPageSave>(resMgr) },
-			{ PIPB_PAGE_SETTINGS, std::make_shared<PipBuckPageSettings>(scale, hudColor, resMgr, settings) },
-			{ PIPB_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr, scale, hudColor) },
+			{ PIPB_PAGE_SETTINGS, std::make_shared<PipBuckPageSettings>(resMgr) },
+			{ PIPB_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr) },
 			{ PIPB_PAGE_LOG, std::make_shared<PipBuckPageLog>(resMgr) }
 		} } }
 	},
 	categoryButtons {
-		{ PIPB_CAT_STATUS, { scale, BTN_BIG, hudColor, resMgr, { 650, 900 }, STR_PIPBUCK_STATUS } },
-		{ PIPB_CAT_INVENTORY, { scale, BTN_BIG, hudColor, resMgr, { 855, 915 }, STR_PIPBUCK_INV } },
-		{ PIPB_CAT_INFO, { scale, BTN_BIG, hudColor, resMgr, { 1055, 900 }, STR_PIPBUCK_INFO } },
-		{ PIPB_CAT_MAIN, { scale, BTN_BIG, hudColor, resMgr, { 55, 700 }, STR_PIPBUCK_MAINMENU } }
+		{ PIPB_CAT_STATUS, { BTN_BIG, resMgr, { 650, 900 }, STR_PIPBUCK_STATUS } },
+		{ PIPB_CAT_INVENTORY, { BTN_BIG, resMgr, { 855, 915 }, STR_PIPBUCK_INV } },
+		{ PIPB_CAT_INFO, { BTN_BIG, resMgr, { 1055, 900 }, STR_PIPBUCK_INFO } },
+		{ PIPB_CAT_MAIN, { BTN_BIG, resMgr, { 55, 700 }, STR_PIPBUCK_MAINMENU } }
 	},
-	closeBtn(scale, BTN_BIG, hudColor, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, nullptr, CLICK_CONSUMED_CLOSE),
+	closeBtn(BTN_BIG, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, nullptr, CLICK_CONSUMED_CLOSE),
 	soundOpenClose(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE)),
 	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	pipBuckSprite(resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY))
 {
-	this->soundOpenClose.setVolume(static_cast<float>(fxVolume));
-	this->soundCategoryBtn.setVolume(static_cast<float>(fxVolume));
+	float initialVolume = static_cast<float>(SettingsManager::getUint(SETT_FX_VOLUME));
+	this->soundOpenClose.setVolume(initialVolume);
+	this->soundCategoryBtn.setVolume(initialVolume);
 
 	this->radIndicator.setPointCount(3);
 	this->radIndicator.setOrigin(5.f, 0.f);

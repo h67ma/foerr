@@ -56,8 +56,7 @@ class PipBuck : public sf::Drawable, public HudTransformable
 		static double getSmoothNoise(double time);
 
 	public:
-		PipBuck(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr, Campaign &campaign,
-				GameState &gameState, SettingsManager &settings);
+		PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
 		void handleScreenResize(sf::Vector2u windowSize);
 		void handleLeftClick(sf::Vector2i clickPos);
 		void handleMouseMove(sf::Vector2i mousePos);

@@ -2,13 +2,16 @@
 #include <string>
 #include <memory>
 #include <SFML/Graphics/RenderTexture.hpp>
+#include "../settings/settings_manager.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 #include "../util/json.hpp"
 
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
-Location::Location(const std::string &id, uint transitionTimeMs) : id(id), transitionTimeMs(transitionTimeMs)
+Location::Location(const std::string &id) :
+	id(id),
+	transitionTimeMs(SettingsManager::getUint(SETT_ROOM_TRANSITION_DURATION_MS))
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }

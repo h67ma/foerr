@@ -39,7 +39,7 @@ Campaign::Campaign(ResourceManager &resMgr) : resMgr(resMgr)
  * @return true if load succeeded
  * @return false if load failed
  */
-bool Campaign::load(const std::string &campaignDir, uint transitionTimeMs)
+bool Campaign::load(const std::string &campaignDir)
 {
 	Log::d(STR_CAMPAIGN_LOADING, campaignDir.c_str());
 
@@ -109,7 +109,7 @@ bool Campaign::load(const std::string &campaignDir, uint transitionTimeMs)
 			return false;
 		}
 
-		std::shared_ptr<Location> loc = std::make_shared<Location>(locId, transitionTimeMs);
+		std::shared_ptr<Location> loc = std::make_shared<Location>(locId);
 		if (!loc->loadMeta(locNode.value(), campaignDir))
 		{
 			// unload everything

@@ -4,12 +4,12 @@
 #include "../../log.hpp"
 #include "../../../settings/keymap.hpp"
 
-PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr, GuiScale scale, sf::Color hudColor) :
+PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr) :
 	buttons({
-		{scale, BTN_NORMAL, hudColor, resMgr, { 400, 815 }, STR_SAVE, []() {
+		{ BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() {
 			Keymap::save();
 		}},
-		{scale, BTN_NORMAL, hudColor, resMgr, { 600, 815 }, STR_RESET_DEFAULT, [this]() {
+		{ BTN_NORMAL, resMgr, { 600, 815 }, STR_RESET_DEFAULT, [this]() {
 			// TODO display confirm dialog
 			Keymap::resetToDefault();
 			this->updateDisplay();

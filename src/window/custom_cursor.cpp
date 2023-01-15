@@ -1,4 +1,5 @@
 #include "custom_cursor.hpp"
+#include "../settings/settings_manager.hpp"
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
@@ -16,9 +17,9 @@ CustomCursor::CustomCursor(const std::string &path, sf::Vector2u hotPoint, sf::C
  *
  * @returns whether load succeeded (fallback cursors are acceptable)
  */
-bool CustomCursor::load(bool preferCustom)
+bool CustomCursor::load()
 {
-	if (!preferCustom)
+	if (!SettingsManager::getBool(SETT_PREFER_CUSTOM_CURSOR))
 	{
 		return this->cursor.loadFromSystem(this->fallbackCursor);
 	}

@@ -1,7 +1,7 @@
 #include "button.hpp"
 #include "../../util/util.hpp"
 
-Button::Button(GuiScale scale, sf::Vector2u position, std::function<void(void)> callback, ClickStatus consumedStatus) :
+Button::Button(sf::Vector2u position, std::function<void(void)> callback, ClickStatus consumedStatus) :
 	callback(callback),
 	consumedStatus(consumedStatus)
 {

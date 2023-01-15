@@ -7,7 +7,6 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include "../hud_transformable.hpp"
 #include "../../resources/resource_manager.hpp"
-#include "../hud.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../hover_manager.hpp"
 #include "../clickable.hpp"
@@ -39,8 +38,8 @@ class PipBuckCategory : public sf::Drawable, public HudTransformable
 		const std::unordered_map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages;
 
 	public:
-		PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr,
-						PipBuckPageType defaultPage, std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages);
+		PipBuckCategory(ResourceManager &resMgr, PipBuckPageType defaultPage,
+						std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages);
 		bool setup();
 		PipBuckPageType getSelectedPage() const;
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);

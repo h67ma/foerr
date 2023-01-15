@@ -1,24 +1,26 @@
 #include "fps_meter.hpp"
 #include <math.h>
+#include "../settings/settings_manager.hpp"
 #include "../consts.hpp"
 #include "../util/util.hpp"
 
-FpsMeter::FpsMeter(GuiScale scale, sf::Font &font)
+FpsMeter::FpsMeter(sf::Font &font, sf::Vector2u windowSize)
 {
 	this->text.setFont(font);
-	this->setGuiScale(scale);
+	this->setGuiScale();
 	this->text.setFillColor(sf::Color::Green);
 	this->text.setString("??");
+	this->setPosition(windowSize);
 }
 
-void FpsMeter::setGuiScale(GuiScale scale)
+void FpsMeter::setGuiScale()
 {
-	this->text.setCharacterSize(getFontSize(scale, FONT_H3));
+	this->text.setCharacterSize(getFontSize(SettingsManager::getGuiScale(SETT_GUI_SCALE), FONT_H3));
 }
 
-void FpsMeter::setPosition(ScreenCorner anchor, sf::Vector2u windowSize)
+void FpsMeter::setPosition(sf::Vector2u windowSize)
 {
-	switch(anchor)
+	switch(SettingsManager::getScreenCorner(SETT_ANCHOR_FPS))
 	{
 		case CORNER_TOP_RIGHT:
 			this->text.setPosition(windowSize.x - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, FPS_ANCHOR_PADDING_TOP);

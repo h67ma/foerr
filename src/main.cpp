@@ -23,14 +23,15 @@ int main()
 {
 	GameState gameState = STATE_MAINMENU;
 
+	SettingsManager::setup();
+
 	if (!SettingsManager::generatePathsAndMkdir())
 	{
 		Log::e(STR_CREATE_DIRS_FAIL);
 		exit(1);
 	}
 
-	SettingsManager settings;
-	settings.loadConfig();
+	SettingsManager::loadConfig();
 
 	sf::RenderWindow window;
 	std::vector<Animation*> animations; // TODO delet this
@@ -38,13 +39,11 @@ int main()
 	sf::View hudView;
 	sf::Clock animationTimer;
 
-	recreateWindow(window, settings);
+	recreateWindow(window);
 
-	GuiScale initialScale = settings.getGuiScale(SETT_GUI_SCALE);
-	uint initialFxVol = settings.getUint(SETT_FX_VOLUME);
-	sf::Color hudColor = settings.getColor(SETT_HUD_COLOR);
-	uint transitionTimeMs = settings.getUint(SETT_ROOM_TRANSITION_DURATION_MS);
-	bool debugNavigation = settings.getBool(SETT_DEBUG_NAVIGATION);
+	bool debugNavigation = SettingsManager::getBool(SETT_DEBUG_NAVIGATION);
+	bool pauseOnFocusLoss = SettingsManager::getBool(SETT_PAUSE_ON_FOCUS_LOSS);
+	bool showFpsCounter = SettingsManager::getBool(SETT_SHOW_FPS_COUNTER);
 
 	ResourceManager resManager;
 
@@ -55,22 +54,22 @@ int main()
 		exit(1);
 	}
 
-	LoadingScreen loadingScreen(initialScale, hudColor, resManager, window.getSize());
+	LoadingScreen loadingScreen(resManager, window.getSize());
 	window.clear();
 	window.draw(loadingScreen);
 	window.display();
 
-	if (settings.getBool(SETT_WRITE_LOG_TO_FILE))
+	if (SettingsManager::getBool(SETT_WRITE_LOG_TO_FILE))
 		Log::openLogFile(pathCombine(SettingsManager::getGameRootDir(), PATH_LOGFILE));
 
 	Log::setFont(resManager.getFont(FONT_NORMAL));
-	Log::setPosition(settings.getScreenCorner(SETT_ANCHOR_LOG), window.getSize());
-	Log::setWriteLogToFile(settings.getBool(SETT_WRITE_LOG_TO_FILE));
-	Log::setPrintMsgs(settings.getBool(SETT_PRINT_MSGS));
-	Log::setVerboseDebug(settings.getBool(SETT_VERBOSE_DEBUG));
-	Log::setGuiScale(initialScale);
+	Log::setPosition(SettingsManager::getScreenCorner(SETT_ANCHOR_LOG), window.getSize());
+	Log::setWriteLogToFile(SettingsManager::getBool(SETT_WRITE_LOG_TO_FILE));
+	Log::setPrintMsgs(SettingsManager::getBool(SETT_PRINT_MSGS));
+	Log::setVerboseDebug(SettingsManager::getBool(SETT_VERBOSE_DEBUG));
+	Log::setGuiScale(SettingsManager::getGuiScale(SETT_GUI_SCALE));
 
-	Log::d("Save dir = %s", settings.getSaveDir().c_str());
+	Log::d("Save dir = %s", SettingsManager::getSaveDir().c_str());
 
 	if (!resManager.loadCore())
 	{
@@ -88,11 +87,10 @@ int main()
 
 	Keymap::load();
 
-	FpsMeter fpsMeter(initialScale, *resManager.getFont(FONT_NORMAL));
-	fpsMeter.setPosition(settings.getScreenCorner(SETT_ANCHOR_FPS), window.getSize());
+	FpsMeter fpsMeter(*resManager.getFont(FONT_NORMAL), window.getSize());
 
 	CursorManager cursorMgr;
-	if (!cursorMgr.loadCursors(settings.getBool(SETT_PREFER_CUSTOM_CURSOR)))
+	if (!cursorMgr.loadCursors())
 	{
 		Log::e(STR_CURSOR_LOAD_FAIL);
 		window.close();
@@ -102,7 +100,7 @@ int main()
 	cursorMgr.setCursor(window, POINTER);
 
 	Campaign campaign(resManager);
-	PipBuck pipBuck(initialScale, hudColor, initialFxVol, resManager, campaign, gameState, settings);
+	PipBuck pipBuck(resManager, campaign, gameState);
 	if (!pipBuck.setup())
 	{
 		Log::e(STR_PIPBUCK_SETUP_FAILED);
@@ -111,8 +109,7 @@ int main()
 	}
 
 	pipBuck.setRadLevel(0.3f); // TODO remove
-	MainMenu mainMenu(initialScale, hudColor, initialFxVol, transitionTimeMs, resManager, window, campaign, gameState,
-					  pipBuck);
+	MainMenu mainMenu(resManager, window, campaign, gameState, pipBuck);
 
 	// this is kinda messy but probably faster than a very long switch-case.
 	// for each keypress we have to go through two maps: key -> action, action -> callback.
@@ -208,8 +205,8 @@ int main()
 			if (debugNavigation && campaign.gotoRoom(DIR_BACK))
 				campaign.logWhereAmI();
 		} },
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
-			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
+			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 		} },
 	};
 
@@ -277,14 +274,14 @@ int main()
 		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){
 			pipBuck.switchToPage(PIPB_PAGE_ENEMIES);
 		} },
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
-			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
+			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 		} },
 	};
 
 	std::unordered_map<KeyAction, std::function<void(void)>> mainMenuCbs {
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &settings, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
-			toggleFullscreen(window, settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
+			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 		} }
 	};
 
@@ -333,15 +330,15 @@ int main()
 
 
 	// initial size
-	windowSizeChanged(window.getSize(), settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 
 	// autoload campaign
-	std::string autoLoadPath = settings.getText(SETT_AUTOLOAD_CAMPAIGN);
+	std::string autoLoadPath = SettingsManager::getText(SETT_AUTOLOAD_CAMPAIGN);
 	if (autoLoadPath != "")
 	{
 		Log::d(STR_AUTLOADING_CAMPAIGN);
 
-		if (campaign.load(pathCombine("res/campaigns", autoLoadPath), transitionTimeMs) && pipBuck.setupCampaignInfos())
+		if (campaign.load(pathCombine("res/campaigns", autoLoadPath)) && pipBuck.setupCampaignInfos())
 		{
 			gameState = STATE_PLAYING;
 		}
@@ -368,7 +365,7 @@ int main()
 				}
 				else if (event.type == sf::Event::LostFocus)
 				{
-					if (settings.getBool(SETT_PAUSE_ON_FOCUS_LOSS))
+					if (pauseOnFocusLoss)
 						pipBuck.open(false);
 				}
 			}
@@ -432,7 +429,7 @@ int main()
 			}
 			else if (event.type == sf::Event::Resized)
 			{
-				windowSizeChanged(window.getSize(), settings, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+				windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 			}
 			// TODO probably useful for text entry
 			//else if (event.type == sf::Event::TextEntered)
@@ -488,7 +485,7 @@ int main()
 		Log::maybeUpdate();
 		Log::draw(window);
 
-		if (settings.getBool(SETT_SHOW_FPS_COUNTER))
+		if (showFpsCounter)
 		{
 			// the clock will be initialized at program start either way, but fps won't be calculated if disabled
 			fpsMeter.maybeUpdate();

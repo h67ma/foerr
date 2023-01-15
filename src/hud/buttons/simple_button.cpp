@@ -1,5 +1,6 @@
 #include "simple_button.hpp"
 #include <string>
+#include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 
 #define BTN_TEXT_SMALL_TOP_OFFSET 8U
@@ -11,10 +12,10 @@
 #define BTN_COLOR_UNSEL_FACTOR 68
 #define BTN_COLOR_HOVER_FACTOR 140
 
-SimpleButton::SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color color, ResourceManager &resMgr,
-						   sf::Vector2u position, const std::string &text, std::function<void(void)> callback,
+SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::Vector2u position,
+						   const std::string &text, std::function<void(void)> callback,
 						   ClickStatus consumedStatus) :
-	Button(scale, position, callback, consumedStatus)
+	Button(position, callback, consumedStatus)
 {
 	this->size = size;
 
@@ -22,9 +23,8 @@ SimpleButton::SimpleButton(GuiScale scale, SimpleButtonSize size, sf::Color colo
 	this->text.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->text.setString(text);
 
-	this->setGuiScale(scale);
-
-	this->setColor(color);
+	this->setGuiScale(SettingsManager::getGuiScale(SETT_GUI_SCALE));
+	this->setColor(SettingsManager::getColor(SETT_HUD_COLOR));
 
 	// disabled by default
 	this->setSelected(false);

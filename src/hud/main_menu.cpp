@@ -1,25 +1,26 @@
 #include "main_menu.hpp"
+#include "../settings/settings_manager.hpp"
 #include "../util/i18n.hpp"
 #include "log.hpp"
 #include "loading_screen.hpp"
 #include "git_version.h"
 
 
-MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, uint transitionTimeMs, ResourceManager &resMgr,
-				   sf::RenderWindow &window, Campaign &campaign, GameState &gameState, PipBuck &pipBuck) :
+MainMenu::MainMenu(ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign,
+				   GameState &gameState, PipBuck &pipBuck) :
 	buttons({
-		{scale, BTN_NORMAL, hudColor, resMgr, { 100, 100 }, STR_CONTINUE, [scale, hudColor, transitionTimeMs, &resMgr,
-																		   &campaign, &gameState, &window, &pipBuck](){
+		{ BTN_NORMAL, resMgr, { 100, 100 }, STR_CONTINUE, [&resMgr, &campaign, &gameState, &window,
+														   &pipBuck](){
 			// TODO some kind of campaign select
 
 			// this is a pretty terrible way of showing a loading screen, but it will do for now
 			// TODO load on thread, display loading screen in main loop with a progress bar
-			LoadingScreen loadingScreen(scale, hudColor, resMgr, window.getSize());
+			LoadingScreen loadingScreen(resMgr, window.getSize());
 			window.clear();
 			window.draw(loadingScreen);
 			window.display();
 
-			if (!campaign.load("res/campaigns/test", transitionTimeMs))
+			if (!campaign.load("res/campaigns/test"))
 			{
 				Log::e(STR_CAMPAIGN_LOAD_FAILED);
 				return;
@@ -33,14 +34,14 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, uint trans
 
 			gameState = STATE_PLAYING;
 		}},
-		{scale, BTN_NORMAL, hudColor, resMgr, { 100, 150 }, STR_QUIT_GAME, [&window](){
+		{ BTN_NORMAL, resMgr, { 100, 150 }, STR_QUIT_GAME, [&window](){
 			Log::d(STR_SHUTTING_DOWN);
 			window.close();
 		}}
 	}),
 	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
 {
-	this->btnSound.setVolume(static_cast<float>(fxVolume));
+	this->btnSound.setVolume(static_cast<float>(SettingsManager::getUint(SETT_FX_VOLUME)));
 
 	for (auto &btn : this->buttons)
 	{
@@ -49,9 +50,9 @@ MainMenu::MainMenu(GuiScale scale, sf::Color hudColor, uint fxVolume, uint trans
 	}
 
 	this->versionText.setFont(*resMgr.getFont(FONT_FIXED));
-	this->versionText.setFillColor(hudColor);
+	this->versionText.setFillColor(SettingsManager::getColor(SETT_HUD_COLOR));
 	this->versionText.setString(GIT_VERSION);
-	this->versionText.setCharacterSize(getFontSize(scale, FONT_H3));
+	this->versionText.setCharacterSize(getFontSize(SettingsManager::getGuiScale(SETT_GUI_SCALE), FONT_H3));
 	this->handleScreenResize(window.getSize());
 }
 

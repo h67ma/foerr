@@ -1,5 +1,6 @@
 #include "location_button.hpp"
 #include <math.h>
+#include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 
 // values from 0 to 255, where 255 is the original color and 0 is black
@@ -7,16 +8,15 @@
 #define BTN_COLOR_BASECAMP_HOVER_FACTOR 120
 #define BTN_COLOR_HOVER_FACTOR 60
 
-LocButton::LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color,
-					 sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture) :
-	Button(scale, position, nullptr, CLICK_CONSUMED),
+LocButton::LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture) :
+	Button(position, nullptr, CLICK_CONSUMED),
 	icon(iconTexture)
 {
 	this->isBaseCamp = isBaseCamp;
 	this->isBig = isBig;
 
-	this->setGuiScale(scale);
-	this->setColor(color);
+	this->setGuiScale(SettingsManager::getGuiScale(SETT_GUI_SCALE));
+	this->setColor(SettingsManager::getColor(SETT_HUD_COLOR));
 	this->setSelected(false);
 }
 

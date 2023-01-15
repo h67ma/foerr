@@ -18,7 +18,7 @@ class PipBuckPageControls : public PipBuckPage
 		void updateDisplay();
 
 	public:
-		PipBuckPageControls(ResourceManager &resMgr, GuiScale scale, sf::Color hudColor);
+		explicit PipBuckPageControls(ResourceManager &resMgr);
 		std::string getLabel() const override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

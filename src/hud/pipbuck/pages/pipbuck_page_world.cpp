@@ -1,6 +1,7 @@
 #include "pipbuck_page_world.hpp"
 #include <string>
 #include <memory>
+#include "../../../settings/settings_manager.hpp"
 #include "../../../util/util.hpp"
 #include "../../../util/i18n.hpp"
 
@@ -11,11 +12,10 @@
 #define MAP_GRID_SPACING 110
 #define SQRT_2 1.414213562f
 
-PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, Campaign &campaign) :
+PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) :
 	resMgr(resMgr),
 	campaign(campaign),
-	hudColor(hudColor),
-	gotoLocationBtn(scale, BTN_NORMAL, hudColor, resMgr, { 1000, 815 }, "Travel", [this](){
+	gotoLocationBtn(BTN_NORMAL, resMgr, { 1000, 815 }, "Travel", [this](){
 		auto search = this->mapButtons.find(this->selectedLocId);
 		if (search == this->mapButtons.end())
 			return;
@@ -33,6 +33,7 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 		this->travelButtonAvailable = false;
 	})
 {
+	sf::Color hudColor = SettingsManager::getColor(SETT_HUD_COLOR);
 	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
 
 	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
@@ -47,7 +48,7 @@ PipBuckPageWorld::PipBuckPageWorld(GuiScale scale, sf::Color hudColor, ResourceM
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
 	this->activeLocIndicator.setOutlineThickness(2.f);
 
-	this->setGuiScale(scale);
+	this->setGuiScale(SettingsManager::getGuiScale(SETT_GUI_SCALE));
 
 	this->hoverMgr += &this->gotoLocationBtn;
 }
@@ -154,22 +155,23 @@ std::string PipBuckPageWorld::getLabel() const
 
 void PipBuckPageWorld::setupMapDecorations()
 {
+	sf::Color hudColor = SettingsManager::getColor(SETT_HUD_COLOR);
 	uint mapW = static_cast<uint>(this->mapBg.getLocalBounds().width);
 	uint mapH = static_cast<uint>(this->mapBg.getLocalBounds().height);
 
 	mapBorder[0] = sf::Vertex({ static_cast<float>(WORLD_MAP_X), static_cast<float>(WORLD_MAP_Y - 1) },
-							  this->hudColor);
+							  hudColor);
 	mapBorder[1] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW + 1), static_cast<float>(WORLD_MAP_Y - 1) },
-							  this->hudColor);
+							  hudColor);
 	mapBorder[2] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW + 1), static_cast<float>(WORLD_MAP_Y + mapH) },
-							  this->hudColor);
+							  hudColor);
 	mapBorder[3] = sf::Vertex({ static_cast<float>(WORLD_MAP_X - 1), static_cast<float>(WORLD_MAP_Y + mapH) },
-							  this->hudColor);
+							  hudColor);
 	// not sure why, but the left bottom corner needs to be moved 1px to the left, otherwise there's a blank pixel
 	mapBorder[4] = mapBorder[0];
 
-	sf::Color gridColor = this->hudColor;
-	gridColor.a = 0x40;
+	// set transparency for grid lines
+	hudColor.a = 0x40;
 
 	float pos = WORLD_MAP_X + MAP_GRID_SPACING;
 	for (uint i = 0; i < 8; i += 2)
@@ -177,8 +179,8 @@ void PipBuckPageWorld::setupMapDecorations()
 		if (pos - WORLD_MAP_X > mapW)
 			break; // just in case someone will make a smaller map
 
-		mapGridLines[i] = sf::Vertex({ pos, static_cast<float>(WORLD_MAP_Y) }, gridColor);
-		mapGridLines[i + 1] = sf::Vertex({ pos, static_cast<float>(WORLD_MAP_Y + mapH) }, gridColor);
+		mapGridLines[i] = sf::Vertex({ pos, static_cast<float>(WORLD_MAP_Y) }, hudColor);
+		mapGridLines[i + 1] = sf::Vertex({ pos, static_cast<float>(WORLD_MAP_Y + mapH) }, hudColor);
 		pos += MAP_GRID_SPACING;
 	}
 
@@ -189,8 +191,8 @@ void PipBuckPageWorld::setupMapDecorations()
 		if (pos - WORLD_MAP_Y > mapH)
 			break; // just in case someone will make a smaller map
 
-		mapGridLines[i] = sf::Vertex({ static_cast<float>(WORLD_MAP_X), pos }, gridColor);
-		mapGridLines[i + 1] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW), pos }, gridColor);
+		mapGridLines[i] = sf::Vertex({ static_cast<float>(WORLD_MAP_X), pos }, hudColor);
+		mapGridLines[i + 1] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW), pos }, hudColor);
 		pos += MAP_GRID_SPACING;
 	}
 }
@@ -217,10 +219,8 @@ bool PipBuckPageWorld::setupCampaignInfos()
 
 		this->mapButtons.try_emplace(
 			loc.first,
-			this->guiScale,
 			loc.second->isWorldMapIconBig(),
 			loc.second->isBasecamp(),
-			this->hudColor,
 			sf::Vector2u(WORLD_MAP_X + loc.second->getWorldMapCoords().x,
 						 WORLD_MAP_Y + loc.second->getWorldMapCoords().y),
 			iconTxt);

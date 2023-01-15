@@ -20,6 +20,6 @@ class CursorManager
 
 	public:
 		CursorManager();
-		bool loadCursors(bool preferCustom);
+		bool loadCursors();
 		void setCursor(sf::RenderWindow &window, CursorType type);
 };

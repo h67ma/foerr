@@ -1,5 +1,6 @@
 #include "pipbuck_category.hpp"
 #include <memory>
+#include "../../settings/settings_manager.hpp"
 
 #define PIPB_PAGE_BTNS_X_START 385
 #define PIPB_PAGE_BTNS_X_DISTANCE 140
@@ -9,22 +10,22 @@
  * Note: pages can't be passed as an unordered map, because order is important for creating buttons.
  * However nothing prevents internal pages and buttons maps from being unordered.
  */
-PipBuckCategory::PipBuckCategory(GuiScale scale, sf::Color hudColor, uint fxVolume, ResourceManager &resMgr,
-								 PipBuckPageType defaultPage, std::map<PipBuckPageType,
-								 std::shared_ptr<PipBuckPage>> pages) :
+PipBuckCategory::PipBuckCategory(ResourceManager &resMgr, PipBuckPageType defaultPage,
+								 std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages) :
 	selectedPage(defaultPage),
 	pages(pages.begin(), pages.end()),
 	soundPageChange(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	soundClick(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
 {
-	this->soundPageChange.setVolume(static_cast<float>(fxVolume));
-	this->soundClick.setVolume(static_cast<float>(fxVolume));
+	float initialVolume = static_cast<float>(SettingsManager::getUint(SETT_FX_VOLUME));
+	this->soundPageChange.setVolume(initialVolume);
+	this->soundClick.setVolume(initialVolume);
 
 	// create buttons for switching pages
 	uint x = PIPB_PAGE_BTNS_X_START;
 	for (const auto &page : pages)
 	{
-		this->pageButtons.emplace(page.first, SimpleButton(scale, BTN_NARROW, hudColor, resMgr, { x, 210 },
+		this->pageButtons.emplace(page.first, SimpleButton(BTN_NARROW, resMgr, { x, 210 },
 								  page.second->getLabel()));
 		x += PIPB_PAGE_BTNS_X_DISTANCE;
 	}

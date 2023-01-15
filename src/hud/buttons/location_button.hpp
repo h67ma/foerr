@@ -26,7 +26,7 @@ class LocButton : public Button
 		void updateState();
 
 	public:
-		LocButton(GuiScale scale, bool isBig, bool isBaseCamp, sf::Color color, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture);
+		LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture);
 		void setSelected(bool selected);
 		bool containsPoint(sf::Vector2i coords) override;
 		void setGuiScale(GuiScale scale) override;

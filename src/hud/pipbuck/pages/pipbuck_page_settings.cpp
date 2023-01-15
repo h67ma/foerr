@@ -1,11 +1,12 @@
 #include "pipbuck_page_settings.hpp"
 #include <string>
+#include "../../../settings/settings_manager.hpp"
 #include "../../../util/i18n.hpp"
 
-PipBuckPageSettings::PipBuckPageSettings(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, SettingsManager &settings) :
+PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 	buttons({
-		{scale, BTN_NORMAL, hudColor, resMgr, { 400, 815 }, STR_SAVE, [&settings]() {
-			settings.saveConfig();
+		{BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() {
+			SettingsManager::saveConfig();
 		}}
 	})
 {
@@ -21,8 +22,8 @@ PipBuckPageSettings::PipBuckPageSettings(GuiScale scale, sf::Color hudColor, Res
 
 	// TODO would be cool if there was a button here "Open game directory" which opens file explorer in this dir
 	this->infoText.setString(litSprintf("Main game directory: %s\nSavegame directory: %s",
-										settings.getGameRootDir().c_str(),
-										settings.getSaveDir().c_str()));
+										SettingsManager::getGameRootDir().c_str(),
+										SettingsManager::getSaveDir().c_str()));
 }
 
 std::string PipBuckPageSettings::getLabel() const

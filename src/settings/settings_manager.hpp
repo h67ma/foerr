@@ -58,13 +58,11 @@ enum SettingName
  *		...
  *	}
  * }
- *
- * TODO? make SettingsManager static to avoid passing the object everywhere.
  */
 class SettingsManager
 {
 	private:
-		std::unordered_map<SettingName, std::unique_ptr<Setting>> settings;
+		static std::unordered_map<SettingName, std::unique_ptr<Setting>> settings;
 
 		// SettingsManager is a kinda dumb place to put paths, but can't think of a better place rn.
 		// paths are not stored in the main settings vector. they are instead generated based on user home dir,
@@ -73,21 +71,21 @@ class SettingsManager
 		static std::string saveDir;
 
 	public:
-		SettingsManager();
-		void saveConfig();
-		void loadConfig();
-		uint getUint(SettingName idx) const;
-		bool getBool(SettingName idx) const;
-		sf::Color getColor(SettingName idx) const;
-		ScreenCorner getScreenCorner(SettingName idx) const;
-		GuiScale getGuiScale(SettingName idx) const;
-		std::string getText(SettingName idx) const;
-		void setUint(SettingName idx, uint newValue);
-		void setBool(SettingName idx, bool newValue);
-		void setColor(SettingName idx, sf::Color newValue);
-		void setScreenCorner(SettingName idx, ScreenCorner newValue);
-		void setGuiScale(SettingName idx, GuiScale newValue);
-		void setText(SettingName idx, const std::string &newValue);
+		static void setup();
+		static void saveConfig();
+		static void loadConfig();
+		static uint getUint(SettingName idx);
+		static bool getBool(SettingName idx);
+		static sf::Color getColor(SettingName idx);
+		static ScreenCorner getScreenCorner(SettingName idx);
+		static GuiScale getGuiScale(SettingName idx);
+		static std::string getText(SettingName idx);
+		static void setUint(SettingName idx, uint newValue);
+		static void setBool(SettingName idx, bool newValue);
+		static void setColor(SettingName idx, sf::Color newValue);
+		static void setScreenCorner(SettingName idx, ScreenCorner newValue);
+		static void setGuiScale(SettingName idx, GuiScale newValue);
+		static void setText(SettingName idx, const std::string &newValue);
 		static bool generatePathsAndMkdir();
 		static std::string getGameRootDir();
 		static std::string getSaveDir();

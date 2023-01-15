@@ -3,9 +3,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include "../consts.hpp"
 #include "../resources/resource_manager.hpp"
-#include "hud.hpp"
 
 class LoadingScreen : public sf::Drawable
 {
@@ -13,6 +11,6 @@ class LoadingScreen : public sf::Drawable
 		sf::Text loadingText;
 
 	public:
-		LoadingScreen(GuiScale scale, sf::Color hudColor, ResourceManager &resMgr, sf::Vector2u windowSize);
+		LoadingScreen(ResourceManager &resMgr, sf::Vector2u windowSize);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

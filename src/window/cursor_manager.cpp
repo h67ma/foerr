@@ -19,11 +19,11 @@ CursorManager::CursorManager()
  * @param preferCustom prefer loading custom images instead of system cursors.
  * @returns whether load succeeded.
  */
-bool CursorManager::loadCursors(bool preferCustom)
+bool CursorManager::loadCursors()
 {
 	for (auto &cursor : this->cursors)
 	{
-		if (!cursor.second->load(preferCustom))
+		if (!cursor.second->load())
 			return false;
 	}
 
