@@ -10,6 +10,11 @@ ColorSetting::ColorSetting(const std::string &key, SerializableColor &val, Seria
 	this->resetToDefault();
 }
 
+std::string ColorSetting::defaultToString() const
+{
+	return this->defaultVal.toString();
+}
+
 void ColorSetting::resetToDefault()
 {
 	this->val = this->defaultVal;

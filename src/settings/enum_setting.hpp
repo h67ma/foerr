@@ -23,6 +23,11 @@ class EnumSetting : public Setting
 			this->resetToDefault();
 		}
 
+		std::string defaultToString() const override
+		{
+			return std::to_string(this->defaultVal);
+		}
+
 		void resetToDefault() override
 		{
 			this->val = this->defaultVal;

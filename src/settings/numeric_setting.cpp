@@ -23,6 +23,11 @@ NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVa
 	this->resetToDefault();
 }
 
+std::string NumericSetting::defaultToString() const
+{
+	return std::to_string(this->defaultVal);
+}
+
 void NumericSetting::resetToDefault()
 {
 	this->val = this->defaultVal;

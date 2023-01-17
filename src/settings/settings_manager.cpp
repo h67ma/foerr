@@ -185,7 +185,7 @@ void SettingsManager::loadConfig()
 		auto search = keysSearch->find(sett->getKey());
 		if (search == keysSearch->end())
 		{
-			Log::w(STR_SETTINGS_KEY_MISSING, sett->getKey().c_str());
+			Log::w(STR_SETTINGS_KEY_MISSING, sett->getKey().c_str(), sett->defaultToString().c_str());
 			continue;
 		}
 

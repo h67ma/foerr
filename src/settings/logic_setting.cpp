@@ -10,6 +10,11 @@ LogicSetting::LogicSetting(const std::string &key, bool &val, bool defaultVal) :
 	this->resetToDefault();
 }
 
+std::string LogicSetting::defaultToString() const
+{
+	return this->defaultVal ? "true" : "false";
+}
+
 void LogicSetting::resetToDefault()
 {
 	this->val = this->defaultVal;

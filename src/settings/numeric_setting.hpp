@@ -20,6 +20,7 @@ class NumericSetting: public Setting
 		NumericSetting(const std::string &key, uint &val, uint defaultVal);
 		NumericSetting(const std::string &key, uint &val, uint defaultVal, const std::function<bool(uint)> constraint,
 					   const std::string &valueHint); // both constraint and hint must be set if one of them is set
+		std::string defaultToString() const override;
 		void resetToDefault() override;
 		json getJsonValue() const override;
 		void loadFromJson(const json &node) override;

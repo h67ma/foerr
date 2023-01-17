@@ -10,6 +10,11 @@ TextSetting::TextSetting(const std::string &key, std::string &val, const std::st
 	this->resetToDefault();
 }
 
+std::string TextSetting::defaultToString() const
+{
+	return this->defaultVal;
+}
+
 void TextSetting::resetToDefault()
 {
 	this->val = this->defaultVal;

@@ -35,7 +35,7 @@ bool SerializableColor::loadFromColorString(const std::string &input)
 	return false;
 }
 
-std::string SerializableColor::toString()
+std::string SerializableColor::toString() const
 {
 	char buf[8];
 	snprintf(buf, sizeof(buf), "#%02x%02x%02x", this->r, this->g, this->b);
