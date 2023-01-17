@@ -41,7 +41,7 @@ MainMenu::MainMenu(ResourceManager &resMgr, sf::RenderWindow &window, Campaign &
 	}),
 	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
 {
-	this->btnSound.setVolume(static_cast<float>(SettingsManager::getUint(SETT_FX_VOLUME)));
+	this->btnSound.setVolume(static_cast<float>(SettingsManager::fxVolume));
 
 	for (auto &btn : this->buttons)
 	{
@@ -50,9 +50,9 @@ MainMenu::MainMenu(ResourceManager &resMgr, sf::RenderWindow &window, Campaign &
 	}
 
 	this->versionText.setFont(*resMgr.getFont(FONT_FIXED));
-	this->versionText.setFillColor(SettingsManager::getColor(SETT_HUD_COLOR));
+	this->versionText.setFillColor(SettingsManager::hudColor);
 	this->versionText.setString(GIT_VERSION);
-	this->versionText.setCharacterSize(getFontSize(SettingsManager::getGuiScale(SETT_GUI_SCALE), FONT_H3));
+	this->versionText.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H3));
 	this->handleScreenResize(window.getSize());
 }
 

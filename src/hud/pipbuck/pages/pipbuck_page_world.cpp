@@ -33,7 +33,7 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 		this->travelButtonAvailable = false;
 	})
 {
-	sf::Color hudColor = SettingsManager::getColor(SETT_HUD_COLOR);
+	sf::Color hudColor = SettingsManager::hudColor;
 	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
 
 	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
@@ -48,7 +48,7 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
 	this->activeLocIndicator.setOutlineThickness(2.f);
 
-	this->setGuiScale(SettingsManager::getGuiScale(SETT_GUI_SCALE));
+	this->setGuiScale(SettingsManager::guiScale);
 
 	this->hoverMgr += &this->gotoLocationBtn;
 }
@@ -155,7 +155,7 @@ std::string PipBuckPageWorld::getLabel() const
 
 void PipBuckPageWorld::setupMapDecorations()
 {
-	sf::Color hudColor = SettingsManager::getColor(SETT_HUD_COLOR);
+	sf::Color hudColor = SettingsManager::hudColor;
 	uint mapW = static_cast<uint>(this->mapBg.getLocalBounds().width);
 	uint mapH = static_cast<uint>(this->mapBg.getLocalBounds().height);
 

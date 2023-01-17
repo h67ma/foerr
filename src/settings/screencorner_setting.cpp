@@ -2,19 +2,22 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-ScreenCornerSetting::ScreenCornerSetting(const std::string &key, ScreenCorner defaultVal) :
-	Setting(key, defaultVal),
+ScreenCornerSetting::ScreenCornerSetting(const std::string &key, ScreenCorner &val, ScreenCorner defaultVal) :
+	Setting(key),
+	val(val),
 	defaultVal(defaultVal)
-{}
+{
+	this->resetToDefault();
+}
 
 void ScreenCornerSetting::resetToDefault()
 {
-	this->val.enumScreenCorner = this->defaultVal;
+	this->val = this->defaultVal;
 }
 
-const json ScreenCornerSetting::getJsonValue() const
+json ScreenCornerSetting::getJsonValue() const
 {
-	return json(this->val.numeric);
+	return json(this->val);
 }
 
 void ScreenCornerSetting::loadFromJson(const json &node)
@@ -26,6 +29,6 @@ void ScreenCornerSetting::loadFromJson(const json &node)
 		return;
 	}
 
-	val.enumScreenCorner = static_cast<ScreenCorner>(readEnum);
-	Log::d(STR_LOADED_SETTING_D, this->getKey().c_str(), val.enumScreenCorner);
+	this->val = static_cast<ScreenCorner>(readEnum);
+	Log::d(STR_LOADED_SETTING_D, this->getKey().c_str(), val);
 }

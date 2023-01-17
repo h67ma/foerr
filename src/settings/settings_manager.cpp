@@ -18,7 +18,17 @@
 #include "guiscale_setting.hpp"
 #include "screencorner_setting.hpp"
 
-#define SANE_MAX_RESOLUTION 7680
+#define SETT_SETUP(type, name, def) \
+	SettingsManager::settings.emplace_back(std::make_unique<type>(#name, SettingsManager::name, def))
+
+#define SETT_SETUP_CONSTR(type, name, def, constraint, hint) \
+	SettingsManager::settings.emplace_back(std::make_unique<type>(#name, SettingsManager::name, def, constraint, hint))
+
+#define MAX_RESOLUTION 7680 // let's be realistic about max window size
+#define MAX_VOLUME 100
+#define MAX_ROOM_TRANSITION_MS 5000
+
+#define DEFAULT_AA 8
 
 #ifdef __linux__
 	// currently custom cursor (with color support) is broken on linux
@@ -30,82 +40,96 @@
 // TODO should we care about this cpplint warning?
 std::string SettingsManager::gameRootDir;
 std::string SettingsManager::saveDir;
-std::unordered_map<SettingName, std::unique_ptr<Setting>> SettingsManager::settings;
+
+std::vector<std::unique_ptr<Setting>> SettingsManager::settings;
+
+///// window /////
+bool SettingsManager::fullscreen;
+bool SettingsManager::fpsLimitEnabled;
+uint SettingsManager::fpsLimit;
+bool SettingsManager::fakeVsync;
+uint SettingsManager::roomTransitionDurationMs;
+
+///// hud /////
+bool SettingsManager::preferCustomCursor;
+bool SettingsManager::showFpsCounter;
+ScreenCorner SettingsManager::logAnchor;
+ScreenCorner SettingsManager::fpsAnchor;
+GuiScale SettingsManager::guiScale;
+SerializableColor SettingsManager::hudColor;
+bool SettingsManager::pauseOnFocusLoss;
+
+///// audio /////
+uint SettingsManager::fxVolume;
+
+///// video /////
+uint SettingsManager::antiAliasing;
+uint SettingsManager::windowWidth;
+uint SettingsManager::windowHeight;
+
+///// debug /////
+std::string SettingsManager::debugAutoloadCampaign;
+bool SettingsManager::debugWriteLogToFile;
+bool SettingsManager::debugPrintToStderr;
+bool SettingsManager::debugVerbose;
+bool SettingsManager::debugNavigation;
 
 void SettingsManager::setup()
 {
-	// +++++ window +++++
+	///// window /////
 
-	SettingsManager::settings.emplace(SETT_FULLSCREEN_ENABLED,
-									  std::make_unique<LogicSetting>("fullscreen_enabled", false));
-	SettingsManager::settings.emplace(SETT_FPS_LIMIT_ENABLED,
-									  std::make_unique<LogicSetting>("fps_limit_enabled", true));
-	SettingsManager::settings.emplace(SETT_FPS_LIMIT, std::make_unique<NumericSetting>("fps_limit", 60));
-	SettingsManager::settings.emplace(SETT_FAKE_VSYNC_ENABLED,
-									  std::make_unique<LogicSetting>("fake_vsync_enabled", false));
+	SETT_SETUP(LogicSetting, fullscreen, false);
+	SETT_SETUP(LogicSetting, fpsLimitEnabled, true);
+	SETT_SETUP(NumericSetting, fpsLimit, 60);
+	SETT_SETUP(LogicSetting, fakeVsync, false);
 	// TODO? windowed size + position override
 
 	// 0 = disable transition effect
-	SettingsManager::settings.emplace(SETT_ROOM_TRANSITION_DURATION_MS,
-						   std::make_unique<NumericSetting>("room_transition_duration_ms", 200, [](uint val){
-			return val <= 5000;
-		}, "at most 5000ms"));
+	SETT_SETUP_CONSTR(NumericSetting, roomTransitionDurationMs, 200, [](uint val){
+		return val <= MAX_ROOM_TRANSITION_MS;
+	}, "between 0 and " STR(MAX_ROOM_TRANSITION_MS) "ms");
 
-	// +++++ hud +++++
+	///// hud /////
 
-	SettingsManager::settings.emplace(SETT_PREFER_CUSTOM_CURSOR,
-									  std::make_unique<LogicSetting>("prefer_custom_cursor", CUSTOM_CURSOR_DEF));
-	SettingsManager::settings.emplace(SETT_SHOW_FPS_COUNTER,
-									  std::make_unique<LogicSetting>("show_fps_counter", true));
-	SettingsManager::settings.emplace(SETT_ANCHOR_LOG,
-									  std::make_unique<ScreenCornerSetting>("log_anchor", CORNER_TOP_RIGHT));
-	SettingsManager::settings.emplace(SETT_ANCHOR_FPS,
-									  std::make_unique<ScreenCornerSetting>("fps_anchor", CORNER_TOP_LEFT));
-	SettingsManager::settings.emplace(SETT_GUI_SCALE, std::make_unique<GuiScaleSetting>("gui_scale", GUI_NORMAL));
+	SETT_SETUP(LogicSetting, preferCustomCursor, CUSTOM_CURSOR_DEF);
+	SETT_SETUP(LogicSetting, showFpsCounter, true);
+	SETT_SETUP(ScreenCornerSetting, logAnchor, CORNER_TOP_RIGHT);
+	SETT_SETUP(ScreenCornerSetting, fpsAnchor, CORNER_TOP_LEFT);
+	SETT_SETUP(GuiScaleSetting, guiScale, GUI_NORMAL);
+	SETT_SETUP(ColorSetting, hudColor, SerializableColor(0, 255, 153)); // default is greenish, same as in Remains
+	SETT_SETUP(LogicSetting, pauseOnFocusLoss, true);
+	// TODO? SETT_SETUP(NumericSetting, logMsgTimeoutSec, 3); // is this really necessary?
 
-	// default is greenish, same as in Remains
-	SettingsManager::settings.emplace(SETT_HUD_COLOR,
-									  std::make_unique<ColorSetting>("hud_color", sf::Color(0, 255, 153)));
+	///// audio /////
 
-	SettingsManager::settings.emplace(SETT_PAUSE_ON_FOCUS_LOSS,
-									  std::make_unique<LogicSetting>("pause_on_focus_loss", true));
+	SETT_SETUP_CONSTR(NumericSetting, fxVolume, MAX_VOLUME, [](uint val){ return val <= MAX_VOLUME; },
+					  "between 0 and " STR_EXP(MAX_VOLUME));
 
-	// TODO is this really necessary?
-	//SettingsManager::settings.emplace(SETT_LOG_MSG_TIMEOUT, std::make_unique<NumericSetting>("log_msg_timeout", 3));
+	///// video /////
 
-	// +++++ audio +++++
-
-	// 100 is max volume
-	SettingsManager::settings.emplace(SETT_FX_VOLUME, std::make_unique<NumericSetting>("fx_volume", 100, [](uint val){
-		return val <= 100;
-	}, "between 0 and 100"));
-
-	// +++++ video +++++
-
-	SettingsManager::settings.emplace(SETT_AA, std::make_unique<NumericSetting>("antialiasing", 8, [](uint val){
-		return val % 2 == 0 && val <= sf::RenderTexture::getMaximumAntialiasingLevel();
-	}, litSprintf("a power of 2, between 0 and %d", sf::RenderTexture::getMaximumAntialiasingLevel())));
+	uint maxSupportedAA = sf::RenderTexture::getMaximumAntialiasingLevel();
+	SETT_SETUP_CONSTR(NumericSetting, antiAliasing, DEFAULT_AA > maxSupportedAA ? maxSupportedAA : DEFAULT_AA,
+					  [maxSupportedAA](uint val){ return val % 2 == 0 && val <= maxSupportedAA; },
+					  litSprintf("a power of 2, between 0 and %d", maxSupportedAA));
 
 	// TODO maybe we could save window w&h on program exit and then restore it?
-	// let's be realistic about max window size
-	SettingsManager::settings.emplace(SETT_WINDOW_WIDTH, std::make_unique<NumericSetting>("window_w", 1280, [](uint val){
-		return val <= SANE_MAX_RESOLUTION;
-	}, litSprintf("between 0 and %d", SANE_MAX_RESOLUTION)));
-	SettingsManager::settings.emplace(SETT_WINDOW_HEIGHT, std::make_unique<NumericSetting>("window_h", 720, [](uint val){
-		return val <= SANE_MAX_RESOLUTION;
-	}, litSprintf("between 0 and %d", SANE_MAX_RESOLUTION)));
+	SETT_SETUP_CONSTR(NumericSetting, windowWidth, 1280, [](uint val){ return val <= MAX_RESOLUTION; },
+					  "between 0 and " STR_EXP(MAX_RESOLUTION));
+	SETT_SETUP_CONSTR(NumericSetting, windowHeight, 720, [](uint val){ return val <= MAX_RESOLUTION; },
+					  "between 0 and " STR_EXP(MAX_RESOLUTION));
 
-	// +++++ debug +++++
+	///// debug /////
 
-	// "" = do not autoload
-	SettingsManager::settings.emplace(SETT_AUTOLOAD_CAMPAIGN, std::make_unique<TextSetting>("autoload_campaign", ""));
+	SETT_SETUP(TextSetting, debugAutoloadCampaign, ""); // "" = do not autoload
+	SETT_SETUP(LogicSetting, debugWriteLogToFile, true);
+	SETT_SETUP(LogicSetting, debugPrintToStderr, false);
+	SETT_SETUP(LogicSetting, debugVerbose, false);
 
-	SettingsManager::settings.emplace(SETT_WRITE_LOG_TO_FILE, std::make_unique<LogicSetting>("write_log_to_file", true));
-	SettingsManager::settings.emplace(SETT_PRINT_MSGS, std::make_unique<LogicSetting>("print_msgs_cout", false));
-	SettingsManager::settings.emplace(SETT_VERBOSE_DEBUG, std::make_unique<LogicSetting>("verbose_debug", false));
-	SettingsManager::settings.emplace(SETT_DEBUG_NAVIGATION, std::make_unique<LogicSetting>("debug_navigation", false));
-	// TODO SettingsManager::settings.emplace(SETT_SHOW_BOUNDING_BOXEN, std::make_unique<LogicSetting>(("show_bounding_boxen", false));
-	// TODO SettingsManager::settings.emplace(SETT_DEV_CONSOLE_ENABLED, std::make_unique<LogicSetting>(("dev_console_enabled", false));
+	// TODO this should also include `testmode` (i.e. ability to travel to any location). should be settable only via command line/settings file editing
+	SETT_SETUP(LogicSetting, debugNavigation, false);
+
+	// TODO SETT_SETUP(LogicSetting, showBoundingBoxen, false);
+	// TODO SETT_SETUP(LogicSetting, devConsoleEnabled, false);
 }
 
 void SettingsManager::saveConfig()
@@ -115,9 +139,9 @@ void SettingsManager::saveConfig()
 	root.emplace(FOERR_JSON_API_VERSION, JSON_API_VERSION);
 
 	json keysNode;
-	for (auto &sett : SettingsManager::settings)
+	for (const auto &sett : SettingsManager::settings)
 	{
-		keysNode.emplace(sett.second->getKey(), sett.second->getJsonValue());
+		keysNode.emplace(sett->getKey(), sett->getJsonValue());
 	}
 
 	root.emplace(FOERR_JSON_KEY_SETTINGS, keysNode);
@@ -153,148 +177,22 @@ void SettingsManager::loadConfig()
 
 	for (auto &sett : SettingsManager::settings)
 	{
-		auto search = keysSearch->find(sett.second->getKey());
+		auto search = keysSearch->find(sett->getKey());
 		if (search == keysSearch->end())
 		{
-			Log::w(STR_SETTINGS_KEY_MISSING, sett.second->getKey().c_str());
+			Log::w(STR_SETTINGS_KEY_MISSING, sett->getKey().c_str());
 			continue;
 		}
 
 		try
 		{
-			sett.second->loadFromJson(search.value());
+			sett->loadFromJson(search.value());
 		}
 		catch (const json::type_error &ex)
 		{
-			Log::w(STR_INVALID_TYPE_EX, path.c_str(), sett.second->getKey().c_str(), ex.what());
+			Log::w(STR_INVALID_TYPE_EX, path.c_str(), sett->getKey().c_str(), ex.what());
 		}
 	}
-}
-
-uint SettingsManager::getUint(SettingName name)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-		return 0; // default value is better than crash
-
-	return search->second->val.numeric;
-}
-
-bool SettingsManager::getBool(SettingName name)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-		return false; // default value is better than crash
-
-	return search->second->val.logic;
-}
-
-sf::Color SettingsManager::getColor(SettingName name)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-		return sf::Color::White; // default value is better than crash
-
-	return sf::Color(search->second->val.numeric);
-}
-
-ScreenCorner SettingsManager::getScreenCorner(SettingName name)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-		return CORNER_TOP_LEFT; // default value is better than crash
-
-	return search->second->val.enumScreenCorner;
-}
-
-GuiScale SettingsManager::getGuiScale(SettingName name)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-		return GUI_NORMAL; // default value is better than crash
-
-	return search->second->val.guiScale;
-}
-
-std::string SettingsManager::getText(SettingName name)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-		return ""; // default value is better than crash
-
-	return search->second->textVal;
-}
-
-void SettingsManager::setUint(SettingName name, uint newValue)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-	{
-		Log::w(STR_SETT_NOT_PRESENT, name);
-		return;
-	}
-
-	search->second->val.numeric = newValue;
-}
-
-void SettingsManager::setBool(SettingName name, bool newValue)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-	{
-		Log::w(STR_SETT_NOT_PRESENT, name);
-		return;
-	}
-
-	search->second->val.logic = newValue;
-}
-
-void SettingsManager::setColor(SettingName name, sf::Color newValue)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-	{
-		Log::w(STR_SETT_NOT_PRESENT, name);
-		return;
-	}
-
-	search->second->val.numeric = newValue.toInteger();
-}
-
-void SettingsManager::setScreenCorner(SettingName name, ScreenCorner newValue)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-	{
-		Log::w(STR_SETT_NOT_PRESENT, name);
-		return;
-	}
-
-	search->second->val.enumScreenCorner = newValue;
-}
-
-void SettingsManager::setText(SettingName name, const std::string &newValue)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-	{
-		Log::w(STR_SETT_NOT_PRESENT, name);
-		return;
-	}
-
-	search->second->textVal = newValue;
-}
-
-void SettingsManager::setGuiScale(SettingName name, GuiScale newValue)
-{
-	auto search = SettingsManager::settings.find(name);
-	if (search == SettingsManager::settings.end())
-	{
-		Log::w(STR_SETT_NOT_PRESENT, name);
-		return;
-	}
-
-	search->second->val.guiScale = newValue;
 }
 
 /**

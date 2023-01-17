@@ -23,8 +23,8 @@ SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::V
 	this->text.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->text.setString(text);
 
-	this->setGuiScale(SettingsManager::getGuiScale(SETT_GUI_SCALE));
-	this->setColor(SettingsManager::getColor(SETT_HUD_COLOR));
+	this->setGuiScale(SettingsManager::guiScale);
+	this->setColor(SettingsManager::hudColor);
 
 	// disabled by default
 	this->setSelected(false);

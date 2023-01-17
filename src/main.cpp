@@ -41,10 +41,6 @@ int main()
 
 	recreateWindow(window);
 
-	bool debugNavigation = SettingsManager::getBool(SETT_DEBUG_NAVIGATION);
-	bool pauseOnFocusLoss = SettingsManager::getBool(SETT_PAUSE_ON_FOCUS_LOSS);
-	bool showFpsCounter = SettingsManager::getBool(SETT_SHOW_FPS_COUNTER);
-
 	ResourceManager resManager;
 
 	if (!resManager.loadFonts())
@@ -59,15 +55,15 @@ int main()
 	window.draw(loadingScreen);
 	window.display();
 
-	if (SettingsManager::getBool(SETT_WRITE_LOG_TO_FILE))
+	if (SettingsManager::debugWriteLogToFile)
 		Log::openLogFile(pathCombine(SettingsManager::getGameRootDir(), PATH_LOGFILE));
 
 	Log::setFont(resManager.getFont(FONT_NORMAL));
-	Log::setPosition(SettingsManager::getScreenCorner(SETT_ANCHOR_LOG), window.getSize());
-	Log::setWriteLogToFile(SettingsManager::getBool(SETT_WRITE_LOG_TO_FILE));
-	Log::setPrintMsgs(SettingsManager::getBool(SETT_PRINT_MSGS));
-	Log::setVerboseDebug(SettingsManager::getBool(SETT_VERBOSE_DEBUG));
-	Log::setGuiScale(SettingsManager::getGuiScale(SETT_GUI_SCALE));
+	Log::setPosition(SettingsManager::logAnchor, window.getSize());
+	Log::setWriteLogToFile(SettingsManager::debugWriteLogToFile);
+	Log::setPrintMsgs(SettingsManager::debugPrintToStderr);
+	Log::setVerboseDebug(SettingsManager::debugVerbose);
+	Log::setGuiScale(SettingsManager::guiScale);
 
 	Log::d("Save dir = %s", SettingsManager::getSaveDir().c_str());
 
@@ -181,28 +177,28 @@ int main()
 		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){
 			pipBuck.switchToPage(PIPB_PAGE_ENEMIES);
 		} },
-		{ ACTION_DEBUG_NAV_LEFT, [&campaign, debugNavigation](){
-			if (debugNavigation && campaign.gotoRoom(DIR_LEFT))
+		{ ACTION_DEBUG_NAV_LEFT, [&campaign](){
+			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_LEFT))
 				campaign.logWhereAmI();
 		} },
-		{ ACTION_DEBUG_NAV_RIGHT, [&campaign, debugNavigation](){
-			if (debugNavigation && campaign.gotoRoom(DIR_RIGHT))
+		{ ACTION_DEBUG_NAV_RIGHT, [&campaign](){
+			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_RIGHT))
 				campaign.logWhereAmI();
 		} },
-		{ ACTION_DEBUG_NAV_UP, [&campaign, debugNavigation](){
-			if (debugNavigation && campaign.gotoRoom(DIR_UP))
+		{ ACTION_DEBUG_NAV_UP, [&campaign](){
+			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_UP))
 				campaign.logWhereAmI();
 		} },
-		{ ACTION_DEBUG_NAV_DOWN, [&campaign, debugNavigation](){
-			if (debugNavigation && campaign.gotoRoom(DIR_DOWN))
+		{ ACTION_DEBUG_NAV_DOWN, [&campaign](){
+			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_DOWN))
 				campaign.logWhereAmI();
 		} },
-		{ ACTION_DEBUG_NAV_FRONT, [&campaign, debugNavigation](){
-			if (debugNavigation && campaign.gotoRoom(DIR_FRONT))
+		{ ACTION_DEBUG_NAV_FRONT, [&campaign](){
+			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_FRONT))
 				campaign.logWhereAmI();
 		} },
-		{ ACTION_DEBUG_NAV_BACK, [&campaign, debugNavigation](){
-			if (debugNavigation && campaign.gotoRoom(DIR_BACK))
+		{ ACTION_DEBUG_NAV_BACK, [&campaign](){
+			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_BACK))
 				campaign.logWhereAmI();
 		} },
 		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
@@ -333,12 +329,12 @@ int main()
 	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
 
 	// autoload campaign
-	std::string autoLoadPath = SettingsManager::getText(SETT_AUTOLOAD_CAMPAIGN);
-	if (autoLoadPath != "")
+	if (SettingsManager::debugAutoloadCampaign != "")
 	{
 		Log::d(STR_AUTLOADING_CAMPAIGN);
 
-		if (campaign.load(pathCombine("res/campaigns", autoLoadPath)) && pipBuck.setupCampaignInfos())
+		if (campaign.load(pathCombine("res/campaigns", SettingsManager::debugAutoloadCampaign)) &&
+			pipBuck.setupCampaignInfos())
 		{
 			gameState = STATE_PLAYING;
 		}
@@ -365,7 +361,7 @@ int main()
 				}
 				else if (event.type == sf::Event::LostFocus)
 				{
-					if (pauseOnFocusLoss)
+					if (SettingsManager::pauseOnFocusLoss)
 						pipBuck.open(false);
 				}
 			}
@@ -485,7 +481,7 @@ int main()
 		Log::maybeUpdate();
 		Log::draw(window);
 
-		if (showFpsCounter)
+		if (SettingsManager::showFpsCounter)
 		{
 			// the clock will be initialized at program start either way, but fps won't be calculated if disabled
 			fpsMeter.maybeUpdate();

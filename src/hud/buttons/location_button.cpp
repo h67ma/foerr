@@ -15,8 +15,8 @@ LocButton::LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::sh
 	this->isBaseCamp = isBaseCamp;
 	this->isBig = isBig;
 
-	this->setGuiScale(SettingsManager::getGuiScale(SETT_GUI_SCALE));
-	this->setColor(SettingsManager::getColor(SETT_HUD_COLOR));
+	this->setGuiScale(SettingsManager::guiScale);
+	this->setColor(SettingsManager::hudColor);
 	this->setSelected(false);
 }
 

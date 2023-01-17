@@ -9,10 +9,11 @@ class GuiScaleSetting: public Setting
 {
 	private:
 		const GuiScale defaultVal;
+		GuiScale &val;
 
 	public:
-		GuiScaleSetting(const std::string &key, GuiScale defaultVal);
+		GuiScaleSetting(const std::string &key, GuiScale &val, GuiScale defaultVal);
 		void resetToDefault() override;
-		const json getJsonValue() const override;
+		json getJsonValue() const override;
 		void loadFromJson(const json &node) override;
 };

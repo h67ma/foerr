@@ -13,21 +13,21 @@ void recreateWindow(sf::RenderWindow &window)
 	// when settings are uninitialized, game should pick *some* mode - either best, or "safe"
 
 	sf::ContextSettings context;
-	context.antialiasingLevel = SettingsManager::getUint(SETT_AA);
+	context.antialiasingLevel = SettingsManager::antiAliasing;
 
-	if (SettingsManager::getBool(SETT_FULLSCREEN_ENABLED))
+	if (SettingsManager::fullscreen)
 		// TODO support overriding fullscreen resolution via settings
 		window.create(sf::VideoMode::getDesktopMode(),
 					  STR_WINDOW_TITLE, sf::Style::Fullscreen, context);
 	else
-		window.create(sf::VideoMode(SettingsManager::getUint(SETT_WINDOW_WIDTH),
-									SettingsManager::getUint(SETT_WINDOW_HEIGHT)),
+		window.create(sf::VideoMode(SettingsManager::windowWidth,
+									SettingsManager::windowHeight),
 					  STR_WINDOW_TITLE, sf::Style::Default, context);
 
-	if (SettingsManager::getBool(SETT_FPS_LIMIT_ENABLED))
-		window.setFramerateLimit(SettingsManager::getUint(SETT_FPS_LIMIT));
+	if (SettingsManager::fpsLimitEnabled)
+		window.setFramerateLimit(SettingsManager::fpsLimit);
 
-	window.setVerticalSyncEnabled(SettingsManager::getBool(SETT_FAKE_VSYNC_ENABLED));
+	window.setVerticalSyncEnabled(SettingsManager::fakeVsync);
 }
 
 /**
@@ -67,7 +67,7 @@ void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hu
 					   PipBuck &pipBuck, MainMenu &mainMenu)
 {
 	// update position of dockable elements
-	Log::setPosition(SettingsManager::getScreenCorner(SETT_ANCHOR_LOG), windowSize);
+	Log::setPosition(SettingsManager::logAnchor, windowSize);
 	fpsMeter.setPosition(windowSize);
 	pipBuck.handleScreenResize(windowSize);
 	mainMenu.handleScreenResize(windowSize);
@@ -80,14 +80,14 @@ void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hu
 void toggleFullscreen(sf::RenderWindow &window, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView,
 					  PipBuck &pipBuck, MainMenu &mainMenu)
 {
-	if (SettingsManager::getBool(SETT_FULLSCREEN_ENABLED))
+	if (SettingsManager::fullscreen)
 	{
-		SettingsManager::setBool(SETT_FULLSCREEN_ENABLED, false);
+		SettingsManager::fullscreen = false;
 		Log::d(STR_WINDOW_WINDOWED);
 	}
 	else
 	{
-		SettingsManager::setBool(SETT_FULLSCREEN_ENABLED, true);
+		SettingsManager::fullscreen = true;
 		Log::d(STR_WINDOW_FULLSCREEN);
 	}
 

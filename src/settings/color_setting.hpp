@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "../util/serializable_color.hpp"
 #include "setting.hpp"
 #include "../util/json.hpp"
 #include <SFML/Graphics/Color.hpp>
@@ -11,11 +12,12 @@
 class ColorSetting: public Setting
 {
 	private:
-		const uint defaultVal;
+		const SerializableColor defaultVal;
+		SerializableColor &val;
 
 	public:
-		ColorSetting(const std::string &key, sf::Color defaultVal);
+		ColorSetting(const std::string &key, SerializableColor &val, SerializableColor defaultVal);
 		void resetToDefault() override;
-		const json getJsonValue() const override;
+		json getJsonValue() const override;
 		void loadFromJson(const json &node) override;
 };

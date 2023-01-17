@@ -2,19 +2,22 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-GuiScaleSetting::GuiScaleSetting(const std::string &key, GuiScale defaultVal) :
-	Setting(key, defaultVal),
+GuiScaleSetting::GuiScaleSetting(const std::string &key, GuiScale &val, GuiScale defaultVal) :
+	Setting(key),
+	val(val),
 	defaultVal(defaultVal)
-{}
+{
+	this->resetToDefault();
+}
 
 void GuiScaleSetting::resetToDefault()
 {
-	this->val.guiScale = this->defaultVal;
+	this->val = this->defaultVal;
 }
 
-const json GuiScaleSetting::getJsonValue() const
+json GuiScaleSetting::getJsonValue() const
 {
-	return json(this->val.numeric);
+	return json(this->val);
 }
 
 void GuiScaleSetting::loadFromJson(const json &node)
@@ -26,6 +29,6 @@ void GuiScaleSetting::loadFromJson(const json &node)
 		return;
 	}
 
-	val.guiScale = static_cast<GuiScale>(readEnum);
-	Log::d(STR_LOADED_SETTING_D, this->getKey().c_str(), val.guiScale);
+	this->val = static_cast<GuiScale>(readEnum);
+	Log::d(STR_LOADED_SETTING_D, this->getKey().c_str(), val);
 }

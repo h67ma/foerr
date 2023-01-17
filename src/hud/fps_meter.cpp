@@ -15,12 +15,12 @@ FpsMeter::FpsMeter(sf::Font &font, sf::Vector2u windowSize)
 
 void FpsMeter::setGuiScale()
 {
-	this->text.setCharacterSize(getFontSize(SettingsManager::getGuiScale(SETT_GUI_SCALE), FONT_H3));
+	this->text.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H3));
 }
 
 void FpsMeter::setPosition(sf::Vector2u windowSize)
 {
-	switch(SettingsManager::getScreenCorner(SETT_ANCHOR_FPS))
+	switch(SettingsManager::fpsAnchor)
 	{
 		case CORNER_TOP_RIGHT:
 			this->text.setPosition(windowSize.x - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, FPS_ANCHOR_PADDING_TOP);

@@ -11,7 +11,7 @@
 
 Location::Location(const std::string &id) :
 	id(id),
-	transitionTimeMs(SettingsManager::getUint(SETT_ROOM_TRANSITION_DURATION_MS))
+	transitionTimeMs(SettingsManager::roomTransitionDurationMs)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }

@@ -8,10 +8,11 @@ class TextSetting: public Setting
 {
 	private:
 		const std::string defaultVal;
+		std::string &val;
 
 	public:
-		TextSetting(const std::string &key, const std::string &defaultVal);
+		TextSetting(const std::string &key, std::string &val, const std::string &defaultVal);
 		void resetToDefault() override;
-		const json getJsonValue() const override;
+		json getJsonValue() const override;
 		void loadFromJson(const json &node) override;
 };

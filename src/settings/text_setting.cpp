@@ -2,23 +2,26 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-TextSetting::TextSetting(const std::string &key, const std::string &defaultVal) :
-	Setting(key, defaultVal),
+TextSetting::TextSetting(const std::string &key, std::string &val, const std::string &defaultVal) :
+	Setting(key),
+	val(val),
 	defaultVal(defaultVal)
-{}
+{
+	this->resetToDefault();
+}
 
 void TextSetting::resetToDefault()
 {
-	this->textVal = this->defaultVal;
+	this->val = this->defaultVal;
 }
 
-const json TextSetting::getJsonValue() const
+json TextSetting::getJsonValue() const
 {
-	return json(this->textVal);
+	return json(this->val);
 }
 
 void TextSetting::loadFromJson(const json &node)
 {
-	this->textVal = node;
-	Log::d(STR_LOADED_SETTING_SQ, this->getKey().c_str(), this->textVal.c_str());
+	this->val = node;
+	Log::d(STR_LOADED_SETTING_SQ, this->getKey().c_str(), this->val.c_str());
 }

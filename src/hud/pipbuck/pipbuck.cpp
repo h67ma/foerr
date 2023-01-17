@@ -70,7 +70,7 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	pipBuckSprite(resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY))
 {
-	float initialVolume = static_cast<float>(SettingsManager::getUint(SETT_FX_VOLUME));
+	float initialVolume = static_cast<float>(SettingsManager::fxVolume);
 	this->soundOpenClose.setVolume(initialVolume);
 	this->soundCategoryBtn.setVolume(initialVolume);
 

@@ -17,7 +17,7 @@ PipBuckCategory::PipBuckCategory(ResourceManager &resMgr, PipBuckPageType defaul
 	soundPageChange(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	soundClick(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
 {
-	float initialVolume = static_cast<float>(SettingsManager::getUint(SETT_FX_VOLUME));
+	float initialVolume = static_cast<float>(SettingsManager::fxVolume);
 	this->soundPageChange.setVolume(initialVolume);
 	this->soundClick.setVolume(initialVolume);
 

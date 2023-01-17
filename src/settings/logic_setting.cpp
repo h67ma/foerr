@@ -2,23 +2,26 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-LogicSetting::LogicSetting(const std::string &key, bool defaultVal) :
-	Setting(key, defaultVal),
+LogicSetting::LogicSetting(const std::string &key, bool &val, bool defaultVal) :
+	Setting(key),
+	val(val),
 	defaultVal(defaultVal)
-{}
+{
+	this->resetToDefault();
+}
 
 void LogicSetting::resetToDefault()
 {
-	this->val.logic = this->defaultVal;
+	this->val = this->defaultVal;
 }
 
-const json LogicSetting::getJsonValue() const
+json LogicSetting::getJsonValue() const
 {
-	return json(this->val.logic);
+	return json(this->val);
 }
 
 void LogicSetting::loadFromJson(const json &node)
 {
-	val.logic = node;
-	Log::d(STR_LOADED_SETTING_S, this->getKey().c_str(), val.logic ? "true" : "false");
+	this->val = node;
+	Log::d(STR_LOADED_SETTING_S, this->getKey().c_str(), this->val ? "true" : "false");
 }

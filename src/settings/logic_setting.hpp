@@ -8,10 +8,11 @@ class LogicSetting: public Setting
 {
 	private:
 		const bool defaultVal;
+		bool &val;
 
 	public:
-		LogicSetting(const std::string &key, bool defaultVal);
+		LogicSetting(const std::string &key, bool &val, bool defaultVal);
 		void resetToDefault() override;
-		const json getJsonValue() const override;
+		json getJsonValue() const override;
 		void loadFromJson(const json &node) override;
 };

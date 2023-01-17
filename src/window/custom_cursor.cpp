@@ -19,7 +19,7 @@ CustomCursor::CustomCursor(const std::string &path, sf::Vector2u hotPoint, sf::C
  */
 bool CustomCursor::load()
 {
-	if (!SettingsManager::getBool(SETT_PREFER_CUSTOM_CURSOR))
+	if (!SettingsManager::preferCustomCursor)
 	{
 		return this->cursor.loadFromSystem(this->fallbackCursor);
 	}
