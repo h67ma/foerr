@@ -110,4 +110,5 @@ class SettingsManager
 		static bool debugPrintToStderr;
 		static bool debugVerbose;
 		static bool debugNavigation;
+		static bool debugBoundingBoxes;
 };

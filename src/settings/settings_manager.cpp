@@ -78,6 +78,7 @@ bool SettingsManager::debugWriteLogToFile;
 bool SettingsManager::debugPrintToStderr;
 bool SettingsManager::debugVerbose;
 bool SettingsManager::debugNavigation;
+bool SettingsManager::debugBoundingBoxes;
 
 void SettingsManager::setup()
 {
@@ -132,6 +133,7 @@ void SettingsManager::setup()
 
 	// TODO this should also include `testmode` (i.e. ability to travel to any location). should be settable only via command line/settings file editing
 	SETT_SETUP(LogicSetting, debugNavigation, false);
+	SETT_SETUP(LogicSetting, debugBoundingBoxes, false);
 
 	// TODO SETT_SETUP(LogicSetting, showBoundingBoxen, false);
 	// TODO SETT_SETUP(LogicSetting, devConsoleEnabled, false);

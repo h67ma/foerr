@@ -5,6 +5,7 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 #include "../objects/back_obj.hpp"
+#include "../settings/settings_manager.hpp"
 
 #define ROOM_SYMBOL_SEPARATOR '|'
 #define ROOM_SYMBOL_EMPTY '_'
@@ -423,6 +424,40 @@ void Room::init()
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
 			this->cells[y][x].draw4(tmpRender);
+		}
+	}
+
+	if (SettingsManager::debugBoundingBoxes)
+	{
+		// we draw this debug overlay on front cache, because we don't want it covered with front cache elements.
+		// the overlay can still be covered by water level, but it's transparent. and we can't draw on water level
+		// cache, as it is not always displayed.
+		sf::RectangleShape debugBox;
+		debugBox.setFillColor(sf::Color::Transparent);
+		debugBox.setOutlineThickness(1.f);
+
+		debugBox.setOutlineColor(sf::Color::Green);
+		for (const auto &backObj : this->farBackObjectsMain)
+		{
+			debugBox.setPosition(backObj.getPosition());
+			debugBox.setSize({ backObj.getLocalBounds().width, backObj.getLocalBounds().height });
+			tmpRender.draw(debugBox);
+		}
+
+		debugBox.setOutlineColor(sf::Color::Red);
+		for (const auto &backObj : this->backHoleObjectsMain)
+		{
+			debugBox.setPosition(backObj.spriteRes.getPosition());
+			debugBox.setSize({ backObj.spriteRes.getLocalBounds().width, backObj.spriteRes.getLocalBounds().height });
+			tmpRender.draw(debugBox);
+		}
+
+		debugBox.setOutlineColor(sf::Color::Cyan);
+		for (const auto &backObj : this->backObjectsMain)
+		{
+			debugBox.setPosition(backObj.getPosition());
+			debugBox.setSize({ backObj.getLocalBounds().width, backObj.getLocalBounds().height });
+			tmpRender.draw(debugBox);
 		}
 	}
 
