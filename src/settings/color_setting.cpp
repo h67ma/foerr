@@ -3,21 +3,11 @@
 #include "../util/i18n.hpp"
 
 ColorSetting::ColorSetting(const std::string &key, SerializableColor &val, SerializableColor defaultVal) :
-	Setting(key),
-	val(val),
-	defaultVal(defaultVal)
-{
-	this->resetToDefault();
-}
+	GenericSetting<SerializableColor>(key, val, defaultVal) {}
 
 std::string ColorSetting::defaultToString() const
 {
 	return this->defaultVal.toString();
-}
-
-void ColorSetting::resetToDefault()
-{
-	this->val = this->defaultVal;
 }
 
 json ColorSetting::getJsonValue() const

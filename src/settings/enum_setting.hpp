@@ -3,34 +3,22 @@
 #include <string>
 #include "../util/json.hpp"
 #include "../hud/log.hpp"
-#include "setting.hpp"
+#include "generic_setting.hpp"
 
 template<typename T>
-class EnumSetting : public Setting
+class EnumSetting : public GenericSetting<T>
 {
 	private:
-		const T defaultVal;
-		T &val;
 		uint maxEnumValue;
 
 	public:
 		EnumSetting(const std::string &key, T &val, T defaultVal, uint maxEnumValue) :
-			Setting(key),
-			val(val),
-			defaultVal(defaultVal),
-			maxEnumValue(maxEnumValue)
-		{
-			this->resetToDefault();
-		}
+			GenericSetting<T>(key, val, defaultVal),
+			maxEnumValue(maxEnumValue) {}
 
 		std::string defaultToString() const override
 		{
 			return std::to_string(this->defaultVal);
-		}
-
-		void resetToDefault() override
-		{
-			this->val = this->defaultVal;
 		}
 
 		json getJsonValue() const override
@@ -48,6 +36,6 @@ class EnumSetting : public Setting
 			}
 
 			this->val = static_cast<T>(readEnum);
-			Log::d(STR_LOADED_SETTING_D, this->getKey().c_str(), val);
+			Log::d(STR_LOADED_SETTING_D, this->getKey().c_str(), this->val);
 		}
 };

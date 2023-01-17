@@ -3,21 +3,11 @@
 #include "../util/i18n.hpp"
 
 LogicSetting::LogicSetting(const std::string &key, bool &val, bool defaultVal) :
-	Setting(key),
-	val(val),
-	defaultVal(defaultVal)
-{
-	this->resetToDefault();
-}
+	GenericSetting<bool>(key, val, defaultVal) {}
 
 std::string LogicSetting::defaultToString() const
 {
 	return this->defaultVal ? "true" : "false";
-}
-
-void LogicSetting::resetToDefault()
-{
-	this->val = this->defaultVal;
 }
 
 json LogicSetting::getJsonValue() const

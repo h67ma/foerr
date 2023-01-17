@@ -3,21 +3,11 @@
 #include "../util/i18n.hpp"
 
 TextSetting::TextSetting(const std::string &key, std::string &val, const std::string &defaultVal) :
-	Setting(key),
-	val(val),
-	defaultVal(defaultVal)
-{
-	this->resetToDefault();
-}
+	GenericSetting<std::string>(key, val, defaultVal) {}
 
 std::string TextSetting::defaultToString() const
 {
 	return this->defaultVal;
-}
-
-void TextSetting::resetToDefault()
-{
-	this->val = this->defaultVal;
 }
 
 json TextSetting::getJsonValue() const

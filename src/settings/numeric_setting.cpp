@@ -3,34 +3,19 @@
 #include "../util/i18n.hpp"
 
 NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVal) :
-	Setting(key),
-	val(val),
-	defaultVal(defaultVal),
+	GenericSetting<uint>(key, val, defaultVal),
 	constraint(nullptr),
-	valueHint("")
-{
-	this->resetToDefault();
-}
+	valueHint("") {}
 
 NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVal,
 							   const std::function<bool(uint)> constraint, const std::string &valueHint) :
-	Setting(key),
-	val(val),
-	defaultVal(defaultVal),
+	GenericSetting(key, val, defaultVal),
 	constraint(constraint),
-	valueHint(valueHint)
-{
-	this->resetToDefault();
-}
+	valueHint(valueHint) {}
 
 std::string NumericSetting::defaultToString() const
 {
 	return std::to_string(this->defaultVal);
-}
-
-void NumericSetting::resetToDefault()
-{
-	this->val = this->defaultVal;
 }
 
 json NumericSetting::getJsonValue() const
