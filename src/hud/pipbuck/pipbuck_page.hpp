@@ -1,13 +1,15 @@
 #pragma once
 
 #include <string>
-#include <SFML/Graphics/Drawable.hpp>
+
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Text.hpp>
+
+#include "../../campaigns/campaign.hpp"
 #include "../hud_transformable.hpp"
 #include "../hover_manager.hpp"
 #include "../click_manager.hpp"
-#include "../../campaigns/campaign.hpp"
 #include "../../consts.hpp"
 
 enum PipBuckPageType

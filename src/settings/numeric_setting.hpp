@@ -2,9 +2,10 @@
 
 #include <functional>
 #include <string>
+
 #include "generic_setting.hpp"
-#include "../consts.hpp"
 #include "../util/json.hpp"
+#include "../consts.hpp"
 
 // TODO? if we ever need to have other setting types support constraints, define an abstract ConstraintSetting, and
 // remember about fallback to default value in getJsonValue()

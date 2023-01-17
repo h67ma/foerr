@@ -1,7 +1,8 @@
 #include "loading_screen.hpp"
+
+#include "../settings/settings_manager.hpp"
 #include "../util/i18n.hpp"
 #include "../util/util.hpp"
-#include "../settings/settings_manager.hpp"
 
 LoadingScreen::LoadingScreen(ResourceManager &resMgr, sf::Vector2u windowSize)
 {

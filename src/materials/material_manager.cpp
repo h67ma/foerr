@@ -1,7 +1,8 @@
 #include "material_manager.hpp"
-#include "../hud/log.hpp"
-#include "../util/i18n.hpp"
+
 #include "../util/serializable_color.hpp"
+#include "../util/i18n.hpp"
+#include "../hud/log.hpp"
 
 bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct material> &theMap, const char* nodeKey)
 {

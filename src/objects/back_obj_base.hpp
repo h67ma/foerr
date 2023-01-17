@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/System/Vector2.hpp>
+
 #include "../util/json.hpp"
 
 // TODO find out the exact shade

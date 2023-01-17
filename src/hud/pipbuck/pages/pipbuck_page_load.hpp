@@ -1,10 +1,11 @@
 #pragma once
 
 #include <string>
-#include "../pipbuck_page.hpp"
+
 #include "../../../resources/resource_manager.hpp"
 #include "../../buttons/simple_button.hpp"
 #include "../../../campaigns/campaign.hpp"
+#include "../pipbuck_page.hpp"
 
 /**
  * PipBuck -> Main Menu -> Load

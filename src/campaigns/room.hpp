@@ -2,15 +2,17 @@
 
 #include <string>
 #include <vector>
+
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
-#include "../util/json.hpp"
+
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 #include "../objects/object_manager.hpp"
+#include "../util/json.hpp"
 #include "room_cell.hpp"
 
 #define ROOM_WIDTH_WITH_BORDER 48

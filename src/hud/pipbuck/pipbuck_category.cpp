@@ -1,5 +1,7 @@
 #include "pipbuck_category.hpp"
+
 #include <memory>
+
 #include "../../settings/settings_manager.hpp"
 
 #define PIPB_PAGE_BTNS_X_START 385

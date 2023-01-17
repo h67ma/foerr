@@ -1,4 +1,5 @@
 #include "pipbuck_page_weapons.hpp"
+
 #include <string>
 
 PipBuckPageWeapons::PipBuckPageWeapons(ResourceManager &resMgr) :

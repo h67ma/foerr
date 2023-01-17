@@ -2,8 +2,9 @@
 
 #include <unordered_map>
 #include <memory>
-#include <SFML/Window/Cursor.hpp>
+
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Cursor.hpp>
 #include "custom_cursor.hpp"
 
 enum CursorType {

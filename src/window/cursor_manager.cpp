@@ -1,5 +1,7 @@
 #include "cursor_manager.hpp"
+
 #include <string>
+
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 

@@ -1,4 +1,5 @@
 #include "serializable_color.hpp"
+
 #include "../consts.hpp"
 
 /**

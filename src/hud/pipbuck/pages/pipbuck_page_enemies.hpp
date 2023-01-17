@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
-#include "../pipbuck_page.hpp"
+
 #include "../../../resources/resource_manager.hpp"
+#include "../pipbuck_page.hpp"
 
 /**
  * PipBuck -> Information -> Enemies

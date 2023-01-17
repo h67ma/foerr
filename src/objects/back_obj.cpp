@@ -1,5 +1,7 @@
 #include "back_obj.hpp"
+
 #include <algorithm>
+
 #include "../util/random.hpp"
 
 bool BackObject::loadFromJson(const json &jsonNode)

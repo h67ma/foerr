@@ -1,18 +1,20 @@
 #pragma once
 
-#include <list>
-#include <string>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <memory>
+#include <list>
+
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Clock.hpp>
-#include "../util/util.hpp"
+
 #include "log_element_text.hpp"
-#include "../consts.hpp"
+#include "../util/util.hpp"
 #include "../hud/hud.hpp"
+#include "../consts.hpp"
 
 #define LOG_PREFIX_ERROR	"[ERRO] "
 #define LOG_PREFIX_WARNING	"[WARN] "

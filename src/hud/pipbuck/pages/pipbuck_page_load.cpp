@@ -1,5 +1,7 @@
 #include "pipbuck_page_load.hpp"
+
 #include <string>
+
 #include "../../../util/i18n.hpp"
 
 PipBuckPageLoad::PipBuckPageLoad(ResourceManager &resMgr) :

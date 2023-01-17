@@ -1,6 +1,8 @@
 #include "resource_manager.hpp"
+
 #include <filesystem>
 #include <string>
+
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 #include "../consts.hpp"

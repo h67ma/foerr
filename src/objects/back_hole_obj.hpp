@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 #include "back_obj_base.hpp"

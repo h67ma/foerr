@@ -1,6 +1,7 @@
 #include "logic_setting.hpp"
-#include "../hud/log.hpp"
+
 #include "../util/i18n.hpp"
+#include "../hud/log.hpp"
 
 LogicSetting::LogicSetting(const std::string &key, bool &val, bool defaultVal) :
 	GenericSetting<bool>(key, val, defaultVal) {}

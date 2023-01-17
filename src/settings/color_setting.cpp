@@ -1,6 +1,7 @@
 #include "color_setting.hpp"
-#include "../hud/log.hpp"
+
 #include "../util/i18n.hpp"
+#include "../hud/log.hpp"
 
 ColorSetting::ColorSetting(const std::string &key, SerializableColor &val, SerializableColor defaultVal) :
 	GenericSetting<SerializableColor>(key, val, defaultVal) {}

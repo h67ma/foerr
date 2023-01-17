@@ -1,6 +1,7 @@
 #include "numeric_setting.hpp"
-#include "../hud/log.hpp"
+
 #include "../util/i18n.hpp"
+#include "../hud/log.hpp"
 
 NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVal) :
 	GenericSetting<uint>(key, val, defaultVal),

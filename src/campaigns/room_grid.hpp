@@ -1,9 +1,10 @@
 #pragma once
 
-#include <memory>
 #include <unordered_map>
-#include "room.hpp"
+#include <memory>
+
 #include "../util/hashable_vector3.hpp"
+#include "room.hpp"
 
 /**
  * "The Grid. A digital frontier..."

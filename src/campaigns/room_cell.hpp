@@ -1,9 +1,11 @@
 #pragma once
 
 #include <unordered_map>
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"

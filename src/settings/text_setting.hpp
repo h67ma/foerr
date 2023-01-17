@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+
 #include "generic_setting.hpp"
 #include "../util/json.hpp"
 

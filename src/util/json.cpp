@@ -1,5 +1,7 @@
 #include "json.hpp"
+
 #include <fstream>
+
 #include "../hud/log.hpp"
 
 void writeJsonToFile(const json &root, const std::string &path)

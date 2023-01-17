@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/System/Vector3.hpp>
+
 #include "../util/util.hpp"
 
 template<typename T>

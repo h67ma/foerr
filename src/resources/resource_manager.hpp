@@ -1,11 +1,13 @@
 #pragma once
 
-#include <memory>
 #include <unordered_map>
+#include <memory>
 #include <string>
+
+#include <SFML/Audio/SoundBuffer.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Font.hpp>
-#include <SFML/Audio/SoundBuffer.hpp>
+
 #include "texture_resource.hpp"
 
 // core textures

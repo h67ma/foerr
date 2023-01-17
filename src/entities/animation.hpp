@@ -3,10 +3,12 @@
 #include <unordered_map>
 #include <vector>
 #include <memory>
-#include <SFML/Graphics/Drawable.hpp>
+
 #include <SFML/Graphics/RenderTarget.hpp>
-#include "../consts.hpp"
+#include <SFML/Graphics/Drawable.hpp>
+
 #include "../resources/sprite_resource.hpp"
+#include "../consts.hpp"
 
 enum AnimationKind
 {

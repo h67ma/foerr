@@ -1,4 +1,5 @@
 #include "back_hole_obj.hpp"
+
 #include "../util/random.hpp"
 
 bool BackHoleObject::loadFromJson(const json &jsonNode)

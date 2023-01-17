@@ -1,10 +1,10 @@
 #include "main_menu.hpp"
-#include "../settings/settings_manager.hpp"
-#include "../util/i18n.hpp"
-#include "log.hpp"
-#include "loading_screen.hpp"
-#include "git_version.h"
 
+#include "../settings/settings_manager.hpp"
+#include "loading_screen.hpp"
+#include "../util/i18n.hpp"
+#include "git_version.h"
+#include "log.hpp"
 
 MainMenu::MainMenu(ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign,
 				   GameState &gameState, PipBuck &pipBuck) :

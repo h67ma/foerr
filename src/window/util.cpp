@@ -1,4 +1,5 @@
 #include "util.hpp"
+
 #include "../settings/settings_manager.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"

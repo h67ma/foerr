@@ -1,9 +1,10 @@
 #include "keymap.hpp"
-#include "../util/json.hpp"
-#include "../consts.hpp"
-#include "../util/i18n.hpp"
-#include "../hud/log.hpp"
+
 #include "settings_manager.hpp"
+#include "../util/i18n.hpp"
+#include "../util/json.hpp"
+#include "../hud/log.hpp"
+#include "../consts.hpp"
 
 #define CONFUSION "???"
 

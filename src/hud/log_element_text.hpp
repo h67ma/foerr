@@ -1,11 +1,13 @@
 #pragma once
 
 #include <string>
+
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Clock.hpp>
-#include "hud.hpp"
+
 #include "../consts.hpp"
+#include "hud.hpp"
 
 class LogElementText: public sf::Text
 {

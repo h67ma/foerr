@@ -1,5 +1,7 @@
 #include "pipbuck_page_settings.hpp"
+
 #include <string>
+
 #include "../../../settings/settings_manager.hpp"
 #include "../../../util/i18n.hpp"
 

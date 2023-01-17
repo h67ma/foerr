@@ -1,11 +1,13 @@
 #pragma once
 
 #include <memory>
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include "button.hpp"
+
 #include "../../resources/sprite_resource.hpp"
+#include "button.hpp"
 #include "../hud.hpp"
 
 class LocButton : public Button

@@ -1,29 +1,32 @@
-#include <math.h>
-#include <memory>
 #include "pipbuck.hpp"
-#include "../../util/i18n.hpp"
-#include "../log.hpp"
-#include "../../util/util.hpp"
-#include "pages/pipbuck_page_status_main.hpp"
-#include "pages/pipbuck_page_skills.hpp"
-#include "pages/pipbuck_page_perks.hpp"
-#include "pages/pipbuck_page_effects.hpp"
-#include "pages/pipbuck_page_health.hpp"
-#include "pages/pipbuck_page_weapons.hpp"
-#include "pages/pipbuck_page_armor.hpp"
-#include "pages/pipbuck_page_equipment.hpp"
+
+#include <math.h>
+
+#include <memory>
+
 #include "pages/pipbuck_page_inventory_other.hpp"
-#include "pages/pipbuck_page_ammo.hpp"
-#include "pages/pipbuck_page_map.hpp"
-#include "pages/pipbuck_page_quests.hpp"
-#include "pages/pipbuck_page_world.hpp"
-#include "pages/pipbuck_page_notes.hpp"
-#include "pages/pipbuck_page_enemies.hpp"
-#include "pages/pipbuck_page_load.hpp"
-#include "pages/pipbuck_page_save.hpp"
+#include "pages/pipbuck_page_status_main.hpp"
+#include "pages/pipbuck_page_equipment.hpp"
 #include "pages/pipbuck_page_settings.hpp"
 #include "pages/pipbuck_page_controls.hpp"
+#include "pages/pipbuck_page_effects.hpp"
+#include "pages/pipbuck_page_weapons.hpp"
+#include "pages/pipbuck_page_enemies.hpp"
+#include "pages/pipbuck_page_health.hpp"
+#include "pages/pipbuck_page_skills.hpp"
+#include "pages/pipbuck_page_quests.hpp"
+#include "pages/pipbuck_page_perks.hpp"
+#include "pages/pipbuck_page_world.hpp"
+#include "pages/pipbuck_page_armor.hpp"
+#include "pages/pipbuck_page_notes.hpp"
+#include "pages/pipbuck_page_ammo.hpp"
+#include "pages/pipbuck_page_map.hpp"
+#include "pages/pipbuck_page_load.hpp"
+#include "pages/pipbuck_page_save.hpp"
 #include "pages/pipbuck_page_log.hpp"
+#include "../../util/i18n.hpp"
+#include "../../util/util.hpp"
+#include "../log.hpp"
 
 PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :
 	resMgr(resMgr),

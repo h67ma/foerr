@@ -1,4 +1,5 @@
 #include "pipbuck_page_skills.hpp"
+
 #include <string>
 
 PipBuckPageSkills::PipBuckPageSkills(ResourceManager &resMgr) :

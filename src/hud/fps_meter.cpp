@@ -1,8 +1,10 @@
 #include "fps_meter.hpp"
+
 #include <math.h>
+
 #include "../settings/settings_manager.hpp"
-#include "../consts.hpp"
 #include "../util/util.hpp"
+#include "../consts.hpp"
 
 FpsMeter::FpsMeter(sf::Font &font, sf::Vector2u windowSize)
 {

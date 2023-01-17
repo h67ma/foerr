@@ -1,7 +1,8 @@
 #include "custom_cursor.hpp"
+
 #include "../settings/settings_manager.hpp"
-#include "../hud/log.hpp"
 #include "../util/i18n.hpp"
+#include "../hud/log.hpp"
 
 CustomCursor::CustomCursor(const std::string &path, sf::Vector2u hotPoint, sf::Cursor::Type fallback) :
 	path(path),

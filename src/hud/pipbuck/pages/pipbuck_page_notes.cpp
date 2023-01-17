@@ -1,4 +1,5 @@
 #include "pipbuck_page_notes.hpp"
+
 #include <string>
 
 PipBuckPageNotes::PipBuckPageNotes(ResourceManager &resMgr) :

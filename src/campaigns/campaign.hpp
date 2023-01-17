@@ -3,11 +3,13 @@
 #include <unordered_map>
 #include <string>
 #include <memory>
+
 #include <SFML/System/Vector3.hpp>
-#include "location.hpp"
+
 #include "../resources/resource_manager.hpp"
 #include "../materials/material_manager.hpp"
 #include "../objects/object_manager.hpp"
+#include "location.hpp"
 
 /**
  * The Campaign class stores Locations and other useful information related to the currently loaded campaign.

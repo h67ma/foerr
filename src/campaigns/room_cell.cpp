@@ -1,9 +1,12 @@
 #include "room_cell.hpp"
+
 #include <memory>
+
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Sprite.hpp>
-#include "../hud/log.hpp"
+
 #include "../util/i18n.hpp"
+#include "../hud/log.hpp"
 
 const std::unordered_map<char, int> RoomCell::heightFlags {
 	{ ',', 10},	// 3/4 height

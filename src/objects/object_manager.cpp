@@ -1,7 +1,7 @@
 #include "object_manager.hpp"
+
 #include "../util/json.hpp"
 #include "../hud/log.hpp"
-
 
 bool ObjectManager::load()
 {

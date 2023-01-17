@@ -1,9 +1,10 @@
 #pragma once
 
-#include <string>
 #include <unordered_map>
-#include "material.hpp"
+#include <string>
+
 #include "../util/json.hpp"
+#include "material.hpp"
 
 // TODO find the exact value, or just store it in materials.json
 #define LIQUID_OPACITY 0x9A

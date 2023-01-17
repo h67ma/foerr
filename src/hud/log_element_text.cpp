@@ -1,5 +1,7 @@
 #include "log_element_text.hpp"
+
 #include <string>
+
 #include "../util/util.hpp"
 
 #define LOG_ELEMENT_LIFE_TIME_S 5

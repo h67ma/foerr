@@ -1,11 +1,14 @@
 #include "location.hpp"
+
 #include <string>
 #include <memory>
+
 #include <SFML/Graphics/RenderTexture.hpp>
+
 #include "../settings/settings_manager.hpp"
+#include "../util/json.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
-#include "../util/json.hpp"
 
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 

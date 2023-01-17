@@ -1,6 +1,8 @@
 #include "pipbuck_page_world.hpp"
+
 #include <string>
 #include <memory>
+
 #include "../../../settings/settings_manager.hpp"
 #include "../../../util/util.hpp"
 #include "../../../util/i18n.hpp"

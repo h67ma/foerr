@@ -1,5 +1,7 @@
 #include "location_button.hpp"
+
 #include <math.h>
+
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 

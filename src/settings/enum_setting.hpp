@@ -1,9 +1,10 @@
 #pragma once
 
 #include <string>
+
+#include "generic_setting.hpp"
 #include "../util/json.hpp"
 #include "../hud/log.hpp"
-#include "generic_setting.hpp"
 
 template<typename T>
 class EnumSetting : public GenericSetting<T>

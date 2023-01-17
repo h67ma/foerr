@@ -1,4 +1,5 @@
 #include "pipbuck_page_ammo.hpp"
+
 #include <string>
 
 PipBuckPageAmmo::PipBuckPageAmmo(ResourceManager &resMgr) :

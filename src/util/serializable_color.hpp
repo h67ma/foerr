@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+
 #include <SFML/Graphics/Color.hpp>
 
 class SerializableColor : public sf::Color

@@ -1,4 +1,5 @@
 #include "pipbuck_page_enemies.hpp"
+
 #include <string>
 
 PipBuckPageEnemies::PipBuckPageEnemies(ResourceManager &resMgr) :

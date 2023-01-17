@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+
 #include "setting.hpp"
 
 template<typename T>

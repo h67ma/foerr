@@ -2,14 +2,16 @@
 
 #include <unordered_map>
 #include <string>
+
 #include <SFML/Graphics/CircleShape.hpp>
-#include "../pipbuck_page.hpp"
+
 #include "../../../resources/resource_manager.hpp"
 #include "../../../resources/sprite_resource.hpp"
-#include "../../buttons/simple_button.hpp"
 #include "../../buttons/location_button.hpp"
+#include "../../buttons/simple_button.hpp"
 #include "../../../campaigns/campaign.hpp"
 #include "../../wrappable_text.hpp"
+#include "../pipbuck_page.hpp"
 
 // valid loc id length is guaranteed to have len > 0, as checked in Campaign::load()
 #define NO_LOCATION_SELECTED ""

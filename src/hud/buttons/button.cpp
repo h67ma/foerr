@@ -1,4 +1,5 @@
 #include "button.hpp"
+
 #include "../../util/util.hpp"
 
 Button::Button(sf::Vector2u position, std::function<void(void)> callback, ClickStatus consumedStatus) :

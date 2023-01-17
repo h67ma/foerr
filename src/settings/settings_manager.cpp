@@ -1,21 +1,25 @@
 #include "settings_manager.hpp"
+
 #ifdef __linux__
 #include <unistd.h>
 #include <pwd.h>
 #endif /* __linux__ */
-#include <string>
+
 #include <filesystem>
+#include <string>
+
 #include <SFML/Graphics/RenderTexture.hpp>
-#include "../consts.hpp"
-#include "../hud/log.hpp"
+
+#include "numeric_setting.hpp"
+#include "color_setting.hpp"
+#include "logic_setting.hpp"
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
 #include "../util/util.hpp"
-#include "logic_setting.hpp"
-#include "numeric_setting.hpp"
-#include "color_setting.hpp"
 #include "text_setting.hpp"
 #include "enum_setting.hpp"
+#include "../hud/log.hpp"
+#include "../consts.hpp"
 
 #define SETT_SETUP(type, name, def) \
 	SettingsManager::settings.emplace_back(std::make_unique<type>(#name, SettingsManager::name, def))

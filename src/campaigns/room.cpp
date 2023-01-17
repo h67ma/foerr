@@ -1,11 +1,14 @@
 #include "room.hpp"
+
 #include <string>
 #include <memory>
+
 #include <SFML/Graphics/RenderTexture.hpp>
+
+#include "../settings/settings_manager.hpp"
+#include "../objects/back_obj.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
-#include "../objects/back_obj.hpp"
-#include "../settings/settings_manager.hpp"
 
 #define ROOM_SYMBOL_SEPARATOR '|'
 #define ROOM_SYMBOL_EMPTY '_'

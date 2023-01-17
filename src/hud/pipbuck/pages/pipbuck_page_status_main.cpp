@@ -1,4 +1,5 @@
 #include "pipbuck_page_status_main.hpp"
+
 #include <string>
 
 PipBuckPageMainStatus::PipBuckPageMainStatus(ResourceManager &resMgr) :

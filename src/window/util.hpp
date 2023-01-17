@@ -2,8 +2,9 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
-#include "../hud/fps_meter.hpp"
+
 #include "../hud/pipbuck/pipbuck.hpp"
+#include "../hud/fps_meter.hpp"
 #include "../hud/main_menu.hpp"
 
 void recreateWindow(sf::RenderWindow &window);

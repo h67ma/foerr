@@ -3,10 +3,11 @@
 #include <vector>
 #include <memory>
 #include <string>
+
 #include "../util/serializable_color.hpp"
 #include "../hud/hud.hpp"
-#include "setting.hpp"
 #include "../consts.hpp"
+#include "setting.hpp"
 
 /**
  * The SettingsManager class is a convenient place to store persistent settings unrelated to any particular savegame.

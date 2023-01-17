@@ -1,5 +1,7 @@
 #include "simple_button.hpp"
+
 #include <string>
+
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 

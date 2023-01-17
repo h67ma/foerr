@@ -1,8 +1,9 @@
 #pragma once
 
 #include "../pipbuck_page.hpp"
-#include <string>
+
 #include "../../../resources/resource_manager.hpp"
+#include <string>
 
 /**
  * PipBuck -> Information -> Map

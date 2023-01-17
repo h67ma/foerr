@@ -1,8 +1,9 @@
 #pragma once
 
 #include <memory>
-#include <SFML/Audio/Sound.hpp>
+
 #include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Audio/Sound.hpp>
 
 /**
  * Used to track usage of resources in ResourceManager (shared ptr must be kept

@@ -1,23 +1,26 @@
 #include <signal.h>
 #include <stdlib.h>
-#include <iostream>
+
 #include <functional>
+#include <iostream>
+
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
-#include "window/cursor_manager.hpp"
-#include "util/i18n.hpp"
-#include "consts.hpp"
-#include "hud/log.hpp"
-#include "settings/settings_manager.hpp"
+
 #include "resources/resource_manager.hpp"
-#include "hud/fps_meter.hpp"
+#include "settings/settings_manager.hpp"
+#include "window/cursor_manager.hpp"
+#include "hud/pipbuck/pipbuck.hpp"
+#include "hud/loading_screen.hpp"
 #include "entities/animation.hpp" // TODO delet this
 #include "campaigns/campaign.hpp"
-#include "window/util.hpp"
-#include "hud/pipbuck/pipbuck.hpp"
-#include "hud/main_menu.hpp"
-#include "hud/loading_screen.hpp"
 #include "settings/keymap.hpp"
+#include "hud/fps_meter.hpp"
+#include "hud/main_menu.hpp"
+#include "window/util.hpp"
+#include "util/i18n.hpp"
+#include "hud/log.hpp"
+#include "consts.hpp"
 
 int main()
 {

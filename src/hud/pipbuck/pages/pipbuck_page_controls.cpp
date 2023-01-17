@@ -1,8 +1,10 @@
 #include "pipbuck_page_controls.hpp"
+
 #include <string>
+
+#include "../../../settings/keymap.hpp"
 #include "../../../util/i18n.hpp"
 #include "../../log.hpp"
-#include "../../../settings/keymap.hpp"
 
 PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr) :
 	PipBuckPage("Controls"), // TODO translate

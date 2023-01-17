@@ -1,4 +1,5 @@
 #include "pipbuck_page_inventory_other.hpp"
+
 #include <string>
 
 PipBuckPageInventoryOther::PipBuckPageInventoryOther(ResourceManager &resMgr) :

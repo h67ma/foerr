@@ -1,4 +1,5 @@
 #include "animation.hpp"
+
 /**
  * @param texture texture resource containing animation spritesheet
  * @param width width (in px) of a single animation frame

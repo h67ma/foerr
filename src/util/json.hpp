@@ -1,12 +1,14 @@
 #pragma once
 
 #include <string>
-#include <nlohmann/json.hpp>
+
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
+#include <nlohmann/json.hpp>
+
 #include "../hud/log.hpp"
-#include "i18n.hpp"
 #include "../consts.hpp"
+#include "i18n.hpp"
 
 #define JSON_API_VERSION 1
 

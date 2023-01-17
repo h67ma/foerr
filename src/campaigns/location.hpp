@@ -3,18 +3,20 @@
 #include <unordered_map>
 #include <memory>
 #include <string>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
+
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/System/Clock.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector3.hpp>
-#include "room_grid.hpp"
-#include "../consts.hpp"
-#include "../util/json.hpp"
+#include <SFML/System/Clock.hpp>
+
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 #include "../objects/object_manager.hpp"
+#include "../util/json.hpp"
+#include "../consts.hpp"
+#include "room_grid.hpp"
 
 #define REC_LVL_EMPTY -1
 

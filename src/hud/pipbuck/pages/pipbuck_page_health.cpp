@@ -1,4 +1,5 @@
 #include "pipbuck_page_health.hpp"
+
 #include <string>
 
 PipBuckPageHealth::PipBuckPageHealth(ResourceManager &resMgr) :

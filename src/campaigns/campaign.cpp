@@ -1,10 +1,11 @@
 #include "campaign.hpp"
+
 #include <string>
+
 #include "../util/json.hpp"
-#include "../consts.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
-
+#include "../consts.hpp"
 
 Campaign::Campaign(ResourceManager &resMgr) : resMgr(resMgr)
 {

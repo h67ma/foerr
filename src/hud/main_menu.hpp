@@ -1,16 +1,18 @@
 #pragma once
 
 #include <vector>
-#include <SFML/Graphics/Drawable.hpp>
+
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include "hover_manager.hpp"
-#include "click_manager.hpp"
+
+#include "../resources/sound_resource.hpp"
 #include "buttons/simple_button.hpp"
 #include "../campaigns/campaign.hpp"
 #include "pipbuck/pipbuck.hpp"
-#include "../resources/sound_resource.hpp"
+#include "hover_manager.hpp"
+#include "click_manager.hpp"
 
 class MainMenu : public sf::Drawable, public sf::Transformable
 {
