@@ -9,6 +9,8 @@
 #define WORLD_MAP_X 400
 #define WORLD_MAP_Y 260
 
+#define DESCRIPTION_TEXT_WIDTH 430
+
 #define MAP_GRID_SPACING 110
 #define SQRT_2 1.414213562f
 
@@ -107,7 +109,7 @@ ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 					if (recLvl != REC_LVL_EMPTY)
 						description += litSprintf(STR_RECOMMENDED_LVL, recLvl);
 
-					this->locDescription.setString(description);
+					this->locDescription.setString(description, DESCRIPTION_TEXT_WIDTH);
 				}
 
 				// select new btn

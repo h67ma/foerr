@@ -2,13 +2,14 @@
 
 #include <unordered_map>
 #include <string>
+#include <SFML/Graphics/CircleShape.hpp>
 #include "../pipbuck_page.hpp"
 #include "../../../resources/resource_manager.hpp"
 #include "../../../resources/sprite_resource.hpp"
 #include "../../buttons/simple_button.hpp"
 #include "../../buttons/location_button.hpp"
 #include "../../../campaigns/campaign.hpp"
-#include <SFML/Graphics/CircleShape.hpp>
+#include "../../wrappable_text.hpp"
 
 // valid loc id length is guaranteed to have len > 0, as checked in Campaign::load()
 #define NO_LOCATION_SELECTED ""
@@ -25,7 +26,7 @@ class PipBuckPageWorld : public PipBuckPage
 		sf::VertexArray mapBorder = sf::VertexArray(sf::LineStrip, 5);
 		sf::VertexArray mapGridLines = sf::VertexArray(sf::Lines, 16); // max 4 horizontal, 4 vertical
 		sf::Text locTitle;
-		sf::Text locDescription; // also shows recommended lvl, trial count, basecamp, etc.
+		WrappableText locDescription; // also shows recommended lvl, trial count, basecamp, etc.
 		sf::CircleShape activeLocIndicator;
 		std::unordered_map<std::string, LocButton> mapButtons;
 		SimpleButton gotoLocationBtn;
