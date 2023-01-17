@@ -21,7 +21,6 @@ class PipBuckPageWorld : public PipBuckPage
 	private:
 		ResourceManager &resMgr;
 		Campaign &campaign;
-		GuiScale guiScale;
 		SpriteResource mapBg;
 		sf::VertexArray mapBorder = sf::VertexArray(sf::LineStrip, 5);
 		sf::VertexArray mapGridLines = sf::VertexArray(sf::Lines, 16); // max 4 horizontal, 4 vertical
@@ -44,6 +43,6 @@ class PipBuckPageWorld : public PipBuckPage
 		std::string getLabel() const override;
 		bool setupCampaignInfos() override;
 		void unloadCampaignInfos() override;
-		void setGuiScale(GuiScale scale);
+		void setGuiScale();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

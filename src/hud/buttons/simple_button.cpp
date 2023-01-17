@@ -23,8 +23,8 @@ SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::V
 	this->text.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->text.setString(text);
 
-	this->setGuiScale(SettingsManager::guiScale);
-	this->setColor(SettingsManager::hudColor);
+	this->setGuiScale();
+	this->setColor();
 
 	// disabled by default
 	this->setSelected(false);
@@ -33,7 +33,7 @@ SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::V
 void SimpleButton::setThickness()
 {
 	float thicc;
-	switch (this->scale)
+	switch (SettingsManager::guiScale)
 	{
 		case GUI_SMALL:
 			thicc = this->selected ? BTN_BORDER_THICKNESS_SMALL_SELECTED : BTN_BORDER_THICKNESS_SMALL;
@@ -75,30 +75,29 @@ void SimpleButton::setHover(bool hover)
 	this->updateState();
 }
 
-void SimpleButton::setColor(sf::Color color)
+void SimpleButton::setColor()
 {
 	// rectangle border
-	this->rect.setOutlineColor(color);
+	this->rect.setOutlineColor(SettingsManager::hudColor);
 
 	// text
-	this->text.setFillColor(color);
+	this->text.setFillColor(SettingsManager::hudColor);
 
 	// hover/selected/deselected colors are the same color toned down
-	this->colorHover = DIM_COLOR(color, BTN_COLOR_HOVER_FACTOR);
-	this->colorSelected = DIM_COLOR(color, BTN_COLOR_SEL_FACTOR);
-	this->colorUnselected = DIM_COLOR(color, BTN_COLOR_UNSEL_FACTOR);
+	this->colorHover = DIM_COLOR(SettingsManager::hudColor, BTN_COLOR_HOVER_FACTOR);
+	this->colorSelected = DIM_COLOR(SettingsManager::hudColor, BTN_COLOR_SEL_FACTOR);
+	this->colorUnselected = DIM_COLOR(SettingsManager::hudColor, BTN_COLOR_UNSEL_FACTOR);
 
 	this->updateState();
 }
 
-void SimpleButton::setGuiScale(GuiScale scale)
+void SimpleButton::setGuiScale()
 {
 	uint w, h, textTopOffset;
-	this->scale = scale;
 
-	this->text.setCharacterSize(getFontSize(scale, FONT_H3));
+	this->text.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H3));
 
-	if (scale == GUI_SMALL)
+	if (SettingsManager::guiScale == GUI_SMALL)
 	{
 		textTopOffset = BTN_TEXT_SMALL_TOP_OFFSET;
 
@@ -118,7 +117,7 @@ void SimpleButton::setGuiScale(GuiScale scale)
 				h = 21;
 		}
 	}
-	else if (scale == GUI_LARGE)
+	else if (SettingsManager::guiScale == GUI_LARGE)
 	{
 		textTopOffset = BTN_TEXT_LARGE_TOP_OFFSET;
 
@@ -198,7 +197,7 @@ void SimpleButton::setGuiScale(GuiScale scale)
 void SimpleButton::setText(const std::string &text)
 {
 	this->text.setString(text);
-	this->setGuiScale(this->scale); // need to re-center text
+	this->setGuiScale(); // need to re-center text
 }
 
 bool SimpleButton::containsPoint(sf::Vector2i coords)

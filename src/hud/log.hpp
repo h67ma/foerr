@@ -24,12 +24,15 @@ class Log
 {
 	private:
 		static sf::Font *font;
-		static ScreenCorner anchor;
 		static sf::Vector2u windowSize;
+
+		// unfortunately we have to keep a local copy of settings because of a circular dependency :/ TODO?
+		static ScreenCorner anchor;
 		static bool writeLogToFile;
 		static bool printMsgs;
 		static bool verboseDebug;
 		static GuiScale scale;
+
 		static uint fontGap;
 		static std::list<std::unique_ptr<LogElementText>> history;
 		static sf::Clock clock;

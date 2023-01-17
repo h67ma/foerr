@@ -16,7 +16,6 @@ class LocButton : public Button
 		bool selected; // mouse selection
 		bool hover = false;
 		// TODO showAnimatedHint = false; // four animated arrows showing the next mane quest location
-		GuiScale scale;
 		sf::Color colorBasecampHover;
 		sf::Color colorHover;
 		sf::Color colorBasecamp;
@@ -29,10 +28,10 @@ class LocButton : public Button
 		LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture);
 		void setSelected(bool selected);
 		bool containsPoint(sf::Vector2i coords) override;
-		void setGuiScale(GuiScale scale) override;
-		void setColor(sf::Color color);
+		void setGuiScale() override;
+		void setColor();
 		void setHover(bool hover) override;
 		bool getIsBig() const;
-		static uint getSideLen(GuiScale scale, bool big);
+		static uint getSideLen(bool big);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

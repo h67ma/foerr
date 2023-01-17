@@ -20,9 +20,7 @@ CustomCursor::CustomCursor(const std::string &path, sf::Vector2u hotPoint, sf::C
 bool CustomCursor::load()
 {
 	if (!SettingsManager::preferCustomCursor)
-	{
 		return this->cursor.loadFromSystem(this->fallbackCursor);
-	}
 
 	sf::Image img;
 	bool loadSucc;

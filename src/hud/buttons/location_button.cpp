@@ -15,8 +15,8 @@ LocButton::LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::sh
 	this->isBaseCamp = isBaseCamp;
 	this->isBig = isBig;
 
-	this->setGuiScale(SettingsManager::guiScale);
-	this->setColor(SettingsManager::hudColor);
+	this->setGuiScale();
+	this->setColor();
 	this->setSelected(false);
 }
 
@@ -34,16 +34,16 @@ void LocButton::updateState()
 	this->setThickness(); // thickness changes between selected/deselected state
 }
 
-uint LocButton::getSideLen(GuiScale scale, bool big)
+uint LocButton::getSideLen(bool big)
 {
-	if (scale == GUI_SMALL)
+	if (SettingsManager::guiScale == GUI_SMALL)
 	{
 		if (big)
 			return 39;
 		else
 			return 31;
 	}
-	else if (scale == GUI_LARGE)
+	else if (SettingsManager::guiScale == GUI_LARGE)
 	{
 		if (big)
 			return 67;
@@ -62,7 +62,7 @@ uint LocButton::getSideLen(GuiScale scale, bool big)
 void LocButton::setThickness()
 {
 	float thicc;
-	switch (this->scale)
+	switch (SettingsManager::guiScale)
 	{
 		case GUI_SMALL:
 			thicc = this->selected ? BTN_BORDER_THICKNESS_SMALL_SELECTED : BTN_BORDER_THICKNESS_SMALL;
@@ -91,10 +91,9 @@ bool LocButton::containsPoint(sf::Vector2i coords)
 	return this->rect.getLocalBounds().contains(static_cast<sf::Vector2f>(coords));
 }
 
-void LocButton::setGuiScale(GuiScale scale)
+void LocButton::setGuiScale()
 {
-	this->scale = scale;
-	float sideLen = static_cast<float>(this->getSideLen(this->scale, this->isBig));
+	float sideLen = static_cast<float>(this->getSideLen(this->isBig));
 
 	this->rect.setSize(sf::Vector2f(sideLen, sideLen));
 	this->setThickness();
@@ -107,16 +106,16 @@ void LocButton::setGuiScale(GuiScale scale)
 	);
 }
 
-void LocButton::setColor(sf::Color color)
+void LocButton::setColor()
 {
-	this->rect.setOutlineColor(color);
+	this->rect.setOutlineColor(SettingsManager::hudColor);
 
 	// TODO somehow change icon tint
 
 	// hover/selected/deselected colors are the same color toned down
-	this->colorHover = DIM_COLOR(color, BTN_COLOR_HOVER_FACTOR);
-	this->colorBasecampHover = DIM_COLOR(color, BTN_COLOR_BASECAMP_HOVER_FACTOR);
-	this->colorBasecamp = DIM_COLOR(color, BTN_COLOR_BASECAMP_FACTOR);
+	this->colorHover = DIM_COLOR(SettingsManager::hudColor, BTN_COLOR_HOVER_FACTOR);
+	this->colorBasecampHover = DIM_COLOR(SettingsManager::hudColor, BTN_COLOR_BASECAMP_HOVER_FACTOR);
+	this->colorBasecamp = DIM_COLOR(SettingsManager::hudColor, BTN_COLOR_BASECAMP_FACTOR);
 }
 
 void LocButton::setHover(bool hover)

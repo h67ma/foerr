@@ -22,7 +22,6 @@ class SimpleButton : public Button
 {
 	private:
 		SimpleButtonSize size;
-		GuiScale scale;
 		bool selected = false;
 		bool hover = false;
 		sf::Color colorHover; // hover background color
@@ -39,10 +38,10 @@ class SimpleButton : public Button
 					 const std::string &text = "Button", std::function<void(void)> callback = nullptr,
 					 ClickStatus consumedStatus = CLICK_CONSUMED);
 		bool containsPoint(sf::Vector2i coords) override;
-		void setGuiScale(GuiScale scale) override;
+		void setGuiScale() override;
 		void setHover(bool hover) override;
 		void setSelected(bool selected);
 		void setText(const std::string &text);
-		void setColor(sf::Color color);
+		void setColor();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

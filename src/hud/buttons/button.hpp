@@ -3,7 +3,6 @@
 #include <functional>
 #include <SFML/Graphics/Drawable.hpp>
 #include "../hud_transformable.hpp"
-#include "../hud.hpp"
 #include "../hoverable.hpp"
 #include "../clickable.hpp"
 #include "../../consts.hpp"
@@ -26,6 +25,6 @@ class Button : public sf::Drawable, public HudTransformable, public Hoverable, p
 			   ClickStatus consumedStatus = CLICK_CONSUMED);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		virtual bool containsPoint(sf::Vector2i coords) = 0;
-		virtual void setGuiScale(GuiScale scale) = 0;
+		virtual void setGuiScale() = 0;
 		virtual void setHover(bool hover) = 0;
 };

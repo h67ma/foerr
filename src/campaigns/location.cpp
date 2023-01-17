@@ -10,8 +10,7 @@
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
 Location::Location(const std::string &id) :
-	id(id),
-	transitionTimeMs(SettingsManager::roomTransitionDurationMs)
+	id(id)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }
@@ -303,7 +302,7 @@ bool Location::gotoRoom(Direction direction)
 	if (newRoom == nullptr)
 		return false;
 
-	if (this->transitionTimeMs == 0 || direction == DIR_BACK || direction == DIR_FRONT)
+	if (SettingsManager::roomTransitionDurationMs == 0 || direction == DIR_BACK || direction == DIR_FRONT)
 	{
 		// no transition when transition duration is 0, or when changing the Z coordinate
 
@@ -394,7 +393,7 @@ void Location::updateState()
 	{
 		uint elapsed = this->roomTransitionTimer.getElapsedTime().asMilliseconds();
 
-		if (elapsed >= this->transitionTimeMs)
+		if (elapsed >= SettingsManager::roomTransitionDurationMs)
 		{
 			this->roomTransitionInProgress = false;
 			return;
@@ -405,16 +404,16 @@ void Location::updateState()
 		switch (this->roomTransitionDirection)
 		{
 			case DIR_UP:
-				pos.y = static_cast<int>(elapsed * GAME_AREA_HEIGHT / this->transitionTimeMs) - GAME_AREA_HEIGHT;
+				pos.y = static_cast<int>(elapsed * GAME_AREA_HEIGHT / SettingsManager::roomTransitionDurationMs) - GAME_AREA_HEIGHT;
 				break;
 			case DIR_DOWN:
-				pos.y = - static_cast<int>(elapsed * GAME_AREA_HEIGHT / this->transitionTimeMs);
+				pos.y = - static_cast<int>(elapsed * GAME_AREA_HEIGHT / SettingsManager::roomTransitionDurationMs);
 				break;
 			case DIR_LEFT:
-				pos.x = static_cast<int>(elapsed * GAME_AREA_WIDTH / this->transitionTimeMs) - GAME_AREA_WIDTH;
+				pos.x = static_cast<int>(elapsed * GAME_AREA_WIDTH / SettingsManager::roomTransitionDurationMs) - GAME_AREA_WIDTH;
 				break;
 			case DIR_RIGHT:
-				pos.x = - static_cast<int>(elapsed * GAME_AREA_WIDTH / this->transitionTimeMs);
+				pos.x = - static_cast<int>(elapsed * GAME_AREA_WIDTH / SettingsManager::roomTransitionDurationMs);
 				break;
 			default:
 				// this should never happen

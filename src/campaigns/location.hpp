@@ -80,7 +80,6 @@ class Location : public sf::Drawable
 		// actually continuing simulation (via ::updateState()), will be in the process of room transition and will act
 		// as if the simulation was paused (for the time of transition).
 		bool roomTransitionInProgress = false;
-		uint transitionTimeMs;
 		enum Direction roomTransitionDirection;
 		uint roomTransitionOffset = 0;
 		sf::Clock roomTransitionTimer;

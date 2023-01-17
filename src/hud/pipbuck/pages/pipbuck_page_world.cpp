@@ -33,22 +33,21 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 		this->travelButtonAvailable = false;
 	})
 {
-	sf::Color hudColor = SettingsManager::hudColor;
 	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
 
 	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->locTitle.setPosition(970, 260);
-	this->locTitle.setFillColor(hudColor);
+	this->locTitle.setFillColor(SettingsManager::hudColor);
 
 	this->locDescription.setFont(*resMgr.getFont(FONT_NORMAL));
 	this->locDescription.setPosition(970, 300);
-	this->locDescription.setFillColor(hudColor);
+	this->locDescription.setFillColor(SettingsManager::hudColor);
 
-	this->activeLocIndicator.setOutlineColor(hudColor);
+	this->activeLocIndicator.setOutlineColor(SettingsManager::hudColor);
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
 	this->activeLocIndicator.setOutlineThickness(2.f);
 
-	this->setGuiScale(SettingsManager::guiScale);
+	this->setGuiScale();
 
 	this->hoverMgr += &this->gotoLocationBtn;
 }
@@ -64,7 +63,7 @@ void PipBuckPageWorld::updateActiveIndicator()
 	if (search == this->mapButtons.end())
 		return;
 
-	uint halfSide = LocButton::getSideLen(this->guiScale, search->second.getIsBig()) / 2;
+	uint halfSide = LocButton::getSideLen(search->second.getIsBig()) / 2;
 	float radius = halfSide * SQRT_2;
 	float offset = radius - halfSide;
 
@@ -245,12 +244,10 @@ void PipBuckPageWorld::unloadCampaignInfos()
 	this->travelButtonAvailable = false;
 }
 
-void PipBuckPageWorld::setGuiScale(GuiScale scale)
+void PipBuckPageWorld::setGuiScale()
 {
-	this->guiScale = scale;
-
-	this->locTitle.setCharacterSize(getFontSize(scale, FONT_H2));
-	this->locDescription.setCharacterSize(getFontSize(scale, FONT_SPAN));
+	this->locTitle.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H2));
+	this->locDescription.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_SPAN));
 
 	if (this->selectedLocId != NO_LOCATION_SELECTED)
 		this->updateActiveIndicator();
