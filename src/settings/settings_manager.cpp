@@ -113,9 +113,9 @@ void SettingsManager::setup()
 					  litSprintf("a power of 2, between 0 and %d", maxSupportedAA));
 
 	// TODO maybe we could save window w&h on program exit and then restore it?
-	SETT_SETUP_CONSTR(NumericSetting, windowWidth, 1280, [](uint val){ return val <= MAX_RESOLUTION; },
+	SETT_SETUP_CONSTR(NumericSetting, windowWidth, 1280, [](uint val){ return val > 0 && val <= MAX_RESOLUTION; },
 					  "between 0 and " STR_EXP(MAX_RESOLUTION));
-	SETT_SETUP_CONSTR(NumericSetting, windowHeight, 720, [](uint val){ return val <= MAX_RESOLUTION; },
+	SETT_SETUP_CONSTR(NumericSetting, windowHeight, 720, [](uint val){ return val > 0 && val <= MAX_RESOLUTION; },
 					  "between 0 and " STR_EXP(MAX_RESOLUTION));
 
 	///// debug /////
