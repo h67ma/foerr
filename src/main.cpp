@@ -21,7 +21,7 @@
 
 int main()
 {
-	GameState gameState = STATE_MAINMENU;
+	GameState gameState = STATE_MAINMENU; // TODO? potentially could be made static
 
 	SettingsManager::setup();
 
