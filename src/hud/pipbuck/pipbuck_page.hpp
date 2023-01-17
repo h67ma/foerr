@@ -51,11 +51,12 @@ class PipBuckPage : public sf::Drawable, public HudTransformable
 		HoverManager hoverMgr;
 		ClickManager clickMgr; // TODO delet if too many pages will implement a custom ::handleLeftClick()
 		sf::Text dummy; // TODO delet this
+		explicit PipBuckPage(const std::string &pageTitle);
 
 	public:
 		virtual ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		virtual bool handleMouseMove(sf::Vector2i mousePos);
 		virtual bool setupCampaignInfos() { return true; }
 		virtual void unloadCampaignInfos() { }
-		virtual std::string getLabel() const = 0;
+		const std::string pageTitle;
 };

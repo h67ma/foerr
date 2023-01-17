@@ -5,6 +5,7 @@
 #include "../../../settings/keymap.hpp"
 
 PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr) :
+	PipBuckPage("Controls"), // TODO translate
 	buttons({
 		{ BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() {
 			Keymap::save();
@@ -41,11 +42,6 @@ void PipBuckPageControls::updateDisplay()
 	}
 
 	this->dummyMapDump.setString(dump);
-}
-
-std::string PipBuckPageControls::getLabel() const
-{
-	return "Controls"; // TODO translate
 }
 
 void PipBuckPageControls::draw(sf::RenderTarget &target, sf::RenderStates states) const

@@ -13,6 +13,7 @@
 #define SQRT_2 1.414213562f
 
 PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) :
+	PipBuckPage("World"), // TODO translate
 	resMgr(resMgr),
 	campaign(campaign),
 	gotoLocationBtn(BTN_NORMAL, resMgr, { 1000, 815 }, "Travel", [this](){
@@ -145,11 +146,6 @@ bool PipBuckPageWorld::handleMouseMove(sf::Vector2i mousePos)
 		return this->hoverMgr.handleMouseMove(mousePos);
 
 	return false;
-}
-
-std::string PipBuckPageWorld::getLabel() const
-{
-	return "World"; // TODO translate
 }
 
 void PipBuckPageWorld::setupMapDecorations()

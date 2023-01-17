@@ -11,6 +11,5 @@ class PipBuckPageWeapons : public PipBuckPage
 {
 	public:
 		explicit PipBuckPageWeapons(ResourceManager &resMgr);
-		std::string getLabel() const override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

@@ -25,8 +25,7 @@ PipBuckCategory::PipBuckCategory(ResourceManager &resMgr, PipBuckPageType defaul
 	uint x = PIPB_PAGE_BTNS_X_START;
 	for (const auto &page : pages)
 	{
-		this->pageButtons.emplace(page.first, SimpleButton(BTN_NARROW, resMgr, { x, 210 },
-								  page.second->getLabel()));
+		this->pageButtons.emplace(page.first, SimpleButton(BTN_NARROW, resMgr, { x, 210 }, page.second->pageTitle));
 		x += PIPB_PAGE_BTNS_X_DISTANCE;
 	}
 }

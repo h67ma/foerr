@@ -18,6 +18,5 @@ class PipBuckPageSettings : public PipBuckPage
 
 	public:
 		explicit PipBuckPageSettings(ResourceManager &resMgr);
-		std::string getLabel() const override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

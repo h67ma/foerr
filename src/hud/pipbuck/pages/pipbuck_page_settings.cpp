@@ -4,6 +4,7 @@
 #include "../../../util/i18n.hpp"
 
 PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
+	PipBuckPage("Settings"), // TODO translate
 	buttons({
 		{BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() {
 			SettingsManager::saveConfig();
@@ -24,11 +25,6 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 	this->infoText.setString(litSprintf("Main game directory: %s\nSavegame directory: %s",
 										SettingsManager::getGameRootDir().c_str(),
 										SettingsManager::getSaveDir().c_str()));
-}
-
-std::string PipBuckPageSettings::getLabel() const
-{
-	return "Settings"; // TODO translate
 }
 
 void PipBuckPageSettings::draw(sf::RenderTarget &target, sf::RenderStates states) const

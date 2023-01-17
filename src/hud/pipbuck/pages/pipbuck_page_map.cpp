@@ -1,7 +1,8 @@
 #include "pipbuck_page_map.hpp"
 #include <string>
 
-PipBuckPageMap::PipBuckPageMap(ResourceManager &resMgr)
+PipBuckPageMap::PipBuckPageMap(ResourceManager &resMgr) :
+	PipBuckPage("Map") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.f, 500.f);
@@ -12,11 +13,6 @@ PipBuckPageMap::PipBuckPageMap(ResourceManager &resMgr)
 
 	// TODO map should allow the player to browse other layers (fore/back), but opening pipbuck should reset display
 	// to current layer
-}
-
-std::string PipBuckPageMap::getLabel() const
-{
-	return "Map"; // TODO translate
 }
 
 void PipBuckPageMap::draw(sf::RenderTarget &target, sf::RenderStates states) const
