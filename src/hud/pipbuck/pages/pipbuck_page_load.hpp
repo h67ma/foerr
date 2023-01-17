@@ -15,7 +15,7 @@ class PipBuckPageLoad : public PipBuckPage
 		SimpleButton exitBtn;
 
 	public:
-		PipBuckPageLoad(ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
+		explicit PipBuckPageLoad(ResourceManager &resMgr);
 		std::string getLabel() const override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

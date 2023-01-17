@@ -52,7 +52,7 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 			{ PIPB_PAGE_ENEMIES, std::make_shared<PipBuckPageEnemies>(resMgr) }
 		} } },
 		{ PIPB_CAT_MAIN, { resMgr, PIPB_PAGE_LOAD, {
-			{ PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr, campaign, gameState) },
+			{ PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr) },
 			{ PIPB_PAGE_SAVE, std::make_shared<PipBuckPageSave>(resMgr) },
 			{ PIPB_PAGE_SETTINGS, std::make_shared<PipBuckPageSettings>(resMgr) },
 			{ PIPB_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr) },
