@@ -59,7 +59,7 @@ void Log::setVerboseDebug(bool verboseDebug)
 void Log::setGuiScale(GuiScale scale)
 {
 	Log::scale = scale;
-	Log::fontGap = getFontGap(scale, FONT_H3);
+	Log::fontGap = Log::font->getLineSpacing(getFontSize(scale, FONT_H3));
 	for (const auto &item : Log::history)
 	{
 		item->setGuiScale(Log::scale);

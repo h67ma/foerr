@@ -38,7 +38,6 @@ inline std::string pathCombine(const std::string &path1, const std::string &path
 }
 
 uint getFontSize(GuiScale scale, FontSize size);
-uint getFontGap(GuiScale scale, FontSize size);
 int getFontVOffset(GuiScale scale, FontSize size);
 
 #define COLOR_GRAY(shade) sf::Color(shade, shade, shade)
