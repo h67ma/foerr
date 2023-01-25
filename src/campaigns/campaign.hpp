@@ -50,6 +50,8 @@ class Campaign : public sf::Drawable
 		bool changeLocation(const std::string &newLocId);
 		bool isLoaded();
 		bool gotoRoom(Direction direction);
+		bool gotoRoom(HashableVector3i coords);
+		void redraw();
 		void logWhereAmI();
 		void updateState();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

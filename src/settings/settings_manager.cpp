@@ -28,6 +28,7 @@
 	SettingsManager::settings.emplace_back(std::make_unique<type>(#name, SettingsManager::name, def, maxValue))
 
 #define SETT_SETUP_ENUM_SCREENCORNER(name, def) SETT_SETUP_ENUM(EnumSetting<ScreenCorner>, name, def, _CORNER_CNT)
+#define SETT_SETUP_ENUM_SCREENSIDE(name, def) SETT_SETUP_ENUM(EnumSetting<ScreenSide>, name, def, _SIDE_CNT)
 #define SETT_SETUP_ENUM_GUISCALE(name, def) SETT_SETUP_ENUM(EnumSetting<GuiScale>, name, def, _GUI_SCALE_CNT)
 
 #define SETT_SETUP_CONSTR(type, name, def, constraint, hint) \
@@ -83,6 +84,8 @@ bool SettingsManager::debugPrintToStderr;
 bool SettingsManager::debugVerbose;
 bool SettingsManager::debugNavigation;
 bool SettingsManager::debugBoundingBoxes;
+ScreenSide SettingsManager::debugConsoleAnchor;
+bool SettingsManager::debugConsoleEnabled;
 
 void SettingsManager::setup()
 {
@@ -138,9 +141,10 @@ void SettingsManager::setup()
 	// TODO this should also include `testmode` (i.e. ability to travel to any location). should be settable only via command line/settings file editing
 	SETT_SETUP(LogicSetting, debugNavigation, false);
 	SETT_SETUP(LogicSetting, debugBoundingBoxes, false);
+	SETT_SETUP_ENUM_SCREENSIDE(debugConsoleAnchor, SIDE_BOTTOM);
+	SETT_SETUP(LogicSetting, debugConsoleEnabled, false);
 
 	// TODO SETT_SETUP(LogicSetting, showBoundingBoxen, false);
-	// TODO SETT_SETUP(LogicSetting, devConsoleEnabled, false);
 }
 
 void SettingsManager::saveConfig()

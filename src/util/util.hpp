@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "../consts.hpp"
 #include "../hud/hud.hpp"
@@ -38,6 +39,7 @@ inline std::string pathCombine(const std::string &path1, const std::string &path
 
 uint getFontSize(GuiScale scale, FontSize size);
 uint getFontGap(GuiScale scale, FontSize size);
+int getFontVOffset(GuiScale scale, FontSize size);
 
 #define COLOR_GRAY(shade) sf::Color(shade, shade, shade)
 #define DIM_COLOR(color, shade) color * COLOR_GRAY(shade)
@@ -50,3 +52,6 @@ inline void hash_combine(std::size_t& seed, const T& v)
 {
 	seed ^= std::hash<T>{}(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
+
+void splitString(std::vector<std::string> &tokens, const std::string &input, char delim);
+bool strToInt(const std::string &input, int &output);

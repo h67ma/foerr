@@ -9,6 +9,13 @@ enum ScreenCorner
 	_CORNER_CNT
 };
 
+enum ScreenSide
+{
+	SIDE_TOP,
+	SIDE_BOTTOM,
+	_SIDE_CNT
+};
+
 enum GuiScale
 {
 	GUI_SMALL,

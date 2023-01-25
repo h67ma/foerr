@@ -288,6 +288,22 @@ bool Campaign::gotoRoom(Direction direction)
 	return this->currentLocation->gotoRoom(direction);
 }
 
+bool Campaign::gotoRoom(HashableVector3i coords)
+{
+	if (this->currentLocation == nullptr)
+		return false;
+
+	return this->currentLocation->gotoRoom(coords);
+}
+
+void Campaign::redraw()
+{
+	if (this->currentLocation == nullptr)
+		return;
+
+	this->currentLocation->redraw();
+}
+
 /**
  * Logs a message containing current Location name and Room coordinates.
  * The message is logged as a warning to be clearly visible.

@@ -105,3 +105,7 @@
 #define STR_LIQUID_SOLID_NO_HEIGHT_FLAG "Liquid and solid defined, but no height flag defined."
 #define STR_DEBUG_WHEREAMI "%s, (%d, %d, %d)"
 #define STR_LOC_ID_ZEROLEN "Empty location id (%s)"
+#define STR_UNKNOWN_COMMAND "Unknown command: \"%s\""
+#define STR_INVALID_COORDS "%s: invalid coords"
+#define STR_MISSING_OPERANDS "%s: missing operand(s)"
+#define STR_INVALID_OPERANDS "%s: invalid operand(s)"

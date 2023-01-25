@@ -384,6 +384,24 @@ bool Location::gotoRoom(Direction direction)
 	return true;
 }
 
+bool Location::gotoRoom(HashableVector3i coords)
+{
+	std::shared_ptr<Room> newRoom = this->rooms.moveTo(coords);
+	if (newRoom == nullptr)
+		return false;
+
+	this->currentRoom->deinit();
+	this->currentRoom = newRoom;
+	this->currentRoom->init();
+
+	return true;
+}
+
+void Location::redraw()
+{
+	this->currentRoom->init();
+}
+
 sf::Vector3i Location::getPlayerRoomCoords() const
 {
 	// note: here we downcast HashableVector to Vector, as the specialized type is not needed anymore

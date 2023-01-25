@@ -65,13 +65,14 @@ void setLetterboxView(sf::View &view, sf::Vector2u windowSize)
 }
 
 void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView,
-					   PipBuck &pipBuck, MainMenu &mainMenu)
+					   PipBuck &pipBuck, MainMenu &mainMenu, DevConsole &console)
 {
 	// update position of dockable elements
 	Log::setPosition(SettingsManager::logAnchor, windowSize);
 	fpsMeter.setPosition(windowSize);
 	pipBuck.handleScreenResize(windowSize);
 	mainMenu.handleScreenResize(windowSize);
+	console.setPosition(windowSize);
 
 	// update views
 	hudView.reset({ 0.f, 0.f, static_cast<float>(windowSize.x), static_cast<float>(windowSize.y) });
@@ -79,7 +80,7 @@ void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hu
 }
 
 void toggleFullscreen(sf::RenderWindow &window, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView,
-					  PipBuck &pipBuck, MainMenu &mainMenu)
+					  PipBuck &pipBuck, MainMenu &mainMenu, DevConsole &console)
 {
 	if (SettingsManager::fullscreen)
 	{
@@ -93,5 +94,5 @@ void toggleFullscreen(sf::RenderWindow &window, FpsMeter &fpsMeter, sf::View &hu
 	}
 
 	recreateWindow(window);
-	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 }

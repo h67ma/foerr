@@ -15,6 +15,7 @@
 #include "entities/animation.hpp" // TODO delet this
 #include "campaigns/campaign.hpp"
 #include "settings/keymap.hpp"
+#include "hud/dev_console.hpp"
 #include "hud/fps_meter.hpp"
 #include "hud/main_menu.hpp"
 #include "window/util.hpp"
@@ -110,6 +111,8 @@ int main()
 	pipBuck.setRadLevel(0.3f); // TODO remove
 	MainMenu mainMenu(resManager, window, campaign, gameState, pipBuck);
 
+	DevConsole console(window.getSize(), *resManager.getFont(FONT_FIXED), campaign);
+
 	// this is kinda messy but probably faster than a very long switch-case.
 	// for each keypress we have to go through two maps: key -> action, action -> callback.
 	// TODO? we could manage with a single map: key -> callback. we'd need a method in Keymap that populates below two
@@ -180,6 +183,12 @@ int main()
 		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){
 			pipBuck.switchToPage(PIPB_PAGE_ENEMIES);
 		} },
+		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){
+			console.open();
+		} },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
+			console.executeLast();
+		} },
 		{ ACTION_DEBUG_NAV_LEFT, [&campaign](){
 			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_LEFT))
 				campaign.logWhereAmI();
@@ -204,8 +213,8 @@ int main()
 			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_BACK))
 				campaign.logWhereAmI();
 		} },
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
-			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
+			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 		} },
 	};
 
@@ -273,15 +282,27 @@ int main()
 		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){
 			pipBuck.switchToPage(PIPB_PAGE_ENEMIES);
 		} },
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
-			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
+			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
+		} },
+		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){
+			console.open();
+		} },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
+			console.executeLast();
 		} },
 	};
 
 	std::unordered_map<KeyAction, std::function<void(void)>> mainMenuCbs {
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu](){
-			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
-		} }
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
+			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
+		} },
+		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){
+			console.open();
+		} },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
+			console.executeLast();
+		} },
 	};
 
 
@@ -329,7 +350,7 @@ int main()
 
 
 	// initial size
-	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 
 	// autoload campaign
 	if (SettingsManager::debugAutoloadCampaign != "")
@@ -353,8 +374,18 @@ int main()
 	{
 		while (window.pollEvent(event))
 		{
-			// TODO? probably logic for different game states could be handled by objects such as pipbuck/mainmenu/campaign, etc. instead of here
-			if (gameState == STATE_PLAYING)
+			if (console.getIsOpen())
+			{
+				if (event.type == sf::Event::KeyPressed)
+				{
+					console.handleKeyPressed(event.key.code);
+				}
+				else if (event.type == sf::Event::TextEntered)
+				{
+					console.handleTextEntered(event.text.unicode);
+				}
+			}
+			else if (gameState == STATE_PLAYING)
 			{
 				if (event.type == sf::Event::KeyPressed)
 				{
@@ -428,19 +459,26 @@ int main()
 			}
 			else if (event.type == sf::Event::Resized)
 			{
-				windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu);
+				windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 			}
-			// TODO probably useful for text entry
-			//else if (event.type == sf::Event::TextEntered)
-			//{
-			//	if (event.text.unicode < 128)
-			//		Log::d("ASCII character typed: %c", static_cast<char>(event.text.unicode));
-			//}
 		}
+
+		//// update states /////
+
+		if (gameState == STATE_PLAYING)
+			campaign.updateState();
+		else if (gameState == STATE_PIPBUCK)
+			pipBuck.updateDraw();
+
+		Log::maybeUpdate();
+
+		if (SettingsManager::showFpsCounter)
+			fpsMeter.maybeUpdate();
 
 		window.clear();
 
-		// game world entities
+		///// draw game world entities /////
+
 		window.setView(gameWorldView);
 
 		if ((gameState == STATE_PLAYING || gameState == STATE_PIPBUCK) && campaign.isLoaded())
@@ -455,7 +493,7 @@ int main()
 		{
 			for(Animation* animation : animations)
 			{
-				if (gameState == STATE_PLAYING && drawNextFrame)
+				if (!console.getIsOpen() && gameState == STATE_PLAYING && drawNextFrame)
 					animation->nextFrame();
 
 				window.draw(*animation);
@@ -466,30 +504,24 @@ int main()
 		//if (gameState == STATE_PLAYING)
 		//	campaign.maybeNextFrame();
 
-		// hud
+		///// draw hud /////
+
 		window.setView(hudView);
 
-		if (gameState == STATE_PLAYING)
-		{
-			campaign.updateState();
-		}
-		else if (gameState == STATE_PIPBUCK)
-		{
-			pipBuck.updateDraw();
+		if (gameState == STATE_PIPBUCK)
 			window.draw(pipBuck);
-		}
 		else if (gameState == STATE_MAINMENU)
 			window.draw(mainMenu);
 
-		Log::maybeUpdate();
-		Log::draw(window);
+		if (console.getIsOpen())
+			window.draw(console);
 
 		if (SettingsManager::showFpsCounter)
-		{
-			// the clock will be initialized at program start either way, but fps won't be calculated if disabled
-			fpsMeter.maybeUpdate();
 			window.draw(fpsMeter);
-		}
+
+		Log::draw(window);
+
+		///// display window /////
 
 		window.display();
 	}

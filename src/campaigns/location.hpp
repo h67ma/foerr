@@ -102,6 +102,8 @@ class Location : public sf::Drawable
 		uint getRecommendedLevel() const;
 		std::string getWorldMapIconId() const;
 		bool gotoRoom(Direction direction);
+		bool gotoRoom(HashableVector3i coords);
+		void redraw();
 		sf::Vector3i getPlayerRoomCoords() const;
 		void updateState();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

@@ -112,4 +112,6 @@ class SettingsManager
 		static bool debugVerbose;
 		static bool debugNavigation;
 		static bool debugBoundingBoxes;
+		static ScreenSide debugConsoleAnchor;
+		static bool debugConsoleEnabled;
 };
