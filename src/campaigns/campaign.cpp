@@ -318,7 +318,7 @@ void Campaign::logWhereAmI()
 
 	sf::Vector3i coords = this->currentLocation->getPlayerRoomCoords();
 
-	Log::w(STR_DEBUG_WHEREAMI, this->currentLocation->getId().c_str(), coords.x, coords.y, coords.z);
+	Log::i(STR_DEBUG_WHEREAMI, this->currentLocation->getId().c_str(), coords.x, coords.y, coords.z);
 }
 
 void Campaign::updateState()

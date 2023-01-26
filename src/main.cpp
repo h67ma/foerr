@@ -190,28 +190,28 @@ int main()
 			console.executeLast();
 		} },
 		{ ACTION_DEBUG_NAV_LEFT, [&campaign](){
-			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_LEFT))
-				campaign.logWhereAmI();
+			if (SettingsManager::debugNavigation)
+				campaign.gotoRoom(DIR_LEFT);
 		} },
 		{ ACTION_DEBUG_NAV_RIGHT, [&campaign](){
-			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_RIGHT))
-				campaign.logWhereAmI();
+			if (SettingsManager::debugNavigation)
+				campaign.gotoRoom(DIR_RIGHT);
 		} },
 		{ ACTION_DEBUG_NAV_UP, [&campaign](){
-			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_UP))
-				campaign.logWhereAmI();
+			if (SettingsManager::debugNavigation)
+				campaign.gotoRoom(DIR_UP);
 		} },
 		{ ACTION_DEBUG_NAV_DOWN, [&campaign](){
-			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_DOWN))
-				campaign.logWhereAmI();
+			if (SettingsManager::debugNavigation)
+				campaign.gotoRoom(DIR_DOWN);
 		} },
 		{ ACTION_DEBUG_NAV_FRONT, [&campaign](){
-			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_FRONT))
-				campaign.logWhereAmI();
+			if (SettingsManager::debugNavigation)
+				campaign.gotoRoom(DIR_FRONT);
 		} },
 		{ ACTION_DEBUG_NAV_BACK, [&campaign](){
-			if (SettingsManager::debugNavigation && campaign.gotoRoom(DIR_BACK))
-				campaign.logWhereAmI();
+			if (SettingsManager::debugNavigation)
+				campaign.gotoRoom(DIR_BACK);
 		} },
 		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
 			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
