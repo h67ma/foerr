@@ -118,75 +118,29 @@ int main()
 	// while this would improve performance a bit, it would also significantly complicate things and possibly introduce
 	// bugs. for now the current simple solution is fine, until we face issues with keypress response time.
 	std::unordered_map<KeyAction, std::function<void(void)>> playingCbs {
-		{ ACTION_PIPBUCK_TOGGLE_OPEN, [&pipBuck](){
-			pipBuck.open();
-		} },
-		{ ACTION_PIPB_GOTO_LOAD, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_LOAD);
-		} },
-		{ ACTION_PIPB_GOTO_SAVE, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_SAVE);
-		} },
-		{ ACTION_PIPB_GOTO_SETTINGS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_SETTINGS);
-		} },
-		{ ACTION_PIPB_GOTO_CONTROLS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_CONTROLS);
-		} },
-		{ ACTION_PIPB_GOTO_LOG, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_LOG);
-		} },
-		{ ACTION_PIPB_GOTO_STATUS_MAIN, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN);
-		} },
-		{ ACTION_PIPB_GOTO_SKILLS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_SKILLS);
-		} },
-		{ ACTION_PIPB_GOTO_PERKS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_PERKS);
-		} },
-		{ ACTION_PIPB_GOTO_EFFECTS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_EFFECTS);
-		} },
-		{ ACTION_PIPB_GOTO_HEALTH, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_HEALTH);
-		} },
-		{ ACTION_PIPB_GOTO_WEAPONS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_WEAPONS);
-		} },
-		{ ACTION_PIPB_GOTO_ARMOR, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_ARMOR);
-		} },
-		{ ACTION_PIPB_GOTO_EQUIPMENT, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT);
-		} },
-		{ ACTION_PIPB_GOTO_INVENTORY_OTHER, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER);
-		} },
-		{ ACTION_PIPB_GOTO_AMMO, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_AMMO);
-		} },
-		{ ACTION_PIPB_GOTO_MAP, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_MAP);
-		} },
-		{ ACTION_PIPB_GOTO_WORLD, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_WORLD);
-		} },
-		{ ACTION_PIPB_GOTO_QUESTS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_QUESTS);
-		} },
-		{ ACTION_PIPB_GOTO_NOTES, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_NOTES);
-		} },
-		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_ENEMIES);
-		} },
-		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){
-			console.open();
-		} },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
-			console.executeLast();
-		} },
+		{ ACTION_PIPBUCK_TOGGLE_OPEN, [&pipBuck](){ pipBuck.open(); } },
+
+		{ ACTION_PIPB_GOTO_LOAD, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_LOAD); } },
+		{ ACTION_PIPB_GOTO_SAVE, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_SAVE); } },
+		{ ACTION_PIPB_GOTO_SETTINGS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_SETTINGS); } },
+		{ ACTION_PIPB_GOTO_CONTROLS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_CONTROLS); } },
+		{ ACTION_PIPB_GOTO_LOG, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_LOG); } },
+		{ ACTION_PIPB_GOTO_STATUS_MAIN, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN); } },
+		{ ACTION_PIPB_GOTO_SKILLS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_SKILLS); } },
+		{ ACTION_PIPB_GOTO_PERKS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_PERKS); } },
+		{ ACTION_PIPB_GOTO_EFFECTS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_EFFECTS); } },
+		{ ACTION_PIPB_GOTO_HEALTH, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_HEALTH); } },
+		{ ACTION_PIPB_GOTO_WEAPONS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_WEAPONS); } },
+		{ ACTION_PIPB_GOTO_ARMOR, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_ARMOR); } },
+		{ ACTION_PIPB_GOTO_EQUIPMENT, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT); } },
+		{ ACTION_PIPB_GOTO_INVENTORY_OTHER, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER); } },
+		{ ACTION_PIPB_GOTO_AMMO, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_AMMO); } },
+		{ ACTION_PIPB_GOTO_MAP, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_MAP); } },
+		{ ACTION_PIPB_GOTO_WORLD, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_WORLD); } },
+		{ ACTION_PIPB_GOTO_QUESTS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_QUESTS); } },
+		{ ACTION_PIPB_GOTO_NOTES, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_NOTES); } },
+		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_ENEMIES); } },
+
 		{ ACTION_DEBUG_NAV_LEFT, [&campaign](){
 			if (SettingsManager::debugNavigation)
 				campaign.gotoRoom(DIR_LEFT);
@@ -211,96 +165,54 @@ int main()
 			if (SettingsManager::debugNavigation)
 				campaign.gotoRoom(DIR_BACK);
 		} },
+
 		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
 			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 		} },
+
+		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){ console.executeLast(); } },
 	};
 
 	std::unordered_map<KeyAction, std::function<void(void)>> pipBuckCbs {
-		{ ACTION_PIPBUCK_TOGGLE_OPEN, [&pipBuck](){
-			pipBuck.close();
-		} },
-		{ ACTION_PIPB_GOTO_LOAD, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_LOAD);
-		} },
-		{ ACTION_PIPB_GOTO_SAVE, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_SAVE);
-		} },
-		{ ACTION_PIPB_GOTO_SETTINGS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_SETTINGS);
-		} },
-		{ ACTION_PIPB_GOTO_CONTROLS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_CONTROLS);
-		} },
-		{ ACTION_PIPB_GOTO_LOG, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_LOG);
-		} },
-		{ ACTION_PIPB_GOTO_STATUS_MAIN, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN);
-		} },
-		{ ACTION_PIPB_GOTO_SKILLS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_SKILLS);
-		} },
-		{ ACTION_PIPB_GOTO_PERKS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_PERKS);
-		} },
-		{ ACTION_PIPB_GOTO_EFFECTS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_EFFECTS);
-		} },
-		{ ACTION_PIPB_GOTO_HEALTH, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_HEALTH);
-		} },
-		{ ACTION_PIPB_GOTO_WEAPONS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_WEAPONS);
-		} },
-		{ ACTION_PIPB_GOTO_ARMOR, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_ARMOR);
-		} },
-		{ ACTION_PIPB_GOTO_EQUIPMENT, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT);
-		} },
-		{ ACTION_PIPB_GOTO_INVENTORY_OTHER, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER);
-		} },
-		{ ACTION_PIPB_GOTO_AMMO, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_AMMO);
-		} },
-		{ ACTION_PIPB_GOTO_MAP, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_MAP);
-		} },
-		{ ACTION_PIPB_GOTO_WORLD, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_WORLD);
-		} },
-		{ ACTION_PIPB_GOTO_QUESTS, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_QUESTS);
-		} },
-		{ ACTION_PIPB_GOTO_NOTES, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_NOTES);
-		} },
-		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){
-			pipBuck.switchToPage(PIPB_PAGE_ENEMIES);
-		} },
+		{ ACTION_PIPBUCK_TOGGLE_OPEN, [&pipBuck](){ pipBuck.close(); } },
+
+		{ ACTION_PIPB_GOTO_LOAD, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_LOAD); } },
+		{ ACTION_PIPB_GOTO_SAVE, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_SAVE); } },
+		{ ACTION_PIPB_GOTO_SETTINGS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_SETTINGS); } },
+		{ ACTION_PIPB_GOTO_CONTROLS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_CONTROLS); } },
+		{ ACTION_PIPB_GOTO_LOG, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_LOG); } },
+		{ ACTION_PIPB_GOTO_STATUS_MAIN, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN); } },
+		{ ACTION_PIPB_GOTO_SKILLS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_SKILLS); } },
+		{ ACTION_PIPB_GOTO_PERKS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_PERKS); } },
+		{ ACTION_PIPB_GOTO_EFFECTS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_EFFECTS); } },
+		{ ACTION_PIPB_GOTO_HEALTH, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_HEALTH); } },
+		{ ACTION_PIPB_GOTO_WEAPONS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_WEAPONS); } },
+		{ ACTION_PIPB_GOTO_ARMOR, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_ARMOR); } },
+		{ ACTION_PIPB_GOTO_EQUIPMENT, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT); } },
+		{ ACTION_PIPB_GOTO_INVENTORY_OTHER, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER); } },
+		{ ACTION_PIPB_GOTO_AMMO, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_AMMO); } },
+		{ ACTION_PIPB_GOTO_MAP, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_MAP); } },
+		{ ACTION_PIPB_GOTO_WORLD, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_WORLD); } },
+		{ ACTION_PIPB_GOTO_QUESTS, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_QUESTS); } },
+		{ ACTION_PIPB_GOTO_NOTES, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_NOTES); } },
+		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck](){ pipBuck.switchToPage(PIPB_PAGE_ENEMIES); } },
+
 		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
 			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 		} },
-		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){
-			console.open();
-		} },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
-			console.executeLast();
-		} },
+
+		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){ console.executeLast(); } },
 	};
 
 	std::unordered_map<KeyAction, std::function<void(void)>> mainMenuCbs {
 		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
 			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 		} },
-		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){
-			console.open();
-		} },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
-			console.executeLast();
-		} },
+
+		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){ console.executeLast(); } },
 	};
 
 
