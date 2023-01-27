@@ -12,7 +12,6 @@
 #include "window/cursor_manager.hpp"
 #include "hud/pipbuck/pipbuck.hpp"
 #include "hud/loading_screen.hpp"
-#include "entities/animation.hpp" // TODO delet this
 #include "campaigns/campaign.hpp"
 #include "settings/keymap.hpp"
 #include "hud/dev_console.hpp"
@@ -38,7 +37,6 @@ int main()
 	SettingsManager::loadConfig();
 
 	sf::RenderWindow window;
-	std::vector<Animation*> animations; // TODO delet this
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
 	sf::Clock animationTimer;
@@ -315,37 +313,6 @@ int main()
 	//Log::setGuiScale(GUI_SMALL);
 
 
-	Animation *mchavi = new Animation(resManager.getTexture("res/entities/mchavi.png"), { 130, 130 }, {
-		{ ANIM_STAND, 1 },
-		{ ANIM_TROT, 17 },
-		{ ANIM_GALLOP, 8 },
-		{ ANIM_JUMP, 16 },
-		{ ANIM_DIE_GROUND, 20 },
-		{ ANIM_DIE_AIR, 13 },
-		{ ANIM_TK_HOLD, 8 },
-		{ ANIM_SWIM, 24 },
-		{ ANIM_CLIMB, 12 },
-		{ ANIM_WALK, 24 },
-	});
-	mchavi->setPosition(350, 100);
-	animations.push_back(mchavi);
-	mchavi->setAnimation(ANIM_SWIM);
-
-
-
-	Animation *fire = new Animation(resManager.getTexture("res/entities/fire.png"), { 50, 67 }, {
-		{ANIM_STATIC, 17}
-	});
-	fire->setPosition(350, 180);
-	animations.push_back(fire);
-
-	Animation *fire2 = new Animation(resManager.getTexture("res/entities/fire.png"), { 50, 67 }, {
-		{ANIM_STATIC, 17}
-	});
-	fire2->setPosition(400, 180);
-	animations.push_back(fire2);
-
-
 	// TODO delet this: howto change cursor type: cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 
 
@@ -448,11 +415,6 @@ int main()
 				// TODO autosave if campaign loaded
 				Log::d(STR_SHUTTING_DOWN);
 
-				for (Animation* animation : animations)
-				{
-					delete animation;
-				}
-
 				Log::close();
 				window.close();
 				return 0;
@@ -475,6 +437,11 @@ int main()
 		if (SettingsManager::showFpsCounter)
 			fpsMeter.maybeUpdate();
 
+		// check if it's the time to change all frame-based animations to next frame
+		bool drawNextFrame = animationTimer.getElapsedTime().asMilliseconds() >= ANIM_FRAME_DURATION_MS;
+		if (drawNextFrame)
+			animationTimer.restart();
+
 		window.clear();
 
 		///// draw game world entities /////
@@ -482,27 +449,12 @@ int main()
 		window.setView(gameWorldView);
 
 		if ((gameState == STATE_PLAYING || gameState == STATE_PIPBUCK) && campaign.isLoaded())
-			window.draw(campaign); // TODO ultimately campaign should contain pipbuck and decide to display it or not based on game state
-
-		// used to determine speed of frame-based animations (i.e. loaded from spritesheets)
-		bool drawNextFrame = animationTimer.getElapsedTime().asMilliseconds() >= ANIM_FRAME_DURATION_MS;
-		if (drawNextFrame)
-			animationTimer.restart();
-
-		if (gameState == STATE_PLAYING || gameState == STATE_PIPBUCK)
 		{
-			for(Animation* animation : animations)
-			{
-				if (!console.getIsOpen() && gameState == STATE_PLAYING && drawNextFrame)
-					animation->nextFrame();
+			window.draw(campaign);
 
-				window.draw(*animation);
-			}
+			if (gameState == STATE_PLAYING && drawNextFrame && !console.getIsOpen())
+				campaign.nextFrame();
 		}
-
-		// TODO something like this probably, campaign will call its kids which will call individual animations at the end
-		//if (gameState == STATE_PLAYING)
-		//	campaign.maybeNextFrame();
 
 		///// draw hud /////
 

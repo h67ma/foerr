@@ -7,7 +7,9 @@
 #include "../hud/log.hpp"
 #include "../consts.hpp"
 
-Campaign::Campaign(ResourceManager &resMgr) : resMgr(resMgr)
+Campaign::Campaign(ResourceManager &resMgr) :
+	resMgr(resMgr),
+	player(resMgr)
 {
 	// big iron on his hip
 }
@@ -329,7 +331,13 @@ void Campaign::updateState()
 	this->currentLocation->updateState();
 }
 
+void Campaign::nextFrame()
+{
+	this->player.nextFrame();
+}
+
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(*this->currentLocation, states);
+	target.draw(this->player, states);
 }
