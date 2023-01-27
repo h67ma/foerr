@@ -78,6 +78,20 @@ void TextInput::putCharacter(char character)
 	this->text.setString(this->currentInput);
 }
 
+/**
+ * Replaces current input text with the specified one.
+ * Moves the cursor to the end.
+ *
+ * @param input new input text
+ */
+void TextInput::setInput(const std::string &input)
+{
+	this->currentInput = input;
+	this->text.setString(this->currentInput);
+	this->cursorIdx = this->currentInput.length();
+	this->updateCursorPosition();
+}
+
 void TextInput::clearInput()
 {
 	this->currentInput.clear();

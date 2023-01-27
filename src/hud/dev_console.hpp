@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <deque>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
@@ -21,6 +22,8 @@ class DevConsole : public sf::Drawable
 		bool isOpen = false;
 		bool ignoreNextTextEntered = false;
 		std::string lastCommand = "";
+		std::deque<std::string> history;
+		std::deque<std::string>::iterator historyElem;
 
 		// needed to actually make things happen in the game
 		Campaign &campaign;

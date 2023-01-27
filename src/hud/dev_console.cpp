@@ -10,6 +10,9 @@
 #define CONSOLE_MARGIN 40
 #define CONSOLE_WIDTH 1000
 
+// storing this in SettingsManager would be an overkill
+#define MAX_HISTORY_SIZE 25
+
 DevConsole::DevConsole(sf::Vector2u windowSize, const sf::Font &font, Campaign &campaign) :
 	inputField(FONT_H2, CONSOLE_WIDTH, font),
 	campaign(campaign)
@@ -22,7 +25,11 @@ void DevConsole::open()
 	if (!SettingsManager::debugConsoleEnabled)
 		return;
 
-	this->ignoreNextTextEntered = true; // the key used to bring up the console won't be entered into input field
+	this->historyElem = this->history.end();
+
+	// the key used to bring up the console won't be entered into input field
+	this->ignoreNextTextEntered = true;
+
 	this->isOpen = true;
 }
 
@@ -70,9 +77,21 @@ void DevConsole::handleKeyPressed(sf::Keyboard::Key key)
 		this->inputField.clearInput();
 		this->isOpen = false;
 	}
-	else if (key == sf::Keyboard::Up || key == sf::Keyboard::Down)
+	else if (key == sf::Keyboard::Up)
 	{
-		// TODO
+		if (this->historyElem <= this->history.begin())
+			return;
+
+		this->historyElem--;
+		this->inputField.setInput(*this->historyElem);
+	}
+	else if (key == sf::Keyboard::Down)
+	{
+		if (this->historyElem >= this->history.end() - 1)
+			return;
+
+		this->historyElem++;
+		this->inputField.setInput(*this->historyElem);
 	}
 
 	this->inputField.handleKeyPress(key);
@@ -95,6 +114,8 @@ void DevConsole::handleTextEntered(uint keycode)
 		return;
 
 	this->inputField.putCharacter(keycode);
+
+	this->historyElem = this->history.end();
 }
 
 /**
@@ -166,6 +187,13 @@ void DevConsole::execute(const std::string &cmdline)
 	{
 		Log::e(STR_UNKNOWN_COMMAND, commandName);
 	}
+
+	// add the commandline to history, even if resulted in an error
+	this->history.push_back(cmdline);
+
+	// remove old history items if there are too many
+	if (this->history.size() > MAX_HISTORY_SIZE)
+		this->history.pop_front();
 }
 
 void DevConsole::draw(sf::RenderTarget &target, sf::RenderStates states) const

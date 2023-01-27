@@ -36,6 +36,7 @@ class TextInput : public sf::Drawable, public sf::Transformable
 		std::string getCurrentInput() const;
 		uint getHeight() const;
 		void putCharacter(char character);
+		void setInput(const std::string &input);
 		void clearInput();
 		void handleKeyPress(sf::Keyboard::Key key);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
