@@ -193,6 +193,8 @@ bool Keymap::setup()
 		Keymap::keyStringToKeyMap.emplace(item.second, item.first);
 	}
 
+	// TODO also check if the same default key is not mapped to multiple actions
+
 	return true;
 }
 
