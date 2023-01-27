@@ -114,6 +114,7 @@ void Log::draw(sf::RenderTarget &target)
  */
 void Log::logToFile(const char* prefix, const std::string &msg)
 {
+	// TODO log file should always contain messages in english, not in selected language, for easier debugging
 	Log::logFile << prefix << msg << std::endl;
 }
 
