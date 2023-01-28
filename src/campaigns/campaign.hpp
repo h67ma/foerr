@@ -55,7 +55,7 @@ class Campaign : public sf::Drawable
 		bool gotoRoom(HashableVector3i coords);
 		void redraw();
 		void logWhereAmI();
-		void updateState();
+		void tick(uint lastFrameDurationUs);
 		void nextFrame();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

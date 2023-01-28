@@ -307,11 +307,12 @@ void Campaign::redraw()
 }
 
 /**
- * Logs a message containing current Location name and Room coordinates.
- * The message is logged as a warning to be clearly visible.
+ * Logs a message consisting of current Location name, Room coordinates, Player position, and Cell coordinates at
+ * Player's position.
+ *
  * If the Campaign is not loaded, nothing will happen.
+ *
  * This should be used *only* for debug purposes.
- * TODO? this could also include player location within the Room.
  */
 void Campaign::logWhereAmI()
 {
@@ -319,16 +320,21 @@ void Campaign::logWhereAmI()
 		return;
 
 	sf::Vector3i coords = this->currentLocation->getPlayerRoomCoords();
+	sf::Vector2f playerCoords = this->player.getPosition();
 
-	Log::i(STR_DEBUG_WHEREAMI, this->currentLocation->getId().c_str(), coords.x, coords.y, coords.z);
+	Log::i(STR_DEBUG_WHEREAMI, this->currentLocation->getId().c_str(), coords.x, coords.y, coords.z,
+		   playerCoords.x, playerCoords.y,
+		   static_cast<int>(playerCoords.x / CELL_SIDE_LEN),
+		   static_cast<int>(playerCoords.y / CELL_SIDE_LEN));
 }
 
-void Campaign::updateState()
+void Campaign::tick(uint lastFrameDurationUs)
 {
 	if (this->currentLocation == nullptr)
 		return;
 
 	this->currentLocation->updateState();
+	this->player.tick(lastFrameDurationUs);
 }
 
 void Campaign::nextFrame()

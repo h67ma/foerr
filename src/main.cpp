@@ -40,6 +40,7 @@ int main()
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
 	sf::View hudView;
 	sf::Clock animationTimer;
+	sf::Clock tickTimer; // for updating physics and such
 
 	recreateWindow(window);
 
@@ -248,6 +249,8 @@ int main()
 	// and the "old" hover is still being shown. fixing this would require saving mouse coords
 	// each time mouse moves (yikes), and then calling pipbuck/menu handle mouse move method when
 	// either of them is being opened. doesn't seems like something worth fixing tbh.
+
+	tickTimer.restart(); // so that all initialization above won't be counted
 	sf::Event event;
 	while (window.isOpen())
 	{
@@ -339,8 +342,8 @@ int main()
 
 		//// update states /////
 
-		if (gameState == STATE_PLAYING)
-			campaign.updateState();
+		if (gameState == STATE_PLAYING && !console.getIsOpen())
+			campaign.tick(tickTimer.restart().asMicroseconds());
 		else if (gameState == STATE_PIPBUCK)
 			pipBuck.updateDraw();
 

@@ -103,7 +103,7 @@
 #define STR_STAIRS_PRESENT_CANT_ADD "Stairs present in cell, can't add platform '%c'."
 #define STR_PLATFORM_PRESENT_CANT_ADD "Platform present in cell, can't add stairs '%c'."
 #define STR_LIQUID_SOLID_NO_HEIGHT_FLAG "Liquid and solid defined, but no height flag defined."
-#define STR_DEBUG_WHEREAMI "%s, (%d, %d, %d)"
+#define STR_DEBUG_WHEREAMI "%s / (%d, %d, %d) / (%.1f, %.1f) / (%d, %d)"
 #define STR_LOC_ID_ZEROLEN "Empty location id (%s)"
 #define STR_UNKNOWN_COMMAND "Unknown command: \"%s\""
 #define STR_INVALID_COORDS "%s: invalid coords"
