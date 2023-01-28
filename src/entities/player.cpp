@@ -1,5 +1,9 @@
 #include "player.hpp"
 
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+
+#include "../settings/settings_manager.hpp"
 // TODO #include "../settings/keymap.hpp"
 
 // no worries, float can handle precision at this order of magnitude
@@ -7,9 +11,15 @@
 #define MAX_VELOCITY_SPRINT 0.0008f
 #define VELOCITY_INCREMENT 0.00005f
 
+// TODO we'll probably need something more sophisticated, based on current animation
+#define PLAYER_W 130
+#define PLAYER_H 130
+#define PLAYER_CENTER_X PLAYER_W/2
+#define PLAYER_CENTER_Y PLAYER_H/2
+
 Player::Player(ResourceManager &resMgr) :
 	// TODO actual animation
-	animation(resMgr.getTexture("res/entities/mchavi.png"), { 130, 130 }, {
+	animation(resMgr.getTexture("res/entities/mchavi.png"), { PLAYER_W, PLAYER_H }, {
 		{ ANIM_STAND, 1 },
 		{ ANIM_TROT, 17 },
 		{ ANIM_GALLOP, 8 },
@@ -31,7 +41,7 @@ Player::Player(ResourceManager &resMgr) :
 	// TODO actual animation
 	this->animation.setAnimation(ANIM_SWIM);
 
-	this->setOrigin({ 65.0f, 65.0f }); // TODO get this from somewhere
+	this->setOrigin(PLAYER_CENTER_X, PLAYER_CENTER_Y);
 }
 
 void Player::nextFrame()
@@ -100,9 +110,28 @@ void Player::tick(uint lastFrameDurationUs)
 	this->move(this->velocity * static_cast<float>(lastFrameDurationUs));
 }
 
+void Player::debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const
+{
+	sf::RectangleShape debugBox;
+	debugBox.setFillColor(sf::Color::Transparent);
+	debugBox.setOutlineThickness(1.f);
+	debugBox.setOutlineColor(sf::Color::White);
+	debugBox.setSize({ PLAYER_W, PLAYER_H });
+	target.draw(debugBox, states);
+
+	sf::CircleShape originPoint;
+	originPoint.setFillColor(sf::Color::White);
+	originPoint.setRadius(2.f);
+	originPoint.setPosition(PLAYER_CENTER_X - 1, PLAYER_CENTER_Y - 1);
+	target.draw(originPoint, states);
+}
+
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
 	target.draw(this->animation, states);
+
+	if (SettingsManager::debugBoundingBoxes)
+		this->debugDrawBounds(target, states);
 }
