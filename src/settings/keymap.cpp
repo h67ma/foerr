@@ -157,6 +157,9 @@ std::unordered_map<sf::Keyboard::Key, std::string> Keymap::keyNamesMap {
 std::unordered_map<sf::Keyboard::Key, KeyAction> Keymap::keyToActionMap;
 
 // keeping reverse maps is kinda lame, but we need to have some way of translating both ways.
+// TODO? maybe this can be implemented better, e.g. by storing a struct, or a shared ptr to a struct (in the main map)
+// instead of just a value, which will give access to strings when iterating over elements. this should be refactored
+// after PipBuck controls page is implemented.
 std::unordered_map<std::string, sf::Keyboard::Key> Keymap::keyStringToKeyMap;
 std::unordered_map<std::string, KeyAction> Keymap::actionStringToActionMap;
 
