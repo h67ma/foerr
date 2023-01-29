@@ -10,15 +10,9 @@
 #define MAX_VELOCITY_SPRINT 0.0008f
 #define VELOCITY_INCREMENT 0.00005f
 
-// TODO we'll probably need something more sophisticated, based on current animation
-#define PLAYER_W 130
-#define PLAYER_H 130
-#define PLAYER_CENTER_X PLAYER_W/2
-#define PLAYER_CENTER_Y PLAYER_H/2
-
 Player::Player(ResourceManager &resMgr) :
 	// TODO actual animation
-	animation(resMgr.getTexture("res/entities/mchavi.png"), { PLAYER_W, PLAYER_H }, {
+	animation(resMgr.getTexture("res/entities/mchavi.png"), { PLAYER_SPRITE_W, PLAYER_SPRITE_H }, {
 		{ ANIM_STAND, 1 },
 		{ ANIM_TROT, 17 },
 		{ ANIM_GALLOP, 8 },
@@ -34,7 +28,7 @@ Player::Player(ResourceManager &resMgr) :
 	// TODO actual animation
 	this->animation.setAnimation(ANIM_SWIM);
 
-	this->setOrigin(PLAYER_CENTER_X, PLAYER_CENTER_Y);
+	this->setOrigin(this->collider.left + PLAYER_W2, this->collider.top + PLAYER_H2);
 }
 
 void Player::nextFrame()
@@ -108,6 +102,22 @@ void Player::tick(uint lastFrameDurationUs)
 }
 
 /**
+ * Zeroes Player velocity vertically.
+ */
+void Player::stopVertical()
+{
+	this->velocity.y = 0;
+}
+
+/**
+ * Zeroes Player velocity horizontally.
+ */
+void Player::stopHorizontal()
+{
+	this->velocity.x = 0;
+}
+
+/**
  * Handles key up or key down event.
  *
  * @param action the action associated with key pressed
@@ -148,13 +158,15 @@ void Player::debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states)
 	debugBox.setFillColor(sf::Color::Transparent);
 	debugBox.setOutlineThickness(1.f);
 	debugBox.setOutlineColor(sf::Color::White);
-	debugBox.setSize({ PLAYER_W, PLAYER_H });
+	debugBox.setSize(sf::Vector2f(this->collider.width, this->collider.height));
+	debugBox.setPosition(sf::Vector2f(this->collider.left, this->collider.top));
 	target.draw(debugBox, states);
 
 	sf::CircleShape originPoint;
 	originPoint.setFillColor(sf::Color::White);
 	originPoint.setRadius(2.f);
-	originPoint.setPosition(PLAYER_CENTER_X - 1, PLAYER_CENTER_Y - 1);
+	originPoint.setOrigin(1.f, 1.f);
+	originPoint.setPosition(this->getOrigin());
 	target.draw(originPoint, states);
 }
 

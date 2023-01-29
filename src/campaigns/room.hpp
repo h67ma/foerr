@@ -16,6 +16,8 @@
 
 #define ROOM_WIDTH_WITH_BORDER 48
 #define ROOM_HEIGHT_WITH_BORDER 25
+#define ROOM_WIDTH_WITH_BORDER_PX ROOM_WIDTH_WITH_BORDER * CELL_SIDE_LEN
+#define ROOM_HEIGHT_WITH_BORDER_PX ROOM_HEIGHT_WITH_BORDER * CELL_SIDE_LEN
 
 // that's the worst name ever for a struct
 struct blend_sprite

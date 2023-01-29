@@ -413,7 +413,13 @@ sf::Vector3i Location::getPlayerRoomCoords() const
 	return this->rooms.getCurrentCoords();
 }
 
-void Location::updateState()
+/**
+ * Updates transition animation if it's in progress.
+ *
+ * @return true if transition is in progress
+ * @return false otherwise
+ */
+bool Location::updateState()
 {
 	if (this->roomTransitionInProgress)
 	{
@@ -422,7 +428,7 @@ void Location::updateState()
 		if (elapsed >= SettingsManager::roomTransitionDurationMs)
 		{
 			this->roomTransitionInProgress = false;
-			return;
+			return false;
 		}
 
 		sf::Vector2f pos;
@@ -444,11 +450,15 @@ void Location::updateState()
 			default:
 				// this should never happen
 				this->roomTransitionInProgress = false;
-				return;
+				return false;
 		}
 
 		this->roomTransitionSprite.setPosition(pos);
+
+		return true;
 	}
+
+	return false;
 }
 
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const

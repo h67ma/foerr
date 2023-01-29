@@ -336,8 +336,63 @@ void Campaign::tick(uint lastFrameDurationUs)
 	if (this->currentLocation == nullptr)
 		return;
 
-	this->currentLocation->updateState();
+	if (this->currentLocation->updateState())
+		return; // if transition is in progress (returned by Location::updateState()), don't update other states
+
 	this->player.tick(lastFrameDurationUs);
+
+	// check if the player has walked into screen edge.
+	// if nearby Room exists, move to it.
+	// if nearby Room is not present, stop the player.
+	sf::Vector2f currentPos = this->player.getPosition();
+	if (this->player.getPosition().x < PLAYER_W2)
+	{
+		if (this->currentLocation->gotoRoom(DIR_LEFT))
+		{
+			this->player.setPosition(ROOM_WIDTH_WITH_BORDER_PX - PLAYER_W2, currentPos.y);
+		}
+		else
+		{
+			this->player.setPosition(PLAYER_W2, currentPos.y);
+			this->player.stopHorizontal();
+		}
+	}
+	else if (this->player.getPosition().x > ROOM_WIDTH_WITH_BORDER_PX - PLAYER_W2)
+	{
+		if (this->currentLocation->gotoRoom(DIR_RIGHT))
+		{
+			this->player.setPosition(PLAYER_W2, currentPos.y);
+		}
+		else
+		{
+			this->player.setPosition(ROOM_WIDTH_WITH_BORDER_PX - PLAYER_W2, currentPos.y);
+			this->player.stopHorizontal();
+		}
+	}
+	else if (this->player.getPosition().y < PLAYER_H2)
+	{
+		if (this->currentLocation->gotoRoom(DIR_UP))
+		{
+			this->player.setPosition(currentPos.x, ROOM_HEIGHT_WITH_BORDER_PX - PLAYER_H2);
+		}
+		else
+		{
+			this->player.setPosition(currentPos.x, PLAYER_H2);
+			this->player.stopVertical();
+		}
+	}
+	else if (this->player.getPosition().y > ROOM_HEIGHT_WITH_BORDER_PX - PLAYER_H2)
+	{
+		if (this->currentLocation->gotoRoom(DIR_DOWN))
+		{
+			this->player.setPosition(currentPos.x, PLAYER_H2);
+		}
+		else
+		{
+			this->player.setPosition(currentPos.x, ROOM_HEIGHT_WITH_BORDER_PX - PLAYER_H2);
+			this->player.stopVertical();
+		}
+	}
 }
 
 void Campaign::nextFrame()
