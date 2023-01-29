@@ -349,7 +349,7 @@ void Campaign::tick(uint lastFrameDurationUs)
 	{
 		if (this->currentLocation->gotoRoom(DIR_LEFT))
 		{
-			this->player.setPosition(ROOM_WIDTH_WITH_BORDER_PX - PLAYER_W2, currentPos.y);
+			this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentPos.y);
 		}
 		else
 		{
@@ -357,7 +357,7 @@ void Campaign::tick(uint lastFrameDurationUs)
 			this->player.stopHorizontal();
 		}
 	}
-	else if (this->player.getPosition().x > ROOM_WIDTH_WITH_BORDER_PX - PLAYER_W2)
+	else if (this->player.getPosition().x > GAME_AREA_WIDTH - PLAYER_W2)
 	{
 		if (this->currentLocation->gotoRoom(DIR_RIGHT))
 		{
@@ -365,7 +365,7 @@ void Campaign::tick(uint lastFrameDurationUs)
 		}
 		else
 		{
-			this->player.setPosition(ROOM_WIDTH_WITH_BORDER_PX - PLAYER_W2, currentPos.y);
+			this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentPos.y);
 			this->player.stopHorizontal();
 		}
 	}
@@ -373,7 +373,7 @@ void Campaign::tick(uint lastFrameDurationUs)
 	{
 		if (this->currentLocation->gotoRoom(DIR_UP))
 		{
-			this->player.setPosition(currentPos.x, ROOM_HEIGHT_WITH_BORDER_PX - PLAYER_H2);
+			this->player.setPosition(currentPos.x, GAME_AREA_HEIGHT - PLAYER_H2);
 		}
 		else
 		{
@@ -381,7 +381,7 @@ void Campaign::tick(uint lastFrameDurationUs)
 			this->player.stopVertical();
 		}
 	}
-	else if (this->player.getPosition().y > ROOM_HEIGHT_WITH_BORDER_PX - PLAYER_H2)
+	else if (this->player.getPosition().y > GAME_AREA_HEIGHT - PLAYER_H2)
 	{
 		if (this->currentLocation->gotoRoom(DIR_DOWN))
 		{
@@ -389,7 +389,7 @@ void Campaign::tick(uint lastFrameDurationUs)
 		}
 		else
 		{
-			this->player.setPosition(currentPos.x, ROOM_HEIGHT_WITH_BORDER_PX - PLAYER_H2);
+			this->player.setPosition(currentPos.x, GAME_AREA_HEIGHT - PLAYER_H2);
 			this->player.stopVertical();
 		}
 	}
