@@ -266,6 +266,8 @@ int main()
 				{
 					console.handleTextEntered(event.text.unicode);
 				}
+
+				continue;
 			}
 			else if (gameState == STATE_PLAYING)
 			{
@@ -278,15 +280,21 @@ int main()
 						search->second();
 					else
 						campaign.handleKeyUpDown(action, true);
+
+					continue;
 				}
 				else if (event.type == sf::Event::KeyReleased)
 				{
 					campaign.handleKeyUpDown(Keymap::keyToAction(event.key.code), false);
+
+					continue;
 				}
 				else if (event.type == sf::Event::LostFocus)
 				{
 					if (SettingsManager::pauseOnFocusLoss)
 						pipBuck.open(false);
+
+					continue;
 				}
 			}
 			else if (gameState == STATE_PIPBUCK)
@@ -294,12 +302,16 @@ int main()
 				if (event.type == sf::Event::MouseMoved)
 				{
 					pipBuck.handleMouseMove({ event.mouseMove.x, event.mouseMove.y });
+
+					continue;
 				}
 				else if (event.type == sf::Event::KeyPressed)
 				{
 					auto search = pipBuckCbs.find(Keymap::keyToAction(event.key.code));
 					if (search != pipBuckCbs.end())
 						search->second();
+
+					continue;
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
@@ -308,6 +320,8 @@ int main()
 					{
 						pipBuck.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });
 					}
+
+					continue;
 				}
 			}
 			else if (gameState == STATE_MAINMENU)
@@ -315,6 +329,8 @@ int main()
 				if (event.type == sf::Event::MouseMoved)
 				{
 					mainMenu.handleMouseMove({ event.mouseMove.x, event.mouseMove.y });
+
+					continue;
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
@@ -323,12 +339,16 @@ int main()
 					{
 						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });
 					}
+
+					continue;
 				}
 				else if (event.type == sf::Event::KeyPressed)
 				{
 					auto search = mainMenuCbs.find(Keymap::keyToAction(event.key.code));
 					if (search != mainMenuCbs.end())
 						search->second();
+
+					continue;
 				}
 			}
 
