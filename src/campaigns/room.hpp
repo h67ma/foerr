@@ -5,7 +5,6 @@
 
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
 #include "../materials/material_manager.hpp"
@@ -46,8 +45,7 @@ class Room : public sf::Drawable, public sf::Transformable
 		uint liquidLevelHeight;
 		sf::Texture cachedLiquidLevelTxt;
 		sf::Sprite cachedLiquidLevel;
-		sf::Vector2u spawnCoords;
-		sf::CircleShape dummyPlayerSpawn; // TODO delet this
+		sf::Vector2u spawnCoords { ROOM_WIDTH_WITH_BORDER / 2, ROOM_HEIGHT_WITH_BORDER / 2 }; // Room center by default
 		std::vector<SpriteResource> backObjectsMain;
 		std::vector<SpriteResource> farBackObjectsMain;
 		std::vector<struct blend_sprite> backHoleObjectsMain;
@@ -64,6 +62,7 @@ class Room : public sf::Drawable, public sf::Transformable
 				  const json &root, const std::string &filePath);
 		void init();
 		void deinit();
+		sf::Vector2u getSpawnCoords() const;
 		void redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const; // TODO use me
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

@@ -107,12 +107,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 	///// spawn coords /////
 
 	// spawn coords are usually only defined for the first room
-	if (parseJsonVector2Key<uint>(root, filePath, FOERR_JSON_KEY_SPAWN_COORDS, this->spawnCoords, true))
-	{
-		this->dummyPlayerSpawn.setFillColor(sf::Color::Red);
-		this->dummyPlayerSpawn.setRadius(10.0f);
-		this->dummyPlayerSpawn.setPosition(static_cast<sf::Vector2f>(this->spawnCoords * CELL_SIDE_LEN));
-	}
+	parseJsonVector2Key<uint>(root, filePath, FOERR_JSON_KEY_SPAWN_COORDS, this->spawnCoords, true);
 
 	///// cells /////
 
@@ -513,6 +508,16 @@ void Room::deinit()
 }
 
 /**
+ * Returns spawn coordinates, in cell units.
+ *
+ * Note: if the Room does not have spawn coordinates defined, center of the Room will be returned.
+ */
+sf::Vector2u Room::getSpawnCoords() const
+{
+	return this->spawnCoords;
+}
+
+/**
  * @brief Redraws front elements of a single Cell. For drawing the entire Room, use ::draw()
  *
  * We'll never want to redraw Cell background, as it will never change.
@@ -553,6 +558,4 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		states.blendMode = sf::BlendAlpha;
 		target.draw(this->cachedLiquidLevel, states);
 	}
-
-	target.draw(this->dummyPlayerSpawn, states);
 }

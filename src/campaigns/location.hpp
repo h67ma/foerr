@@ -105,6 +105,7 @@ class Location : public sf::Drawable
 		bool gotoRoom(HashableVector3i coords);
 		void redraw();
 		sf::Vector3i getPlayerRoomCoords() const;
+		sf::Vector2u getSpawnCoords() const;
 		void updateState();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

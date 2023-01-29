@@ -402,6 +402,11 @@ void Location::redraw()
 	this->currentRoom->init();
 }
 
+sf::Vector2u Location::getSpawnCoords() const
+{
+	return this->currentRoom->getSpawnCoords();
+}
+
 sf::Vector3i Location::getPlayerRoomCoords() const
 {
 	// note: here we downcast HashableVector to Vector, as the specialized type is not needed anymore

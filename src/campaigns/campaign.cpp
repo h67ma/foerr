@@ -273,6 +273,9 @@ bool Campaign::changeLocation(const std::string &newLocId)
 
 	this->currentLocation = newLoc;
 
+	sf::Vector2u spawnCoordsPx = this->currentLocation->getSpawnCoords() * CELL_SIDE_LEN;
+	this->player.setPosition(spawnCoordsPx.x, spawnCoordsPx.y);
+
 	Log::d(STR_LOC_CHANGED, this->currentLocation->getId().c_str());
 	return true;
 }
