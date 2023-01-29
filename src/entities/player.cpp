@@ -47,6 +47,8 @@ void Player::nextFrame()
  */
 void Player::tick(uint lastFrameDurationUs)
 {
+	///// check the state of keys, calculate current velocity /////
+
 	float maxHVelocity = this->sprintHeld ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
 
 	if (this->leftHeld)
@@ -100,6 +102,8 @@ void Player::tick(uint lastFrameDurationUs)
 	else if (this->velocity.y < 0)
 		this->velocity.y += VELOCITY_INCREMENT;
 
+	///// move the player /////
+
 	this->move(this->velocity * static_cast<float>(lastFrameDurationUs));
 }
 
@@ -151,6 +155,11 @@ void Player::handleKeyUp(enum KeyAction action)
 	}
 }
 
+/**
+ * Draws a debug overlay consisting of bounding box and origin point.
+ *
+ * This is done in a function in order not to waste stack memory while in normal (non-debug) operation.
+ */
 void Player::debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const
 {
 	sf::RectangleShape debugBox;
