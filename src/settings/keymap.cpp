@@ -297,7 +297,7 @@ void Keymap::resetToDefault()
 
 /**
  * Loads keymap from file. For every key-action mapping defined in the file, creates an entry in ::keyToActionMap, or
- * replaces the default one if it exists. Basicaly the settings file overwrites the default mapping, while keeping
+ * replaces the default one if it exists. Basically the settings file overwrites the default mapping, while keeping
  * default keybindings (if they are not overwritten).
  *
  * Keys with invalid actions, or "no_action" will be also added with ACTION_NO_ACTION.
