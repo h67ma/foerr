@@ -100,7 +100,7 @@ void SettingsManager::setup()
 	// 0 = disable transition effect
 	SETT_SETUP_CONSTR(NumericSetting, roomTransitionDurationMs, 200, [](uint val){
 		return val <= MAX_ROOM_TRANSITION_MS;
-	}, "between 0 and " STR(MAX_ROOM_TRANSITION_MS) "ms");
+	}, "between 0 and " STR_EXP(MAX_ROOM_TRANSITION_MS) "ms");
 
 	///// hud /////
 
