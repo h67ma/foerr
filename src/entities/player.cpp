@@ -107,48 +107,30 @@ void Player::tick(uint lastFrameDurationUs)
 	this->move(this->velocity * static_cast<float>(lastFrameDurationUs));
 }
 
-void Player::handleKeyDown(enum KeyAction action)
+/**
+ * Handles key up or key down event.
+ *
+ * @param action the action associated with key pressed
+ * @param down true for key down event, false for key up event
+ */
+void Player::handleKeyUpDown(enum KeyAction action, bool down)
 {
 	switch (action)
 	{
 		case ACTION_PLAYER_MOVE_LEFT:
-			this->leftHeld = true;
+			this->leftHeld = down;
 			break;
 		case ACTION_PLAYER_MOVE_RIGHT:
-			this->rightHeld = true;
+			this->rightHeld = down;
 			break;
 		case ACTION_PLAYER_MOVE_UP:
-			this->upHeld = true;
+			this->upHeld = down;
 			break;
 		case ACTION_PLAYER_MOVE_DOWN:
-			this->downHeld = true;
+			this->downHeld = down;
 			break;
 		case ACTION_PLAYER_SPRINT:
-			this->sprintHeld = true;
-			break;
-		default:
-			break;
-	}
-}
-
-void Player::handleKeyUp(enum KeyAction action)
-{
-	switch (action)
-	{
-		case ACTION_PLAYER_MOVE_LEFT:
-			this->leftHeld = false;
-			break;
-		case ACTION_PLAYER_MOVE_RIGHT:
-			this->rightHeld = false;
-			break;
-		case ACTION_PLAYER_MOVE_UP:
-			this->upHeld = false;
-			break;
-		case ACTION_PLAYER_MOVE_DOWN:
-			this->downHeld = false;
-			break;
-		case ACTION_PLAYER_SPRINT:
-			this->sprintHeld = false;
+			this->sprintHeld = down;
 			break;
 		default:
 			break;

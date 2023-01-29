@@ -342,14 +342,15 @@ void Campaign::nextFrame()
 	this->player.nextFrame();
 }
 
-void Campaign::handleKeyDown(enum KeyAction action)
+/**
+ * Handles key up or key down event.
+ *
+ * @param action the action associated with key pressed
+ * @param down true for key down event, false for key up event
+ */
+void Campaign::handleKeyUpDown(enum KeyAction action, bool down)
 {
-	this->player.handleKeyDown(action);
-}
-
-void Campaign::handleKeyUp(enum KeyAction action)
-{
-	this->player.handleKeyUp(action);
+	this->player.handleKeyUpDown(action, down);
 }
 
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const

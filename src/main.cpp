@@ -277,11 +277,11 @@ int main()
 					if (search != playingCbs.end())
 						search->second();
 					else
-						campaign.handleKeyDown(action);
+						campaign.handleKeyUpDown(action, true);
 				}
 				else if (event.type == sf::Event::KeyReleased)
 				{
-					campaign.handleKeyUp(Keymap::keyToAction(event.key.code));
+					campaign.handleKeyUpDown(Keymap::keyToAction(event.key.code), false);
 				}
 				else if (event.type == sf::Event::LostFocus)
 				{

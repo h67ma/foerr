@@ -29,8 +29,7 @@ class Player : public sf::Drawable, public sf::Transformable
 		explicit Player(ResourceManager &resMgr);
 		void nextFrame();
 		void tick(uint lastFrameDurationUs);
-		void handleKeyDown(enum KeyAction action);
-		void handleKeyUp(enum KeyAction action);
+		void handleKeyUpDown(enum KeyAction action, bool down);
 		void debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

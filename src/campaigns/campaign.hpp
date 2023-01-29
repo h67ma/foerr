@@ -58,7 +58,6 @@ class Campaign : public sf::Drawable
 		void logWhereAmI();
 		void tick(uint lastFrameDurationUs);
 		void nextFrame();
-		void handleKeyDown(enum KeyAction action);
-		void handleKeyUp(enum KeyAction action);
+		void handleKeyUpDown(enum KeyAction action, bool down);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
