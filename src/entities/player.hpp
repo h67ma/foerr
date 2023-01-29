@@ -1,10 +1,10 @@
 #pragma once
 
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include "../resources/resource_manager.hpp"
+#include "../settings/keymap.hpp"
 #include "../consts.hpp"
 #include "animation.hpp"
 
@@ -16,18 +16,21 @@ class Player : public sf::Drawable, public sf::Transformable
 		sf::Vector2f velocity{ 0.0f, 0.0f };
 		bool facingRight = true;
 
-		// keys used for movement will be held and need to be very responsive, so they are not handled by events,
-		// rather by directly checking if a given key is currently pressed in ::tick()
-		sf::Keyboard::Key keyLeft;
-		sf::Keyboard::Key keyRight;
-		sf::Keyboard::Key keyUp;
-		sf::Keyboard::Key keyDown;
-		sf::Keyboard::Key keySprint;
+		// flags used to determine if a key is being pressed. this is pretty lame, but for a different approach
+		// (directly checking keyboard state via sf::Keyboard::isKeyPressed()), Keymap would need to be changed quite
+		// a lot. for now this will do.
+		bool rightHeld = false;
+		bool leftHeld = false;
+		bool upHeld = false;
+		bool downHeld = false;
+		bool sprintHeld = false;
 
 	public:
 		explicit Player(ResourceManager &resMgr);
 		void nextFrame();
 		void tick(uint lastFrameDurationUs);
+		void handleKeyDown(enum KeyAction action);
+		void handleKeyUp(enum KeyAction action);
 		void debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

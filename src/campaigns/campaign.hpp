@@ -9,6 +9,7 @@
 #include "../resources/resource_manager.hpp"
 #include "../materials/material_manager.hpp"
 #include "../objects/object_manager.hpp"
+#include "../settings/keymap.hpp"
 #include "../entities/player.hpp"
 #include "location.hpp"
 
@@ -57,5 +58,7 @@ class Campaign : public sf::Drawable
 		void logWhereAmI();
 		void tick(uint lastFrameDurationUs);
 		void nextFrame();
+		void handleKeyDown(enum KeyAction action);
+		void handleKeyUp(enum KeyAction action);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

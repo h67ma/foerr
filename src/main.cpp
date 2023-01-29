@@ -271,9 +271,17 @@ int main()
 			{
 				if (event.type == sf::Event::KeyPressed)
 				{
-					auto search = playingCbs.find(Keymap::keyToAction(event.key.code));
+					enum KeyAction action = Keymap::keyToAction(event.key.code);
+
+					auto search = playingCbs.find(action);
 					if (search != playingCbs.end())
 						search->second();
+					else
+						campaign.handleKeyDown(action);
+				}
+				else if (event.type == sf::Event::KeyReleased)
+				{
+					campaign.handleKeyUp(Keymap::keyToAction(event.key.code));
 				}
 				else if (event.type == sf::Event::LostFocus)
 				{

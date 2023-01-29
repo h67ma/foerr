@@ -4,7 +4,6 @@
 #include <SFML/Graphics/CircleShape.hpp>
 
 #include "../settings/settings_manager.hpp"
-// TODO #include "../settings/keymap.hpp"
 
 // no worries, float can handle precision at this order of magnitude
 #define MAX_VELOCITY 0.0004f
@@ -30,13 +29,7 @@ Player::Player(ResourceManager &resMgr) :
 		{ ANIM_SWIM, 24 },
 		{ ANIM_CLIMB, 12 },
 		{ ANIM_WALK, 24 },
-	}),
-	// TODO read keys from Keymap
-	keyLeft(sf::Keyboard::A),
-	keyRight(sf::Keyboard::D),
-	keyUp(sf::Keyboard::W),
-	keyDown(sf::Keyboard::S),
-	keySprint(sf::Keyboard::LShift)
+	})
 {
 	// TODO actual animation
 	this->animation.setAnimation(ANIM_SWIM);
@@ -54,9 +47,9 @@ void Player::nextFrame()
  */
 void Player::tick(uint lastFrameDurationUs)
 {
-	float maxHVelocity = sf::Keyboard::isKeyPressed(this->keySprint) ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
+	float maxHVelocity = this->sprintHeld ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
 
-	if (sf::Keyboard::isKeyPressed(this->keyLeft))
+	if (this->leftHeld)
 	{
 		this->velocity.x -= VELOCITY_INCREMENT;
 		if (this->velocity.x < -maxHVelocity)
@@ -68,7 +61,7 @@ void Player::tick(uint lastFrameDurationUs)
 			this->facingRight = false;
 		}
 	}
-	else if (sf::Keyboard::isKeyPressed(this->keyRight))
+	else if (this->rightHeld)
 	{
 		this->velocity.x += VELOCITY_INCREMENT;
 		if (this->velocity.x > maxHVelocity)
@@ -88,13 +81,13 @@ void Player::tick(uint lastFrameDurationUs)
 		this->velocity.x += VELOCITY_INCREMENT;
 
 	// X & Y axes can be controlled independently
-	if (sf::Keyboard::isKeyPressed(this->keyUp))
+	if (this->upHeld)
 	{
 		this->velocity.y -= VELOCITY_INCREMENT;
 		if (this->velocity.y < -MAX_VELOCITY)
 			this->velocity.y = -MAX_VELOCITY;
 	}
-	else if (sf::Keyboard::isKeyPressed(this->keyDown))
+	else if (this->downHeld)
 	{
 		this->velocity.y += VELOCITY_INCREMENT;
 		if (this->velocity.y > MAX_VELOCITY)
@@ -108,6 +101,54 @@ void Player::tick(uint lastFrameDurationUs)
 		this->velocity.y += VELOCITY_INCREMENT;
 
 	this->move(this->velocity * static_cast<float>(lastFrameDurationUs));
+}
+
+void Player::handleKeyDown(enum KeyAction action)
+{
+	switch (action)
+	{
+		case ACTION_PLAYER_MOVE_LEFT:
+			this->leftHeld = true;
+			break;
+		case ACTION_PLAYER_MOVE_RIGHT:
+			this->rightHeld = true;
+			break;
+		case ACTION_PLAYER_MOVE_UP:
+			this->upHeld = true;
+			break;
+		case ACTION_PLAYER_MOVE_DOWN:
+			this->downHeld = true;
+			break;
+		case ACTION_PLAYER_SPRINT:
+			this->sprintHeld = true;
+			break;
+		default:
+			break;
+	}
+}
+
+void Player::handleKeyUp(enum KeyAction action)
+{
+	switch (action)
+	{
+		case ACTION_PLAYER_MOVE_LEFT:
+			this->leftHeld = false;
+			break;
+		case ACTION_PLAYER_MOVE_RIGHT:
+			this->rightHeld = false;
+			break;
+		case ACTION_PLAYER_MOVE_UP:
+			this->upHeld = false;
+			break;
+		case ACTION_PLAYER_MOVE_DOWN:
+			this->downHeld = false;
+			break;
+		case ACTION_PLAYER_SPRINT:
+			this->sprintHeld = false;
+			break;
+		default:
+			break;
+	}
 }
 
 void Player::debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const

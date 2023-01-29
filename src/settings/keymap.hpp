@@ -34,6 +34,15 @@ enum KeyAction
 
 	ACTION_TOGGLE_FULLSCREEN,
 
+	// TODO? for movement actions we could set enum values to be subsequent bits. then in main loop key press/released
+	// event we could quickly check if key press action is movement or not, e.g.:
+	// if (action & (ACTION_PLAYER_MOVE_LEFT & ACTION_PLAYER_MOVE_RIGHT & ...))
+	ACTION_PLAYER_MOVE_LEFT,
+	ACTION_PLAYER_MOVE_RIGHT,
+	ACTION_PLAYER_MOVE_UP,
+	ACTION_PLAYER_MOVE_DOWN,
+	ACTION_PLAYER_SPRINT,
+
 	ACTION_DEBUG_TOGGLE_CONSOLE,
 	ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD,
 	ACTION_DEBUG_NAV_LEFT,

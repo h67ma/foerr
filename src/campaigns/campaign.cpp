@@ -342,6 +342,16 @@ void Campaign::nextFrame()
 	this->player.nextFrame();
 }
 
+void Campaign::handleKeyDown(enum KeyAction action)
+{
+	this->player.handleKeyDown(action);
+}
+
+void Campaign::handleKeyUp(enum KeyAction action)
+{
+	this->player.handleKeyUp(action);
+}
+
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(*this->currentLocation, states);
