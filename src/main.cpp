@@ -172,7 +172,9 @@ int main()
 		} },
 
 		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){ console.executeLast(); } },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console, &window, &gameWorldView](){
+			console.executeLast(getMousePos(window, gameWorldView));
+		} },
 	};
 
 	std::unordered_map<KeyAction, std::function<void(void)>> pipBuckCbs {
@@ -204,7 +206,9 @@ int main()
 		} },
 
 		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){ console.executeLast(); } },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console, &window, &gameWorldView](){
+			console.executeLast();
+		} },
 	};
 
 	std::unordered_map<KeyAction, std::function<void(void)>> mainMenuCbs {
@@ -213,7 +217,9 @@ int main()
 		} },
 
 		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){ console.executeLast(); } },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console, &window, &gameWorldView](){
+			console.executeLast();
+		} },
 	};
 
 
@@ -260,7 +266,7 @@ int main()
 			{
 				if (event.type == sf::Event::KeyPressed)
 				{
-					console.handleKeyPressed(event.key.code);
+					console.handleKeyPressed(event.key.code, getMousePos(window, gameWorldView));
 				}
 				else if (event.type == sf::Event::TextEntered)
 				{
@@ -315,7 +321,6 @@ int main()
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
-					// TODO might be useful later: sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
 						pipBuck.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });

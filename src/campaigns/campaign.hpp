@@ -59,5 +59,6 @@ class Campaign : public sf::Drawable
 		void tick(uint lastFrameDurationUs);
 		void nextFrame();
 		void handleKeyUpDown(enum KeyAction action, bool down);
+		void teleportPlayer(sf::Vector2f position);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

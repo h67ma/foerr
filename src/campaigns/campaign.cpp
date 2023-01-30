@@ -411,6 +411,14 @@ void Campaign::handleKeyUpDown(enum KeyAction action, bool down)
 	this->player.handleKeyUpDown(action, down);
 }
 
+void Campaign::teleportPlayer(sf::Vector2f position)
+{
+	if (position.x < 0 || position.x > GAME_AREA_WIDTH || position.y < 0 || position.y > GAME_AREA_HEIGHT)
+		return;
+
+	this->player.setPosition(position);
+}
+
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(*this->currentLocation, states);

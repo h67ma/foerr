@@ -6,6 +6,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Window/Keyboard.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Font.hpp>
 
 #include "../campaigns/campaign.hpp"
@@ -28,15 +29,15 @@ class DevConsole : public sf::Drawable
 		// needed to actually make things happen in the game
 		Campaign &campaign;
 
-		void execute(const std::string &cmdline);
+		void execute(const std::string &cmdline, sf::Vector2f mouseCoords);
 
 	public:
 		DevConsole(sf::Vector2u windowSize, const sf::Font &font, Campaign &campaign);
 		void open();
 		bool getIsOpen() const;
 		void setPosition(sf::Vector2u windowSize);
-		void handleKeyPressed(sf::Keyboard::Key key);
+		void handleKeyPressed(sf::Keyboard::Key key, sf::Vector2f mouseCoords);
 		void handleTextEntered(uint keycode);
-		void executeLast();
+		void executeLast(sf::Vector2f mouseCoords = { 0.f, 0.f });
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

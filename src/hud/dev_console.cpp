@@ -65,7 +65,7 @@ void DevConsole::setPosition(sf::Vector2u windowSize)
  *
  * @param character character to interpret
  */
-void DevConsole::handleKeyPressed(sf::Keyboard::Key key)
+void DevConsole::handleKeyPressed(sf::Keyboard::Key key, sf::Vector2f mouseCoords)
 {
 	if (key == sf::Keyboard::Escape)
 	{
@@ -73,7 +73,7 @@ void DevConsole::handleKeyPressed(sf::Keyboard::Key key)
 	}
 	else if (key == sf::Keyboard::Enter)
 	{
-		this->execute(this->inputField.getCurrentInput());
+		this->execute(this->inputField.getCurrentInput(), mouseCoords);
 		this->inputField.clearInput();
 		this->isOpen = false;
 	}
@@ -121,9 +121,9 @@ void DevConsole::handleTextEntered(uint keycode)
 /**
  * Re-executes last entered command.
  */
-void DevConsole::executeLast()
+void DevConsole::executeLast(sf::Vector2f mouseCoords)
 {
-	this->execute(this->lastCommand);
+	this->execute(this->lastCommand, mouseCoords);
 }
 
 /**
@@ -131,7 +131,7 @@ void DevConsole::executeLast()
  *
  * @param cmdline command line to execute
  */
-void DevConsole::execute(const std::string &cmdline)
+void DevConsole::execute(const std::string &cmdline, sf::Vector2f mouseCoords)
 {
 	if (!SettingsManager::debugConsoleEnabled)
 		return;
@@ -182,6 +182,10 @@ void DevConsole::execute(const std::string &cmdline)
 	else if (tokens[0] == "nav")
 	{
 		SettingsManager::debugNavigation = !SettingsManager::debugNavigation;
+	}
+	else if (tokens[0] == "port" || tokens[0] == "tp")
+	{
+		campaign.teleportPlayer(mouseCoords);
 	}
 	else
 	{
