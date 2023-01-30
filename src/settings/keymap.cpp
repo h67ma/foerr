@@ -40,7 +40,7 @@ const std::unordered_map<KeyAction, action_def> Keymap::actionsMap {
 	{ ACTION_PLAYER_SPRINT, { "player_sprint", "Sprint", { sf::Keyboard::LShift } } },
 	{ ACTION_DEBUG_TOGGLE_CONSOLE, { "debug_toggle_console", "Debug toggle console", { sf::Keyboard::Slash } } },
 	{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, { "debug_repeat_last_console_cmd", "Debug repeat last command",
-											  { sf::Keyboard::BackSlash } } },
+											  { sf::Keyboard::Tilde } } },
 	{ ACTION_DEBUG_NAV_LEFT, { "debug_nav_left", "Debug navigation left", { sf::Keyboard::Left } } },
 	{ ACTION_DEBUG_NAV_RIGHT, { "debug_nav_right", "Debug navigation right", { sf::Keyboard::Right } } },
 	{ ACTION_DEBUG_NAV_UP, { "debug_nav_up", "Debug navigation up", { sf::Keyboard::Up } } },
