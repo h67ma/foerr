@@ -187,6 +187,16 @@ void DevConsole::execute(const std::string &cmdline, sf::Vector2f mouseCoords)
 	{
 		campaign.teleportPlayer(mouseCoords);
 	}
+	else if (tokens[0] == "?" || tokens[0] == "help")
+	{
+		// this will definitely always be up to date (not)
+		Log::i("box/boxen - toggle debug overlay");
+		Log::i("goto 1 2 (3) - go to room at specified coordinates");
+		Log::i("nav - toggle debug navigation");
+		Log::i("port/tp - teleport player to mouse position within room");
+		Log::i("where/whereami - log current position");
+		Log::i("?/help - display help");
+	}
 	else
 	{
 		Log::e(STR_UNKNOWN_COMMAND, commandName);
