@@ -344,16 +344,17 @@ void Campaign::tick(uint lastFrameDurationUs)
 	// check if the player has walked into screen edge.
 	// if nearby Room exists, move to it.
 	// if nearby Room is not present, stop the player.
-	sf::Vector2f currentPos = this->player.getPosition();
+	float currentY = this->player.getPosition().y;
+
 	if (this->player.getPosition().x < PLAYER_W2)
 	{
 		if (this->currentLocation->gotoRoom(DIR_LEFT))
 		{
-			this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentPos.y);
+			this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentY);
 		}
 		else
 		{
-			this->player.setPosition(PLAYER_W2, currentPos.y);
+			this->player.setPosition(PLAYER_W2, currentY);
 			this->player.stopHorizontal();
 		}
 	}
@@ -361,23 +362,28 @@ void Campaign::tick(uint lastFrameDurationUs)
 	{
 		if (this->currentLocation->gotoRoom(DIR_RIGHT))
 		{
-			this->player.setPosition(PLAYER_W2, currentPos.y);
+			this->player.setPosition(PLAYER_W2, currentY);
 		}
 		else
 		{
-			this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentPos.y);
+			this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentY);
 			this->player.stopHorizontal();
 		}
 	}
-	else if (this->player.getPosition().y < PLAYER_H2)
+
+	// need to read position again, in case the Player touched Room corner and their horizontal position has already
+	// been changed (see above)
+	float currentX = this->player.getPosition().x;
+
+	if (this->player.getPosition().y < PLAYER_H2)
 	{
 		if (this->currentLocation->gotoRoom(DIR_UP))
 		{
-			this->player.setPosition(currentPos.x, GAME_AREA_HEIGHT - PLAYER_H2);
+			this->player.setPosition(currentX, GAME_AREA_HEIGHT - PLAYER_H2);
 		}
 		else
 		{
-			this->player.setPosition(currentPos.x, PLAYER_H2);
+			this->player.setPosition(currentX, PLAYER_H2);
 			this->player.stopVertical();
 		}
 	}
@@ -385,11 +391,11 @@ void Campaign::tick(uint lastFrameDurationUs)
 	{
 		if (this->currentLocation->gotoRoom(DIR_DOWN))
 		{
-			this->player.setPosition(currentPos.x, PLAYER_H2);
+			this->player.setPosition(currentX, PLAYER_H2);
 		}
 		else
 		{
-			this->player.setPosition(currentPos.x, GAME_AREA_HEIGHT - PLAYER_H2);
+			this->player.setPosition(currentX, GAME_AREA_HEIGHT - PLAYER_H2);
 			this->player.stopVertical();
 		}
 	}
