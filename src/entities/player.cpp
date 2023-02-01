@@ -4,6 +4,7 @@
 #include <SFML/Graphics/CircleShape.hpp>
 
 #include "../settings/settings_manager.hpp"
+#include "../settings/keymap.hpp"
 
 // no worries, float can handle precision at this order of magnitude
 #define MAX_VELOCITY 0.0004f
@@ -43,9 +44,9 @@ void Player::tick(uint lastFrameDurationUs)
 {
 	///// check the state of keys, calculate current velocity /////
 
-	float maxHVelocity = this->sprintHeld ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
+	float maxHVelocity = Keymap::isSprintHeld() ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
 
-	if (this->leftHeld)
+	if (Keymap::isLeftHeld())
 	{
 		this->velocity.x -= VELOCITY_INCREMENT;
 		if (this->velocity.x < -maxHVelocity)
@@ -57,7 +58,7 @@ void Player::tick(uint lastFrameDurationUs)
 			this->facingRight = false;
 		}
 	}
-	else if (this->rightHeld)
+	else if (Keymap::isRightHeld())
 	{
 		this->velocity.x += VELOCITY_INCREMENT;
 		if (this->velocity.x > maxHVelocity)
@@ -77,13 +78,13 @@ void Player::tick(uint lastFrameDurationUs)
 		this->velocity.x += VELOCITY_INCREMENT;
 
 	// X & Y axes can be controlled independently
-	if (this->upHeld)
+	if (Keymap::isUpHeld())
 	{
 		this->velocity.y -= VELOCITY_INCREMENT;
 		if (this->velocity.y < -MAX_VELOCITY)
 			this->velocity.y = -MAX_VELOCITY;
 	}
-	else if (this->downHeld)
+	else if (Keymap::isDownHeld())
 	{
 		this->velocity.y += VELOCITY_INCREMENT;
 		if (this->velocity.y > MAX_VELOCITY)
@@ -115,36 +116,6 @@ void Player::stopVertical()
 void Player::stopHorizontal()
 {
 	this->velocity.x = 0;
-}
-
-/**
- * Handles key up or key down event.
- *
- * @param action the action associated with key pressed
- * @param down true for key down event, false for key up event
- */
-void Player::handleKeyUpDown(enum KeyAction action, bool down)
-{
-	switch (action)
-	{
-		case ACTION_PLAYER_MOVE_LEFT:
-			this->leftHeld = down;
-			break;
-		case ACTION_PLAYER_MOVE_RIGHT:
-			this->rightHeld = down;
-			break;
-		case ACTION_PLAYER_MOVE_UP:
-			this->upHeld = down;
-			break;
-		case ACTION_PLAYER_MOVE_DOWN:
-			this->downHeld = down;
-			break;
-		case ACTION_PLAYER_SPRINT:
-			this->sprintHeld = down;
-			break;
-		default:
-			break;
-	}
 }
 
 /**

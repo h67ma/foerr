@@ -410,17 +410,6 @@ void Campaign::nextFrame()
 	this->player.nextFrame();
 }
 
-/**
- * Handles key up or key down event.
- *
- * @param action the action associated with key pressed
- * @param down true for key down event, false for key up event
- */
-void Campaign::handleKeyUpDown(enum KeyAction action, bool down)
-{
-	this->player.handleKeyUpDown(action, down);
-}
-
 void Campaign::teleportPlayer(sf::Vector2f position)
 {
 	if (position.x < 0 || position.x > GAME_AREA_WIDTH || position.y < 0 || position.y > GAME_AREA_HEIGHT)

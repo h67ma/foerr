@@ -258,10 +258,27 @@ int main()
 
 	tickTimer.restart(); // so that all initialization above won't be counted
 	sf::Event event;
+	enum KeyAction action;
 	while (window.isOpen())
 	{
 		while (window.pollEvent(event))
 		{
+			// key up/down needs to be handled for all game states in order to always keep information about currently
+			// pressed keys up to date. note that in all key up/down events after this, there's no need to translate
+			// keycode to action, as it's already done here
+			if (event.type == sf::Event::KeyPressed)
+			{
+				action = Keymap::keyToAction(event.key.code);
+				if (Keymap::handleKeyUpDown(action, true))
+					continue;
+			}
+			else if (event.type == sf::Event::KeyReleased)
+			{
+				action = Keymap::keyToAction(event.key.code);
+				if (Keymap::handleKeyUpDown(action, false))
+					continue;
+			}
+
 			if (console.getIsOpen())
 			{
 				if (event.type == sf::Event::KeyPressed)
@@ -279,22 +296,13 @@ int main()
 			{
 				if (event.type == sf::Event::KeyPressed)
 				{
-					enum KeyAction action = Keymap::keyToAction(event.key.code);
-
 					auto search = playingCbs.find(action);
 					if (search != playingCbs.end())
 						search->second();
-					else
-						campaign.handleKeyUpDown(action, true);
 
 					continue;
 				}
-				else if (event.type == sf::Event::KeyReleased)
-				{
-					campaign.handleKeyUpDown(Keymap::keyToAction(event.key.code), false);
 
-					continue;
-				}
 				else if (event.type == sf::Event::LostFocus)
 				{
 					if (SettingsManager::pauseOnFocusLoss)
@@ -313,7 +321,7 @@ int main()
 				}
 				else if (event.type == sf::Event::KeyPressed)
 				{
-					auto search = pipBuckCbs.find(Keymap::keyToAction(event.key.code));
+					auto search = pipBuckCbs.find(action);
 					if (search != pipBuckCbs.end())
 						search->second();
 
@@ -349,7 +357,7 @@ int main()
 				}
 				else if (event.type == sf::Event::KeyPressed)
 				{
-					auto search = mainMenuCbs.find(Keymap::keyToAction(event.key.code));
+					auto search = mainMenuCbs.find(action);
 					if (search != mainMenuCbs.end())
 						search->second();
 

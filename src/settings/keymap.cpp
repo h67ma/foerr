@@ -168,6 +168,12 @@ std::unordered_map<sf::Keyboard::Key, KeyAction> Keymap::keyToActionMap;
 std::unordered_map<std::string, sf::Keyboard::Key> Keymap::keyStringToKeyMap;
 std::unordered_map<std::string, KeyAction> Keymap::actionStringToActionMap;
 
+bool Keymap::rightHeld = false;
+bool Keymap::leftHeld = false;
+bool Keymap::upHeld = false;
+bool Keymap::downHeld = false;
+bool Keymap::sprintHeld = false;
+
 /**
  * Initializes the default keymap and internal maps.
  *
@@ -285,6 +291,62 @@ std::string Keymap::actionToDisplayString(KeyAction action)
 	}
 
 	return search->second.displayName;
+}
+
+/**
+ * Handles key up or key down event.
+ *
+ * @param action the action associated with key pressed
+ * @param down true for key down event, false for key up event
+ * @returns true if event was handled, false otherwise
+ */
+bool Keymap::handleKeyUpDown(enum KeyAction action, bool down)
+{
+	switch (action)
+	{
+		case ACTION_PLAYER_MOVE_LEFT:
+			Keymap::leftHeld = down;
+			return true;
+		case ACTION_PLAYER_MOVE_RIGHT:
+			Keymap::rightHeld = down;
+			return true;
+		case ACTION_PLAYER_MOVE_UP:
+			Keymap::upHeld = down;
+			return true;
+		case ACTION_PLAYER_MOVE_DOWN:
+			Keymap::downHeld = down;
+			return true;
+		case ACTION_PLAYER_SPRINT:
+			Keymap::sprintHeld = down;
+			return true;
+		default:
+			return false;
+	}
+}
+
+bool Keymap::isLeftHeld()
+{
+	return Keymap::leftHeld;
+}
+
+bool Keymap::isRightHeld()
+{
+	return Keymap::rightHeld;
+}
+
+bool Keymap::isUpHeld()
+{
+	return Keymap::upHeld;
+}
+
+bool Keymap::isDownHeld()
+{
+	return Keymap::downHeld;
+}
+
+bool Keymap::isSprintHeld()
+{
+	return Keymap::sprintHeld;
 }
 
 void Keymap::resetToDefault()
