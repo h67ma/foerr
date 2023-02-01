@@ -10,12 +10,14 @@
 #include "animation.hpp"
 
 // TODO we'll probably need something more sophisticated, based on current animation
-#define PLAYER_W 75
+#define PLAYER_W 60
 #define PLAYER_W2 PLAYER_W/2
-#define PLAYER_H 75
+#define PLAYER_H 60
 #define PLAYER_H2 PLAYER_H/2
 #define PLAYER_SPRITE_W 130
 #define PLAYER_SPRITE_H 130
+#define PLAYER_COLLIDER_LEFT (PLAYER_SPRITE_W - PLAYER_W) / 2
+#define PLAYER_COLLIDER_TOP 40
 
 // TODO should probably inherit some kind of PhysicsObject or something
 class Player : public sf::Drawable, public sf::Transformable
@@ -25,8 +27,8 @@ class Player : public sf::Drawable, public sf::Transformable
 		sf::Vector2f velocity{ 0.0f, 0.0f };
 		bool facingRight = true;
 		sf::IntRect collider {
-			(PLAYER_SPRITE_W - PLAYER_W) / 2,
-			(PLAYER_SPRITE_H - PLAYER_H) / 2,
+			PLAYER_COLLIDER_LEFT,
+			PLAYER_COLLIDER_TOP,
 			PLAYER_W,
 			PLAYER_H
 		};
