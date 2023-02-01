@@ -375,8 +375,13 @@ int main()
 
 		//// update states /////
 
+		// tick timer needs to run on every frame, even if campaign is not active. if it didn't run, then after a pause
+		// (e.g. opening the PipBuck), the tick would receive a large value of elapsed microseconds (because the timer
+		// didn't update when PipBuck was open), which could lead to very problematic physics problems.
+		sf::Time frameDuration = tickTimer.restart();
+
 		if (gameState == STATE_PLAYING && !console.getIsOpen())
-			campaign.tick(tickTimer.restart().asMicroseconds());
+			campaign.tick(frameDuration.asMicroseconds());
 		else if (gameState == STATE_PIPBUCK)
 			pipBuck.updateDraw();
 
