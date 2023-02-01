@@ -341,7 +341,10 @@ bool Room::parseBackHoleObjsNode(const json &root, const std::string &filePath, 
  */
 void Room::init()
 {
-	// TODO? calling the same nested loop multiple times is pretty lame, maybe find some better way to handle this
+	// TODO? calling the same nested loop multiple times is pretty lame, maybe find some better way to handle this.
+	// one possible improvement might be to draw on all three textures (i.e. back, front1, front2) simultaneously.
+	// this way we would only need two nested for loops. however, this approach would require having three
+	// RenderTextures, and would make the code much harder to understand, so let's skip it for now.
 
 	sf::RenderStates states;
 	sf::RenderTexture tmpRender;
