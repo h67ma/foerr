@@ -403,6 +403,10 @@ void Campaign::tick(uint lastFrameDurationUs)
 
 void Campaign::nextFrame()
 {
+	// we could move animating the Player to Location, i.e. here call this->currentLocation->nextFrame(). then inside
+	// Location::nextFrame() we could check if Room transition is in progress, and if yes, not animate the player.
+	// however that few extra steps each frame might potentially have a negative effect on performance, and animating
+	// the player during Room transition is not super expensive, so let's keep it as is for now.
 	this->player.nextFrame();
 }
 
