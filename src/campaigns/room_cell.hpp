@@ -77,6 +77,7 @@ class RoomCell : public sf::Transformable
 		bool getHasSolid() const;
 		void drawBackground(sf::RenderTarget &target) const;
 		void drawPlatform(sf::RenderTarget &target) const;
-		void draw3(sf::RenderTarget &target) const;
-		void draw4(sf::RenderTarget &target) const;
+		void drawStairs(sf::RenderTarget &target) const;
+		void drawLadder(sf::RenderTarget &target) const;
+		void drawLiquidAndSolid(sf::RenderTarget &target) const;
 };

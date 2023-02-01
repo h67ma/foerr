@@ -362,22 +362,35 @@ void RoomCell::drawPlatform(sf::RenderTarget &target) const
 }
 
 /**
- * Third stage of drawing the cell. Draws stairs and ladder.
+ * Third stage of drawing the cell. Draws stairs.
  *
  * Should be called after ::drawBackground() and ::drawPlatform() were already called for all cells.
  *
- * Stairs and ladders have sprites with parts visible outside of cell area, therefore they need to drawn differently
+ * Stairs have sprites with parts visible outside of cell area, therefore they need to drawn differently
  * than elements contained within cell area. That is, they don't use texture repeating.
  *
- * These elements need to be drawn after ::draw1(), as the surrounding cells might draw background over the parts of
- * stairs/ladder outside cell area, which is undesirable.
+ * Stairs need to be drawn separately from previous stages, as the surrounding cells might draw over the parts of stairs
+ * outside cell area, which is undesirable.
  */
-void RoomCell::draw3(sf::RenderTarget &target) const
+void RoomCell::drawStairs(sf::RenderTarget &target) const
 {
 	sf::RenderStates states(this->getTransform());
 
 	if (this->hasStairs)
 		target.draw(this->stairs, states);
+}
+
+/**
+ * Fourth stage of drawing the cell. Draws ladder.
+ *
+ * Should be called after ::drawBackground(), ::drawPlatform() and ::drawStairs() were already called for all cells.
+ *
+ * Same logic as in ::drawStairs() applies to ladders as well, i.e. ladders have parts that are sticking out of cell
+ * area, so they need to be drawn separately.
+ */
+void RoomCell::drawLadder(sf::RenderTarget &target) const
+{
+	sf::RenderStates states(this->getTransform());
 
 	if (this->hasPlatform || this->hasStairs || this->topCellBlocksLadderDelim)
 		target.draw(this->ladder, states);
@@ -386,15 +399,17 @@ void RoomCell::draw3(sf::RenderTarget &target) const
 }
 
 /**
- * Fourth stage of drawing a cell. Draws solid and liquid.
+ * Fifth stage of drawing a cell. Draws solid and liquid.
  *
- * Should be called after ::drawBackground(), ::drawPlatform() and ::draw3() were already called for all cells.
+ * Solid Snake and Liquid Snake, what a coincidence.
+ *
+ * Should be called after all other draw methods were already called for all cells.
  *
  * Liquid and solid need to be drawn over ladders and stairs. In case of liquid, it will create the effect of submerging
  * stuff. In case of solid, it will prevent the parts of stairs/ladders that are sticking out of their cell from being
  * displayed over solids, which would not make sense.
  */
-void RoomCell::draw4(sf::RenderTarget &target) const
+void RoomCell::drawLiquidAndSolid(sf::RenderTarget &target) const
 {
 	sf::RenderStates states(this->getTransform());
 

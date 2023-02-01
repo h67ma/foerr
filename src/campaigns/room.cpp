@@ -402,7 +402,7 @@ void Room::init()
 	this->backCacheTxt = tmpRender.getTexture();
 	this->backCache.setTexture(this->backCacheTxt);
 
-	///// front cache /////
+	///// front cache 1 - behind the Player /////
 
 	tmpRender.clear(sf::Color::Transparent);
 
@@ -418,7 +418,25 @@ void Room::init()
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			this->cells[y][x].draw3(tmpRender);
+			this->cells[y][x].drawStairs(tmpRender);
+		}
+	}
+
+	tmpRender.display();
+
+	// again, can't keep sf::RenderTexture as a member (see above)
+	this->frontCache1Txt = tmpRender.getTexture();
+	this->frontCache1.setTexture(this->frontCache1Txt);
+
+	///// front cache 2 - before the Player /////
+
+	tmpRender.clear(sf::Color::Transparent);
+
+	for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			this->cells[y][x].drawLadder(tmpRender);
 		}
 	}
 
@@ -426,7 +444,7 @@ void Room::init()
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			this->cells[y][x].draw4(tmpRender);
+			this->cells[y][x].drawLiquidAndSolid(tmpRender);
 		}
 	}
 
@@ -467,8 +485,8 @@ void Room::init()
 	tmpRender.display();
 
 	// again, can't keep sf::RenderTexture as a member (see above)
-	this->frontCacheTxt = tmpRender.getTexture();
-	this->frontCache.setTexture(this->frontCacheTxt);
+	this->frontCache2Txt = tmpRender.getTexture();
+	this->frontCache2.setTexture(this->frontCache2Txt);
 
 	///// room-wide liquid level /////
 
@@ -508,7 +526,8 @@ void Room::init()
 void Room::deinit()
 {
 	this->backCacheTxt = sf::Texture();
-	this->frontCacheTxt = sf::Texture();
+	this->frontCache1Txt = sf::Texture();
+	this->frontCache2Txt = sf::Texture();
 	this->cachedLiquidLevelTxt = sf::Texture();
 }
 
@@ -541,8 +560,9 @@ void Room::redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates
 
 	const RoomCell *cell = &this->cells[y][x];
 	cell->drawPlatform(target);
-	cell->draw3(target);
-	cell->draw4(target);
+	cell->drawStairs(target);
+	cell->drawLadder(target);
+	cell->drawLiquidAndSolid(target);
 }
 
 void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -553,13 +573,14 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	// and therefore gets screwed up. to fix it, use a custom blending mode.
 	states.blendMode = BlendAlphaTransparent;
 	target.draw(this->backCache, states);
+	target.draw(this->frontCache1, states);
 
 	// player was not rendered to a texture, so use the default blending mode
 	states.blendMode = sf::BlendAlpha;
 	target.draw(this->player, states);
 
 	states.blendMode = BlendAlphaTransparent;
-	target.draw(this->frontCache, states);
+	target.draw(this->frontCache2, states);
 
 	// liquid is drawn over all cell elements, including solids
 	// liquids were also rendered to RenderTexture, but using sf::BlendNone, therefore the default blending mode works
