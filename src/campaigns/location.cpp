@@ -121,7 +121,8 @@ bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
  * @returns true if load succeeded
  * @returns false if load failed
  */
-bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr)
+bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
+						   Player &player)
 {
 	std::string backgroundFullPath;
 	json root;
@@ -190,7 +191,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 			foundStart = true;
 		}
 
-		std::shared_ptr<Room> room = std::make_shared<Room>();
+		std::shared_ptr<Room> room = std::make_shared<Room>(player);
 
 		// TODO currently we keep all Rooms of the Location loaded in memory, which seems fine, because we want to do
 		// all the complicated setup when loading the Location, not when moving between Rooms. but this approach

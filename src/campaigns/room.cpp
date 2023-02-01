@@ -14,6 +14,11 @@
 #define ROOM_SYMBOL_EMPTY '_'
 #define ROOM_SYMBOL_UNKNOWN '?'
 
+Room::Room(Player &player) : player(player)
+{
+	// "The box is there for a reason. I like thinking inside of it. I feel safe in there."
+}
+
 /**
  * Loads the room data and stores it in this object.
  *
@@ -548,6 +553,12 @@ void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	// and therefore gets screwed up. to fix it, use a custom blending mode.
 	states.blendMode = BlendAlphaTransparent;
 	target.draw(this->backCache, states);
+
+	// player was not rendered to a texture, so use the default blending mode
+	states.blendMode = sf::BlendAlpha;
+	target.draw(this->player, states);
+
+	states.blendMode = BlendAlphaTransparent;
 	target.draw(this->frontCache, states);
 
 	// liquid is drawn over all cell elements, including solids

@@ -11,6 +11,7 @@
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 #include "../objects/object_manager.hpp"
+#include "../entities/player.hpp"
 #include "../util/json.hpp"
 #include "room_cell.hpp"
 
@@ -50,6 +51,7 @@ class Room : public sf::Drawable, public sf::Transformable
 		std::vector<SpriteResource> farBackObjectsMain;
 		std::vector<struct blend_sprite> backHoleObjectsMain;
 		std::vector<SpriteResource> backHoleObjectsHoles;
+		Player &player;
 
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
 		bool parseBackObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr,
@@ -58,6 +60,7 @@ class Room : public sf::Drawable, public sf::Transformable
 								   const ObjectManager &objMgr);
 
 	public:
+		explicit Room(Player &player);
 		bool load(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
 				  const json &root, const std::string &filePath);
 		void init();

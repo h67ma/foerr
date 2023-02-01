@@ -218,7 +218,7 @@ bool Campaign::changeLocation(const std::string &newLocId)
 
 	// load the new location. don't unload the old one yet, as the new one might fail to load and then we need to keep
 	// the old one
-	if (!newLoc->loadContent(this->resMgr, this->matMgr, this->objMgr))
+	if (!newLoc->loadContent(this->resMgr, this->matMgr, this->objMgr, this->player))
 	{
 		Log::e(STR_LOADING_LOCATION_CONTENT_ERROR, newLocSearch->first.c_str());
 		return false;
@@ -428,5 +428,4 @@ void Campaign::teleportPlayer(sf::Vector2f position)
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(*this->currentLocation, states);
-	target.draw(this->player, states);
 }

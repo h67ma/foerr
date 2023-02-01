@@ -91,7 +91,8 @@ class Location : public sf::Drawable
 	public:
 		explicit Location(const std::string &id);
 		bool loadMeta(const json &locMetaNode, const std::string &campaignDir);
-		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr);
+		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
+						 Player &player);
 		void unloadContent();
 		std::string getId() const;
 		std::string getTitle() const;
