@@ -1,7 +1,10 @@
 #pragma once
 
+#include <functional>
 #include <string>
+#include <vector>
 #include <deque>
+#include <map>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
@@ -11,6 +14,20 @@
 
 #include "../campaigns/campaign.hpp"
 #include "text_input.hpp"
+
+struct dev_console_cmd_params
+{
+	const std::vector<std::string> &tokens;
+	const sf::Vector2f &mousePos;
+	Campaign &campaign;
+};
+
+struct dev_console_cmd
+{
+	const std::function<void(struct dev_console_cmd_params)> cmd;
+	const char* helpString;
+	const char* helpArgs = nullptr;
+};
 
 /**
  * A developer console, displayed as an overlay with a text field.
@@ -25,6 +42,7 @@ class DevConsole : public sf::Drawable
 		std::string lastCommand = "";
 		std::deque<std::string> history;
 		std::deque<std::string>::iterator historyElem;
+		static const std::map<std::string, struct dev_console_cmd> commands;
 
 		// needed to actually make things happen in the game
 		Campaign &campaign;

@@ -1,7 +1,5 @@
 #include "dev_console.hpp"
 
-#include <vector>
-
 #include "../settings/settings_manager.hpp"
 #include "../util/i18n.hpp"
 #include "../util/util.hpp"
@@ -12,6 +10,68 @@
 
 // storing this in SettingsManager would be an overkill
 #define MAX_HISTORY_SIZE 25
+
+
+static void cmdGoto(struct dev_console_cmd_params params)
+{
+	// accepts 2 or 3 arguments (third defaults to 0)
+
+	if (params.tokens.size() < 3)
+	{
+		Log::e(STR_MISSING_OPERANDS, params.tokens[0].c_str());
+		return;
+	}
+
+	int x, y, z = 0;
+
+	if (!strToInt(params.tokens[1], x) || !strToInt(params.tokens[2], y) ||
+		(params.tokens.size() > 3 && !strToInt(params.tokens[3], z)))
+	{
+		Log::e(STR_INVALID_OPERANDS, params.tokens[0].c_str());
+		return;
+	}
+
+	if (params.campaign.gotoRoom({ x, y, z }))
+		params.campaign.logWhereAmI();
+	else
+		Log::e(STR_INVALID_COORDS, params.tokens[0].c_str());
+}
+
+static void cmdTeleport(struct dev_console_cmd_params params)
+{
+	params.campaign.teleportPlayer(params.mousePos);
+}
+
+static void cmdToggleBoundingBoxes(struct dev_console_cmd_params params)
+{
+	SettingsManager::debugBoundingBoxes = !SettingsManager::debugBoundingBoxes;
+	params.campaign.redraw();
+}
+
+static void cmdToggleDebugNav(struct dev_console_cmd_params params)
+{
+	SettingsManager::debugNavigation = !SettingsManager::debugNavigation;
+}
+
+static void cmdWhere(struct dev_console_cmd_params params)
+{
+	params.campaign.logWhereAmI();
+}
+
+
+// note: order matters - always keep this in alphabetical order, except aliases,
+// which should follow immediately after the main command
+const std::map<std::string, struct dev_console_cmd> DevConsole::commands {
+	{ "box", { cmdToggleBoundingBoxes, STR_CMD_BOX } },
+	{ "boxen", { cmdToggleBoundingBoxes, STR_CMD_BOX } },
+	{ "goto", { cmdGoto, STR_CMD_GOTO, "1 2 [3]" } },
+	{ "nav", { cmdToggleDebugNav, STR_CMD_NAV } },
+	{ "port", { cmdTeleport, STR_CMD_PORT } },
+	{ "tp", { cmdTeleport, STR_CMD_PORT } },
+	{ "where", { cmdWhere, STR_CMD_WHERE, } },
+	{ "whereami", { cmdWhere, STR_CMD_WHERE } }
+};
+
 
 DevConsole::DevConsole(sf::Vector2u windowSize, const sf::Font &font, Campaign &campaign) :
 	inputField(FONT_H2, CONSOLE_WIDTH, font),
@@ -138,71 +198,34 @@ void DevConsole::execute(const std::string &cmdline, sf::Vector2f mouseCoords)
 
 	std::vector<std::string> tokens;
 	splitString(tokens, cmdline, ' ');
-	size_t tokenCnt = tokens.size();
 
 	this->lastCommand = cmdline;
 
-	if (tokenCnt == 0)
+	if (tokens.size() == 0)
 		return; // empty input
 
-	const char* commandName = tokens[0].c_str();
-
-	if (tokens[0] == "where" || tokens[0] == "whereami")
+	if (tokens[0] == "?" || tokens[0] == "help")
 	{
-		this->campaign.logWhereAmI();
-	}
-	else if (tokens[0] == "goto")
-	{
-		// accepts 2 or 3 arguments (third defaults to 0)
-
-		if (tokenCnt < 3)
+		// help command entered - print all available commands
+		for (const auto &cmd : this->commands)
 		{
-			Log::e(STR_MISSING_OPERANDS, commandName);
-			return;
+			if (cmd.second.helpArgs != nullptr)
+				Log::i("%s %s - %s", cmd.first.c_str(), cmd.second.helpArgs, cmd.second.helpString);
+			else
+				Log::i("%s - %s", cmd.first.c_str(), cmd.second.helpString);
 		}
-
-		int x, y, z = 0;
-
-		if ((!strToInt(tokens[1], x) || !strToInt(tokens[2], y)) || (tokenCnt > 3 && !strToInt(tokens[3], z)))
-		{
-			Log::e(STR_INVALID_OPERANDS, commandName);
-			return;
-		}
-
-		if (this->campaign.gotoRoom({ x, y, z }))
-			this->campaign.logWhereAmI();
-		else
-			Log::e(STR_INVALID_COORDS, commandName);
-	}
-	else if (tokens[0] == "box" || tokens[0] == "boxen")
-	{
-		SettingsManager::debugBoundingBoxes = !SettingsManager::debugBoundingBoxes;
-		this->campaign.redraw();
-	}
-	else if (tokens[0] == "nav")
-	{
-		SettingsManager::debugNavigation = !SettingsManager::debugNavigation;
-	}
-	else if (tokens[0] == "port" || tokens[0] == "tp")
-	{
-		campaign.teleportPlayer(mouseCoords);
-	}
-	else if (tokens[0] == "?" || tokens[0] == "help")
-	{
-		// this will definitely always be up to date (not)
-		Log::i("box/boxen - toggle debug overlay");
-		Log::i("goto 1 2 (3) - go to room at specified coordinates");
-		Log::i("nav - toggle debug navigation");
-		Log::i("port/tp - teleport player to mouse position within room");
-		Log::i("where/whereami - log current position");
-		Log::i("?/help - display help");
 	}
 	else
 	{
-		Log::e(STR_UNKNOWN_COMMAND, commandName);
+		// non-help command entered - find the command, and if it exists, execute it
+		auto search = this->commands.find(tokens[0]);
+		if (search != this->commands.end())
+			search->second.cmd({ tokens, mouseCoords, this->campaign });
+		else
+			Log::e(STR_UNKNOWN_COMMAND, tokens[0].c_str());
 	}
 
-	// add the commandline to history, even if resulted in an error
+	// add the cmdline to history, even if command does not exist or resulted in an error
 	this->history.push_back(cmdline);
 
 	// remove old history items if there are too many

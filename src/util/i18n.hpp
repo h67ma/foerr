@@ -109,3 +109,8 @@
 #define STR_INVALID_COORDS "%s: invalid coords"
 #define STR_MISSING_OPERANDS "%s: missing operand(s)"
 #define STR_INVALID_OPERANDS "%s: invalid operand(s)"
+#define STR_CMD_BOX "toggle debug overlay"
+#define STR_CMD_GOTO "go to a room at specified coordinates"
+#define STR_CMD_NAV "toggle debug navigation"
+#define STR_CMD_PORT "teleport player to mouse position within room"
+#define STR_CMD_WHERE "log current position"
