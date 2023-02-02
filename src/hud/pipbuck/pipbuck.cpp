@@ -287,7 +287,7 @@ double PipBuck::getSmoothNoise(double time)
 	return sin(time * 7) + cos(time * 12) - cos(time * 9);
 }
 
-void PipBuck::updateDraw()
+void PipBuck::tick()
 {
 	this->radIndicator.setRotation(
 		this->radIndicatorLevel * -180 +

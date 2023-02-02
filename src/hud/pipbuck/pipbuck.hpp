@@ -69,6 +69,6 @@ class PipBuck : public sf::Drawable, public HudTransformable
 		void close();
 		bool setup();
 		void setRadLevel(float rads);
-		void updateDraw();
+		void tick();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

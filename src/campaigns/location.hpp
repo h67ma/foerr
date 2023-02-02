@@ -79,7 +79,7 @@ class Location : public sf::Drawable
 
 		// room transition is *not* another GameState (see ::gameState in main), but rather an internal state of
 		// Location. from main's perspective, the state could be still STATE_PLAYING, but the Location, instead of
-		// actually continuing simulation (via ::updateState()), will be in the process of room transition and will act
+		// actually continuing simulation (via ::tick()), will be in the process of room transition and will act
 		// as if the simulation was paused (for the time of transition).
 		bool roomTransitionInProgress = false;
 		enum Direction roomTransitionDirection;
@@ -107,6 +107,6 @@ class Location : public sf::Drawable
 		void redraw();
 		sf::Vector3i getPlayerRoomCoords() const;
 		sf::Vector2u getSpawnCoords() const;
-		bool updateState();
+		bool tick();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

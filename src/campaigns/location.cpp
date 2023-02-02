@@ -420,7 +420,7 @@ sf::Vector3i Location::getPlayerRoomCoords() const
  * @return true if transition is in progress
  * @return false otherwise
  */
-bool Location::updateState()
+bool Location::tick()
 {
 	if (this->roomTransitionInProgress)
 	{

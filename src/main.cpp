@@ -391,12 +391,12 @@ int main()
 		if (gameState == STATE_PLAYING && !console.getIsOpen())
 			campaign.tick(frameDuration.asMicroseconds());
 		else if (gameState == STATE_PIPBUCK)
-			pipBuck.updateDraw();
+			pipBuck.tick();
 
-		Log::maybeUpdate();
+		Log::tick();
 
 		if (SettingsManager::showFpsCounter)
-			fpsMeter.maybeUpdate();
+			fpsMeter.tick();
 
 		// check if it's the time to change all frame-based animations to next frame
 		bool drawNextFrame = animationTimer.getElapsedTime().asMilliseconds() >= ANIM_FRAME_DURATION_MS;

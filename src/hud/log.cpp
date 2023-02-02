@@ -72,7 +72,7 @@ void Log::setGuiScale(GuiScale scale)
  *
  * @param force update even if there was an update in last `LOG_UPDATE_FREQUENCY_MS`
  */
-void Log::maybeUpdate(bool force)
+void Log::tick(bool force)
 {
 	uint x = LOG_ANCHOR_PADDING_LEFT; // constant offset from left, will be enough for CORNER_*_LEFT
 	uint y = LOG_ANCHOR_PADDING_TOP; // constant offset from top, will be enough for CORNER_TOP_*

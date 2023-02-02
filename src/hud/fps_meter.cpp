@@ -40,7 +40,7 @@ void FpsMeter::setPosition(sf::Vector2u windowSize)
 	}
 }
 
-void FpsMeter::maybeUpdate()
+void FpsMeter::tick()
 {
 	if (this->firstFrame)
 	{

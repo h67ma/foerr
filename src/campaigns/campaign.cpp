@@ -336,8 +336,8 @@ void Campaign::tick(uint lastFrameDurationUs)
 	if (this->currentLocation == nullptr)
 		return;
 
-	if (this->currentLocation->updateState())
-		return; // if transition is in progress (returned by Location::updateState()), don't update other states
+	if (this->currentLocation->tick())
+		return; // if transition is in progress (returned by Location::tick()), don't update other states
 
 	this->player.tick(lastFrameDurationUs);
 

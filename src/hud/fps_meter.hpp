@@ -27,6 +27,6 @@ class FpsMeter : public sf::Drawable
 		FpsMeter(sf::Font &font, sf::Vector2u windowSize);
 		void setGuiScale();
 		void setPosition(sf::Vector2u windowSize);
-		void maybeUpdate();
+		void tick();
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

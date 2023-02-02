@@ -50,7 +50,7 @@ class Log
 		static void setPrintMsgs(bool printMsgs);
 		static void setVerboseDebug(bool verboseDebug);
 		static void setGuiScale(GuiScale scale);
-		static void maybeUpdate(bool force = false);
+		static void tick(bool force = false);
 		static void draw(sf::RenderTarget &target);
 		static void close();
 
@@ -80,7 +80,7 @@ class Log
 				return;
 
 			Log::history.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font, Log::scale, color));
-			maybeUpdate(true);
+			Log::tick(true);
 		}
 
 		/**
