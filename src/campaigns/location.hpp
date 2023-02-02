@@ -76,6 +76,7 @@ class Location : public sf::Drawable
 		SpriteResource backgroundFullSprite;
 		RoomGrid rooms;
 		std::shared_ptr<Room> currentRoom = nullptr;
+		Player &player;
 
 		// room transition is *not* another GameState (see ::gameState in main), but rather an internal state of
 		// Location. from main's perspective, the state could be still STATE_PLAYING, but the Location, instead of
@@ -89,10 +90,9 @@ class Location : public sf::Drawable
 		sf::Sprite roomTransitionSprite;
 
 	public:
-		explicit Location(const std::string &id);
+		Location(const std::string &id, Player &player);
 		bool loadMeta(const json &locMetaNode, const std::string &campaignDir);
-		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
-						 Player &player);
+		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr);
 		void unloadContent();
 		std::string getId() const;
 		std::string getTitle() const;
@@ -102,11 +102,11 @@ class Location : public sf::Drawable
 		bool isBasecamp();
 		uint getRecommendedLevel() const;
 		std::string getWorldMapIconId() const;
-		bool gotoRoom(Direction direction);
+		bool gotoRoom(Direction direction, sf::Vector2f newPlayerCoords);
 		bool gotoRoom(HashableVector3i coords);
 		void redraw();
 		sf::Vector3i getPlayerRoomCoords() const;
 		sf::Vector2u getSpawnCoords() const;
-		bool tick();
+		void tick(uint lastFrameDurationUs);
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

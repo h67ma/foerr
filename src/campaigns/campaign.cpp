@@ -112,7 +112,7 @@ bool Campaign::load(const std::string &campaignDir)
 			return false;
 		}
 
-		std::shared_ptr<Location> loc = std::make_shared<Location>(locId);
+		std::shared_ptr<Location> loc = std::make_shared<Location>(locId, this->player);
 		if (!loc->loadMeta(locNode.value(), campaignDir))
 		{
 			// unload everything
@@ -218,7 +218,7 @@ bool Campaign::changeLocation(const std::string &newLocId)
 
 	// load the new location. don't unload the old one yet, as the new one might fail to load and then we need to keep
 	// the old one
-	if (!newLoc->loadContent(this->resMgr, this->matMgr, this->objMgr, this->player))
+	if (!newLoc->loadContent(this->resMgr, this->matMgr, this->objMgr))
 	{
 		Log::e(STR_LOADING_LOCATION_CONTENT_ERROR, newLocSearch->first.c_str());
 		return false;
@@ -285,12 +285,18 @@ bool Campaign::isLoaded()
 	return this->currentLocation != nullptr;
 }
 
+/**
+ * Should only be used for debug purposes.
+ * Enters a nearby Room if it's present. Player is moved to a default position (Room center).
+ * Note: we can't use spawn coords, as we don't know the spawn coords for new Room just yet.
+ */
 bool Campaign::gotoRoom(Direction direction)
 {
 	if (this->currentLocation == nullptr)
 		return false;
 
-	return this->currentLocation->gotoRoom(direction);
+	return this->currentLocation->gotoRoom(direction, { ROOM_WIDTH_WITH_BORDER * CELL_SIDE_LEN / 2,
+														ROOM_HEIGHT_WITH_BORDER * CELL_SIDE_LEN / 2 });
 }
 
 bool Campaign::gotoRoom(HashableVector3i coords)
@@ -336,69 +342,7 @@ void Campaign::tick(uint lastFrameDurationUs)
 	if (this->currentLocation == nullptr)
 		return;
 
-	if (this->currentLocation->tick())
-		return; // if transition is in progress (returned by Location::tick()), don't update other states
-
-	this->player.tick(lastFrameDurationUs);
-
-	// check if the player has walked into screen edge.
-	// if nearby Room exists, move to it.
-	// if nearby Room is not present, stop the player.
-	float currentY = this->player.getPosition().y;
-
-	if (this->player.getPosition().x < PLAYER_W2)
-	{
-		if (this->currentLocation->gotoRoom(DIR_LEFT))
-		{
-			this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentY);
-		}
-		else
-		{
-			this->player.setPosition(PLAYER_W2, currentY);
-			this->player.stopHorizontal();
-		}
-	}
-	else if (this->player.getPosition().x > GAME_AREA_WIDTH - PLAYER_W2)
-	{
-		if (this->currentLocation->gotoRoom(DIR_RIGHT))
-		{
-			this->player.setPosition(PLAYER_W2, currentY);
-		}
-		else
-		{
-			this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentY);
-			this->player.stopHorizontal();
-		}
-	}
-
-	// need to read position again, in case the Player touched Room corner and their horizontal position has already
-	// been changed (see above)
-	float currentX = this->player.getPosition().x;
-
-	if (this->player.getPosition().y < PLAYER_H2)
-	{
-		if (this->currentLocation->gotoRoom(DIR_UP))
-		{
-			this->player.setPosition(currentX, GAME_AREA_HEIGHT - PLAYER_H2);
-		}
-		else
-		{
-			this->player.setPosition(currentX, PLAYER_H2);
-			this->player.stopVertical();
-		}
-	}
-	else if (this->player.getPosition().y > GAME_AREA_HEIGHT - PLAYER_H2)
-	{
-		if (this->currentLocation->gotoRoom(DIR_DOWN))
-		{
-			this->player.setPosition(currentX, PLAYER_H2);
-		}
-		else
-		{
-			this->player.setPosition(currentX, GAME_AREA_HEIGHT - PLAYER_H2);
-			this->player.stopVertical();
-		}
-	}
+	this->currentLocation->tick(lastFrameDurationUs);
 }
 
 void Campaign::nextFrame()

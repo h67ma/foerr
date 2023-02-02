@@ -12,8 +12,11 @@
 
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
-Location::Location(const std::string &id) :
-	id(id)
+#define PLAYER_NEW_ROOM_OFFSET_H 60
+#define PLAYER_NEW_ROOM_OFFSET_V_TOP 40
+#define PLAYER_NEW_ROOM_OFFSET_V_BOTTOM 80 // platform jump
+
+Location::Location(const std::string &id, Player &player) : id(id), player(player)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }
@@ -121,8 +124,7 @@ bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
  * @returns true if load succeeded
  * @returns false if load failed
  */
-bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
-						   Player &player)
+bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr)
 {
 	std::string backgroundFullPath;
 	json root;
@@ -191,7 +193,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 			foundStart = true;
 		}
 
-		std::shared_ptr<Room> room = std::make_shared<Room>(player);
+		std::shared_ptr<Room> room = std::make_shared<Room>(this->player);
 
 		// TODO currently we keep all Rooms of the Location loaded in memory, which seems fine, because we want to do
 		// all the complicated setup when loading the Location, not when moving between Rooms. but this approach
@@ -294,13 +296,16 @@ std::string Location::getWorldMapIconId() const
 /**
  * Changes the current Room to a nearest Room in the specified direction.
  * If such Room does not exist, nothing will happen.
+ * Moves the Player to a new position, specified by newPlayerCoords. Moving the Player needs to happen in this function
+ * in order to display them correctly during Room transition.
+ *
  * Also prepares the texture and timer used for Room transition animation.
  *
  * @param direction direction from current Room to go
  * @return true if Room was changed
  * @return false if current Room didn't change
  */
-bool Location::gotoRoom(Direction direction)
+bool Location::gotoRoom(Direction direction, sf::Vector2f newPlayerCoords)
 {
 	std::shared_ptr<Room> newRoom = this->rooms.moveToNear(direction);
 	if (newRoom == nullptr)
@@ -312,6 +317,8 @@ bool Location::gotoRoom(Direction direction)
 
 		// old room no longer needed
 		this->currentRoom->deinit();
+
+		this->player.setPosition(newPlayerCoords);
 
 		this->currentRoom = newRoom;
 		this->currentRoom->init();
@@ -343,6 +350,11 @@ bool Location::gotoRoom(Direction direction)
 	else if (direction == DIR_UP)
 		this->currentRoom->setPosition(0, GAME_AREA_HEIGHT);
 
+	// this trick is to ensure that the Player is not displayed twice during Room transition - once in old Room, once in
+	// the new Room. same effect could also be achieved by setting some field in Room, which tells it to skip drawing
+	// the Player, but simply moving the Player outside visible area does the job just fine.
+	this->player.setPosition(-500, -500);
+
 	tmpTxt.draw(*this->currentRoom);
 
 	// old room no longer needed
@@ -361,6 +373,8 @@ bool Location::gotoRoom(Direction direction)
 		this->currentRoom->setPosition(GAME_AREA_WIDTH, 0);
 	else if (direction == DIR_DOWN)
 		this->currentRoom->setPosition(0, GAME_AREA_HEIGHT);
+
+	this->player.setPosition(newPlayerCoords);
 
 	tmpTxt.draw(*this->currentRoom);
 
@@ -395,6 +409,8 @@ bool Location::gotoRoom(HashableVector3i coords)
 	this->currentRoom = newRoom;
 	this->currentRoom->init();
 
+	this->player.setPosition(static_cast<sf::Vector2f>(this->currentRoom->getSpawnCoords() * CELL_SIDE_LEN));
+
 	return true;
 }
 
@@ -414,23 +430,61 @@ sf::Vector3i Location::getPlayerRoomCoords() const
 	return this->rooms.getCurrentCoords();
 }
 
-/**
- * Updates transition animation if it's in progress.
- *
- * @return true if transition is in progress
- * @return false otherwise
- */
-bool Location::tick()
+void Location::tick(uint lastFrameDurationUs)
 {
-	if (this->roomTransitionInProgress)
+	if (!this->roomTransitionInProgress)
+	{
+		this->player.tick(lastFrameDurationUs);
+
+		// check if the player has walked into screen edge.
+		// if nearby Room exists, move to it.
+		// if nearby Room is not present, stop the player.
+		float currentY = this->player.getPosition().y;
+
+		if (this->player.getPosition().x < PLAYER_W2)
+		{
+			if (!this->gotoRoom(DIR_LEFT, { GAME_AREA_WIDTH - PLAYER_NEW_ROOM_OFFSET_H, currentY }))
+			{
+				this->player.setPosition(PLAYER_W2, currentY);
+				this->player.stopHorizontal();
+			}
+		}
+		else if (this->player.getPosition().x > GAME_AREA_WIDTH - PLAYER_W2)
+		{
+			if (!this->gotoRoom(DIR_RIGHT, { PLAYER_NEW_ROOM_OFFSET_H, currentY }))
+			{
+				this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentY);
+				this->player.stopHorizontal();
+			}
+		}
+
+		// need to read position again, in case the Player touched Room corner and their horizontal position has already
+		// been changed (see above)
+		float currentX = this->player.getPosition().x;
+
+		if (this->player.getPosition().y < PLAYER_H2)
+		{
+			if (!this->gotoRoom(DIR_UP, { currentX, GAME_AREA_HEIGHT - PLAYER_NEW_ROOM_OFFSET_V_BOTTOM }))
+			{
+				this->player.setPosition(currentX, PLAYER_H2);
+				this->player.stopVertical();
+			}
+		}
+		else if (this->player.getPosition().y > GAME_AREA_HEIGHT - PLAYER_H2)
+		{
+			if (!this->gotoRoom(DIR_DOWN, { currentX, PLAYER_NEW_ROOM_OFFSET_V_TOP }))
+			{
+				this->player.setPosition(currentX, GAME_AREA_HEIGHT - PLAYER_H2);
+				this->player.stopVertical();
+			}
+		}
+	}
+	else
 	{
 		uint elapsed = this->roomTransitionTimer.getElapsedTime().asMilliseconds();
 
 		if (elapsed >= SettingsManager::roomTransitionDurationMs)
-		{
 			this->roomTransitionInProgress = false;
-			return false;
-		}
 
 		sf::Vector2f pos;
 
@@ -451,15 +505,10 @@ bool Location::tick()
 			default:
 				// this should never happen
 				this->roomTransitionInProgress = false;
-				return false;
 		}
 
 		this->roomTransitionSprite.setPosition(pos);
-
-		return true;
 	}
-
-	return false;
 }
 
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
