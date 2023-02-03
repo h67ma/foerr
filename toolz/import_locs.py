@@ -85,8 +85,11 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 	if FOERR_JSON_KEY_BACKGROUND_FULL in loc_data:
 		output_root[FOERR_JSON_KEY_BACKGROUND_FULL] = loc_data[FOERR_JSON_KEY_BACKGROUND_FULL]
 
+	room_geometries = {}
+
 	for room_node in input_root.findall("room"):
 		out_room_node = {}
+		out_room_geometry = []
 
 		##### basic infos #####
 
@@ -101,7 +104,11 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 
 			room_z = room_node.attrib.get("z", 0) # z is optional, assume 0 if not present
 
-			room_coords = (int(room_x), int(room_y), int(room_z))
+			room_x = int(room_x)
+			room_y = int(room_y)
+			room_z = int(room_z)
+
+			room_coords = (room_x, room_y, room_z)
 
 			out_room_node[FOERR_JSON_KEY_COORDS] = room_coords
 
@@ -213,6 +220,7 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 				continue
 
 			out_cell_strip = []
+			out_geometry_strip = []
 			for x, grid_elem in enumerate(cells):
 				# Remains cell is encoded as follows:
 				# * first character defines solid type and is always present. it is replaced with '_' if cell doesn't
@@ -401,7 +409,13 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 
 				out_cell_strip.append(this_cell_symbols)
 
+				if is_unique_loc:
+					out_geometry_strip.append(this_solid)
+
 			out_cells.append(OUT_DELIM.join(out_cell_strip))
+
+			if is_unique_loc:
+				out_room_geometry.append(out_geometry_strip)
 
 		out_room_node[FOERR_JSON_KEY_CELLS] = out_cells
 
@@ -494,6 +508,45 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 		#	out_room_node[FOERR_JSON_KEY_OBJS] = out_objs
 
 		output_rooms.append(out_room_node)
+
+		##### geometry validation #####
+
+		# validate room geometry by checking if connected room sides have the same layout of collider cells.
+		# check all sides for every room. if there's no room on a given side, then validation also passes.
+		# because we only check against already processed rooms, we might skip checking some sides, which will actually
+		# be connected in the final location. that's ok though - they will be checked when the "missing" room is added.
+		# basically each connection is checked only when both rooms on its sides are present. thanks to this, we will
+		# check all connections, and we'll check each one exactly one time.
+		# note: we're *not* checking connections in the Z axis, because walls don't matter in that case.
+		# note: we're *not* validating grind locations
+
+		if is_unique_loc:
+			nearby_room_left = (room_x - 1, room_y, room_z)
+			nearby_room_right = (room_x + 1, room_y, room_z)
+			nearby_room_up = (room_x, room_y - 1, room_z)
+			nearby_room_down = (room_x, room_y + 1, room_z)
+
+			if nearby_room_left in room_geometries:
+				for y in range(ROOM_HEIGHT_WITH_BORDER):
+					if out_room_geometry[y][0] != room_geometries[nearby_room_left][y][ROOM_WIDTH_WITH_BORDER - 1]:
+						log_err("Room " + room_name + ": geometry validation failed at " + str((y, 0)))
+
+			if nearby_room_right in room_geometries:
+				for y in range(ROOM_HEIGHT_WITH_BORDER):
+					if out_room_geometry[y][ROOM_WIDTH_WITH_BORDER - 1] != room_geometries[nearby_room_right][y][0]:
+						log_err("Room " + room_name + ": geometry validation failed at " + str((y, ROOM_WIDTH_WITH_BORDER - 1)))
+
+			if nearby_room_up in room_geometries:
+				for x in range(ROOM_WIDTH_WITH_BORDER):
+					if out_room_geometry[0][x] != room_geometries[nearby_room_up][ROOM_HEIGHT_WITH_BORDER - 1][x]:
+						log_err("Room " + room_name + ": geometry validation failed at " + str((0, x)))
+
+			if nearby_room_down in room_geometries:
+				for x in range(ROOM_WIDTH_WITH_BORDER):
+					if out_room_geometry[ROOM_HEIGHT_WITH_BORDER - 1][x] != room_geometries[nearby_room_down][0][x]:
+						log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_HEIGHT_WITH_BORDER - 1, x)))
+
+			room_geometries[room_coords] = out_room_geometry
 
 	if is_unique_loc and not start_room_found:
 		log_err("Start room specified but not found, skipping location")
