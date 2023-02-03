@@ -529,22 +529,22 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 			if nearby_room_left in room_geometries:
 				for y in range(ROOM_HEIGHT_WITH_BORDER):
 					if out_room_geometry[y][0] != room_geometries[nearby_room_left][y][ROOM_WIDTH_WITH_BORDER - 1]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((y, 0)))
+						log_err("Room " + room_name + ": geometry validation failed at " + str((0, y)))
 
 			if nearby_room_right in room_geometries:
 				for y in range(ROOM_HEIGHT_WITH_BORDER):
 					if out_room_geometry[y][ROOM_WIDTH_WITH_BORDER - 1] != room_geometries[nearby_room_right][y][0]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((y, ROOM_WIDTH_WITH_BORDER - 1)))
+						log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 1, y)))
 
 			if nearby_room_up in room_geometries:
 				for x in range(ROOM_WIDTH_WITH_BORDER):
 					if out_room_geometry[0][x] != room_geometries[nearby_room_up][ROOM_HEIGHT_WITH_BORDER - 1][x]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((0, x)))
+						log_err("Room " + room_name + ": geometry validation failed at " + str((x, 0)))
 
 			if nearby_room_down in room_geometries:
 				for x in range(ROOM_WIDTH_WITH_BORDER):
 					if out_room_geometry[ROOM_HEIGHT_WITH_BORDER - 1][x] != room_geometries[nearby_room_down][0][x]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_HEIGHT_WITH_BORDER - 1, x)))
+						log_err("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 1)))
 
 			room_geometries[room_coords] = out_room_geometry
 
