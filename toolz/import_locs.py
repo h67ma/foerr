@@ -41,7 +41,7 @@ def maybe_separate_variant(obj_id: str):
 	return None
 
 
-def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
+def translate_rooms(output_id: str, input_filename: str, output_filename: str, loc_data, obj_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
 	log_verbose("Translating " + input_filename + " to " + output_filename)
 
 	try:
@@ -260,29 +260,37 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 				this_liquid = False
 				this_part_height = False
 
-				# first symbol in input cell is always a solid
-				if grid_elem[0] == SYMBOL_EMPTY:
-					# if symbol is empty, encode empty too
-					this_cell_symbols += SYMBOL_EMPTY
+				if is_unique_loc and (output_id in extra_cell_solids) and (room_coords in extra_cell_solids[output_id]) and ((x, y) in extra_cell_solids[output_id][room_coords]):
+					# overwrite solid symbol
+					overwrite_symbol = extra_cell_solids[output_id][room_coords][(x, y)]
+					this_cell_symbols += overwrite_symbol
+					if overwrite_symbol != SYMBOL_EMPTY and overwrite_symbol != SYMBOL_UNKNOWN:
+						this_solid = True
 				else:
-					# some solid defined in input
-					out_symbol = symbol_maps[FOERR_JSON_KEY_SOLIDS].get(grid_elem[0], SYMBOL_UNKNOWN)
-					if out_symbol == SYMBOL_UNKNOWN:
-						log_warn(err_prefix + "unknown solid: '" + grid_elem[0] + "'")
-						this_cell_symbols += SYMBOL_UNKNOWN
+					# normal parsing of solid symbol.
+					# first symbol in input cell is always a solid
+					if grid_elem[0] == SYMBOL_EMPTY:
+						# if symbol is empty, encode empty too
+						this_cell_symbols += SYMBOL_EMPTY
 					else:
-						this_mat = mat_data[FOERR_JSON_KEY_SOLIDS].get(out_symbol)
-						if this_mat is None:
-							log_warn(err_prefix + "unknown material for symbol ('" + out_symbol + "'), skipping symbol")
+						# some solid defined in input
+						out_symbol = symbol_maps[FOERR_JSON_KEY_SOLIDS].get(grid_elem[0], SYMBOL_UNKNOWN)
+						if out_symbol == SYMBOL_UNKNOWN:
+							log_warn(err_prefix + "unknown solid: '" + grid_elem[0] + "'")
 							this_cell_symbols += SYMBOL_UNKNOWN
 						else:
-							this_type = this_mat.get(FOERR_JSON_KEY_TYPE)
-							if this_type != 1:
-								log_warn(err_prefix + "symbol in solid slot ('" + out_symbol + "') is not a solid, skipping symbol")
+							this_mat = mat_data[FOERR_JSON_KEY_SOLIDS].get(out_symbol)
+							if this_mat is None:
+								log_warn(err_prefix + "unknown material for symbol ('" + out_symbol + "'), skipping symbol")
 								this_cell_symbols += SYMBOL_UNKNOWN
 							else:
-								this_solid = True
-								this_cell_symbols += out_symbol
+								this_type = this_mat.get(FOERR_JSON_KEY_TYPE)
+								if this_type != 1:
+									log_warn(err_prefix + "symbol in solid slot ('" + out_symbol + "') is not a solid, skipping symbol")
+									this_cell_symbols += SYMBOL_UNKNOWN
+								else:
+									this_solid = True
+									this_cell_symbols += out_symbol
 
 				# we need to check this before iterating over rest of the characters to cover detecting a case where
 				# liquid is defined on a full-height cell containing a solid. we need to know if there is *any* part
@@ -559,7 +567,7 @@ def translate_rooms(input_filename: str, output_filename: str, loc_data, obj_dat
 	return max_cell_length
 
 
-def get_output_filename(input_basename: str):
+def get_output_id(input_basename: str):
 	if input_basename in loc_names_map:
 		input_basename = loc_names_map[input_basename] # translate loc name if possible
 	else:
@@ -567,10 +575,8 @@ def get_output_filename(input_basename: str):
 		log_level("Location name \"" + input_basename + "\" not translated, skipping")
 		return None
 
-	output_filename = input_basename + ".json"
-	assert output_filename != ".json"
-	
-	return output_filename
+	assert input_basename != ""
+	return input_basename
 
 
 def get_gamedata_data(gamedata_path: str):
@@ -764,9 +770,12 @@ if __name__ == "__main__":
 	if args.all:
 		for filename in os.listdir(args.input):
 			input_basename = get_loc_basename(filename)
-			output_filename = get_output_filename(input_basename)
-			if output_filename is None:
+			output_id = get_output_id(input_basename)
+
+			if output_id is None:
 				continue
+
+			output_filename = output_id + ".json"
 
 			if args.output is not None:
 				output_path = os.path.join(args.output, output_filename)
@@ -776,7 +785,7 @@ if __name__ == "__main__":
 			if input_basename not in loc_data:
 				log_err("GameData does not contain data for " + input_basename + ", skipping")
 			else:
-				max_cell_length = translate_rooms(os.path.join(args.input, filename), output_path, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
+				max_cell_length = translate_rooms(output_id, os.path.join(args.input, filename), output_path, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
 				if max_cell_length > total_max_cell_length:
 					total_max_cell_length = max_cell_length
 
@@ -787,12 +796,13 @@ if __name__ == "__main__":
 			output_filename = args.output
 			assert output_filename != ""
 		else:
-			output_filename = get_output_filename(input_basename)
+			output_id = get_output_id(input_basename)
+			output_filename = output_id + ".json"
 
 		if input_basename not in loc_data:
 			log_err("GameData does not contain data for " + input_basename)
 		else:
-			total_max_cell_length = translate_rooms(args.input, output_filename, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
+			total_max_cell_length = translate_rooms(output_id, args.input, output_filename, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
 
 	if args.pad is None:
 		log_verbose("Max cell size was " + str(total_max_cell_length))
