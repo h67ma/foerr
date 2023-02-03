@@ -36,7 +36,6 @@
 #define STR_DUPLICATE_ROOM_IN_SAME_COORDS "Error loading location (%s) - multiple rooms defined for (%d, %d, %d)."
 #define STR_LOC_MISSING_DATA "Error loading location (%s) - room map data is missing: \"%s\"."
 #define STR_FILE_NOT_FOUND "Error: file not found (%s)."
-#define STR_LOC_INVALID_TYPES "Error: location cannot be grind and basecamp at the same time (%s)."
 #define STR_LOC_CHANGED "Changed location to %s."
 #define STR_LOC_NOT_FOUND "Error changing location - location not found (%s)."
 #define STR_CAMPAIGN_LOAD_ERR "Error loading campaign (%s)."

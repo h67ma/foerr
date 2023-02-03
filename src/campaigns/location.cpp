@@ -64,12 +64,7 @@ bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
 	if (!parseJsonKey<bool>(locMetaNode, this->id, FOERR_JSON_KEY_TYPE_BASECAMP, this->basecamp))
 		return false;
 
-	if (this->basecamp && this->grind)
-	{
-		// something stinks here...
-		Log::e(STR_LOC_INVALID_TYPES, this->id.c_str());
-		return false;
-	}
+	// note: location can be a grind map and a basecamp at the same time
 
 	parseJsonKey<uint>(locMetaNode, this->id, FOERR_JSON_KEY_RECOMMENDED_LVL, this->recommendedLevel, true);
 
