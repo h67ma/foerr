@@ -545,6 +545,27 @@ sf::Vector2u Room::getSpawnCoords() const
 }
 
 /**
+ * Checks if a Cell at given coordinates is a collider (has solid).
+ * Assumes that the Room has already been loaded via ::load().
+ * If the coordinates are out of range, true is returned and a warning is logged.
+ *
+ * @param x Cell x coordinate
+ * @param y Cell y coordinate
+ * @return true if the Cell is a collider, or its coordinates are out of range
+ * @return false if the Cell is not a collider
+ */
+bool Room::isCellCollider(uint x, uint y) const
+{
+	if (x >= ROOM_WIDTH_WITH_BORDER || y >= ROOM_HEIGHT_WITH_BORDER)
+	{
+		Log::w(STR_IDX_OUTTA_BOUNDS);
+		return true;
+	}
+
+	return this->cells[y][x].getHasSolid();
+}
+
+/**
  * @brief Redraws front elements of a single Cell. For drawing the entire Room, use ::draw()
  *
  * We'll never want to redraw Cell background, as it will never change.

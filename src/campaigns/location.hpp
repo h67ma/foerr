@@ -89,6 +89,8 @@ class Location : public sf::Drawable
 		sf::Texture roomTransitionTxt;
 		sf::Sprite roomTransitionSprite;
 
+		bool validateRoomGeometry(const std::shared_ptr<Room> room, HashableVector3i roomCoords) const;
+
 	public:
 		Location(const std::string &id, Player &player);
 		bool loadMeta(const json &locMetaNode, const std::string &campaignDir);

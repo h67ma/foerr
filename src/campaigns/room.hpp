@@ -68,6 +68,7 @@ class Room : public sf::Drawable, public sf::Transformable
 		void init();
 		void deinit();
 		sf::Vector2u getSpawnCoords() const;
+		bool isCellCollider(uint x, uint y) const;
 		void redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const; // TODO use me
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

@@ -202,6 +202,13 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 			return false;
 		}
 
+		// note: we only validate geometry for unique (non-grind) locations
+		if (!this->grind && !this->validateRoomGeometry(room, roomCoords))
+		{
+			this->unloadContent();
+			return false;
+		}
+
 		this->rooms.set(roomCoords, room);
 	}
 
@@ -239,6 +246,84 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 	// reachable.
 
 	Log::v(STR_LOADED_LOCATION_CONTENT, this->roomDataPath.c_str());
+	return true;
+}
+
+/**
+ * Validates geometry of a single Room, by checking if sides of all adjacent Rooms have the same layout of collider
+ * Cells (based on presence of solid in a Cell). If there's no room on a given side, the validation also passes.
+ *
+ * This should be called in the same loop where Rooms are being loaded. This way all connections will be checked exactly
+ * once (a given Room will check its given side only when the adjacent Room is present).
+ *
+ * Connections in the Z axis are not checked, as walls don't matter in that case.
+ *
+ * @return true if validation passed, false otherwise
+ */
+bool Location::validateRoomGeometry(const std::shared_ptr<Room> room, HashableVector3i roomCoords) const
+{
+	roomCoords.x -= 1;
+	std::shared_ptr<Room> roomLeft = this->rooms.get(roomCoords);
+	roomCoords.x += 2;
+	std::shared_ptr<Room> roomRight = this->rooms.get(roomCoords);
+	roomCoords.x -= 1;
+
+	roomCoords.y -= 1;
+	std::shared_ptr<Room> roomUp = this->rooms.get(roomCoords);
+	roomCoords.y += 2;
+	std::shared_ptr<Room> roomDown = this->rooms.get(roomCoords);
+	roomCoords.y -= 1;
+
+	if (roomLeft != nullptr)
+	{
+		for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+		{
+			if (room->isCellCollider(0, y) != roomLeft->isCellCollider(ROOM_WIDTH_WITH_BORDER - 1, y))
+			{
+				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, 0, y);
+				return false;
+			}
+		}
+	}
+
+	if (roomRight != nullptr)
+	{
+		for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
+		{
+			if (room->isCellCollider(ROOM_WIDTH_WITH_BORDER - 1, y) != roomRight->isCellCollider(0, y))
+			{
+				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z,
+					   ROOM_WIDTH_WITH_BORDER - 1, y);
+				return false;
+			}
+		}
+	}
+
+	if (roomUp != nullptr)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			if (room->isCellCollider(x, 0) != roomUp->isCellCollider(x, ROOM_HEIGHT_WITH_BORDER - 1))
+			{
+				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, x, 0);
+				return false;
+			}
+		}
+	}
+
+	if (roomDown != nullptr)
+	{
+		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
+		{
+			if (room->isCellCollider(x, ROOM_HEIGHT_WITH_BORDER - 1) != roomDown->isCellCollider(x, 0))
+			{
+				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z,
+					   x, ROOM_HEIGHT_WITH_BORDER - 1);
+				return false;
+			}
+		}
+	}
+
 	return true;
 }
 
