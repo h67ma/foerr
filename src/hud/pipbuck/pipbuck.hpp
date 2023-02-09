@@ -44,7 +44,11 @@ class PipBuck : public sf::Drawable, public HudTransformable
 		Campaign &campaign;
 		HoverManager hoverMgr;
 		SpriteResource pipBuckSprite;
+		SpriteResource pipBuckScreenRadialGrad; // note: can be generated purely by SFML, but it's hard to get right
 		sf::ConvexShape radIndicator;
+		sf::RectangleShape screenBackgroundGray;
+		sf::Texture screenBackgroundStripesTxt;
+		sf::Sprite screenBackgroundStripes;
 		sf::Clock timer;
 		float radIndicatorLevel = 0.f;
 		PipBuckCategoryType selectedCategory = PIPB_CAT_STATUS;

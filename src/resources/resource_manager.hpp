@@ -12,6 +12,7 @@
 
 // core textures
 #define PATH_TXT_PIPBUCK_OVERLAY "res/hud/pipbuck.png"
+#define PATH_TXT_PIPBUCK_BG_RADIAL "res/hud/screen_bg_radial.png"
 
 // core audio
 #define PATH_AUD_PIPBUCK_OPENCLOSE "res/audio/pipbuck_openclose.wav"

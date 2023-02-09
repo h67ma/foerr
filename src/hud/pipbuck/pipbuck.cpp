@@ -28,6 +28,12 @@
 #include "../../util/util.hpp"
 #include "../log.hpp"
 
+#define COLOR_SCREEN_GRAY COLOR_GRAY(0x39)
+#define SCREEN_X 365
+#define SCREEN_Y 178
+#define SCREEN_WIDTH 1094
+#define SCREEN_HEIGHT 685
+
 PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :
 	resMgr(resMgr),
 	gameState(gameState),
@@ -71,7 +77,8 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 	closeBtn(BTN_BIG, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, nullptr, CLICK_CONSUMED_CLOSE),
 	soundOpenClose(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE)),
 	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
-	pipBuckSprite(resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY))
+	pipBuckSprite(resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY)),
+	pipBuckScreenRadialGrad(resMgr.getTexture(PATH_TXT_PIPBUCK_BG_RADIAL))
 {
 	float initialVolume = static_cast<float>(SettingsManager::fxVolume);
 	this->soundOpenClose.setVolume(initialVolume);
@@ -90,6 +97,26 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 		this->hoverMgr += &btn.second;
 	}
 	this->hoverMgr += &this->closeBtn;
+
+	this->screenBackgroundGray.setFillColor(COLOR_SCREEN_GRAY);
+	this->screenBackgroundGray.setPosition(SCREEN_X, SCREEN_Y);
+	this->screenBackgroundGray.setSize({ SCREEN_WIDTH, SCREEN_HEIGHT });
+
+	// transparent radial gradient, tinted with hud color
+	this->pipBuckScreenRadialGrad.setColor(SettingsManager::hudColor);
+	this->pipBuckScreenRadialGrad.setPosition(SCREEN_X, SCREEN_Y);
+
+	// "scan lines"
+	sf::Image img;
+	img.create(1, 2, sf::Color::Transparent);
+	img.setPixel(0, 0, sf::Color::Black);
+
+	this->screenBackgroundStripesTxt.loadFromImage(img);
+	this->screenBackgroundStripesTxt.setRepeated(true);
+
+	this->screenBackgroundStripes.setTexture(this->screenBackgroundStripesTxt);
+	this->screenBackgroundStripes.setTextureRect({0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
+	this->screenBackgroundStripes.setPosition(SCREEN_X, SCREEN_Y);
 }
 
 void PipBuck::handleScreenResize(sf::Vector2u windowSize)
@@ -305,6 +332,10 @@ void PipBuck::tick()
 void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
+
+	target.draw(this->screenBackgroundGray, states);
+	target.draw(this->pipBuckScreenRadialGrad, states);
+	target.draw(this->screenBackgroundStripes, states);
 
 	target.draw(this->pipBuckSprite, states);
 	target.draw(this->radIndicator, states);
