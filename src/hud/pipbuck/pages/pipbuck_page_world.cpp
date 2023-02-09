@@ -39,6 +39,7 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 	})
 {
 	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
+	this->mapBg.setColor(SettingsManager::hudColor);
 
 	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->locTitle.setPosition(970, 260);
