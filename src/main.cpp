@@ -206,7 +206,7 @@ int main()
 		} },
 
 		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console, &window, &gameWorldView](){
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
 			console.executeLast();
 		} },
 	};
@@ -217,7 +217,7 @@ int main()
 		} },
 
 		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console, &window, &gameWorldView](){
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
 			console.executeLast();
 		} },
 	};
