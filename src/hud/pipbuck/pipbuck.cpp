@@ -101,9 +101,15 @@ void PipBuck::handleScreenResize(sf::Vector2u windowSize)
 
 /**
  * Opens PipBuck by changing game state and plays the open/close sound.
+ *
+ * Because the mouse can move during the time PipBuck is closed, it will most probably end up in a position far from
+ * the one previously handled in ::handleMouseMove(). Because of this, hover state could not reflect current mouse
+ * position. To fix this, emulate a single mouse movement event.
  */
-void PipBuck::open(bool sound)
+void PipBuck::open(sf::Vector2i mousePos, bool sound)
 {
+	this->handleMouseMove(mousePos);
+
 	this->gameState = STATE_PIPBUCK;
 	if (sound)
 		this->soundOpenClose.play();
@@ -223,10 +229,11 @@ void PipBuck::unloadCampaignInfos()
  * If requested page is already open, PipBuck will be closed.
  *
  * @param pageType the page type
+ * @param mousePos current mouse position (required to refresh hover state when opening PipBuck)
  * @return true if switch was successful
  * @return false if page -> category mapping is incorrect
  */
-bool PipBuck::switchToPage(PipBuckPageType pageType)
+bool PipBuck::switchToPage(PipBuckPageType pageType, sf::Vector2i mousePos)
 {
 	PipBuckCategoryType newCat = PipBuckCategory::pageTypeToCategoryType(pageType);
 
@@ -247,7 +254,7 @@ bool PipBuck::switchToPage(PipBuckPageType pageType)
 		this->soundCategoryBtn.play();
 	}
 	else
-		this->open();
+		this->open(mousePos);
 
 	return this->changeCategory(newCat) && this->categories.at(newCat).changePage(pageType);
 }
