@@ -7,3 +7,4 @@ foerr
 build/
 *.log
 *.dll
+.cache
