@@ -5,7 +5,7 @@
 
 #define TEXT_INPUT_PADDING 5
 #define TEXT_INPUT_PADDING2 TEXT_INPUT_PADDING * 2
-#define CURSOR_WIDTH 1.0f
+#define CURSOR_WIDTH 1.F
 
 /**
  * Note: font must use fixed-width characters.
@@ -16,7 +16,7 @@ TextInput::TextInput(enum FontSize fontSize, uint width, const sf::Font &font) :
 {
 	this->box.setOutlineColor(SettingsManager::hudColor);
 	this->box.setFillColor(DIM_COLOR(SettingsManager::hudColor, 0x20));
-	this->box.setOutlineThickness(1.0f);
+	this->box.setOutlineThickness(1.F);
 
 	this->cursor.setFillColor(SettingsManager::hudColor);
 

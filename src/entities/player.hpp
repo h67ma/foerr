@@ -23,7 +23,7 @@ class Player : public sf::Drawable, public sf::Transformable
 {
 	private:
 		Animation animation;
-		sf::Vector2f velocity{ 0.0f, 0.0f };
+		sf::Vector2f velocity{ 0.F, 0.F };
 		bool facingRight = true;
 		sf::IntRect collider {
 			PLAYER_COLLIDER_LEFT,

@@ -176,14 +176,14 @@ void SimpleButton::setGuiScale()
 	// 3 -- 2
 
 	// left half
-	gradient[0] = sf::Vertex({ 0.f, 0.f }, transparent);
-	gradient[1] = sf::Vertex({ static_cast<float>(midX), 0.f }, black);
+	gradient[0] = sf::Vertex({ 0.F, 0.F }, transparent);
+	gradient[1] = sf::Vertex({ static_cast<float>(midX), 0.F }, black);
 	gradient[2] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(h) }, black);
-	gradient[3] = sf::Vertex({ 0.f, static_cast<float>(h) }, transparent);
+	gradient[3] = sf::Vertex({ 0.F, static_cast<float>(h) }, transparent);
 
 	// right half
-	gradient[4] = sf::Vertex({ static_cast<float>(midX), 0.f }, black);
-	gradient[5] = sf::Vertex({ static_cast<float>(w), 0.f }, transparent);
+	gradient[4] = sf::Vertex({ static_cast<float>(midX), 0.F }, black);
+	gradient[5] = sf::Vertex({ static_cast<float>(w), 0.F }, transparent);
 	gradient[6] = sf::Vertex({ static_cast<float>(w), static_cast<float>(h) }, transparent);
 	gradient[7] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(h) }, black);
 

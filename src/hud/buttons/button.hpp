@@ -9,12 +9,12 @@
 #include "../clickable.hpp"
 #include "../../consts.hpp"
 
-#define BTN_BORDER_THICKNESS_SMALL 1.f
-#define BTN_BORDER_THICKNESS_SMALL_SELECTED 2.f
-#define BTN_BORDER_THICKNESS_NORMAL 1.f
-#define BTN_BORDER_THICKNESS_NORMAL_SELECTED 3.f
-#define BTN_BORDER_THICKNESS_LARGE 2.f
-#define BTN_BORDER_THICKNESS_LARGE_SELECTED 6.f
+#define BTN_BORDER_THICKNESS_SMALL 1.F
+#define BTN_BORDER_THICKNESS_SMALL_SELECTED 2.F
+#define BTN_BORDER_THICKNESS_NORMAL 1.F
+#define BTN_BORDER_THICKNESS_NORMAL_SELECTED 3.F
+#define BTN_BORDER_THICKNESS_LARGE 2.F
+#define BTN_BORDER_THICKNESS_LARGE_SELECTED 6.F
 
 class Button : public sf::Drawable, public HudTransformable, public Hoverable, public Clickable
 {

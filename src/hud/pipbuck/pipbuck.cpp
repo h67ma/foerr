@@ -85,11 +85,11 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 	this->soundCategoryBtn.setVolume(initialVolume);
 
 	this->radIndicator.setPointCount(3);
-	this->radIndicator.setOrigin(5.f, 0.f);
-	this->radIndicator.setPosition(130.f, 190.f);
-	this->radIndicator.setPoint(0, { 0.f, 0.f });
-	this->radIndicator.setPoint(1, { 10.f, 0.f });
-	this->radIndicator.setPoint(2, { 5.f, 60.f });
+	this->radIndicator.setOrigin(5.F, 0.F);
+	this->radIndicator.setPosition(130.F, 190.F);
+	this->radIndicator.setPoint(0, { 0.F, 0.F });
+	this->radIndicator.setPoint(1, { 10.F, 0.F });
+	this->radIndicator.setPoint(2, { 5.F, 60.F });
 	this->radIndicator.setFillColor(sf::Color::Black);
 
 	for (auto &btn : this->categoryButtons)
@@ -307,8 +307,8 @@ bool PipBuck::setup()
  */
 void PipBuck::setRadLevel(float rads)
 {
-	if (rads > 1.f)
-		this->radIndicatorLevel = 1.f;
+	if (rads > 1.F)
+		this->radIndicatorLevel = 1.F;
 	else
 		this->radIndicatorLevel = rads;
 }

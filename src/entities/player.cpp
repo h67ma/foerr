@@ -7,9 +7,9 @@
 #include "../settings/keymap.hpp"
 
 // no worries, float can handle precision at this order of magnitude
-#define MAX_VELOCITY 0.0004f
-#define MAX_VELOCITY_SPRINT 0.0008f
-#define VELOCITY_INCREMENT 0.00005f
+#define MAX_VELOCITY 0.0004F
+#define MAX_VELOCITY_SPRINT 0.0008F
+#define VELOCITY_INCREMENT 0.00005F
 
 Player::Player(ResourceManager &resMgr) :
 	// TODO actual animation
@@ -54,7 +54,7 @@ void Player::tick(uint lastFrameDurationUs)
 
 		if (this->facingRight)
 		{
-			this->setScale(-1.0f, 1.0f);
+			this->setScale(-1.F, 1.F);
 			this->facingRight = false;
 		}
 	}
@@ -66,7 +66,7 @@ void Player::tick(uint lastFrameDurationUs)
 
 		if (!this->facingRight)
 		{
-			this->setScale(1.0f, 1.0f);
+			this->setScale(1.F, 1.F);
 			this->facingRight = true;
 		}
 	}
@@ -127,7 +127,7 @@ void Player::debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states)
 {
 	sf::RectangleShape debugBox;
 	debugBox.setFillColor(sf::Color::Transparent);
-	debugBox.setOutlineThickness(1.f);
+	debugBox.setOutlineThickness(1.F);
 	debugBox.setOutlineColor(sf::Color::White);
 	debugBox.setSize(sf::Vector2f(this->collider.width, this->collider.height));
 	debugBox.setPosition(sf::Vector2f(this->collider.left, this->collider.top));
@@ -135,8 +135,8 @@ void Player::debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states)
 
 	sf::CircleShape originPoint;
 	originPoint.setFillColor(sf::Color::White);
-	originPoint.setRadius(2.f);
-	originPoint.setOrigin(1.f, 1.f);
+	originPoint.setRadius(2.F);
+	originPoint.setOrigin(1.F, 1.F);
 	originPoint.setPosition(this->getOrigin());
 	target.draw(originPoint, states);
 }

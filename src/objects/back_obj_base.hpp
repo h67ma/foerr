@@ -44,7 +44,7 @@
 class BackObjectBase
 {
 	protected:
-		sf::Vector2f offset{ 0.f, 0.f };
+		sf::Vector2f offset{ 0.F, 0.F };
 		uint variantsCnt = 0;
 
 	public:

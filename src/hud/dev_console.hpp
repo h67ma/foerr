@@ -56,6 +56,6 @@ class DevConsole : public sf::Drawable
 		void setPosition(sf::Vector2u windowSize);
 		void handleKeyPressed(sf::Keyboard::Key key, sf::Vector2f mouseCoords);
 		void handleTextEntered(uint keycode);
-		void executeLast(sf::Vector2f mouseCoords = { 0.f, 0.f });
+		void executeLast(sf::Vector2f mouseCoords = { 0.F, 0.F });
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

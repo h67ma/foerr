@@ -52,13 +52,13 @@ void setLetterboxView(sf::View &view, sf::Vector2u windowSize)
 	{
 		// black bars on top and bottom
 		sizeY = windowRatio / viewRatio;
-		posY = (1 - sizeY) / 2.f;
+		posY = (1 - sizeY) / 2.F;
 	}
 	else
 	{
 		// black bars on left and right side
 		sizeX = viewRatio / windowRatio;
-		posX = (1 - sizeX) / 2.f;
+		posX = (1 - sizeX) / 2.F;
 	}
 
 	view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
@@ -75,7 +75,7 @@ void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hu
 	console.setPosition(windowSize);
 
 	// update views
-	hudView.reset({ 0.f, 0.f, static_cast<float>(windowSize.x), static_cast<float>(windowSize.y) });
+	hudView.reset({ 0.F, 0.F, static_cast<float>(windowSize.x), static_cast<float>(windowSize.y) });
 	setLetterboxView(gameWorldView, windowSize);
 }
 

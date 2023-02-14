@@ -458,7 +458,7 @@ void Room::init()
 		// cache, as it is not always displayed.
 		sf::RectangleShape debugBox;
 		debugBox.setFillColor(sf::Color::Transparent);
-		debugBox.setOutlineThickness(1.f);
+		debugBox.setOutlineThickness(1.F);
 
 		debugBox.setOutlineColor(sf::Color::Green);
 		for (const auto &backObj : this->farBackObjectsMain)

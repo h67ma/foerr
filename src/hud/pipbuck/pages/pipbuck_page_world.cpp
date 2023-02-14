@@ -51,7 +51,7 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 
 	this->activeLocIndicator.setOutlineColor(SettingsManager::hudColor);
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
-	this->activeLocIndicator.setOutlineThickness(2.f);
+	this->activeLocIndicator.setOutlineThickness(2.F);
 
 	this->setGuiScale();
 

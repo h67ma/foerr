@@ -8,8 +8,8 @@
 // game area size
 #define GAME_AREA_WIDTH 1920
 #define GAME_AREA_HEIGHT 1000
-#define GAME_AREA_MID_X 960.f
-#define GAME_AREA_MID_Y 500.f
+#define GAME_AREA_MID_X 960.F
+#define GAME_AREA_MID_Y 500.F
 
 // paths
 #define PATH_DIR_GAMEDATA ".foerr"

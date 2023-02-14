@@ -6,7 +6,7 @@ PipBuckPageEffects::PipBuckPageEffects(ResourceManager &resMgr) :
 	PipBuckPage("Effects") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
-	this->dummy.setPosition(500.f, 500.f);
+	this->dummy.setPosition(500.F, 500.F);
 	this->dummy.setString("effects");
 }
 

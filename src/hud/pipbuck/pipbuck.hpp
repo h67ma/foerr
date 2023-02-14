@@ -50,7 +50,7 @@ class PipBuck : public sf::Drawable, public HudTransformable
 		sf::Texture screenBackgroundStripesTxt;
 		sf::Sprite screenBackgroundStripes;
 		sf::Clock timer;
-		float radIndicatorLevel = 0.f;
+		float radIndicatorLevel = 0.F;
 		PipBuckCategoryType selectedCategory = PIPB_CAT_STATUS;
 		std::unordered_map<PipBuckCategoryType, PipBuckCategory> categories;
 		std::unordered_map<PipBuckCategoryType, SimpleButton> categoryButtons;

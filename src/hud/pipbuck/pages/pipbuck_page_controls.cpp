@@ -29,7 +29,7 @@ PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr) :
 
 	this->dummyMapDump.setFont(*resMgr.getFont(FONT_NORMAL));
 	this->dummyMapDump.setCharacterSize(17);
-	this->dummyMapDump.setPosition(400.f, 250.f);
+	this->dummyMapDump.setPosition(400.F, 250.F);
 	this->updateDisplay();
 }
 
