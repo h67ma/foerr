@@ -16,6 +16,10 @@ Checks: >
   -readability-braces-around-statements,
 
   performance-*,
-  misc-*'
+  misc-*',
+
+  hicpp-*,
+  -hicpp-member-init,
+  -hicpp-braces-around-statements
 WarningsAsErrors: true
 ...
