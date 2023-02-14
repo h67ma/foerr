@@ -68,7 +68,7 @@ bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
 
 	parseJsonKey<uint>(locMetaNode, this->id, FOERR_JSON_KEY_RECOMMENDED_LVL, this->recommendedLevel, true);
 
-	std::string roomsFilename = "";
+	std::string roomsFilename;
 	parseJsonKey<std::string>(locMetaNode, this->id, FOERR_JSON_KEY_ROOMS, roomsFilename, true);
 
 	// default to location id if not specified

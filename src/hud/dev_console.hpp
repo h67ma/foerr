@@ -39,7 +39,7 @@ class DevConsole : public sf::Drawable
 		TextInput inputField;
 		bool isOpen = false;
 		bool ignoreNextTextEntered = false;
-		std::string lastCommand = "";
+		std::string lastCommand;
 		std::deque<std::string> history;
 		std::deque<std::string>::iterator historyElem;
 		static const std::map<std::string, struct dev_console_cmd> commands;

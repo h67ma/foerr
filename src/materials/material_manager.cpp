@@ -42,7 +42,7 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
 
 		enum MaterialType matType = (enum MaterialType)intType;
 
-		std::string texturePath = "";
+		std::string texturePath;
 		if (matType != MAT_LIQUID)
 		{
 			if (!parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE,
@@ -52,14 +52,14 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
 			texturePath = pathCombine(PATH_TEXT_CELLS, texturePath + ".png");
 		}
 
-		std::string textureDelimPath = "";
+		std::string textureDelimPath;
 		if (parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM,
 									  textureDelimPath, true))
 		{
 			textureDelimPath = pathCombine(PATH_TEXT_CELLS, textureDelimPath + ".png");
 		}
 
-		std::string maskTexturePath = "";
+		std::string maskTexturePath;
 		if (parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_MASK,
 									  maskTexturePath, true))
 		{

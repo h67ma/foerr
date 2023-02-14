@@ -62,7 +62,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 	///// room-wide backwall /////
 
 	// backwall can be empty
-	std::string backwallTxtPath = "";
+	std::string backwallTxtPath;
 	parseJsonKey<std::string>(root, filePath, FOERR_JSON_KEY_BACKWALL, backwallTxtPath, true);
 	if (backwallTxtPath != "")
 	{

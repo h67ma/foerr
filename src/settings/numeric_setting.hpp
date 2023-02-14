@@ -13,7 +13,7 @@ class NumericSetting : public GenericSetting<uint>
 {
 	private:
 		const std::function<bool(uint)> constraint;
-		const std::string valueHint = ""; // describes valid values of the setting
+		const std::string valueHint; // describes valid values of the setting
 
 	public:
 		NumericSetting(const std::string &key, uint &val, uint defaultVal);
