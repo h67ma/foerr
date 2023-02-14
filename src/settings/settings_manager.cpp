@@ -47,7 +47,6 @@
 #define CUSTOM_CURSOR_DEF true
 #endif /* __linux__ */
 
-// TODO should we care about this cpplint warning?
 std::string SettingsManager::gameRootDir;
 std::string SettingsManager::saveDir;
 

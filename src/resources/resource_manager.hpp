@@ -62,7 +62,7 @@ enum FontType
 class ResourceManager
 {
 	private:
-		sf::Font fonts[_FONT_CNT]; // NOLINT(runtime/arrays)
+		sf::Font fonts[_FONT_CNT];
 		std::unordered_map<std::string, std::shared_ptr<sf::Texture>> textures;
 
 		// returned when requested texture could not be loaded. ptr stored here in order to always keep it loaded.
