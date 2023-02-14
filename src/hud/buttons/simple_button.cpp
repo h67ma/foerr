@@ -1,5 +1,6 @@
 #include "simple_button.hpp"
 
+#include <utility>
 #include <string>
 
 #include "../../settings/settings_manager.hpp"
@@ -17,7 +18,7 @@
 SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::Vector2u position,
 						   const std::string &text, std::function<void(void)> callback,
 						   ClickStatus consumedStatus) :
-	Button(position, callback, consumedStatus)
+	Button(position, std::move(callback), consumedStatus)
 {
 	this->size = size;
 

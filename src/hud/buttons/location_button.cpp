@@ -2,6 +2,8 @@
 
 #include <math.h>
 
+#include <utility>
+
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 
@@ -12,7 +14,7 @@
 
 LocButton::LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture) :
 	Button(position, nullptr, CLICK_CONSUMED),
-	icon(iconTexture)
+	icon(std::move(iconTexture))
 {
 	this->isBaseCamp = isBaseCamp;
 	this->isBig = isBig;
