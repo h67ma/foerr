@@ -54,7 +54,7 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
 	this->solid.setTexture(txt);
 
 	// TODO mask will probably be handled elsewhere
-	if (mat->maskTexturePath != "")
+	if (!mat->maskTexturePath.empty())
 	{
 		txt = resMgr.getTexture(mat->maskTexturePath);
 		if (txt != nullptr)

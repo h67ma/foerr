@@ -322,7 +322,7 @@ int main()
 	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 
 	// autoload campaign
-	if (SettingsManager::debugAutoloadCampaign != "")
+	if (!SettingsManager::debugAutoloadCampaign.empty())
 	{
 		Log::d(STR_AUTLOADING_CAMPAIGN);
 

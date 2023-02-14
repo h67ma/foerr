@@ -72,7 +72,7 @@ bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
 	parseJsonKey<std::string>(locMetaNode, this->id, FOERR_JSON_KEY_ROOMS, roomsFilename, true);
 
 	// default to location id if not specified
-	if (roomsFilename == "")
+	if (roomsFilename.empty())
 		roomsFilename = this->id;
 
 	this->roomDataPath = pathCombine(campaignDir, std::string(PATH_DIR_ROOMS), roomsFilename + ".json");

@@ -64,7 +64,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 	// backwall can be empty
 	std::string backwallTxtPath;
 	parseJsonKey<std::string>(root, filePath, FOERR_JSON_KEY_BACKWALL, backwallTxtPath, true);
-	if (backwallTxtPath != "")
+	if (!backwallTxtPath.empty())
 	{
 		backwallTxtPath = pathCombine(PATH_TEXT_CELLS, backwallTxtPath + ".png");
 		std::shared_ptr<sf::Texture> backwallTxt = resMgr.getTexture(backwallTxtPath);
