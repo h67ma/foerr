@@ -1,6 +1,6 @@
 #include "fps_meter.hpp"
 
-#include <math.h>
+#include <cmath>
 
 #include "../settings/settings_manager.hpp"
 #include "../util/util.hpp"

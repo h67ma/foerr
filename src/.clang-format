@@ -16,10 +16,12 @@ IncludeBlocks: Regroup
 IncludeCategories:
 - Regex: '<.*\.h>'
   Priority: 1
-- Regex: '<SFML.*>'
-  Priority: 3
-- Regex: '<.*>'
+- Regex: '^<c.*>'
   Priority: 2
+- Regex: '<SFML.*>'
+  Priority: 4
+- Regex: '<.*>'
+  Priority: 3
 IndentCaseLabels: 'true'
 IndentWidth: '4'
 Language: Cpp

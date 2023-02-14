@@ -1,6 +1,6 @@
 #include "location_button.hpp"
 
-#include <math.h>
+#include <cmath>
 
 #include <utility>
 

@@ -1,6 +1,6 @@
 #include "pipbuck.hpp"
 
-#include <math.h>
+#include <cmath>
 
 #include <memory>
 
