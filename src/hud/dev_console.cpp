@@ -11,6 +11,8 @@
 // storing this in SettingsManager would be an overkill
 #define MAX_HISTORY_SIZE 25
 
+#define MAX_INPUT_CHARS 80
+
 
 static void cmdGoto(struct dev_console_cmd_params params)
 {
@@ -74,7 +76,7 @@ const std::map<std::string, struct dev_console_cmd> DevConsole::commands {
 
 
 DevConsole::DevConsole(sf::Vector2u windowSize, const sf::Font &font, Campaign &campaign) :
-	inputField(FONT_H2, CONSOLE_WIDTH, font),
+	inputField(FONT_H2, CONSOLE_WIDTH, font, MAX_INPUT_CHARS),
 	campaign(campaign)
 {
 	this->setPosition(windowSize);

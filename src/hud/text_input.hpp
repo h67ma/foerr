@@ -23,6 +23,7 @@ class TextInput : public sf::Drawable, public sf::Transformable
 		sf::RectangleShape box;
 		sf::RectangleShape cursor;
 		enum FontSize fontSize;
+		const uint maxCharacters;
 		uint width;
 		uint characterWidth;
 		uint cursorIdx = 0; // 0 means the cursor is before the first character
@@ -32,7 +33,7 @@ class TextInput : public sf::Drawable, public sf::Transformable
 		void setSize();
 
 	public:
-		TextInput(enum FontSize fontSize, uint width, const sf::Font &font);
+		TextInput(enum FontSize fontSize, uint width, const sf::Font &font, uint maxCharacters);
 		std::string getCurrentInput() const;
 		uint getHeight() const;
 		void putCharacter(char character);

@@ -10,9 +10,10 @@
 /**
  * Note: font must use fixed-width characters.
  */
-TextInput::TextInput(enum FontSize fontSize, uint width, const sf::Font &font) :
+TextInput::TextInput(enum FontSize fontSize, uint width, const sf::Font &font, uint maxCharacters) :
 	fontSize(fontSize),
-	width(width)
+	width(width),
+	maxCharacters(maxCharacters)
 {
 	this->box.setOutlineColor(SettingsManager::hudColor);
 	this->box.setFillColor(DIM_COLOR(SettingsManager::hudColor, 0x20));
@@ -73,6 +74,9 @@ std::string TextInput::getCurrentInput() const
  */
 void TextInput::putCharacter(char character)
 {
+	if (this->currentInput.length() >= this->maxCharacters)
+		return;
+
 	this->currentInput.insert(this->cursorIdx, 1, character);
 	this->moveCursorRight();
 	this->text.setString(this->currentInput);
