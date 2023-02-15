@@ -353,12 +353,12 @@ sf::Vector2u Location::getWorldMapCoords() const
 	return this->worldMapCoords;
 }
 
-bool Location::isBasecamp()
+bool Location::isBasecamp() const
 {
 	return this->basecamp;
 }
 
-bool Location::isWorldMapIconBig()
+bool Location::isWorldMapIconBig() const
 {
 	return this->worldMapIconBig;
 }

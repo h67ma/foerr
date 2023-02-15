@@ -100,8 +100,8 @@ class Location : public sf::Drawable
 		std::string getTitle() const;
 		std::string getDescription() const;
 		sf::Vector2u getWorldMapCoords() const;
-		bool isWorldMapIconBig();
-		bool isBasecamp();
+		bool isWorldMapIconBig() const;
+		bool isBasecamp() const;
 		uint getRecommendedLevel() const;
 		std::string getWorldMapIconId() const;
 		bool gotoRoom(Direction direction, sf::Vector2f newPlayerCoords);
