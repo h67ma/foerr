@@ -70,16 +70,24 @@ std::string TextInput::getCurrentInput() const
 }
 
 /**
- * Appends a character to the input box. Only ASCII characters are supported.
+ * Appends a character to the input box.
+ * If the field is already full, the character is not added (false is returned).
+ * Only printable ASCII characters are supported, all else are ignored (false is returned).
+ *
+ * @return true if event was consumed, false otherwise
  */
-void TextInput::putCharacter(char character)
+bool TextInput::handleTextEntered(uint keycode)
 {
 	if (this->currentInput.length() >= this->maxCharacters)
-		return;
+		return false;
 
-	this->currentInput.insert(this->cursorIdx, 1, character);
+	if (keycode < ' ' || keycode > '~')
+		return false;
+
+	this->currentInput.insert(this->cursorIdx, 1, keycode);
 	this->moveCursorRight();
 	this->text.setString(this->currentInput);
+	return true;
 }
 
 /**

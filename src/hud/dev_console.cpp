@@ -172,10 +172,8 @@ void DevConsole::handleTextEntered(uint keycode)
 		return;
 	}
 
-	if (keycode < ' ' || keycode > '~')
+	if (!this->inputField.handleTextEntered(keycode))
 		return;
-
-	this->inputField.putCharacter(keycode);
 
 	this->historyElem = this->history.end();
 }
