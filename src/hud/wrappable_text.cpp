@@ -22,7 +22,8 @@ void WrappableText::setString(std::string text, uint maxWidth)
 			firstWord = true;
 			continue;
 		}
-		else if (currentChar == ' ')
+
+		if (currentChar == ' ')
 		{
 			wordStart = i;
 			firstWord = false;

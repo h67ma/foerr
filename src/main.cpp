@@ -369,7 +369,8 @@ int main()
 
 				continue;
 			}
-			else if (gameState == STATE_PLAYING)
+
+			if (gameState == STATE_PLAYING)
 			{
 				if (event.type == sf::Event::KeyPressed)
 				{
@@ -380,7 +381,7 @@ int main()
 					continue;
 				}
 
-				else if (event.type == sf::Event::LostFocus)
+				if (event.type == sf::Event::LostFocus)
 				{
 					if (SettingsManager::pauseOnFocusLoss)
 						pipBuck.open(sf::Mouse::getPosition(window), false);
@@ -396,7 +397,8 @@ int main()
 
 					continue;
 				}
-				else if (event.type == sf::Event::KeyPressed)
+
+				if (event.type == sf::Event::KeyPressed)
 				{
 					auto search = pipBuckCbs.find(action);
 					if (search != pipBuckCbs.end())
@@ -404,7 +406,8 @@ int main()
 
 					continue;
 				}
-				else if (event.type == sf::Event::MouseButtonPressed)
+
+				if (event.type == sf::Event::MouseButtonPressed)
 				{
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
@@ -422,7 +425,8 @@ int main()
 
 					continue;
 				}
-				else if (event.type == sf::Event::MouseButtonPressed)
+
+				if (event.type == sf::Event::MouseButtonPressed)
 				{
 					//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 					if (event.mouseButton.button == sf::Mouse::Left)
@@ -432,7 +436,8 @@ int main()
 
 					continue;
 				}
-				else if (event.type == sf::Event::KeyPressed)
+
+				if (event.type == sf::Event::KeyPressed)
 				{
 					auto search = mainMenuCbs.find(action);
 					if (search != mainMenuCbs.end())
@@ -452,7 +457,8 @@ int main()
 				window.close();
 				return 0;
 			}
-			else if (event.type == sf::Event::Resized)
+
+			if (event.type == sf::Event::Resized)
 			{
 				windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 			}
