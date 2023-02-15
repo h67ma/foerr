@@ -361,16 +361,16 @@ int main()
 				if (event.type == sf::Event::KeyPressed)
 				{
 					console.handleKeyPressed(event.key.code, getMousePos(window, gameWorldView));
+					continue;
 				}
-				else if (event.type == sf::Event::TextEntered)
+
+				if (event.type == sf::Event::TextEntered)
 				{
 					console.handleTextEntered(event.text.unicode);
+					continue;
 				}
-
-				continue;
 			}
-
-			if (gameState == STATE_PLAYING)
+			else if (gameState == STATE_PLAYING)
 			{
 				if (event.type == sf::Event::KeyPressed)
 				{
