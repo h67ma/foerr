@@ -1,6 +1,7 @@
 # Dependencies
 
 * [SFML](https://www.sfml-dev.org)
+  * Refer to [SFML documentation](https://www.sfml-dev.org/tutorials/2.5/compile-with-cmake.php) for SFML dependencies.
 * [JSON for Modern C++](https://github.com/nlohmann/json)
 
 # Build
