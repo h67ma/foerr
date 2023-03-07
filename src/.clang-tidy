@@ -6,7 +6,8 @@ Checks: >
   -cppcoreguidelines-init-variables,
   -cppcoreguidelines-pro-type-union-access,
   -cppcoreguidelines-pro-type-member-init,
-  -cppcoreguidelines-avoid-non-const-global-variables
+  -cppcoreguidelines-avoid-non-const-global-variables,
+  -cppcoreguidelines-macro-usage,
 
   modernize-*,
   -modernize-use-trailing-return-type,
@@ -14,6 +15,7 @@ Checks: >
   bugprone-*,
   readability-*,
   -readability-braces-around-statements,
+  -readability-simplify-boolean-expr,
 
   performance-*,
   misc-*',
