@@ -109,6 +109,11 @@ ClickStatus PipBuckCategory::handleLeftClick(sf::Vector2i clickPos)
 	return CLICK_NOT_CONSUMED;
 }
 
+void PipBuckCategory::handleLeftClickUp()
+{
+	this->pages.at(this->selectedPage)->handleLeftClickUp();
+}
+
 bool PipBuckCategory::handleMouseMove(sf::Vector2i mousePos)
 {
 	mousePos -= this->getIntPosition();

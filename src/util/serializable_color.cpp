@@ -2,6 +2,15 @@
 
 #include "../consts.hpp"
 
+SerializableColor& SerializableColor::operator=(const sf::Color &color)
+{
+	this->r = color.r;
+	this->g = color.g;
+	this->b = color.b;
+	this->a = color.a;
+	return *this;
+}
+
 /**
  * Parses a color string.
  * Valid formats are:

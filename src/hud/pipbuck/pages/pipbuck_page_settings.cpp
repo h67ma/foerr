@@ -8,10 +8,15 @@
 PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 	PipBuckPage("Settings"), // TODO translate
 	buttons({
-		{BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() {
+		{BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, [this]() {
+			// read new settings values from GUI controls on this page, save to SettingsManager
+
+			SettingsManager::hudColor = this->hudColorSelector.getSelectedColor();
+
 			SettingsManager::saveConfig();
 		}}
-	})
+	}),
+	hudColorSelector(*resMgr.getFont(FONT_NORMAL))
 {
 	for (auto &btn : this->buttons)
 	{
@@ -21,20 +26,44 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 
 	this->infoText.setFont(*resMgr.getFont(FONT_NORMAL));
 	this->infoText.setCharacterSize(17);
-	this->infoText.setPosition(400.F, 250.F);
+	this->infoText.setPosition(400.F, 272.F);
+
+	this->hudColorSelector.setPosition(500.F, 250.F);
 
 	// TODO would be cool if there was a button here "Open game directory" which opens file explorer in this dir
-	this->infoText.setString(litSprintf("Main game directory: %s\nSavegame directory: %s",
+	this->infoText.setString(litSprintf("HUD color\n\n\n\nMain game directory: %s\nSavegame directory: %s",
 										SettingsManager::getGameRootDir().c_str(),
 										SettingsManager::getSaveDir().c_str()));
 }
 
+ClickStatus PipBuckPageSettings::handleLeftClick(sf::Vector2i clickPos)
+{
+	if (this->hudColorSelector.handleLeftClick(clickPos))
+		return CLICK_CONSUMED;
+
+	return this->clickMgr.handleLeftClick(clickPos);
+}
+
+void PipBuckPageSettings::handleLeftClickUp()
+{
+	this->hudColorSelector.handleLeftClickUp();
+}
+
+bool PipBuckPageSettings::handleMouseMove(sf::Vector2i mousePos)
+{
+	if (this->hudColorSelector.handleMouseMove(mousePos))
+		return true;
+
+	return this->hoverMgr.handleMouseMove(mousePos);
+}
+
 void PipBuckPageSettings::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	for (auto &btn : this->buttons)
+	for (const auto &btn : this->buttons)
 	{
 		target.draw(btn, states);
 	}
 
 	target.draw(this->infoText, states);
+	target.draw(this->hudColorSelector, states);
 }

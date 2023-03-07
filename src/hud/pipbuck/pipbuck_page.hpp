@@ -56,6 +56,7 @@ class PipBuckPage : public sf::Drawable
 
 	public:
 		virtual ClickStatus handleLeftClick(sf::Vector2i clickPos);
+		virtual void handleLeftClickUp() { };
 		virtual bool handleMouseMove(sf::Vector2i mousePos);
 		virtual bool setupCampaignInfos() { return true; }
 		virtual void unloadCampaignInfos() { }

@@ -208,6 +208,11 @@ void PipBuck::handleLeftClick(sf::Vector2i clickPos)
 		this->close();
 }
 
+void PipBuck::handleLeftClickUp()
+{
+	this->categories.at(this->selectedCategory).handleLeftClickUp();
+}
+
 void PipBuck::handleMouseMove(sf::Vector2i mousePos)
 {
 	mousePos -= this->getIntPosition();
