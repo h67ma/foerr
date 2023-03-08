@@ -18,6 +18,7 @@ class ColorSelector : public sf::Drawable, public HudTransformable
 	public:
 		explicit ColorSelector(const sf::Font &font);
 		sf::Color getSelectedColor() const;
+		void setSelectedColor(sf::Color color);
 		bool handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		bool handleMouseMove(sf::Vector2i mousePos);

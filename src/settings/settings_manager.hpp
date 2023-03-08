@@ -74,6 +74,7 @@ class SettingsManager
 		static void setup();
 		static void saveConfig();
 		static void loadConfig();
+		static void resetAllToDefault();
 		static bool generatePathsAndMkdir();
 		static std::string getGameRootDir();
 		static std::string getSaveDir();

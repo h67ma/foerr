@@ -209,6 +209,16 @@ void SettingsManager::loadConfig()
 	}
 }
 
+void SettingsManager::resetAllToDefault()
+{
+	for (auto &sett : SettingsManager::settings)
+	{
+		sett->resetToDefault();
+	}
+
+	Log::i(STR_SETTINGS_RESETTED);
+}
+
 /**
  * @brief Generates game root and savegame dirs and creates directories for both.
  *

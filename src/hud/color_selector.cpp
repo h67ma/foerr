@@ -46,6 +46,17 @@ sf::Color ColorSelector::getSelectedColor() const
 	return this->selectedColor;
 }
 
+void ColorSelector::setSelectedColor(sf::Color color)
+{
+	this->selectedColor = color;
+
+	this->sliderR.setValue(color.r);
+	this->sliderG.setValue(color.g);
+	this->sliderB.setValue(color.b);
+
+	this->selectedColorPreview.setFillColor(color);
+}
+
 /**
  * Updates the internal color value and color preview rectangle based on the three slider values.
  */

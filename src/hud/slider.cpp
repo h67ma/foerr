@@ -43,6 +43,12 @@ int Slider::getValue() const
 	return this->currentVal;
 }
 
+void Slider::setValue(int value)
+{
+	this->currentVal = value;
+	this->updateDisplay();
+}
+
 void Slider::updateDisplay()
 {
 	this->currValueText.setString(std::to_string(this->currentVal));

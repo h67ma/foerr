@@ -77,6 +77,7 @@
 #define STR_SAVE "Save"
 #define STR_RESET_DEFAULT "Reset to defaults"
 #define STR_KEYMAP_RESETTED "Restored default keymap"
+#define STR_SETTINGS_RESETTED "Restored default settings"
 #define STR_PIPBUCK_SETUP_FAILED "Failed to setup PipBuck."
 #define STR_PIPBUCK_UNLOADING_CAMPAIGN "Unloding campaign infos from PipBuck..."
 #define STR_RECOMMENDED_LVL "\n\nRecommended level: %u"

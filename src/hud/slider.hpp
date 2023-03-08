@@ -35,6 +35,7 @@ class Slider : public HudTransformable, public sf::Drawable
 		explicit Slider(const sf::Font &font, int minVal = SLIDER_DEFAULT_MIN,
 						int maxVal = SLIDER_DEFAULT_MAX, int defaultVal = SLIDER_DEFAULT_DEFAULT);
 		int getValue() const;
+		void setValue(int value);
 		bool handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		bool handleMouseMove(sf::Vector2i mousePos);

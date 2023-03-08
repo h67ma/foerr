@@ -14,6 +14,14 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 			SettingsManager::hudColor = this->hudColorSelector.getSelectedColor();
 
 			SettingsManager::saveConfig();
+		}},
+		{BTN_NORMAL, resMgr, { 600, 815 }, STR_RESET_DEFAULT, [this]() {
+			// reset all settings, write to file, update controls state on this page
+
+			SettingsManager::resetAllToDefault();
+			SettingsManager::saveConfig();
+
+			this->hudColorSelector.setSelectedColor(SettingsManager::hudColor);
 		}}
 	}),
 	hudColorSelector(*resMgr.getFont(FONT_NORMAL))
