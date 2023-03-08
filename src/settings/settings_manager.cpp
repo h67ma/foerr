@@ -161,7 +161,7 @@ void SettingsManager::saveConfig()
 	root.emplace(FOERR_JSON_KEY_SETTINGS, keysNode);
 
 	writeJsonToFile(root, pathCombine(SettingsManager::gameRootDir, PATH_SETTINGS));
-	Log::i("Saved settings");
+	Log::i(STR_SETTINGS_SAVED);
 }
 
 void SettingsManager::loadConfig()
