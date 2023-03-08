@@ -78,7 +78,6 @@ class SettingsManager
 		static std::string getGameRootDir();
 		static std::string getSaveDir();
 
-	public:
 		// when adding a new setting, it needs to be initialized in ::setup() to support serdes
 
 		///// window /////
