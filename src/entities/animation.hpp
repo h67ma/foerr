@@ -55,5 +55,5 @@ class Animation : public sf::Drawable, public sf::Transformable
 		Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u size, const std::vector<struct anim_kind_details> kinds);
 		void nextFrame();
 		bool setAnimation(AnimationKind kind);
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

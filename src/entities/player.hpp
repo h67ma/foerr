@@ -39,5 +39,5 @@ class Player : public sf::Drawable, public sf::Transformable
 		void stopVertical();
 		void stopHorizontal();
 		void debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const;
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

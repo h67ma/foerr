@@ -25,5 +25,5 @@ class PipBuckPageSettings : public PipBuckPage
 		void handleLeftClickUp() override;
 		bool handleMouseMove(sf::Vector2i mousePos) override;
 		void handleSettingsChange() override;
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

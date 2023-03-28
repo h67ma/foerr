@@ -53,5 +53,5 @@ class PipBuckCategory : public sf::Drawable, public HudTransformable, public Con
 		void unloadCampaignInfos();
 		static PipBuckCategoryType pageTypeToCategoryType(PipBuckPageType pageType);
 		void handleSettingsChange() override;
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

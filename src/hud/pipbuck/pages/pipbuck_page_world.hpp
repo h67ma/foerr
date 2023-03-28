@@ -48,5 +48,5 @@ class PipBuckPageWorld : public PipBuckPage
 		void unloadCampaignInfos() override;
 		void setGuiScale();
 		void handleSettingsChange() override;
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

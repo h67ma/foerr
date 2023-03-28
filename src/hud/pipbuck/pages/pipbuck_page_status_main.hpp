@@ -12,5 +12,5 @@ class PipBuckPageMainStatus : public PipBuckPage
 {
 	public:
 		explicit PipBuckPageMainStatus(ResourceManager &resMgr);
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

@@ -26,7 +26,7 @@ class Button : public sf::Drawable, public HudTransformable, public Hoverable, p
 		explicit Button(sf::Vector2u position, std::function<void(void)> callback = nullptr,
 						ClickStatus consumedStatus = CLICK_CONSUMED);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
-		virtual bool containsPoint(sf::Vector2i coords) = 0;
+		bool containsPoint(sf::Vector2i coords) override = 0;
 		virtual void setGuiScale() = 0;
 		virtual void setHover(bool hover) = 0;
 };

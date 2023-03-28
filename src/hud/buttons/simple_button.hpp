@@ -47,5 +47,5 @@ class SimpleButton : public Button, public ConfigurableHudComponent
 		void setSelected(bool selected);
 		void setText(const std::string &text);
 		void handleSettingsChange() override;
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

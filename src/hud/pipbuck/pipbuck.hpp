@@ -78,5 +78,5 @@ class PipBuck : public sf::Drawable, public HudTransformable, public Configurabl
 		void setRadLevel(float rads);
 		void tick();
 		void handleSettingsChange() override;
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

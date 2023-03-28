@@ -31,5 +31,5 @@ class MainMenu : public sf::Drawable, public sf::Transformable, public Configura
 		void handleMouseMove(sf::Vector2i mousePos);
 		void handleScreenResize(sf::Vector2u newSize);
 		void handleSettingsChange() override;
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
