@@ -56,7 +56,7 @@ void PipBuckPageControls::handleSettingsChange()
 
 void PipBuckPageControls::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	for (auto &btn : this->buttons)
+	for (const auto &btn : this->buttons)
 	{
 		target.draw(btn, states);
 	}
