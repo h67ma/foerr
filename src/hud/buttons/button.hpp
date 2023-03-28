@@ -28,5 +28,4 @@ class Button : public sf::Drawable, public HudTransformable, public Hoverable, p
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		bool containsPoint(sf::Vector2i coords) override = 0;
 		virtual void setGuiScale() = 0;
-		virtual void setHover(bool hover) = 0;
 };
