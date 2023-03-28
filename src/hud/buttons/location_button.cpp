@@ -41,26 +41,13 @@ void LocButton::updateState()
 uint LocButton::getSideLen(bool big)
 {
 	if (SettingsManager::guiScale == GUI_SMALL)
-	{
-		if (big)
-			return 39;
-		else
-			return 31;
-	}
-	else if (SettingsManager::guiScale == GUI_LARGE)
-	{
-		if (big)
-			return 67;
-		else
-			return 53;
-	}
-	else // normal/default
-	{
-		if (big)
-			return 50;
-		else
-			return 40;
-	}
+		return big ? 39 : 31;
+
+	if (SettingsManager::guiScale == GUI_LARGE)
+		return big ? 67 : 53;
+
+	// normal/default
+	return big ? 50 : 40;
 }
 
 void LocButton::setThickness()
