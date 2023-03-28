@@ -3,10 +3,11 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
+#include "configurable_hud_component.hpp"
 #include "hud_transformable.hpp"
 #include "slider.hpp"
 
-class ColorSelector : public sf::Drawable, public HudTransformable
+class ColorSelector : public sf::Drawable, public HudTransformable, public ConfigurableHudComponent
 {
 	private:
 		sf::RectangleShape selectedColorPreview, labelR, labelG, labelB;
@@ -22,5 +23,6 @@ class ColorSelector : public sf::Drawable, public HudTransformable
 		bool handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		bool handleMouseMove(sf::Vector2i mousePos);
+		void handleSettingsChange() override;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

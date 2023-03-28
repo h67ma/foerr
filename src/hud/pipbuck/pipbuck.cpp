@@ -103,7 +103,7 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 	this->screenBackgroundGray.setSize({ SCREEN_WIDTH, SCREEN_HEIGHT });
 
 	// transparent radial gradient, tinted with hud color
-	this->pipBuckScreenRadialGrad.setColor(SettingsManager::hudColor);
+	this->setScreenTint();
 	this->pipBuckScreenRadialGrad.setPosition(SCREEN_X, SCREEN_Y);
 
 	// "scan lines"
@@ -168,19 +168,21 @@ bool PipBuck::changeCategory(PipBuckCategoryType categoryType)
 	return true;
 }
 
-void PipBuck::handleLeftClick(sf::Vector2i clickPos)
+ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 {
 	clickPos -= this->getIntPosition();
 
-	ClickStatus catResult = this->categories.at(this->selectedCategory).handleLeftClick(clickPos);
-	if (catResult == CLICK_CONSUMED)
-		return;
-	else if (catResult == CLICK_CONSUMED_CLOSE)
+	ClickStatus status = this->categories.at(this->selectedCategory).handleLeftClick(clickPos);
+	if (status == CLICK_CONSUMED || status == CLICK_CONSUMED_SETTINGS_CHANGED)
+		return status;
+
+	if (status == CLICK_CONSUMED_CLOSE)
 	{
 		this->close();
-		return;
+		return status;
 	}
-	else if (catResult == CLICK_CONSUMED_UNLOAD)
+
+	if (status == CLICK_CONSUMED_UNLOAD)
 	{
 		// note: we could unload campaign inside the page (inside btn callback),
 		// but then we'd have to clear resmgr two times (unload campaign + clear resmgr,
@@ -188,7 +190,7 @@ void PipBuck::handleLeftClick(sf::Vector2i clickPos)
 		this->unloadCampaignInfos();
 		this->campaign.unload();
 		this->gameState = STATE_MAINMENU;
-		return;
+		return status;
 	}
 
 	for (auto &btn : this->categoryButtons)
@@ -200,12 +202,19 @@ void PipBuck::handleLeftClick(sf::Vector2i clickPos)
 				this->changeCategory(btn.first);
 				this->soundCategoryBtn.play();
 			}
-			return;
+
+			return CLICK_CONSUMED;
 		}
 	}
 
-	if (this->closeBtn.handleLeftClick(clickPos) == CLICK_CONSUMED_CLOSE)
+	status = this->closeBtn.handleLeftClick(clickPos);
+	if (status == CLICK_CONSUMED_CLOSE)
+	{
 		this->close();
+		return CLICK_CONSUMED;
+	}
+
+	return status;
 }
 
 void PipBuck::handleLeftClickUp()
@@ -305,6 +314,11 @@ bool PipBuck::setup()
 	return true;
 }
 
+void PipBuck::setScreenTint()
+{
+	this->pipBuckScreenRadialGrad.setColor(SettingsManager::hudColor);
+}
+
 /**
  * Sets the value displayed by "hardware" rad indicator.
  *
@@ -332,6 +346,23 @@ void PipBuck::tick()
 		this->radIndicatorLevel * -180 +
 		static_cast<float>(this->getSmoothNoise(this->timer.getElapsedTime().asSeconds())/2)
 	);
+}
+
+void PipBuck::handleSettingsChange()
+{
+	for (auto &btn : this->categoryButtons)
+	{
+		btn.second.handleSettingsChange();
+	}
+
+	this->closeBtn.handleSettingsChange();
+
+	this->setScreenTint();
+
+	for (auto &cat : this->categories)
+	{
+		cat.second.handleSettingsChange();
+	}
 }
 
 void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const

@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "configurable_hud_component.hpp"
 #include "hud_transformable.hpp"
 #include "slider_handle.hpp"
 
@@ -16,7 +17,7 @@
  * An UI component that allows inputting an integer value in a designated range by dragging or clicking mouse on a
  * horizontal bar.
  */
-class Slider : public HudTransformable, public sf::Drawable
+class Slider : public HudTransformable, public sf::Drawable, public ConfigurableHudComponent
 {
 	private:
 		const int minVal;
@@ -39,5 +40,6 @@ class Slider : public HudTransformable, public sf::Drawable
 		bool handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		bool handleMouseMove(sf::Vector2i mousePos);
+		void handleSettingsChange() override;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

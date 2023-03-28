@@ -46,6 +46,14 @@ void PipBuckPageControls::updateDisplay()
 	this->dummyMapDump.setString(dump);
 }
 
+void PipBuckPageControls::handleSettingsChange()
+{
+	for (auto &btn : this->buttons)
+	{
+		btn.handleSettingsChange();
+	}
+}
+
 void PipBuckPageControls::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	for (auto &btn : this->buttons)

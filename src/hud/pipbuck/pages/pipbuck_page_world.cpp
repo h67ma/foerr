@@ -39,20 +39,17 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 	})
 {
 	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
-	this->mapBg.setColor(SettingsManager::hudColor);
 
 	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->locTitle.setPosition(970, 260);
-	this->locTitle.setFillColor(SettingsManager::hudColor);
 
 	this->locDescription.setFont(*resMgr.getFont(FONT_NORMAL));
 	this->locDescription.setPosition(970, 300);
-	this->locDescription.setFillColor(SettingsManager::hudColor);
 
-	this->activeLocIndicator.setOutlineColor(SettingsManager::hudColor);
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
 	this->activeLocIndicator.setOutlineThickness(2.F);
 
+	this->setComponentColors();
 	this->setGuiScale();
 
 	this->hoverMgr += &this->gotoLocationBtn;
@@ -147,6 +144,14 @@ bool PipBuckPageWorld::handleMouseMove(sf::Vector2i mousePos)
 		return this->hoverMgr.handleMouseMove(mousePos);
 
 	return false;
+}
+
+void PipBuckPageWorld::setComponentColors()
+{
+	this->mapBg.setColor(SettingsManager::hudColor);
+	this->locTitle.setFillColor(SettingsManager::hudColor);
+	this->locDescription.setFillColor(SettingsManager::hudColor);
+	this->activeLocIndicator.setOutlineColor(SettingsManager::hudColor);
 }
 
 void PipBuckPageWorld::setupMapDecorations()
@@ -248,6 +253,19 @@ void PipBuckPageWorld::setGuiScale()
 
 	if (this->selectedLocId != NO_LOCATION_SELECTED)
 		this->updateActiveIndicator();
+}
+
+void PipBuckPageWorld::handleSettingsChange()
+{
+	this->gotoLocationBtn.handleSettingsChange();
+
+	for (auto &btn : this->mapButtons)
+	{
+		btn.second.handleSettingsChange();
+	}
+
+	this->setupMapDecorations();
+	this->setComponentColors();
 }
 
 void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const

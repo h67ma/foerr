@@ -77,6 +77,14 @@ void MainMenu::handleScreenResize(sf::Vector2u newSize)
 	);
 }
 
+void MainMenu::handleSettingsChange()
+{
+	for (auto &btn : this->buttons)
+	{
+		btn.handleSettingsChange();
+	}
+}
+
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();

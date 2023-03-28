@@ -9,6 +9,7 @@
 
 #include "../../resources/resource_manager.hpp"
 #include "../../resources/sound_resource.hpp"
+#include "../configurable_hud_component.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../../campaigns/campaign.hpp"
 #include "../hud_transformable.hpp"
@@ -29,7 +30,7 @@ enum PipBuckCategoryType
  * Represents a single PipBuck category (e.g. "Status").
  * Contains 5 pages.
  */
-class PipBuckCategory : public sf::Drawable, public HudTransformable
+class PipBuckCategory : public sf::Drawable, public HudTransformable, public ConfigurableHudComponent
 {
 	private:
 		HoverManager hoverMgr;
@@ -51,5 +52,6 @@ class PipBuckCategory : public sf::Drawable, public HudTransformable
 		bool setupCampaignInfos();
 		void unloadCampaignInfos();
 		static PipBuckCategoryType pageTypeToCategoryType(PipBuckPageType pageType);
+		void handleSettingsChange() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

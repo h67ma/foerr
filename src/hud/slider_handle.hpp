@@ -4,6 +4,8 @@
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
+#include "configurable_hud_component.hpp"
+
 #define SLIDER_HANDLE_HEIGHT 15
 #define SLIDER_HANDLE_WIDTH 21
 
@@ -12,7 +14,7 @@
 /**
  * Represents the draggable handle used to input value into Slider. Could be replaced by a sprite.
  */
-class SliderHandle : public sf::Drawable, public sf::Transformable
+class SliderHandle : public sf::Drawable, public sf::Transformable, public ConfigurableHudComponent
 {
 	private:
 		sf::RectangleShape outlineRect;
@@ -22,5 +24,6 @@ class SliderHandle : public sf::Drawable, public sf::Transformable
 
 	public:
 		SliderHandle();
+		void handleSettingsChange() override;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

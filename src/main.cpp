@@ -409,8 +409,13 @@ int main()
 
 				if (event.type == sf::Event::MouseButtonPressed)
 				{
-					if (event.mouseButton.button == sf::Mouse::Left)
-						pipBuck.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });
+					if (event.mouseButton.button == sf::Mouse::Left &&
+						pipBuck.handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) ==
+						CLICK_CONSUMED_SETTINGS_CHANGED)
+					{
+						pipBuck.handleSettingsChange();
+						mainMenu.handleSettingsChange();
+					}
 
 					continue;
 				}

@@ -7,10 +7,11 @@
 #include <SFML/Graphics/Color.hpp>
 
 #include "../../resources/sprite_resource.hpp"
+#include "../configurable_hud_component.hpp"
 #include "button.hpp"
 #include "../hud.hpp"
 
-class LocButton : public Button
+class LocButton : public Button, public ConfigurableHudComponent
 {
 	private:
 		bool isBaseCamp;
@@ -35,5 +36,6 @@ class LocButton : public Button
 		void setHover(bool hover) override;
 		bool getIsBig() const;
 		static uint getSideLen(bool big);
+		void handleSettingsChange() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

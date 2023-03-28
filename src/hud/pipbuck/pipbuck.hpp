@@ -11,6 +11,7 @@
 #include "../../settings/settings_manager.hpp"
 #include "../../resources/sprite_resource.hpp"
 #include "../../resources/sound_resource.hpp"
+#include "../configurable_hud_component.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../../campaigns/campaign.hpp"
 #include "../hud_transformable.hpp"
@@ -37,7 +38,7 @@
  * we can avoid defining some methods like ::setupCampaignInfos() in PipBuckPage,
  * and instead define them only in pages that actually use it.
  */
-class PipBuck : public sf::Drawable, public HudTransformable
+class PipBuck : public sf::Drawable, public HudTransformable, public ConfigurableHudComponent
 {
 	private:
 		ResourceManager &resMgr;
@@ -60,11 +61,12 @@ class PipBuck : public sf::Drawable, public HudTransformable
 		GameState &gameState;
 		bool changeCategory(PipBuckCategoryType categoryType);
 		static double getSmoothNoise(double time);
+		void setScreenTint();
 
 	public:
 		PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
 		void handleScreenResize(sf::Vector2u windowSize);
-		void handleLeftClick(sf::Vector2i clickPos);
+		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		void handleMouseMove(sf::Vector2i mousePos);
 		bool setupCampaignInfos();
@@ -75,5 +77,6 @@ class PipBuck : public sf::Drawable, public HudTransformable
 		bool setup();
 		void setRadLevel(float rads);
 		void tick();
+		void handleSettingsChange() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

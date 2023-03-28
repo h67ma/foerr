@@ -14,7 +14,7 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 			SettingsManager::hudColor = this->hudColorSelector.getSelectedColor();
 
 			SettingsManager::saveConfig();
-		}},
+		}, CLICK_CONSUMED_SETTINGS_CHANGED},
 		{BTN_NORMAL, resMgr, { 600, 815 }, STR_RESET_DEFAULT, [this]() {
 			// reset all settings, write to file, update controls state on this page
 
@@ -22,7 +22,7 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 			SettingsManager::saveConfig();
 
 			this->hudColorSelector.setSelectedColor(SettingsManager::hudColor);
-		}}
+		}, CLICK_CONSUMED_SETTINGS_CHANGED}
 	}),
 	hudColorSelector(*resMgr.getFont(FONT_NORMAL))
 {
@@ -63,6 +63,16 @@ bool PipBuckPageSettings::handleMouseMove(sf::Vector2i mousePos)
 		return true;
 
 	return this->hoverMgr.handleMouseMove(mousePos);
+}
+
+void PipBuckPageSettings::handleSettingsChange()
+{
+	for (auto &btn : this->buttons)
+	{
+		btn.handleSettingsChange();
+	}
+
+	this->hudColorSelector.handleSettingsChange();
 }
 
 void PipBuckPageSettings::draw(sf::RenderTarget &target, sf::RenderStates states) const

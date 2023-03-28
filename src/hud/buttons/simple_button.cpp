@@ -210,6 +210,12 @@ bool SimpleButton::containsPoint(sf::Vector2i coords)
 	return this->rect.getLocalBounds().contains(static_cast<sf::Vector2f>(coords));
 }
 
+void SimpleButton::handleSettingsChange()
+{
+	this->setColor();
+	this->setGuiScale();
+}
+
 void SimpleButton::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();

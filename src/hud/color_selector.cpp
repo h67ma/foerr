@@ -117,6 +117,15 @@ bool ColorSelector::handleMouseMove(sf::Vector2i mousePos)
 	return false;
 }
 
+void ColorSelector::handleSettingsChange()
+{
+	this->sliderR.handleSettingsChange();
+	this->sliderG.handleSettingsChange();
+	this->sliderB.handleSettingsChange();
+
+	this->selectedColorPreview.setOutlineColor(SettingsManager::hudColor);
+}
+
 void ColorSelector::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();

@@ -9,6 +9,7 @@
 #include <SFML/Graphics/Text.hpp>
 
 #include "../../resources/resource_manager.hpp"
+#include "../configurable_hud_component.hpp"
 #include "../../consts.hpp"
 #include "../hud.hpp"
 #include "button.hpp"
@@ -20,7 +21,7 @@ enum SimpleButtonSize
 	BTN_BIG,
 };
 
-class SimpleButton : public Button
+class SimpleButton : public Button, public ConfigurableHudComponent
 {
 	private:
 		SimpleButtonSize size;
@@ -45,5 +46,6 @@ class SimpleButton : public Button
 		void setSelected(bool selected);
 		void setText(const std::string &text);
 		void setColor();
+		void handleSettingsChange() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

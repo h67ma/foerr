@@ -19,8 +19,6 @@ LocButton::LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::sh
 	this->isBaseCamp = isBaseCamp;
 	this->isBig = isBig;
 
-	this->icon.setColor(SettingsManager::hudColor);
-
 	this->setGuiScale();
 	this->setColor();
 	this->setSelected(false);
@@ -116,7 +114,7 @@ void LocButton::setColor()
 {
 	this->rect.setOutlineColor(SettingsManager::hudColor);
 
-	// TODO somehow change icon tint
+	this->icon.setColor(SettingsManager::hudColor);
 
 	// hover/selected/deselected colors are the same color toned down
 	this->colorHover = DIM_COLOR(SettingsManager::hudColor, BTN_COLOR_HOVER_FACTOR);
@@ -133,6 +131,13 @@ void LocButton::setHover(bool hover)
 bool LocButton::getIsBig() const
 {
 	return this->isBig;
+}
+
+void LocButton::handleSettingsChange()
+{
+	this->setColor();
+	this->setGuiScale();
+	this->updateState();
 }
 
 void LocButton::draw(sf::RenderTarget &target, sf::RenderStates states) const

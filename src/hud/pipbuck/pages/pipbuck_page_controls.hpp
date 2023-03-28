@@ -20,5 +20,6 @@ class PipBuckPageControls : public PipBuckPage
 
 	public:
 		explicit PipBuckPageControls(ResourceManager &resMgr);
+		void handleSettingsChange() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

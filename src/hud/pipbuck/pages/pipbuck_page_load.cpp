@@ -15,6 +15,11 @@ PipBuckPageLoad::PipBuckPageLoad(ResourceManager &resMgr) :
 	this->clickMgr += &this->exitBtn;
 }
 
+void PipBuckPageLoad::handleSettingsChange()
+{
+	this->exitBtn.handleSettingsChange();
+}
+
 void PipBuckPageLoad::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->exitBtn, states);

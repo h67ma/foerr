@@ -25,15 +25,12 @@ Slider::Slider(const sf::Font &font, int minVal, int maxVal, int defaultVal) :
 	assert(defaultVal >= minVal && defaultVal <= maxVal);
 
 	this->sliderOutline.setSize({ SLIDER_WIDTH, SLIDER_HANDLE_HEIGHT });
-	this->sliderOutline.setOutlineColor(DIM_COLOR(SettingsManager::hudColor, SLIDER_COLOR_DIM_FACTOR));
 	this->sliderOutline.setFillColor(sf::Color::Transparent);
 	this->sliderOutline.setOutlineThickness(1.F);
 
-	this->currValueText.setPosition(SLIDER_TEXT_X,
-									static_cast<float>(getFontVOffset(SettingsManager::guiScale, FONT_H3)));
 	this->currValueText.setFont(font);
-	this->currValueText.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H3));
-	this->currValueText.setFillColor(SettingsManager::hudColor);
+
+	this->handleSettingsChange();
 
 	this->updateDisplay();
 }
@@ -106,6 +103,19 @@ void Slider::setSliderPos(int mouseX)
 
 	this->currentVal = ((mouseX * possibleValCnt) / SLIDER_MOUSE_POSSIBLE_VALS) + this->minVal;
 	this->updateDisplay();
+}
+
+void Slider::handleSettingsChange()
+{
+	this->sliderOutline.setOutlineColor(DIM_COLOR(SettingsManager::hudColor, SLIDER_COLOR_DIM_FACTOR));
+
+	this->currValueText.setPosition(SLIDER_TEXT_X,
+									static_cast<float>(getFontVOffset(SettingsManager::guiScale, FONT_H3)));
+
+	this->currValueText.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H3));
+	this->currValueText.setFillColor(SettingsManager::hudColor);
+
+	this->handle.handleSettingsChange();
 }
 
 void Slider::draw(sf::RenderTarget &target, sf::RenderStates states) const

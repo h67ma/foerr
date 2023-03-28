@@ -35,6 +35,7 @@ class PipBuckPageWorld : public PipBuckPage
 		HoverManager mapButtonHoverMgr;
 		std::string selectedLocId = NO_LOCATION_SELECTED; // represents selection on page, not currently active location
 		bool travelButtonAvailable = false;
+		void setComponentColors();
 		void setupMapDecorations();
 		bool mapContainsPoint(sf::Vector2i point);
 		void updateActiveIndicator();
@@ -46,5 +47,6 @@ class PipBuckPageWorld : public PipBuckPage
 		bool setupCampaignInfos() override;
 		void unloadCampaignInfos() override;
 		void setGuiScale();
+		void handleSettingsChange() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

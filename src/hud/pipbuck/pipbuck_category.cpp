@@ -183,6 +183,19 @@ PipBuckCategoryType PipBuckCategory::pageTypeToCategoryType(PipBuckPageType page
 	}
 }
 
+void PipBuckCategory::handleSettingsChange()
+{
+	for (auto &btn : this->pageButtons)
+	{
+		btn.second.handleSettingsChange();
+	}
+
+	for (const auto &page : this->pages)
+	{
+		page.second->handleSettingsChange();
+	}
+}
+
 void PipBuckCategory::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
