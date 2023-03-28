@@ -24,7 +24,7 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 			this->hudColorSelector.setSelectedColor(SettingsManager::hudColor);
 		}, CLICK_CONSUMED_SETTINGS_CHANGED}
 	}),
-	hudColorSelector(*resMgr.getFont(FONT_NORMAL))
+	hudColorSelector(*resMgr.getFont(FONT_NORMAL), SettingsManager::hudColor)
 {
 	for (auto &btn : this->buttons)
 	{

@@ -13,10 +13,10 @@
 #define COLOR_PREVIEW_X 280
 #define COLOR_PREVIEW_SIDE_LEN 65
 
-ColorSelector::ColorSelector(const sf::Font &font) :
-	sliderR(font, 0, MAX_CHANNEL_VALUE, SettingsManager::hudColor.r),
-	sliderG(font, 0, MAX_CHANNEL_VALUE, SettingsManager::hudColor.g),
-	sliderB(font, 0, MAX_CHANNEL_VALUE, SettingsManager::hudColor.b)
+ColorSelector::ColorSelector(const sf::Font &font, sf::Color initialColor) :
+	sliderR(font, 0, MAX_CHANNEL_VALUE, initialColor.r),
+	sliderG(font, 0, MAX_CHANNEL_VALUE, initialColor.g),
+	sliderB(font, 0, MAX_CHANNEL_VALUE, initialColor.b)
 {
 	this->labelR.setSize({ SLIDER_HANDLE_HEIGHT, SLIDER_HANDLE_HEIGHT });
 	this->labelR.setFillColor(sf::Color::Red);
