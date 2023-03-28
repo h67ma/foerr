@@ -35,6 +35,7 @@ class SimpleButton : public Button, public ConfigurableHudComponent
 		sf::VertexArray gradient = sf::VertexArray(sf::Quads, 8);
 		void setThickness();
 		void updateState();
+		void setColor();
 
 	public:
 		SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::Vector2u position,
@@ -45,7 +46,6 @@ class SimpleButton : public Button, public ConfigurableHudComponent
 		void setHover(bool hover) override;
 		void setSelected(bool selected);
 		void setText(const std::string &text);
-		void setColor();
 		void handleSettingsChange() override;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

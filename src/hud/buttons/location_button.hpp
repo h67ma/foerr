@@ -26,13 +26,13 @@ class LocButton : public Button, public ConfigurableHudComponent
 		SpriteResource icon;
 		void setThickness();
 		void updateState();
+		void setColor();
 
 	public:
 		LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture);
 		void setSelected(bool selected);
 		bool containsPoint(sf::Vector2i coords) override;
 		void setGuiScale() override;
-		void setColor();
 		void setHover(bool hover) override;
 		bool getIsBig() const;
 		static uint getSideLen(bool big);
