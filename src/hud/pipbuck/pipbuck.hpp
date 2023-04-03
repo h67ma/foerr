@@ -63,6 +63,8 @@ class PipBuck : public sf::Drawable, public HudTransformable, public Configurabl
 		bool changeCategory(PipBuckCategoryType categoryType);
 		static double getSmoothNoise(double time);
 		void setScreenTint();
+		void setupRadIndicator();
+		void setupScreenBackground();
 
 	public:
 		PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState);

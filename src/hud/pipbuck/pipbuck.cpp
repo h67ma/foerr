@@ -97,6 +97,21 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 	this->soundOpenClose.setVolume(initialVolume);
 	this->soundCategoryBtn.setVolume(initialVolume);
 
+	this->setupRadIndicator();
+	this->setupScreenBackground();
+
+	for (auto &btn : this->categoryButtons)
+	{
+		this->hoverMgr += btn.second.get(); // FIXME this is pretty bad...
+	}
+	this->hoverMgr += &this->closeBtn;
+}
+
+/**
+ * Sets up the black arrow displayed on rad indicator. The arrow is simply a triangle.
+ */
+void PipBuck::setupRadIndicator()
+{
 	this->radIndicator.setPointCount(3);
 	this->radIndicator.setOrigin(5.F, 0.F);
 	this->radIndicator.setPosition(130.F, 190.F);
@@ -104,13 +119,16 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 	this->radIndicator.setPoint(1, { 10.F, 0.F });
 	this->radIndicator.setPoint(2, { 5.F, 60.F });
 	this->radIndicator.setFillColor(sf::Color::Black);
+}
 
-	for (auto &btn : this->categoryButtons)
-	{
-		this->hoverMgr += btn.second.get(); // FIXME this is pretty bad...
-	}
-	this->hoverMgr += &this->closeBtn;
-
+/**
+ * Sets up components used to display PipBuck screen background:
+ *	- Solid gray rectangle
+ *	- Transparent image of a radial gradient, tinted
+ *	- "Scan lines" - a simple, repeated two-pixel texture created programmatically
+ */
+void PipBuck::setupScreenBackground()
+{
 	this->screenBackgroundGray.setFillColor(COLOR_SCREEN_GRAY);
 	this->screenBackgroundGray.setPosition(SCREEN_X, SCREEN_Y);
 	this->screenBackgroundGray.setSize({ SCREEN_WIDTH, SCREEN_HEIGHT });
