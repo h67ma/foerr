@@ -4,6 +4,7 @@
 
 #include <memory>
 
+#include "../buttons/pipbuck_category_button.hpp"
 #include "pages/pipbuck_page_inventory_other.hpp"
 #include "pages/pipbuck_page_status_main.hpp"
 #include "pages/pipbuck_page_equipment.hpp"
@@ -68,18 +69,30 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 			{ PIPB_PAGE_LOG, std::make_shared<PipBuckPageLog>(resMgr) }
 		} } }
 	},
-	categoryButtons {
-		{ PIPB_CAT_STATUS, { BTN_BIG, resMgr, { 650, 900 }, STR_PIPBUCK_STATUS } },
-		{ PIPB_CAT_INVENTORY, { BTN_BIG, resMgr, { 855, 915 }, STR_PIPBUCK_INV } },
-		{ PIPB_CAT_INFO, { BTN_BIG, resMgr, { 1055, 900 }, STR_PIPBUCK_INFO } },
-		{ PIPB_CAT_MAIN, { BTN_BIG, resMgr, { 55, 700 }, STR_PIPBUCK_MAINMENU } }
-	},
 	closeBtn(BTN_BIG, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, nullptr, CLICK_CONSUMED_CLOSE),
 	soundOpenClose(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE)),
 	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	pipBuckSprite(resMgr.getTexture(PATH_TXT_PIPBUCK_OVERLAY)),
 	pipBuckScreenRadialGrad(resMgr.getTexture(PATH_TXT_PIPBUCK_BG_RADIAL))
 {
+	this->categoryButtons.emplace(PIPB_CAT_STATUS,
+								  std::make_shared<PipBuckCategoryButton>(resMgr, sf::Vector2u(625, 893),
+																		  pipBuckCatBtnLeft, STR_PIPBUCK_STATUS,
+																		  PATH_TXT_PIPBUCK_CAT_BTN_LEFT));
+	this->categoryButtons.emplace(PIPB_CAT_INVENTORY,
+								  std::make_unique<PipBuckCategoryButton>(resMgr, sf::Vector2u(807, 906),
+																		  pipBuckCatBtnMiddle, STR_PIPBUCK_INV,
+																		  PATH_TXT_PIPBUCK_CAT_BTN_MID));
+	this->categoryButtons.emplace(PIPB_CAT_INFO,
+								  std::make_unique<PipBuckCategoryButton>(resMgr, sf::Vector2u(1030, 893),
+																		  pipBuckCatBtnRight, STR_PIPBUCK_INFO,
+																		  PATH_TXT_PIPBUCK_CAT_BTN_RIGHT));
+
+	// TODO this btn currently does not react properly to hud color change, but it will be replaced with a nicer, custom btn later
+	this->categoryButtons.emplace(PIPB_CAT_MAIN,
+								  std::make_unique<SimpleButton>(BTN_BIG, resMgr, sf::Vector2u(55, 700),
+																 STR_PIPBUCK_MAINMENU));
+
 	float initialVolume = static_cast<float>(SettingsManager::fxVolume);
 	this->soundOpenClose.setVolume(initialVolume);
 	this->soundCategoryBtn.setVolume(initialVolume);
@@ -94,7 +107,7 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 
 	for (auto &btn : this->categoryButtons)
 	{
-		this->hoverMgr += &btn.second;
+		this->hoverMgr += btn.second.get(); // FIXME this is pretty bad...
 	}
 	this->hoverMgr += &this->closeBtn;
 
@@ -161,8 +174,8 @@ bool PipBuck::changeCategory(PipBuckCategoryType categoryType)
 
 	// ::categoryButtons map has the same keys as ::categories map
 	// ...again, famous last words. let's hope not
-	this->categoryButtons.at(this->selectedCategory).setSelected(false);
-	this->categoryButtons.at(categoryType).setSelected(true);
+	this->categoryButtons.at(this->selectedCategory)->setSelected(false);
+	this->categoryButtons.at(categoryType)->setSelected(true);
 
 	this->selectedCategory = categoryType;
 	return true;
@@ -195,7 +208,7 @@ ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 
 	for (auto &btn : this->categoryButtons)
 	{
-		if (btn.second.containsPoint(clickPos))
+		if (btn.second->containsPoint(clickPos))
 		{
 			if (btn.first != this->selectedCategory)
 			{
@@ -350,11 +363,6 @@ void PipBuck::tick()
 
 void PipBuck::handleSettingsChange()
 {
-	for (auto &btn : this->categoryButtons)
-	{
-		btn.second.handleSettingsChange();
-	}
-
 	this->closeBtn.handleSettingsChange();
 
 	this->setScreenTint();
@@ -380,7 +388,7 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	for (const auto &btn : this->categoryButtons)
 	{
-		target.draw(btn.second, states);
+		target.draw(*btn.second, states);
 	}
 
 	target.draw(this->closeBtn, states);

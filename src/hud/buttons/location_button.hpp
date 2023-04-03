@@ -30,7 +30,7 @@ class LocButton : public Button, public ConfigurableHudComponent
 
 	public:
 		LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture);
-		void setSelected(bool selected);
+		void setSelected(bool selected) override;
 		bool containsPoint(sf::Vector2i coords) override;
 		void setGuiScale() override;
 		void setHover(bool hover) override;

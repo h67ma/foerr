@@ -27,5 +27,6 @@ class Button : public sf::Drawable, public HudTransformable, public Hoverable, p
 						ClickStatus consumedStatus = CLICK_CONSUMED);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		bool containsPoint(sf::Vector2i coords) override = 0;
+		virtual void setSelected(bool selected) = 0;
 		virtual void setGuiScale() = 0;
 };

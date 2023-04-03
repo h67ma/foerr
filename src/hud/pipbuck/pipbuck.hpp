@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <memory>
 #include <vector>
 
 #include <SFML/Graphics/Drawable.hpp>
@@ -54,7 +55,7 @@ class PipBuck : public sf::Drawable, public HudTransformable, public Configurabl
 		float radIndicatorLevel = 0.F;
 		PipBuckCategoryType selectedCategory = PIPB_CAT_STATUS;
 		std::unordered_map<PipBuckCategoryType, PipBuckCategory> categories;
-		std::unordered_map<PipBuckCategoryType, SimpleButton> categoryButtons;
+		std::unordered_map<PipBuckCategoryType, std::shared_ptr<Button>> categoryButtons;
 		SimpleButton closeBtn;
 		SoundResource soundOpenClose;
 		SoundResource soundCategoryBtn;

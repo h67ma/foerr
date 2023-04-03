@@ -44,7 +44,7 @@ class SimpleButton : public Button, public ConfigurableHudComponent
 		bool containsPoint(sf::Vector2i coords) override;
 		void setGuiScale() override;
 		void setHover(bool hover) override;
-		void setSelected(bool selected);
+		void setSelected(bool selected) override;
 		void setText(const std::string &text);
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

@@ -15,7 +15,11 @@ const char* _fonts[] = {
 };
 
 const char* _coreTextures[] = {
-	PATH_TXT_PIPBUCK_OVERLAY
+	PATH_TXT_PIPBUCK_OVERLAY,
+	PATH_TXT_PIPBUCK_CAT_BTN_LEFT,
+	PATH_TXT_PIPBUCK_CAT_BTN_MID,
+	PATH_TXT_PIPBUCK_CAT_BTN_RIGHT,
+	PATH_TXT_PIPBUCK_BG_RADIAL
 };
 
 const char* _coreAudio[] = {
