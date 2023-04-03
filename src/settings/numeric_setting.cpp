@@ -4,15 +4,13 @@
 #include "../hud/log.hpp"
 
 NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVal) :
-	GenericSetting<uint>(key, val, defaultVal),
-	constraint(nullptr),
-	valueHint("") {}
+	GenericSetting(key, val, defaultVal),
+	ConstraintSetting(nullptr, "") {}
 
 NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVal,
-							   std::function<bool(uint)> constraint, const std::string &valueHint) :
+							   const std::function<bool(uint)> &constraint, const std::string &valueHint) :
 	GenericSetting(key, val, defaultVal),
-	constraint(std::move(constraint)),
-	valueHint(valueHint) {}
+	ConstraintSetting(constraint, valueHint) {}
 
 std::string NumericSetting::defaultToString() const
 {
@@ -33,7 +31,7 @@ void NumericSetting::loadFromJson(const json &node)
 	uint readUint = node;
 	if (this->constraint != nullptr && !this->constraint(readUint))
 	{
-		Log::w(STR_INVALID_VALUE_HINT, this->getKey().c_str(), readUint, this->valueHint.c_str());
+		Log::w(STR_INVALID_VALUE_HINT_U, this->getKey().c_str(), readUint, this->valueHint.c_str());
 	}
 	else
 	{
