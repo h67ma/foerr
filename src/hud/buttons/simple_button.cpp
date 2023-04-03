@@ -15,6 +15,8 @@
 #define BTN_COLOR_UNSEL_FACTOR 68
 #define BTN_COLOR_HOVER_FACTOR 140
 
+const sf::Color buttonBgBlack(0x00, 0x0B, 0x06);
+
 SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::Vector2u position,
 						   const std::string &text, std::function<void(void)> callback,
 						   ClickStatus consumedStatus) :
@@ -167,9 +169,6 @@ void SimpleButton::setGuiScale()
 	// gradient fill (transparent - almost black - transparent)
 	// this->rect color will "shine" through left & right side, this way we don't have to prepare multiple gradients
 
-	sf::Color black(0, 11, 6);
-	sf::Color transparent(0, 0, 0, 0);;
-
 	uint midX = w/2;
 
 	// 0 -- 1
@@ -177,16 +176,16 @@ void SimpleButton::setGuiScale()
 	// 3 -- 2
 
 	// left half
-	gradient[0] = sf::Vertex({ 0.F, 0.F }, transparent);
-	gradient[1] = sf::Vertex({ static_cast<float>(midX), 0.F }, black);
-	gradient[2] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(h) }, black);
-	gradient[3] = sf::Vertex({ 0.F, static_cast<float>(h) }, transparent);
+	gradient[0] = sf::Vertex({ 0.F, 0.F }, sf::Color::Transparent);
+	gradient[1] = sf::Vertex({ static_cast<float>(midX), 0.F }, buttonBgBlack);
+	gradient[2] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(h) }, buttonBgBlack);
+	gradient[3] = sf::Vertex({ 0.F, static_cast<float>(h) }, sf::Color::Transparent);
 
 	// right half
-	gradient[4] = sf::Vertex({ static_cast<float>(midX), 0.F }, black);
-	gradient[5] = sf::Vertex({ static_cast<float>(w), 0.F }, transparent);
-	gradient[6] = sf::Vertex({ static_cast<float>(w), static_cast<float>(h) }, transparent);
-	gradient[7] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(h) }, black);
+	gradient[4] = sf::Vertex({ static_cast<float>(midX), 0.F }, buttonBgBlack);
+	gradient[5] = sf::Vertex({ static_cast<float>(w), 0.F }, sf::Color::Transparent);
+	gradient[6] = sf::Vertex({ static_cast<float>(w), static_cast<float>(h) }, sf::Color::Transparent);
+	gradient[7] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(h) }, buttonBgBlack);
 
 	// center button text
 	// to center vertically, we can't use local bounds, as the baselines on different buttons would not match.
