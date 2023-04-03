@@ -55,7 +55,7 @@ class PipBuck : public sf::Drawable, public HudTransformable, public Configurabl
 		float radIndicatorLevel = 0.F;
 		PipBuckCategoryType selectedCategory = PIPB_CAT_STATUS;
 		std::unordered_map<PipBuckCategoryType, PipBuckCategory> categories;
-		std::unordered_map<PipBuckCategoryType, std::shared_ptr<Button>> categoryButtons;
+		std::unordered_map<PipBuckCategoryType, std::unique_ptr<Button>> categoryButtons;
 		SimpleButton closeBtn;
 		SoundResource soundOpenClose;
 		SoundResource soundCategoryBtn;

@@ -76,7 +76,7 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 	pipBuckScreenRadialGrad(resMgr.getTexture(PATH_TXT_PIPBUCK_BG_RADIAL))
 {
 	this->categoryButtons.emplace(PIPB_CAT_STATUS,
-								  std::make_shared<PipBuckCategoryButton>(resMgr, sf::Vector2u(625, 893),
+								  std::make_unique<PipBuckCategoryButton>(resMgr, sf::Vector2u(625, 893),
 																		  pipBuckCatBtnLeft, STR_PIPBUCK_STATUS,
 																		  PATH_TXT_PIPBUCK_CAT_BTN_LEFT));
 	this->categoryButtons.emplace(PIPB_CAT_INVENTORY,
