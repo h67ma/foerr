@@ -7,8 +7,10 @@
 #include "../util/json.hpp"
 #include "../consts.hpp"
 
-// TODO? if we ever need to have other setting types support constraints, define an abstract ConstraintSetting, and
-// remember about fallback to default value in getJsonValue()
+/**
+ * Note: other settings also could support constraints, but unfortunately it's pretty hard to extract that behaviour
+ * as a superclass/interface.
+ */
 class NumericSetting : public GenericSetting<uint>
 {
 	private:

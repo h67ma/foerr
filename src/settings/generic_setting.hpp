@@ -4,6 +4,10 @@
 
 #include "setting.hpp"
 
+/**
+ * Note: Setting cannot be merged with this template, even though it's not actually used by anything else.
+ * A non-template superclass is needed in order to create a generic collection of Settings.
+ */
 template<typename T>
 class GenericSetting : public Setting
 {
