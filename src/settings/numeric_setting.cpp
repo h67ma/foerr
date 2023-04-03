@@ -9,9 +9,9 @@ NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVa
 	valueHint("") {}
 
 NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVal,
-							   const std::function<bool(uint)> constraint, const std::string &valueHint) :
+							   std::function<bool(uint)> constraint, const std::string &valueHint) :
 	GenericSetting(key, val, defaultVal),
-	constraint(constraint),
+	constraint(std::move(constraint)),
 	valueHint(valueHint) {}
 
 std::string NumericSetting::defaultToString() const
