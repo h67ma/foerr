@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../consts.hpp"
+
 enum ScreenCorner
 {
 	CORNER_TOP_LEFT,
@@ -16,18 +18,16 @@ enum ScreenSide
 	_SIDE_CNT
 };
 
-enum GuiScale
-{
-	GUI_SMALL,
-	GUI_NORMAL,
-	GUI_LARGE,
-	_GUI_SCALE_CNT
-};
+constexpr uint FONT_SPAN = 16;
+constexpr uint FONT_H3 = 18;
+constexpr uint FONT_H2 = 23;
+constexpr uint FONT_H1 = 40;
 
-enum FontSize
+/**
+ * Returns the vertical offset used for centering text.
+ * The return value should be added to text Y coordinate.
+ */
+inline float getFontVOffset(float guiScale, uint fontSize)
 {
-	FONT_SPAN,
-	FONT_H3,
-	FONT_H2,
-	FONT_H1,
-};
+	return guiScale * fontSize / -4;
+}

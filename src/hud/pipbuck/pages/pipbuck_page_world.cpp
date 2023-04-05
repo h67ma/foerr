@@ -248,8 +248,8 @@ void PipBuckPageWorld::unloadCampaignInfos()
 
 void PipBuckPageWorld::setGuiScale()
 {
-	this->locTitle.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H2));
-	this->locDescription.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_SPAN));
+	this->locTitle.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H2));
+	this->locDescription.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_SPAN));
 
 	if (this->selectedLocId != NO_LOCATION_SELECTED)
 		this->updateActiveIndicator();

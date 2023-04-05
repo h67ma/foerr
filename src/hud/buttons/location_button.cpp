@@ -5,7 +5,6 @@
 #include <utility>
 
 #include "../../settings/settings_manager.hpp"
-#include "../../util/util.hpp"
 
 // values from 0 to 255, where 255 is the original color and 0 is black
 #define BTN_COLOR_BASECAMP_FACTOR 90
@@ -40,31 +39,13 @@ void LocButton::updateState()
 
 uint LocButton::getSideLen(bool big)
 {
-	if (SettingsManager::guiScale == GUI_SMALL)
-		return big ? 39 : 31;
-
-	if (SettingsManager::guiScale == GUI_LARGE)
-		return big ? 67 : 53;
-
-	// normal/default
-	return big ? 50 : 40;
+	return big ? (50 * SettingsManager::guiScale) : (40 * SettingsManager::guiScale);
 }
 
 void LocButton::setThickness()
 {
-	float thicc;
-	switch (SettingsManager::guiScale)
-	{
-		case GUI_SMALL:
-			thicc = this->selected ? BTN_BORDER_THICKNESS_SMALL_SELECTED : BTN_BORDER_THICKNESS_SMALL;
-			break;
-		case GUI_LARGE:
-			thicc = this->selected ? BTN_BORDER_THICKNESS_LARGE_SELECTED : BTN_BORDER_THICKNESS_LARGE;
-			break;
-		case GUI_NORMAL:
-		default:
-			thicc = this->selected ? BTN_BORDER_THICKNESS_NORMAL_SELECTED : BTN_BORDER_THICKNESS_NORMAL;
-	}
+	float thicc = this->selected ? (BTN_BORDER_THICKNESS_NORMAL_SELECTED * SettingsManager::guiScale) :
+								   (BTN_BORDER_THICKNESS_NORMAL * SettingsManager::guiScale);
 
 	this->rect.setOutlineThickness(thicc);
 }

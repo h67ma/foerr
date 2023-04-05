@@ -52,7 +52,7 @@ MainMenu::MainMenu(ResourceManager &resMgr, sf::RenderWindow &window, Campaign &
 	this->versionText.setFont(*resMgr.getFont(FONT_FIXED));
 	this->versionText.setFillColor(SettingsManager::hudColor);
 	this->versionText.setString(GIT_VERSION);
-	this->versionText.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H3));
+	this->versionText.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
 	this->handleScreenResize(window.getSize());
 }
 

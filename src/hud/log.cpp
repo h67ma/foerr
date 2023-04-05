@@ -15,7 +15,7 @@ sf::Vector2u Log::windowSize;
 bool Log::writeLogToFile = false;
 bool Log::printMsgs = true;
 bool Log::verboseDebug = true;
-GuiScale Log::scale = GUI_NORMAL;
+float Log::scale = 1.F;
 uint Log::fontGap;
 
 std::list<std::unique_ptr<LogElementText>> Log::history;
@@ -56,10 +56,10 @@ void Log::setVerboseDebug(bool verboseDebug)
 	Log::verboseDebug = verboseDebug;
 }
 
-void Log::setGuiScale(GuiScale scale)
+void Log::setGuiScale(float scale)
 {
 	Log::scale = scale;
-	Log::fontGap = Log::font->getLineSpacing(getFontSize(scale, FONT_H3));
+	Log::fontGap = Log::font->getLineSpacing(static_cast<uint>(scale * FONT_H3));
 	for (const auto &item : Log::history)
 	{
 		item->setGuiScale(Log::scale);

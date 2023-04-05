@@ -13,6 +13,7 @@
 #include "numeric_setting.hpp"
 #include "color_setting.hpp"
 #include "logic_setting.hpp"
+#include "float_setting.hpp"
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
 #include "../util/util.hpp"
@@ -29,7 +30,6 @@
 
 #define SETT_SETUP_ENUM_SCREENCORNER(name, def) SETT_SETUP_ENUM(EnumSetting<ScreenCorner>, name, def, _CORNER_CNT)
 #define SETT_SETUP_ENUM_SCREENSIDE(name, def) SETT_SETUP_ENUM(EnumSetting<ScreenSide>, name, def, _SIDE_CNT)
-#define SETT_SETUP_ENUM_GUISCALE(name, def) SETT_SETUP_ENUM(EnumSetting<GuiScale>, name, def, _GUI_SCALE_CNT)
 
 #define SETT_SETUP_CONSTR(type, name, def, constraint, hint) \
 	SettingsManager::settings.emplace_back(std::make_unique<type>(#name, SettingsManager::name, def, constraint, hint))
@@ -64,7 +64,7 @@ bool SettingsManager::preferCustomCursor;
 bool SettingsManager::showFpsCounter;
 ScreenCorner SettingsManager::logAnchor;
 ScreenCorner SettingsManager::fpsAnchor;
-GuiScale SettingsManager::guiScale;
+float SettingsManager::guiScale;
 SerializableColor SettingsManager::hudColor;
 bool SettingsManager::pauseOnFocusLoss;
 
@@ -107,7 +107,9 @@ void SettingsManager::setup()
 	SETT_SETUP(LogicSetting, showFpsCounter, true);
 	SETT_SETUP_ENUM_SCREENCORNER(logAnchor, CORNER_TOP_RIGHT);
 	SETT_SETUP_ENUM_SCREENCORNER(fpsAnchor, CORNER_TOP_LEFT);
-	SETT_SETUP_ENUM_GUISCALE(guiScale, GUI_NORMAL);
+	SETT_SETUP_CONSTR(FloatSetting, guiScale, 1.F, [](float val){
+		return val >= GUI_SCALE_MIN_VALUE && val <= GUI_SCALE_MAX_VALUE;
+	}, litSprintf("between %g and %g", GUI_SCALE_MIN_VALUE, GUI_SCALE_MAX_VALUE));
 	SETT_SETUP(ColorSetting, hudColor, SerializableColor(0, 255, 153)); // default is greenish, same as in Remains
 	SETT_SETUP(LogicSetting, pauseOnFocusLoss, true);
 	// TODO? SETT_SETUP(NumericSetting, logMsgTimeoutSec, 3); // is this really necessary?

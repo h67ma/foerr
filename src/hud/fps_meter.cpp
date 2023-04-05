@@ -3,7 +3,6 @@
 #include <cmath>
 
 #include "../settings/settings_manager.hpp"
-#include "../util/util.hpp"
 #include "../consts.hpp"
 
 FpsMeter::FpsMeter(sf::Font &font, sf::Vector2u windowSize)
@@ -17,7 +16,7 @@ FpsMeter::FpsMeter(sf::Font &font, sf::Vector2u windowSize)
 
 void FpsMeter::setGuiScale()
 {
-	this->text.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H3));
+	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
 }
 
 void FpsMeter::setPosition(sf::Vector2u windowSize)

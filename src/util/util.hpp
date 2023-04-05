@@ -3,9 +3,6 @@
 #include <string>
 #include <vector>
 
-#include "../consts.hpp"
-#include "../hud/hud.hpp"
-
 #define STR(thing) #thing
 #define STR_EXP(thing) STR(thing) // "the double expansion trick"
 
@@ -36,9 +33,6 @@ inline std::string pathCombine(const std::string &path1, const std::string &path
 {
 	return path1 + PATH_DELIM + path2 + PATH_DELIM + path3;
 }
-
-uint getFontSize(GuiScale scale, FontSize size);
-int getFontVOffset(GuiScale scale, FontSize size);
 
 #define COLOR_GRAY(shade) sf::Color(shade, shade, shade)
 #define DIM_COLOR(color, shade) color * COLOR_GRAY(shade)

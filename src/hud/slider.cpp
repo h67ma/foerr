@@ -3,8 +3,8 @@
 #include <string>
 
 #include "../settings/settings_manager.hpp"
-#include "../util/util.hpp"
 #include "slider_handle.hpp"
+#include "hud.hpp"
 
 #define SLIDER_WIDTH 215
 #define SLIDER_TEXT_X 220
@@ -110,9 +110,9 @@ void Slider::handleSettingsChange()
 	this->sliderOutline.setOutlineColor(DIM_COLOR(SettingsManager::hudColor, SLIDER_COLOR_DIM_FACTOR));
 
 	this->currValueText.setPosition(SLIDER_TEXT_X,
-									static_cast<float>(getFontVOffset(SettingsManager::guiScale, FONT_H3)));
+									getFontVOffset(SettingsManager::guiScale, FONT_H3));
 
-	this->currValueText.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H3));
+	this->currValueText.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
 	this->currValueText.setFillColor(SettingsManager::hudColor);
 
 	this->handle.handleSettingsChange();

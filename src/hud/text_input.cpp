@@ -1,7 +1,7 @@
 #include "text_input.hpp"
 
 #include "../settings/settings_manager.hpp"
-#include "../util/util.hpp"
+#include "hud.hpp"
 
 #define TEXT_INPUT_PADDING 5
 #define TEXT_INPUT_PADDING2 TEXT_INPUT_PADDING * 2
@@ -10,7 +10,7 @@
 /**
  * Note: font must use fixed-width characters.
  */
-TextInput::TextInput(enum FontSize fontSize, uint width, const sf::Font &font, uint maxCharacters) :
+TextInput::TextInput(uint fontSize, uint width, const sf::Font &font, uint maxCharacters) :
 	fontSize(fontSize),
 	width(width),
 	maxCharacters(maxCharacters)
@@ -25,7 +25,7 @@ TextInput::TextInput(enum FontSize fontSize, uint width, const sf::Font &font, u
 	this->text.setFillColor(SettingsManager::hudColor);
 
 	// TODO this only works for fixed-width fonts, should be more generic
-	this->characterWidth = font.getGlyph('E', getFontSize(SettingsManager::guiScale, fontSize), false).advance;
+	this->characterWidth = font.getGlyph('E', static_cast<uint>(SettingsManager::guiScale * fontSize), false).advance;
 
 	this->setSize();
 	this->updateCursorPosition();
@@ -33,16 +33,16 @@ TextInput::TextInput(enum FontSize fontSize, uint width, const sf::Font &font, u
 
 uint TextInput::getHeight() const
 {
-	return getFontSize(SettingsManager::guiScale, this->fontSize) + TEXT_INPUT_PADDING2;
+	return static_cast<uint>(SettingsManager::guiScale * this->fontSize) + TEXT_INPUT_PADDING2;
 }
 
 void TextInput::setSize()
 {
 	this->box.setSize(sf::Vector2f(this->width, this->getHeight()));
 
-	this->cursor.setSize(sf::Vector2f(CURSOR_WIDTH, getFontSize(SettingsManager::guiScale, this->fontSize)));
+	this->cursor.setSize(sf::Vector2f(CURSOR_WIDTH, SettingsManager::guiScale * this->fontSize));
 
-	this->text.setCharacterSize(getFontSize(SettingsManager::guiScale, this->fontSize));
+	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * this->fontSize));
 	this->text.setPosition(TEXT_INPUT_PADDING,
 						   TEXT_INPUT_PADDING + getFontVOffset(SettingsManager::guiScale, this->fontSize));
 }

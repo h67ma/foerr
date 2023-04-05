@@ -9,6 +9,9 @@
 #include "../consts.hpp"
 #include "setting.hpp"
 
+constexpr float GUI_SCALE_MIN_VALUE = 0.25F;
+constexpr float GUI_SCALE_MAX_VALUE = 4.F;
+
 /**
  * The SettingsManager class is a convenient place to store persistent settings unrelated to any particular savegame.
  * It is a "live" representation of settings - all changes are temporary, until they are written to the settings file.
@@ -93,7 +96,7 @@ class SettingsManager
 		static bool showFpsCounter;
 		static ScreenCorner logAnchor;
 		static ScreenCorner fpsAnchor;
-		static GuiScale guiScale;
+		static float guiScale;
 		static SerializableColor hudColor;
 		static bool pauseOnFocusLoss;
 

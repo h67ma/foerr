@@ -8,8 +8,6 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include "hud.hpp"
-
 /**
  * A single line text input field with a cursor.
  * Supports backspace and delete and moving the cursor to select where next character will be placed.
@@ -22,7 +20,7 @@ class TextInput : public sf::Drawable, public sf::Transformable
 		std::string currentInput;
 		sf::RectangleShape box;
 		sf::RectangleShape cursor;
-		enum FontSize fontSize;
+		uint fontSize;
 		const uint maxCharacters;
 		uint width;
 		uint characterWidth;
@@ -33,7 +31,7 @@ class TextInput : public sf::Drawable, public sf::Transformable
 		void setSize();
 
 	public:
-		TextInput(enum FontSize fontSize, uint width, const sf::Font &font, uint maxCharacters);
+		TextInput(uint fontSize, uint width, const sf::Font &font, uint maxCharacters);
 		std::string getCurrentInput() const;
 		uint getHeight() const;
 		bool handleTextEntered(uint keycode);

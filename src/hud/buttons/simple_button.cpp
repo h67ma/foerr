@@ -2,9 +2,9 @@
 
 #include <utility>
 #include <string>
+#include <cmath>
 
 #include "../../settings/settings_manager.hpp"
-#include "../../util/util.hpp"
 
 #define BTN_TEXT_SMALL_TOP_OFFSET 8U
 #define BTN_TEXT_NORMAL_TOP_OFFSET 12U
@@ -37,19 +37,8 @@ SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::V
 
 void SimpleButton::setThickness()
 {
-	float thicc;
-	switch (SettingsManager::guiScale)
-	{
-		case GUI_SMALL:
-			thicc = this->selected ? BTN_BORDER_THICKNESS_SMALL_SELECTED : BTN_BORDER_THICKNESS_SMALL;
-			break;
-		case GUI_LARGE:
-			thicc = this->selected ? BTN_BORDER_THICKNESS_LARGE_SELECTED : BTN_BORDER_THICKNESS_LARGE;
-			break;
-		case GUI_NORMAL:
-		default:
-			thicc = this->selected ? BTN_BORDER_THICKNESS_NORMAL_SELECTED : BTN_BORDER_THICKNESS_NORMAL;
-	}
+	float thicc = this->selected ? (BTN_BORDER_THICKNESS_NORMAL_SELECTED * SettingsManager::guiScale) :
+								   (BTN_BORDER_THICKNESS_NORMAL * SettingsManager::guiScale);
 
 	this->rect.setOutlineThickness(thicc);
 }
@@ -98,78 +87,36 @@ void SimpleButton::setColor()
 
 void SimpleButton::setGuiScale()
 {
-	uint w, h, textTopOffset;
+	sf::Vector2u dim;
 
-	this->text.setCharacterSize(getFontSize(SettingsManager::guiScale, FONT_H3));
+	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
 
-	if (SettingsManager::guiScale == GUI_SMALL)
+	switch (this->size)
 	{
-		textTopOffset = BTN_TEXT_SMALL_TOP_OFFSET;
-
-		switch (this->size)
-		{
-			case BTN_BIG:
-				w = 100;
-				h = 51;
-				break;
-			case BTN_NARROW:
-				w = 102;
-				h = 21;
-				break;
-			case BTN_NORMAL:
-			default:
-				w = 145;
-				h = 21;
-		}
-	}
-	else if (SettingsManager::guiScale == GUI_LARGE)
-	{
-		textTopOffset = BTN_TEXT_LARGE_TOP_OFFSET;
-
-		switch (size)
-		{
-			case BTN_BIG:
-				w = 171;
-				h = 87;
-				break;
-			case BTN_NARROW:
-				w = 175;
-				h = 36;
-				break;
-			case BTN_NORMAL:
-			default:
-				w = 249;
-				h = 36;
-		}
-	}
-	else // normal/default
-	{
-		textTopOffset = BTN_TEXT_NORMAL_TOP_OFFSET;
-
-		switch (size)
-		{
-			case BTN_BIG:
-				w = 128;
-				h = 65;
-				break;
-			case BTN_NARROW:
-				w = 131;
-				h = 27;
-				break;
-			case BTN_NORMAL:
-			default:
-				w = 187;
-				h = 27;
-		}
+		case BTN_BIG:
+			dim.x = 128;
+			dim.y = 65;
+			break;
+		case BTN_NARROW:
+			dim.x = 131;
+			dim.y = 27;
+			break;
+		case BTN_NORMAL:
+		default:
+			dim.x = 187;
+			dim.y = 27;
 	}
 
-	this->rect.setSize({ static_cast<float>(w), static_cast<float>(h) });
+	dim.x *= SettingsManager::guiScale;
+	dim.y *= SettingsManager::guiScale;
+
+	this->rect.setSize(static_cast<sf::Vector2f>(dim));
 	this->setThickness();
 
 	// gradient fill (transparent - almost black - transparent)
 	// this->rect color will "shine" through left & right side, this way we don't have to prepare multiple gradients
 
-	uint midX = w/2;
+	float midX = std::round(dim.x / 2);
 
 	// 0 -- 1
 	// |	|
@@ -177,22 +124,22 @@ void SimpleButton::setGuiScale()
 
 	// left half
 	gradient[0] = sf::Vertex({ 0.F, 0.F }, sf::Color::Transparent);
-	gradient[1] = sf::Vertex({ static_cast<float>(midX), 0.F }, buttonBgBlack);
-	gradient[2] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(h) }, buttonBgBlack);
-	gradient[3] = sf::Vertex({ 0.F, static_cast<float>(h) }, sf::Color::Transparent);
+	gradient[1] = sf::Vertex({ midX, 0.F }, buttonBgBlack);
+	gradient[2] = sf::Vertex({ midX, static_cast<float>(dim.y) }, buttonBgBlack);
+	gradient[3] = sf::Vertex({ 0.F, static_cast<float>(dim.y) }, sf::Color::Transparent);
 
 	// right half
-	gradient[4] = sf::Vertex({ static_cast<float>(midX), 0.F }, buttonBgBlack);
-	gradient[5] = sf::Vertex({ static_cast<float>(w), 0.F }, sf::Color::Transparent);
-	gradient[6] = sf::Vertex({ static_cast<float>(w), static_cast<float>(h) }, sf::Color::Transparent);
-	gradient[7] = sf::Vertex({ static_cast<float>(midX), static_cast<float>(h) }, buttonBgBlack);
+	gradient[4] = sf::Vertex({ midX, 0.F }, buttonBgBlack);
+	gradient[5] = sf::Vertex({ static_cast<float>(dim.x), 0.F }, sf::Color::Transparent);
+	gradient[6] = sf::Vertex({ static_cast<float>(dim.x), static_cast<float>(dim.y) }, sf::Color::Transparent);
+	gradient[7] = sf::Vertex({ midX, static_cast<float>(dim.y) }, buttonBgBlack);
 
 	// center button text
 	// to center vertically, we can't use local bounds, as the baselines on different buttons would not match.
 	// use a constant top offset instead
 	this->text.setPosition(
-		static_cast<float>(((w - this->text.getLocalBounds().width) / 2)),
-		static_cast<float>((h / 2) - textTopOffset)
+		(dim.x - this->text.getLocalBounds().width) / 2,
+		(dim.y / 2) - (SettingsManager::guiScale * BTN_TEXT_NORMAL_TOP_OFFSET)
 	);
 }
 

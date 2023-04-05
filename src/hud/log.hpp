@@ -14,7 +14,6 @@
 #include "log_element_text.hpp"
 #include "../util/util.hpp"
 #include "../hud/hud.hpp"
-#include "../consts.hpp"
 
 #define LOG_PREFIX_ERROR	"[ERRO] "
 #define LOG_PREFIX_WARNING	"[WARN] "
@@ -33,7 +32,7 @@ class Log
 		static bool writeLogToFile;
 		static bool printMsgs;
 		static bool verboseDebug;
-		static GuiScale scale;
+		static float scale;
 
 		static uint fontGap;
 		static std::list<std::unique_ptr<LogElementText>> history;
@@ -49,7 +48,7 @@ class Log
 		static void setWriteLogToFile(bool writeLogToFile);
 		static void setPrintMsgs(bool printMsgs);
 		static void setVerboseDebug(bool verboseDebug);
-		static void setGuiScale(GuiScale scale);
+		static void setGuiScale(float scale);
 		static void tick(bool force = false);
 		static void draw(sf::RenderTarget &target);
 		static void close();
