@@ -4,7 +4,7 @@
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
-#include "configurable_hud_component.hpp"
+#include "../configurable_hud_component.hpp"
 
 #define SLIDER_HANDLE_HEIGHT 15
 #define SLIDER_HANDLE_WIDTH 21

@@ -1,7 +1,7 @@
 #include "slider_handle.hpp"
 
-#include "../settings/settings_manager.hpp"
-#include "../util/util.hpp"
+#include "../../settings/settings_manager.hpp"
+#include "../../util/util.hpp"
 
 #define SLIDER_HANDLE_COLOR_DIM_FACTOR 50
 #define SLIDER_HANDLE_THINGY_LINE_HEIGHT 6

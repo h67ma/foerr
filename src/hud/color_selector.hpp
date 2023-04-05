@@ -5,7 +5,7 @@
 
 #include "configurable_hud_component.hpp"
 #include "hud_transformable.hpp"
-#include "slider.hpp"
+#include "sliders/slider.hpp"
 
 class ColorSelector : public sf::Drawable, public HudTransformable, public ConfigurableHudComponent
 {

@@ -2,9 +2,9 @@
 
 #include <string>
 
-#include "../settings/settings_manager.hpp"
+#include "../../settings/settings_manager.hpp"
 #include "slider_handle.hpp"
-#include "hud.hpp"
+#include "../hud.hpp"
 
 #define SLIDER_WIDTH 215
 #define SLIDER_TEXT_X 220

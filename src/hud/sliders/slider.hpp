@@ -5,8 +5,8 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include "configurable_hud_component.hpp"
-#include "hud_transformable.hpp"
+#include "../configurable_hud_component.hpp"
+#include "../hud_transformable.hpp"
 #include "slider_handle.hpp"
 
 #define SLIDER_DEFAULT_MIN 0
