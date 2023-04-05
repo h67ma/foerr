@@ -20,9 +20,9 @@ class TextInput : public sf::Drawable, public sf::Transformable
 		std::string currentInput;
 		sf::RectangleShape box;
 		sf::RectangleShape cursor;
-		uint fontSize;
+		const uint fontSize;
 		const uint maxCharacters;
-		uint width;
+		const uint width;
 		uint characterWidth;
 		uint cursorIdx = 0; // 0 means the cursor is before the first character
 		void updateCursorPosition();
