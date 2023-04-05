@@ -50,7 +50,7 @@ void Slider::updateDisplay()
 {
 	this->currValueText.setString(std::to_string(this->currentVal));
 	this->handle.setPosition(static_cast<float>(this->currentVal - this->minVal) /
-							 possibleValCnt * SLIDER_MOUSE_POSSIBLE_VALS, 0);
+							 this->possibleValCnt * SLIDER_MOUSE_POSSIBLE_VALS, 0);
 }
 
 /**
