@@ -34,7 +34,6 @@ class PipBuckCategoryButton : public Button, public ConfigurableHudComponent
 		void setHover(bool hover) override;
 		void setSelected(bool selected) override;
 		void setText(const std::string &text);
-		void setGuiScale() override {} // not needed for this kind of button. or perhaps for any kind of button. TODO.
 		void handleSettingsChange() override {} // currently not used
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

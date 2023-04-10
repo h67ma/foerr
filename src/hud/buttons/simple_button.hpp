@@ -36,13 +36,13 @@ class SimpleButton : public Button, public ConfigurableHudComponent
 		void setThickness();
 		void updateState();
 		void setColor();
+		void setGuiScale();
 
 	public:
 		SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::Vector2u position,
 					 const std::string &text = "Button", std::function<void(void)> callback = nullptr,
 					 ClickStatus consumedStatus = CLICK_CONSUMED);
 		bool containsPoint(sf::Vector2i coords) override;
-		void setGuiScale() override;
 		void setHover(bool hover) override;
 		void setSelected(bool selected) override;
 		void setText(const std::string &text);
