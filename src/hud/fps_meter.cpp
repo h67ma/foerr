@@ -8,13 +8,13 @@
 FpsMeter::FpsMeter(sf::Font &font, sf::Vector2u windowSize)
 {
 	this->text.setFont(font);
-	this->setGuiScale();
+	this->handleSettingsChange();
 	this->text.setFillColor(sf::Color::Green);
 	this->text.setString("??");
 	this->setPosition(windowSize);
 }
 
-void FpsMeter::setGuiScale()
+void FpsMeter::handleSettingsChange()
 {
 	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
 }

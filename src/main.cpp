@@ -308,13 +308,6 @@ int main()
 
 	// TODO remove all comments below
 
-	// howto set gui scale
-	//settings.setGuiScale(SETT_GUI_SCALE, GUI_SMALL);
-	//setGuiScale() for all buttons
-	//fpsMeter.setGuiScale(GUI_SMALL);
-	//Log::setGuiScale(GUI_SMALL);
-
-
 	// TODO delet this: howto change cursor type: cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 
 
@@ -415,6 +408,7 @@ int main()
 					{
 						pipBuck.handleSettingsChange();
 						mainMenu.handleSettingsChange();
+						fpsMeter.handleSettingsChange();
 						Log::setGuiScale(SettingsManager::guiScale);
 					}
 
