@@ -96,7 +96,7 @@ class SettingsManager
 		static bool showFpsCounter;
 		static ScreenCorner logAnchor;
 		static ScreenCorner fpsAnchor;
-		static float guiScale;
+		static float guiScale; // all calculated positions should be rounded to integer value to avoid blurriness
 		static SerializableColor hudColor;
 		static bool pauseOnFocusLoss;
 
