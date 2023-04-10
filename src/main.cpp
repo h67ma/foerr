@@ -415,6 +415,7 @@ int main()
 					{
 						pipBuck.handleSettingsChange();
 						mainMenu.handleSettingsChange();
+						Log::setGuiScale(SettingsManager::guiScale);
 					}
 
 					continue;
