@@ -4,14 +4,14 @@
 #include <SFML/Graphics/Drawable.hpp>
 
 #include "configurable_hud_component.hpp"
+#include "sliders/int_slider.hpp"
 #include "hud_transformable.hpp"
-#include "sliders/slider.hpp"
 
 class ColorSelector : public sf::Drawable, public HudTransformable, public ConfigurableHudComponent
 {
 	private:
 		sf::RectangleShape selectedColorPreview, labelR, labelG, labelB;
-		Slider sliderR, sliderG, sliderB;
+		IntSlider sliderR, sliderG, sliderB;
 		sf::Color selectedColor;
 
 		void updateColor();

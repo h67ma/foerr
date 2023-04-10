@@ -3,8 +3,6 @@
 #include "../settings/settings_manager.hpp"
 #include "clickable.hpp"
 
-#define MAX_CHANNEL_VALUE 0xFF
-
 #define SECOND_ROW_Y 25
 #define THIRD_ROW_Y 50
 
@@ -14,9 +12,9 @@
 #define COLOR_PREVIEW_SIDE_LEN 65
 
 ColorSelector::ColorSelector(const sf::Font &font, sf::Color initialColor) :
-	sliderR(font, 0, MAX_CHANNEL_VALUE, initialColor.r),
-	sliderG(font, 0, MAX_CHANNEL_VALUE, initialColor.g),
-	sliderB(font, 0, MAX_CHANNEL_VALUE, initialColor.b)
+	sliderR(font, 0, initialColor.r, COLOR_MAX_CHANNEL_VALUE),
+	sliderG(font, 0, initialColor.g, COLOR_MAX_CHANNEL_VALUE),
+	sliderB(font, 0, initialColor.b, COLOR_MAX_CHANNEL_VALUE)
 {
 	this->labelR.setSize({ SLIDER_HANDLE_HEIGHT, SLIDER_HANDLE_HEIGHT });
 	this->labelR.setFillColor(sf::Color::Red);

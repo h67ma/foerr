@@ -3,27 +3,14 @@
 #include <string>
 
 #include "../../settings/settings_manager.hpp"
-#include "slider_handle.hpp"
+#include "../../consts.hpp"
 #include "../hud.hpp"
 
-#define SLIDER_WIDTH 215
-#define SLIDER_TEXT_X 220
+constexpr uint SLIDER_TEXT_X = 220;
+constexpr uchar SLIDER_COLOR_DIM_FACTOR = 200;
 
-#define SLIDER_COLOR_DIM_FACTOR 200
-
-#define SLIDER_HANDLE_HALF (SLIDER_HANDLE_WIDTH / 2)
-#define SLIDER_MOUSE_MAX (SLIDER_WIDTH - SLIDER_HANDLE_HALF)
-#define SLIDER_MOUSE_POSSIBLE_VALS (SLIDER_WIDTH - SLIDER_HANDLE_WIDTH)
-
-Slider::Slider(const sf::Font &font, int minVal, int maxVal, int defaultVal) :
-	minVal(minVal),
-	maxVal(maxVal),
-	currentVal(defaultVal),
-	possibleValCnt(maxVal - minVal)
+Slider::Slider(const sf::Font &font)
 {
-	assert(minVal < maxVal);
-	assert(defaultVal >= minVal && defaultVal <= maxVal);
-
 	this->sliderOutline.setSize({ SLIDER_WIDTH, SLIDER_HANDLE_HEIGHT });
 	this->sliderOutline.setFillColor(sf::Color::Transparent);
 	this->sliderOutline.setOutlineThickness(1.F);
@@ -31,26 +18,6 @@ Slider::Slider(const sf::Font &font, int minVal, int maxVal, int defaultVal) :
 	this->currValueText.setFont(font);
 
 	this->handleSettingsChange();
-
-	this->updateDisplay();
-}
-
-int Slider::getValue() const
-{
-	return this->currentVal;
-}
-
-void Slider::setValue(int value)
-{
-	this->currentVal = value;
-	this->updateDisplay();
-}
-
-void Slider::updateDisplay()
-{
-	this->currValueText.setString(std::to_string(this->currentVal));
-	this->handle.setPosition(static_cast<float>(this->currentVal - this->minVal) /
-							 this->possibleValCnt * SLIDER_MOUSE_POSSIBLE_VALS, 0);
 }
 
 /**
@@ -89,20 +56,6 @@ bool Slider::handleMouseMove(sf::Vector2i mousePos)
 
 	this->setSliderPos(mousePos.x);
 	return true;
-}
-
-void Slider::setSliderPos(int mouseX)
-{
-	mouseX -= SLIDER_HANDLE_HALF;
-
-	if (mouseX < 0)
-		mouseX = 0;
-	
-	if (mouseX > SLIDER_MOUSE_POSSIBLE_VALS)
-		mouseX = SLIDER_MOUSE_POSSIBLE_VALS;
-
-	this->currentVal = ((mouseX * possibleValCnt) / SLIDER_MOUSE_POSSIBLE_VALS) + this->minVal;
-	this->updateDisplay();
 }
 
 void Slider::handleSettingsChange()

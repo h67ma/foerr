@@ -35,6 +35,9 @@
 #ifndef uint
 typedef unsigned int uint;
 #endif
+#ifndef uchar
+typedef unsigned char uchar;
+#endif
 
 enum GameState
 {
@@ -52,6 +55,8 @@ enum Direction
 	DIR_FRONT,
 	DIR_BACK, // the backrooms o_O
 };
+
+constexpr uchar COLOR_MAX_CHANNEL_VALUE = 0xFF;
 
 // credits to oomek on https://en.sfml-dev.org/forums/index.php?topic=24250.msg164091#msg164091
 const sf::BlendMode BlendAlphaTransparent(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
