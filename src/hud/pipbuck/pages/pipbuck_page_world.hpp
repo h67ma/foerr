@@ -39,6 +39,7 @@ class PipBuckPageWorld : public PipBuckPage
 		void setupMapDecorations();
 		bool mapContainsPoint(sf::Vector2i point);
 		void updateActiveIndicator();
+		void setGuiScale();
 
 	public:
 		PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign);
@@ -46,7 +47,6 @@ class PipBuckPageWorld : public PipBuckPage
 		bool handleMouseMove(sf::Vector2i mousePos) override;
 		bool setupCampaignInfos() override;
 		void unloadCampaignInfos() override;
-		void setGuiScale();
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

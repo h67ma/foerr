@@ -62,7 +62,11 @@ bool PipBuckPageWorld::mapContainsPoint(sf::Vector2i point)
 
 void PipBuckPageWorld::updateActiveIndicator()
 {
-	auto search = this->mapButtons.find(this->campaign.getCurrentLocation()->getId());
+	std::shared_ptr<Location> loc = this->campaign.getCurrentLocation();
+	if (loc == nullptr)
+		return;
+
+	auto search = this->mapButtons.find(loc->getId());
 	if (search == this->mapButtons.end())
 		return;
 
@@ -251,8 +255,7 @@ void PipBuckPageWorld::setGuiScale()
 	this->locTitle.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H2));
 	this->locDescription.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_SPAN));
 
-	if (this->selectedLocId != NO_LOCATION_SELECTED)
-		this->updateActiveIndicator();
+	this->updateActiveIndicator();
 }
 
 void PipBuckPageWorld::handleSettingsChange()
@@ -264,6 +267,7 @@ void PipBuckPageWorld::handleSettingsChange()
 		btn.second.handleSettingsChange();
 	}
 
+	this->setGuiScale();
 	this->setupMapDecorations();
 	this->setComponentColors();
 }

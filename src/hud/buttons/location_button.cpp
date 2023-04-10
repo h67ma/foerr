@@ -70,11 +70,13 @@ void LocButton::setGuiScale()
 	this->rect.setSize(sf::Vector2f(sideLen, sideLen));
 	this->setThickness();
 
+	this->icon.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
+
 	// center icon
 	// floor the coordinates to avoid pixel misalignment
 	this->icon.setPosition(
-		floor((sideLen - this->icon.getLocalBounds().width) / 2),
-		floor((sideLen - this->icon.getLocalBounds().height) / 2)
+		floor((sideLen - this->icon.getGlobalBounds().width) / 2),
+		floor((sideLen - this->icon.getGlobalBounds().height) / 2)
 	);
 }
 
