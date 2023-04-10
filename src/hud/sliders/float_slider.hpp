@@ -3,9 +3,7 @@
 #include "slider.hpp"
 
 /**
- * A Slider which allows inputting a floating point value. Note that decimal places are only used to specify how the
- * value is *displayed* near the Slider; the float value is not actually rounded to that precision. It also affects the
- * number of slider steps.
+ * A Slider which allows inputting a floating point value.
  */
 class FloatSlider : public Slider
 {

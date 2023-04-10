@@ -41,6 +41,8 @@ void FloatSlider::setSliderPos(int mouseX)
 						SLIDER_MOUSE_POSSIBLE_VALS / this->precisionFactor) +
 					   this->minVal;
 
+	this->currentVal = floorf(this->currentVal * this->precisionFactor) / this->precisionFactor;
+
 	this->updateText();
 
 	// no need to call updateHandle() since it would needlessly calculate X from currentVal, and we already have X
