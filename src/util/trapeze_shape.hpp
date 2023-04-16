@@ -11,6 +11,16 @@ struct trapeze_data
 	float height;
 };
 
+template <typename T>
+constexpr struct trapeze_data operator*(const struct trapeze_data &lhs, T rhs)
+{
+	return trapeze_data { lhs.topStartX * rhs,
+						  lhs.bottomStartX * rhs,
+						  lhs.topWidth * rhs,
+						  lhs.bottomWidth * rhs,
+						  lhs.height * rhs };
+}
+
 /**
  * Represents a trapeze-shaped polygon, compatible with SFML API.
  *
@@ -23,10 +33,14 @@ class TrapezeShape : public sf::Shape
 		struct trapeze_data data;
 		float leftCoeff;
 		float rightCoeff;
+		void updateCoeffs();
 
 	public:
-		explicit TrapezeShape(struct trapeze_data data);
+		explicit TrapezeShape(const struct trapeze_data &data);
+		explicit TrapezeShape(float topStartX, float bottomStartX, float topWidth, float bottomWidth, float height);
 		std::size_t getPointCount() const override;
 		sf::Vector2f getPoint(std::size_t index) const override;
 		bool contains(sf::Vector2f point) const;
+		struct trapeze_data getData() const;
+		void setData(const struct trapeze_data &data);
 };

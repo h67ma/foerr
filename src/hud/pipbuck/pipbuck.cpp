@@ -389,6 +389,11 @@ void PipBuck::handleSettingsChange()
 	{
 		cat.second.handleSettingsChange();
 	}
+
+	for (auto &btn : this->categoryButtons)
+	{
+		btn.second->handleSettingsChange();
+	}
 }
 
 void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const

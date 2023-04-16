@@ -7,7 +7,6 @@
 
 #include "../../resources/resource_manager.hpp"
 #include "../../resources/sprite_resource.hpp"
-#include "../configurable_hud_component.hpp"
 #include "../../util/trapeze_shape.hpp"
 #include "../hud.hpp"
 #include "button.hpp"
@@ -16,11 +15,12 @@ constexpr struct trapeze_data pipBuckCatBtnLeft { 0, 22, 160, 160, 78 };
 constexpr struct trapeze_data pipBuckCatBtnMiddle { 0, 23, 223, 179, 78 };
 constexpr struct trapeze_data pipBuckCatBtnRight { 22, 0, 160, 160, 78 };
 
-class PipBuckCategoryButton : public Button, public ConfigurableHudComponent
+class PipBuckCategoryButton : public Button
 {
 	private:
 		bool selected = false;
 		bool hover = false;
+		const struct trapeze_data trapezeData;
 		TrapezeShape trapeze;
 		sf::Text text;
 		void updateState();
@@ -28,12 +28,12 @@ class PipBuckCategoryButton : public Button, public ConfigurableHudComponent
 		SpriteResource hoverImgSprite;
 
 	public:
-		PipBuckCategoryButton(ResourceManager &resMgr, sf::Vector2u position, struct trapeze_data shape,
+		PipBuckCategoryButton(ResourceManager &resMgr, sf::Vector2u position, const struct trapeze_data &shape,
 							  const std::string &text, const std::string& hoverImgPath);
 		bool containsPoint(sf::Vector2i coords) override;
 		void setHover(bool hover) override;
 		void setSelected(bool selected) override;
 		void setText(const std::string &text);
-		void handleSettingsChange() override {} // currently not used
+		void handleSettingsChange() override;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

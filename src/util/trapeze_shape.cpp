@@ -1,11 +1,22 @@
 #include "trapeze_shape.hpp"
 
-TrapezeShape::TrapezeShape(struct trapeze_data data) : data(data)
+TrapezeShape::TrapezeShape(const struct trapeze_data &data) : data(data)
+{
+	this->updateCoeffs();
+	this->update();
+}
+
+TrapezeShape::TrapezeShape(float topStartX, float bottomStartX, float topWidth, float bottomWidth, float height) :
+	data { topStartX, bottomStartX, topWidth, bottomWidth, height }
+{
+	this->updateCoeffs();
+	this->update();
+}
+
+void TrapezeShape::updateCoeffs()
 {
 	this->leftCoeff = this->data.bottomStartX - this->data.topStartX;
 	this->rightCoeff = this->leftCoeff + this->data.bottomWidth - this->data.topWidth;
-
-	this->update();
 }
 
 std::size_t TrapezeShape::getPointCount() const
@@ -44,4 +55,16 @@ bool TrapezeShape::contains(sf::Vector2f point) const
 		return false;
 
 	return true;
+}
+
+struct trapeze_data TrapezeShape::getData() const
+{
+	return this->data;
+}
+
+void TrapezeShape::setData(const struct trapeze_data &data)
+{
+	this->data = data;
+	this->updateCoeffs();
+	this->update();
 }

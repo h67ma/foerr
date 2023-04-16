@@ -7,11 +7,10 @@
 #include <SFML/Graphics/Color.hpp>
 
 #include "../../resources/sprite_resource.hpp"
-#include "../configurable_hud_component.hpp"
 #include "button.hpp"
 #include "../hud.hpp"
 
-class LocButton : public Button, public ConfigurableHudComponent
+class LocButton : public Button
 {
 	private:
 		bool isBaseCamp;

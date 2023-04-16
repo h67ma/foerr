@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics/Color.hpp>
 
+#include "../../settings/settings_manager.hpp"
+
 const sf::Color colorHover(0xFF, 0xFF, 0xFF, 0x10);
 
 const sf::Color colorText(0x40, 0x23, 0x20);
@@ -12,9 +14,11 @@ const sf::Vector2f hoverImgOffset(-22.F, -22.F);
 constexpr uint textBottomOffset = 14;
 constexpr uint fontSize = 20;
 
-PipBuckCategoryButton::PipBuckCategoryButton(ResourceManager &resMgr, sf::Vector2u position, struct trapeze_data shape,
-											 const std::string &text, const std::string& hoverImgPath) :
+PipBuckCategoryButton::PipBuckCategoryButton(ResourceManager &resMgr, sf::Vector2u position,
+											 const struct trapeze_data &shape, const std::string &text,
+											 const std::string& hoverImgPath) :
 	Button(position),
+	trapezeData(shape),
 	trapeze(shape),
 	hoverImgSprite(resMgr.getTexture(hoverImgPath))
 {
@@ -22,10 +26,7 @@ PipBuckCategoryButton::PipBuckCategoryButton(ResourceManager &resMgr, sf::Vector
 
 	this->text.setFont(*resMgr.getFont(FONT_FIXED));
 	this->text.setStyle(sf::Text::Bold);
-	this->text.setCharacterSize(fontSize);
 	this->setText(text);
-
-	this->hoverImgSprite.setPosition(hoverImgOffset);
 
 	this->updateState();
 }
@@ -60,7 +61,7 @@ void PipBuckCategoryButton::centerText()
 {
 	this->text.setPosition(
 		static_cast<float>(((this->trapeze.getLocalBounds().width - this->text.getLocalBounds().width) / 2)),
-		static_cast<float>((this->trapeze.getLocalBounds().height / 2) - textBottomOffset)
+		static_cast<float>((this->trapeze.getLocalBounds().height / 2) - textBottomOffset * SettingsManager::guiScale)
 	);
 }
 
@@ -79,6 +80,17 @@ void PipBuckCategoryButton::setSelected(bool selected)
 void PipBuckCategoryButton::setText(const std::string &text)
 {
 	this->text.setString(text);
+	this->centerText();
+}
+
+void PipBuckCategoryButton::handleSettingsChange()
+{
+	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * fontSize));
+	this->hoverImgSprite.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
+	this->hoverImgSprite.setPosition(hoverImgOffset * SettingsManager::guiScale);
+
+	this->trapeze.setData(this->trapezeData * SettingsManager::guiScale);
+
 	this->centerText();
 }
 

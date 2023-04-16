@@ -9,7 +9,6 @@
 #include <SFML/Graphics/Text.hpp>
 
 #include "../../resources/resource_manager.hpp"
-#include "../configurable_hud_component.hpp"
 #include "../../consts.hpp"
 #include "../hud.hpp"
 #include "button.hpp"
@@ -21,7 +20,7 @@ enum SimpleButtonSize
 	BTN_BIG,
 };
 
-class SimpleButton : public Button, public ConfigurableHudComponent
+class SimpleButton : public Button
 {
 	private:
 		SimpleButtonSize size;
