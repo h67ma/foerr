@@ -3,6 +3,7 @@
 #include <cmath>
 
 #include <memory>
+#include <vector>
 
 #include "../buttons/pipbuck_category_button.hpp"
 #include "pages/pipbuck_page_inventory_other.hpp"
@@ -29,11 +30,17 @@
 #include "../../util/util.hpp"
 #include "../log.hpp"
 
-#define COLOR_SCREEN_GRAY COLOR_GRAY(0x39)
-#define SCREEN_X 365
-#define SCREEN_Y 178
-#define SCREEN_WIDTH 1094
-#define SCREEN_HEIGHT 685
+const sf::Color screenColorGray = COLOR_GRAY(0x39);
+const sf::Vector2f screenPos { 365, 178 };
+const sf::Vector2f screenSize { 1094, 685 };
+
+const sf::Vector2f radIndicatorPosition { 130, 190 };
+const sf::Vector2f radIndicatorOrigin { 5, 0 };
+const std::vector<sf::Vector2f> radIndicatorPointPositions {
+	{ 0, 0 },
+	{ 10, 0 },
+	{ 5, 60 },
+};
 
 PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :
 	resMgr(resMgr),
@@ -99,6 +106,7 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 
 	this->setupRadIndicator();
 	this->setupScreenBackground();
+	this->setGuiScale();
 
 	for (auto &btn : this->categoryButtons)
 	{
@@ -112,13 +120,19 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
  */
 void PipBuck::setupRadIndicator()
 {
-	this->radIndicator.setPointCount(3);
-	this->radIndicator.setOrigin(5.F, 0.F);
-	this->radIndicator.setPosition(130.F, 190.F);
-	this->radIndicator.setPoint(0, { 0.F, 0.F });
-	this->radIndicator.setPoint(1, { 10.F, 0.F });
-	this->radIndicator.setPoint(2, { 5.F, 60.F });
+	this->radIndicator.setPointCount(radIndicatorPointPositions.size());
 	this->radIndicator.setFillColor(sf::Color::Black);
+}
+
+void PipBuck::setRadIndicatorScale()
+{
+	this->radIndicator.setOrigin(radIndicatorOrigin * SettingsManager::guiScale);
+	this->radIndicator.setPosition(radIndicatorPosition * SettingsManager::guiScale);
+
+	for (int i = 0; i < radIndicatorPointPositions.size(); i++)
+	{
+		this->radIndicator.setPoint(i, radIndicatorPointPositions[i] * SettingsManager::guiScale);
+	}
 }
 
 /**
@@ -129,13 +143,10 @@ void PipBuck::setupRadIndicator()
  */
 void PipBuck::setupScreenBackground()
 {
-	this->screenBackgroundGray.setFillColor(COLOR_SCREEN_GRAY);
-	this->screenBackgroundGray.setPosition(SCREEN_X, SCREEN_Y);
-	this->screenBackgroundGray.setSize({ SCREEN_WIDTH, SCREEN_HEIGHT });
+	this->screenBackgroundGray.setFillColor(screenColorGray);
 
 	// transparent radial gradient, tinted with hud color
 	this->setScreenTint();
-	this->pipBuckScreenRadialGrad.setPosition(SCREEN_X, SCREEN_Y);
 
 	// "scan lines"
 	sf::Image img;
@@ -146,15 +157,27 @@ void PipBuck::setupScreenBackground()
 	this->screenBackgroundStripesTxt.setRepeated(true);
 
 	this->screenBackgroundStripes.setTexture(this->screenBackgroundStripesTxt);
-	this->screenBackgroundStripes.setTextureRect({0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
-	this->screenBackgroundStripes.setPosition(SCREEN_X, SCREEN_Y);
+}
+
+void PipBuck::setScreenBackgroundScale()
+{
+	this->screenBackgroundGray.setPosition(screenPos * SettingsManager::guiScale);
+	this->screenBackgroundGray.setSize(screenSize * SettingsManager::guiScale);
+
+	this->pipBuckScreenRadialGrad.setPosition(screenPos * SettingsManager::guiScale);
+	this->pipBuckScreenRadialGrad.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
+
+	this->screenBackgroundStripes.setTextureRect(sf::IntRect(0,
+															 0,
+															 screenSize.x * SettingsManager::guiScale,
+															 screenSize.y * SettingsManager::guiScale));
+	this->screenBackgroundStripes.setPosition(screenPos * SettingsManager::guiScale);
 }
 
 void PipBuck::handleScreenResize(sf::Vector2u windowSize)
 {
 	// for now copy the behaviour of Remains pipbuck, i.e. display it unscaled in bottom left corner
-	// TODO scale should affect sprite size and individual buttons/labels/etc scale and placement
-	this->setPosition(0, static_cast<float>(windowSize.y - this->pipBuckSprite.getLocalBounds().height));
+	this->setPosition(0, static_cast<float>(windowSize.y - this->pipBuckSprite.getGlobalBounds().height));
 }
 
 /**
@@ -379,11 +402,19 @@ void PipBuck::tick()
 	);
 }
 
+void PipBuck::setGuiScale()
+{
+	this->pipBuckSprite.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
+	this->setRadIndicatorScale();
+	this->setScreenBackgroundScale();
+}
+
 void PipBuck::handleSettingsChange()
 {
-	this->closeBtn.handleSettingsChange();
-
+	this->setGuiScale();
 	this->setScreenTint();
+
+	this->closeBtn.handleSettingsChange();
 
 	for (auto &cat : this->categories)
 	{

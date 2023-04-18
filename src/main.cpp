@@ -407,6 +407,7 @@ int main()
 						CLICK_CONSUMED_SETTINGS_CHANGED)
 					{
 						pipBuck.handleSettingsChange();
+						pipBuck.handleScreenResize(window.getSize());
 						mainMenu.handleSettingsChange();
 						fpsMeter.handleSettingsChange();
 						Log::setGuiScale(SettingsManager::guiScale);
