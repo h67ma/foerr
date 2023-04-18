@@ -68,6 +68,7 @@ class PipBuck : public sf::Drawable, public HudTransformable, public Configurabl
 		void setupScreenBackground();
 		void setScreenBackgroundScale();
 		void setGuiScale();
+		void setAudioVolume();
 
 	public:
 		PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState);

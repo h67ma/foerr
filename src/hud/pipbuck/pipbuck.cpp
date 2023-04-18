@@ -100,19 +100,22 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 								  std::make_unique<SimpleButton>(BTN_BIG, resMgr, sf::Vector2u(55, 700),
 																 STR_PIPBUCK_MAINMENU));
 
-	float initialVolume = static_cast<float>(SettingsManager::fxVolume);
-	this->soundOpenClose.setVolume(initialVolume);
-	this->soundCategoryBtn.setVolume(initialVolume);
-
 	this->setupRadIndicator();
 	this->setupScreenBackground();
 	this->setGuiScale();
+	this->setAudioVolume();
 
 	for (auto &btn : this->categoryButtons)
 	{
 		this->hoverMgr += btn.second.get(); // FIXME this is pretty bad...
 	}
 	this->hoverMgr += &this->closeBtn;
+}
+
+void PipBuck::setAudioVolume()
+{
+	this->soundOpenClose.setVolume(SettingsManager::fxVolume);
+	this->soundCategoryBtn.setVolume(SettingsManager::fxVolume);
 }
 
 /**
@@ -412,6 +415,7 @@ void PipBuck::setGuiScale()
 void PipBuck::handleSettingsChange()
 {
 	this->setGuiScale();
+	this->setAudioVolume();
 	this->setScreenTint();
 
 	this->closeBtn.handleSettingsChange();
