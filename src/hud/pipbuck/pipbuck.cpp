@@ -180,7 +180,7 @@ void PipBuck::setScreenBackgroundScale()
 void PipBuck::handleScreenResize(sf::Vector2u windowSize)
 {
 	// for now copy the behaviour of Remains pipbuck, i.e. display it unscaled in bottom left corner
-	this->setPosition(0, static_cast<float>(windowSize.y - this->pipBuckSprite.getGlobalBounds().height));
+	this->setPosition(0, windowSize.y - std::round(this->pipBuckSprite.getGlobalBounds().height));
 }
 
 /**
