@@ -1,6 +1,6 @@
 #pragma once
 
-class ConfigurableHudComponent
+class ConfigurableGuiComponent
 {
 	public:
 		virtual void handleSettingsChange() = 0;

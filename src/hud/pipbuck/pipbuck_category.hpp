@@ -10,7 +10,7 @@
 
 #include "../../resources/resource_manager.hpp"
 #include "../../resources/sound_resource.hpp"
-#include "../configurable_hud_component.hpp"
+#include "../configurable_gui_component.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../../campaigns/campaign.hpp"
 #include "../hover_manager.hpp"
@@ -30,7 +30,7 @@ enum PipBuckCategoryType
  * Represents a single PipBuck category (e.g. "Status").
  * Contains 5 pages.
  */
-class PipBuckCategory : public sf::Drawable, public sf::Transformable, public ConfigurableHudComponent
+class PipBuckCategory : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent
 {
 	private:
 		HoverManager hoverMgr;

@@ -13,7 +13,7 @@
 #include "../../settings/settings_manager.hpp"
 #include "../../resources/sprite_resource.hpp"
 #include "../../resources/sound_resource.hpp"
-#include "../configurable_hud_component.hpp"
+#include "../configurable_gui_component.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../../campaigns/campaign.hpp"
 #include "../hover_manager.hpp"
@@ -39,7 +39,7 @@
  * we can avoid defining some methods like ::setupCampaignInfos() in PipBuckPage,
  * and instead define them only in pages that actually use it.
  */
-class PipBuck : public sf::Drawable, public sf::Transformable, public ConfigurableHudComponent
+class PipBuck : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent
 {
 	private:
 		ResourceManager &resMgr;

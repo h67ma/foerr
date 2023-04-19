@@ -6,7 +6,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include "../configurable_hud_component.hpp"
+#include "../configurable_gui_component.hpp"
 #include "../../campaigns/campaign.hpp"
 #include "../hover_manager.hpp"
 #include "../click_manager.hpp"
@@ -47,7 +47,7 @@ enum PipBuckPageType
  * first check if coordinates are within the defined area. This way, if the point is outside page bounds,
  * we can skip checking controls inside the page altogether.
  */
-class PipBuckPage : public sf::Drawable, public ConfigurableHudComponent
+class PipBuckPage : public sf::Drawable, public ConfigurableGuiComponent
 {
 	protected:
 		HoverManager hoverMgr;
