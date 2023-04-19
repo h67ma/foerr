@@ -52,3 +52,4 @@ void splitString(std::vector<std::string> &tokens, const std::string &input, cha
 bool strToInt(const std::string &input, int &output);
 
 void operator-=(sf::Vector2i &lhs, sf::Vector2f rhs);
+sf::Vector2u operator+(sf::Vector2f lhs, sf::Vector2u rhs);

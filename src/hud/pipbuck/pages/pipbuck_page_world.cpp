@@ -8,12 +8,11 @@
 #include "../../../util/i18n.hpp"
 
 // relative to the page area
-#define WORLD_MAP_X 400
-#define WORLD_MAP_Y 260
+const sf::Vector2f mapPos(400, 260);
 
 #define DESCRIPTION_TEXT_WIDTH 430
 
-#define MAP_GRID_SPACING 110
+constexpr float mapGridSpacing = 110;
 #define SQRT_2 1.414213562f
 
 PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) :
@@ -38,8 +37,6 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 		this->travelButtonAvailable = false;
 	})
 {
-	this->mapBg.setPosition(WORLD_MAP_X, WORLD_MAP_Y);
-
 	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
 	this->locTitle.setPosition(970, 260);
 
@@ -161,44 +158,59 @@ void PipBuckPageWorld::setComponentColors()
 void PipBuckPageWorld::setupMapDecorations()
 {
 	sf::Color hudColor = SettingsManager::hudColor;
-	uint mapW = static_cast<uint>(this->mapBg.getLocalBounds().width);
-	uint mapH = static_cast<uint>(this->mapBg.getLocalBounds().height);
+	float mapW = this->mapBg.getLocalBounds().width;
+	float mapH = this->mapBg.getLocalBounds().height;
 
-	mapBorder[0] = sf::Vertex({ static_cast<float>(WORLD_MAP_X), static_cast<float>(WORLD_MAP_Y - 1) },
-							  hudColor);
-	mapBorder[1] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW + 1), static_cast<float>(WORLD_MAP_Y - 1) },
-							  hudColor);
-	mapBorder[2] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW + 1), static_cast<float>(WORLD_MAP_Y + mapH) },
-							  hudColor);
-	mapBorder[3] = sf::Vertex({ static_cast<float>(WORLD_MAP_X - 1), static_cast<float>(WORLD_MAP_Y + mapH) },
-							  hudColor);
+	sf::Vector2f topLeft(std::round(mapPos.x * SettingsManager::guiScale),
+						 std::round((mapPos.y - 1) * SettingsManager::guiScale));
+	sf::Vector2f topRight(std::round((mapPos.x + mapW + 1) * SettingsManager::guiScale),
+						  std::round((mapPos.y - 1) * SettingsManager::guiScale));
+	sf::Vector2f bottomRight(std::round((mapPos.x + mapW + 1) * SettingsManager::guiScale),
+							 std::round((mapPos.y + mapH) * SettingsManager::guiScale));
 	// not sure why, but the left bottom corner needs to be moved 1px to the left, otherwise there's a blank pixel
+	sf::Vector2f bottomLeft(std::round((mapPos.x - 1) * SettingsManager::guiScale),
+							std::round((mapPos.y + mapH) * SettingsManager::guiScale));
+
+	mapBorder[0] = sf::Vertex(topLeft, hudColor);
+	mapBorder[1] = sf::Vertex(topRight, hudColor);
+	mapBorder[2] = sf::Vertex(bottomRight, hudColor);
+	mapBorder[3] = sf::Vertex(bottomLeft, hudColor);
 	mapBorder[4] = mapBorder[0];
 
 	// set transparency for grid lines
 	hudColor.a = 0x40;
 
-	float pos = WORLD_MAP_X + MAP_GRID_SPACING;
+	float pos = mapPos.x + mapGridSpacing;
 	for (uint i = 0; i < 8; i += 2)
 	{
-		if (pos - WORLD_MAP_X > mapW)
+		if (pos - mapPos.x > mapW)
 			break; // just in case someone will make a smaller map
 
-		mapGridLines[i] = sf::Vertex({ pos, static_cast<float>(WORLD_MAP_Y) }, hudColor);
-		mapGridLines[i + 1] = sf::Vertex({ pos, static_cast<float>(WORLD_MAP_Y + mapH) }, hudColor);
-		pos += MAP_GRID_SPACING;
+		sf::Vector2f top(std::round(pos * SettingsManager::guiScale),
+						 std::round(mapPos.y * SettingsManager::guiScale));
+		sf::Vector2f bottom(std::round(pos * SettingsManager::guiScale),
+							std::round((mapPos.y + mapH) * SettingsManager::guiScale));
+
+		mapGridLines[i] = sf::Vertex(top, hudColor);
+		mapGridLines[i + 1] = sf::Vertex(bottom, hudColor);
+		pos += mapGridSpacing;
 	}
 
-	pos = WORLD_MAP_Y + MAP_GRID_SPACING;
+	pos = mapPos.y + mapGridSpacing;
 
 	for (uint i = 8; i < 16; i += 2)
 	{
-		if (pos - WORLD_MAP_Y > mapH)
+		if (pos - mapPos.y > mapH)
 			break; // just in case someone will make a smaller map
 
-		mapGridLines[i] = sf::Vertex({ static_cast<float>(WORLD_MAP_X), pos }, hudColor);
-		mapGridLines[i + 1] = sf::Vertex({ static_cast<float>(WORLD_MAP_X + mapW), pos }, hudColor);
-		pos += MAP_GRID_SPACING;
+		sf::Vector2f left(std::round(mapPos.x * SettingsManager::guiScale),
+						  std::round(pos * SettingsManager::guiScale));
+		sf::Vector2f right(std::round((mapPos.x + mapW) * SettingsManager::guiScale),
+						   std::round(pos * SettingsManager::guiScale));
+
+		mapGridLines[i] = sf::Vertex(left, hudColor);
+		mapGridLines[i + 1] = sf::Vertex(right, hudColor);
+		pos += mapGridSpacing;
 	}
 }
 
@@ -226,8 +238,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 			loc.first,
 			loc.second->isWorldMapIconBig(),
 			loc.second->isBasecamp(),
-			sf::Vector2u(WORLD_MAP_X + loc.second->getWorldMapCoords().x,
-						 WORLD_MAP_Y + loc.second->getWorldMapCoords().y),
+			mapPos + loc.second->getWorldMapCoords(),
 			iconTxt);
 	}
 
@@ -254,6 +265,8 @@ void PipBuckPageWorld::setGuiScale()
 {
 	this->locTitle.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H2));
 	this->locDescription.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_SPAN));
+	this->mapBg.setPosition(mapPos * SettingsManager::guiScale);
+	this->mapBg.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
 
 	this->updateActiveIndicator();
 }

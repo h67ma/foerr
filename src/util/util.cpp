@@ -35,3 +35,10 @@ void operator-=(sf::Vector2i &lhs, sf::Vector2f rhs)
 	lhs.x -= rhs.x;
 	lhs.y -= rhs.y;
 }
+
+sf::Vector2u operator+(sf::Vector2f lhs, sf::Vector2u rhs)
+{
+	rhs.x += lhs.x;
+	rhs.y += lhs.y;
+	return rhs;
+}
