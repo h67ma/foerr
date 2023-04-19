@@ -7,19 +7,23 @@
 #include "../../../util/util.hpp"
 #include "../../../util/i18n.hpp"
 
-// relative to the page area
+// all relative to the page area
 const sf::Vector2f mapPos(400, 260);
+const sf::Vector2u gotoLocationBtnPos(1000, 815);
+const sf::Vector2f locTitlePos(970, 260);
+const sf::Vector2f locDescriptionPos(970, 300);
 
-#define DESCRIPTION_TEXT_WIDTH 430
-
+constexpr float activeLocIndicatorOutlineThickness = 2;
+constexpr uchar gridLinesTransparency = 0x40;
+constexpr uint descriptionTextWidth = 430;
 constexpr float mapGridSpacing = 110;
-#define SQRT_2 1.414213562f
+constexpr float sqrt2 = 1.414213562;
 
 PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) :
 	PipBuckPage("World"), // TODO translate
 	resMgr(resMgr),
 	campaign(campaign),
-	gotoLocationBtn(BTN_NORMAL, resMgr, { 1000, 815 }, "Travel", [this](){
+	gotoLocationBtn(BTN_NORMAL, resMgr, gotoLocationBtnPos, "Travel", [this](){
 		auto search = this->mapButtons.find(this->selectedLocId);
 		if (search == this->mapButtons.end())
 			return;
@@ -38,13 +42,13 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 	})
 {
 	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
-	this->locTitle.setPosition(970, 260);
+	this->locTitle.setPosition(locTitlePos);
 
 	this->locDescription.setFont(*resMgr.getFont(FONT_NORMAL));
-	this->locDescription.setPosition(970, 300);
+	this->locDescription.setPosition(locDescriptionPos);
 
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
-	this->activeLocIndicator.setOutlineThickness(2.F);
+	this->activeLocIndicator.setOutlineThickness(activeLocIndicatorOutlineThickness);
 
 	this->setComponentColors();
 	this->setGuiScale();
@@ -68,7 +72,7 @@ void PipBuckPageWorld::updateActiveIndicator()
 		return;
 
 	uint halfSide = LocButton::getSideLen(search->second.getIsBig()) / 2;
-	float radius = halfSide * SQRT_2;
+	float radius = halfSide * sqrt2;
 	float offset = radius - halfSide;
 
 	this->activeLocIndicator.setPosition(search->second.getPosition() - sf::Vector2f(offset, offset));
@@ -108,7 +112,7 @@ ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 					if (recLvl != REC_LVL_EMPTY)
 						description += litSprintf(STR_RECOMMENDED_LVL, recLvl);
 
-					this->locDescription.setString(description, DESCRIPTION_TEXT_WIDTH);
+					this->locDescription.setString(description, descriptionTextWidth);
 				}
 
 				// select new btn
@@ -178,7 +182,7 @@ void PipBuckPageWorld::setupMapDecorations()
 	mapBorder[4] = mapBorder[0];
 
 	// set transparency for grid lines
-	hudColor.a = 0x40;
+	hudColor.a = gridLinesTransparency;
 
 	float pos = mapPos.x + mapGridSpacing;
 	for (uint i = 0; i < 8; i += 2)
