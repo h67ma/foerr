@@ -105,6 +105,7 @@ bool LocButton::getIsBig() const
 
 void LocButton::handleSettingsChange()
 {
+	this->handleGuiScaleChange();
 	this->setColor();
 	this->setGuiScale();
 	this->updateState();

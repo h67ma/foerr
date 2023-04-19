@@ -85,6 +85,8 @@ void PipBuckCategoryButton::setText(const std::string &text)
 
 void PipBuckCategoryButton::handleSettingsChange()
 {
+	this->handleGuiScaleChange();
+
 	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * fontSize));
 	this->hoverImgSprite.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
 	this->hoverImgSprite.setPosition(hoverImgOffset * SettingsManager::guiScale);

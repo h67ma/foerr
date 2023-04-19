@@ -158,6 +158,7 @@ bool SimpleButton::containsPoint(sf::Vector2i coords)
 
 void SimpleButton::handleSettingsChange()
 {
+	this->handleGuiScaleChange();
 	this->setColor();
 	this->setGuiScale();
 }

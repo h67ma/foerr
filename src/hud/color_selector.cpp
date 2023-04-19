@@ -117,6 +117,8 @@ bool ColorSelector::handleMouseMove(sf::Vector2i mousePos)
 
 void ColorSelector::handleSettingsChange()
 {
+	this->handleGuiScaleChange();
+
 	this->sliderR.handleSettingsChange();
 	this->sliderG.handleSettingsChange();
 	this->sliderB.handleSettingsChange();

@@ -5,6 +5,7 @@
 #include <memory>
 #include <map>
 
+#include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
 #include "../../resources/resource_manager.hpp"
@@ -12,7 +13,6 @@
 #include "../configurable_hud_component.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../../campaigns/campaign.hpp"
-#include "../hud_transformable.hpp"
 #include "../hover_manager.hpp"
 #include "../clickable.hpp"
 #include "pipbuck_page.hpp"
@@ -30,7 +30,7 @@ enum PipBuckCategoryType
  * Represents a single PipBuck category (e.g. "Status").
  * Contains 5 pages.
  */
-class PipBuckCategory : public sf::Drawable, public HudTransformable, public ConfigurableHudComponent
+class PipBuckCategory : public sf::Drawable, public sf::Transformable, public ConfigurableHudComponent
 {
 	private:
 		HoverManager hoverMgr;

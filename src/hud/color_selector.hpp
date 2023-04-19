@@ -3,11 +3,10 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
-#include "configurable_hud_component.hpp"
 #include "sliders/int_slider.hpp"
 #include "hud_transformable.hpp"
 
-class ColorSelector : public sf::Drawable, public HudTransformable, public ConfigurableHudComponent
+class ColorSelector : public sf::Drawable, public HudTransformable
 {
 	private:
 		sf::RectangleShape selectedColorPreview, labelR, labelG, labelB;

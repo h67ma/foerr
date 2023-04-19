@@ -61,6 +61,8 @@ bool Slider::handleMouseMove(sf::Vector2i mousePos)
 
 void Slider::handleSettingsChange()
 {
+	this->handleGuiScaleChange();
+
 	this->sliderOutline.setOutlineColor(DIM_COLOR(SettingsManager::hudColor, SLIDER_COLOR_DIM_FACTOR));
 
 	this->currValueText.setPosition(SLIDER_TEXT_X,
