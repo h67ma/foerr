@@ -79,7 +79,7 @@ bool PipBuckCategory::changePage(PipBuckPageType pageType)
 
 ClickStatus PipBuckCategory::handleLeftClick(sf::Vector2i clickPos)
 {
-	clickPos -= this->getIntPosition();
+	clickPos -= this->getPosition();
 
 	ClickStatus pageResult = this->pages.at(this->selectedPage)->handleLeftClick(clickPos);
 	if (pageResult != CLICK_NOT_CONSUMED)
@@ -116,7 +116,7 @@ void PipBuckCategory::handleLeftClickUp()
 
 bool PipBuckCategory::handleMouseMove(sf::Vector2i mousePos)
 {
-	mousePos -= this->getIntPosition();
+	mousePos -= this->getPosition();
 
 	if (this->pages.at(this->selectedPage)->handleMouseMove(mousePos))
 		return true;

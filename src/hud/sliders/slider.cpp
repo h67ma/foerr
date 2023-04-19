@@ -26,7 +26,7 @@ Slider::Slider(const sf::Font &font)
  */
 bool Slider::handleLeftClick(sf::Vector2i clickPos)
 {
-	clickPos -= this->getIntPosition();
+	clickPos -= this->getPosition();
 
 	if (this->sliderOutline.getLocalBounds().contains(static_cast<sf::Vector2f>(clickPos)))
 	{
@@ -52,7 +52,8 @@ bool Slider::handleMouseMove(sf::Vector2i mousePos)
 	if (!dragging)
 		return false;
 
-	mousePos.x -= this->getIntPosition().x;
+	// we don't need to subtract y here
+	mousePos.x -= this->getPosition().x;
 
 	this->setSliderPos(mousePos.x);
 	return true;

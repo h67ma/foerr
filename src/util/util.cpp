@@ -29,3 +29,9 @@ bool strToInt(const std::string &input, int &output)
 
 	return true;
 }
+
+void operator-=(sf::Vector2i &lhs, sf::Vector2f rhs)
+{
+	lhs.x -= rhs.x;
+	lhs.y -= rhs.y;
+}

@@ -33,7 +33,7 @@ PipBuckCategoryButton::PipBuckCategoryButton(ResourceManager &resMgr, sf::Vector
 
 bool PipBuckCategoryButton::containsPoint(sf::Vector2i coords)
 {
-	coords -= this->getIntPosition();
+	coords -= this->getPosition();
 
 	return this->trapeze.contains(static_cast<sf::Vector2f>(coords));
 }

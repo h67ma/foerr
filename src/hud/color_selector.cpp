@@ -69,7 +69,7 @@ void ColorSelector::updateColor()
 
 bool ColorSelector::handleLeftClick(sf::Vector2i clickPos)
 {
-	clickPos -= this->getIntPosition();
+	clickPos -= this->getPosition();
 
 	if (this->sliderR.handleLeftClick(clickPos))
 		return true;
@@ -92,7 +92,7 @@ void ColorSelector::handleLeftClickUp()
 
 bool ColorSelector::handleMouseMove(sf::Vector2i mousePos)
 {
-	mousePos -= this->getIntPosition();
+	mousePos -= this->getPosition();
 
 	if (this->sliderR.handleMouseMove(mousePos))
 	{

@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include <SFML/System/Vector2.hpp>
+
 #define STR(thing) #thing
 #define STR_EXP(thing) STR(thing) // "the double expansion trick"
 
@@ -48,3 +50,5 @@ inline void hash_combine(std::size_t& seed, const T& v)
 
 void splitString(std::vector<std::string> &tokens, const std::string &input, char delim);
 bool strToInt(const std::string &input, int &output);
+
+void operator-=(sf::Vector2i &lhs, sf::Vector2f rhs);
