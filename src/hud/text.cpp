@@ -1,5 +1,4 @@
 #include "text.hpp"
-#include "gui_transformable.hpp"
 
 /**
  * Modifies input string by changing some spaces to newlines to prevent text overflow.
