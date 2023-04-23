@@ -6,7 +6,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include "hud_transformable.hpp"
+#include "gui_transformable.hpp"
 
 /**
  * A wrapper class for sf::Text with added features:
@@ -14,11 +14,11 @@
  *   - Ability to wrap text
  *
  * This is kind of ugly workaround for simply extending sf::Text, which unfortunately is problematic, as
- * HudTransformable also inherits sf::Transformable, so when e.g. ::setPosition() is called, only one of the base class
+ * GuiTransformable also inherits sf::Transformable, so when e.g. ::setPosition() is called, only one of the base class
  * ::setPosition() gets called (and not the good one either). Current approach which encapsulates sf::Text is not ideal,
- * but gets the job done, without straight copying parts of HudTransformable here.
+ * but gets the job done, without straight copying parts of GuiTransformable here.
  */
-class Text : public HudTransformable, public sf::Drawable
+class Text : public GuiTransformable, public sf::Drawable
 {
 	private:
 		sf::Text text;

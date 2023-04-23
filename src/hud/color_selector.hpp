@@ -4,9 +4,9 @@
 #include <SFML/Graphics/Drawable.hpp>
 
 #include "sliders/int_slider.hpp"
-#include "hud_transformable.hpp"
+#include "gui_transformable.hpp"
 
-class ColorSelector : public sf::Drawable, public HudTransformable
+class ColorSelector : public sf::Drawable, public GuiTransformable
 {
 	private:
 		sf::RectangleShape selectedColorPreview, labelR, labelG, labelB;

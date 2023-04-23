@@ -10,7 +10,7 @@
  * When setting position, an internal "original position" will be saved, and position will be adjusted for GUI scale.
  * Another method, ::handleGuiScaleChange(), sets the position using saved "original position" and current GUI scale.
  */
-class HudTransformable : public sf::Transformable, public ConfigurableGuiComponent
+class GuiTransformable : public sf::Transformable, public ConfigurableGuiComponent
 {
 	private:
 		sf::Vector2f origPos;
