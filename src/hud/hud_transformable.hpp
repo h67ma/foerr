@@ -16,8 +16,10 @@ class HudTransformable : public sf::Transformable, public ConfigurableGuiCompone
 		sf::Vector2f origPos;
 		static sf::Vector2f calculateGuiAwarePosition(sf::Vector2f position);
 
+	protected:
+		void handleGuiScaleChange();
+
 	public:
 		void setPosition(float x, float y);
 		void setPosition(const sf::Vector2f& position);
-		void handleGuiScaleChange();
 };
