@@ -84,15 +84,15 @@ PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameSta
 {
 	this->categoryButtons.emplace(PIPB_CAT_STATUS,
 								  std::make_unique<PipBuckCategoryButton>(resMgr, sf::Vector2u(625, 893),
-																		  pipBuckCatBtnLeft, STR_PIPBUCK_STATUS,
+																		  PIPBUCK_CAT_BTN_LEFT, STR_PIPBUCK_STATUS,
 																		  PATH_TXT_PIPBUCK_CAT_BTN_LEFT));
 	this->categoryButtons.emplace(PIPB_CAT_INVENTORY,
 								  std::make_unique<PipBuckCategoryButton>(resMgr, sf::Vector2u(807, 906),
-																		  pipBuckCatBtnMiddle, STR_PIPBUCK_INV,
+																		  PIPBUCK_CAT_BTN_MID, STR_PIPBUCK_INV,
 																		  PATH_TXT_PIPBUCK_CAT_BTN_MID));
 	this->categoryButtons.emplace(PIPB_CAT_INFO,
 								  std::make_unique<PipBuckCategoryButton>(resMgr, sf::Vector2u(1030, 893),
-																		  pipBuckCatBtnRight, STR_PIPBUCK_INFO,
+																		  PIPBUCK_CAT_BTN_RIGHT, STR_PIPBUCK_INFO,
 																		  PATH_TXT_PIPBUCK_CAT_BTN_RIGHT));
 
 	// TODO this btn currently does not react properly to hud color change, but it will be replaced with a nicer, custom btn later

@@ -13,11 +13,11 @@ const sf::Vector2u gotoLocationBtnPos(1000, 815);
 const sf::Vector2f locTitlePos(970, 260);
 const sf::Vector2f locDescriptionPos(970, 300);
 
-constexpr float activeLocIndicatorOutlineThickness = 2;
-constexpr uchar gridLinesTransparency = 0x40;
-constexpr uint descriptionTextWidth = 430;
-constexpr float mapGridSpacing = 110;
-constexpr float sqrt2 = 1.414213562;
+constexpr float ACTIVE_LOC_INDICATOR_OUTLINE_THICKNESS = 2;
+constexpr uchar GRID_LINES_TRANSPARENCY = 0x40;
+constexpr uint DESC_TEXT_WIDTH = 430;
+constexpr float MAP_GRID_SPACING = 110;
+constexpr float SQRT2 = 1.414213562;
 
 PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) :
 	PipBuckPage("World"), // TODO translate
@@ -48,7 +48,7 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 	this->locDescription.setPosition(locDescriptionPos);
 
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
-	this->activeLocIndicator.setOutlineThickness(activeLocIndicatorOutlineThickness);
+	this->activeLocIndicator.setOutlineThickness(ACTIVE_LOC_INDICATOR_OUTLINE_THICKNESS);
 
 	this->setComponentColors();
 	this->setGuiScale();
@@ -72,7 +72,7 @@ void PipBuckPageWorld::updateActiveIndicator()
 		return;
 
 	uint halfSide = LocButton::getSideLen(search->second.getIsBig()) / 2;
-	float radius = halfSide * sqrt2;
+	float radius = halfSide * SQRT2;
 	float offset = radius - halfSide;
 
 	this->activeLocIndicator.setPosition(search->second.getPosition() - sf::Vector2f(offset, offset));
@@ -112,7 +112,7 @@ ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 					if (recLvl != REC_LVL_EMPTY)
 						description += litSprintf(STR_RECOMMENDED_LVL, recLvl);
 
-					this->locDescription.setString(description, descriptionTextWidth);
+					this->locDescription.setString(description, DESC_TEXT_WIDTH);
 				}
 
 				// select new btn
@@ -182,9 +182,9 @@ void PipBuckPageWorld::setupMapDecorations()
 	mapBorder[4] = mapBorder[0];
 
 	// set transparency for grid lines
-	hudColor.a = gridLinesTransparency;
+	hudColor.a = GRID_LINES_TRANSPARENCY;
 
-	float pos = mapPos.x + mapGridSpacing;
+	float pos = mapPos.x + MAP_GRID_SPACING;
 	for (uint i = 0; i < 8; i += 2)
 	{
 		if (pos - mapPos.x > mapW)
@@ -197,10 +197,10 @@ void PipBuckPageWorld::setupMapDecorations()
 
 		mapGridLines[i] = sf::Vertex(top, hudColor);
 		mapGridLines[i + 1] = sf::Vertex(bottom, hudColor);
-		pos += mapGridSpacing;
+		pos += MAP_GRID_SPACING;
 	}
 
-	pos = mapPos.y + mapGridSpacing;
+	pos = mapPos.y + MAP_GRID_SPACING;
 
 	for (uint i = 8; i < 16; i += 2)
 	{
@@ -214,7 +214,7 @@ void PipBuckPageWorld::setupMapDecorations()
 
 		mapGridLines[i] = sf::Vertex(left, hudColor);
 		mapGridLines[i + 1] = sf::Vertex(right, hudColor);
-		pos += mapGridSpacing;
+		pos += MAP_GRID_SPACING;
 	}
 }
 

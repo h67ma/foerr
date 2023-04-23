@@ -11,9 +11,9 @@
 #include "../hud.hpp"
 #include "button.hpp"
 
-constexpr struct trapeze_data pipBuckCatBtnLeft { 0, 22, 160, 160, 78 };
-constexpr struct trapeze_data pipBuckCatBtnMiddle { 0, 23, 223, 179, 78 };
-constexpr struct trapeze_data pipBuckCatBtnRight { 22, 0, 160, 160, 78 };
+constexpr struct trapeze_data PIPBUCK_CAT_BTN_LEFT { 0, 22, 160, 160, 78 };
+constexpr struct trapeze_data PIPBUCK_CAT_BTN_MID { 0, 23, 223, 179, 78 };
+constexpr struct trapeze_data PIPBUCK_CAT_BTN_RIGHT { 22, 0, 160, 160, 78 };
 
 class PipBuckCategoryButton : public Button
 {
