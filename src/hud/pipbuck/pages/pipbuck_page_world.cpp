@@ -284,6 +284,9 @@ void PipBuckPageWorld::handleSettingsChange()
 		btn.second.handleSettingsChange();
 	}
 
+	this->locTitle.handleSettingsChange();
+	this->locDescription.handleSettingsChange();
+
 	this->setGuiScale();
 	this->setupMapDecorations();
 	this->setComponentColors();

@@ -6,6 +6,7 @@
 #include "../../../resources/resource_manager.hpp"
 #include "../../buttons/simple_button.hpp"
 #include "../pipbuck_page.hpp"
+#include "../../text.hpp"
 
 /**
  * PipBuck -> Main Menu -> Controls
@@ -15,7 +16,7 @@ class PipBuckPageControls : public PipBuckPage
 {
 	private:
 		std::vector<SimpleButton> buttons;
-		sf::Text dummyMapDump; // TODO delet this
+		Text dummyMapDump; // TODO delet this
 		void updateDisplay();
 
 	public:

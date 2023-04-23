@@ -52,6 +52,8 @@ void PipBuckPageControls::handleSettingsChange()
 	{
 		btn.handleSettingsChange();
 	}
+
+	this->dummyMapDump.handleSettingsChange();
 }
 
 void PipBuckPageControls::draw(sf::RenderTarget &target, sf::RenderStates states) const

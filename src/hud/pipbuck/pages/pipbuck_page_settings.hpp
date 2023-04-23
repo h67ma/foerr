@@ -8,6 +8,7 @@
 #include "../../sliders/float_slider.hpp"
 #include "../../color_selector.hpp"
 #include "../pipbuck_page.hpp"
+#include "../../text.hpp"
 
 /**
  * PipBuck -> Main Menu -> Settings
@@ -19,7 +20,7 @@ class PipBuckPageSettings : public PipBuckPage
 		std::vector<SimpleButton> buttons;
 		ColorSelector hudColorSelector;
 		FloatSlider guiScaleSlider;
-		sf::Text infoText;
+		Text infoText;
 
 	public:
 		explicit PipBuckPageSettings(ResourceManager &resMgr);

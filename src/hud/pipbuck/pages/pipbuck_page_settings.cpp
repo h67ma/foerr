@@ -85,6 +85,7 @@ void PipBuckPageSettings::handleSettingsChange()
 
 	this->hudColorSelector.handleSettingsChange();
 	this->guiScaleSlider.handleSettingsChange();
+	this->infoText.handleSettingsChange();
 }
 
 void PipBuckPageSettings::draw(sf::RenderTarget &target, sf::RenderStates states) const
