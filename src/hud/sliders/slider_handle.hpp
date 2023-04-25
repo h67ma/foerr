@@ -6,10 +6,10 @@
 
 #include "../configurable_gui_component.hpp"
 
-#define SLIDER_HANDLE_HEIGHT 15
-#define SLIDER_HANDLE_WIDTH 21
+constexpr float SLIDER_HANDLE_HEIGHT = 15;
+constexpr float SLIDER_HANDLE_WIDTH = 21;
 
-#define SLIDER_HANDLE_THINGY_VERT_CNT 8
+constexpr uint SLIDER_HANDLE_THINGY_VERT_CNT = 8;
 
 /**
  * Represents the draggable handle used to input value into Slider. Could be replaced by a sprite.
