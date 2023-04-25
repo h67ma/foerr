@@ -411,7 +411,7 @@ int main()
 						mainMenu.handleSettingsChange();
 						fpsMeter.handleSettingsChange();
 						console.handleSettingsChange();
-						console.setPosition(window.getSize());
+						console.handleScreenResize(window.getSize());
 						Log::setGuiScale(SettingsManager::guiScale);
 					}
 

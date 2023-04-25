@@ -79,7 +79,7 @@ DevConsole::DevConsole(sf::Vector2u windowSize, const sf::Font &font, Campaign &
 	inputField(FONT_H2, CONSOLE_WIDTH, font, MAX_INPUT_CHARS),
 	campaign(campaign)
 {
-	this->setPosition(windowSize);
+	this->handleScreenResize(windowSize);
 }
 
 void DevConsole::open()
@@ -100,7 +100,7 @@ bool DevConsole::getIsOpen() const
 	return this->isOpen;
 }
 
-void DevConsole::setPosition(sf::Vector2u windowSize)
+void DevConsole::handleScreenResize(sf::Vector2u windowSize)
 {
 	switch(SettingsManager::debugConsoleAnchor)
 	{

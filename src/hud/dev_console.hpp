@@ -54,7 +54,7 @@ class DevConsole : public sf::Drawable, public ConfigurableGuiComponent
 		DevConsole(sf::Vector2u windowSize, const sf::Font &font, Campaign &campaign);
 		void open();
 		bool getIsOpen() const;
-		void setPosition(sf::Vector2u windowSize);
+		void handleScreenResize(sf::Vector2u windowSize);
 		void handleKeyPressed(sf::Keyboard::Key key, sf::Vector2f mouseCoords);
 		void handleTextEntered(uint keycode);
 		void executeLast(sf::Vector2f mouseCoords = { 0.F, 0.F });

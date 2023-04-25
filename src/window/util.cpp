@@ -72,7 +72,7 @@ void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hu
 	fpsMeter.setPosition(windowSize);
 	pipBuck.handleScreenResize(windowSize);
 	mainMenu.handleScreenResize(windowSize);
-	console.setPosition(windowSize);
+	console.handleScreenResize(windowSize);
 
 	// update views
 	hudView.reset({ 0.F, 0.F, static_cast<float>(windowSize.x), static_cast<float>(windowSize.y) });
