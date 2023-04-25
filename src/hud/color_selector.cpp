@@ -13,31 +13,24 @@ const sf::Vector2f thirdSliderPosition(20, 50);
 
 const sf::Vector2f colorPreviewPosition(280, 0);
 const sf::Vector2f colorPreviewSize(65, 65);
+constexpr float COLOR_PREVIEW_OUTLINE_THICKNESS = 1;
 
 ColorSelector::ColorSelector(const sf::Font &font, sf::Color initialColor) :
 	sliderR(font, 0, initialColor.r, COLOR_MAX_CHANNEL_VALUE),
 	sliderG(font, 0, initialColor.g, COLOR_MAX_CHANNEL_VALUE),
 	sliderB(font, 0, initialColor.b, COLOR_MAX_CHANNEL_VALUE)
 {
-	this->labelR.setSize(labelSize);
 	this->labelR.setFillColor(sf::Color::Red);
-
-	this->labelG.setPosition(secondLabelPosition);
-	this->labelG.setSize(labelSize);
 	this->labelG.setFillColor(sf::Color::Green);
-
-	this->labelB.setPosition(thirdLabelPosition);
-	this->labelB.setSize(labelSize);
 	this->labelB.setFillColor(sf::Color::Blue);
 
 	this->sliderR.setPosition(firstSliderPosition);
 	this->sliderG.setPosition(secondSliderPosition);
 	this->sliderB.setPosition(thirdSliderPosition);
 
-	this->selectedColorPreview.setPosition(colorPreviewPosition);
-	this->selectedColorPreview.setSize(colorPreviewSize);
-	this->selectedColorPreview.setOutlineColor(SettingsManager::hudColor);
-	this->selectedColorPreview.setOutlineThickness(1.F);
+	this->selectedColorPreview.setOutlineThickness(COLOR_PREVIEW_OUTLINE_THICKNESS);
+
+	this->handleSettingsChange();
 
 	this->updateColor(); // initial color
 }
@@ -126,6 +119,17 @@ void ColorSelector::handleSettingsChange()
 	this->sliderG.handleSettingsChange();
 	this->sliderB.handleSettingsChange();
 
+	// labelR is in (0, 0), no need to adjust position
+	this->labelR.setSize(labelSize * SettingsManager::guiScale);
+
+	this->labelG.setPosition(secondLabelPosition * SettingsManager::guiScale);
+	this->labelG.setSize(labelSize * SettingsManager::guiScale);
+
+	this->labelB.setPosition(thirdLabelPosition * SettingsManager::guiScale);
+	this->labelB.setSize(labelSize * SettingsManager::guiScale);
+
+	this->selectedColorPreview.setPosition(colorPreviewPosition * SettingsManager::guiScale);
+	this->selectedColorPreview.setSize(colorPreviewSize * SettingsManager::guiScale);
 	this->selectedColorPreview.setOutlineColor(SettingsManager::hudColor);
 }
 
