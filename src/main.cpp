@@ -410,6 +410,8 @@ int main()
 						pipBuck.handleScreenResize(window.getSize());
 						mainMenu.handleSettingsChange();
 						fpsMeter.handleSettingsChange();
+						console.handleSettingsChange();
+						console.setPosition(window.getSize());
 						Log::setGuiScale(SettingsManager::guiScale);
 					}
 

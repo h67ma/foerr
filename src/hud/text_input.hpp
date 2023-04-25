@@ -8,12 +8,14 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "configurable_gui_component.hpp"
+
 /**
  * A single line text input field with a cursor.
  * Supports backspace and delete and moving the cursor to select where next character will be placed.
  * Only supports fixed-width fonts.
  */
-class TextInput : public sf::Drawable, public sf::Transformable
+class TextInput : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent
 {
 	private:
 		sf::Text text;
@@ -24,6 +26,7 @@ class TextInput : public sf::Drawable, public sf::Transformable
 		const uint maxCharacters;
 		const uint width;
 		uint characterWidth;
+		uint fontAdvance;
 		uint cursorIdx = 0; // 0 means the cursor is before the first character
 		void updateCursorPosition();
 		void moveCursorLeft();
@@ -38,5 +41,6 @@ class TextInput : public sf::Drawable, public sf::Transformable
 		void setInput(const std::string &input);
 		void clearInput();
 		void handleKeyPress(sf::Keyboard::Key key);
+		void handleSettingsChange() override;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

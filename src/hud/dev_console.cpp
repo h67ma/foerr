@@ -233,6 +233,11 @@ void DevConsole::execute(const std::string &cmdline, sf::Vector2f mouseCoords)
 		this->history.pop_front();
 }
 
+void DevConsole::handleSettingsChange()
+{
+	this->inputField.handleSettingsChange();
+}
+
 void DevConsole::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(this->inputField, states);

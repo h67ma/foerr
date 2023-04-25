@@ -25,26 +25,14 @@ TextInput::TextInput(uint fontSize, uint width, const sf::Font &font, uint maxCh
 	this->text.setFillColor(SettingsManager::hudColor);
 
 	// TODO this only works for fixed-width fonts, should be more generic
-	this->characterWidth = font.getGlyph('E', static_cast<uint>(SettingsManager::guiScale * fontSize), false).advance;
+	this->fontAdvance = font.getGlyph('E', fontSize, false).advance;
 
-	this->setSize();
-	this->updateCursorPosition();
+	this->handleSettingsChange();
 }
 
 uint TextInput::getHeight() const
 {
 	return static_cast<uint>(SettingsManager::guiScale * this->fontSize) + TEXT_INPUT_PADDING2;
-}
-
-void TextInput::setSize()
-{
-	this->box.setSize(sf::Vector2f(this->width, this->getHeight()));
-
-	this->cursor.setSize(sf::Vector2f(CURSOR_WIDTH, SettingsManager::guiScale * this->fontSize));
-
-	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * this->fontSize));
-	this->text.setPosition(TEXT_INPUT_PADDING,
-						   TEXT_INPUT_PADDING + getFontVOffset(SettingsManager::guiScale, this->fontSize));
 }
 
 void TextInput::updateCursorPosition()
@@ -164,6 +152,21 @@ void TextInput::handleKeyPress(sf::Keyboard::Key key)
 		this->cursorIdx = this->currentInput.length();
 		this->updateCursorPosition();
 	}
+}
+
+void TextInput::handleSettingsChange()
+{
+	this->characterWidth = this->fontAdvance * SettingsManager::guiScale;
+
+	this->box.setSize(sf::Vector2f(SettingsManager::guiScale * this->width, this->getHeight()));
+
+	this->cursor.setSize(sf::Vector2f(CURSOR_WIDTH, SettingsManager::guiScale * this->fontSize));
+
+	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * this->fontSize));
+	this->text.setPosition(TEXT_INPUT_PADDING,
+						   TEXT_INPUT_PADDING + getFontVOffset(SettingsManager::guiScale, this->fontSize));
+	
+	this->updateCursorPosition();
 }
 
 void TextInput::draw(sf::RenderTarget &target, sf::RenderStates states) const

@@ -12,6 +12,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Font.hpp>
 
+#include "configurable_gui_component.hpp"
 #include "../campaigns/campaign.hpp"
 #include "text_input.hpp"
 
@@ -33,7 +34,7 @@ struct dev_console_cmd
  * A developer console, displayed as an overlay with a text field.
  * Any output is displayed in the global Log.
  */
-class DevConsole : public sf::Drawable
+class DevConsole : public sf::Drawable, public ConfigurableGuiComponent
 {
 	private:
 		TextInput inputField;
@@ -57,5 +58,6 @@ class DevConsole : public sf::Drawable
 		void handleKeyPressed(sf::Keyboard::Key key, sf::Vector2f mouseCoords);
 		void handleTextEntered(uint keycode);
 		void executeLast(sf::Vector2f mouseCoords = { 0.F, 0.F });
+		void handleSettingsChange() override;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
