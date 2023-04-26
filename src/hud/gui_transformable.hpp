@@ -14,7 +14,6 @@ class GuiTransformable : public sf::Transformable, public ConfigurableGuiCompone
 {
 	private:
 		sf::Vector2f origPos;
-		static sf::Vector2f calculateGuiAwarePosition(sf::Vector2f position);
 
 	protected:
 		void handleGuiScaleChange();
