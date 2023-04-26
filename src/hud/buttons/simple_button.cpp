@@ -37,10 +37,9 @@ SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::V
 
 void SimpleButton::setThickness()
 {
-	float thicc = this->selected ? (BTN_BORDER_THICKNESS_NORMAL_SELECTED * SettingsManager::guiScale) :
-								   (BTN_BORDER_THICKNESS_NORMAL * SettingsManager::guiScale);
+	float thicc = this->selected ? BTN_BORDER_THICKNESS_NORMAL_SELECTED : BTN_BORDER_THICKNESS_NORMAL;
 
-	this->rect.setOutlineThickness(thicc);
+	this->rect.setOutlineThickness(std::round(thicc * SettingsManager::guiScale));
 }
 
 /**
