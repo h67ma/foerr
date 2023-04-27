@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 #include <SFML/System/Vector2.hpp>
 
 #include "../consts.hpp"
@@ -31,7 +33,7 @@ constexpr uint FONT_H1 = 40;
  */
 inline float getFontVOffset(float guiScale, uint fontSize)
 {
-	return guiScale * fontSize / -4;
+	return std::round(guiScale * fontSize / -4);
 }
 
 sf::Vector2f calculateGuiAwarePoint(sf::Vector2f point);
