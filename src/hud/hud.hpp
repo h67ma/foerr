@@ -37,3 +37,4 @@ inline float getFontVOffset(float guiScale, uint fontSize)
 }
 
 sf::Vector2f calculateGuiAwarePoint(sf::Vector2f point);
+float calculateGuiAwareScalar(float value);

@@ -13,3 +13,12 @@ sf::Vector2f calculateGuiAwarePoint(sf::Vector2f point)
 
 	return point;
 }
+
+/**
+ * Multiplies a float value by GUI scale and rounds to integer resolution. Should be used e.g. for calculating
+ * border thickness.
+ */
+float calculateGuiAwareScalar(float value)
+{
+	return std::round(value * SettingsManager::guiScale);
+}

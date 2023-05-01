@@ -46,7 +46,7 @@ void LocButton::setThickness()
 {
 	float thicc = this->selected ? BTN_BORDER_THICKNESS_NORMAL_SELECTED : BTN_BORDER_THICKNESS_NORMAL;
 
-	this->rect.setOutlineThickness(std::round(thicc * SettingsManager::guiScale));
+	this->rect.setOutlineThickness(calculateGuiAwareScalar(thicc));
 }
 
 void LocButton::setSelected(bool selected)

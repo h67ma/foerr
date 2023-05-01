@@ -81,7 +81,7 @@ void Slider::handleSettingsChange()
 
 	this->handleGuiScaleChange();
 
-	this->sliderOutline.setOutlineThickness(std::round(SLIDER_OUTLINE_THICKNESS * SettingsManager::guiScale));
+	this->sliderOutline.setOutlineThickness(calculateGuiAwareScalar(SLIDER_OUTLINE_THICKNESS));
 
 	this->sliderOutline.setSize(calculateGuiAwarePoint(sliderOutlineSize));
 
