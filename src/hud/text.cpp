@@ -1,11 +1,16 @@
 #include "text.hpp"
 
+#include "../settings/settings_manager.hpp"
+
 /**
  * Modifies input string by changing some spaces to newlines to prevent text overflow.
  * Based on https://gist.github.com/andrew-d-jackson/7858095
  */
-void Text::setString(std::string newText, uint maxWidth)
+void Text::setStringWrap()
 {
+	if (maxWidth == TEXT_NO_WRAP)
+		return;
+
 	uint fontSize = this->text.getCharacterSize();
 	const sf::Font *font = this->text.getFont();
 	bool bold = this->text.getStyle() == sf::Text::Bold;
@@ -13,9 +18,9 @@ void Text::setString(std::string newText, uint maxWidth)
 	bool firstWord = true;
 	uint wordStart = 0;
 
-	for (uint i = 0; i < newText.length(); i++)
+	for (uint i = 0; i < this->textValue.length(); i++)
 	{
-		char currentChar = newText[i];
+		char currentChar = this->textValue[i];
 		if (currentChar == '\n')
 		{
 			currentOffset = 0;
@@ -32,20 +37,28 @@ void Text::setString(std::string newText, uint maxWidth)
 		currentOffset += font->getGlyph(currentChar, fontSize, bold).advance;
 
 		// the word that we're inside of is too long - replace space before it with newline
-		if (!firstWord && currentOffset > maxWidth)
+		if (!firstWord && (currentOffset > (maxWidth * SettingsManager::guiScale)))
 		{
 			i = wordStart;
-			newText[i] = '\n';
+			this->textValue[i] = '\n';
 			firstWord = true;
 			currentOffset = 0;
 		}
 	}
 
-	this->text.setString(newText);
+	this->text.setString(this->textValue);
+}
+
+void Text::setString(const std::string &newText, uint maxWidth)
+{
+	this->maxWidth = maxWidth;
+	this->textValue = newText;
+	this->setStringWrap();
 }
 
 void Text::setString(const std::string &newText)
 {
+	this->textValue = newText;
 	this->text.setString(newText);
 }
 
@@ -67,6 +80,7 @@ void Text::setCharacterSize(unsigned int size)
 void Text::handleSettingsChange()
 {
 	this->handleGuiScaleChange();
+	this->setStringWrap();
 }
 
 void Text::draw(sf::RenderTarget &target, sf::RenderStates states) const

@@ -8,6 +8,8 @@
 
 #include "gui_transformable.hpp"
 
+constexpr uint TEXT_NO_WRAP = 0;
+
 /**
  * A wrapper class for sf::Text with added features:
  *   - Support for adjusting to GUI scale
@@ -22,9 +24,12 @@ class Text : public GuiTransformable, public sf::Drawable
 {
 	private:
 		sf::Text text;
+		std::string textValue;
+		uint maxWidth = TEXT_NO_WRAP;
+		void setStringWrap();
 
 	public:
-		void setString(std::string newText, uint maxWidth);
+		void setString(const std::string &newText, uint maxWidth);
 		void setString(const std::string &newText);
 		void setFont(const sf::Font& font);
 		void setFillColor(const sf::Color& color);
