@@ -8,10 +8,6 @@
 #include "../gui_transformable.hpp"
 #include "slider_handle.hpp"
 
-constexpr uint SLIDER_WIDTH = 215;
-constexpr uint SLIDER_HANDLE_HALF = SLIDER_HANDLE_WIDTH / 2;
-constexpr uint SLIDER_MOUSE_POSSIBLE_VALS = SLIDER_WIDTH - SLIDER_HANDLE_WIDTH;
-
 /**
  * A base class for a UI component that allows inputting a value in a designated range by dragging or clicking mouse
  * on a horizontal bar. Derived classes implement either integer or floating point value sliders.
@@ -21,15 +17,21 @@ class Slider : public GuiTransformable, public sf::Drawable
 	private:
 		sf::RectangleShape sliderOutline;
 		bool dragging = false;
+		virtual void updateHandle() = 0;
+		virtual void setSliderPos(int mouseX) = 0;
 
 	protected:
 		sf::Text currValueText;
 		SliderHandle handle;
 
-		virtual void setSliderPos(int mouseX) = 0;
+		// coefficients can be shared between all instances, as they only depend on GUI scale.
+		// they are also the same for int/float variants
+		static uint adjustedHandleHalf;
+		static uint adjustedPossibleMouseValCnt;
 
 	public:
 		explicit Slider(const sf::Font &font);
+		static void calculateCoeffs();
 		bool handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		bool handleMouseMove(sf::Vector2i mousePos);

@@ -16,7 +16,7 @@ class FloatSlider : public Slider
 		float currentVal;
 
 		void updateText();
-		void updateHandle();
+		void updateHandle() override;
 		void setSliderPos(int mouseX) override;
 
 	public:

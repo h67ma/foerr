@@ -14,6 +14,7 @@
 #include "hud/pipbuck/pipbuck.hpp"
 #include "hud/loading_screen.hpp"
 #include "campaigns/campaign.hpp"
+#include "hud/sliders/slider.hpp"
 #include "settings/keymap.hpp"
 #include "hud/dev_console.hpp"
 #include "hud/fps_meter.hpp"
@@ -70,6 +71,9 @@ int main()
 	Log::setGuiScale(SettingsManager::guiScale);
 
 	Log::d("Save dir = %s", SettingsManager::getSaveDir().c_str());
+
+	// initial coefficient calculation for all sliders
+	Slider::calculateCoeffs();
 
 	if (!resManager.loadCore())
 	{
@@ -406,6 +410,7 @@ int main()
 						pipBuck.handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) ==
 						CLICK_CONSUMED_SETTINGS_CHANGED)
 					{
+						Slider::calculateCoeffs();
 						pipBuck.handleSettingsChange();
 						pipBuck.handleScreenResize(window.getSize());
 						mainMenu.handleSettingsChange();

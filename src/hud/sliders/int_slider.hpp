@@ -11,7 +11,7 @@ class IntSlider : public Slider
 		int currentVal;
 
 		void updateText();
-		void updateHandle();
+		void updateHandle() override;
 		void setSliderPos(int mouseX) override;
 
 	public:

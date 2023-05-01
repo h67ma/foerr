@@ -9,15 +9,31 @@
 constexpr uint SLIDER_TEXT_X = 220;
 constexpr uchar SLIDER_COLOR_DIM_FACTOR = 200;
 
+constexpr uint SLIDER_WIDTH = 215;
+constexpr uint SLIDER_HANDLE_HALF = SLIDER_HANDLE_WIDTH / 2;
+constexpr uint SLIDER_MOUSE_POSSIBLE_VALS = SLIDER_WIDTH - SLIDER_HANDLE_WIDTH;
+
+const sf::Vector2f sliderOutlineSize(SLIDER_WIDTH, SLIDER_HANDLE_HEIGHT);
+constexpr float SLIDER_OUTLINE_THICKNESS = 1;
+
+uint Slider::adjustedHandleHalf;
+uint Slider::adjustedPossibleMouseValCnt;
+
 Slider::Slider(const sf::Font &font)
 {
-	this->sliderOutline.setSize({ SLIDER_WIDTH, SLIDER_HANDLE_HEIGHT });
 	this->sliderOutline.setFillColor(sf::Color::Transparent);
-	this->sliderOutline.setOutlineThickness(1.F);
 
 	this->currValueText.setFont(font);
+}
 
-	this->handleSettingsChange();
+/**
+ * Calculates coefficients according to GUI scale to be used elsewhere, so that multiplications/divisions
+ * don't have to happen on every call.
+ */
+void Slider::calculateCoeffs()
+{
+	Slider::adjustedHandleHalf = SLIDER_HANDLE_HALF * SettingsManager::guiScale;
+	Slider::adjustedPossibleMouseValCnt = std::ceil(SLIDER_MOUSE_POSSIBLE_VALS * SettingsManager::guiScale);
 }
 
 /**
@@ -61,11 +77,17 @@ bool Slider::handleMouseMove(sf::Vector2i mousePos)
 
 void Slider::handleSettingsChange()
 {
+	this->updateHandle();
+
 	this->handleGuiScaleChange();
+
+	this->sliderOutline.setOutlineThickness(std::round(SLIDER_OUTLINE_THICKNESS * SettingsManager::guiScale));
+
+	this->sliderOutline.setSize(calculateGuiAwarePoint(sliderOutlineSize));
 
 	this->sliderOutline.setOutlineColor(DIM_COLOR(SettingsManager::hudColor, SLIDER_COLOR_DIM_FACTOR));
 
-	this->currValueText.setPosition(SLIDER_TEXT_X,
+	this->currValueText.setPosition(std::round(SLIDER_TEXT_X * SettingsManager::guiScale),
 									getFontVOffset(SettingsManager::guiScale, FONT_H3));
 
 	this->currValueText.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));

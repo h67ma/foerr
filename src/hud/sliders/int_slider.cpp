@@ -14,20 +14,20 @@ IntSlider::IntSlider(const sf::Font &font, int minVal, int defaultVal, int maxVa
 	assert(defaultVal >= minVal && defaultVal <= maxVal);
 
 	this->updateText();
-	this->updateHandle();
+	this->handleSettingsChange();
 }
 
 void IntSlider::setSliderPos(int mouseX)
 {
-	mouseX -= SLIDER_HANDLE_HALF;
+	mouseX -= Slider::adjustedHandleHalf;
 
 	if (mouseX < 0)
 		mouseX = 0;
-	
-	if (mouseX > SLIDER_MOUSE_POSSIBLE_VALS)
-		mouseX = SLIDER_MOUSE_POSSIBLE_VALS;
 
-	this->currentVal = (mouseX * this->possibleValCnt / SLIDER_MOUSE_POSSIBLE_VALS) + this->minVal;
+	if (mouseX > Slider::adjustedPossibleMouseValCnt)
+		mouseX = Slider::adjustedPossibleMouseValCnt;
+
+	this->currentVal = (mouseX * this->possibleValCnt / Slider::adjustedPossibleMouseValCnt) + this->minVal;
 
 	this->updateText();
 
@@ -55,6 +55,6 @@ void IntSlider::updateText()
 void IntSlider::updateHandle()
 {
 	float x = static_cast<float>(this->currentVal - this->minVal) /
-								 this->possibleValCnt * SLIDER_MOUSE_POSSIBLE_VALS;
+								 this->possibleValCnt * Slider::adjustedPossibleMouseValCnt;
 	this->handle.setPosition(x, 0);
 }
