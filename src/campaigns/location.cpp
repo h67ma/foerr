@@ -519,6 +519,8 @@ void Location::tick(uint lastFrameDurationUs)
 		// check if the player has walked into screen edge.
 		// if nearby Room exists, move to it.
 		// if nearby Room is not present, stop the player.
+		// unfortunately this nasty bit of code needs to stay here, as it would otherwise create
+		// a circular dependency if moved to the Player class
 
 		float currentY = this->player.getPosition().y;
 
