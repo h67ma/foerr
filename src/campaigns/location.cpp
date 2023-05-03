@@ -519,6 +519,7 @@ void Location::tick(uint lastFrameDurationUs)
 		// check if the player has walked into screen edge.
 		// if nearby Room exists, move to it.
 		// if nearby Room is not present, stop the player.
+
 		float currentY = this->player.getPosition().y;
 
 		if (this->player.getPosition().x < PLAYER_W2)
@@ -528,6 +529,8 @@ void Location::tick(uint lastFrameDurationUs)
 				this->player.setPosition(PLAYER_W2, currentY);
 				this->player.stopHorizontal();
 			}
+			else
+				return;
 		}
 		else if (this->player.getPosition().x > GAME_AREA_WIDTH - PLAYER_W2)
 		{
@@ -536,10 +539,10 @@ void Location::tick(uint lastFrameDurationUs)
 				this->player.setPosition(GAME_AREA_WIDTH - PLAYER_W2, currentY);
 				this->player.stopHorizontal();
 			}
+			else
+				return;
 		}
 
-		// need to read position again, in case the Player touched Room corner and their horizontal position has already
-		// been changed (see above)
 		float currentX = this->player.getPosition().x;
 
 		if (this->player.getPosition().y < PLAYER_H2)
