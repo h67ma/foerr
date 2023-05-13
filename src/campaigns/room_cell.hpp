@@ -9,8 +9,9 @@
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
+#include "SFML/Graphics/Rect.hpp"
 
-#define CELL_SIDE_LEN 40U
+constexpr uint CELL_SIDE_LEN = 40;
 
 // TODO figure out the exact value (but looks about right)
 #define BACKWALL_COLOR COLOR_GRAY(80)
@@ -51,6 +52,7 @@ class RoomCell : public sf::Transformable
 		SpriteResource ladderDelim;
 		SpriteResource liquidDelim;
 		sf::RectangleShape liquid{ sf::Vector2f(CELL_SIDE_LEN, CELL_SIDE_LEN) };
+		sf::FloatRect solidCollider;
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
 		bool topCellBlocksLadderDelim;
 		bool topCellBlocksLiquidDelim;
@@ -65,6 +67,7 @@ class RoomCell : public sf::Transformable
 		bool hasStairs = false;
 		bool hasLadder = false;
 		bool hasLiquid = false;
+		bool isCollider = false;
 
 	public:
 		static const sf::Color liquidSpriteColor;
@@ -75,6 +78,8 @@ class RoomCell : public sf::Transformable
 		bool blocksBottomCellLadderDelim() const;
 		bool blocksBottomCellLiquidDelim() const;
 		bool getHasSolid() const;
+		bool getIsCollider() const;
+		const sf::FloatRect& getSolidCollider() const;
 		void drawBackground(sf::RenderTarget &target) const;
 		void drawPlatform(sf::RenderTarget &target) const;
 		void drawStairs(sf::RenderTarget &target) const;

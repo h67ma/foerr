@@ -293,6 +293,20 @@ bool RoomCell::getHasSolid() const
 }
 
 /**
+ * @return true if the Cell is collider (any type)
+ * @return false if the Cell is not a collider
+ */
+bool RoomCell::getIsCollider() const
+{
+	return this->isCollider;
+}
+
+const sf::FloatRect& RoomCell::getSolidCollider() const
+{
+	return this->solidCollider;
+}
+
+/**
  * @brief Finalizes Cell setup after all symbols have been added and performs sanity checks.
  *
  * Checks include:
@@ -319,6 +333,30 @@ bool RoomCell::finishSetup()
 		CELL_SIDE_LEN,
 		static_cast<int>(CELL_SIDE_LEN) - this->topOffset
 	});
+
+	// set the collider flag and calculate the collider (if applicable). the three cases are mutually exclusive,
+	// which should have already been ensured in ::addOtherSymbol().
+	// for now only solid collider is supported
+	if (this->hasSolid)
+	{
+		this->isCollider = true;
+
+		this->solidCollider.left = this->getPosition().x;
+		this->solidCollider.top = this->getPosition().y + this->topOffset;
+
+		this->solidCollider.width = CELL_SIDE_LEN;
+		this->solidCollider.height = CELL_SIDE_LEN - this->topOffset;
+	}
+	//else if (this->hasStairs)
+	//{
+	//	this->isCollider = true;
+	// TODO
+	//}
+	//else if (this->hasPlatform)
+	//{
+	//	this->isCollider = true;
+	// TODO
+	//}
 
 	return true;
 }

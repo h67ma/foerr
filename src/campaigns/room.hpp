@@ -15,8 +15,8 @@
 #include "../util/json.hpp"
 #include "room_cell.hpp"
 
-#define ROOM_WIDTH_WITH_BORDER 48
-#define ROOM_HEIGHT_WITH_BORDER 25
+constexpr uint ROOM_WIDTH_WITH_BORDER = 48;
+constexpr uint ROOM_HEIGHT_WITH_BORDER = 25;
 
 // that's the worst name ever for a struct
 struct blend_sprite
@@ -67,6 +67,7 @@ class Room : public sf::Drawable, public sf::Transformable
 				  const json &root, const std::string &filePath);
 		void init();
 		void deinit();
+		void tick(uint lastFrameDurationUs);
 		sf::Vector2u getSpawnCoords() const;
 		bool isCellCollider(uint x, uint y) const;
 		void redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const; // TODO use me

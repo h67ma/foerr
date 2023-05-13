@@ -7,9 +7,9 @@
 #include "../settings/keymap.hpp"
 
 // no worries, float can handle precision at this order of magnitude
-#define MAX_VELOCITY 0.0004F
-#define MAX_VELOCITY_SPRINT 0.0008F
-#define VELOCITY_INCREMENT 0.00005F
+constexpr float MAX_VELOCITY = 0.0004;
+constexpr float MAX_VELOCITY_SPRINT = 0.0008;
+constexpr float VELOCITY_INCREMENT = 0.00005;
 
 Player::Player(ResourceManager &resMgr) :
 	// TODO actual animation
@@ -38,12 +38,10 @@ void Player::nextFrame()
 }
 
 /**
- * Updates Player position based on velocity (which is affected by currently pressed keys) and last frame time.
+ * Updates Player velocity based on previous velocity and currently pressed keys.
  */
-void Player::tick(uint lastFrameDurationUs)
+void Player::updateVelocity()
 {
-	///// check the state of keys, calculate current velocity /////
-
 	float maxHVelocity = Keymap::isSprintHeld() ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
 
 	if (Keymap::isLeftHeld())
@@ -96,10 +94,6 @@ void Player::tick(uint lastFrameDurationUs)
 		this->velocity.y -= VELOCITY_INCREMENT;
 	else if (this->velocity.y < 0)
 		this->velocity.y += VELOCITY_INCREMENT;
-
-	///// move the player /////
-
-	this->move(this->velocity * static_cast<float>(lastFrameDurationUs));
 }
 
 /**
@@ -116,6 +110,11 @@ void Player::stopVertical()
 void Player::stopHorizontal()
 {
 	this->velocity.x = 0;
+}
+
+const sf::Vector2f& Player::getVelocity() const
+{
+	return this->velocity;
 }
 
 /**

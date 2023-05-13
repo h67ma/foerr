@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <SFML/Graphics/RenderTexture.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 #include "../settings/settings_manager.hpp"
 #include "../objects/back_obj.hpp"
@@ -532,6 +533,121 @@ void Room::deinit()
 	this->frontCache1Txt = sf::Texture();
 	this->frontCache2Txt = sf::Texture();
 	this->cachedLiquidLevelTxt = sf::Texture();
+}
+
+/**
+ * Calculates new velocities of every movable object inside the Room based on previous object velocities and gravity.
+ * Detects (AABB) and resolves collisions.
+ */
+void Room::tick(uint lastFrameDurationUs)
+{
+	// first calculate new object velocity
+	this->player.updateVelocity();
+
+	// TODO with this simple collision detection method, there's a lower limit on FPS the game should run on in order
+	// for collisions to work properly. if FPS is too low, frame times will be high, resulting in objects traveling
+	// larger distances on every tick, potentially overshooting objects they should collide with in normal
+	// circumstances.
+	// assuming a tickrate of 30 FPS, tick duration is around 33333 microseconds.
+	// assuming the player is 60x60 and cells are 40x40, the maximum velocity the player can have in order for the
+	// collision with cell to be detected should be around 0.003. for comparison, the base sprint velocity is currently
+	// 0.0008, around 2.6 times smaller, but comparable.
+	// for now the current approach will do, but the game will surely have objects that move faster than that, and could
+	// also potentially be played on low-end hardware, or suffer from lag spikes, so another collision detection method
+	// should be developed, one that takes into account any colliders that are between the new and old object position.
+
+	// TODO potential optimization: before checking & resolving collisions, clusterize cells into bigger rectangles.
+	// put the bigger shapes in a vector and iterate through it (it will also eliminate the need to repeat that awkward
+	// nested for loop). the clusterization algo can generate suboptimal results as long as it's fast.
+
+
+	// object position is counted from center - subtract its halfed size to get top left corner
+	float playerX = this->player.getPosition().x - PLAYER_W2;
+	float playerY = this->player.getPosition().y - PLAYER_H2;
+
+	// coordinates of the cell the object center resides in
+	int playerCellX = static_cast<int>(playerX / CELL_SIDE_LEN);
+	int playerCellY = static_cast<int>(playerY / CELL_SIDE_LEN);
+
+	sf::FloatRect objCollider(playerX, playerY, PLAYER_W, PLAYER_H);
+
+	// move the object on X axis, resolve X collision, then move the object on Y axis, resolve Y collision. based on:
+	// https://gamedev.stackexchange.com/questions/69339/2d-aabbs-and-resolving-multiple-collisions/71123#71123
+
+	float velocity = this->player.getVelocity().x;
+	bool stop = false;
+
+	if (velocity != 0)
+	{
+		// move the object along X axis
+		objCollider.left += velocity * lastFrameDurationUs;
+
+		// only check the cells that are near the object
+		for (uint y = std::max(0, playerCellY - 1); !stop && y < std::min(playerCellY + PLAYER_CELL_H + 1, ROOM_HEIGHT_WITH_BORDER); y++)
+		{
+			for (uint x = std::max(0, playerCellX - 1); x < std::min(playerCellX + PLAYER_CELL_W + 1, ROOM_WIDTH_WITH_BORDER); x++)
+			{
+				const RoomCell& cell = this->cells[y][x];
+				if (!cell.getIsCollider())
+					continue;
+
+				const sf::FloatRect& cellCollider = cell.getSolidCollider(); // TODO other types of colliders (stairs, platform)
+				sf::FloatRect intersection;
+				if (!objCollider.intersects(cellCollider, intersection))
+					continue;
+
+				float deltaX = intersection.width;
+				if (velocity > 0)
+					deltaX = -deltaX;
+
+				objCollider.left += deltaX;
+				player.stopHorizontal();
+
+				stop = true;
+				break;
+			}
+		}
+	}
+
+	velocity = this->player.getVelocity().y;
+	stop = false;
+
+	if (velocity != 0)
+	{
+		// move the object along Y axis
+		objCollider.top += velocity * lastFrameDurationUs;
+
+		// only check the cells that are near the object
+		for (uint y = std::max(0, playerCellY - 1); !stop && y < std::min(playerCellY + PLAYER_CELL_H + 1, ROOM_HEIGHT_WITH_BORDER); y++)
+		{
+			for (uint x = std::max(0, playerCellX - 1); x < std::min(playerCellX + PLAYER_CELL_W + 1, ROOM_WIDTH_WITH_BORDER); x++)
+			{
+				const RoomCell& cell = this->cells[y][x];
+				if (!cell.getIsCollider())
+					continue;
+
+				const sf::FloatRect& cellCollider = cell.getSolidCollider(); // TODO other types of colliders (stairs, platform)
+				sf::FloatRect intersection;
+				if (!objCollider.intersects(cellCollider, intersection))
+					continue;
+
+				float deltaY = intersection.height;
+				if (velocity > 0)
+					deltaY = -deltaY;
+
+				objCollider.top += deltaY;
+				player.stopVertical();
+
+				stop = true;
+				break;
+			}
+		}
+	}
+
+	// TODO? if jitter appears after resolving collisions, coords could be rounded
+	this->player.setPosition(objCollider.left + PLAYER_W2, objCollider.top + PLAYER_H2);
+
+	// TODO also check collisions with other objects (doors, bullets, characters, etc.)
 }
 
 /**

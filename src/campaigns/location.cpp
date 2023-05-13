@@ -514,7 +514,7 @@ void Location::tick(uint lastFrameDurationUs)
 {
 	if (!this->roomTransitionInProgress)
 	{
-		this->player.tick(lastFrameDurationUs);
+		this->currentRoom->tick(lastFrameDurationUs);
 
 		// check if the player has walked into screen edge.
 		// if nearby Room exists, move to it.

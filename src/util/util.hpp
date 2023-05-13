@@ -53,3 +53,11 @@ bool strToInt(const std::string &input, int &output);
 
 void operator-=(sf::Vector2i &lhs, sf::Vector2f rhs);
 sf::Vector2u operator+(sf::Vector2f lhs, sf::Vector2u rhs);
+
+/**
+ * Divides and ceils an uint value.
+ */
+constexpr uint uintDivCeil(uint dividend, uint divisor)
+{
+	return (dividend / divisor) + static_cast<uint>((dividend % divisor) != 0);
+}

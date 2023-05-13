@@ -5,18 +5,21 @@
 #include <SFML/Graphics/Rect.hpp>
 
 #include "../resources/resource_manager.hpp"
+#include "../campaigns/room_cell.hpp"
 #include "../consts.hpp"
 #include "animation.hpp"
 
 // TODO we'll probably need something more sophisticated, based on current animation
-#define PLAYER_W 60
-#define PLAYER_W2 PLAYER_W/2
-#define PLAYER_H 60
-#define PLAYER_H2 PLAYER_H/2
-#define PLAYER_SPRITE_W 130
-#define PLAYER_SPRITE_H 130
-#define PLAYER_COLLIDER_LEFT (PLAYER_SPRITE_W - PLAYER_W) / 2
-#define PLAYER_COLLIDER_TOP 40
+constexpr uint PLAYER_W = 60;
+constexpr uint PLAYER_CELL_W = uintDivCeil(PLAYER_W, CELL_SIDE_LEN);
+constexpr uint PLAYER_W2 = PLAYER_W / 2;
+constexpr uint PLAYER_H = 60;
+constexpr uint PLAYER_CELL_H = uintDivCeil(PLAYER_H, CELL_SIDE_LEN);
+constexpr uint PLAYER_H2 = PLAYER_H / 2;
+constexpr uint PLAYER_SPRITE_W = 130;
+constexpr uint PLAYER_SPRITE_H = 130;
+constexpr uint PLAYER_COLLIDER_LEFT = (PLAYER_SPRITE_W - PLAYER_W) / 2;
+constexpr uint PLAYER_COLLIDER_TOP = 40;
 
 // TODO should probably inherit some kind of PhysicsObject or something
 class Player : public sf::Drawable, public sf::Transformable
@@ -35,9 +38,10 @@ class Player : public sf::Drawable, public sf::Transformable
 	public:
 		explicit Player(ResourceManager &resMgr);
 		void nextFrame();
-		void tick(uint lastFrameDurationUs);
+		void updateVelocity();
 		void stopVertical();
 		void stopHorizontal();
+		const sf::Vector2f& getVelocity() const;
 		void debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
