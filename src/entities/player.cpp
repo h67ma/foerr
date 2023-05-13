@@ -9,7 +9,7 @@
 // no worries, float can handle precision at this order of magnitude
 constexpr float MAX_VELOCITY = 0.0004;
 constexpr float MAX_VELOCITY_SPRINT = 0.0008;
-constexpr float VELOCITY_INCREMENT = 0.00005;
+constexpr float VELOCITY_INCREMENT = 0.000000004;
 
 Player::Player(ResourceManager &resMgr) :
 	// TODO actual animation
@@ -40,13 +40,15 @@ void Player::nextFrame()
 /**
  * Updates Player velocity based on previous velocity and currently pressed keys.
  */
-void Player::updateVelocity()
+void Player::updateVelocity(uint lastFrameDurationUs)
 {
 	float maxHVelocity = Keymap::isSprintHeld() ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
 
+	float velocityIncrement = lastFrameDurationUs * VELOCITY_INCREMENT;
+
 	if (Keymap::isLeftHeld())
 	{
-		this->velocity.x -= VELOCITY_INCREMENT;
+		this->velocity.x -= velocityIncrement;
 		if (this->velocity.x < -maxHVelocity)
 			this->velocity.x = -maxHVelocity;
 
@@ -58,7 +60,7 @@ void Player::updateVelocity()
 	}
 	else if (Keymap::isRightHeld())
 	{
-		this->velocity.x += VELOCITY_INCREMENT;
+		this->velocity.x += velocityIncrement;
 		if (this->velocity.x > maxHVelocity)
 			this->velocity.x = maxHVelocity;
 
@@ -68,32 +70,32 @@ void Player::updateVelocity()
 			this->facingRight = true;
 		}
 	}
-	else if (std::abs(this->velocity.x) < VELOCITY_INCREMENT)
+	else if (std::abs(this->velocity.x) < velocityIncrement)
 		this->velocity.x = 0;
 	else if (this->velocity.x > 0)
-		this->velocity.x -= VELOCITY_INCREMENT;
+		this->velocity.x -= velocityIncrement;
 	else if (this->velocity.x < 0)
-		this->velocity.x += VELOCITY_INCREMENT;
+		this->velocity.x += velocityIncrement;
 
 	// X & Y axes can be controlled independently
 	if (Keymap::isUpHeld())
 	{
-		this->velocity.y -= VELOCITY_INCREMENT;
+		this->velocity.y -= velocityIncrement;
 		if (this->velocity.y < -MAX_VELOCITY)
 			this->velocity.y = -MAX_VELOCITY;
 	}
 	else if (Keymap::isDownHeld())
 	{
-		this->velocity.y += VELOCITY_INCREMENT;
+		this->velocity.y += velocityIncrement;
 		if (this->velocity.y > MAX_VELOCITY)
 			this->velocity.y = MAX_VELOCITY;
 	}
-	else if (std::abs(this->velocity.y) < VELOCITY_INCREMENT)
+	else if (std::abs(this->velocity.y) < velocityIncrement)
 		this->velocity.y = 0;
 	else if (this->velocity.y > 0)
-		this->velocity.y -= VELOCITY_INCREMENT;
+		this->velocity.y -= velocityIncrement;
 	else if (this->velocity.y < 0)
-		this->velocity.y += VELOCITY_INCREMENT;
+		this->velocity.y += velocityIncrement;
 }
 
 /**

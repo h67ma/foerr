@@ -542,7 +542,7 @@ void Room::deinit()
 void Room::tick(uint lastFrameDurationUs)
 {
 	// first calculate new object velocity
-	this->player.updateVelocity();
+	this->player.updateVelocity(lastFrameDurationUs);
 
 	// TODO with this simple collision detection method, there's a lower limit on FPS the game should run on in order
 	// for collisions to work properly. if FPS is too low, frame times will be high, resulting in objects traveling

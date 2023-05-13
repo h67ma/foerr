@@ -38,7 +38,7 @@ class Player : public sf::Drawable, public sf::Transformable
 	public:
 		explicit Player(ResourceManager &resMgr);
 		void nextFrame();
-		void updateVelocity();
+		void updateVelocity(uint lastFrameDurationUs);
 		void stopVertical();
 		void stopHorizontal();
 		const sf::Vector2f& getVelocity() const;
