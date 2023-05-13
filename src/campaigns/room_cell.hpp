@@ -56,7 +56,6 @@ class RoomCell : public sf::Transformable
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
 		bool topCellBlocksLadderDelim;
 		bool topCellBlocksLiquidDelim;
-		static const std::unordered_map<char, int> heightFlags;
 
 		// all these flags could potentially be moved to a single uint to save a bit of memory, but it seems that the
 		// compiler is already doing a similar optimization by itself. it also makes the code less readable, so let's

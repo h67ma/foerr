@@ -8,7 +8,7 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-const std::unordered_map<char, int> RoomCell::heightFlags {
+const std::unordered_map<char, int> heightFlags {
 	{ ',', 10},	// 3/4 height
 	{ ';', 20},	// 1/2 height
 	{ ':', 30}	// 1/4 height
@@ -100,8 +100,8 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 							  ResourceManager &resMgr, const MaterialManager &matMgr)
 {
 	// first check if symbol is a height flag, as it won't be present in mat mgr
-	auto heightFlagSearch = RoomCell::heightFlags.find(symbol);
-	if (heightFlagSearch != RoomCell::heightFlags.end())
+	auto heightFlagSearch = heightFlags.find(symbol);
+	if (heightFlagSearch != heightFlags.end())
 	{
 		// check 1
 		if (!this->hasSolid)
