@@ -9,9 +9,9 @@
 #include "../hud/log.hpp"
 
 const std::unordered_map<char, int> heightFlags {
-	{ ',', 10},	// 3/4 height
-	{ ';', 20},	// 1/2 height
-	{ ':', 30}	// 1/4 height
+	{ ',', CELL_SIDE_LEN * 0.25},	// 3/4 height
+	{ ';', CELL_SIDE_LEN * 0.5},	// 1/2 height
+	{ ':', CELL_SIDE_LEN * 0.75}	// 1/4 height
 };
 
 const sf::Color RoomCell::liquidSpriteColor = sf::Color(255, 255, 255, LIQUID_OPACITY);
