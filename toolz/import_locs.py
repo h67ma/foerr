@@ -792,11 +792,12 @@ if __name__ == "__main__":
 	else:
 		input_basename = get_loc_basename(args.input)
 
+		output_id = get_output_id(input_basename)
+
 		if args.output is not None:
 			output_filename = args.output
 			assert output_filename != ""
 		else:
-			output_id = get_output_id(input_basename)
 			output_filename = output_id + ".json"
 
 		if input_basename not in loc_data:
