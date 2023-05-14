@@ -6,6 +6,7 @@
 #define TEXT_INPUT_PADDING 5
 #define TEXT_INPUT_PADDING2 TEXT_INPUT_PADDING * 2
 #define CURSOR_WIDTH 1.F
+constexpr float BOX_OUTLINE_THICKNESS = 1;
 
 /**
  * Note: font must use fixed-width characters.
@@ -15,14 +16,7 @@ TextInput::TextInput(uint fontSize, uint width, const sf::Font &font, uint maxCh
 	width(width),
 	maxCharacters(maxCharacters)
 {
-	this->box.setOutlineColor(SettingsManager::hudColor);
-	this->box.setFillColor(DIM_COLOR(SettingsManager::hudColor, 0x20));
-	this->box.setOutlineThickness(1.F);
-
-	this->cursor.setFillColor(SettingsManager::hudColor);
-
 	this->text.setFont(font);
-	this->text.setFillColor(SettingsManager::hudColor);
 
 	// TODO this only works for fixed-width fonts, should be more generic
 	this->fontAdvance = font.getGlyph('E', fontSize, false).advance;
@@ -158,13 +152,18 @@ void TextInput::handleSettingsChange()
 {
 	this->characterWidth = this->fontAdvance * SettingsManager::guiScale;
 
+	this->box.setOutlineThickness(calculateGuiAwareScalar(BOX_OUTLINE_THICKNESS));
 	this->box.setSize(sf::Vector2f(SettingsManager::guiScale * this->width, this->getHeight()));
+	this->box.setOutlineColor(SettingsManager::hudColor);
+	this->box.setFillColor(DIM_COLOR(SettingsManager::hudColor, 0x20));
 
 	this->cursor.setSize(sf::Vector2f(CURSOR_WIDTH, SettingsManager::guiScale * this->fontSize));
+	this->cursor.setFillColor(SettingsManager::hudColor);
 
 	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * this->fontSize));
 	this->text.setPosition(TEXT_INPUT_PADDING,
 						   TEXT_INPUT_PADDING + getFontVOffset(SettingsManager::guiScale, this->fontSize));
+	this->text.setFillColor(SettingsManager::hudColor);
 	
 	this->updateCursorPosition();
 }
