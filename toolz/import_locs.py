@@ -520,6 +520,7 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 		##### geometry validation #####
 
 		# validate room geometry by checking if connected room sides have the same layout of collider cells.
+		# also check if there's enough space to fit the player character (2x2 cells) on either side.
 		# check all sides for every room. if there's no room on a given side, then validation also passes.
 		# because we only check against already processed rooms, we might skip checking some sides, which will actually
 		# be connected in the final location. that's ok though - they will be checked when the "missing" room is added.
@@ -536,23 +537,55 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 
 			if nearby_room_left in room_geometries:
 				for y in range(ROOM_HEIGHT_WITH_BORDER):
-					if out_room_geometry[y][0] != room_geometries[nearby_room_left][y][ROOM_WIDTH_WITH_BORDER - 1]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((0, y)))
+					this_room_cell_is_collider = out_room_geometry[y][0]
+					if this_room_cell_is_collider != room_geometries[nearby_room_left][y][ROOM_WIDTH_WITH_BORDER - 1]:
+						log_err("Room " + room_name + ": geometry validation failed at " + str((0, y)) + " - left edge mismatch")
+
+					if not this_room_cell_is_collider:
+						# edge cell is a passage - check both sides have enough space for player character
+						if out_room_geometry[y][1]:
+							log_err("Room " + room_name + ": geometry validation failed at " + str((1, y)) + " - insufficient space for the player")
+						if room_geometries[nearby_room_left][y][ROOM_WIDTH_WITH_BORDER - 2]:
+							log_err("Room " + room_name + ": geometry validation failed at " + str((1, y)) + " - insufficient space for the player in left room")
 
 			if nearby_room_right in room_geometries:
 				for y in range(ROOM_HEIGHT_WITH_BORDER):
+					this_room_cell_is_collider = out_room_geometry[y][ROOM_WIDTH_WITH_BORDER - 1]
 					if out_room_geometry[y][ROOM_WIDTH_WITH_BORDER - 1] != room_geometries[nearby_room_right][y][0]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 1, y)))
+						log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 1, y)) + " - right edge mismatch")
+
+					if not this_room_cell_is_collider:
+						# edge cell is a passage - check both sides have enough space for player character
+						if out_room_geometry[y][ROOM_WIDTH_WITH_BORDER - 2]:
+							log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 2, y)) + " - insufficient space for the player")
+						if room_geometries[nearby_room_right][y][1]:
+							log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 2, y)) + " - insufficient space for the player in right room")
 
 			if nearby_room_up in room_geometries:
 				for x in range(ROOM_WIDTH_WITH_BORDER):
-					if out_room_geometry[0][x] != room_geometries[nearby_room_up][ROOM_HEIGHT_WITH_BORDER - 1][x]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((x, 0)))
+					this_room_cell_is_collider = out_room_geometry[0][x]
+					if this_room_cell_is_collider != room_geometries[nearby_room_up][ROOM_HEIGHT_WITH_BORDER - 1][x]:
+						log_err("Room " + room_name + ": geometry validation failed at " + str((x, 0)) + " - up edge mismatch")
+
+					if not this_room_cell_is_collider:
+						# edge cell is a passage - check both sides have enough space for player character
+						if out_room_geometry[1][x]:
+							log_err("Room " + room_name + ": geometry validation failed at " + str((x, 1)) + " - insufficient space for the player")
+						if room_geometries[nearby_room_up][ROOM_HEIGHT_WITH_BORDER - 2][x]:
+							log_err("Room " + room_name + ": geometry validation failed at " + str((x, 1)) + " - insufficient space for the player in upper room")
 
 			if nearby_room_down in room_geometries:
 				for x in range(ROOM_WIDTH_WITH_BORDER):
-					if out_room_geometry[ROOM_HEIGHT_WITH_BORDER - 1][x] != room_geometries[nearby_room_down][0][x]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 1)))
+					this_room_cell_is_collider = out_room_geometry[ROOM_HEIGHT_WITH_BORDER - 1][x]
+					if this_room_cell_is_collider != room_geometries[nearby_room_down][0][x]:
+						log_err("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 1)) + " - down edge mismatch")
+
+					if not this_room_cell_is_collider:
+						# edge cell is a passage - check both sides have enough space for player character
+						if out_room_geometry[ROOM_HEIGHT_WITH_BORDER - 2][x]:
+							log_err("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 2)) + " - insufficient space for the player")
+						if room_geometries[nearby_room_down][1][x]:
+							log_err("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 2)) + " - insufficient space for the player in bottom room")
 
 			room_geometries[room_coords] = out_room_geometry
 
