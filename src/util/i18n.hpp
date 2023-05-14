@@ -116,4 +116,5 @@
 #define STR_CMD_NAV "toggle debug navigation"
 #define STR_CMD_PORT "teleport player to mouse position within room"
 #define STR_CMD_WHERE "log current position"
-#define STR_ROOM_GEOMETRY_VAL_FAIL "Room (%d, %d, %d) geometry validation failed at (%d, %d)"
+#define STR_ROOM_GEOMETRY_VAL_FAIL "Room (%d, %d, %d) geometry validation failed at (%d, %d) - room edge collider mismatch"
+#define STR_ROOM_GEOMETRY_VAL_FAIL_INSUF "Room (%d, %d, %d) geometry validation failed at (%d, %d) - insufficient space for the player"

@@ -89,7 +89,7 @@ class Location : public sf::Drawable
 		sf::Texture roomTransitionTxt;
 		sf::Sprite roomTransitionSprite;
 
-		bool validateRoomGeometry(const std::shared_ptr<Room> room, HashableVector3i roomCoords) const;
+		bool validateRoomGeometry(const std::shared_ptr<Room> &room, const HashableVector3i &roomCoords) const;
 
 	public:
 		Location(const std::string &id, Player &player);

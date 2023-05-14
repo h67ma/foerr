@@ -17,9 +17,13 @@
 #define PLAYER_NEW_ROOM_OFFSET_V_BOTTOM 80 // platform jump
 
 constexpr uint ROOM_BORDER_LEFT_X = 0;
+constexpr uint ROOM_BORDER_LEFT_INNER_X = 1;
 constexpr uint ROOM_BORDER_RIGHT_X = ROOM_WIDTH_WITH_BORDER - 1;
+constexpr uint ROOM_BORDER_RIGHT_INNER_X = ROOM_WIDTH_WITH_BORDER - 2;
 constexpr uint ROOM_BORDER_TOP_Y = 0;
+constexpr uint ROOM_BORDER_TOP_INNER_Y = 1;
 constexpr uint ROOM_BORDER_BOTTOM_Y = ROOM_HEIGHT_WITH_BORDER - 1;
+constexpr uint ROOM_BORDER_BOTTOM_INNER_Y = ROOM_HEIGHT_WITH_BORDER - 2;
 
 Location::Location(const std::string &id, Player &player) : id(id), player(player)
 {
@@ -256,7 +260,10 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 
 /**
  * Validates geometry of a single Room, by checking if sides of all adjacent Rooms have the same layout of collider
- * Cells (based on presence of solid in a Cell). If there's no room on a given side, the validation also passes.
+ * Cells (based on presence of solid in a Cell), and if the Player can fit in the area near entrance/exit to the nearby
+ * Room (i.e. if there's an empty Cell on the edge of a Room, then the Cell next to it must also be empty).
+ *
+ * If there's no Room on a given side, the validation also passes.
  *
  * This should be called in the same loop where Rooms are being loaded. This way all connections will be checked exactly
  * once (a given Room will check its given side only when the adjacent Room is present).
@@ -265,28 +272,54 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
  *
  * @return true if validation passed, false otherwise
  */
-bool Location::validateRoomGeometry(const std::shared_ptr<Room> room, HashableVector3i roomCoords) const
+bool Location::validateRoomGeometry(const std::shared_ptr<Room> &room, const HashableVector3i &roomCoords) const
 {
-	roomCoords.x -= 1;
-	std::shared_ptr<Room> roomLeft = this->rooms.get(roomCoords);
-	roomCoords.x += 2;
-	std::shared_ptr<Room> roomRight = this->rooms.get(roomCoords);
-	roomCoords.x -= 1;
+	HashableVector3i coordsLeft = roomCoords;
+	HashableVector3i coordsRight = roomCoords;
+	HashableVector3i coordsUp = roomCoords;
+	HashableVector3i coordsDown = roomCoords;
 
-	roomCoords.y -= 1;
-	std::shared_ptr<Room> roomUp = this->rooms.get(roomCoords);
-	roomCoords.y += 2;
-	std::shared_ptr<Room> roomDown = this->rooms.get(roomCoords);
-	roomCoords.y -= 1;
+	coordsLeft.x -= 1;
+	const std::shared_ptr<Room> roomLeft = this->rooms.get(coordsLeft);
+
+	coordsRight.x += 1;
+	const std::shared_ptr<Room> roomRight = this->rooms.get(coordsRight);
+
+	coordsUp.y -= 1;
+	const std::shared_ptr<Room> roomUp = this->rooms.get(coordsUp);
+
+	coordsDown.y += 1;
+	const std::shared_ptr<Room> roomDown = this->rooms.get(coordsDown);
 
 	if (roomLeft != nullptr)
 	{
 		for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 		{
-			if (room->isCellCollider(ROOM_BORDER_LEFT_X, y) != roomLeft->isCellCollider(ROOM_BORDER_RIGHT_X, y))
+			bool isThisCellCollider = room->isCellCollider(ROOM_BORDER_LEFT_X, y);
+
+			if (isThisCellCollider != roomLeft->isCellCollider(ROOM_BORDER_RIGHT_X, y))
 			{
 				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, ROOM_BORDER_LEFT_X, y);
 				return false;
+			}
+
+			if (!isThisCellCollider)
+			{
+				// edge Cell is a passage - check if both sides have enough space for the Player character
+
+				if (room->isCellCollider(ROOM_BORDER_LEFT_INNER_X, y))
+				{
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, roomCoords.x, roomCoords.y, roomCoords.z,
+						   ROOM_BORDER_LEFT_INNER_X, y);
+					return false;
+				}
+
+				if (roomLeft->isCellCollider(ROOM_BORDER_RIGHT_INNER_X, y))
+				{
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, coordsLeft.x, coordsLeft.y, coordsLeft.z,
+						   ROOM_BORDER_RIGHT_INNER_X, y);
+					return false;
+				}
 			}
 		}
 	}
@@ -295,11 +328,31 @@ bool Location::validateRoomGeometry(const std::shared_ptr<Room> room, HashableVe
 	{
 		for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 		{
-			if (room->isCellCollider(ROOM_BORDER_RIGHT_X, y) != roomRight->isCellCollider(ROOM_BORDER_LEFT_X, y))
+			bool isThisCellCollider = room->isCellCollider(ROOM_BORDER_RIGHT_X, y);
+
+			if (isThisCellCollider != roomRight->isCellCollider(ROOM_BORDER_LEFT_X, y))
 			{
-				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z,
-					   ROOM_BORDER_RIGHT_X, y);
+				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, ROOM_BORDER_RIGHT_X, y);
 				return false;
+			}
+
+			if (!isThisCellCollider)
+			{
+				// edge Cell is a passage - check if both sides have enough space for the Player character
+
+				if (room->isCellCollider(ROOM_BORDER_RIGHT_INNER_X, y))
+				{
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, roomCoords.x, roomCoords.y, roomCoords.z,
+						   ROOM_BORDER_RIGHT_INNER_X, y);
+					return false;
+				}
+
+				if (roomRight->isCellCollider(ROOM_BORDER_LEFT_INNER_X, y))
+				{
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, coordsRight.x, coordsRight.y, coordsRight.z,
+						   ROOM_BORDER_LEFT_INNER_X, y);
+					return false;
+				}
 			}
 		}
 	}
@@ -308,10 +361,31 @@ bool Location::validateRoomGeometry(const std::shared_ptr<Room> room, HashableVe
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			if (room->isCellCollider(x, ROOM_BORDER_TOP_Y) != roomUp->isCellCollider(x, ROOM_BORDER_BOTTOM_Y))
+			bool isThisCellCollider = room->isCellCollider(x, ROOM_BORDER_TOP_Y);
+
+			if (isThisCellCollider != roomUp->isCellCollider(x, ROOM_BORDER_BOTTOM_Y))
 			{
 				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, x, ROOM_BORDER_TOP_Y);
 				return false;
+			}
+
+			if (!isThisCellCollider)
+			{
+				// edge Cell is a passage - check if both sides have enough space for the Player character
+
+				if (room->isCellCollider(x, ROOM_BORDER_TOP_INNER_Y))
+				{
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, roomCoords.x, roomCoords.y, roomCoords.z,
+						   x, ROOM_BORDER_TOP_INNER_Y);
+					return false;
+				}
+
+				if (roomUp->isCellCollider(x, ROOM_BORDER_BOTTOM_INNER_Y))
+				{
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, coordsUp.x, coordsUp.y, coordsUp.z,
+						   x, ROOM_BORDER_BOTTOM_INNER_Y);
+					return false;
+				}
 			}
 		}
 	}
@@ -320,11 +394,31 @@ bool Location::validateRoomGeometry(const std::shared_ptr<Room> room, HashableVe
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			if (room->isCellCollider(x, ROOM_BORDER_BOTTOM_Y) != roomDown->isCellCollider(x, ROOM_BORDER_TOP_Y))
+			bool isThisCellCollider = room->isCellCollider(x, ROOM_BORDER_BOTTOM_Y);
+
+			if (isThisCellCollider != roomDown->isCellCollider(x, ROOM_BORDER_TOP_Y))
 			{
-				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z,
-					   x, ROOM_BORDER_BOTTOM_Y);
+				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, x, ROOM_BORDER_BOTTOM_Y);
 				return false;
+			}
+
+			if (!isThisCellCollider)
+			{
+				// edge Cell is a passage - check if both sides have enough space for the Player character
+
+				if (room->isCellCollider(x, ROOM_BORDER_BOTTOM_INNER_Y))
+				{
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, roomCoords.x, roomCoords.y, roomCoords.z,
+						   x, ROOM_BORDER_BOTTOM_INNER_Y);
+					return false;
+				}
+
+				if (roomDown->isCellCollider(x, ROOM_BORDER_TOP_INNER_Y))
+				{
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, coordsDown.x, coordsDown.y, coordsDown.z,
+						   x, ROOM_BORDER_TOP_INNER_Y);
+					return false;
+				}
 			}
 		}
 	}
