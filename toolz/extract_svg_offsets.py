@@ -1,13 +1,14 @@
 import argparse
 import re
 import os
-from common import log_warn, log_err, nicify_filenames_group_objs, write_nicer_json
+from log import Log
+from common import nicify_filenames_group_objs, write_nicer_json
 
 
 reg_find_transform = re.compile(r"<use[^\>]*matrix\((-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+)\)")
 
 
-def read_svg_offset(svg_path: str):
+def read_svg_offset(log: Log, svg_path: str):
 	"""
 	Reads an svg file and tries to extract 2d translation from it. This is pretty terrible, but is currently the best
 	known method of getting this data. The data is meant to be manually checked afterwards and copied to convert_data.py
@@ -19,29 +20,29 @@ def read_svg_offset(svg_path: str):
 	with open(svg_path, "r") as f:
 		search = reg_find_transform.findall(f.read())
 		if len(search) == 0:
-			log_err("Transform data not found in \"" + svg_path + "\"")
+			log.e("Transform data not found in \"" + svg_path + "\"")
 			return None
 
 		elif len(search) > 1:
 			# seems like there are sometimes multiple elements in the sprite, thankfully the png contains all of them.
 			# unfortunately we don't know which one we should consider as root :/
 			# TODO we should read width/height of each "character" and somehow find the "max" transform for result png
-			log_warn("Multiple transforms found in \"" + svg_path + "\", using the first one")
+			log.w("Multiple transforms found in \"" + svg_path + "\", using the first one")
 
 		if search[0][0] != "1.0" or search[0][1] != "0.0" or search[0][2] != "0.0" or search[0][3] != "1.0":
-			log_warn("Funky transform found in \"" + svg_path + "\", ignoring scale/rotation/reflection/etc.")
+			log.w("Funky transform found in \"" + svg_path + "\", ignoring scale/rotation/reflection/etc.")
 
 		# who needs floats anyway?
 		return (int(float(search[0][4])), int(float(search[0][5])))
 
 
-def extract_svg_offsets(in_dir: str, out_path: str):
+def extract_svg_offsets(log: Log, in_dir: str, out_path: str):
 	"""
 	Reads the svg files exported from texture1.swf/sprites and extracts 2d offsets from them. The data is considered
 	"dirty" and requires manual processing to ensure that the offsets are correct. The manually-processed data should be
 	added to obj_offsets (in convert_data.py).
 	"""
-	grouped_objs = nicify_filenames_group_objs(in_dir)
+	grouped_objs = nicify_filenames_group_objs(log, in_dir)
 
 	out_meta_root = {}
 
@@ -52,9 +53,9 @@ def extract_svg_offsets(in_dir: str, out_path: str):
 		all_offsets_same = True
 		for obj_type_node in obj_node.values():
 			for txt_variant in obj_type_node:
-				txt_variant_offset = read_svg_offset(os.path.join(in_dir, txt_variant[0] + ".svg"))
+				txt_variant_offset = read_svg_offset(log, os.path.join(in_dir, txt_variant[0] + ".svg"))
 				if txt_variant_offset is None:
-					log_err("Transform data not found in \"" + txt_variant[0] + "\", please check offset manually")
+					log.e("Transform data not found in \"" + txt_variant[0] + "\", please check offset manually")
 					continue
 
 				all_offsets[txt_variant[0]] = txt_variant_offset
@@ -81,6 +82,9 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="A tool for extracting padding data from svg files. The extracted transforms are meant to be tweaked manually before actual use.")
 	parser.add_argument("-i", "--input", action="store", required=True, type=str, help=("Path to input dir containing svgs exported from texture1.swf/sprites"))
 	parser.add_argument("-o", "--output", action="store", required=True, type=str, help=("Output filename"))
+	parser.add_argument("-l", "--log", action="store", type=int, default=3, help=("Log level"))
 	args = parser.parse_args()
 
-	extract_svg_offsets(args.input, args.output)
+	log = Log(args.log)
+
+	extract_svg_offsets(log, args.input, args.output)

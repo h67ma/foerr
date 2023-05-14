@@ -1,8 +1,8 @@
 import argparse
 import os
 from PIL import Image
+from log import Log
 from convert_data import pad_img_data
-from common import log_verbose
 
 
 def pad_image(path_in: str, path_out: str, offset_left: int, offset_top: int):
@@ -17,11 +17,11 @@ def pad_image(path_in: str, path_out: str, offset_left: int, offset_top: int):
 	result.save(path_out)
 
 
-def pad_images(path_in: str, path_out: str):
+def pad_images(log: Log, path_in: str, path_out: str):
 	for img_name, pad in pad_img_data.items():
 		in_img_path = os.path.join(path_in, img_name)
 		out_img_path = os.path.join(path_out, img_name)
-		log_verbose("Adding padding to " + in_img_path)
+		log.v("Adding padding to " + in_img_path)
 		pad_image(in_img_path, out_img_path, pad[0], pad[1])
 
 
@@ -29,6 +29,9 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="A tool for adding left & top padding to multiple images")
 	parser.add_argument("-i", "--input", action="store", required=True, type=str, help=("Path to input dir containing images to process"))
 	parser.add_argument("-o", "--output", action="store", required=True, type=str, help=("Output directory"))
+	parser.add_argument("-l", "--log", action="store", type=int, default=3, help=("Log level"))
 	args = parser.parse_args()
 
-	pad_images(args.input, args.output)
+	log = Log(args.log)
+
+	pad_images(log, args.input, args.output)

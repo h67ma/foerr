@@ -4,9 +4,10 @@ import json
 import argparse
 from typing import List
 import xml.etree.ElementTree as ET
+from log import Log
 from consts import *
 from convert_data import *
-from common import log_verbose, log_info, log_warn, log_err, sane_object_pairs_hook, write_nicer_json
+from common import sane_object_pairs_hook, write_nicer_json
 
 
 reg_remove_end_variant = re.compile(r"(.+)(\d+)$")
@@ -41,13 +42,13 @@ def maybe_separate_variant(obj_id: str):
 	return None
 
 
-def translate_rooms(output_id: str, input_filename: str, output_filename: str, loc_data, obj_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
-	log_verbose("Translating " + input_filename + " to " + output_filename)
+def translate_rooms(log: Log, output_id: str, input_filename: str, output_filename: str, loc_data, obj_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
+	log.v("Translating " + input_filename + " to " + output_filename)
 
 	try:
 		input_tree = ET.parse(input_filename)
 	except (FileNotFoundError, ET.ParseError) as ex:
-		log_err(str(ex))
+		log.e(str(ex))
 		return
 
 	max_cell_length = 0
@@ -57,17 +58,17 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 	is_unique_loc = False
 	in_land_node = input_root.find("land")
 	if in_land_node is not None and in_land_node.attrib.get("serial") == "1":
-		log_verbose("Detected unique location")
+		log.v("Detected unique location")
 		is_unique_loc = True
 		if "start_room_x" not in loc_data or "start_room_y" not in loc_data:
-			log_err("Starting room not specified, skipping location")
+			log.e("Starting room not specified, skipping location")
 			return
 		
 		# note: "locz" is never specified in Remains, so we can assume z=0
 		start_room_coords = (loc_data["start_room_x"], loc_data["start_room_y"], 0)
 		start_room_found = False
 	else:
-		log_verbose("Detected grind location")
+		log.v("Detected grind location")
 
 	output_root = {
 		FOERR_JSON_KEY_API_VERSION: JSON_API_VERSION,
@@ -99,7 +100,7 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 			room_x = room_node.attrib.get("x")
 			room_y = room_node.attrib.get("y")
 			if room_x is None and room_y is None:
-				log_warn("Room " + room_name + ": missing coordinates, skipping room")
+				log.w("Room " + room_name + ": missing coordinates, skipping room")
 				continue
 
 			room_z = room_node.attrib.get("z", 0) # z is optional, assume 0 if not present
@@ -139,7 +140,7 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 					# overwrite default liquid type, or location-defined type, with room-defined type
 					room_liquid_symbol = liquid_type_map[liquid_type]
 				else:
-					log_warn(room_name + " has an unknown liquid type, ignoring")
+					log.w(room_name + " has an unknown liquid type, ignoring")
 
 			liquid_level = in_options_node.attrib.get("wlevel")
 			if liquid_level is not None:
@@ -164,10 +165,10 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 			room_backform = in_options_node.attrib.get("backform")
 			if room_backform is not None:
 				if room_backform in ["1", "2"]:
-					log_verbose(room_name + " defines backform, adding background to some cells")
+					log.v(room_name + " defines backform, adding background to some cells")
 					room_backform = int(room_backform)
 				else:
-					log_warn(room_name + " defines unknown backform, ignoring")
+					log.w(room_name + " defines unknown backform, ignoring")
 
 		##### room backwall #####
 
@@ -202,13 +203,13 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 				elif backwall_value == "tLeaking":
 					backwall_symbol = 'v'
 				else:
-					log_err(room_name + " no mapping found for " + backwall_value)
+					log.e(room_name + " no mapping found for " + backwall_value)
 
 		##### cells #####
 
 		grid_rows = room_node.findall("a")
 		if len(grid_rows) != ROOM_HEIGHT_WITH_BORDER:
-			log_warn("Room " + room_name + ": height is " + len(grid_rows) + ", should be " + ROOM_HEIGHT_WITH_BORDER + ", skipping room")
+			log.w("Room " + room_name + ": height is " + len(grid_rows) + ", should be " + ROOM_HEIGHT_WITH_BORDER + ", skipping room")
 			continue
 
 		out_cells = []
@@ -216,7 +217,7 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 		for y, grid_row in enumerate(grid_rows):
 			cells = grid_row.text.split(IN_DELIM)
 			if len(cells) != ROOM_WIDTH_WITH_BORDER:
-				log_warn("Room " + room_name + " row " + y + ": width is " + len(cells) + ", should be " + ROOM_WIDTH_WITH_BORDER + ", skipping room")
+				log.w("Room " + room_name + " row " + y + ": width is " + len(cells) + ", should be " + ROOM_WIDTH_WITH_BORDER + ", skipping room")
 				continue
 
 			out_cell_strip = []
@@ -276,17 +277,17 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 						# some solid defined in input
 						out_symbol = symbol_maps[FOERR_JSON_KEY_SOLIDS].get(grid_elem[0], SYMBOL_UNKNOWN)
 						if out_symbol == SYMBOL_UNKNOWN:
-							log_warn(err_prefix + "unknown solid: '" + grid_elem[0] + "'")
+							log.w(err_prefix + "unknown solid: '" + grid_elem[0] + "'")
 							this_cell_symbols += SYMBOL_UNKNOWN
 						else:
 							this_mat = mat_data[FOERR_JSON_KEY_SOLIDS].get(out_symbol)
 							if this_mat is None:
-								log_warn(err_prefix + "unknown material for symbol ('" + out_symbol + "'), skipping symbol")
+								log.w(err_prefix + "unknown material for symbol ('" + out_symbol + "'), skipping symbol")
 								this_cell_symbols += SYMBOL_UNKNOWN
 							else:
 								this_type = this_mat.get(FOERR_JSON_KEY_TYPE)
 								if this_type != 1:
-									log_warn(err_prefix + "symbol in solid slot ('" + out_symbol + "') is not a solid, skipping symbol")
+									log.w(err_prefix + "symbol in solid slot ('" + out_symbol + "') is not a solid, skipping symbol")
 									this_cell_symbols += SYMBOL_UNKNOWN
 								else:
 									this_solid = True
@@ -307,7 +308,7 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 					# solid + platform/stairs/ladder will also trigger a warning.
 					# note: this happens a fair number of times in Remains, and it appears to just display a normal
 					# (full-height) background then.
-					log_info(err_prefix + "height flag defined, but no solid found, skipping height flag")
+					log.i(err_prefix + "height flag defined, but no solid found, skipping height flag")
 					this_skip_height_flags = True
 
 				for character in grid_elem[1:]:
@@ -316,23 +317,23 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 							continue
 
 						if this_part_height:
-							log_warn(err_prefix + "more than one height flag defined, skipping rest")
+							log.w(err_prefix + "more than one height flag defined, skipping rest")
 							continue
 						this_part_height = True
 						this_cell_symbols += character
 						continue
 					elif character == '*':
 						if this_liquid:
-							log_warn(err_prefix + "more than one liquid defined, skipping rest")
+							log.w(err_prefix + "more than one liquid defined, skipping rest")
 							continue
 						if this_solid and not this_has_any_part_height:
 							# note: this appears a few times in Remains rooms and seems to be a mistake
 							# it makes no sense to encode liquid on a full-sized cell.
 							# Sewers/Canterlot are special cases as they have a map-wide liquid level.
-							log_info(err_prefix + "liquid defined for full-sized cell containing a solid, skipping liquid")
+							log.i(err_prefix + "liquid defined for full-sized cell containing a solid, skipping liquid")
 							continue
 						if liquid_level is not None and liquid_level >= ROOM_HEIGHT_WITH_BORDER - y:
-							log_info(err_prefix + "liquid defined, but room-wide liquid level is already " + str(liquid_level) + ", skipping cell liquid")
+							log.i(err_prefix + "liquid defined, but room-wide liquid level is already " + str(liquid_level) + ", skipping cell liquid")
 							continue
 						this_liquid = True
 						this_cell_symbols += room_liquid_symbol # swap '*' for the correct liquid type
@@ -340,60 +341,60 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 
 					out_symbol = symbol_maps[FOERR_JSON_KEY_OTHER].get(character, SYMBOL_UNKNOWN)
 					if out_symbol == SYMBOL_UNKNOWN:
-						log_warn(err_prefix + "unknown symbol: " + character)
+						log.w(err_prefix + "unknown symbol: " + character)
 					else:
 						this_mat = mat_data[FOERR_JSON_KEY_OTHER].get(out_symbol)
 						if this_mat is None:
-							log_warn(err_prefix + "unknown material for symbol ('" + out_symbol + "'), skipping symbol")
+							log.w(err_prefix + "unknown material for symbol ('" + out_symbol + "'), skipping symbol")
 							this_cell_symbols += SYMBOL_UNKNOWN
 							continue
 
 						this_type = this_mat.get(FOERR_JSON_KEY_TYPE)
 
 						if this_type is None:
-							log_warn(err_prefix + "unknown symbol type, further sanity checks will be limited")
+							log.w(err_prefix + "unknown symbol type, further sanity checks will be limited")
 						else:
 							if this_type == 2: # background
 								if this_background:
-									log_warn(err_prefix + "more than one background defined, skipping rest")
+									log.w(err_prefix + "more than one background defined, skipping rest")
 									continue
 								this_background = True
 							elif this_type == 3: # ladder
 								if this_ladder:
-									log_warn(err_prefix + "more than one ladder defined, skipping rest")
+									log.w(err_prefix + "more than one ladder defined, skipping rest")
 									continue
 								if this_solid:
-									log_warn(err_prefix + "ladder found ('" + character + "'), but a solid is already defined for cell, skipping ladder")
+									log.w(err_prefix + "ladder found ('" + character + "'), but a solid is already defined for cell, skipping ladder")
 									continue
 								this_ladder = True
 							elif this_type == 4: # platform
 								if this_platform:
-									log_warn(err_prefix + "more than one platform defined, skipping rest")
+									log.w(err_prefix + "more than one platform defined, skipping rest")
 									continue
 								if this_solid:
 									# note: this case happens a few times in Remains rooms. in this case a platform
 									# is displayed on top of a solid, and the cell works like a solid would.
 									# this makes no sense - if it behaves like a solid, then it should just display a
 									# solid. displaying a platform instead might confuse the player.
-									log_info(err_prefix + "platform found ('" + character + "'), but a solid is already defined for cell, skipping platform")
+									log.i(err_prefix + "platform found ('" + character + "'), but a solid is already defined for cell, skipping platform")
 									continue
 								if this_stairs:
-									log_warn(err_prefix + "platform found ('" + character + "'), but stairs are already defined for cell, skipping platform")
+									log.w(err_prefix + "platform found ('" + character + "'), but stairs are already defined for cell, skipping platform")
 									continue
 								this_platform = True
 							elif this_type == 5: # stairs
 								if this_stairs:
-									log_warn(err_prefix + "more than one stairs defined, skipping rest")
+									log.w(err_prefix + "more than one stairs defined, skipping rest")
 									continue
 								if this_solid:
-									log_warn(err_prefix + "stairs found ('" + character + "'), but a solid is already defined for cell, skipping stairs")
+									log.w(err_prefix + "stairs found ('" + character + "'), but a solid is already defined for cell, skipping stairs")
 									continue
 								if this_platform:
-									log_warn(err_prefix + "stairs found ('" + character + "'), but platform is already defined for cell, skipping platform")
+									log.w(err_prefix + "stairs found ('" + character + "'), but platform is already defined for cell, skipping platform")
 									continue
 								this_stairs = True
 							else:
-								log_warn(err_prefix + "unexpected symbol type (" + str(this_type) + "), skipping")
+								log.w(err_prefix + "unexpected symbol type (" + str(this_type) + "), skipping")
 								continue
 
 					this_cell_symbols += out_symbol
@@ -407,7 +408,7 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 
 				if pad_cnt is not None:
 					if len(this_cell_symbols) > pad_cnt:
-						log_warn("Room " + room_name + " at " + str((x, y)) + ": cell is wider than requested pad size, trimming")
+						log.w("Room " + room_name + " at " + str((x, y)) + ": cell is wider than requested pad size, trimming")
 						this_cell_symbols = this_cell_symbols[:pad_cnt]
 					else:
 						for _ in range(len(this_cell_symbols), pad_cnt):
@@ -446,11 +447,11 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 			back_y = back_obj.attrib.get("y")
 
 			if back_id is None or back_x is None or back_y is None:
-				log_warn("Room" + room_name + ": back object " + str((back_id, back_x, back_y)) + " is missing attributes, skipping")
+				log.w("Room" + room_name + ": back object " + str((back_id, back_x, back_y)) + " is missing attributes, skipping")
 				continue
 
 			if back_id not in obj_data:
-				log_warn("Room" + room_name + ": back object " + back_id, + " is missing from AllData, assuming layer 0")
+				log.w("Room" + room_name + ": back object " + back_id, + " is missing from AllData, assuming layer 0")
 				back_layer = 0
 			else:
 				back_layer = obj_data[back_id]
@@ -496,7 +497,7 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 			obj_y = back_obj.attrib.get("y")
 
 			if obj_id is None or obj_x is None or obj_y is None:
-				log_warn("Room" + room_name + ": object " + str((obj_id, obj_x, obj_y)) + " is missing attributes, skipping")
+				log.w("Room" + room_name + ": object " + str((obj_id, obj_x, obj_y)) + " is missing attributes, skipping")
 				continue
 
 			obj_coords = [int(obj_x), int(obj_y)]
@@ -539,58 +540,58 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 				for y in range(ROOM_HEIGHT_WITH_BORDER):
 					this_room_cell_is_collider = out_room_geometry[y][0]
 					if this_room_cell_is_collider != room_geometries[nearby_room_left][y][ROOM_WIDTH_WITH_BORDER - 1]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((0, y)) + " - left edge mismatch")
+						log.e("Room " + room_name + ": geometry validation failed at " + str((0, y)) + " - left edge mismatch")
 
 					if not this_room_cell_is_collider:
 						# edge cell is a passage - check both sides have enough space for player character
 						if out_room_geometry[y][1]:
-							log_err("Room " + room_name + ": geometry validation failed at " + str((1, y)) + " - insufficient space for the player")
+							log.e("Room " + room_name + ": geometry validation failed at " + str((1, y)) + " - insufficient space for the player")
 						if room_geometries[nearby_room_left][y][ROOM_WIDTH_WITH_BORDER - 2]:
-							log_err("Room " + room_name + ": geometry validation failed at " + str((1, y)) + " - insufficient space for the player in left room")
+							log.e("Room " + room_name + ": geometry validation failed at " + str((1, y)) + " - insufficient space for the player in left room")
 
 			if nearby_room_right in room_geometries:
 				for y in range(ROOM_HEIGHT_WITH_BORDER):
 					this_room_cell_is_collider = out_room_geometry[y][ROOM_WIDTH_WITH_BORDER - 1]
 					if out_room_geometry[y][ROOM_WIDTH_WITH_BORDER - 1] != room_geometries[nearby_room_right][y][0]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 1, y)) + " - right edge mismatch")
+						log.e("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 1, y)) + " - right edge mismatch")
 
 					if not this_room_cell_is_collider:
 						# edge cell is a passage - check both sides have enough space for player character
 						if out_room_geometry[y][ROOM_WIDTH_WITH_BORDER - 2]:
-							log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 2, y)) + " - insufficient space for the player")
+							log.e("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 2, y)) + " - insufficient space for the player")
 						if room_geometries[nearby_room_right][y][1]:
-							log_err("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 2, y)) + " - insufficient space for the player in right room")
+							log.e("Room " + room_name + ": geometry validation failed at " + str((ROOM_WIDTH_WITH_BORDER - 2, y)) + " - insufficient space for the player in right room")
 
 			if nearby_room_up in room_geometries:
 				for x in range(ROOM_WIDTH_WITH_BORDER):
 					this_room_cell_is_collider = out_room_geometry[0][x]
 					if this_room_cell_is_collider != room_geometries[nearby_room_up][ROOM_HEIGHT_WITH_BORDER - 1][x]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((x, 0)) + " - up edge mismatch")
+						log.e("Room " + room_name + ": geometry validation failed at " + str((x, 0)) + " - up edge mismatch")
 
 					if not this_room_cell_is_collider:
 						# edge cell is a passage - check both sides have enough space for player character
 						if out_room_geometry[1][x]:
-							log_err("Room " + room_name + ": geometry validation failed at " + str((x, 1)) + " - insufficient space for the player")
+							log.e("Room " + room_name + ": geometry validation failed at " + str((x, 1)) + " - insufficient space for the player")
 						if room_geometries[nearby_room_up][ROOM_HEIGHT_WITH_BORDER - 2][x]:
-							log_err("Room " + room_name + ": geometry validation failed at " + str((x, 1)) + " - insufficient space for the player in upper room")
+							log.e("Room " + room_name + ": geometry validation failed at " + str((x, 1)) + " - insufficient space for the player in upper room")
 
 			if nearby_room_down in room_geometries:
 				for x in range(ROOM_WIDTH_WITH_BORDER):
 					this_room_cell_is_collider = out_room_geometry[ROOM_HEIGHT_WITH_BORDER - 1][x]
 					if this_room_cell_is_collider != room_geometries[nearby_room_down][0][x]:
-						log_err("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 1)) + " - down edge mismatch")
+						log.e("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 1)) + " - down edge mismatch")
 
 					if not this_room_cell_is_collider:
 						# edge cell is a passage - check both sides have enough space for player character
 						if out_room_geometry[ROOM_HEIGHT_WITH_BORDER - 2][x]:
-							log_err("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 2)) + " - insufficient space for the player")
+							log.e("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 2)) + " - insufficient space for the player")
 						if room_geometries[nearby_room_down][1][x]:
-							log_err("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 2)) + " - insufficient space for the player in bottom room")
+							log.e("Room " + room_name + ": geometry validation failed at " + str((x, ROOM_HEIGHT_WITH_BORDER - 2)) + " - insufficient space for the player in bottom room")
 
 			room_geometries[room_coords] = out_room_geometry
 
 	if is_unique_loc and not start_room_found:
-		log_err("Start room specified but not found, skipping location")
+		log.e("Start room specified but not found, skipping location")
 		return
 
 	output_root[FOERR_JSON_KEY_ROOMS] = output_rooms
@@ -600,19 +601,23 @@ def translate_rooms(output_id: str, input_filename: str, output_filename: str, l
 	return max_cell_length
 
 
-def get_output_id(input_basename: str):
+def get_output_id(log: Log, input_basename: str):
 	if input_basename in loc_names_map:
 		input_basename = loc_names_map[input_basename] # translate loc name if possible
 	else:
-		log_level = log_info if input_basename in ["z_shablon", "rooms2"] else log_warn
-		log_level("Location name \"" + input_basename + "\" not translated, skipping")
+		msg = "Location name \"" + input_basename + "\" not translated, skipping"
+		if input_basename in ["z_shablon", "rooms2"]:
+			log.i(msg)
+		else:
+			log.w(msg)
+
 		return None
 
 	assert input_basename != ""
 	return input_basename
 
 
-def get_gamedata_data(gamedata_path: str):
+def get_gamedata_data(log: Log, gamedata_path: str):
 	"""
 	Reads useful data from GameData.xml and converts it to a dictionary:
 	{
@@ -630,7 +635,7 @@ def get_gamedata_data(gamedata_path: str):
 	try:
 		input_tree = ET.parse(gamedata_path)
 	except (FileNotFoundError, ET.ParseError) as ex:
-		log_err(str(ex))
+		log.e(str(ex))
 		return None
 
 	input_root = input_tree.getroot()
@@ -639,7 +644,7 @@ def get_gamedata_data(gamedata_path: str):
 	for loc_node in input_root.findall("land"):
 		room_filename = loc_node.attrib.get("file")
 		if room_filename is None:
-			log_warn("GameData <land/> is missing \"file\" attribute, skipping.")
+			log.w("GameData <land/> is missing \"file\" attribute, skipping.")
 			continue
 
 		this_loc_data = {}
@@ -659,7 +664,7 @@ def get_gamedata_data(gamedata_path: str):
 				if background_full in bg_full_name_map:
 					background_full = bg_full_name_map[background_full]
 				else:
-					log_warn("Background name \"" + background_full + "\" not translated")
+					log.w("Background name \"" + background_full + "\" not translated")
 				this_loc_data[FOERR_JSON_KEY_BACKGROUND_FULL] = background_full
 
 			backwall = options_node.attrib.get("backwall")
@@ -672,14 +677,14 @@ def get_gamedata_data(gamedata_path: str):
 				if liquid_type in liquid_type_map:
 					this_loc_data["liquid_symbol"] = liquid_type_map[liquid_type]
 				else:
-					log_warn(room_filename + " has an unknown liquid, ignoring")
+					log.w(room_filename + " has an unknown liquid, ignoring")
 
 		out_data[room_filename] = this_loc_data
 
 	return out_data
 
 
-def get_alldata_data(alldata_path: str):
+def get_alldata_data(log: Log, alldata_path: str):
 	"""
 	Reads useful data from AllData.xml and converts it to a dictionary:
 	{
@@ -690,7 +695,7 @@ def get_alldata_data(alldata_path: str):
 	try:
 		input_tree = ET.parse(alldata_path)
 	except (FileNotFoundError, ET.ParseError) as ex:
-		log_err(str(ex))
+		log.e(str(ex))
 		return None
 
 	input_root = input_tree.getroot()
@@ -698,7 +703,7 @@ def get_alldata_data(alldata_path: str):
 	for back_node in input_root.findall("back"):
 		back_id = back_node.attrib.get("id")
 		if back_id is None:
-			log_warn("AllData <back/> is missing \"id\" attribute, skipping.")
+			log.w("AllData <back/> is missing \"id\" attribute, skipping.")
 			continue
 
 		if back_id == "":
@@ -708,13 +713,13 @@ def get_alldata_data(alldata_path: str):
 		layer = back_node.attrib.get("s")
 		if layer is None:
 			# for some reason some objs don't have layer attribute - defaults to 0
-			log_info("AllData <back/> id=\"" + back_id + "\" is missing \"s\" attribute, assuming " + str(UNDEFINED_LAYER_NUMBER))
+			log.i("AllData <back/> id=\"" + back_id + "\" is missing \"s\" attribute, assuming " + str(UNDEFINED_LAYER_NUMBER))
 			layer = UNDEFINED_LAYER_NUMBER
 
 		# note: we can also get obj size in cells from this node (x2, y2 attributes), if it's ever needed
 
 		if back_id in out_data:
-			log_warn("Duplicate <back/> id=\"" + back_id + "\" in AllData, skipping")
+			log.w("Duplicate <back/> id=\"" + back_id + "\" in AllData, skipping")
 			continue
 
 		out_data[back_id] = int(layer)
@@ -722,7 +727,7 @@ def get_alldata_data(alldata_path: str):
 	return out_data
 
 
-def materials_to_map(map_node, name: str):
+def materials_to_map(log: Log, map_node, name: str):
 	"""Reads materials node containing a dictionary of symbol: { material details }.
 	Returns a dictionary mapping legacy symbol to translated symbol, based on data in materials file.
 	If a material doesn't contain a legacy symbol, the normal (translated) symbol is used as key instead.
@@ -733,18 +738,18 @@ def materials_to_map(map_node, name: str):
 		if FOERR_JSON_KEY_SYMBOL_LEGACY in item:
 			symbol_legacy = item[FOERR_JSON_KEY_SYMBOL_LEGACY]
 		if symbol_legacy in out_map or symbol in out_map.values():
-			log_err(name +" symbols map contains non-unique values")
+			log.e(name +" symbols map contains non-unique values")
 			return None
 		out_map[symbol_legacy] = symbol
 	return out_map
 
 
-def load_verify_maps(materials_path):
+def load_verify_maps(log: Log, materials_path):
 	try:
 		with open(materials_path, "r") as f:
 			mat_data = json.load(f, object_pairs_hook=sane_object_pairs_hook)
 	except FileNotFoundError as ex:
-		log_err(str(ex))
+		log.e(str(ex))
 		return None
 
 	to_process = [
@@ -755,17 +760,17 @@ def load_verify_maps(materials_path):
 	out_data = {}
 	for map in to_process:
 		if map[0] not in mat_data:
-			log_err("\"" + map[1] + "\" map missing from materials.json")
+			log.e("\"" + map[1] + "\" map missing from materials.json")
 			return None
 
-		mapped = materials_to_map(mat_data[map[0]], map[1])
+		mapped = materials_to_map(log, mat_data[map[0]], map[1])
 		if mapped is None:
 			return None
 		out_data[map[0]] = mapped
 
 	# verify that location names map has unique values
 	if len(loc_names_map) != len(set(loc_names_map.values())):
-		log_err("Location names map contains non-unique values")
+		log.e("Location names map contains non-unique values")
 		return None
 
 	return out_data, mat_data
@@ -784,17 +789,20 @@ if __name__ == "__main__":
 	parser.add_argument("-o", "--output", action="store", required=False, type=str, help=("Path to output json file, or directory if -a is used"))
 	parser.add_argument("-a", "--all", action="store_true", help=("Translate all files in input dir. If enabled, input/output should be a paths to directories, not files."))
 	parser.add_argument("-p", "--pad", action="store", type=int, help=("Pad each cell to this number of characters to align cells"))
+	parser.add_argument("-l", "--log", action="store", type=int, default=3, help=("Log level"))
 	args = parser.parse_args()
 
-	symbol_maps, mat_data = load_verify_maps(args.materials)
+	log = Log(args.log)
+
+	symbol_maps, mat_data = load_verify_maps(log, args.materials)
 	if symbol_maps is None or mat_data is None:
 		exit()
 
-	loc_data = get_gamedata_data(args.gamedata)
+	loc_data = get_gamedata_data(log, args.gamedata)
 	if loc_data is None:
 		exit()
 
-	obj_data = get_alldata_data(args.alldata)
+	obj_data = get_alldata_data(log, args.alldata)
 	if obj_data is None:
 		exit()
 
@@ -803,7 +811,7 @@ if __name__ == "__main__":
 	if args.all:
 		for filename in os.listdir(args.input):
 			input_basename = get_loc_basename(filename)
-			output_id = get_output_id(input_basename)
+			output_id = get_output_id(log, input_basename)
 
 			if output_id is None:
 				continue
@@ -816,16 +824,16 @@ if __name__ == "__main__":
 				output_path = output_filename
 
 			if input_basename not in loc_data:
-				log_err("GameData does not contain data for " + input_basename + ", skipping")
+				log.e("GameData does not contain data for " + input_basename + ", skipping")
 			else:
-				max_cell_length = translate_rooms(output_id, os.path.join(args.input, filename), output_path, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
+				max_cell_length = translate_rooms(log, output_id, os.path.join(args.input, filename), output_path, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
 				if max_cell_length > total_max_cell_length:
 					total_max_cell_length = max_cell_length
 
 	else:
 		input_basename = get_loc_basename(args.input)
 
-		output_id = get_output_id(input_basename)
+		output_id = get_output_id(log, input_basename)
 
 		if args.output is not None:
 			output_filename = args.output
@@ -834,9 +842,9 @@ if __name__ == "__main__":
 			output_filename = output_id + ".json"
 
 		if input_basename not in loc_data:
-			log_err("GameData does not contain data for " + input_basename)
+			log.e("GameData does not contain data for " + input_basename)
 		else:
-			total_max_cell_length = translate_rooms(output_id, args.input, output_filename, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
+			total_max_cell_length = translate_rooms(log, output_id, args.input, output_filename, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
 
 	if args.pad is None:
-		log_verbose("Max cell size was " + str(total_max_cell_length))
+		log.v("Max cell size was " + str(total_max_cell_length))

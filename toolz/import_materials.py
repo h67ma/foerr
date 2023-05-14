@@ -1,16 +1,17 @@
 import argparse
 import xml.etree.ElementTree as ET
+from log import Log
 from consts import *
 from convert_data import *
-from common import log_verbose, log_info, log_warn, log_err, write_nicer_json
+from common import write_nicer_json
 
 
-def import_materials(alldata_path: str, add_legacy: bool, output_filename: str):
-	log_verbose("Importing materials")
+def import_materials(log: Log, alldata_path: str, add_legacy: bool, output_filename: str):
+	log.v("Importing materials")
 	try:
 		alldata_tree = ET.parse(alldata_path)
 	except (FileNotFoundError, ET.ParseError) as ex:
-		log_err(ex)
+		log.e(ex)
 		return
 	alldata_root = alldata_tree.getroot()
 
@@ -27,7 +28,7 @@ def import_materials(alldata_path: str, add_legacy: bool, output_filename: str):
 
 		mat_name = mat.attrib.get("n")
 		if mat_name is None:
-			log_warn("Material is missing name, skipping")
+			log.w("Material is missing name, skipping")
 			continue
 
 		if mat_name in mat_translations_map:
@@ -45,7 +46,7 @@ def import_materials(alldata_path: str, add_legacy: bool, output_filename: str):
 
 		mat_symbol = mat.attrib.get("id")
 		if mat_symbol is None:
-			log_warn("Material \"" + mat_name + "\" is missing symbol id")
+			log.w("Material \"" + mat_name + "\" is missing symbol id")
 			continue
 
 		if mat_symbol in mat_blacklist:
@@ -57,7 +58,7 @@ def import_materials(alldata_path: str, add_legacy: bool, output_filename: str):
 			mat_symbol_translated = symbol_trans_map[mat_symbol]
 
 		if len(mat_symbol_translated) != 1:
-			log_warn("Material \"" + mat_name + "\" symbol is not a single character, skipping material")
+			log.w("Material \"" + mat_name + "\" symbol is not a single character, skipping material")
 			continue
 
 		# add legacy symbol if it's different from the translated one
@@ -66,7 +67,7 @@ def import_materials(alldata_path: str, add_legacy: bool, output_filename: str):
 
 		mat_type = mat.attrib.get("ed")
 		if mat_type is None:
-			log_warn("Material \"" + mat_name + "\" is missing type")
+			log.w("Material \"" + mat_name + "\" is missing type")
 			continue
 
 		# RR symbol types:
@@ -94,7 +95,7 @@ def import_materials(alldata_path: str, add_legacy: bool, output_filename: str):
 
 			ladder_direction = mat.attrib.get("stair")
 			if ladder_direction is None:
-				log_warn("Ladder \"" + mat_name + "\" is missing direction, skipping")
+				log.w("Ladder \"" + mat_name + "\" is missing direction, skipping")
 				continue
 
 			is_right = ladder_direction == "1"
@@ -120,32 +121,35 @@ def import_materials(alldata_path: str, add_legacy: bool, output_filename: str):
 				if texture_name in STAIRS_OFFSETS_LEFT:
 					out_mat[FOERR_JSON_KEY_OFFSET_LEFT] = STAIRS_OFFSETS_LEFT[texture_name]
 			else:
-				log_warn("Material \"" + mat_name + "\" is neither platform nor stairs, or both at the same time, skipping")
+				log.w("Material \"" + mat_name + "\" is neither platform nor stairs, or both at the same time, skipping")
 		else:
-			log_warn("Material \"" + mat_name + "\" has unknown type: \"" + mat_type + "\"")
+			log.w("Material \"" + mat_name + "\" has unknown type: \"" + mat_type + "\"")
 			continue
 
 		if mat_symbol_translated in materials_root[out_type]:
-			log_warn("Material \"" + mat_name + "\" symbol is a duplicate, skipping material")
+			log.w("Material \"" + mat_name + "\" symbol is a duplicate, skipping material")
 			continue
 		materials_root[out_type][mat_symbol_translated] = out_mat
 		imported_cnt += 1
 
 	for key, node in missing_mats.items():
 		if key in materials_root[FOERR_JSON_KEY_OTHER]:
-			log_warn("Extra material \"" + key + "\" already present, skipping")
+			log.w("Extra material \"" + key + "\" already present, skipping")
 			continue
 		materials_root[FOERR_JSON_KEY_OTHER][key] = node
 
 	write_nicer_json(output_filename, materials_root)
-	log_info("Imported " + str(imported_cnt) + " materials")
+	log.i("Imported " + str(imported_cnt) + " materials")
 
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="A tool for extracting material data from AllData to use in FoERR.")
 	parser.add_argument("-d", "--alldata", action="store", required=True, type=str, help=("Path to AllData.xml (just remove beginning and end from AllData.as)"))
-	parser.add_argument("-l", "--legacy", action="store_true", help=("Add information about legacy symbols"))
+	parser.add_argument("-g", "--legacy", action="store_true", help=("Add information about legacy symbols"))
 	parser.add_argument("-o", "--output", action="store", default="materials.json", type=str, help=("Output filename"))
+	parser.add_argument("-l", "--log", action="store", type=int, default=3, help=("Log level"))
 	args = parser.parse_args()
 
-	import_materials(args.alldata, args.legacy, args.output)
+	log = Log(args.log)
+
+	import_materials(log, args.alldata, args.legacy, args.output)

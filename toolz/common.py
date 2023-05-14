@@ -1,7 +1,7 @@
 import re
 import os
 import json
-from colorama import Fore, Style
+from log import Log
 from convert_data import obj_txt_blacklist
 from consts import TXT_TYPE_MAIN, TXT_TYPE_HOLE, TXT_TYPE_LIGHT
 
@@ -16,30 +16,6 @@ def sane_object_pairs_hook(ordered_pairs):
 			raise ValueError("Duplicate key: %r" % (k,))
 		d[k] = v
 	return d
-
-
-def log_msg(level: str, msg: str, color):
-	print(color + "[" + level + "] " + Style.RESET_ALL + msg)
-
-
-def log_verbose(msg):
-	"""Log not a very important message"""
-	log_msg("VERB", msg, Fore.LIGHTBLACK_EX)
-
-
-def log_info(msg):
-	"""Log an informational message. Should be used for cases which are expected to happen."""
-	log_msg("INFO", msg, Fore.GREEN)
-
-
-def log_warn(msg):
-	"""Log an informational message. Should be used for cases which are not expected to happen."""
-	log_msg("WARN", msg, Fore.YELLOW)
-
-
-def log_err(msg):
-	"""Log a critical error."""
-	log_msg("ERRO", msg, Fore.RED)
 
 
 def write_nicer_json(output_filename: str, output_root):
@@ -62,7 +38,7 @@ texture_suffix_to_type = {
 }
 
 
-def nicify_filenames_group_objs(path_in: str):
+def nicify_filenames_group_objs(log: Log, path_in: str):
 	"""
 	Generates more meaningful filenames (paths) for objects exported from texture1.swf/sprites, by removing
 	"DefineSprite", random number, and "_t" (main variant), changing index to be zero-based, and un-directorizing
@@ -100,7 +76,7 @@ def nicify_filenames_group_objs(path_in: str):
 		if len(img_id_clean) == 0:
 			# some images don't have a name, TODO define correct names in convert_data and translate here
 			img_id_clean = "unnamed" + str(unnamed_idx)
-			log_warn("Image \"" + img_id + "\" is missing id, using \"" + img_id_clean + "\"")
+			log.w("Image \"" + img_id + "\" is missing id, using \"" + img_id_clean + "\"")
 			unnamed_idx += 1
 
 		# remove the leading underscore. we can't remove it via reg_clean, as the unnamed ids won't be detected then
@@ -126,7 +102,7 @@ def nicify_filenames_group_objs(path_in: str):
 		img_idxes = os.listdir(os.path.join(path_in, img_id))
 
 		if len(img_idxes) == 0:
-			log_warn("Image \"" + img_id + "\" has 0 images, skipping")
+			log.w("Image \"" + img_id + "\" has 0 images, skipping")
 			continue
 
 		out_obj_node = []
@@ -136,13 +112,13 @@ def nicify_filenames_group_objs(path_in: str):
 			try:
 				based_img_idx = str(int(orig_img_idx) - 1) # convert to zero-based index
 			except ValueError:
-				log_err("Image \"" + img_id + "\": can't detect variant index, skipping")
+				log.e("Image \"" + img_id + "\": can't detect variant index, skipping")
 				continue
 
 			target_filename = img_id_clean + '_' + based_img_idx + img_id_suffix
 
 			if target_filename in obj_txt_blacklist:
-				log_info("Image " + target_filename + " found in blacklist, skipping")
+				log.i("Image " + target_filename + " found in blacklist, skipping")
 				continue
 
 			out_obj_node.append((
@@ -154,7 +130,7 @@ def nicify_filenames_group_objs(path_in: str):
 			if img_id_clean not in out_root:
 				out_root[img_id_clean] = {}
 			elif texture_type in out_root[img_id_clean]:
-				log_warn("Image \"" + target_filename + "\" type already defined, skipping")
+				log.w("Image \"" + target_filename + "\" type already defined, skipping")
 				continue
 
 			out_root[img_id_clean][texture_type] = out_obj_node
