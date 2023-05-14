@@ -3,9 +3,9 @@
 #include "../settings/settings_manager.hpp"
 #include "hud.hpp"
 
-#define TEXT_INPUT_PADDING 5
-#define TEXT_INPUT_PADDING2 TEXT_INPUT_PADDING * 2
-#define CURSOR_WIDTH 1.F
+constexpr uint TEXT_INPUT_PADDING = 5;
+constexpr uint TEXT_INPUT_PADDING2 = TEXT_INPUT_PADDING * 2;
+constexpr float CURSOR_WIDTH = 1;
 constexpr float BOX_OUTLINE_THICKNESS = 1;
 
 /**
@@ -157,7 +157,7 @@ void TextInput::handleSettingsChange()
 	this->box.setOutlineColor(SettingsManager::hudColor);
 	this->box.setFillColor(DIM_COLOR(SettingsManager::hudColor, 0x20));
 
-	this->cursor.setSize(sf::Vector2f(CURSOR_WIDTH, SettingsManager::guiScale * this->fontSize));
+	this->cursor.setSize(calculateGuiAwarePoint(sf::Vector2f(CURSOR_WIDTH, this->fontSize)));
 	this->cursor.setFillColor(SettingsManager::hudColor);
 
 	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * this->fontSize));
