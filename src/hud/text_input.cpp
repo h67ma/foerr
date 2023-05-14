@@ -5,6 +5,7 @@
 
 constexpr uint TEXT_INPUT_PADDING = 5;
 constexpr uint TEXT_INPUT_PADDING2 = TEXT_INPUT_PADDING * 2;
+constexpr uint CURSOR_PADDING = 2;
 constexpr float CURSOR_WIDTH = 1;
 constexpr float BOX_OUTLINE_THICKNESS = 1;
 
@@ -26,12 +27,13 @@ TextInput::TextInput(uint fontSize, uint width, const sf::Font &font, uint maxCh
 
 uint TextInput::getHeight() const
 {
-	return static_cast<uint>(SettingsManager::guiScale * this->fontSize) + TEXT_INPUT_PADDING2;
+	return SettingsManager::guiScale * (this->fontSize + TEXT_INPUT_PADDING2);
 }
 
 void TextInput::updateCursorPosition()
 {
-	this->cursor.setPosition(TEXT_INPUT_PADDING - 1 + (this->characterWidth * this->cursorIdx), TEXT_INPUT_PADDING);
+	this->cursor.setPosition(this->cursorStartPosition.x + (this->characterWidth * this->cursorIdx),
+							 this->cursorStartPosition.y);
 }
 
 void TextInput::moveCursorLeft()
@@ -151,6 +153,7 @@ void TextInput::handleKeyPress(sf::Keyboard::Key key)
 void TextInput::handleSettingsChange()
 {
 	this->characterWidth = this->fontAdvance * SettingsManager::guiScale;
+	this->cursorStartPosition = calculateGuiAwarePoint({ TEXT_INPUT_PADDING + CURSOR_PADDING, TEXT_INPUT_PADDING });
 
 	this->box.setOutlineThickness(calculateGuiAwareScalar(BOX_OUTLINE_THICKNESS));
 	this->box.setSize(sf::Vector2f(SettingsManager::guiScale * this->width, this->getHeight()));
@@ -160,7 +163,7 @@ void TextInput::handleSettingsChange()
 	this->cursor.setSize(calculateGuiAwarePoint(sf::Vector2f(CURSOR_WIDTH, this->fontSize)));
 	this->cursor.setFillColor(SettingsManager::hudColor);
 
-	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * this->fontSize));
+	this->text.setCharacterSize(static_cast<uint>(calculateGuiAwareScalar(this->fontSize)));
 	this->text.setPosition(calculateGuiAwarePoint({ TEXT_INPUT_PADDING,
 													TEXT_INPUT_PADDING + getFontVOffset(this->fontSize) }));
 	this->text.setFillColor(SettingsManager::hudColor);

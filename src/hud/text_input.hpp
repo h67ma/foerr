@@ -25,6 +25,7 @@ class TextInput : public sf::Drawable, public sf::Transformable, public Configur
 		const uint fontSize;
 		const uint maxCharacters;
 		const uint width;
+		sf::Vector2f cursorStartPosition;
 		uint characterWidth;
 		uint fontAdvance;
 		uint cursorIdx = 0; // 0 means the cursor is before the first character
