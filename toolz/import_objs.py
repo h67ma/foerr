@@ -33,7 +33,7 @@ def import_objs(log: Log, path_in: str, path_out: str, objs_out_path: str):
 		out_obj_node = {}
 
 		if obj_id not in obj_offsets:
-			log.i("Object \"" + obj_id + "\" offset not found in convert_data, assuming (0, 0)")
+			log.v("Object \"" + obj_id + "\" offset not found in convert_data, assuming (0, 0)")
 		elif type(obj_offsets[obj_id]) is tuple:
 			obj_offset = obj_offsets[obj_id]
 			if obj_offset != (0, 0): # don't write zero offsets (note: comparing tuples here)
@@ -54,7 +54,7 @@ def import_objs(log: Log, path_in: str, path_out: str, objs_out_path: str):
 			elif txt_type == TXT_TYPE_LIGHT:
 				out_obj_node[FOERR_JSON_KEY_LIGHT_CNT] = len(txt_list)
 			else:
-				log.i("Object \"" + obj_id + "\": unknown texture type (" + str(txt_type) + ")")
+				log.w("Object \"" + obj_id + "\": unknown texture type (" + str(txt_type) + ")")
 
 		if obj_id not in obj_copy_blacklist:
 			for obj_type_node in obj_node.values():

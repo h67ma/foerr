@@ -118,7 +118,7 @@ def nicify_filenames_group_objs(log: Log, path_in: str):
 			target_filename = img_id_clean + '_' + based_img_idx + img_id_suffix
 
 			if target_filename in obj_txt_blacklist:
-				log.i("Image " + target_filename + " found in blacklist, skipping")
+				log.v("Image " + target_filename + " found in blacklist, skipping")
 				continue
 
 			out_obj_node.append((

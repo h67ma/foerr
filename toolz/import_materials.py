@@ -7,7 +7,7 @@ from common import write_nicer_json
 
 
 def import_materials(log: Log, alldata_path: str, add_legacy: bool, output_filename: str):
-	log.v("Importing materials")
+	log.i("Importing materials")
 	try:
 		alldata_tree = ET.parse(alldata_path)
 	except (FileNotFoundError, ET.ParseError) as ex:

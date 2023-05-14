@@ -21,7 +21,7 @@ def pad_images(log: Log, path_in: str, path_out: str):
 	for img_name, pad in pad_img_data.items():
 		in_img_path = os.path.join(path_in, img_name)
 		out_img_path = os.path.join(path_out, img_name)
-		log.v("Adding padding to " + in_img_path)
+		log.i("Adding padding to " + in_img_path)
 		pad_image(in_img_path, out_img_path, pad[0], pad[1])
 
 

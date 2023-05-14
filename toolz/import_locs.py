@@ -43,7 +43,7 @@ def maybe_separate_variant(obj_id: str):
 
 
 def translate_rooms(log: Log, output_id: str, input_filename: str, output_filename: str, loc_data, obj_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
-	log.v("Translating " + input_filename + " to " + output_filename)
+	log.i("Translating " + input_filename + " to " + output_filename)
 
 	try:
 		input_tree = ET.parse(input_filename)
@@ -58,7 +58,7 @@ def translate_rooms(log: Log, output_id: str, input_filename: str, output_filena
 	is_unique_loc = False
 	in_land_node = input_root.find("land")
 	if in_land_node is not None and in_land_node.attrib.get("serial") == "1":
-		log.v("Detected unique location")
+		log.i("Detected unique location")
 		is_unique_loc = True
 		if "start_room_x" not in loc_data or "start_room_y" not in loc_data:
 			log.e("Starting room not specified, skipping location")
@@ -68,7 +68,7 @@ def translate_rooms(log: Log, output_id: str, input_filename: str, output_filena
 		start_room_coords = (loc_data["start_room_x"], loc_data["start_room_y"], 0)
 		start_room_found = False
 	else:
-		log.v("Detected grind location")
+		log.i("Detected grind location")
 
 	output_root = {
 		FOERR_JSON_KEY_API_VERSION: JSON_API_VERSION,
@@ -308,7 +308,7 @@ def translate_rooms(log: Log, output_id: str, input_filename: str, output_filena
 					# solid + platform/stairs/ladder will also trigger a warning.
 					# note: this happens a fair number of times in Remains, and it appears to just display a normal
 					# (full-height) background then.
-					log.i(err_prefix + "height flag defined, but no solid found, skipping height flag")
+					log.v(err_prefix + "height flag defined, but no solid found, skipping height flag")
 					this_skip_height_flags = True
 
 				for character in grid_elem[1:]:
@@ -330,10 +330,10 @@ def translate_rooms(log: Log, output_id: str, input_filename: str, output_filena
 							# note: this appears a few times in Remains rooms and seems to be a mistake
 							# it makes no sense to encode liquid on a full-sized cell.
 							# Sewers/Canterlot are special cases as they have a map-wide liquid level.
-							log.i(err_prefix + "liquid defined for full-sized cell containing a solid, skipping liquid")
+							log.v(err_prefix + "liquid defined for full-sized cell containing a solid, skipping liquid")
 							continue
 						if liquid_level is not None and liquid_level >= ROOM_HEIGHT_WITH_BORDER - y:
-							log.i(err_prefix + "liquid defined, but room-wide liquid level is already " + str(liquid_level) + ", skipping cell liquid")
+							log.v(err_prefix + "liquid defined, but room-wide liquid level is already " + str(liquid_level) + ", skipping cell liquid")
 							continue
 						this_liquid = True
 						this_cell_symbols += room_liquid_symbol # swap '*' for the correct liquid type
@@ -376,7 +376,7 @@ def translate_rooms(log: Log, output_id: str, input_filename: str, output_filena
 									# is displayed on top of a solid, and the cell works like a solid would.
 									# this makes no sense - if it behaves like a solid, then it should just display a
 									# solid. displaying a platform instead might confuse the player.
-									log.i(err_prefix + "platform found ('" + character + "'), but a solid is already defined for cell, skipping platform")
+									log.v(err_prefix + "platform found ('" + character + "'), but a solid is already defined for cell, skipping platform")
 									continue
 								if this_stairs:
 									log.w(err_prefix + "platform found ('" + character + "'), but stairs are already defined for cell, skipping platform")
@@ -607,7 +607,7 @@ def get_output_id(log: Log, input_basename: str):
 	else:
 		msg = "Location name \"" + input_basename + "\" not translated, skipping"
 		if input_basename in ["z_shablon", "rooms2"]:
-			log.i(msg)
+			log.v(msg)
 		else:
 			log.w(msg)
 
@@ -713,7 +713,7 @@ def get_alldata_data(log: Log, alldata_path: str):
 		layer = back_node.attrib.get("s")
 		if layer is None:
 			# for some reason some objs don't have layer attribute - defaults to 0
-			log.i("AllData <back/> id=\"" + back_id + "\" is missing \"s\" attribute, assuming " + str(UNDEFINED_LAYER_NUMBER))
+			log.v("AllData <back/> id=\"" + back_id + "\" is missing \"s\" attribute, assuming " + str(UNDEFINED_LAYER_NUMBER))
 			layer = UNDEFINED_LAYER_NUMBER
 
 		# note: we can also get obj size in cells from this node (x2, y2 attributes), if it's ever needed
@@ -847,4 +847,4 @@ if __name__ == "__main__":
 			total_max_cell_length = translate_rooms(log, output_id, args.input, output_filename, loc_data[input_basename], obj_data, args.pad, symbol_maps, mat_data)
 
 	if args.pad is None:
-		log.v("Max cell size was " + str(total_max_cell_length))
+		log.i("Max cell size was " + str(total_max_cell_length))
