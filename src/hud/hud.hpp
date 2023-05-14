@@ -27,14 +27,6 @@ constexpr uint FONT_H3 = 18;
 constexpr uint FONT_H2 = 23;
 constexpr uint FONT_H1 = 40;
 
-/**
- * Returns the vertical offset used for centering text.
- * The return value should be added to text Y coordinate.
- */
-inline float getFontVOffset(float guiScale, uint fontSize)
-{
-	return std::round(guiScale * fontSize / -4);
-}
-
+float getFontVOffset(uint fontSize);
 sf::Vector2f calculateGuiAwarePoint(sf::Vector2f point);
 float calculateGuiAwareScalar(float value);

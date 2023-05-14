@@ -87,8 +87,7 @@ void Slider::handleSettingsChange()
 
 	this->sliderOutline.setOutlineColor(DIM_COLOR(SettingsManager::hudColor, SLIDER_COLOR_DIM_FACTOR));
 
-	this->currValueText.setPosition(std::round(SLIDER_TEXT_X * SettingsManager::guiScale),
-									getFontVOffset(SettingsManager::guiScale, FONT_H3));
+	this->currValueText.setPosition(calculateGuiAwarePoint({ SLIDER_TEXT_X, getFontVOffset(FONT_H3) }));
 
 	this->currValueText.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
 	this->currValueText.setFillColor(SettingsManager::hudColor);

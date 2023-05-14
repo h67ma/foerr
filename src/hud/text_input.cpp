@@ -161,8 +161,8 @@ void TextInput::handleSettingsChange()
 	this->cursor.setFillColor(SettingsManager::hudColor);
 
 	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * this->fontSize));
-	this->text.setPosition(TEXT_INPUT_PADDING,
-						   TEXT_INPUT_PADDING + getFontVOffset(SettingsManager::guiScale, this->fontSize));
+	this->text.setPosition(calculateGuiAwarePoint({ TEXT_INPUT_PADDING,
+													TEXT_INPUT_PADDING + getFontVOffset(this->fontSize) }));
 	this->text.setFillColor(SettingsManager::hudColor);
 	
 	this->updateCursorPosition();
