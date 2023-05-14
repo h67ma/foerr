@@ -16,6 +16,11 @@
 #define PLAYER_NEW_ROOM_OFFSET_V_TOP 40
 #define PLAYER_NEW_ROOM_OFFSET_V_BOTTOM 80 // platform jump
 
+constexpr uint ROOM_BORDER_LEFT_X = 0;
+constexpr uint ROOM_BORDER_RIGHT_X = ROOM_WIDTH_WITH_BORDER - 1;
+constexpr uint ROOM_BORDER_TOP_Y = 0;
+constexpr uint ROOM_BORDER_BOTTOM_Y = ROOM_HEIGHT_WITH_BORDER - 1;
+
 Location::Location(const std::string &id, Player &player) : id(id), player(player)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
@@ -278,9 +283,9 @@ bool Location::validateRoomGeometry(const std::shared_ptr<Room> room, HashableVe
 	{
 		for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 		{
-			if (room->isCellCollider(0, y) != roomLeft->isCellCollider(ROOM_WIDTH_WITH_BORDER - 1, y))
+			if (room->isCellCollider(ROOM_BORDER_LEFT_X, y) != roomLeft->isCellCollider(ROOM_BORDER_RIGHT_X, y))
 			{
-				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, 0, y);
+				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, ROOM_BORDER_LEFT_X, y);
 				return false;
 			}
 		}
@@ -290,10 +295,10 @@ bool Location::validateRoomGeometry(const std::shared_ptr<Room> room, HashableVe
 	{
 		for (uint y = 0; y < ROOM_HEIGHT_WITH_BORDER; y++)
 		{
-			if (room->isCellCollider(ROOM_WIDTH_WITH_BORDER - 1, y) != roomRight->isCellCollider(0, y))
+			if (room->isCellCollider(ROOM_BORDER_RIGHT_X, y) != roomRight->isCellCollider(ROOM_BORDER_LEFT_X, y))
 			{
 				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z,
-					   ROOM_WIDTH_WITH_BORDER - 1, y);
+					   ROOM_BORDER_RIGHT_X, y);
 				return false;
 			}
 		}
@@ -303,9 +308,9 @@ bool Location::validateRoomGeometry(const std::shared_ptr<Room> room, HashableVe
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			if (room->isCellCollider(x, 0) != roomUp->isCellCollider(x, ROOM_HEIGHT_WITH_BORDER - 1))
+			if (room->isCellCollider(x, ROOM_BORDER_TOP_Y) != roomUp->isCellCollider(x, ROOM_BORDER_BOTTOM_Y))
 			{
-				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, x, 0);
+				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z, x, ROOM_BORDER_TOP_Y);
 				return false;
 			}
 		}
@@ -315,10 +320,10 @@ bool Location::validateRoomGeometry(const std::shared_ptr<Room> room, HashableVe
 	{
 		for (uint x = 0; x < ROOM_WIDTH_WITH_BORDER; x++)
 		{
-			if (room->isCellCollider(x, ROOM_HEIGHT_WITH_BORDER - 1) != roomDown->isCellCollider(x, 0))
+			if (room->isCellCollider(x, ROOM_BORDER_BOTTOM_Y) != roomDown->isCellCollider(x, ROOM_BORDER_TOP_Y))
 			{
 				Log::e(STR_ROOM_GEOMETRY_VAL_FAIL, roomCoords.x, roomCoords.y, roomCoords.z,
-					   x, ROOM_HEIGHT_WITH_BORDER - 1);
+					   x, ROOM_BORDER_BOTTOM_Y);
 				return false;
 			}
 		}
