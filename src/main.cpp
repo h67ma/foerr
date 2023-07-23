@@ -93,15 +93,14 @@ int main()
 
 	FpsMeter fpsMeter(*resManager.getFont(FONT_NORMAL), window.getSize());
 
-	CursorManager cursorMgr;
-	if (!cursorMgr.loadCursors())
+	if (!CursorManager::loadCursors())
 	{
 		Log::e(STR_CURSOR_LOAD_FAIL);
 		window.close();
 		exit(1);
 	}
 
-	cursorMgr.setCursor(window, POINTER);
+	CursorManager::setCursor(window, POINTER);
 
 	Campaign campaign(resManager);
 	PipBuck pipBuck(resManager, campaign, gameState);
@@ -311,8 +310,6 @@ int main()
 
 
 	// TODO remove all comments below
-
-	// TODO delet this: howto change cursor type: cursorMgr.setCursor(window, CROSSHAIR_WHITE);
 
 
 	// initial size

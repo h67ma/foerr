@@ -6,6 +6,7 @@
 #define STR_CURSOR_LOAD_IMG_ERR "Error loading custom cursor image resource (%s), fallback cursor will be used."
 #define STR_CURSOR_LOAD_PIXELS_ERR "Error loading image data (%s), fallback cursor will be used."
 #define STR_CURSOR_LOAD_FAIL "Error loading cursors."
+#define STR_CURSOR_SET_FAIL "Error setting cursor."
 #define STR_LOAD_FAIL "Cannot load resource file (%s)"
 #define STR_FONT_LOAD_FAIL "Error loading font %s."
 #define STR_LOAD_CORE_FAIL "Error loading core resources."
