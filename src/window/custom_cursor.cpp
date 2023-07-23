@@ -21,7 +21,7 @@ CustomCursor::CustomCursor(const std::string &path, sf::Vector2u hotPoint, sf::C
 bool CustomCursor::load()
 {
 	if (!SettingsManager::preferCustomCursor)
-		return this->cursor.loadFromSystem(this->fallbackCursor);
+		return this->loadFromSystem(this->fallbackCursor);
 
 	sf::Image img;
 	bool loadSucc;
@@ -29,19 +29,14 @@ bool CustomCursor::load()
 	loadSucc = img.loadFromFile(this->path);
 	if (!loadSucc) {
 		Log::w(STR_CURSOR_LOAD_IMG_ERR, this->path.c_str());
-		return this->cursor.loadFromSystem(this->fallbackCursor);
+		return this->loadFromSystem(this->fallbackCursor);
 	}
 
-	loadSucc = this->cursor.loadFromPixels(img.getPixelsPtr(), img.getSize(), this->hotPoint);
+	loadSucc = this->loadFromPixels(img.getPixelsPtr(), img.getSize(), this->hotPoint);
 	if (!loadSucc) {
 		Log::w(STR_CURSOR_LOAD_PIXELS_ERR, this->path.c_str());
-		return this->cursor.loadFromSystem(this->fallbackCursor);
+		return this->loadFromSystem(this->fallbackCursor);
 	}
 
 	return true;
-}
-
-const sf::Cursor& CustomCursor::getCursor() const
-{
-	return this->cursor;
 }

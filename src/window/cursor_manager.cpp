@@ -42,5 +42,5 @@ void CursorManager::setCursor(sf::RenderWindow &window, CursorType type)
 		return;
 	}
 
-	window.setMouseCursor(search->second.getCursor());
+	window.setMouseCursor(search->second);
 }
