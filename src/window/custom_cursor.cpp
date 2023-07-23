@@ -24,16 +24,13 @@ bool CustomCursor::load()
 		return this->loadFromSystem(this->fallbackCursor);
 
 	sf::Image img;
-	bool loadSucc;
 
-	loadSucc = img.loadFromFile(this->path);
-	if (!loadSucc) {
+	if (!img.loadFromFile(this->path)) {
 		Log::w(STR_CURSOR_LOAD_IMG_ERR, this->path.c_str());
 		return this->loadFromSystem(this->fallbackCursor);
 	}
 
-	loadSucc = this->loadFromPixels(img.getPixelsPtr(), img.getSize(), this->hotPoint);
-	if (!loadSucc) {
+	if (!this->loadFromPixels(img.getPixelsPtr(), img.getSize(), this->hotPoint)) {
 		Log::w(STR_CURSOR_LOAD_PIXELS_ERR, this->path.c_str());
 		return this->loadFromSystem(this->fallbackCursor);
 	}
