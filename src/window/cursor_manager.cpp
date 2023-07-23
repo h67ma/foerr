@@ -33,7 +33,7 @@ bool CursorManager::loadCursors()
 	return true;
 }
 
-void CursorManager::setCursor(sf::RenderWindow &window, CursorType type)
+void CursorManager::setCursor(sf::Window &window, CursorType type)
 {
 	auto search = cursors.find(type);
 	if (search == cursors.end())

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Window.hpp>
 
 enum CursorType {
 	POINTER,
@@ -13,5 +13,5 @@ class CursorManager
 {
 	public:
 		static bool loadCursors();
-		static void setCursor(sf::RenderWindow &window, CursorType type);
+		static void setCursor(sf::Window &window, CursorType type);
 };
