@@ -42,8 +42,9 @@ const std::vector<sf::Vector2f> radIndicatorPointPositions {
 	{ 5, 60 },
 };
 
-PipBuck::PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState) :
+PipBuck::PipBuck(ResourceManager &resMgr, CursorManager &cursorMgr, Campaign &campaign, GameState &gameState) :
 	resMgr(resMgr),
+	cursorMgr(cursorMgr),
 	gameState(gameState),
 	campaign(campaign),
 	categories {
@@ -195,8 +196,11 @@ void PipBuck::open(sf::Vector2i mousePos, bool sound)
 	this->handleMouseMove(mousePos);
 
 	this->gameState = STATE_PIPBUCK;
+	this->cursorMgr.setCursor(POINTER);
+
 	if (sound)
 		this->soundOpenClose.play();
+
 	Log::d(STR_GAME_PAUSED);
 }
 
@@ -206,6 +210,10 @@ void PipBuck::open(sf::Vector2i mousePos, bool sound)
 void PipBuck::close()
 {
 	this->gameState = STATE_PLAYING;
+
+	// TODO query campaign and check what the player is actually pointing at and set proper cursor color
+	this->cursorMgr.setCursor(CROSSHAIR_WHITE);
+
 	this->soundOpenClose.play();
 	Log::d(STR_GAME_RESUMED);
 }
@@ -247,6 +255,7 @@ ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 		this->unloadCampaignInfos();
 		this->campaign.unload();
 		this->gameState = STATE_MAINMENU;
+		// no need to set pointer as it's already POINTER in PipBuck
 		return status;
 	}
 

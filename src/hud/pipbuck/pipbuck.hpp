@@ -14,6 +14,7 @@
 #include "../../resources/sprite_resource.hpp"
 #include "../../resources/sound_resource.hpp"
 #include "../configurable_gui_component.hpp"
+#include "../../window/cursor_manager.hpp"
 #include "../buttons/simple_button.hpp"
 #include "../../campaigns/campaign.hpp"
 #include "../hover_manager.hpp"
@@ -45,6 +46,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		ResourceManager &resMgr;
 		Campaign &campaign;
 		HoverManager hoverMgr;
+		CursorManager &cursorMgr;
 		SpriteResource pipBuckSprite;
 		SpriteResource pipBuckScreenRadialGrad; // note: can be generated purely by SFML, but it's hard to get right
 		sf::ConvexShape radIndicator;
@@ -71,7 +73,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		void setAudioVolume();
 
 	public:
-		PipBuck(ResourceManager &resMgr, Campaign &campaign, GameState &gameState);
+		PipBuck(ResourceManager &resMgr, CursorManager &cursorMgr, Campaign &campaign, GameState &gameState);
 		void handleScreenResize(sf::Vector2u windowSize);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();

@@ -93,17 +93,16 @@ int main()
 
 	FpsMeter fpsMeter(*resManager.getFont(FONT_NORMAL), window.getSize());
 
-	if (!CursorManager::loadCursors())
+	CursorManager cursorMgr(window);
+	if (!cursorMgr.loadCursors())
 	{
 		Log::e(STR_CURSOR_LOAD_FAIL);
 		window.close();
 		exit(1);
 	}
 
-	CursorManager::setCursor(window, POINTER);
-
 	Campaign campaign(resManager);
-	PipBuck pipBuck(resManager, campaign, gameState);
+	PipBuck pipBuck(resManager, cursorMgr, campaign, gameState);
 	if (!pipBuck.setup())
 	{
 		Log::e(STR_PIPBUCK_SETUP_FAILED);
@@ -112,7 +111,7 @@ int main()
 	}
 
 	pipBuck.setRadLevel(0.3F); // TODO remove
-	MainMenu mainMenu(resManager, window, campaign, gameState, pipBuck);
+	MainMenu mainMenu(resManager, cursorMgr, window, campaign, gameState, pipBuck);
 
 	DevConsole console(window.getSize(), *resManager.getFont(FONT_FIXED), campaign);
 
@@ -315,6 +314,8 @@ int main()
 	// initial size
 	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 
+	cursorMgr.setCursor(POINTER);
+
 	// autoload campaign
 	if (!SettingsManager::debugAutoloadCampaign.empty())
 	{
@@ -324,6 +325,9 @@ int main()
 			pipBuck.setupCampaignInfos())
 		{
 			gameState = STATE_PLAYING;
+
+			// TODO query campaign to check what the player is actually pointing at and set proper cursor color
+			cursorMgr.setCursor(CROSSHAIR_WHITE);
 		}
 	}
 

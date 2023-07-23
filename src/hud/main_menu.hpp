@@ -9,6 +9,7 @@
 
 #include "../resources/sound_resource.hpp"
 #include "configurable_gui_component.hpp"
+#include "../window/cursor_manager.hpp"
 #include "buttons/simple_button.hpp"
 #include "../campaigns/campaign.hpp"
 #include "pipbuck/pipbuck.hpp"
@@ -25,8 +26,8 @@ class MainMenu : public sf::Drawable, public sf::Transformable, public Configura
 		sf::Text versionText;
 
 	public:
-		MainMenu(ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign, GameState &gameState,
-				 PipBuck &pipBuck);
+		MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::RenderWindow &window, Campaign &campaign,
+				 GameState &gameState, PipBuck &pipBuck);
 		void handleLeftClick(sf::Vector2i clickPos);
 		void handleMouseMove(sf::Vector2i mousePos);
 		void handleScreenResize(sf::Vector2u newSize);

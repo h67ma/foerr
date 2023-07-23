@@ -6,10 +6,10 @@
 #include "git_version.h"
 #include "log.hpp"
 
-MainMenu::MainMenu(ResourceManager &resMgr, sf::RenderWindow &window, Campaign &campaign,
+MainMenu::MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::RenderWindow &window, Campaign &campaign,
 				   GameState &gameState, PipBuck &pipBuck) :
 	buttons({
-		{ BTN_NORMAL, resMgr, { 100, 100 }, STR_CONTINUE, [&resMgr, &campaign, &gameState, &window,
+		{ BTN_NORMAL, resMgr, { 100, 100 }, STR_CONTINUE, [&resMgr, &cursorMgr, &campaign, &gameState, &window,
 														   &pipBuck](){
 			// TODO some kind of campaign select
 
@@ -33,6 +33,9 @@ MainMenu::MainMenu(ResourceManager &resMgr, sf::RenderWindow &window, Campaign &
 			}
 
 			gameState = STATE_PLAYING;
+
+			// TODO query campaign to check what the player is actually pointing at and set proper cursor color
+			cursorMgr.setCursor(CROSSHAIR_WHITE);
 		}},
 		{ BTN_NORMAL, resMgr, { 100, 150 }, STR_QUIT_GAME, [&window](){
 			Log::d(STR_SHUTTING_DOWN);

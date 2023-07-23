@@ -1,6 +1,10 @@
 #pragma once
 
+#include <unordered_map>
+
 #include <SFML/Window/Window.hpp>
+
+#include "custom_cursor.hpp"
 
 enum CursorType {
 	POINTER,
@@ -11,7 +15,12 @@ enum CursorType {
 
 class CursorManager
 {
+	private:
+		std::unordered_map<CursorType, CustomCursor> cursors;
+		sf::Window &window;
+
 	public:
-		static bool loadCursors();
-		static void setCursor(sf::Window &window, CursorType type);
+		explicit CursorManager(sf::Window &window);
+		bool loadCursors();
+		void setCursor(CursorType type);
 };

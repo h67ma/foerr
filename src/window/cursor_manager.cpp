@@ -2,14 +2,16 @@
 
 #include <SFML/Window/Cursor.hpp>
 
-#include <unordered_map>
-#include <string>
-
-#include "custom_cursor.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-std::unordered_map<CursorType, CustomCursor> cursors;
+CursorManager::CursorManager(sf::Window &window) : window(window)
+{
+	this->cursors.try_emplace(POINTER, PATH_CURSOR_ARROW, sf::Vector2u(1, 1), sf::Cursor::Arrow);
+	this->cursors.try_emplace(CROSSHAIR_WHITE, PATH_CURSOR_CROSS_WHITE, sf::Vector2u(13, 13), sf::Cursor::Cross);
+	this->cursors.try_emplace(CROSSHAIR_YELLOW, PATH_CURSOR_CROSS_YELLOW, sf::Vector2u(13, 13), sf::Cursor::Cross);
+	this->cursors.try_emplace(CROSSHAIR_RED, PATH_CURSOR_CROSS_RED, sf::Vector2u(13, 13), sf::Cursor::Cross);
+}
 
 /**
  * Loads all cursors.
@@ -19,12 +21,7 @@ std::unordered_map<CursorType, CustomCursor> cursors;
  */
 bool CursorManager::loadCursors()
 {
-	cursors.try_emplace(POINTER, PATH_CURSOR_ARROW, sf::Vector2u(1, 1), sf::Cursor::Arrow);
-	cursors.try_emplace(CROSSHAIR_WHITE, PATH_CURSOR_CROSS_WHITE, sf::Vector2u(13, 13), sf::Cursor::Cross);
-	cursors.try_emplace(CROSSHAIR_YELLOW, PATH_CURSOR_CROSS_YELLOW, sf::Vector2u(13, 13), sf::Cursor::Cross);
-	cursors.try_emplace(CROSSHAIR_RED, PATH_CURSOR_CROSS_RED, sf::Vector2u(13, 13), sf::Cursor::Cross);
-
-	for (auto &cursor : cursors)
+	for (auto &cursor : this->cursors)
 	{
 		if (!cursor.second.load())
 			return false;
@@ -33,14 +30,14 @@ bool CursorManager::loadCursors()
 	return true;
 }
 
-void CursorManager::setCursor(sf::Window &window, CursorType type)
+void CursorManager::setCursor(CursorType type)
 {
-	auto search = cursors.find(type);
-	if (search == cursors.end())
+	auto search = this->cursors.find(type);
+	if (search == this->cursors.end())
 	{
-		Log::w(STR_IDX_OUTTA_BOUNDS);
+		Log::w(STR_CURSOR_SET_FAIL);
 		return;
 	}
 
-	window.setMouseCursor(search->second);
+	this->window.setMouseCursor(search->second);
 }
