@@ -64,6 +64,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		GameState &gameState;
 		bool changeCategory(PipBuckCategoryType categoryType);
 		static double getSmoothNoise(double time);
+		void updateCampaignInfos();
 		void setScreenTint();
 		void setupRadIndicator();
 		void setRadIndicatorScale();
@@ -71,6 +72,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		void setScreenBackgroundScale();
 		void setGuiScale();
 		void setAudioVolume();
+		void setRadLevel(float rads);
 
 	public:
 		PipBuck(ResourceManager &resMgr, CursorManager &cursorMgr, Campaign &campaign, GameState &gameState);
@@ -84,7 +86,6 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		bool switchToPage(PipBuckPageType pageType, sf::Vector2i mousePos);
 		void close();
 		bool setup();
-		void setRadLevel(float rads);
 		void tick();
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

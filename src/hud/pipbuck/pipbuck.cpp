@@ -193,6 +193,8 @@ void PipBuck::handleScreenResize(sf::Vector2u windowSize)
  */
 void PipBuck::open(sf::Vector2i mousePos, bool sound)
 {
+	this->updateCampaignInfos();
+
 	this->handleMouseMove(mousePos);
 
 	this->gameState = STATE_PIPBUCK;
@@ -328,6 +330,14 @@ void PipBuck::unloadCampaignInfos()
 	{
 		cat.second.unloadCampaignInfos();
 	}
+}
+
+/**
+ * Updates campaign data displayed in PipBuck. Should be called when PipBuck is opened.
+ */
+void PipBuck::updateCampaignInfos()
+{
+	this->setRadLevel(0.3F); // TODO read this (and other things too) from campaign->player
 }
 
 /**

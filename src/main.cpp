@@ -110,7 +110,6 @@ int main()
 		exit(1);
 	}
 
-	pipBuck.setRadLevel(0.3F); // TODO remove
 	MainMenu mainMenu(resManager, cursorMgr, window, campaign, gameState, pipBuck);
 
 	DevConsole console(window.getSize(), *resManager.getFont(FONT_FIXED), campaign);
