@@ -40,13 +40,6 @@
 
 #define DEFAULT_AA 8
 
-#ifdef __linux__
-	// currently custom cursor (with color support) is broken on linux
-#define CUSTOM_CURSOR_DEF false
-#else
-#define CUSTOM_CURSOR_DEF true
-#endif /* __linux__ */
-
 std::string SettingsManager::gameRootDir;
 std::string SettingsManager::saveDir;
 
@@ -103,7 +96,7 @@ void SettingsManager::setup()
 
 	///// hud /////
 
-	SETT_SETUP(LogicSetting, preferCustomCursor, CUSTOM_CURSOR_DEF);
+	SETT_SETUP(LogicSetting, preferCustomCursor, true);
 	SETT_SETUP(LogicSetting, showFpsCounter, true);
 	SETT_SETUP_ENUM_SCREENCORNER(logAnchor, CORNER_TOP_RIGHT);
 	SETT_SETUP_ENUM_SCREENCORNER(fpsAnchor, CORNER_TOP_LEFT);

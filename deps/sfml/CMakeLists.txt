@@ -2,8 +2,8 @@ include(FetchContent)
 
 FetchContent_Declare(
 	sfml
-	URL https://github.com/SFML/SFML/archive/refs/tags/2.5.1.zip
-	URL_HASH SHA256=6124B5FE3D96E7F681F587E2D5B456CD0EC460393DFE46691F1933D6BDE0640B
+	URL https://github.com/SFML/SFML/archive/refs/tags/2.6.0.zip
+	URL_HASH SHA256=cf9535356ab37067e871270fbc5ae19e4102b658d6ea96993e6c9452ddbf99b3
 )
 
 set(SFML_BUILD_NETWORK OFF)
@@ -14,9 +14,5 @@ set(SFML_BUILD_TEST_SUITE OFF)
 
 message(STATUS "Fetching SFML...")
 FetchContent_MakeAvailable(sfml)
-
-# workaround, will be fixed in 2.6.0
-# that vorbis warning will also be fixed btw
-target_compile_definitions(sfml-audio PRIVATE _HAS_AUTO_PTR_ETC)
 
 # TODO copy openal.dll from sfml-src/extlibs/bin/{x64/x86} to root dir or somehow add it to PATH
