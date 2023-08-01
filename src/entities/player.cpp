@@ -9,7 +9,7 @@
 // no worries, float can handle precision at this order of magnitude
 constexpr float MAX_VELOCITY = 0.0004;
 constexpr float MAX_VELOCITY_SPRINT = 0.0008;
-constexpr float VELOCITY_INCREMENT = 0.000000004;
+constexpr float PLAYER_ACCELERATION = 0.000000004;
 
 Player::Player(ResourceManager &resMgr) :
 	// TODO actual animation
@@ -39,12 +39,22 @@ void Player::nextFrame()
 
 /**
  * Updates Player velocity based on previous velocity and currently pressed keys.
+ *
+ * Velocity should be updated two times on every frame, like so:
+ *	velocity += deltaTime * acc / 2
+ *	position.x += old.x * speed * deltaTime // etc for .y
+ *	velocity += deltaTime * acc / 2
+ * See https://www.youtube.com/watch?v=yGhfUcPjXuE for a nice explanation.
+ *
+ * Calling this twice is not the best solution, but it's not that much better if we calculate deltaV here and change
+ * velocity in the caller, as we also have to check for speed limit, and also there's sprint, so it ends up being messy
+ * and not that much more efficient. Let's stick with current approach for now as at least it's more readable.
  */
 void Player::updateVelocity(uint lastFrameDurationUs)
 {
 	float maxHVelocity = Keymap::isSprintHeld() ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
 
-	float velocityIncrement = lastFrameDurationUs * VELOCITY_INCREMENT;
+	float velocityIncrement = lastFrameDurationUs * PLAYER_ACCELERATION / 2;
 
 	if (Keymap::isLeftHeld())
 	{

@@ -541,7 +541,7 @@ void Room::deinit()
  */
 void Room::tick(uint lastFrameDurationUs)
 {
-	// first calculate new object velocity
+	// calculate object velocity in the middle of the frame
 	this->player.updateVelocity(lastFrameDurationUs);
 
 	// TODO with this simple collision detection method, there's a lower limit on FPS the game should run on in order
@@ -648,6 +648,9 @@ void Room::tick(uint lastFrameDurationUs)
 	this->player.setPosition(objCollider.left + PLAYER_W2, objCollider.top + PLAYER_H2);
 
 	// TODO also check collisions with other objects (doors, bullets, characters, etc.)
+
+	// remaining velocity update
+	this->player.updateVelocity(lastFrameDurationUs);
 }
 
 /**
