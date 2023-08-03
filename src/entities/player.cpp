@@ -59,8 +59,9 @@ void Player::updateVelocity(uint lastFrameDurationUs)
 	if (Keymap::isLeftHeld())
 	{
 		this->velocity.x -= velocityIncrement;
-		if (this->velocity.x < -maxHVelocity)
-			this->velocity.x = -maxHVelocity;
+
+		// cap velocity
+		this->velocity.x = std::max(-maxHVelocity, this->velocity.x);
 
 		if (this->facingRight)
 		{
@@ -71,8 +72,9 @@ void Player::updateVelocity(uint lastFrameDurationUs)
 	else if (Keymap::isRightHeld())
 	{
 		this->velocity.x += velocityIncrement;
-		if (this->velocity.x > maxHVelocity)
-			this->velocity.x = maxHVelocity;
+
+		// cap velocity
+		this->velocity.x = std::min(maxHVelocity, this->velocity.x);
 
 		if (!this->facingRight)
 		{
@@ -91,14 +93,16 @@ void Player::updateVelocity(uint lastFrameDurationUs)
 	if (Keymap::isUpHeld())
 	{
 		this->velocity.y -= velocityIncrement;
-		if (this->velocity.y < -MAX_VELOCITY)
-			this->velocity.y = -MAX_VELOCITY;
+
+		// cap velocity
+		this->velocity.y = std::max(-MAX_VELOCITY, this->velocity.y);
 	}
 	else if (Keymap::isDownHeld())
 	{
 		this->velocity.y += velocityIncrement;
-		if (this->velocity.y > MAX_VELOCITY)
-			this->velocity.y = MAX_VELOCITY;
+
+		// cap velocity
+		this->velocity.y = std::min(MAX_VELOCITY, this->velocity.y);
 	}
 	else if (std::abs(this->velocity.y) < velocityIncrement)
 		this->velocity.y = 0;
