@@ -54,11 +54,12 @@ void Player::updateVelocity(uint lastFrameDurationUs)
 {
 	float maxHVelocity = Keymap::isSprintHeld() ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
 
-	float velocityIncrement = lastFrameDurationUs * PLAYER_ACCELERATION / 2;
+	// a = dv/dt -> v = at (/2, see above)
+	float deltaV = lastFrameDurationUs * PLAYER_ACCELERATION / 2;
 
 	if (Keymap::isLeftHeld())
 	{
-		this->velocity.x -= velocityIncrement;
+		this->velocity.x -= deltaV;
 
 		// cap velocity
 		this->velocity.x = std::max(-maxHVelocity, this->velocity.x);
@@ -71,7 +72,7 @@ void Player::updateVelocity(uint lastFrameDurationUs)
 	}
 	else if (Keymap::isRightHeld())
 	{
-		this->velocity.x += velocityIncrement;
+		this->velocity.x += deltaV;
 
 		// cap velocity
 		this->velocity.x = std::min(maxHVelocity, this->velocity.x);
@@ -82,34 +83,34 @@ void Player::updateVelocity(uint lastFrameDurationUs)
 			this->facingRight = true;
 		}
 	}
-	else if (std::abs(this->velocity.x) < velocityIncrement)
+	else if (std::abs(this->velocity.x) < deltaV)
 		this->velocity.x = 0;
 	else if (this->velocity.x > 0)
-		this->velocity.x -= velocityIncrement;
+		this->velocity.x -= deltaV;
 	else if (this->velocity.x < 0)
-		this->velocity.x += velocityIncrement;
+		this->velocity.x += deltaV;
 
 	// X & Y axes can be controlled independently
 	if (Keymap::isUpHeld())
 	{
-		this->velocity.y -= velocityIncrement;
+		this->velocity.y -= deltaV;
 
 		// cap velocity
 		this->velocity.y = std::max(-MAX_VELOCITY, this->velocity.y);
 	}
 	else if (Keymap::isDownHeld())
 	{
-		this->velocity.y += velocityIncrement;
+		this->velocity.y += deltaV;
 
 		// cap velocity
 		this->velocity.y = std::min(MAX_VELOCITY, this->velocity.y);
 	}
-	else if (std::abs(this->velocity.y) < velocityIncrement)
+	else if (std::abs(this->velocity.y) < deltaV)
 		this->velocity.y = 0;
 	else if (this->velocity.y > 0)
-		this->velocity.y -= velocityIncrement;
+		this->velocity.y -= deltaV;
 	else if (this->velocity.y < 0)
-		this->velocity.y += velocityIncrement;
+		this->velocity.y += deltaV;
 }
 
 /**
