@@ -561,7 +561,7 @@ void Room::tick(uint lastFrameDurationUs)
 	// nested for loop). the clusterization algo can generate suboptimal results as long as it's fast.
 
 
-	// object position is counted from center - subtract its halfed size to get top left corner
+	// object position is counted from center - subtract its halved size to get top left corner
 	float playerX = this->player.getPosition().x - PLAYER_W2;
 	float playerY = this->player.getPosition().y - PLAYER_H2;
 
