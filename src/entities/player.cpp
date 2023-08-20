@@ -146,7 +146,7 @@ void Player::updateVelocity(uint lastFrameDurationUs)
 			this->velocity.x += deltaV; // slow down left
 
 		// fly up/down (X & Y axes controlled independently)
-		if (Keymap::isUpHeld())
+		if (Keymap::isUpHeld() || Keymap::isJumpHeld())
 		{
 			this->velocity.y -= deltaV;
 
