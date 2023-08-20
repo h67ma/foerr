@@ -43,6 +43,7 @@ class Player : public sf::Drawable, public sf::Transformable
 		void updateVelocity(uint lastFrameDurationUs);
 		void stopVertical();
 		void stopHorizontal();
+		void debugToggleFlight();
 		const sf::Vector2f& getVelocity() const;
 		void debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const;
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

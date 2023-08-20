@@ -185,6 +185,14 @@ void Player::stopHorizontal()
 	this->velocity.x = 0;
 }
 
+void Player::debugToggleFlight()
+{
+	if (this->movementMode == MOVM_FLY)
+		this->movementMode = MOVM_WALK; // TODO? this could cause some glitches if e.g. character is underwater
+	else
+		this->movementMode = MOVM_FLY;
+}
+
 const sf::Vector2f& Player::getVelocity() const
 {
 	return this->velocity;

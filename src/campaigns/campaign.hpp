@@ -47,6 +47,7 @@ class Campaign : public sf::Drawable
 		std::string getTitle() const;
 		std::string getDescription() const;
 		std::string getWorldMapBackground() const;
+		Player& getPlayer();
 		const std::unordered_map<std::string, std::shared_ptr<Location>>& getLocations() const;
 		const std::shared_ptr<Location> getCurrentLocation() const;
 		const std::shared_ptr<Location> getLocation(const std::string &locId) const;

@@ -14,6 +14,11 @@
 #define MAX_INPUT_CHARS 80
 
 
+static void cmdFly(struct dev_console_cmd_params params)
+{
+	params.campaign.getPlayer().debugToggleFlight();
+}
+
 static void cmdGoto(struct dev_console_cmd_params params)
 {
 	// accepts 2 or 3 arguments (third defaults to 0)
@@ -66,6 +71,7 @@ static void cmdWhere(struct dev_console_cmd_params params)
 const std::map<std::string, struct dev_console_cmd> DevConsole::commands {
 	{ "box", { cmdToggleBoundingBoxes, STR_CMD_BOX } },
 	{ "boxen", { cmdToggleBoundingBoxes, STR_CMD_BOX } },
+	{ "fly", { cmdFly, STR_CMD_FLY } },
 	{ "goto", { cmdGoto, STR_CMD_GOTO, "1 2 [3]" } },
 	{ "nav", { cmdToggleDebugNav, STR_CMD_NAV } },
 	{ "port", { cmdTeleport, STR_CMD_PORT } },

@@ -170,6 +170,11 @@ std::string Campaign::getWorldMapBackground() const
 	return this->worldMapBackgroundId;
 }
 
+Player& Campaign::getPlayer()
+{
+	return this->player;
+}
+
 const std::unordered_map<std::string, std::shared_ptr<Location>>& Campaign::getLocations() const
 {
 	return this->locations;
