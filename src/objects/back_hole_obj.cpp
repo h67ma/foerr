@@ -25,12 +25,12 @@ bool BackHoleObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResourc
 	else if (variantIdx >= this->variantsCnt)
 		return false;
 
-	mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS, objId.c_str(), variantIdx,
+	mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
 														  TXT_MAIN_SUFFIX)));
 	mainSpriteRes.setPosition(this->offset);
 	mainSpriteRes.setColor(BACK_OBJ_COLOR);
 
-	holeSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS, objId.c_str(), variantIdx,
+	holeSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
 														  TXT_HOLE_SUFFIX)));
 	holeSpriteRes.setPosition(this->offset);
 

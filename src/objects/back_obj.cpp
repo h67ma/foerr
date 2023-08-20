@@ -39,7 +39,7 @@ bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &l
 
 	if (variantIdx < this->mainCnt)
 	{
-		mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS, objId.c_str(), variantIdx,
+		mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
 															  TXT_MAIN_SUFFIX)));
 		mainSpriteRes.setPosition(this->offset);
 		mainSpriteRes.setColor(BACK_OBJ_COLOR);
@@ -48,7 +48,7 @@ bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &l
 
 	if (variantIdx < this->lightCnt)
 	{
-		lightSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS, objId.c_str(), variantIdx,
+		lightSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
 															   TXT_LIGHT_SUFFIX)));
 		lightSpriteRes.setPosition(this->offset);
 		gotOne = true;

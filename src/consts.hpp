@@ -26,7 +26,7 @@
 #define PATH_TEXT_MISSING "res/texture/missing.png"
 #define PATH_BACKGROUNDS_FULL "res/texture/full_backgrounds"
 #define PATH_TEXT_CELLS "res/texture/cells"
-#define PATH_TEXT_OBJS "res/texture/objects"
+#define PATH_TEXT_OBJS_BACK "res/texture/objects_back"
 #define PATH_DIR_ROOMS "rooms"
 #define FILENAME_INDEX "_index.json"
 
