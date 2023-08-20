@@ -7,7 +7,7 @@ from consts import *
 from convert_data import *
 
 
-def import_objs(log: Log, path_in: str, path_out: str, objs_out_path: str):
+def import_back_objs(log: Log, path_in: str, path_res: str):
 	"""
 	Lists the directory containing exported object textures.
 
@@ -25,11 +25,17 @@ def import_objs(log: Log, path_in: str, path_out: str, objs_out_path: str):
 		FOERR_JSON_KEY_VERSION: 1,
 	}
 
-	os.makedirs(path_out, exist_ok=True)
+	path_out_objs_back = os.path.join(path_res, PATH_OBJS_BACK)
+	objs_json_path = os.path.join(path_res, FILE_OBJS_JSON)
+	os.makedirs(path_out_objs_back, exist_ok=True)
+
 	out_objs_node = {}
 	out_holes_node = {}
 
 	for obj_id, obj_node in grouped_objs.items():
+		if obj_id[:5] != "back_":
+			continue
+
 		out_obj_node = {}
 
 		if obj_id not in obj_offsets:
@@ -60,7 +66,7 @@ def import_objs(log: Log, path_in: str, path_out: str, objs_out_path: str):
 			for obj_type_node in obj_node.values():
 				for txt_variant in obj_type_node:
 					item_in_path = os.path.join(path_in, txt_variant[0] + ".png")
-					item_out_path = os.path.join(path_out, txt_variant[1] + ".png")
+					item_out_path = os.path.join(path_out_objs_back, txt_variant[1] + ".png")
 
 					if os.path.exists(item_out_path):
 						log.v(item_out_path + " already exists, skipping")
@@ -76,18 +82,17 @@ def import_objs(log: Log, path_in: str, path_out: str, objs_out_path: str):
 	# sort output based on output filename
 	out_meta_root[FOERR_JSON_KEY_BACK_OBJS] = {key: val for key, val in sorted(out_objs_node.items(), key = lambda item: item[0])}
 	out_meta_root[FOERR_JSON_KEY_BACK_HOLES] = {key: val for key, val in sorted(out_holes_node.items(), key = lambda item: item[0])}
-	write_nicer_json(objs_out_path, out_meta_root)
+	write_nicer_json(objs_json_path, out_meta_root)
 	log.w("Please manually fix trimmed and/or unpadded textures for: \"" + ("\", \"".join(obj_copy_blacklist) + "\"!"))
 
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="A tool for importing object data into objs.json")
 	parser.add_argument("-i", "--input", action="store", required=True, type=str, help=("Path to input dir containing pngs exported from texture1.swf/sprites"))
-	parser.add_argument("-o", "--output", action="store", required=True, type=str, help=("Output directory"))
-	parser.add_argument("-b", "--objs", action="store", required=True, type=str, help=("Output path for objs.json"))
+	parser.add_argument("-r", "--res", action="store", required=True, type=str, help=("Path to output directory (res)"))
 	parser.add_argument("-l", "--log", action="store", type=int, default=3, help=("Log level"))
 	args = parser.parse_args()
 
 	log = Log(args.log)
 
-	import_objs(log, args.input, args.output, args.objs)
+	import_back_objs(log, args.input, args.res)
