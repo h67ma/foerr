@@ -8,7 +8,9 @@
 
 // no worries, float can handle precision at this order of magnitude
 constexpr float MAX_VELOCITY = 0.0004;
+constexpr float MAX_VELOCITY_FALL = 0.0015;
 constexpr float MAX_VELOCITY_SPRINT = 0.0008;
+constexpr float PLAYER_VELOCITY_JUMP = 0.0006;
 constexpr float PLAYER_ACCELERATION = 0.000000004;
 
 Player::Player(ResourceManager &resMgr) :
@@ -52,65 +54,119 @@ void Player::nextFrame()
  */
 void Player::updateVelocity(uint lastFrameDurationUs)
 {
-	float maxHVelocity = Keymap::isSprintHeld() ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
-
 	// a = dv/dt -> v = at (/2, see above)
 	float deltaV = lastFrameDurationUs * PLAYER_ACCELERATION / 2;
 
-	if (Keymap::isLeftHeld())
+	if (this->movementMode == MOVM_WALK)
 	{
-		this->velocity.x -= deltaV;
+		float maxHVelocity = Keymap::isSprintHeld() ? MAX_VELOCITY_SPRINT : MAX_VELOCITY;
+		float deltaVGravity = lastFrameDurationUs * ACCELERATION_GRAVITY / 2;
 
-		// cap velocity
-		this->velocity.x = std::max(-maxHVelocity, this->velocity.x);
-
-		if (this->facingRight)
+		// walk left/right
+		if (Keymap::isLeftHeld())
 		{
-			this->setScale(-1.F, 1.F);
-			this->facingRight = false;
+			this->velocity.x -= deltaV;
+
+			// cap velocity
+			this->velocity.x = std::max(-maxHVelocity, this->velocity.x);
+
+			if (this->facingRight)
+			{
+				this->setScale(-1.F, 1.F);
+				this->facingRight = false;
+			}
+		}
+		else if (Keymap::isRightHeld())
+		{
+			this->velocity.x += deltaV;
+
+			// cap velocity
+			this->velocity.x = std::min(maxHVelocity, this->velocity.x);
+
+			if (!this->facingRight)
+			{
+				this->setScale(1.F, 1.F);
+				this->facingRight = true;
+			}
+		}
+		else if (std::abs(this->velocity.x) < deltaV)
+			this->velocity.x = 0; // round velocity to zero if moving very slowly
+		else if (this->velocity.x > 0)
+			this->velocity.x -= deltaV; // slow down right
+		else if (this->velocity.x < 0)
+			this->velocity.x += deltaV; // slow down left
+
+		// fall/jump
+		if (Keymap::isJumpHeld())
+		{
+			this->velocity.y = -PLAYER_VELOCITY_JUMP;
+		}
+		else
+		{
+			this->velocity.y += deltaVGravity;
+
+			// cap velocity
+			this->velocity.y = std::min(MAX_VELOCITY_FALL, this->velocity.y);
 		}
 	}
-	else if (Keymap::isRightHeld())
+	else if (this->movementMode == MOVM_FLY)
 	{
-		this->velocity.x += deltaV;
-
-		// cap velocity
-		this->velocity.x = std::min(maxHVelocity, this->velocity.x);
-
-		if (!this->facingRight)
+		// fly left/right
+		if (Keymap::isLeftHeld())
 		{
-			this->setScale(1.F, 1.F);
-			this->facingRight = true;
+			this->velocity.x -= deltaV;
+
+			// cap velocity
+			this->velocity.x = std::max(-MAX_VELOCITY, this->velocity.x);
+
+			if (this->facingRight)
+			{
+				this->setScale(-1.F, 1.F);
+				this->facingRight = false;
+			}
 		}
-	}
-	else if (std::abs(this->velocity.x) < deltaV)
-		this->velocity.x = 0;
-	else if (this->velocity.x > 0)
-		this->velocity.x -= deltaV;
-	else if (this->velocity.x < 0)
-		this->velocity.x += deltaV;
+		else if (Keymap::isRightHeld())
+		{
+			this->velocity.x += deltaV;
 
-	// X & Y axes can be controlled independently
-	if (Keymap::isUpHeld())
-	{
-		this->velocity.y -= deltaV;
+			// cap velocity
+			this->velocity.x = std::min(MAX_VELOCITY, this->velocity.x);
 
-		// cap velocity
-		this->velocity.y = std::max(-MAX_VELOCITY, this->velocity.y);
-	}
-	else if (Keymap::isDownHeld())
-	{
-		this->velocity.y += deltaV;
+			if (!this->facingRight)
+			{
+				this->setScale(1.F, 1.F);
+				this->facingRight = true;
+			}
+		}
+		else if (std::abs(this->velocity.x) < deltaV)
+			this->velocity.x = 0; // round velocity to zero if moving very slowly
+		else if (this->velocity.x > 0)
+			this->velocity.x -= deltaV; // slow down right
+		else if (this->velocity.x < 0)
+			this->velocity.x += deltaV; // slow down left
 
-		// cap velocity
-		this->velocity.y = std::min(MAX_VELOCITY, this->velocity.y);
+		// fly up/down (X & Y axes controlled independently)
+		if (Keymap::isUpHeld())
+		{
+			this->velocity.y -= deltaV;
+
+			// cap velocity
+			this->velocity.y = std::max(-MAX_VELOCITY, this->velocity.y);
+		}
+		else if (Keymap::isDownHeld())
+		{
+			this->velocity.y += deltaV;
+
+			// cap velocity
+			this->velocity.y = std::min(MAX_VELOCITY, this->velocity.y);
+		}
+		else if (std::abs(this->velocity.y) < deltaV)
+			this->velocity.y = 0; // round velocity to zero if moving very slowly
+		else if (this->velocity.y > 0)
+			this->velocity.y -= deltaV; // slow down down
+		else if (this->velocity.y < 0)
+			this->velocity.y += deltaV; // slow down up
 	}
-	else if (std::abs(this->velocity.y) < deltaV)
-		this->velocity.y = 0;
-	else if (this->velocity.y > 0)
-		this->velocity.y -= deltaV;
-	else if (this->velocity.y < 0)
-		this->velocity.y += deltaV;
 }
 
 /**

@@ -42,6 +42,7 @@ enum KeyAction
 	ACTION_PLAYER_MOVE_UP,
 	ACTION_PLAYER_MOVE_DOWN,
 	ACTION_PLAYER_SPRINT,
+	ACTION_PLAYER_JUMP,
 
 	ACTION_DEBUG_TOGGLE_CONSOLE,
 	ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD,
@@ -98,6 +99,7 @@ class Keymap
 		static bool upHeld;
 		static bool downHeld;
 		static bool sprintHeld;
+		static bool jumpHeld;
 
 	public:
 		static bool setup();
@@ -113,6 +115,7 @@ class Keymap
 		static bool isUpHeld();
 		static bool isDownHeld();
 		static bool isSprintHeld();
+		static bool isJumpHeld();
 		static void resetToDefault();
 		static void load();
 		static void save();

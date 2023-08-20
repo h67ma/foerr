@@ -6,6 +6,7 @@
 
 #include "../resources/resource_manager.hpp"
 #include "../campaigns/room_cell.hpp"
+#include "physics_entity.hpp"
 #include "../consts.hpp"
 #include "animation.hpp"
 
@@ -34,6 +35,7 @@ class Player : public sf::Drawable, public sf::Transformable
 			PLAYER_W,
 			PLAYER_H
 		};
+		enum MovementMode movementMode = MOVM_WALK;
 
 	public:
 		explicit Player(ResourceManager &resMgr);

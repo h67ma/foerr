@@ -38,6 +38,7 @@ const std::unordered_map<KeyAction, action_def> Keymap::actionsMap {
 	{ ACTION_PLAYER_MOVE_UP, { "player_move_up", "Move up", { sf::Keyboard::W } } },
 	{ ACTION_PLAYER_MOVE_DOWN, { "player_move_down", "Move down", { sf::Keyboard::S } } },
 	{ ACTION_PLAYER_SPRINT, { "player_sprint", "Sprint", { sf::Keyboard::LShift } } },
+	{ ACTION_PLAYER_JUMP, { "player_jump", "Jump", { sf::Keyboard::Space } } },
 	{ ACTION_DEBUG_TOGGLE_CONSOLE, { "debug_toggle_console", "Debug toggle console", { sf::Keyboard::Slash } } },
 	{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, { "debug_repeat_last_console_cmd", "Debug repeat last command",
 											  { sf::Keyboard::Tilde } } },
@@ -173,6 +174,7 @@ bool Keymap::leftHeld = false;
 bool Keymap::upHeld = false;
 bool Keymap::downHeld = false;
 bool Keymap::sprintHeld = false;
+bool Keymap::jumpHeld = false;
 
 /**
  * Initializes the default keymap and internal maps.
@@ -319,6 +321,9 @@ bool Keymap::handleKeyUpDown(enum KeyAction action, bool down)
 		case ACTION_PLAYER_SPRINT:
 			Keymap::sprintHeld = down;
 			return true;
+		case ACTION_PLAYER_JUMP:
+			Keymap::jumpHeld = down;
+			return true;
 		default:
 			return false;
 	}
@@ -347,6 +352,11 @@ bool Keymap::isDownHeld()
 bool Keymap::isSprintHeld()
 {
 	return Keymap::sprintHeld;
+}
+
+bool Keymap::isJumpHeld()
+{
+	return Keymap::jumpHeld;
 }
 
 void Keymap::resetToDefault()
