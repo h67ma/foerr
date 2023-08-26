@@ -788,7 +788,7 @@ if __name__ == "__main__":
 	parser.add_argument("-m", "--materials", action="store", required=True, type=str, help=("Path to materials.json"))
 	parser.add_argument("-o", "--output", action="store", required=False, type=str, help=("Path to output json file, or directory if -a is used"))
 	parser.add_argument("-a", "--all", action="store_true", help=("Translate all files in input dir. If enabled, input/output should be a paths to directories, not files."))
-	parser.add_argument("-p", "--pad", action="store", type=int, help=("Pad each cell to this number of characters to align cells"))
+	parser.add_argument("-p", "--pad", action="store", type=int, help=("Pad each cell to this number of characters to align cells. Leave unspecified to disable padding."))
 	parser.add_argument("-l", "--log", action="store", type=int, default=3, help=("Log level"))
 	args = parser.parse_args()
 
