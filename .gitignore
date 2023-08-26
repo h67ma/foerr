@@ -1,10 +1,15 @@
 *.o
 *.gch
-res
 .vscode
 foerr
-*.json
 build/
 *.log
 *.dll
 .cache
+res/audio/
+res/fonts/
+res/texture/
+*.png
+*.svg
+*.sh
+*.tmp

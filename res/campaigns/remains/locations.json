@@ -1,0 +1,258 @@
+{
+	"api_version": 1,
+	"locations": {
+		"abandoned_stable": {
+			"title": "Abandoned Stable",
+			"description": "Its population died many years ago, and those who remained turned into wild ghouls. Security robots and turrets are especially dangerous there.",
+			"grind": true,
+			"basecamp": false,
+			"rec_lvl": 12,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/abandoned_stable.png",
+			"worldmap_coords": [430, 399],
+			"worldmap_icon_big": true
+		},
+		"bunker": {
+			"title": "Bunker",
+			"description": "Storage bunker of Steel Rangers. Protected better than any other object in the region. Trying to get in here is a real madness.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 24,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/military_base.png",
+			"worldmap_coords": [336, 152],
+			"worldmap_icon_big": false
+		},
+		"canterlot_ruins": {
+			"title": "Canterlot Ruins",
+			"description": "The former capital of Equestria. Now filled with the deadly Pink Cloud and inhabited by various monsters.",
+			"grind": true,
+			"basecamp": false,
+			"rec_lvl": 18,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/canterlot_ruins.png",
+			"worldmap_coords": [87, 60],
+			"worldmap_icon_big": true
+		},
+		"command_post": {
+			"title": "Command Post",
+			"description": "The command post located at the very top, above the cloud barrier. The base commander must be here.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 29,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/command_post.png",
+			"worldmap_coords": [344, 24],
+			"worldmap_icon_big": false
+		},
+		"covertsign": {
+			"title": "Covertsign",
+			"description": "A small settlement sheltering a small group of zebras.",
+			"grind": false,
+			"basecamp": true,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/covertsign.png",
+			"worldmap_coords": [91, 180],
+			"worldmap_icon_big": false
+		},
+		"dsr": {
+			"title": "Department of Special Research",
+			"description": "The brain center of the ManeTec factory, where research and development was previously conducted. The central maneframe is somewhere here.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 7,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/dsr.png",
+			"worldmap_coords": [91, 306],
+			"worldmap_icon_big": false
+		},
+		"enclave_base": {
+			"title": "Enclave Base",
+			"description": "A large building built by the Enclave on top of the mountain. The Enclave did not make any attempts to contact Wasteland inhabitants and, judging by the number of troops at the base, it is unlikely that they came with peaceful intentions.",
+			"grind": true,
+			"basecamp": false,
+			"rec_lvl": 27,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/enclave_base.png",
+			"worldmap_coords": [286, 24],
+			"worldmap_icon_big": true
+		},
+		"enclave_outpost": {
+			"title": "Enclave Outpost",
+			"description": "The gates to the main base.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 27,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/enclave_outpost.png",
+			"worldmap_coords": [286, 81],
+			"worldmap_icon_big": false
+		},
+		"factory": {
+			"title": "Factory",
+			"description": "A partly destroyed ManeTec factory complex, occupied by raiders. Apart from them, you should watch out for automatic defense systems and occasional monsters.",
+			"grind": true,
+			"basecamp": false,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/factory.png",
+			"worldmap_coords": [141, 305],
+			"worldmap_icon_big": true
+		},
+		"falls_springs": {
+			"title": "Falls Springs",
+			"description": "A small settlement in which the slavers are based. Here is the entrance to the Stable 88.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 10,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/falls_springs.png",
+			"worldmap_coords": [370, 409],
+			"worldmap_icon_big": false
+		},
+		"fort_rocks": {
+			"title": "Fort Rocks",
+			"description": "One of the most impregnable fortresses of Equestria. It has powerful artillery and anti-air defense systems.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 30,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/fort_rocks.png",
+			"worldmap_coords": [311, 206],
+			"worldmap_icon_big": false
+		},
+		"gun_workshop": {
+			"title": "Gun Workshop",
+			"description": "The workshop used to produce large-caliber guns. Due to the powerful and still functioning security system this place still hasn't been pillaged.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 25,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/gun_workshop.png",
+			"worldmap_coords": [41, 306],
+			"worldmap_icon_big": false
+		},
+		"hankey_garages": {
+			"title": "Hankey Garages",
+			"description": "Meeting place according to the Mentor's instructions.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 15,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/hankey_garages.png",
+			"worldmap_coords": [224, 253],
+			"worldmap_icon_big": false
+		},
+		"legion_hq": {
+			"title": "Legion Headquarters",
+			"description": "The well-disguised temporary headquarters of the Zebra Legion. According to the good old zebra tradition, path towards it is probably protected with whole lots of mines and traps.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 26,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/legion_hq.png",
+			"worldmap_coords": [478, 321],
+			"worldmap_icon_big": false
+		},
+		"manehattan_ruins": {
+			"title": "Manehattan Ruins",
+			"description": "There are many dangers in the ruins of Manehattan. Here you can often encounter squads of slavers and mercenaries. Also, some time ago reports started coming about groups of the Goddess' alicorns appearing there.",
+			"grind": true,
+			"basecamp": false,
+			"rec_lvl": 15,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/manehattan_ruins.png",
+			"worldmap_coords": [430, 196],
+			"worldmap_icon_big": true
+		},
+		"mas": {
+			"title": "M.A.S. Tower",
+			"description": "A tall, but heavily destroyed skyscraper, in the past - one of the regional offices of the Ministry of Arcane Sciences.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 17,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/mas.png",
+			"worldmap_coords": [492, 195],
+			"worldmap_icon_big": false
+		},
+		"military_base": {
+			"title": "Military Base",
+			"description": "A military base in the past, now - base of the Steel Rangers.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 22,
+			"rooms": "bunker",
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/military_base.png",
+			"worldmap_coords": [251, 174],
+			"worldmap_icon_big": false
+		},
+		"moi": {
+			"title": "Ministry of Image",
+			"description": "The main office of one of the ministries of the Great War epoch - the Ministry of Image.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 20,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/moi.png",
+			"worldmap_coords": [39, 60],
+			"worldmap_icon_big": false
+		},
+		"prancing_pony": {
+			"title": "\"Prancing Pony\" Camp",
+			"description": "One of those rare safe places where you can rest, treat your wounds and replenish supplies.",
+			"grind": false,
+			"basecamp": true,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/prancing_pony.png",
+			"worldmap_coords": [259, 340],
+			"worldmap_icon_big": false
+		},
+		"sewers": {
+			"title": "Sewers",
+			"description": "Sewage tunnels, filled with sludge, toxic and radioactive waste. It is a lair for various monsters, and wild ghouls pose a significant threat. Many passages and rooms are flooded.",
+			"grind": true,
+			"basecamp": false,
+			"rec_lvl": 10,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/sewers.png",
+			"worldmap_coords": [390, 464],
+			"worldmap_icon_big": false
+		},
+		"stable_88_core": {
+			"title": "The core of Stable 88",
+			"description": "Here are the overmare office, the main security office, the main server and the reactor core, which gives energy to the whole stable.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 15,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/stable_88_core.png",
+			"worldmap_coords": [489, 399],
+			"worldmap_icon_big": false
+		},
+		"stable_pi": {
+			"title": "Stable Pi",
+			"description": "A completely autonomous secret shelter built at the beginning of the war and designed to save the best Equestrian scientists and engineers. Your home.",
+			"grind": true,
+			"basecamp": true,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/stable_pi.png",
+			"worldmap_coords": [276, 463],
+			"worldmap_icon_big": true
+		},
+		"stable_pi_entrance": {
+			"title": "Stable Pi Entrance",
+			"description": "A completely autonomous secret shelter built at the beginning of the war and designed to save the best Equestrian scientists and engineers. Your home.",
+			"grind": false,
+			"basecamp": false,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/stable_pi.png",
+			"worldmap_coords": [230, 468],
+			"worldmap_icon_big": false
+		},
+		"surface": {
+			"title": "Surface",
+			"description": "Equestrian Wasteland, harsh and cruel.",
+			"grind": false,
+			"basecamp": false,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/surface.png",
+			"worldmap_coords": [125, 409],
+			"worldmap_icon_big": false
+		},
+		"technical_tunnels": {
+			"title": "Technical Tunnels",
+			"description": "The beginning of your journey.",
+			"grind": false,
+			"basecamp": false,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/technical_tunnels.png",
+			"worldmap_icon_big": false,
+			"worldmap_coords": [47, 450]
+		},
+		"water_treatment_plant": {
+			"title": "Water Treatment Plant",
+			"description": "A small building where a temporary camp was arranged by Steel Rangers under the command of SteelHooves.",
+			"grind": false,
+			"basecamp": true,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/water_treatment_plant.png",
+			"worldmap_coords": [191, 112],
+			"worldmap_icon_big": false
+		}
+	}
+}

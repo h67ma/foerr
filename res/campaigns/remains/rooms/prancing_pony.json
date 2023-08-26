@@ -1,0 +1,751 @@
+{
+	"api_version": 1,
+	"version": 1,
+	"background_full": "crystal_mountains",
+	"rooms": [
+		{
+			"coords": [0, 0, 0],
+			"is_start": true,
+			"backwall": "tStConcrete",
+			"cells": [
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|C",
+				"C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|C",
+				"C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|C|_|_T|_T|_T|_T|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|C",
+				"C|_Ca|_Ca|_Ca|_Ca|_Ca|_Ca|_Ca|_Ca|_Ca|_Ca|_Ca|_Ca|C|_|_T|_T|_T|_T|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_Da|_Da|_Da|_Da|_Da|_Da|_Da|_Da|_Da|_Da|_Da|_Da|C",
+				"C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_|_|_N|_N|_N|_N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|C",
+				"C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_|_|_N|_N|_N|_N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|C",
+				"C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_|_|_N|_N|_N|_N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_ha|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_ga|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"_|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|C|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|C|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|C",
+				"_|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|C|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|C|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|C",
+				"_|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|C|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|C|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|C",
+				"C|CG|CG|_Gh|_G|_G|_G|_G|_G|_Ga|_Ga|_Ga|_Ga|C|_a|_a|_a|_a|_ha|_a|_a|_|_|_|_|_|_|_a|_a|_ga|_a|_a|_a|_a|C|_Fa|_Fa|_Fa|_Fa|_Fa|_Fa|_Fa|_Fa|_Fa|_Fa|_Fa|_Fa|CF",
+				"C|_G|_G|_Gh|_G|_G|_G|_G|_G|_G|_G|_G|_G|_|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|_|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F",
+				"C|_G|_G|_Gh|_G|_G|_G|_G|_G|_G|_G|_G|_G|_|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|_|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F",
+				"C|_G|_G|_Gh|_G|_G|_G|_G|_G|_G|_G|_G|_G|_|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|_|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_ha|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_ga|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|C|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|C|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|C|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|C|_a|_a|_a|_a|_ha|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_ga|_a|_a|_a|_a|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|_|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|_|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_g|_|_|_|_|_|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C"
+			],
+			"back_objs": [
+				{
+					"coords": [36, 2],
+					"id": "back_vent"
+				},
+				{
+					"coords": [39, 19],
+					"id": "back_poster"
+				},
+				{
+					"coords": [42, 19],
+					"id": "back_poster"
+				},
+				{
+					"coords": [45, 2],
+					"id": "back_vent"
+				},
+				{
+					"coords": [39, 2],
+					"id": "back_vent"
+				},
+				{
+					"coords": [42, 2],
+					"id": "back_vent"
+				},
+				{
+					"coords": [30, 21],
+					"id": "back_gate"
+				},
+				{
+					"coords": [22, 2],
+					"id": "back_bvent"
+				},
+				{
+					"coords": [21, 11],
+					"id": "back_lgreen"
+				},
+				{
+					"coords": [22, 16],
+					"id": "back_lpink"
+				},
+				{
+					"coords": [21, 3],
+					"id": "back_lorange"
+				},
+				{
+					"coords": [35, 1],
+					"id": "back_shadow"
+				},
+				{
+					"coords": [1, 17],
+					"id": "back_shadow"
+				},
+				{
+					"coords": [1, 18],
+					"id": "back_books"
+				},
+				{
+					"coords": [11, 18],
+					"id": "back_books"
+				},
+				{
+					"coords": [8, 18],
+					"id": "back_books"
+				},
+				{
+					"coords": [4, 18],
+					"id": "back_books"
+				},
+				{
+					"coords": [8, 21],
+					"id": "back_lcyan"
+				},
+				{
+					"coords": [7, 22],
+					"id": "back_lpurple"
+				},
+				{
+					"coords": [36, 19],
+					"id": "back_med"
+				},
+				{
+					"coords": [4, 5],
+					"id": "back_draw"
+				},
+				{
+					"coords": [15, 21],
+					"id": "back_gate"
+				},
+				{
+					"coords": [22, 20],
+					"id": "back_doorbase2"
+				},
+				{
+					"coords": [43, 13],
+					"id": "back_storage"
+				},
+				{
+					"coords": [39, 13],
+					"id": "back_storage"
+				},
+				{
+					"coords": [30, 9],
+					"id": "back_konstr"
+				},
+				{
+					"coords": [30, 13],
+					"id": "back_konstr"
+				},
+				{
+					"coords": [5, 10],
+					"id": "back_light1"
+				},
+				{
+					"coords": [8, 10],
+					"id": "back_light1"
+				},
+				{
+					"coords": [1, 13],
+					"id": "back_depot"
+				},
+				{
+					"coords": [3, 13],
+					"id": "back_depot"
+				},
+				{
+					"coords": [5, 13],
+					"id": "back_depot"
+				},
+				{
+					"coords": [7, 13],
+					"id": "back_depot"
+				},
+				{
+					"coords": [9, 13],
+					"id": "back_depot"
+				},
+				{
+					"coords": [22, 7],
+					"id": "back_railing"
+				},
+				{
+					"coords": [26, 7],
+					"id": "back_railing"
+				},
+				{
+					"coords": [18, 7],
+					"id": "back_railing"
+				},
+				{
+					"coords": [30, 7],
+					"id": "back_railing"
+				},
+				{
+					"coords": [14, 7],
+					"id": "back_railing"
+				},
+				{
+					"coords": [45, 5],
+					"id": "back_light5"
+				},
+				{
+					"coords": [45, 10],
+					"id": "back_stlight1"
+				},
+				{
+					"coords": [8, 5],
+					"id": "back_light3"
+				},
+				{
+					"coords": [4, 21],
+					"id": "back_stillage"
+				},
+				{
+					"coords": [9, 20],
+					"id": "back_paint"
+				},
+				{
+					"coords": [15, 3],
+					"id": "back_bar"
+				},
+				{
+					"coords": [35, 18],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [37, 18],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [39, 18],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [41, 18],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [43, 18],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [45, 18],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [36, 17],
+					"id": "back_light4"
+				},
+				{
+					"coords": [44, 17],
+					"id": "back_light4"
+				},
+				{
+					"coords": [40, 17],
+					"id": "back_light4"
+				},
+				{
+					"coords": [46, 22],
+					"id": "back_rak"
+				},
+				{
+					"coords": [39, 22],
+					"id": "back_barrow"
+				},
+				{
+					"coords": [41, 21],
+					"id": "back_oper"
+				},
+				{
+					"coords": [23, 1],
+					"id": "back_light4"
+				}
+			],
+			"back_holes": [
+				{
+					"coords": [27, 1],
+					"id": "back_fwindow"
+				},
+				{
+					"coords": [3, 2],
+					"id": "back_bwindow"
+				},
+				{
+					"coords": [8, 2],
+					"id": "back_bwindow"
+				},
+				{
+					"coords": [15, 18],
+					"id": "back_swindow"
+				},
+				{
+					"coords": [31, 18],
+					"id": "back_swindow"
+				}
+			],
+			"spawn_coords": [20, 19]
+		},
+		{
+			"coords": [-1, 0, 0],
+			"backwall": "tBackWall",
+			"cells": [
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C"
+			],
+			"back_objs": [
+				{
+					"coords": [44, 1],
+					"id": "back_web1tr"
+				},
+				{
+					"coords": [19, 1],
+					"id": "back_web1tl"
+				},
+				{
+					"coords": [19, 1],
+					"id": "back_pipe4"
+				},
+				{
+					"coords": [19, 3],
+					"id": "back_pipe4"
+				},
+				{
+					"coords": [19, 5],
+					"id": "back_pipe4"
+				},
+				{
+					"coords": [19, 7],
+					"id": "back_pipe4"
+				},
+				{
+					"coords": [19, 9],
+					"id": "back_pipe4"
+				},
+				{
+					"coords": [19, 11],
+					"id": "back_pipe4"
+				}
+			],
+			"far_back_objs": [
+				{
+					"coords": [20, 1],
+					"id": "back_qgraff"
+				}
+			],
+			"back_holes": [
+				{
+					"coords": [32, 1],
+					"id": "back_swindow"
+				},
+				{
+					"coords": [23, 1],
+					"id": "back_swindow"
+				},
+				{
+					"coords": [37, 1],
+					"id": "back_swindow"
+				}
+			]
+		},
+		{
+			"coords": [0, 0, 1],
+			"backwall": "tStConcrete",
+			"cells": [
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"C|_|_|_|_|_|_|_|_|_|C|CN|C|C|C|C|C|C|CN|CN|CN|C|C|C|C|C|C|CN|CN|CN|C|C|C|C|C|C|CN|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_|_|_|_|_|_|_|_|_|C|_N|_N|_N|_N|_N|_N|_N|_N|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_N|_N|_N|_N|_N|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_|_|_|_|_|_|_|_|_|C|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_|_|_|_|_|_|_|_|_|C|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_|_|_|_|_|_|_N|_N|_N|_|_|_N|_N|_N|_N|_N|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_M|_M|_M|_M|_M|_M|_M|_M|_M|C|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|C|_B|_B|_B|_B|_B|_B|CB|_B|_B|C",
+				"C|_M|_M|_M|_M|_M|_M|_M|_M|_M|_|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|_M|_M|_M|_M|_M|_M|_M|_M|_M|_|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|_a|_ga|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"B|B|B|B|B|B|B|B|B|B|C|C|_|_g|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"B|B|B|B|B|B|B|B|B|B|C|C|_|_g|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"B|B|B|B|B|B|B|B|B|B|C|_|_|_g|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
+				"B|B|B|B|B|B|B|B|B|B|C|_|_|_g|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_N|_N|_N|_N|_N|_N|_Na|_Na|_Na|_Na|_Na|_Na|_Na|_Na|_Na|C",
+				"B|B|B|B|B|B|B|B|B|B|C|_M|_M|_Mg|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|C|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|C",
+				"B|B|B|B|B|B|B|B|B|B|C|_M|_M|_Mg|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|C",
+				"B|B|B|B|B|B|B|B|B|B|C|_M|_M|_Mg|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_M|_|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|C",
+				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
+				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
+				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
+				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
+				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
+				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
+				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
+				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
+				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B"
+			],
+			"back_objs": [
+				{
+					"coords": [45, 2],
+					"id": "back_vent"
+				},
+				{
+					"coords": [2, 2],
+					"id": "back_vent"
+				},
+				{
+					"coords": [39, 4],
+					"id": "back_poster"
+				},
+				{
+					"coords": [41, 4],
+					"id": "back_poster"
+				},
+				{
+					"coords": [33, 2],
+					"id": "back_vent"
+				},
+				{
+					"coords": [35, 2],
+					"id": "back_vent"
+				},
+				{
+					"coords": [22, 5],
+					"id": "back_lacid"
+				},
+				{
+					"coords": [41, 10],
+					"id": "back_bvent"
+				},
+				{
+					"coords": [36, 11],
+					"id": "back_vent"
+				},
+				{
+					"coords": [36, 10],
+					"id": "back_vent"
+				},
+				{
+					"coords": [33, 12],
+					"id": "back_poster"
+				},
+				{
+					"coords": [27, 3],
+					"id": "back_light6"
+				},
+				{
+					"coords": [45, 5],
+					"id": "back_shower"
+				},
+				{
+					"coords": [4, 2],
+					"id": "back_zhaluzi"
+				},
+				{
+					"coords": [2, 5],
+					"id": "back_paint"
+				},
+				{
+					"coords": [7, 5],
+					"id": "back_stillage"
+				},
+				{
+					"coords": [19, 4],
+					"id": "back_barf"
+				},
+				{
+					"coords": [23, 4],
+					"id": "back_barf"
+				},
+				{
+					"coords": [27, 4],
+					"id": "back_barf"
+				},
+				{
+					"coords": [33, 4],
+					"id": "back_paint"
+				},
+				{
+					"coords": [16, 4],
+					"id": "back_paint"
+				},
+				{
+					"coords": [13, 4],
+					"id": "back_paint"
+				},
+				{
+					"coords": [25, 3],
+					"id": "back_light6"
+				},
+				{
+					"coords": [23, 3],
+					"id": "back_light6"
+				},
+				{
+					"coords": [11, 2],
+					"id": "back_vpipes"
+				},
+				{
+					"coords": [43, 4],
+					"id": "back_light1"
+				},
+				{
+					"coords": [26, 12],
+					"id": "back_zhaluzi"
+				},
+				{
+					"coords": [22, 12],
+					"id": "back_zhaluzi"
+				},
+				{
+					"coords": [18, 12],
+					"id": "back_zhaluzi"
+				},
+				{
+					"coords": [39, 9],
+					"id": "back_vpipes"
+				},
+				{
+					"coords": [31, 9],
+					"id": "back_vpipes"
+				},
+				{
+					"coords": [33, 11],
+					"id": "back_light3"
+				},
+				{
+					"coords": [45, 13],
+					"id": "back_light1"
+				},
+				{
+					"coords": [44, 3],
+					"id": "back_pipe4"
+				},
+				{
+					"coords": [44, 1],
+					"id": "back_pipe4"
+				},
+				{
+					"coords": [35, 12],
+					"id": "back_vyt"
+				},
+				{
+					"coords": [15, 9],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [17, 9],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [19, 9],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [21, 9],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [23, 9],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [25, 9],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [27, 9],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [29, 9],
+					"id": "back_pipe3"
+				},
+				{
+					"coords": [5, 1],
+					"id": "back_light4"
+				},
+				{
+					"coords": [42, 6],
+					"id": "back_unitaz"
+				},
+				{
+					"coords": [40, 6],
+					"id": "back_rak"
+				},
+				{
+					"coords": [20, 2],
+					"id": "back_light4"
+				},
+				{
+					"coords": [29, 2],
+					"id": "back_light4"
+				},
+				{
+					"coords": [11, 14],
+					"id": "back_rak"
+				},
+				{
+					"coords": [23, 11],
+					"id": "back_light4"
+				},
+				{
+					"coords": [27, 11],
+					"id": "back_light4"
+				},
+				{
+					"coords": [19, 11],
+					"id": "back_light4"
+				}
+			],
+			"back_holes": [
+				{
+					"coords": [4, 2],
+					"id": "back_bwindow"
+				},
+				{
+					"coords": [42, 2],
+					"id": "back_swindow"
+				},
+				{
+					"coords": [39, 2],
+					"id": "back_swindow"
+				},
+				{
+					"coords": [19, 12],
+					"id": "back_swindow"
+				},
+				{
+					"coords": [23, 12],
+					"id": "back_swindow"
+				},
+				{
+					"coords": [27, 12],
+					"id": "back_swindow"
+				}
+			]
+		},
+		{
+			"coords": [1, 0, 0],
+			"backwall": "tStConcrete",
+			"cells": [
+				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_F|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_F|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_F|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_F|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_F|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_Ra|_Fa|_Fa|_Fa|_Fa|_Fa|_Fga|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_Fg|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_Fg|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_Fg|A",
+				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_Fg|A",
+				"A|_a|_a|_a|_a|_ha|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|_a|A|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_Ra|_Fa|_Fa|_Fa|_Fa|_Fa|_Fga|A",
+				"A|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_Fg|A",
+				"_|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_a|_a|_a|_a|_|_|_|_R|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_Fg|A",
+				"_|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_Fg|A",
+				"_|_|_|_|_|_h|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_R|_|_|_|_|_|_|_|_|_|_R|_F|_F|_F|_F|_F|_F|_R|_F|_F|_F|_F|_F|_Fg|A",
+				"A|A|A|A|A|_ha|_a|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
+				"A|A|A|A|A|_h|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
+				"A|A|A|A|A|_h|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
+				"A|A|A|A|A|_h|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
+				"A|A|A|A|A|_h|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
+				"A|A|A|A|A|_h|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
+				"A|A|A|A|A|_h|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
+				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
+				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A"
+			],
+			"back_objs": [
+				{
+					"coords": [25, 10],
+					"id": "back_biggate"
+				},
+				{
+					"coords": [45, 2],
+					"id": "back_light5"
+				},
+				{
+					"coords": [45, 7],
+					"id": "back_light5"
+				},
+				{
+					"coords": [45, 12],
+					"id": "back_light5"
+				},
+				{
+					"coords": [16, 11],
+					"id": "back_vkonstr"
+				},
+				{
+					"coords": [18, 11],
+					"id": "back_vkonstr"
+				},
+				{
+					"coords": [16, 14],
+					"id": "back_vkonstr"
+				},
+				{
+					"coords": [18, 14],
+					"id": "back_vkonstr"
+				},
+				{
+					"coords": [4, 1],
+					"id": "back_light4"
+				},
+				{
+					"coords": [12, 1],
+					"id": "back_light4"
+				},
+				{
+					"coords": [20, 1],
+					"id": "back_light4"
+				},
+				{
+					"coords": [28, 1],
+					"id": "back_light4"
+				}
+			],
+			"back_holes": [
+				{
+					"coords": [10, 2],
+					"id": "back_fwindow"
+				},
+				{
+					"coords": [18, 2],
+					"id": "back_fwindow"
+				},
+				{
+					"coords": [26, 2],
+					"id": "back_fwindow"
+				},
+				{
+					"coords": [2, 2],
+					"id": "back_fwindow"
+				}
+			]
+		}
+	]
+}

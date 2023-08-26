@@ -1,0 +1,344 @@
+{
+	"api_version": 1,
+	"version": 1,
+	"solids": {
+		"A": {
+			"txt": "tMetal",
+			"type": 1
+		},
+		"B": {
+			"txt": "tSuperCon",
+			"type": 1
+		},
+		"C": {
+			"txt": "tConcrete",
+			"type": 1
+		},
+		"D": {
+			"txt": "tConcreteD",
+			"type": 1
+		},
+		"E": {
+			"txt": "tCracked",
+			"type": 1
+		},
+		"F": {
+			"txt": "tWood",
+			"type": 1
+		},
+		"G": {
+			"txt": "tRock",
+			"type": 1
+		},
+		"H": {
+			"txt": "tStones",
+			"type": 1
+		},
+		"I": {
+			"txt": "tBrick2",
+			"type": 1
+		},
+		"J": {
+			"txt": "tMWall",
+			"type": 1
+		},
+		"K": {
+			"txt": "tMWall2",
+			"type": 1
+		},
+		"L": {
+			"txt": "tConcreteMoss",
+			"type": 1
+		},
+		"M": {
+			"txt": "tRust",
+			"type": 1
+		},
+		"N": {
+			"txt": "tBuild",
+			"type": 1
+		},
+		"O": {
+			"txt": "tBaseMetal",
+			"type": 1
+		},
+		"P": {
+			"txt": "tCanBrick",
+			"type": 1
+		},
+		"Q": {
+			"txt": "tConRough",
+			"type": 1
+		},
+		"R": {
+			"txt": "tRoof",
+			"type": 1
+		},
+		"S": {
+			"txt": "tEncl1",
+			"type": 1
+		},
+		"T": {
+			"txt": "tEncl2",
+			"type": 1
+		}
+	},
+	"other": {
+		"g": {
+			"txt": "ladder_right",
+			"legacy_symbol": "\u0410",
+			"type": 3,
+			"is_right": true,
+			"offset_left": 21,
+			"txt_delim": "ladder_right_delim",
+			"txt_delim_offset": [2, -30]
+		},
+		"h": {
+			"txt": "ladder_left",
+			"legacy_symbol": "\u0411",
+			"type": 3,
+			"is_right": false,
+			"offset_left": -2,
+			"txt_delim": "ladder_left_delim",
+			"txt_delim_offset": [-2, -30]
+		},
+		"a": {
+			"txt": "tShelf",
+			"legacy_symbol": "-",
+			"type": 4
+		},
+		"i": {
+			"txt": "stairs_up",
+			"legacy_symbol": "\u0412",
+			"is_right": true,
+			"type": 5
+		},
+		"j": {
+			"txt": "stairs_down",
+			"legacy_symbol": "\u0413",
+			"is_right": false,
+			"type": 5
+		},
+		"b": {
+			"txt": "tWoodBeam",
+			"legacy_symbol": "\u0414",
+			"type": 4
+		},
+		"k": {
+			"txt": "wooden_stairs_up",
+			"legacy_symbol": "\u0416",
+			"is_right": true,
+			"type": 5,
+			"offset_left": -4
+		},
+		"l": {
+			"txt": "wooden_stairs_down",
+			"legacy_symbol": "\u0417",
+			"is_right": false,
+			"type": 5
+		},
+		"c": {
+			"txt": "tStShelf",
+			"legacy_symbol": "\u0415",
+			"type": 4
+		},
+		"m": {
+			"txt": "steel_stairs_up",
+			"legacy_symbol": "\u0418",
+			"is_right": true,
+			"type": 5,
+			"offset_left": -4
+		},
+		"n": {
+			"txt": "steel_stairs_down",
+			"legacy_symbol": "\u0419",
+			"is_right": false,
+			"type": 5
+		},
+		"d": {
+			"txt": "tConBeam",
+			"legacy_symbol": "\u041a",
+			"type": 4
+		},
+		"o": {
+			"txt": "concrete_stairs_up",
+			"legacy_symbol": "\u041b",
+			"is_right": true,
+			"type": 5
+		},
+		"p": {
+			"txt": "concrete_stairs_down",
+			"legacy_symbol": "\u041c",
+			"is_right": false,
+			"type": 5
+		},
+		"e": {
+			"txt": "tCanBeam",
+			"legacy_symbol": "\u041d",
+			"type": 4
+		},
+		"q": {
+			"txt": "canterlot_stairs_up",
+			"legacy_symbol": "\u041e",
+			"is_right": true,
+			"type": 5,
+			"offset_left": -3
+		},
+		"r": {
+			"txt": "canterlot_stairs_down",
+			"legacy_symbol": "\u041f",
+			"is_right": false,
+			"type": 5
+		},
+		"f": {
+			"txt": "tCloudBeam",
+			"legacy_symbol": "\u0420",
+			"type": 4
+		},
+		"s": {
+			"txt": "cloud_stairs_up",
+			"legacy_symbol": "\u0421",
+			"is_right": true,
+			"type": 5,
+			"offset_left": -2
+		},
+		"t": {
+			"txt": "cloud_stairs_down",
+			"legacy_symbol": "\u0422",
+			"is_right": false,
+			"type": 5
+		},
+		"A": {
+			"txt": "tConcreteBack",
+			"type": 2
+		},
+		"B": {
+			"txt": "tKaf",
+			"type": 2
+		},
+		"C": {
+			"txt": "tConPlates",
+			"type": 2
+		},
+		"D": {
+			"txt": "tBrick",
+			"type": 2
+		},
+		"E": {
+			"txt": "tBlocks",
+			"type": 2
+		},
+		"F": {
+			"txt": "tMetalPlates",
+			"type": 2
+		},
+		"G": {
+			"txt": "tMetalVert",
+			"type": 2
+		},
+		"H": {
+			"txt": "tMetalRust",
+			"type": 2
+		},
+		"I": {
+			"txt": "tVent",
+			"type": 2
+		},
+		"J": {
+			"txt": "tShtuk",
+			"type": 2
+		},
+		"K": {
+			"txt": "tSetka",
+			"type": 2
+		},
+		"L": {
+			"txt": "tDirt2",
+			"type": 2
+		},
+		"M": {
+			"txt": "tWoodPlanks",
+			"type": 2
+		},
+		"N": {
+			"txt": "tStPlates",
+			"type": 2
+		},
+		"O": {
+			"txt": "tMeh",
+			"type": 2
+		},
+		"P": {
+			"txt": "tDarkMetal",
+			"type": 2
+		},
+		"Q": {
+			"txt": "tDarkPlates",
+			"type": 2
+		},
+		"R": {
+			"txt": "tDarkRivets",
+			"type": 2
+		},
+		"S": {
+			"txt": "tPipes",
+			"type": 2
+		},
+		"T": {
+			"txt": "tRustPlates",
+			"type": 2
+		},
+		"U": {
+			"txt": "tBase",
+			"type": 2
+		},
+		"V": {
+			"txt": "tCanStuc",
+			"type": 2
+		},
+		"W": {
+			"txt": "tCanTiles",
+			"type": 2
+		},
+		"X": {
+			"txt": "tOrn",
+			"type": 2
+		},
+		"Y": {
+			"txt": "tEncl2",
+			"type": 2
+		},
+		"Z": {
+			"txt": "tCloud",
+			"type": 2
+		},
+		"*": {
+			"type": 6,
+			"color": "#0064C9",
+			"txt_delim": "liquid_water_delim"
+		},
+		"&": {
+			"type": 6,
+			"color": "#76982E",
+			"txt_delim": "liquid_goo_delim"
+		},
+		"^": {
+			"type": 6,
+			"color": "#383E41",
+			"txt_delim": "liquid_tar_delim"
+		},
+		"%": {
+			"type": 6,
+			"color": "#FF66AA",
+			"txt_delim": "liquid_pink_delim"
+		},
+		"u": {
+			"type": 2,
+			"txt": "tWindows"
+		},
+		"v": {
+			"type": 2,
+			"txt": "tLeaking"
+		}
+	}
+}

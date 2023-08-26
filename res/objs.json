@@ -1,0 +1,544 @@
+{
+	"api_version": 1,
+	"version": 1,
+	"back_objs": {
+		"back_arc": {
+			"main_cnt": 3
+		},
+		"back_awningl": {
+			"main_cnt": 2
+		},
+		"back_awningr": {
+			"main_cnt": 2
+		},
+		"back_balus": {
+			"main_cnt": 1
+		},
+		"back_banner": {
+			"main_cnt": 1
+		},
+		"back_bannerl": {
+			"main_cnt": 1
+		},
+		"back_bar": {
+			"main_cnt": 1,
+			"light_cnt": 1
+		},
+		"back_barf": {
+			"main_cnt": 3
+		},
+		"back_barrow": {
+			"offset": [6, 14],
+			"main_cnt": 1
+		},
+		"back_battery": {
+			"offset": [1, 0],
+			"main_cnt": 3
+		},
+		"back_bigbeam": {
+			"main_cnt": 1
+		},
+		"back_biggate": {
+			"main_cnt": 1
+		},
+		"back_bio": {
+			"offset": [0, 6],
+			"main_cnt": 1
+		},
+		"back_blood1": {
+			"offset": [-8, 0],
+			"main_cnt": 4
+		},
+		"back_blood2": {
+			"main_cnt": 2
+		},
+		"back_books": {
+			"offset": [2, 0],
+			"main_cnt": 2
+		},
+		"back_bvent": {
+			"offset": [-5, 0],
+			"main_cnt": 1
+		},
+		"back_celest": {
+			"offset": [40, 0],
+			"main_cnt": 1
+		},
+		"back_chains": {
+			"main_cnt": 3
+		},
+		"back_chert": {
+			"offset": [-20, -20],
+			"main_cnt": 1
+		},
+		"back_clock": {
+			"offset": [-5, -3],
+			"main_cnt": 1
+		},
+		"back_cot": {
+			"main_cnt": 1
+		},
+		"back_depot": {
+			"main_cnt": 1
+		},
+		"back_door": {
+			"offset": [12, 20],
+			"main_cnt": 3
+		},
+		"back_doorbase1": {
+			"main_cnt": 1
+		},
+		"back_doorbase2": {
+			"main_cnt": 1
+		},
+		"back_doorencl1": {
+			"main_cnt": 1
+		},
+		"back_draw": {
+			"main_cnt": 5
+		},
+		"back_dresser": {
+			"main_cnt": 1
+		},
+		"back_electro": {
+			"offset": [2, 0],
+			"main_cnt": 2
+		},
+		"back_enclave": {
+			"offset": [-10, 0],
+			"main_cnt": 1
+		},
+		"back_enclbanner": {
+			"main_cnt": 1
+		},
+		"back_exit_light": {
+			"light_cnt": 1
+		},
+		"back_fuse": {
+			"offset": [-2, 0],
+			"main_cnt": 2
+		},
+		"back_gate": {
+			"main_cnt": 1
+		},
+		"back_generator": {
+			"offset": [1, 0],
+			"main_cnt": 1
+		},
+		"back_h109": {
+			"offset": [20, 20],
+			"main_cnt": 1
+		},
+		"back_heap1": {
+			"offset": [0, -2],
+			"main_cnt": 1
+		},
+		"back_heap2": {
+			"offset": [0, 2],
+			"main_cnt": 1
+		},
+		"back_heap3": {
+			"offset": [0, -7],
+			"main_cnt": 1
+		},
+		"back_hkonstr": {
+			"main_cnt": 1
+		},
+		"back_hrail": {
+			"main_cnt": 1
+		},
+		"back_illum": {
+			"main_cnt": 1
+		},
+		"back_karniz1": {
+			"main_cnt": 1
+		},
+		"back_karniz2": {
+			"main_cnt": 1
+		},
+		"back_karniz2a": {
+			"main_cnt": 1
+		},
+		"back_karniz3": {
+			"main_cnt": 1
+		},
+		"back_kolb": {
+			"offset": [2, 0],
+			"main_cnt": 1
+		},
+		"back_kolonna": {
+			"offset": [0, -2],
+			"main_cnt": 3
+		},
+		"back_komp": {
+			"main_cnt": 3
+		},
+		"back_konstr": {
+			"main_cnt": 1
+		},
+		"back_lab": {
+			"offset": [15, -10],
+			"main_cnt": 3
+		},
+		"back_lcolor": {
+			"offset": [-8, -8],
+			"light_cnt": 10
+		},
+		"back_light1": {
+			"light_cnt": 1,
+			"main_cnt": 2
+		},
+		"back_light2": {
+			"offset": [0, 11],
+			"light_cnt": 2,
+			"main_cnt": 3
+		},
+		"back_light3": {
+			"offset": [0, 4],
+			"light_cnt": 1,
+			"main_cnt": 2
+		},
+		"back_light4": {
+			"light_cnt": 1,
+			"main_cnt": 2
+		},
+		"back_light5": {
+			"light_cnt": 2,
+			"main_cnt": 2
+		},
+		"back_light6": {
+			"light_cnt": 2,
+			"main_cnt": 2
+		},
+		"back_light7": {
+			"light_cnt": 2,
+			"main_cnt": 2
+		},
+		"back_longtable": {
+			"main_cnt": 1
+		},
+		"back_med": {
+			"offset": [5, 0],
+			"main_cnt": 4
+		},
+		"back_metal": {
+			"offset": [0, -30],
+			"main_cnt": 1
+		},
+		"back_minkrut": {
+			"main_cnt": 1
+		},
+		"back_minst": {
+			"main_cnt": 1
+		},
+		"back_monitor": {
+			"main_cnt": 1
+		},
+		"back_monitor2": {
+			"main_cnt": 4
+		},
+		"back_moss": {
+			"offset": [0, 29],
+			"main_cnt": 1
+		},
+		"back_musor1": {
+			"offset": [0, 16],
+			"main_cnt": 3
+		},
+		"back_musor2": {
+			"offset": [0, 16],
+			"main_cnt": 3
+		},
+		"back_oper": {
+			"main_cnt": 1
+		},
+		"back_opora": {
+			"main_cnt": 4
+		},
+		"back_orudie": {
+			"offset": [0, 3],
+			"main_cnt": 1
+		},
+		"back_paint": {
+			"offset": [0, 4],
+			"main_cnt": 8
+		},
+		"back_pi": {
+			"main_cnt": 1
+		},
+		"back_pink": {
+			"offset": [0, -20],
+			"main_cnt": 1
+		},
+		"back_pipe1": {
+			"offset": [0, 8],
+			"main_cnt": 4
+		},
+		"back_pipe2": {
+			"main_cnt": 4
+		},
+		"back_pipe3": {
+			"main_cnt": 2
+		},
+		"back_pipe4": {
+			"main_cnt": 2
+		},
+		"back_pipes": {
+			"offset": [1, 0],
+			"main_cnt": 2
+		},
+		"back_pipes2": {
+			"offset": [1, -17],
+			"main_cnt": 1
+		},
+		"back_plantgate": {
+			"main_cnt": 1
+		},
+		"back_plesen": {
+			"main_cnt": 1
+		},
+		"back_poster": {
+			"offset": [13, 0],
+			"main_cnt": 6
+		},
+		"back_potek": {
+			"main_cnt": 1
+		},
+		"back_pult": {
+			"main_cnt": 5
+		},
+		"back_pult2": {
+			"offset": [0, 31],
+			"main_cnt": 1
+		},
+		"back_qgraff": {
+			"offset": [0, 6],
+			"main_cnt": 2
+		},
+		"back_rad": {
+			"main_cnt": 1
+		},
+		"back_railing": {
+			"main_cnt": 1
+		},
+		"back_rak": {
+			"offset": [0, 30],
+			"main_cnt": 2
+		},
+		"back_rangers": {
+			"main_cnt": 1
+		},
+		"back_remains1": {
+			"offset": [8, 17],
+			"main_cnt": 4
+		},
+		"back_remains2": {
+			"offset": [345, -12],
+			"main_cnt": 4
+		},
+		"back_rgraff": {
+			"main_cnt": 13
+		},
+		"back_schem": {
+			"main_cnt": 8
+		},
+		"back_server": {
+			"main_cnt": 3
+		},
+		"back_shadow": {
+			"light_cnt": 1
+		},
+		"back_shower": {
+			"main_cnt": 1
+		},
+		"back_signboard": {
+			"main_cnt": 2
+		},
+		"back_skel": {
+			"offset": [-4, 2],
+			"main_cnt": 4
+		},
+		"back_snar": {
+			"main_cnt": 1
+		},
+		"back_stabledoor": {
+			"main_cnt": 1
+		},
+		"back_stabledoor2": {
+			"main_cnt": 1
+		},
+		"back_stbanner": {
+			"offset": [-5, 0],
+			"main_cnt": 1
+		},
+		"back_stenka1": {
+			"offset": [2, 0],
+			"main_cnt": 1
+		},
+		"back_stenka2": {
+			"offset": [2, 0],
+			"main_cnt": 1
+		},
+		"back_stenka3": {
+			"offset": [2, -12],
+			"main_cnt": 1
+		},
+		"back_stillage": {
+			"offset": [2, 0],
+			"main_cnt": 1
+		},
+		"back_stlight1": {
+			"light_cnt": 2,
+			"main_cnt": 3
+		},
+		"back_stlight3": {
+			"light_cnt": 2,
+			"main_cnt": 3
+		},
+		"back_stlight4": {
+			"light_cnt": 2,
+			"main_cnt": 3
+		},
+		"back_stok": {
+			"offset": [1, 0],
+			"main_cnt": 1
+		},
+		"back_stok2": {
+			"offset": [1, 0],
+			"main_cnt": 1
+		},
+		"back_storage": {
+			"main_cnt": 1
+		},
+		"back_stree": {
+			"offset": [0, 6],
+			"main_cnt": 5
+		},
+		"back_stwindow": {
+			"main_cnt": 3
+		},
+		"back_trava": {
+			"offset": [2, -2],
+			"main_cnt": 1
+		},
+		"back_tree": {
+			"offset": [-10, 7],
+			"main_cnt": 5
+		},
+		"back_ugoll": {
+			"main_cnt": 1
+		},
+		"back_ugolr": {
+			"main_cnt": 1
+		},
+		"back_unitaz": {
+			"offset": [5, 20],
+			"main_cnt": 3
+		},
+		"back_unitazm": {
+			"offset": [5, 20],
+			"main_cnt": 1
+		},
+		"back_vase": {
+			"offset": [-5, 9],
+			"main_cnt": 1
+		},
+		"back_vent": {
+			"offset": [-5, -5],
+			"main_cnt": 6
+		},
+		"back_vents": {
+			"main_cnt": 4
+		},
+		"back_vitrina": {
+			"main_cnt": 1
+		},
+		"back_vkonstr": {
+			"main_cnt": 1
+		},
+		"back_vpipe": {
+			"main_cnt": 2
+		},
+		"back_vpipel": {
+			"main_cnt": 1
+		},
+		"back_vpiper": {
+			"main_cnt": 1
+		},
+		"back_vpipes": {
+			"main_cnt": 2
+		},
+		"back_vrail": {
+			"main_cnt": 1
+		},
+		"back_vyt": {
+			"offset": [10, 0],
+			"main_cnt": 1
+		},
+		"back_web1bl": {
+			"main_cnt": 5
+		},
+		"back_web1br": {
+			"main_cnt": 5
+		},
+		"back_web1tl": {
+			"main_cnt": 5
+		},
+		"back_web1tr": {
+			"main_cnt": 5
+		},
+		"back_wires1": {
+			"main_cnt": 1
+		},
+		"back_wires2": {
+			"main_cnt": 1
+		},
+		"back_zavod1": {
+			"offset": [1, 0],
+			"main_cnt": 6
+		},
+		"back_zavod2": {
+			"offset": [-5, -9],
+			"main_cnt": 2
+		},
+		"back_zhaluzi": {
+			"offset": [-10, -14],
+			"main_cnt": 1
+		},
+		"back_znak": {
+			"main_cnt": 1
+		}
+	},
+	"back_holes": {
+		"back_awindow": {
+			"offset": [-3, 0],
+			"main_cnt": 1
+		},
+		"back_bwindow": {
+			"main_cnt": 2
+		},
+		"back_chole": {
+			"main_cnt": 6
+		},
+		"back_cwindow": {
+			"main_cnt": 3
+		},
+		"back_enclwindow": {
+			"main_cnt": 2
+		},
+		"back_enil": {
+			"main_cnt": 1
+		},
+		"back_fwindow": {
+			"offset": [-5, 0],
+			"main_cnt": 4
+		},
+		"back_hole": {
+			"blend": true,
+			"main_cnt": 5
+		},
+		"back_swindow": {
+			"main_cnt": 4
+		}
+	}
+}
