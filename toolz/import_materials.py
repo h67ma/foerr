@@ -1,19 +1,15 @@
 import argparse
-import xml.etree.ElementTree as ET
 from log import Log
 from consts import *
 from convert_data import *
-from common import write_nicer_json
+from common import write_nicer_json, read_xml
 
 
 def import_materials(log: Log, alldata_path: str, add_legacy: bool, output_filename: str):
 	log.i("Importing materials")
-	try:
-		alldata_tree = ET.parse(alldata_path)
-	except (FileNotFoundError, ET.ParseError) as ex:
-		log.e(ex)
+	alldata_root = read_xml(alldata_path)
+	if alldata_root is None:
 		return
-	alldata_root = alldata_tree.getroot()
 
 	materials_root = {
 		FOERR_JSON_KEY_API_VERSION: JSON_API_VERSION,

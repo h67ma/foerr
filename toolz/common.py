@@ -2,6 +2,7 @@ import re
 import os
 import json
 from log import Log
+from xml.etree import ElementTree
 from convert_data import obj_txt_blacklist
 from consts import TXT_TYPE_MAIN, TXT_TYPE_HOLE, TXT_TYPE_LIGHT
 
@@ -27,6 +28,14 @@ def write_nicer_json(output_filename: str, output_root):
 
 	with open(output_filename, "w") as f:
 		f.write(output_serialized)
+
+def read_xml(path: str) -> ElementTree.Element:
+	try:
+		tree = ElementTree.parse(path)
+	except (FileNotFoundError, ElementTree.ParseError) as ex:
+		log.e(ex)
+		return None
+	return tree.getroot()
 
 
 reg_clean = re.compile(r"^DefineSprite_\d+")

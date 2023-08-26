@@ -3,11 +3,10 @@ import re
 import json
 import argparse
 from typing import List
-import xml.etree.ElementTree as ET
 from log import Log
 from consts import *
 from convert_data import *
-from common import sane_object_pairs_hook, write_nicer_json
+from common import sane_object_pairs_hook, write_nicer_json, read_xml
 
 
 reg_remove_end_variant = re.compile(r"(.+)(\d+)$")
@@ -45,15 +44,13 @@ def maybe_separate_variant(obj_id: str):
 def translate_rooms(log: Log, output_id: str, input_filename: str, output_filename: str, loc_data, obj_data, pad_cnt: int, symbol_maps, mat_data) -> List[bool]:
 	log.i("Translating " + input_filename + " to " + output_filename)
 
-	try:
-		input_tree = ET.parse(input_filename)
-	except (FileNotFoundError, ET.ParseError) as ex:
-		log.e(str(ex))
+	input_root = read_xml(input_filename)
+	if input_root is None:
+		log.e("Error reading room xml, aborting")
 		return
 
 	max_cell_length = 0
 	output_rooms = []
-	input_root = input_tree.getroot()
 
 	is_unique_loc = False
 	in_land_node = input_root.find("land")
@@ -632,13 +629,10 @@ def get_gamedata_data(log: Log, gamedata_path: str):
 	}
 	"""
 
-	try:
-		input_tree = ET.parse(gamedata_path)
-	except (FileNotFoundError, ET.ParseError) as ex:
-		log.e(str(ex))
+	input_root = read_xml(gamedata_path)
+	if input_root is None:
+		log.e("Error reading GameData, aborting")
 		return None
-
-	input_root = input_tree.getroot()
 
 	out_data = {}
 	for loc_node in input_root.findall("land"):
@@ -692,13 +686,11 @@ def get_alldata_data(log: Log, alldata_path: str):
 		...
 	}
 	"""
-	try:
-		input_tree = ET.parse(alldata_path)
-	except (FileNotFoundError, ET.ParseError) as ex:
-		log.e(str(ex))
+	input_root = read_xml(alldata_path)
+	if input_root is None:
+		log.e("Error reading AllData, aborting")
 		return None
 
-	input_root = input_tree.getroot()
 	out_data = {}
 	for back_node in input_root.findall("back"):
 		back_id = back_node.attrib.get("id")
