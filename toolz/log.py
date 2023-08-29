@@ -9,6 +9,7 @@ class Log:
 			2 - log warnings
 			3 - log informational messages
 			4 - log verbose messages
+			5 - log debug messages
 		"""
 		self.log_level = log_level
 
@@ -18,10 +19,16 @@ class Log:
 		print(color + "[" + level + "] " + Style.RESET_ALL + msg)
 
 
+	def d(self, msg):
+		"""Log a debug message."""
+		if self.log_level > 4:
+			self.log_msg("DEBG", msg, Fore.LIGHTBLACK_EX)
+
+
 	def v(self, msg):
 		"""Log a verbose message."""
 		if self.log_level > 3:
-			self.log_msg("VERB", msg, Fore.LIGHTBLACK_EX)
+			self.log_msg("VERB", msg, Fore.BLUE)
 
 
 	def i(self, msg):
