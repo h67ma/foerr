@@ -222,7 +222,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 {
 	this->unloadCampaignInfos();
 
-	std::shared_ptr<sf::Texture> mapBgTxt = this->resMgr.getTexture(this->campaign.getWorldMapBackground());
+	std::shared_ptr<sf::Texture> mapBgTxt = this->resMgr.getTexture(this->campaign.getWorldMapBackground(), false);
 	if (mapBgTxt == nullptr)
 		return false;
 
@@ -231,7 +231,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 
 	for (const auto &loc : this->campaign.getLocations())
 	{
-		std::shared_ptr<sf::Texture> iconTxt = this->resMgr.getTexture(loc.second->getWorldMapIconId());
+		std::shared_ptr<sf::Texture> iconTxt = this->resMgr.getTexture(loc.second->getWorldMapIconId(), false);
 		if (iconTxt == nullptr)
 		{
 			this->unloadCampaignInfos();
