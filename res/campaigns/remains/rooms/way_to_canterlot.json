@@ -36,39 +36,39 @@
 			"back_objs": [
 				{
 					"coords": [27, 14],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [36, 19],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [39, 20],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [27, 19],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [36, 22],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [25, 22],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [14, 22],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [1, 22],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [7, 22],
-					"id": "back_musor2"
+					"id": "musor2"
 				}
 			],
 			"spawn_coords": [4, 22]

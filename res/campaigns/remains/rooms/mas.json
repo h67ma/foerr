@@ -36,136 +36,136 @@
 			"back_objs": [
 				{
 					"coords": [2, 4],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [14, 4],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [33, 9],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [34, 5],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [37, 4],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [38, 6],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [42, 5],
-					"id": "back_poster"
+					"id": "poster"
 				},
 				{
 					"coords": [3, 5],
-					"id": "back_poster"
+					"id": "poster"
 				},
 				{
 					"coords": [1, 1],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [7, 1],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [11, 1],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [41, 17],
-					"id": "back_electro"
+					"id": "electro"
 				},
 				{
 					"coords": [41, 20],
-					"id": "back_electro"
+					"id": "electro"
 				},
 				{
 					"coords": [9, 18],
-					"id": "back_light1"
+					"id": "light1"
 				},
 				{
 					"coords": [14, 18],
-					"id": "back_light1"
+					"id": "light1"
 				},
 				{
 					"coords": [1, 17],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [1, 19],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [45, 17],
-					"id": "back_wires2"
+					"id": "wires2"
 				},
 				{
 					"coords": [45, 19],
-					"id": "back_wires2"
+					"id": "wires2"
 				},
 				{
 					"coords": [45, 21],
-					"id": "back_wires2"
+					"id": "wires2"
 				},
 				{
 					"coords": [45, 23],
-					"id": "back_wires2"
+					"id": "wires2"
 				},
 				{
 					"coords": [8, 13],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [5, 14],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [1, 15],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [38, 15],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [17, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [28, 0],
-					"id": "back_opora"
+					"id": "opora"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [33, 2],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [38, 2],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [43, 2],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [3, 4],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 4
 				},
 				{
 					"coords": [18, 10],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				}
 			]
@@ -203,45 +203,45 @@
 			"far_back_objs": [
 				{
 					"coords": [41, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [4, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [17, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [28, 0],
-					"id": "back_opora"
+					"id": "opora"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [33, 16],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 0
 				},
 				{
 					"coords": [25, 1],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				},
 				{
 					"coords": [6, 2],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 2
 				},
 				{
 					"coords": [3, 16],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 3
 				},
 				{
 					"coords": [18, 15],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 4
 				}
 			]
@@ -279,80 +279,80 @@
 			"back_objs": [
 				{
 					"coords": [12, 17],
-					"id": "back_pipes"
+					"id": "pipes"
 				},
 				{
 					"coords": [2, 17],
-					"id": "back_pipes"
+					"id": "pipes"
 				},
 				{
 					"coords": [10, 0],
-					"id": "back_konstr"
+					"id": "konstr"
 				},
 				{
 					"coords": [10, 4],
-					"id": "back_konstr"
+					"id": "konstr"
 				},
 				{
 					"coords": [7, 1],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [1, 1],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [33, 13],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [38, 13],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [36, 14],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [41, 18],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [33, 6],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [4, 14],
-					"id": "back_lab"
+					"id": "lab"
 				},
 				{
 					"coords": [39, 15],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [39, 19],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [28, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [17, 0],
-					"id": "back_opora"
+					"id": "opora"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [31, 4],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 3
 				},
 				{
 					"coords": [36, 5],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 4
 				}
 			]
@@ -389,68 +389,68 @@
 			"back_objs": [
 				{
 					"coords": [44, 17],
-					"id": "back_lcyan"
+					"id": "lcyan"
 				},
 				{
 					"coords": [32, 21],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [41, 21],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [23, 21],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [14, 21],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [5, 21],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [41, 19],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [10, 18],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [35, 17],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [34, 19],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [8, 17],
-					"id": "back_heap1"
+					"id": "heap1"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [31, 0],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 0
 				},
 				{
 					"coords": [26, 4],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				},
 				{
 					"coords": [4, 6],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 3
 				},
 				{
 					"coords": [6, 0],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				}
 			]
@@ -488,78 +488,78 @@
 			"back_objs": [
 				{
 					"coords": [6, 21],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [34, 21],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [21, 22],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [10, 22],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [32, 15],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [8, 15],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [32, 23],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [39, 23],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [22, 15],
-					"id": "back_heap3"
+					"id": "heap3"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [17, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [28, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [4, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [41, 0],
-					"id": "back_opora"
+					"id": "opora"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [6, 7],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 0
 				},
 				{
 					"coords": [29, 5],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 2
 				},
 				{
 					"coords": [0, 2],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 4
 				},
 				{
 					"coords": [20, 10],
-					"id": "back_chole",
+					"id": "chole",
 					"var": 0
 				}
 			]
@@ -596,77 +596,77 @@
 			"back_objs": [
 				{
 					"coords": [29, 17],
-					"id": "back_light5"
+					"id": "light5"
 				},
 				{
 					"coords": [5, 18],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [2, 17],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [38, 17],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [35, 18],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [41, 18],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [13, 19],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [43, 19],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [1, 19],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [16, 19],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [33, 19],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [25, 15],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [35, 2],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				},
 				{
 					"coords": [34, 7],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 4
 				},
 				{
 					"coords": [3, 3],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 0
 				},
 				{
 					"coords": [3, 9],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				},
 				{
 					"coords": [33, 6],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				}
 			]
@@ -704,121 +704,121 @@
 			"back_objs": [
 				{
 					"coords": [23, 13],
-					"id": "back_lgreen"
+					"id": "lgreen"
 				},
 				{
 					"coords": [22, 10],
-					"id": "back_bvent"
+					"id": "bvent"
 				},
 				{
 					"coords": [4, 21],
-					"id": "back_stillage"
+					"id": "stillage"
 				},
 				{
 					"coords": [28, 17],
-					"id": "back_electro"
+					"id": "electro"
 				},
 				{
 					"coords": [26, 17],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [26, 19],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [21, 17],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [21, 19],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [1, 21],
-					"id": "back_stillage"
+					"id": "stillage"
 				},
 				{
 					"coords": [7, 21],
-					"id": "back_stillage"
+					"id": "stillage"
 				},
 				{
 					"coords": [10, 21],
-					"id": "back_stillage"
+					"id": "stillage"
 				},
 				{
 					"coords": [13, 21],
-					"id": "back_stillage"
+					"id": "stillage"
 				},
 				{
 					"coords": [29, 13],
-					"id": "back_kolb"
+					"id": "kolb"
 				},
 				{
 					"coords": [27, 13],
-					"id": "back_kolb"
+					"id": "kolb"
 				},
 				{
 					"coords": [25, 14],
-					"id": "back_lab"
+					"id": "lab"
 				},
 				{
 					"coords": [41, 21],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [1, 21],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [10, 22],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [31, 22],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [38, 23],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [7, 23],
-					"id": "back_heap3"
+					"id": "heap3"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [41, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [17, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [28, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [4, 0],
-					"id": "back_opora"
+					"id": "opora"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [36, 7],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 0
 				},
 				{
 					"coords": [0, 2],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				},
 				{
 					"coords": [2, 13],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 2
 				}
 			]
@@ -856,104 +856,104 @@
 			"back_objs": [
 				{
 					"coords": [29, 13],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [9, 13],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [31, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [7, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [34, 9],
-					"id": "back_poster"
+					"id": "poster"
 				},
 				{
 					"coords": [21, 9],
-					"id": "back_poster"
+					"id": "poster"
 				},
 				{
 					"coords": [5, 13],
-					"id": "back_storage"
+					"id": "storage"
 				},
 				{
 					"coords": [17, 11],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [24, 21],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [19, 22],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [29, 23],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [17, 23],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [24, 23],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [28, 11],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [32, 23],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [10, 23],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [30, 11],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [7, 11],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [41, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [4, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [28, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [17, 0],
-					"id": "back_opora"
+					"id": "opora"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [18, 2],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 2
 				},
 				{
 					"coords": [17, 12],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 3
 				}
 			]
@@ -990,57 +990,57 @@
 			"back_objs": [
 				{
 					"coords": [38, 6],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [34, 6],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [28, 9],
-					"id": "back_karniz1"
+					"id": "karniz1"
 				},
 				{
 					"coords": [0, 21],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [20, 21],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [10, 21],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [40, 9],
-					"id": "back_karniz1"
+					"id": "karniz1"
 				},
 				{
 					"coords": [21, 17],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [1, 17],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [24, 16],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [28, 17],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [39, 17],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [18, 10],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 0
 				}
 			]
@@ -1078,120 +1078,120 @@
 			"back_objs": [
 				{
 					"coords": [19, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [31, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [7, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [21, 16],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [41, 16],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [22, 15],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [2, 15],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [28, 15],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [16, 16],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [0, 6],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [40, 7],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [40, 17],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [24, 17],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [22, 17],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [37, 17],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [5, 17],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [17, 17],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [41, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [17, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [4, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [28, 0],
-					"id": "back_opora"
+					"id": "opora"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [36, 0],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 4
 				},
 				{
 					"coords": [0, 14],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 4
 				},
 				{
 					"coords": [7, 7],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 3
 				},
 				{
 					"coords": [2, 2],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 0
 				},
 				{
 					"coords": [23, 16],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				},
 				{
 					"coords": [24, 6],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 2
 				}
 			]
@@ -1229,124 +1229,124 @@
 			"back_objs": [
 				{
 					"coords": [19, 23],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [25, 5],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [31, 21],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [43, 21],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [11, 21],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [7, 14],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [37, 14],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [36, 6],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [19, 7],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [30, 7],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [41, 23],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [8, 23],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [42, 15],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [35, 23],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [1, 23],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [12, 7],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [38, 7],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [3, 7],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [28, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [41, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [4, 0],
-					"id": "back_opora"
+					"id": "opora"
 				},
 				{
 					"coords": [17, 0],
-					"id": "back_opora"
+					"id": "opora"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [37, 13],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 3
 				},
 				{
 					"coords": [6, 12],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 1
 				},
 				{
 					"coords": [18, 2],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 0
 				},
 				{
 					"coords": [29, 4],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 0
 				},
 				{
 					"coords": [25, 13],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 2
 				},
 				{
 					"coords": [32, 0],
-					"id": "back_hole",
+					"id": "hole",
 					"var": 4
 				}
 			]
@@ -1384,39 +1384,39 @@
 			"back_objs": [
 				{
 					"coords": [40, 21],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [10, 21],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [20, 21],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [0, 21],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [30, 21],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [29, 17],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [12, 17],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [17, 17],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [38, 17],
-					"id": "back_musor2"
+					"id": "musor2"
 				}
 			],
 			"spawn_coords": [3, 17]

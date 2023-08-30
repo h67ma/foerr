@@ -2,542 +2,545 @@
 	"api_version": 1,
 	"version": 1,
 	"back_objs": {
-		"back_arc": {
+		"arc": {
 			"main_cnt": 3
 		},
-		"back_awningl": {
+		"awningl": {
 			"main_cnt": 2
 		},
-		"back_awningr": {
+		"awningr": {
 			"main_cnt": 2
 		},
-		"back_balus": {
+		"balus": {
 			"main_cnt": 1
 		},
-		"back_banner": {
+		"banner": {
 			"main_cnt": 1
 		},
-		"back_bannerl": {
+		"bannerl": {
 			"main_cnt": 1
 		},
-		"back_bar": {
-			"main_cnt": 1,
-			"light_cnt": 1
+		"bar": {
+			"light_cnt": 1,
+			"main_cnt": 2
 		},
-		"back_barf": {
+		"barf": {
 			"main_cnt": 3
 		},
-		"back_barrow": {
+		"barrow": {
 			"offset": [6, 14],
 			"main_cnt": 1
 		},
-		"back_battery": {
+		"battery": {
 			"offset": [1, 0],
 			"main_cnt": 3
 		},
-		"back_bigbeam": {
+		"bigbeam": {
 			"main_cnt": 1
 		},
-		"back_biggate": {
+		"biggate": {
 			"main_cnt": 1
 		},
-		"back_bio": {
+		"bio": {
+			"alpha": 0.9,
 			"offset": [0, 6],
 			"main_cnt": 1
 		},
-		"back_blood1": {
+		"blood1": {
 			"offset": [-8, 0],
 			"main_cnt": 4
 		},
-		"back_blood2": {
+		"blood2": {
 			"main_cnt": 2
 		},
-		"back_books": {
+		"books": {
 			"offset": [2, 0],
 			"main_cnt": 2
 		},
-		"back_bvent": {
+		"bvent": {
 			"offset": [-5, 0],
 			"main_cnt": 1
 		},
-		"back_celest": {
+		"celest": {
 			"offset": [40, 0],
 			"main_cnt": 1
 		},
-		"back_chains": {
+		"chains": {
 			"main_cnt": 3
 		},
-		"back_chert": {
+		"chert": {
 			"offset": [-20, -20],
 			"main_cnt": 1
 		},
-		"back_clock": {
+		"clock": {
 			"offset": [-5, -3],
 			"main_cnt": 1
 		},
-		"back_cot": {
+		"cot": {
 			"main_cnt": 1
 		},
-		"back_depot": {
+		"depot": {
 			"main_cnt": 1
 		},
-		"back_door": {
+		"door": {
 			"offset": [12, 20],
 			"main_cnt": 3
 		},
-		"back_doorbase1": {
+		"doorbase1": {
 			"main_cnt": 1
 		},
-		"back_doorbase2": {
+		"doorbase2": {
 			"main_cnt": 1
 		},
-		"back_doorencl1": {
+		"doorencl1": {
 			"main_cnt": 1
 		},
-		"back_draw": {
+		"draw": {
 			"main_cnt": 5
 		},
-		"back_dresser": {
+		"dresser": {
 			"main_cnt": 1
 		},
-		"back_electro": {
+		"electro": {
 			"offset": [2, 0],
 			"main_cnt": 2
 		},
-		"back_enclave": {
+		"enclave": {
+			"alpha": 0.9,
 			"offset": [-10, 0],
 			"main_cnt": 1
 		},
-		"back_enclbanner": {
+		"enclbanner": {
 			"main_cnt": 1
 		},
-		"back_exit_light": {
+		"exit_light": {
 			"light_cnt": 1
 		},
-		"back_fuse": {
+		"fuse": {
 			"offset": [-2, 0],
 			"main_cnt": 2
 		},
-		"back_gate": {
+		"gate": {
 			"main_cnt": 1
 		},
-		"back_generator": {
+		"generator": {
 			"offset": [1, 0],
 			"main_cnt": 1
 		},
-		"back_h109": {
+		"h109": {
+			"alpha": 0.5,
 			"offset": [20, 20],
 			"main_cnt": 1
 		},
-		"back_heap1": {
+		"heap1": {
 			"offset": [0, -2],
 			"main_cnt": 1
 		},
-		"back_heap2": {
+		"heap2": {
 			"offset": [0, 2],
 			"main_cnt": 1
 		},
-		"back_heap3": {
+		"heap3": {
 			"offset": [0, -7],
 			"main_cnt": 1
 		},
-		"back_hkonstr": {
+		"hkonstr": {
 			"main_cnt": 1
 		},
-		"back_hrail": {
+		"hrail": {
 			"main_cnt": 1
 		},
-		"back_illum": {
+		"illum": {
 			"main_cnt": 1
 		},
-		"back_karniz1": {
+		"karniz1": {
 			"main_cnt": 1
 		},
-		"back_karniz2": {
+		"karniz2": {
 			"main_cnt": 1
 		},
-		"back_karniz2a": {
+		"karniz2a": {
 			"main_cnt": 1
 		},
-		"back_karniz3": {
+		"karniz3": {
 			"main_cnt": 1
 		},
-		"back_kolb": {
+		"kolb": {
 			"offset": [2, 0],
 			"main_cnt": 1
 		},
-		"back_kolonna": {
+		"kolonna": {
 			"offset": [0, -2],
 			"main_cnt": 3
 		},
-		"back_komp": {
+		"komp": {
 			"main_cnt": 3
 		},
-		"back_konstr": {
+		"konstr": {
 			"main_cnt": 1
 		},
-		"back_lab": {
+		"lab": {
 			"offset": [15, -10],
 			"main_cnt": 3
 		},
-		"back_lcolor": {
-			"offset": [-8, -8],
-			"light_cnt": 10
-		},
-		"back_light1": {
+		"light1": {
 			"light_cnt": 1,
 			"main_cnt": 2
 		},
-		"back_light2": {
+		"light2": {
+			"light_cnt": 2,
 			"offset": [0, 11],
+			"main_cnt": 3
+		},
+		"light3": {
+			"light_cnt": 1,
+			"offset": [0, 4],
+			"main_cnt": 2
+		},
+		"light4": {
+			"light_cnt": 1,
+			"main_cnt": 2
+		},
+		"light5": {
 			"light_cnt": 2,
 			"main_cnt": 3
 		},
-		"back_light3": {
-			"offset": [0, 4],
-			"light_cnt": 1,
-			"main_cnt": 2
-		},
-		"back_light4": {
-			"light_cnt": 1,
-			"main_cnt": 2
-		},
-		"back_light5": {
+		"light6": {
 			"light_cnt": 2,
-			"main_cnt": 2
+			"main_cnt": 3
 		},
-		"back_light6": {
+		"light7": {
 			"light_cnt": 2,
-			"main_cnt": 2
+			"main_cnt": 3
 		},
-		"back_light7": {
-			"light_cnt": 2,
-			"main_cnt": 2
-		},
-		"back_longtable": {
-			"main_cnt": 1
-		},
-		"back_med": {
+		"med": {
 			"offset": [5, 0],
 			"main_cnt": 4
 		},
-		"back_metal": {
+		"metal": {
 			"offset": [0, -30],
 			"main_cnt": 1
 		},
-		"back_minkrut": {
+		"minkrut": {
+			"alpha": 0.9,
 			"main_cnt": 1
 		},
-		"back_minst": {
+		"minst": {
 			"main_cnt": 1
 		},
-		"back_monitor": {
+		"monitor": {
 			"main_cnt": 1
 		},
-		"back_monitor2": {
+		"monitor2": {
 			"main_cnt": 4
 		},
-		"back_moss": {
+		"moss": {
 			"offset": [0, 29],
 			"main_cnt": 1
 		},
-		"back_musor1": {
+		"musor1": {
 			"offset": [0, 16],
 			"main_cnt": 3
 		},
-		"back_musor2": {
+		"musor2": {
 			"offset": [0, 16],
 			"main_cnt": 3
 		},
-		"back_oper": {
+		"oper": {
 			"main_cnt": 1
 		},
-		"back_opora": {
+		"opora": {
 			"main_cnt": 4
 		},
-		"back_orudie": {
+		"orudie": {
 			"offset": [0, 3],
 			"main_cnt": 1
 		},
-		"back_paint": {
+		"paint": {
 			"offset": [0, 4],
 			"main_cnt": 8
 		},
-		"back_pi": {
+		"pi": {
+			"alpha": 0.9,
 			"main_cnt": 1
 		},
-		"back_pink": {
+		"pink": {
 			"offset": [0, -20],
 			"main_cnt": 1
 		},
-		"back_pipe1": {
+		"pipe1": {
 			"offset": [0, 8],
 			"main_cnt": 4
 		},
-		"back_pipe2": {
+		"pipe2": {
 			"main_cnt": 4
 		},
-		"back_pipe3": {
+		"pipe3": {
 			"main_cnt": 2
 		},
-		"back_pipe4": {
+		"pipe4": {
 			"main_cnt": 2
 		},
-		"back_pipes": {
+		"pipes": {
 			"offset": [1, 0],
 			"main_cnt": 2
 		},
-		"back_pipes2": {
+		"pipes2": {
 			"offset": [1, -17],
 			"main_cnt": 1
 		},
-		"back_plantgate": {
+		"plantgate": {
 			"main_cnt": 1
 		},
-		"back_plesen": {
+		"plesen": {
 			"main_cnt": 1
 		},
-		"back_poster": {
+		"poster": {
 			"offset": [13, 0],
 			"main_cnt": 6
 		},
-		"back_potek": {
+		"potek": {
 			"main_cnt": 1
 		},
-		"back_pult": {
+		"pult": {
 			"main_cnt": 5
 		},
-		"back_pult2": {
+		"pult2": {
 			"offset": [0, 31],
 			"main_cnt": 1
 		},
-		"back_qgraff": {
+		"qgraff": {
+			"alpha": 0.85,
 			"offset": [0, 6],
 			"main_cnt": 2
 		},
-		"back_rad": {
+		"rad": {
+			"alpha": 0.9,
 			"main_cnt": 1
 		},
-		"back_railing": {
+		"railing": {
 			"main_cnt": 1
 		},
-		"back_rak": {
+		"rak": {
 			"offset": [0, 30],
 			"main_cnt": 2
 		},
-		"back_rangers": {
+		"rangers": {
+			"alpha": 0.9,
 			"main_cnt": 1
 		},
-		"back_remains1": {
+		"remains1": {
 			"offset": [8, 17],
 			"main_cnt": 4
 		},
-		"back_remains2": {
+		"remains2": {
 			"offset": [345, -12],
 			"main_cnt": 4
 		},
-		"back_rgraff": {
+		"rgraff": {
+			"alpha": 0.9,
 			"main_cnt": 13
 		},
-		"back_schem": {
+		"schem": {
 			"main_cnt": 8
 		},
-		"back_server": {
+		"server": {
 			"main_cnt": 3
 		},
-		"back_shadow": {
+		"shadow": {
+			"alpha": 0.9,
 			"light_cnt": 1
 		},
-		"back_shower": {
+		"shower": {
 			"main_cnt": 1
 		},
-		"back_signboard": {
+		"signboard": {
 			"main_cnt": 2
 		},
-		"back_skel": {
+		"skel": {
 			"offset": [-4, 2],
 			"main_cnt": 4
 		},
-		"back_snar": {
+		"snar": {
 			"main_cnt": 1
 		},
-		"back_stabledoor": {
+		"stabledoor": {
 			"main_cnt": 1
 		},
-		"back_stabledoor2": {
+		"stabledoor2": {
 			"main_cnt": 1
 		},
-		"back_stbanner": {
+		"stbanner": {
 			"offset": [-5, 0],
 			"main_cnt": 1
 		},
-		"back_stenka1": {
+		"stenka1": {
 			"offset": [2, 0],
 			"main_cnt": 1
 		},
-		"back_stenka2": {
+		"stenka2": {
 			"offset": [2, 0],
 			"main_cnt": 1
 		},
-		"back_stenka3": {
+		"stenka3": {
 			"offset": [2, -12],
 			"main_cnt": 1
 		},
-		"back_stillage": {
+		"stillage": {
 			"offset": [2, 0],
 			"main_cnt": 1
 		},
-		"back_stlight1": {
+		"stlight1": {
 			"light_cnt": 2,
 			"main_cnt": 3
 		},
-		"back_stlight3": {
+		"stlight3": {
 			"light_cnt": 2,
 			"main_cnt": 3
 		},
-		"back_stlight4": {
+		"stlight4": {
 			"light_cnt": 2,
 			"main_cnt": 3
 		},
-		"back_stok": {
+		"stok": {
 			"offset": [1, 0],
 			"main_cnt": 1
 		},
-		"back_stok2": {
+		"stok2": {
 			"offset": [1, 0],
 			"main_cnt": 1
 		},
-		"back_storage": {
+		"storage": {
 			"main_cnt": 1
 		},
-		"back_stree": {
+		"stree": {
 			"offset": [0, 6],
 			"main_cnt": 5
 		},
-		"back_stwindow": {
+		"stwindow": {
 			"main_cnt": 3
 		},
-		"back_trava": {
+		"trava": {
 			"offset": [2, -2],
 			"main_cnt": 1
 		},
-		"back_tree": {
+		"tree": {
 			"offset": [-10, 7],
 			"main_cnt": 5
 		},
-		"back_ugoll": {
+		"ugoll": {
 			"main_cnt": 1
 		},
-		"back_ugolr": {
+		"ugolr": {
 			"main_cnt": 1
 		},
-		"back_unitaz": {
+		"unitaz": {
 			"offset": [5, 20],
 			"main_cnt": 3
 		},
-		"back_unitazm": {
+		"unitazm": {
 			"offset": [5, 20],
 			"main_cnt": 1
 		},
-		"back_vase": {
+		"vase": {
 			"offset": [-5, 9],
 			"main_cnt": 1
 		},
-		"back_vent": {
+		"vent": {
 			"offset": [-5, -5],
 			"main_cnt": 6
 		},
-		"back_vents": {
+		"vents": {
 			"main_cnt": 4
 		},
-		"back_vitrina": {
+		"vitrina": {
 			"main_cnt": 1
 		},
-		"back_vkonstr": {
+		"vkonstr": {
 			"main_cnt": 1
 		},
-		"back_vpipe": {
+		"vpipe": {
 			"main_cnt": 2
 		},
-		"back_vpipel": {
+		"vpipel": {
 			"main_cnt": 1
 		},
-		"back_vpiper": {
+		"vpiper": {
 			"main_cnt": 1
 		},
-		"back_vpipes": {
+		"vpipes": {
 			"main_cnt": 2
 		},
-		"back_vrail": {
+		"vrail": {
 			"main_cnt": 1
 		},
-		"back_vyt": {
+		"vyt": {
 			"offset": [10, 0],
 			"main_cnt": 1
 		},
-		"back_web1bl": {
+		"web1bl": {
 			"main_cnt": 5
 		},
-		"back_web1br": {
+		"web1br": {
 			"main_cnt": 5
 		},
-		"back_web1tl": {
+		"web1tl": {
 			"main_cnt": 5
 		},
-		"back_web1tr": {
+		"web1tr": {
 			"main_cnt": 5
 		},
-		"back_wires1": {
+		"wires1": {
 			"main_cnt": 1
 		},
-		"back_wires2": {
+		"wires2": {
 			"main_cnt": 1
 		},
-		"back_zavod1": {
+		"zavod1": {
 			"offset": [1, 0],
 			"main_cnt": 6
 		},
-		"back_zavod2": {
+		"zavod2": {
 			"offset": [-5, -9],
 			"main_cnt": 2
 		},
-		"back_zhaluzi": {
+		"zhaluzi": {
 			"offset": [-10, -14],
 			"main_cnt": 1
 		},
-		"back_znak": {
+		"znak": {
 			"main_cnt": 1
 		}
 	},
 	"back_holes": {
-		"back_awindow": {
+		"awindow": {
 			"offset": [-3, 0],
 			"main_cnt": 1
 		},
-		"back_bwindow": {
+		"bwindow": {
 			"main_cnt": 2
 		},
-		"back_chole": {
+		"chole": {
 			"main_cnt": 6
 		},
-		"back_cwindow": {
+		"cwindow": {
 			"main_cnt": 3
 		},
-		"back_enclwindow": {
+		"enclwindow": {
 			"main_cnt": 2
 		},
-		"back_enil": {
+		"enil": {
 			"main_cnt": 1
 		},
-		"back_fwindow": {
+		"fwindow": {
 			"offset": [-5, 0],
 			"main_cnt": 4
 		},
-		"back_hole": {
+		"hole": {
 			"blend": true,
 			"main_cnt": 5
 		},
-		"back_swindow": {
+		"swindow": {
 			"main_cnt": 4
 		}
 	}

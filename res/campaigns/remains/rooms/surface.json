@@ -36,71 +36,71 @@
 			"back_objs": [
 				{
 					"coords": [28, 2],
-					"id": "back_konstr"
+					"id": "konstr"
 				},
 				{
 					"coords": [14, 2],
-					"id": "back_konstr"
+					"id": "konstr"
 				},
 				{
 					"coords": [10, 2],
-					"id": "back_konstr"
+					"id": "konstr"
 				},
 				{
 					"coords": [32, 2],
-					"id": "back_konstr"
+					"id": "konstr"
 				},
 				{
 					"coords": [17, 1],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [7, 6],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [9, 6],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [7, 10],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [9, 10],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [7, 14],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [9, 14],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [7, 18],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [9, 18],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [7, 22],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [9, 22],
-					"id": "back_vrail"
+					"id": "vrail"
 				},
 				{
 					"coords": [3, 18],
-					"id": "back_electro"
+					"id": "electro"
 				},
 				{
 					"coords": [4, 16],
-					"id": "back_light1"
+					"id": "light1"
 				}
 			]
 		},
@@ -136,81 +136,81 @@
 			"back_objs": [
 				{
 					"coords": [2, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [21, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [18, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [41, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [36, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [10, 17],
-					"id": "back_stenka2"
+					"id": "stenka2"
 				},
 				{
 					"coords": [19, 21],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [28, 16],
-					"id": "back_stenka1"
+					"id": "stenka1"
 				},
 				{
 					"coords": [0, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [14, 18],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [14, 20],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [11, 20],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [11, 18],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [31, 20],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [9, 21],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [30, 21],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [23, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				},
 				{
 					"coords": [14, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				},
 				{
 					"coords": [3, 16],
-					"id": "back_remains2"
+					"id": "remains2"
 				}
 			]
 		},
@@ -247,11 +247,11 @@
 			"back_objs": [
 				{
 					"coords": [14, 9],
-					"id": "back_minkrut"
+					"id": "minkrut"
 				},
 				{
 					"coords": [13, 11],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			]
 		},
@@ -287,93 +287,93 @@
 			"back_objs": [
 				{
 					"coords": [1, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [5, 18],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [40, 5],
-					"id": "back_light5"
+					"id": "light5"
 				},
 				{
 					"coords": [41, 19],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [38, 16],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [41, 16],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [38, 13],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [41, 13],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [38, 10],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [41, 10],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [37, 9],
-					"id": "back_railing"
+					"id": "railing"
 				},
 				{
 					"coords": [38, 19],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [40, 6],
-					"id": "back_konstr"
+					"id": "konstr"
 				},
 				{
 					"coords": [40, 9],
-					"id": "back_railing"
+					"id": "railing"
 				},
 				{
 					"coords": [11, 18],
-					"id": "back_konstr"
+					"id": "konstr"
 				},
 				{
 					"coords": [13, 18],
-					"id": "back_konstr"
+					"id": "konstr"
 				},
 				{
 					"coords": [0, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [14, 22],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [22, 22],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [28, 22],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [0, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				},
 				{
 					"coords": [38, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				}
 			]
 		},
@@ -409,137 +409,137 @@
 			"back_objs": [
 				{
 					"coords": [34, 19],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [28, 19],
-					"id": "back_blood2"
+					"id": "blood2"
 				},
 				{
 					"coords": [10, 18],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [36, 17],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [33, 17],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [14, 19],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [2, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [40, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [41, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [8, 11],
-					"id": "back_web1tl"
+					"id": "web1tl"
 				},
 				{
 					"coords": [20, 11],
-					"id": "back_web1tl"
+					"id": "web1tl"
 				},
 				{
 					"coords": [27, 11],
-					"id": "back_web1tr"
+					"id": "web1tr"
 				},
 				{
 					"coords": [16, 11],
-					"id": "back_web1tr"
+					"id": "web1tr"
 				},
 				{
 					"coords": [31, 13],
-					"id": "back_web1bl"
+					"id": "web1bl"
 				},
 				{
 					"coords": [30, 10],
-					"id": "back_stenka2"
+					"id": "stenka2"
 				},
 				{
 					"coords": [7, 4],
-					"id": "back_stenka1"
+					"id": "stenka1"
 				},
 				{
 					"coords": [18, 8],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [9, 21],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [20, 21],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [31, 21],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [31, 15],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [20, 15],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [10, 9],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [21, 9],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [22, 15],
-					"id": "back_skel"
+					"id": "skel"
 				},
 				{
 					"coords": [13, 21],
-					"id": "back_skel"
+					"id": "skel"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [18, 18],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [24, 18],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [32, 18],
-					"id": "back_swindow"
+					"id": "swindow"
 				},
 				{
 					"coords": [36, 18],
-					"id": "back_swindow"
+					"id": "swindow"
 				},
 				{
 					"coords": [9, 13],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [14, 13],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [21, 13],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				}
 			]
 		},
@@ -578,35 +578,35 @@
 			"back_objs": [
 				{
 					"coords": [9, 21],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [18, 21],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [29, 20],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [0, 20],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [18, 21],
-					"id": "back_zavod2"
+					"id": "zavod2"
 				},
 				{
 					"coords": [24, 21],
-					"id": "back_zavod2"
+					"id": "zavod2"
 				},
 				{
 					"coords": [39, 20],
-					"id": "back_zavod2"
+					"id": "zavod2"
 				},
 				{
 					"coords": [14, 21],
-					"id": "back_unitaz"
+					"id": "unitaz"
 				}
 			]
 		},
@@ -645,79 +645,79 @@
 			"back_objs": [
 				{
 					"coords": [8, 12],
-					"id": "back_minkrut"
+					"id": "minkrut"
 				},
 				{
 					"coords": [38, 20],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [28, 8],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [28, 15],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [18, 20],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [5, 12],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [19, 2],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [29, 2],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [38, 2],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [6, 2],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [4, 14],
-					"id": "back_pipes2"
+					"id": "pipes2"
 				},
 				{
 					"coords": [3, 4],
-					"id": "back_pipes2"
+					"id": "pipes2"
 				},
 				{
 					"coords": [6, 4],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [4, 19],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [8, 19],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [8, 21],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [4, 21],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [5, 5],
-					"id": "back_skel"
+					"id": "skel"
 				},
 				{
 					"coords": [43, 5],
-					"id": "back_skel"
+					"id": "skel"
 				}
 			]
 		},
@@ -753,77 +753,77 @@
 			"back_objs": [
 				{
 					"coords": [6, 14],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [13, 17],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [4, 17],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [20, 16],
-					"id": "back_stenka1"
+					"id": "stenka1"
 				},
 				{
 					"coords": [34, 21],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [41, 16],
-					"id": "back_stenka2"
+					"id": "stenka2"
 				},
 				{
 					"coords": [0, 22],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [10, 22],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [14, 22],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [21, 21],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [16, 20],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [39, 20],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [30, 21],
-					"id": "back_heap2"
+					"id": "heap2"
 				},
 				{
 					"coords": [21, 21],
-					"id": "back_heap3"
+					"id": "heap3"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [32, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				},
 				{
 					"coords": [8, 14],
-					"id": "back_remains1"
+					"id": "remains1"
 				},
 				{
 					"coords": [25, 16],
-					"id": "back_remains2"
+					"id": "remains2"
 				},
 				{
 					"coords": [14, 16],
-					"id": "back_remains2"
+					"id": "remains2"
 				}
 			]
 		},
@@ -859,165 +859,165 @@
 			"back_objs": [
 				{
 					"coords": [20, 16],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [28, 17],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [26, 15],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [41, 16],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [43, 17],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [41, 16],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [19, 9],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [29, 9],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [38, 9],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [28, 6],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [35, 6],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [18, 6],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [38, 13],
-					"id": "back_battery"
+					"id": "battery"
 				},
 				{
 					"coords": [42, 13],
-					"id": "back_battery"
+					"id": "battery"
 				},
 				{
 					"coords": [23, 13],
-					"id": "back_battery"
+					"id": "battery"
 				},
 				{
 					"coords": [27, 13],
-					"id": "back_battery"
+					"id": "battery"
 				},
 				{
 					"coords": [33, 15],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [24, 15],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [19, 9],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [22, 15],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [19, 15],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [30, 15],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [40, 15],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [39, 15],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [28, 9],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [26, 9],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [34, 9],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [42, 9],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [37, 9],
-					"id": "back_chains"
+					"id": "chains"
 				},
 				{
 					"coords": [12, 19],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [15, 19],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [19, 7],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [29, 19],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [21, 19],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [35, 13],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [39, 19],
-					"id": "back_musor2"
+					"id": "musor2"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [22, 11],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [37, 11],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [41, 11],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				},
 				{
 					"coords": [26, 11],
-					"id": "back_bwindow"
+					"id": "bwindow"
 				}
 			]
 		},
@@ -1054,127 +1054,127 @@
 			"back_objs": [
 				{
 					"coords": [8, 15],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [18, 15],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [28, 15],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [14, 13],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [22, 13],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [28, 13],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [12, 9],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [28, 15],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [18, 9],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [16, 9],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [27, 4],
-					"id": "back_electro"
+					"id": "electro"
 				},
 				{
 					"coords": [28, 9],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [28, 11],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [20, 9],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [24, 9],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [26, 9],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [29, 9],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [33, 9],
-					"id": "back_pipes"
+					"id": "pipes"
 				},
 				{
 					"coords": [42, 14],
-					"id": "back_pipes2"
+					"id": "pipes2"
 				},
 				{
 					"coords": [41, 14],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [41, 16],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [20, 5],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [18, 5],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [12, 5],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [12, 4],
-					"id": "back_pipe1"
+					"id": "pipe1"
 				},
 				{
 					"coords": [22, 4],
-					"id": "back_pipe1"
+					"id": "pipe1"
 				},
 				{
 					"coords": [32, 4],
-					"id": "back_pipe1"
+					"id": "pipe1"
 				},
 				{
 					"coords": [16, 16],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [14, 11],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [22, 7],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [43, 16],
-					"id": "back_skel"
+					"id": "skel"
 				}
 			]
 		},
@@ -1210,47 +1210,47 @@
 			"back_objs": [
 				{
 					"coords": [8, 11],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [4, 14],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [12, 14],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [38, 18],
-					"id": "back_plesen"
+					"id": "plesen"
 				},
 				{
 					"coords": [17, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [20, 17],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [14, 17],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [22, 19],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [5, 19],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [27, 18],
-					"id": "back_zavod2"
+					"id": "zavod2"
 				},
 				{
 					"coords": [38, 12],
-					"id": "back_musor1"
+					"id": "musor1"
 				}
 			]
 		},
@@ -1318,123 +1318,123 @@
 			"back_objs": [
 				{
 					"coords": [21, 18],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [18, 18],
-					"id": "back_blood1"
+					"id": "blood1"
 				},
 				{
 					"coords": [13, 17],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [25, 18],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [15, 19],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [22, 19],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [25, 13],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [28, 14],
-					"id": "back_blood2"
+					"id": "blood2"
 				},
 				{
 					"coords": [2, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [39, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [39, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [24, 6],
-					"id": "back_stenka1"
+					"id": "stenka1"
 				},
 				{
 					"coords": [12, 16],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [26, 14],
-					"id": "back_paint"
+					"id": "paint"
 				},
 				{
 					"coords": [37, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [0, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [30, 19],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [9, 21],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [19, 14],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [24, 21],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [13, 21],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [25, 16],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [25, 11],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [31, 11],
-					"id": "back_skel"
+					"id": "skel"
 				},
 				{
 					"coords": [28, 16],
-					"id": "back_skel"
+					"id": "skel"
 				},
 				{
 					"coords": [10, 18],
-					"id": "back_signboard"
+					"id": "signboard"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [36, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				},
 				{
 					"coords": [1, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [29, 15],
-					"id": "back_chole",
+					"id": "chole",
 					"var": 0
 				}
 			]
@@ -1474,11 +1474,11 @@
 			"back_objs": [
 				{
 					"coords": [17, 14],
-					"id": "back_moss"
+					"id": "moss"
 				},
 				{
 					"coords": [27, 14],
-					"id": "back_moss"
+					"id": "moss"
 				}
 			]
 		},
@@ -1514,39 +1514,39 @@
 			"back_objs": [
 				{
 					"coords": [37, 14],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [40, 19],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [36, 20],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [36, 22],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [1, 12],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [30, 22],
-					"id": "back_musor1"
+					"id": "musor1"
 				},
 				{
 					"coords": [19, 14],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [15, 14],
-					"id": "back_heap3"
+					"id": "heap3"
 				},
 				{
 					"coords": [8, 14],
-					"id": "back_heap2"
+					"id": "heap2"
 				}
 			]
 		},
@@ -1582,65 +1582,65 @@
 			"back_objs": [
 				{
 					"coords": [11, 14],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [8, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [4, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [20, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [31, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [30, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [25, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [15, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [41, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [5, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [0, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [38, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [39, 20],
-					"id": "back_zavod2"
+					"id": "zavod2"
 				},
 				{
 					"coords": [11, 20],
-					"id": "back_zavod2"
+					"id": "zavod2"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [6, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				}
 			]
 		},
@@ -1676,120 +1676,120 @@
 			"back_objs": [
 				{
 					"coords": [8, 16],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [3, 16],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [15, 16],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [9, 11],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [14, 9],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [1, 15],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [29, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [40, 18],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [32, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [35, 16],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [24, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [2, 4],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [12, 4],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [2, 10],
-					"id": "back_light3"
+					"id": "light3"
 				},
 				{
 					"coords": [24, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [36, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [14, 15],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [14, 17],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [14, 19],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [22, 19],
-					"id": "back_heap1"
+					"id": "heap1"
 				},
 				{
 					"coords": [1, 19],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [5, 13],
-					"id": "back_musor2"
+					"id": "musor2"
 				},
 				{
 					"coords": [15, 19],
-					"id": "back_musor2"
+					"id": "musor2"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [25, 16],
-					"id": "back_remains2"
+					"id": "remains2"
 				},
 				{
 					"coords": [38, 16],
-					"id": "back_remains2"
+					"id": "remains2"
 				},
 				{
 					"coords": [31, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [16, 9],
-					"id": "back_chole",
+					"id": "chole",
 					"var": 1
 				},
 				{
 					"coords": [5, 8],
-					"id": "back_chole",
+					"id": "chole",
 					"var": 2
 				}
 			]
@@ -1826,99 +1826,99 @@
 			"back_objs": [
 				{
 					"coords": [29, 15],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [9, 15],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [21, 13],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [27, 13],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [33, 13],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [15, 13],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [9, 13],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [7, 10],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [39, 10],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [39, 7],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [7, 7],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [19, 15],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [35, 12],
-					"id": "back_hrail"
+					"id": "hrail"
 				},
 				{
 					"coords": [31, 12],
-					"id": "back_hrail"
+					"id": "hrail"
 				},
 				{
 					"coords": [13, 12],
-					"id": "back_hrail"
+					"id": "hrail"
 				},
 				{
 					"coords": [9, 12],
-					"id": "back_hrail"
+					"id": "hrail"
 				},
 				{
 					"coords": [39, 12],
-					"id": "back_hrail"
+					"id": "hrail"
 				},
 				{
 					"coords": [5, 12],
-					"id": "back_hrail"
+					"id": "hrail"
 				},
 				{
 					"coords": [9, 12],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [33, 12],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [43, 12],
-					"id": "back_hrail"
+					"id": "hrail"
 				},
 				{
 					"coords": [1, 12],
-					"id": "back_hrail"
+					"id": "hrail"
 				},
 				{
 					"coords": [41, 12],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [1, 12],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				}
 			]
 		},
@@ -1954,61 +1954,61 @@
 			"back_objs": [
 				{
 					"coords": [12, 19],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [16, 18],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [20, 19],
-					"id": "back_rgraff"
+					"id": "rgraff"
 				},
 				{
 					"coords": [31, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [41, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [35, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [12, 15],
-					"id": "back_stenka3"
+					"id": "stenka3"
 				},
 				{
 					"coords": [27, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [36, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [0, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [24, 18],
-					"id": "back_stenka1"
+					"id": "stenka1"
 				}
 			],
 			"far_back_objs": [
 				{
 					"coords": [0, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				},
 				{
 					"coords": [37, 13],
-					"id": "back_remains1"
+					"id": "remains1"
 				},
 				{
 					"coords": [32, 16],
-					"id": "back_remains2"
+					"id": "remains2"
 				}
 			]
 		},
@@ -2045,47 +2045,47 @@
 			"back_objs": [
 				{
 					"coords": [29, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [40, 16],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [25, 18],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [35, 13],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [15, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [36, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [4, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [26, 21],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [13, 19],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [13, 16],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [3, 19],
-					"id": "back_heap1"
+					"id": "heap1"
 				}
 			],
 			"spawn_coords": [2, 9]

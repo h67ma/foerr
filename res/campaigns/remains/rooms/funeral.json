@@ -36,43 +36,43 @@
 			"back_objs": [
 				{
 					"coords": [10, 12],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [31, 12],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [28, 15],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [15, 15],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [6, 15],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [37, 15],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [34, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [0, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [11, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [22, 20],
-					"id": "back_trava"
+					"id": "trava"
 				}
 			],
 			"spawn_coords": [26, 20]
@@ -109,31 +109,31 @@
 			"back_objs": [
 				{
 					"coords": [8, 15],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [16, 12],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [26, 15],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [1, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [24, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [13, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [35, 20],
-					"id": "back_trava"
+					"id": "trava"
 				}
 			]
 		},
@@ -169,35 +169,35 @@
 			"back_objs": [
 				{
 					"coords": [31, 12],
-					"id": "back_tree"
+					"id": "tree"
 				},
 				{
 					"coords": [22, 15],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [36, 15],
-					"id": "back_stree"
+					"id": "stree"
 				},
 				{
 					"coords": [7, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [37, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [30, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [0, 20],
-					"id": "back_trava"
+					"id": "trava"
 				},
 				{
 					"coords": [20, 20],
-					"id": "back_trava"
+					"id": "trava"
 				}
 			]
 		}

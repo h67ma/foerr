@@ -35,97 +35,97 @@
 			"back_objs": [
 				{
 					"coords": [15, 10],
-					"id": "back_biggate"
+					"id": "biggate"
 				},
 				{
 					"coords": [34, 10],
-					"id": "back_biggate"
+					"id": "biggate"
 				},
 				{
 					"coords": [43, 13],
-					"id": "back_doorencl1"
+					"id": "doorencl1"
 				},
 				{
 					"coords": [37, 8],
-					"id": "back_light5"
+					"id": "light5"
 				},
 				{
 					"coords": [18, 8],
-					"id": "back_light5"
+					"id": "light5"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [7, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [10, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [13, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [10, 7],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [4, 7],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [23, 7],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [29, 7],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [4, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [16, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [19, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [22, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [25, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [28, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [31, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [34, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [37, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [40, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [43, 2],
-					"id": "back_enil"
+					"id": "enil"
 				}
 			],
 			"spawn_coords": [6, 15]
@@ -163,293 +163,293 @@
 			"back_objs": [
 				{
 					"coords": [40, 20],
-					"id": "back_bvent"
+					"id": "bvent"
 				},
 				{
 					"coords": [28, 9],
-					"id": "back_enclbanner"
+					"id": "enclbanner"
 				},
 				{
 					"coords": [32, 9],
-					"id": "back_enclbanner"
+					"id": "enclbanner"
 				},
 				{
 					"coords": [37, 9],
-					"id": "back_enclbanner"
+					"id": "enclbanner"
 				},
 				{
 					"coords": [41, 9],
-					"id": "back_enclbanner"
+					"id": "enclbanner"
 				},
 				{
 					"coords": [12, 17],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [42, 17],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [22, 17],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [32, 17],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [2, 17],
-					"id": "back_bigbeam"
+					"id": "bigbeam"
 				},
 				{
 					"coords": [25, 22],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [25, 20],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [25, 18],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [28, 22],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [28, 20],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [28, 18],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [9, 21],
-					"id": "back_dresser"
+					"id": "dresser"
 				},
 				{
 					"coords": [11, 21],
-					"id": "back_dresser"
+					"id": "dresser"
 				},
 				{
 					"coords": [13, 21],
-					"id": "back_dresser"
+					"id": "dresser"
 				},
 				{
 					"coords": [3, 21],
-					"id": "back_dresser"
+					"id": "dresser"
 				},
 				{
 					"coords": [31, 19],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [32, 19],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [21, 19],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [22, 19],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [45, 2],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [45, 3],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [45, 4],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [45, 5],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [37, 6],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [39, 6],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [41, 6],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [43, 6],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [45, 6],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [45, 7],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [43, 7],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [41, 7],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [39, 7],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [37, 7],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [30, 20],
-					"id": "back_generator"
+					"id": "generator"
 				},
 				{
 					"coords": [20, 20],
-					"id": "back_generator"
+					"id": "generator"
 				},
 				{
 					"coords": [45, 6],
-					"id": "back_pult2"
+					"id": "pult2"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [41, 4],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [18, 13],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [22, 13],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [9, 13],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [27, 13],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [31, 13],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [36, 13],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [40, 13],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [13, 13],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [13, 10],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [18, 10],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [22, 10],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [27, 10],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [31, 10],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [36, 10],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [9, 10],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [32, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [29, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [26, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [23, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [20, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [17, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [14, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [11, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [8, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [5, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [2, 2],
-					"id": "back_enil"
+					"id": "enil"
 				},
 				{
 					"coords": [41, 2],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [37, 2],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [37, 4],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				},
 				{
 					"coords": [40, 10],
-					"id": "back_enclwindow"
+					"id": "enclwindow"
 				}
 			]
 		},
@@ -486,247 +486,247 @@
 			"back_objs": [
 				{
 					"coords": [30, 10],
-					"id": "back_bvent"
+					"id": "bvent"
 				},
 				{
 					"coords": [26, 10],
-					"id": "back_bvent"
+					"id": "bvent"
 				},
 				{
 					"coords": [22, 10],
-					"id": "back_bvent"
+					"id": "bvent"
 				},
 				{
 					"coords": [18, 10],
-					"id": "back_bvent"
+					"id": "bvent"
 				},
 				{
 					"coords": [14, 10],
-					"id": "back_bvent"
+					"id": "bvent"
 				},
 				{
 					"coords": [1, 17],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [7, 17],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [13, 17],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [19, 17],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [25, 17],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [31, 17],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [37, 17],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [43, 17],
-					"id": "back_hkonstr"
+					"id": "hkonstr"
 				},
 				{
 					"coords": [23, 19],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [23, 22],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [32, 19],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [32, 22],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [14, 19],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [14, 22],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [39, 2],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [39, 4],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [39, 6],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [44, 2],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [44, 4],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [44, 6],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [3, 10],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [3, 12],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [3, 14],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [8, 10],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [8, 12],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [8, 14],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [5, 10],
-					"id": "back_light2"
+					"id": "light2"
 				},
 				{
 					"coords": [5, 12],
-					"id": "back_light2"
+					"id": "light2"
 				},
 				{
 					"coords": [5, 14],
-					"id": "back_light2"
+					"id": "light2"
 				},
 				{
 					"coords": [41, 2],
-					"id": "back_light2"
+					"id": "light2"
 				},
 				{
 					"coords": [41, 4],
-					"id": "back_light2"
+					"id": "light2"
 				},
 				{
 					"coords": [41, 6],
-					"id": "back_light2"
+					"id": "light2"
 				},
 				{
 					"coords": [41, 20],
-					"id": "back_light2"
+					"id": "light2"
 				},
 				{
 					"coords": [41, 22],
-					"id": "back_light2"
+					"id": "light2"
 				},
 				{
 					"coords": [31, 6],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [31, 4],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [27, 6],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [27, 4],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [27, 2],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [31, 2],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [23, 2],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [23, 4],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [23, 6],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [19, 2],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [19, 4],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [19, 6],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [15, 2],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [15, 4],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [15, 6],
-					"id": "back_snar"
+					"id": "snar"
 				},
 				{
 					"coords": [12, 12],
-					"id": "back_generator"
+					"id": "generator"
 				},
 				{
 					"coords": [17, 12],
-					"id": "back_generator"
+					"id": "generator"
 				},
 				{
 					"coords": [22, 12],
-					"id": "back_generator"
+					"id": "generator"
 				},
 				{
 					"coords": [27, 12],
-					"id": "back_generator"
+					"id": "generator"
 				},
 				{
 					"coords": [32, 12],
-					"id": "back_generator"
+					"id": "generator"
 				},
 				{
 					"coords": [26, 20],
-					"id": "back_generator"
+					"id": "generator"
 				},
 				{
 					"coords": [17, 20],
-					"id": "back_generator"
+					"id": "generator"
 				}
 			]
 		},
@@ -795,135 +795,135 @@
 			"back_objs": [
 				{
 					"coords": [39, 10],
-					"id": "back_lred"
+					"id": "lred"
 				},
 				{
 					"coords": [5, 2],
-					"id": "back_enclave"
+					"id": "enclave"
 				},
 				{
 					"coords": [31, 12],
-					"id": "back_stlight3"
+					"id": "stlight3"
 				},
 				{
 					"coords": [10, 10],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [28, 12],
-					"id": "back_stlight3"
+					"id": "stlight3"
 				},
 				{
 					"coords": [21, 10],
-					"id": "back_monitor"
+					"id": "monitor"
 				},
 				{
 					"coords": [21, 11],
-					"id": "back_monitor"
+					"id": "monitor"
 				},
 				{
 					"coords": [19, 10],
-					"id": "back_monitor"
+					"id": "monitor"
 				},
 				{
 					"coords": [19, 11],
-					"id": "back_monitor"
+					"id": "monitor"
 				},
 				{
 					"coords": [19, 14],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [21, 14],
-					"id": "back_pult"
+					"id": "pult"
 				},
 				{
 					"coords": [21, 15],
-					"id": "back_wires1"
+					"id": "wires1"
 				},
 				{
 					"coords": [25, 12],
-					"id": "back_stlight3"
+					"id": "stlight3"
 				},
 				{
 					"coords": [10, 12],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [10, 14],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [17, 10],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [17, 12],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [17, 14],
-					"id": "back_light7"
+					"id": "light7"
 				},
 				{
 					"coords": [12, 10],
-					"id": "back_monitor2"
+					"id": "monitor2"
 				},
 				{
 					"coords": [2, 1],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [2, 4],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [2, 7],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [2, 10],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [2, 13],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [8, 1],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [8, 4],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [8, 7],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [8, 10],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [8, 13],
-					"id": "back_vkonstr"
+					"id": "vkonstr"
 				},
 				{
 					"coords": [40, 11],
-					"id": "back_light5"
+					"id": "light5"
 				},
 				{
 					"coords": [20, 12],
-					"id": "back_wires2"
+					"id": "wires2"
 				},
 				{
 					"coords": [21, 12],
-					"id": "back_wires2"
+					"id": "wires2"
 				},
 				{
 					"coords": [20, 15],
-					"id": "back_wires2"
+					"id": "wires2"
 				}
 			]
 		},
@@ -960,11 +960,11 @@
 			"back_objs": [
 				{
 					"coords": [39, 13],
-					"id": "back_doorencl1"
+					"id": "doorencl1"
 				},
 				{
 					"coords": [18, 6],
-					"id": "back_lcyan"
+					"id": "lcyan"
 				}
 			]
 		},
@@ -1001,7 +1001,7 @@
 			"back_objs": [
 				{
 					"coords": [38, 9],
-					"id": "back_exit_light"
+					"id": "exit_light"
 				}
 			]
 		}

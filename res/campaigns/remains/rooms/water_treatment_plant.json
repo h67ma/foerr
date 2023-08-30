@@ -37,201 +37,201 @@
 			"back_objs": [
 				{
 					"coords": [14, 10],
-					"id": "back_biggate"
+					"id": "biggate"
 				},
 				{
 					"coords": [1, 1],
-					"id": "back_web1tl"
+					"id": "web1tl"
 				},
 				{
 					"coords": [1, 9],
-					"id": "back_web1tl"
+					"id": "web1tl"
 				},
 				{
 					"coords": [37, 9],
-					"id": "back_web1tl"
+					"id": "web1tl"
 				},
 				{
 					"coords": [44, 9],
-					"id": "back_web1tr"
+					"id": "web1tr"
 				},
 				{
 					"coords": [44, 1],
-					"id": "back_web1tr"
+					"id": "web1tr"
 				},
 				{
 					"coords": [8, 9],
-					"id": "back_web1tr"
+					"id": "web1tr"
 				},
 				{
 					"coords": [1, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [11, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [21, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [31, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [41, 1],
-					"id": "back_potek"
+					"id": "potek"
 				},
 				{
 					"coords": [0, 6],
-					"id": "back_moss"
+					"id": "moss"
 				},
 				{
 					"coords": [10, 6],
-					"id": "back_moss"
+					"id": "moss"
 				},
 				{
 					"coords": [20, 6],
-					"id": "back_moss"
+					"id": "moss"
 				},
 				{
 					"coords": [38, 6],
-					"id": "back_moss"
+					"id": "moss"
 				},
 				{
 					"coords": [28, 6],
-					"id": "back_moss"
+					"id": "moss"
 				},
 				{
 					"coords": [14, 3],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [33, 3],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [17, 3],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [30, 3],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [20, 3],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [27, 3],
-					"id": "back_vent"
+					"id": "vent"
 				},
 				{
 					"coords": [45, 13],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [43, 13],
-					"id": "back_depot"
+					"id": "depot"
 				},
 				{
 					"coords": [43, 4],
-					"id": "back_stok"
+					"id": "stok"
 				},
 				{
 					"coords": [2, 4],
-					"id": "back_stok"
+					"id": "stok"
 				},
 				{
 					"coords": [23, 10],
-					"id": "back_light3"
+					"id": "light3"
 				},
 				{
 					"coords": [44, 12],
-					"id": "back_light3"
+					"id": "light3"
 				},
 				{
 					"coords": [6, 12],
-					"id": "back_light3"
+					"id": "light3"
 				},
 				{
 					"coords": [10, 0],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [0, 5],
-					"id": "back_pipe2"
+					"id": "pipe2"
 				},
 				{
 					"coords": [12, 5],
-					"id": "back_pipe2"
+					"id": "pipe2"
 				},
 				{
 					"coords": [24, 5],
-					"id": "back_pipe2"
+					"id": "pipe2"
 				},
 				{
 					"coords": [36, 5],
-					"id": "back_pipe2"
+					"id": "pipe2"
 				},
 				{
 					"coords": [10, 6],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [10, 4],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [10, 2],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [37, 6],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [37, 4],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [37, 2],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [37, 0],
-					"id": "back_pipe4"
+					"id": "pipe4"
 				},
 				{
 					"coords": [2, 13],
-					"id": "back_cot"
+					"id": "cot"
 				}
 			],
 			"back_holes": [
 				{
 					"coords": [8, 10],
-					"id": "back_swindow"
+					"id": "swindow"
 				},
 				{
 					"coords": [5, 10],
-					"id": "back_swindow"
+					"id": "swindow"
 				},
 				{
 					"coords": [44, 10],
-					"id": "back_swindow"
+					"id": "swindow"
 				},
 				{
 					"coords": [2, 10],
-					"id": "back_swindow"
+					"id": "swindow"
 				},
 				{
 					"coords": [38, 10],
-					"id": "back_swindow"
+					"id": "swindow"
 				},
 				{
 					"coords": [41, 10],
-					"id": "back_swindow"
+					"id": "swindow"
 				}
 			],
 			"spawn_coords": [19, 15]
