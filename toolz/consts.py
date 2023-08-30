@@ -41,9 +41,5 @@ OUT_DELIM = '|'
 SYMBOL_EMPTY = '_'
 SYMBOL_UNKNOWN = '?'
 
-TXT_TYPE_MAIN = 0
-TXT_TYPE_HOLE = 1
-TXT_TYPE_LIGHT = 2
-
 PATH_OBJS_BACK = "texture/objects_back"
 FILE_OBJS_JSON = "objs.json"
