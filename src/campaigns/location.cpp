@@ -43,7 +43,7 @@ Location::Location(const std::string &id, Player &player) : id(id), player(playe
  *	"rec_lvl": 42,					// optional
  *	"rooms": "rooms_file_id",		// optional, name of the rooms file, located in campaigns/campaign_id/rooms,
  *									   without extension. defaults to location id
- *	"worldmap_icon": "res/campaigns/test/hud/icons/surface.png",
+ *	"worldmap_icon": "res/campaigns/remains/hud/icons/surface.png",
  *	"worldmap_icon_big": false,		// optional, defaults to false
  *	"worldmap_coords": [123, 456],
  *	"rooms": [

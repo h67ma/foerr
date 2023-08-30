@@ -7,7 +7,7 @@
 			"grind": true,
 			"basecamp": false,
 			"rec_lvl": 12,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/abandoned_stable.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/abandoned_stable.png",
 			"worldmap_coords": [430, 399],
 			"worldmap_icon_big": true
 		},
@@ -17,7 +17,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 24,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/military_base.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/military_base.png",
 			"worldmap_coords": [336, 152],
 			"worldmap_icon_big": false
 		},
@@ -27,7 +27,7 @@
 			"grind": true,
 			"basecamp": false,
 			"rec_lvl": 18,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/canterlot_ruins.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/canterlot_ruins.png",
 			"worldmap_coords": [87, 60],
 			"worldmap_icon_big": true
 		},
@@ -37,7 +37,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 29,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/command_post.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/command_post.png",
 			"worldmap_coords": [344, 24],
 			"worldmap_icon_big": false
 		},
@@ -46,7 +46,7 @@
 			"description": "A small settlement sheltering a small group of zebras.",
 			"grind": false,
 			"basecamp": true,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/covertsign.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/covertsign.png",
 			"worldmap_coords": [91, 180],
 			"worldmap_icon_big": false
 		},
@@ -56,7 +56,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 7,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/dsr.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/dsr.png",
 			"worldmap_coords": [91, 306],
 			"worldmap_icon_big": false
 		},
@@ -66,7 +66,7 @@
 			"grind": true,
 			"basecamp": false,
 			"rec_lvl": 27,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/enclave_base.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/enclave_base.png",
 			"worldmap_coords": [286, 24],
 			"worldmap_icon_big": true
 		},
@@ -76,7 +76,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 27,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/enclave_outpost.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/enclave_outpost.png",
 			"worldmap_coords": [286, 81],
 			"worldmap_icon_big": false
 		},
@@ -85,7 +85,7 @@
 			"description": "A partly destroyed ManeTec factory complex, occupied by raiders. Apart from them, you should watch out for automatic defense systems and occasional monsters.",
 			"grind": true,
 			"basecamp": false,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/factory.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/factory.png",
 			"worldmap_coords": [141, 305],
 			"worldmap_icon_big": true
 		},
@@ -95,7 +95,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 10,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/falls_springs.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/falls_springs.png",
 			"worldmap_coords": [370, 409],
 			"worldmap_icon_big": false
 		},
@@ -105,7 +105,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 30,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/fort_rocks.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/fort_rocks.png",
 			"worldmap_coords": [311, 206],
 			"worldmap_icon_big": false
 		},
@@ -115,7 +115,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 25,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/gun_workshop.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/gun_workshop.png",
 			"worldmap_coords": [41, 306],
 			"worldmap_icon_big": false
 		},
@@ -125,7 +125,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 15,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/hankey_garages.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/hankey_garages.png",
 			"worldmap_coords": [224, 253],
 			"worldmap_icon_big": false
 		},
@@ -135,7 +135,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 26,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/legion_hq.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/legion_hq.png",
 			"worldmap_coords": [478, 321],
 			"worldmap_icon_big": false
 		},
@@ -145,7 +145,7 @@
 			"grind": true,
 			"basecamp": false,
 			"rec_lvl": 15,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/manehattan_ruins.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/manehattan_ruins.png",
 			"worldmap_coords": [430, 196],
 			"worldmap_icon_big": true
 		},
@@ -155,7 +155,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 17,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/mas.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/mas.png",
 			"worldmap_coords": [492, 195],
 			"worldmap_icon_big": false
 		},
@@ -166,7 +166,7 @@
 			"basecamp": false,
 			"rec_lvl": 22,
 			"rooms": "bunker",
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/military_base.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/military_base.png",
 			"worldmap_coords": [251, 174],
 			"worldmap_icon_big": false
 		},
@@ -176,7 +176,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 20,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/moi.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/moi.png",
 			"worldmap_coords": [39, 60],
 			"worldmap_icon_big": false
 		},
@@ -185,7 +185,7 @@
 			"description": "One of those rare safe places where you can rest, treat your wounds and replenish supplies.",
 			"grind": false,
 			"basecamp": true,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/prancing_pony.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/prancing_pony.png",
 			"worldmap_coords": [259, 340],
 			"worldmap_icon_big": false
 		},
@@ -195,7 +195,7 @@
 			"grind": true,
 			"basecamp": false,
 			"rec_lvl": 10,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/sewers.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/sewers.png",
 			"worldmap_coords": [390, 464],
 			"worldmap_icon_big": false
 		},
@@ -205,7 +205,7 @@
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 15,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/stable_88_core.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/stable_88_core.png",
 			"worldmap_coords": [489, 399],
 			"worldmap_icon_big": false
 		},
@@ -214,7 +214,7 @@
 			"description": "A completely autonomous secret shelter built at the beginning of the war and designed to save the best Equestrian scientists and engineers. Your home.",
 			"grind": true,
 			"basecamp": true,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/stable_pi.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/stable_pi.png",
 			"worldmap_coords": [276, 463],
 			"worldmap_icon_big": true
 		},
@@ -223,7 +223,7 @@
 			"description": "A completely autonomous secret shelter built at the beginning of the war and designed to save the best Equestrian scientists and engineers. Your home.",
 			"grind": false,
 			"basecamp": false,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/stable_pi.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/stable_pi.png",
 			"worldmap_coords": [230, 468],
 			"worldmap_icon_big": false
 		},
@@ -232,7 +232,7 @@
 			"description": "Equestrian Wasteland, harsh and cruel.",
 			"grind": false,
 			"basecamp": false,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/surface.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/surface.png",
 			"worldmap_coords": [125, 409],
 			"worldmap_icon_big": false
 		},
@@ -241,7 +241,7 @@
 			"description": "The beginning of your journey.",
 			"grind": false,
 			"basecamp": false,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/technical_tunnels.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/technical_tunnels.png",
 			"worldmap_icon_big": false,
 			"worldmap_coords": [47, 450]
 		},
@@ -250,7 +250,7 @@
 			"description": "A small building where a temporary camp was arranged by Steel Rangers under the command of SteelHooves.",
 			"grind": false,
 			"basecamp": true,
-			"worldmap_icon": "res/campaigns/test/hud/loc_icons/water_treatment_plant.png",
+			"worldmap_icon": "res/campaigns/remains/hud/loc_icons/water_treatment_plant.png",
 			"worldmap_coords": [191, 112],
 			"worldmap_icon_big": false
 		}

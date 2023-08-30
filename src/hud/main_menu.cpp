@@ -20,7 +20,7 @@ MainMenu::MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::Render
 			window.draw(loadingScreen);
 			window.display();
 
-			if (!campaign.load("res/campaigns/test"))
+			if (!campaign.load("res/campaigns/remains"))
 			{
 				Log::e(STR_CAMPAIGN_LOAD_FAILED);
 				return;
