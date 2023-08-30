@@ -8,7 +8,7 @@
 #define BACK_OBJ_COLOR COLOR_GRAY(110)
 
 #define TXT_MAIN_SUFFIX ".png"
-#define TXT_HOLE_SUFFIX "_e.png"
+#define TXT_HOLE_SUFFIX "_h.png"
 #define TXT_LIGHT_SUFFIX "_l.png"
 
 /**

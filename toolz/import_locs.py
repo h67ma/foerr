@@ -457,17 +457,15 @@ def translate_rooms(log: Log, output_id: str, input_filename: str, output_filena
 			if maybe_separated_id is not None:
 				back_id = maybe_separated_id[0]
 
-			rr_back_id = "back_" + back_id
-
 			out_back_obj = {
 				FOERR_JSON_KEY_COORDS: [int(back_x), int(back_y)],
-				FOERR_JSON_KEY_ID: rr_back_id
+				FOERR_JSON_KEY_ID: back_id
 			}
 
 			if maybe_separated_id is not None:
 				out_back_obj[FOERR_JSON_KEY_VARIANT] = maybe_separated_id[1]
 
-			if rr_back_id in hole_ids:
+			if back_id in hole_ids:
 				if back_layer not in back_holes_sorter:
 					back_holes_sorter[back_layer] = []
 				back_holes_sorter[back_layer].append(out_back_obj)
