@@ -1,7 +1,6 @@
 import re
 import os
 import json
-from log import Log
 from xml.etree import ElementTree
 
 
@@ -31,6 +30,6 @@ def read_xml(path: str) -> ElementTree.Element:
 	try:
 		tree = ElementTree.parse(path)
 	except (FileNotFoundError, ElementTree.ParseError) as ex:
-		log.e(ex)
+		print(ex)
 		return None
 	return tree.getroot()
