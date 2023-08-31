@@ -96,7 +96,10 @@ def back_obj_parse_alldata(back_node: ElementTree.Element) -> BackObject:
 	# remaining attributes:
 	# "n" - seems to be a display string, perhaps needed for level editor. ignore it for now.
 	# "s" - possibly layer number/draw order?
+	# "mirror" - ?
 	# "nope" - ?
+	# "x2" - seems to be width (in cells), currently not useful
+	# "y2" - seems to be height (in cells), currently not useful
 	# ...?
 
 	return back_obj
