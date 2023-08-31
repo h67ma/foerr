@@ -6,15 +6,7 @@ from log import Log
 from common import *
 from consts import *
 from convert_data import *
-
-
-class BackObject:
-	def __init__(self):
-		self.id = None
-		self.out_data = {}
-		self.has_main_txt = False
-		self.has_hole_txt = False
-		self.has_light_txt = False
+from common import BackObject
 
 
 def back_obj_parse_alldata(back_node: ElementTree.Element) -> BackObject:
@@ -225,11 +217,17 @@ def back_objs_import(log: Log, alldata: ElementTree.Element, path_in: str, path_
 	# inside them are 1.png, 2.png, 3.png, etc.
 	txt_dirs = os.listdir(path_in)
 
+	parsed_back_objs = []
+
 	for back_node in alldata.findall("back"):
 		back_obj = back_obj_parse_alldata(back_node)
 		if back_obj is None:
 			continue
+		parsed_back_objs.append(back_obj)
 
+	parsed_back_objs.extend(obj_back_missing_parent_variants)
+
+	for back_obj in parsed_back_objs:
 		log.d("%s%s%s %s %s" % (
 			"m" if back_obj.has_main_txt else "_",
 			"h" if back_obj.has_hole_txt else "_",

@@ -1,7 +1,18 @@
 import re
 import os
 import json
+import copy
 from xml.etree import ElementTree
+
+
+class BackObject:
+	def __init__(self, id: str = None, out_data: object = {}, has_main_txt: bool = False, has_hole_txt: bool = False,
+				 has_light_txt: bool = False):
+		self.id = id
+		self.out_data = copy.copy(out_data) # will get set to some other object's value if we don't copy :()
+		self.has_main_txt = has_main_txt
+		self.has_hole_txt = has_hole_txt
+		self.has_light_txt = has_light_txt
 
 
 def sane_object_pairs_hook(ordered_pairs):

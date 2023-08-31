@@ -1,4 +1,5 @@
 from consts import *
+from common import BackObject
 
 # more meaningful location names translations
 loc_names_map = {
@@ -213,6 +214,12 @@ obj_back_blend_blacklist = [
 	"blood1",
 	"blood2",
 ]
+
+# objects which are referenced by variants, but not defined in AllData.
+# values are (object_id, light_cnt)
+obj_back_missing_parent_variants = {
+	BackObject(id="lcolor", has_light_txt=True),
+}
 
 # set this manually, based on extract_svg_offsets.py
 back_obj_offsets = {
