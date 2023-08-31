@@ -94,11 +94,13 @@
 				},
 				{
 					"coords": [31, 9],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [1, 9],
-					"id": "lblue"
+					"id": "lcolor",
+					"var": 7
 				},
 				{
 					"coords": [4, 11],
@@ -6855,11 +6857,13 @@
 				},
 				{
 					"coords": [16, 12],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [23, 12],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [37, 1],

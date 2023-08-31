@@ -34,23 +34,28 @@
 			"back_objs": [
 				{
 					"coords": [10, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [34, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [34, 17],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [15, 17],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [27, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [41, 9],
@@ -652,7 +657,8 @@
 			"back_objs": [
 				{
 					"coords": [11, 17],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [5, 17],
@@ -977,11 +983,13 @@
 				},
 				{
 					"coords": [25, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [18, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [41, 1],
@@ -1142,7 +1150,8 @@
 				},
 				{
 					"coords": [10, 2],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [28, 7],
@@ -1150,7 +1159,8 @@
 				},
 				{
 					"coords": [22, 7],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [5, 7],
@@ -1640,7 +1650,8 @@
 			"back_objs": [
 				{
 					"coords": [31, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [43, 21],
@@ -1648,7 +1659,8 @@
 				},
 				{
 					"coords": [37, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [43, 11],
@@ -2130,7 +2142,8 @@
 				},
 				{
 					"coords": [19, 3],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [18, 11],
@@ -2230,7 +2243,8 @@
 				},
 				{
 					"coords": [12, 5],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [14, 13],
@@ -2238,19 +2252,23 @@
 				},
 				{
 					"coords": [23, 5],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [30, 13],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [21, 13],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [34, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [6, 19],
@@ -2452,7 +2470,8 @@
 			"back_objs": [
 				{
 					"coords": [12, 2],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [43, 5],
@@ -3119,7 +3138,8 @@
 			"back_objs": [
 				{
 					"coords": [37, 5],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [37, 15],
@@ -3143,15 +3163,18 @@
 				},
 				{
 					"coords": [14, 5],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [21, 5],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [30, 5],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [23, 1],
@@ -3308,7 +3331,8 @@
 				},
 				{
 					"coords": [31, 5],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [21, 9],
@@ -3549,27 +3573,33 @@
 			"back_objs": [
 				{
 					"coords": [32, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [32, 7],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [29, 17],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [35, 17],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [41, 17],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [23, 17],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [12, 16],
@@ -3889,7 +3919,8 @@
 				},
 				{
 					"coords": [12, 2],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [23, 15],
@@ -4017,7 +4048,8 @@
 				},
 				{
 					"coords": [2, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [23, 6],
@@ -4627,15 +4659,18 @@
 			"back_objs": [
 				{
 					"coords": [37, 2],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [31, 10],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [37, 10],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [43, 2],
@@ -4643,7 +4678,8 @@
 				},
 				{
 					"coords": [7, 2],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [45, 6],
@@ -5093,7 +5129,8 @@
 				},
 				{
 					"coords": [2, 13],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [22, 11],
@@ -5486,7 +5523,8 @@
 				},
 				{
 					"coords": [20, 9],
-					"id": "lred"
+					"id": "lcolor",
+					"var": 1
 				},
 				{
 					"coords": [22, 1],
@@ -5506,7 +5544,8 @@
 				},
 				{
 					"coords": [0, 0],
-					"id": "lred"
+					"id": "lcolor",
+					"var": 1
 				},
 				{
 					"coords": [30, 12],
@@ -5708,19 +5747,23 @@
 				},
 				{
 					"coords": [37, 2],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [7, 2],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [37, 10],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [31, 10],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [29, 1],
@@ -5868,11 +5911,13 @@
 				},
 				{
 					"coords": [33, 1],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [27, 1],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [8, 5],
@@ -6242,27 +6287,33 @@
 			"back_objs": [
 				{
 					"coords": [13, 1],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [31, 1],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [40, 1],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [4, 1],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [16, 12],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [23, 12],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [18, 12],
@@ -6375,7 +6426,8 @@
 			"back_objs": [
 				{
 					"coords": [16, 13],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [18, 8],
@@ -6383,7 +6435,8 @@
 				},
 				{
 					"coords": [23, 13],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [36, 13],
@@ -6391,11 +6444,13 @@
 				},
 				{
 					"coords": [30, 13],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [9, 13],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [3, 8],
@@ -6640,11 +6695,13 @@
 				},
 				{
 					"coords": [31, 2],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [13, 2],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [19, 6],
@@ -6981,11 +7038,13 @@
 			"back_objs": [
 				{
 					"coords": [34, 17],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [10, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [9, 17],
@@ -6993,15 +7052,18 @@
 				},
 				{
 					"coords": [34, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [15, 17],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [27, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [41, 9],
@@ -7490,11 +7552,13 @@
 				},
 				{
 					"coords": [38, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [6, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [22, 21],
@@ -7699,11 +7763,13 @@
 				},
 				{
 					"coords": [22, 16],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [28, 16],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [23, 6],
@@ -7912,11 +7978,13 @@
 				},
 				{
 					"coords": [31, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [37, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [43, 2],
@@ -8109,11 +8177,13 @@
 			"back_objs": [
 				{
 					"coords": [34, 21],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [21, 13],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [14, 13],
@@ -8121,15 +8191,18 @@
 				},
 				{
 					"coords": [12, 5],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [23, 5],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [30, 13],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [40, 11],
@@ -8245,7 +8318,8 @@
 			"back_objs": [
 				{
 					"coords": [30, 11],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [24, 21],
@@ -8506,11 +8580,13 @@
 				},
 				{
 					"coords": [31, 9],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [1, 9],
-					"id": "lblue"
+					"id": "lcolor",
+					"var": 7
 				},
 				{
 					"coords": [4, 11],
@@ -8815,23 +8891,28 @@
 				},
 				{
 					"coords": [42, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [2, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [22, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [27, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [17, 9],
-					"id": "stwindow2"
+					"id": "stwindow",
+					"var": 2
 				},
 				{
 					"coords": [14, 1],

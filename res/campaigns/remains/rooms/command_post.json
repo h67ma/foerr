@@ -829,7 +829,8 @@
 			"back_objs": [
 				{
 					"coords": [5, 13],
-					"id": "lred"
+					"id": "lcolor",
+					"var": 1
 				},
 				{
 					"coords": [23, 1],

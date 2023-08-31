@@ -59,7 +59,8 @@
 				},
 				{
 					"coords": [19, 4],
-					"id": "lacid"
+					"id": "lcolor",
+					"var": 4
 				},
 				{
 					"coords": [17, 9],
@@ -1688,7 +1689,8 @@
 				},
 				{
 					"coords": [16, 12],
-					"id": "lpurple"
+					"id": "lcolor",
+					"var": 8
 				},
 				{
 					"coords": [37, 3],
@@ -1966,7 +1968,8 @@
 				},
 				{
 					"coords": [20, 12],
-					"id": "lblue"
+					"id": "lcolor",
+					"var": 7
 				},
 				{
 					"coords": [14, 19],
@@ -2527,7 +2530,8 @@
 				},
 				{
 					"coords": [32, 15],
-					"id": "lred"
+					"id": "lcolor",
+					"var": 1
 				},
 				{
 					"coords": [28, 18],
@@ -2910,7 +2914,8 @@
 				},
 				{
 					"coords": [2, 4],
-					"id": "lorange"
+					"id": "lcolor",
+					"var": 2
 				},
 				{
 					"coords": [32, 3],

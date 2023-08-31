@@ -795,7 +795,8 @@
 			"back_objs": [
 				{
 					"coords": [39, 10],
-					"id": "lred"
+					"id": "lcolor",
+					"var": 1
 				},
 				{
 					"coords": [5, 2],
@@ -964,7 +965,8 @@
 				},
 				{
 					"coords": [18, 6],
-					"id": "lcyan"
+					"id": "lcolor",
+					"var": 6
 				}
 			]
 		},

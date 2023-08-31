@@ -1124,7 +1124,8 @@
 			"back_objs": [
 				{
 					"coords": [33, 5],
-					"id": "lpurple"
+					"id": "lcolor",
+					"var": 8
 				},
 				{
 					"coords": [18, 21],

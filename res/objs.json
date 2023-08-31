@@ -183,6 +183,10 @@
 			"offset": [15, -10],
 			"main_cnt": 3
 		},
+		"lcolor": {
+			"offset": [-8, -8],
+			"light_cnt": 10
+		},
 		"light1": {
 			"light_cnt": 1,
 			"main_cnt": 2

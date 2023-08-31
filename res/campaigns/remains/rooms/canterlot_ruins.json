@@ -573,7 +573,8 @@
 				},
 				{
 					"coords": [20, 18],
-					"id": "lpink"
+					"id": "lcolor",
+					"var": 9
 				},
 				{
 					"coords": [11, 15],

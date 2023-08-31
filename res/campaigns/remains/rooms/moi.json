@@ -1132,7 +1132,8 @@
 				},
 				{
 					"coords": [3, 13],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [30, 15],
@@ -1494,39 +1495,48 @@
 			"back_objs": [
 				{
 					"coords": [38, 9],
-					"id": "lyellow"
+					"id": "lcolor",
+					"var": 3
 				},
 				{
 					"coords": [4, 8],
-					"id": "lred"
+					"id": "lcolor",
+					"var": 1
 				},
 				{
 					"coords": [20, 6],
-					"id": "lred"
+					"id": "lcolor",
+					"var": 1
 				},
 				{
 					"coords": [35, 13],
-					"id": "lyellow"
+					"id": "lcolor",
+					"var": 3
 				},
 				{
 					"coords": [22, 13],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [20, 21],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [36, 21],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [41, 21],
-					"id": "lblue"
+					"id": "lcolor",
+					"var": 7
 				},
 				{
 					"coords": [9, 13],
-					"id": "lblue"
+					"id": "lcolor",
+					"var": 7
 				},
 				{
 					"coords": [26, 17],
@@ -2362,7 +2372,8 @@
 			"back_objs": [
 				{
 					"coords": [22, 12],
-					"id": "lred"
+					"id": "lcolor",
+					"var": 1
 				},
 				{
 					"coords": [44, 6],
@@ -2644,7 +2655,8 @@
 				},
 				{
 					"coords": [12, 19],
-					"id": "lpurple"
+					"id": "lcolor",
+					"var": 8
 				},
 				{
 					"coords": [9, 17],

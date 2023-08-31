@@ -254,7 +254,8 @@
 				},
 				{
 					"coords": [22, 1],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [36, 2],
@@ -384,7 +385,8 @@
 			"back_objs": [
 				{
 					"coords": [9, 17],
-					"id": "lred"
+					"id": "lcolor",
+					"var": 1
 				},
 				{
 					"coords": [35, 8],
@@ -642,11 +644,13 @@
 				},
 				{
 					"coords": [17, 8],
-					"id": "lgreen"
+					"id": "lcolor",
+					"var": 5
 				},
 				{
 					"coords": [22, 5],
-					"id": "lcyan"
+					"id": "lcolor",
+					"var": 6
 				},
 				{
 					"coords": [32, 5],
@@ -1217,7 +1221,8 @@
 			"back_objs": [
 				{
 					"coords": [34, 13],
-					"id": "lyellow"
+					"id": "lcolor",
+					"var": 3
 				},
 				{
 					"coords": [3, 1],
