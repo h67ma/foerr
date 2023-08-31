@@ -419,21 +419,6 @@ obj_offsets = {
 	"work": (-40, -55)
 }
 
-# empty images
-# TODO delet this probably
-obj_txt_blacklist = [
-	"visalib1_1",
-	"visalib1_2",
-	"visalib2_1",
-	"visalib2_2",
-	"visplatform1_1",
-	"visplatform1_2",
-	"visplatform2_1",
-	"visplatform2_2",
-	"visplatform3_1",
-	"visplatform3_2",
-]
-
 # these back objects should be processed manually, with the help of pad_images.py and dark magic.
 # this is required, because textures exported from swf are weirdly trimmed.
 back_obj_copy_blacklist = [

@@ -3,7 +3,6 @@ import re
 import os
 from log import Log
 from common import write_nicer_json
-from convert_data import obj_txt_blacklist
 
 
 reg_find_transform = re.compile(r"<use[^\>]*matrix\((-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+)\)")
@@ -20,7 +19,7 @@ texture_suffix_to_type = {
 }
 
 
-def nicify_filenames_group_objs(log: Log, path_in: str):
+def nicify_filenames_group_objs(log: Log, path_in: str, prefix: str):
 	"""
 	Generates more meaningful filenames (paths) for objects exported from texture1.swf/sprites, by removing
 	"DefineSprite", random number, and "_t" (main variant), changing index to be zero-based, and un-directorizing
@@ -50,20 +49,23 @@ def nicify_filenames_group_objs(log: Log, path_in: str):
 	}
 	"""
 
-	unnamed_idx = 0
 	out_root = {}
 
-	for img_id in sorted(os.listdir(path_in)): # sorted - we want the unnamed filenames to be in deterministic order
+	for img_id in os.listdir(path_in):
 		img_id_clean = reg_clean.sub("", img_id)
 		if len(img_id_clean) == 0:
-			# some images don't have a name, TODO define correct names in convert_data and translate here
-			img_id_clean = "unnamed" + str(unnamed_idx)
-			log.w("Image \"" + img_id + "\" is missing id, using \"" + img_id_clean + "\"")
-			unnamed_idx += 1
+			# some images don't have id, skip them for now
+			log.v("Image \"" + img_id + "\" is missing id, skipping")
+			continue
 
 		# remove the leading underscore. we can't remove it via reg_clean, as the unnamed ids won't be detected then
 		if img_id_clean[0] == '_':
 			img_id_clean = img_id_clean[1:]
+
+		if img_id_clean[:len(prefix)] != prefix:
+			continue
+
+		img_id_clean = img_id_clean[len(prefix):]
 
 		# detect texture type
 		img_id_suffix = ""
@@ -98,10 +100,6 @@ def nicify_filenames_group_objs(log: Log, path_in: str):
 				continue
 
 			target_filename = img_id_clean + '_' + based_img_idx + img_id_suffix
-
-			if target_filename in obj_txt_blacklist:
-				log.v("Image " + target_filename + " found in blacklist, skipping")
-				continue
 
 			out_obj_node.append((
 				os.path.join(img_id, orig_img_idx),
@@ -148,15 +146,8 @@ def read_svg_offset(log: Log, svg_path: str):
 		return (int(float(search[0][4])), int(float(search[0][5])))
 
 
-def extract_svg_offsets(log: Log, in_dir: str, out_path: str):
-	"""
-	Reads the svg files exported from texture1.swf/sprites and extracts 2d offsets from them. The data is considered
-	"dirty" and requires manual processing to ensure that the offsets are correct. The manually-processed data should be
-	added to obj_offsets (in convert_data.py).
-	"""
-	grouped_objs = nicify_filenames_group_objs(log, in_dir)
-
-	out_meta_root = {}
+def extract_group_svg_offsets(log: Log, in_dir: str, grouped_objs):
+	out_node = {}
 
 	for obj_id, obj_node in grouped_objs.items():
 		# check if all variants have the same offset
@@ -180,13 +171,31 @@ def extract_svg_offsets(log: Log, in_dir: str, out_path: str):
 		if all_offsets_same:
 			# all offsets are the same - we store only the common offset
 			if first_offset != (0, 0): # note: again comparing tuples
-				out_meta_root[obj_id] = first_offset
+				out_node[obj_id] = first_offset
 		else:
 			# there are differences between variant offsets - we store all of them for manual processing
-			out_meta_root[obj_id] = all_offsets
+			out_node[obj_id] = all_offsets
 
-	# sort output based on output filename
-	out_meta_root = {key: val for key, val in sorted(out_meta_root.items(), key = lambda item: item[0])}
+	return out_node
+
+
+def extract_svg_offsets(log: Log, in_dir: str, out_path: str):
+	"""
+	Reads the svg files exported from texture1.swf/sprites and extracts 2d offsets from them. The data is considered
+	"dirty" and requires manual processing to ensure that the offsets are correct. The manually-processed data should be
+	added to obj_offsets (in convert_data.py).
+	"""
+	grouped_back_objs = nicify_filenames_group_objs(log, in_dir, "back_")
+	grouped_objs = nicify_filenames_group_objs(log, in_dir, "vis")
+
+	out_back_objs = extract_group_svg_offsets(log, in_dir, grouped_back_objs)
+	out_objs = extract_group_svg_offsets(log, in_dir, grouped_objs)
+
+	# sort outputs based on id
+	out_meta_root = {
+		"back_objs": {key: val for key, val in sorted(out_back_objs.items(), key = lambda item: item[0])},
+		"objs": {key: val for key, val in sorted(out_objs.items(), key = lambda item: item[0])},
+	}
 	write_nicer_json(out_path, out_meta_root)
 
 
