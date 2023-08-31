@@ -27,6 +27,15 @@ def sane_object_pairs_hook(ordered_pairs):
 	return d
 
 
+def read_json(input_filename: str) -> object:
+	try:
+		with open(input_filename, "r") as f:
+			return json.load(f, object_pairs_hook=sane_object_pairs_hook)
+	except FileNotFoundError as ex:
+		print(ex)
+		return None
+
+
 def write_nicer_json(output_filename: str, output_root):
 	output_serialized = json.dumps(output_root, indent='\t')
 
@@ -36,6 +45,7 @@ def write_nicer_json(output_filename: str, output_root):
 
 	with open(output_filename, "w") as f:
 		f.write(output_serialized)
+
 
 def read_xml(path: str) -> ElementTree.Element:
 	try:

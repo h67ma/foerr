@@ -5,7 +5,7 @@ from typing import List
 from log import Log
 from consts import *
 from convert_data import *
-from common import sane_object_pairs_hook, write_nicer_json, read_xml
+from common import read_json, write_nicer_json, read_xml
 
 
 def maybe_write_objs_node(objs_sorter, out_node, key):
@@ -713,11 +713,8 @@ def materials_to_map(log: Log, map_node, name: str):
 
 
 def load_verify_maps(log: Log, materials_path):
-	try:
-		with open(materials_path, "r") as f:
-			mat_data = json.load(f, object_pairs_hook=sane_object_pairs_hook)
-	except FileNotFoundError as ex:
-		log.e(str(ex))
+	mat_data = read_json(materials_path)
+	if mat_data is None:
 		return None
 
 	to_process = [

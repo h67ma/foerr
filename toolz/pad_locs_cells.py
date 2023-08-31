@@ -2,7 +2,7 @@ import os
 import json
 import argparse
 from log import Log
-from common import sane_object_pairs_hook, write_nicer_json
+from common import read_json, write_nicer_json
 from consts import FOERR_JSON_KEY_CELLS, FOERR_JSON_KEY_ROOMS, OUT_DELIM, SYMBOL_EMPTY
 
 # let's be realistic
@@ -13,11 +13,8 @@ def pad_loc(log: Log, target_filename: str, pad_cnt: int):
 		log.e("Invalid pad size: " + str(pad_cnt))
 		return
 
-	try:
-		with open(target_filename, "r") as f:
-			loc_root = json.load(f, object_pairs_hook=sane_object_pairs_hook)
-	except FileNotFoundError as ex:
-		log.e(str(ex))
+	loc_root = read_json(target_filename)
+	if loc_root is None:
 		return
 
 	err_prefix = "\"" + target_filename + "\": "
