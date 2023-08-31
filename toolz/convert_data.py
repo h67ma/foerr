@@ -491,3 +491,28 @@ extra_cell_solids = {
 		},
 	},
 }
+
+back_obj_variant_mapping = {
+	"stwindow2": ("stwindow", 2), # no error here, stwindow2 has fr='3'
+	"chole1": ("chole", 0),
+	"chole2": ("chole", 1),
+	"chole3": ("chole", 2),
+	"chole4": ("chole", 3),
+	"chole5": ("chole", 4),
+	"chole6": ("chole", 5),
+	"hole1": ("hole", 0),
+	"hole2": ("hole", 1),
+	"hole3": ("hole", 2),
+	"hole4": ("hole", 3),
+	"hole5": ("hole", 4),
+	"lwhite": ("lcolor", 0),
+	"lred": ("lcolor", 1),
+	"lorange": ("lcolor", 2),
+	"lyellow": ("lcolor", 3),
+	"lacid": ("lcolor", 4),
+	"lgreen": ("lcolor", 5),
+	"lcyan": ("lcolor", 6),
+	"lblue": ("lcolor", 7),
+	"lpurple": ("lcolor", 8),
+	"lpink": ("lcolor", 9),
+}
