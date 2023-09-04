@@ -189,32 +189,39 @@
 		},
 		"light1": {
 			"light_cnt": 1,
+			"offset_light": [-111, -111],
 			"main_cnt": 2
 		},
 		"light2": {
 			"light_cnt": 2,
 			"offset": [0, 11],
+			"offset_light": [-117, -73],
 			"main_cnt": 3
 		},
 		"light3": {
 			"light_cnt": 1,
 			"offset": [0, 4],
+			"offset_light": [-114, -75],
 			"main_cnt": 2
 		},
 		"light4": {
 			"light_cnt": 1,
+			"offset_light": [-88, 0],
 			"main_cnt": 2
 		},
 		"light5": {
 			"light_cnt": 2,
+			"offset_light": [-53, -53],
 			"main_cnt": 3
 		},
 		"light6": {
 			"light_cnt": 2,
+			"offset_light": [-56, -56],
 			"main_cnt": 3
 		},
 		"light7": {
 			"light_cnt": 2,
+			"offset_light": [-35, -35],
 			"main_cnt": 3
 		},
 		"med": {
@@ -396,14 +403,17 @@
 		},
 		"stlight1": {
 			"light_cnt": 2,
+			"offset_light": [-111, -111],
 			"main_cnt": 3
 		},
 		"stlight3": {
 			"light_cnt": 2,
+			"offset_light": [-114, -79],
 			"main_cnt": 3
 		},
 		"stlight4": {
 			"light_cnt": 2,
+			"offset_light": [-88, 0],
 			"main_cnt": 3
 		},
 		"stok": {
