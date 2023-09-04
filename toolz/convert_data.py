@@ -297,6 +297,20 @@ back_obj_offsets = {
 	"zhaluzi": (-10, -14),
 }
 
+# generated manually, no sense wasting life figuring out where to get this offsets from
+back_obj_lights_offsets = {
+	"light1": (-111, -111),
+	"light2": (-117, -73),
+	"light3": (-114, -75),
+	"light4": (-88, 0),
+	"light5": (-53, -53),
+	"light6": (-56, -56),
+	"light7": (-35, -35),
+	"stlight1": (-111, -111),
+	"stlight3": (-114, -79),
+	"stlight4": (-88, 0),
+}
+
 # set this manually, based on extract_svg_offsets.py
 obj_offsets = {
 	"aaa": (-80, -200),

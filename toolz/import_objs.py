@@ -110,6 +110,15 @@ def back_obj_add_extra_data(back_obj: BackObject):
 	else:
 		log.e("Invalid entry at back_obj_offsets[\"" + back_obj.id + "\"]")
 
+	if back_obj.id in back_obj_lights_offsets:
+		if type(back_obj_lights_offsets[back_obj.id]) is not tuple:
+			log.e("Invalid entry at back_obj_lights_offsets[\"" + back_obj.id + "\"]")
+			return
+
+		obj_offset = back_obj_lights_offsets[back_obj.id]
+		if obj_offset != (0, 0): # don't write zero offsets (note: comparing tuples here and it somehow works)
+			back_obj.out_data[FOERR_JSON_KEY_OFFSET_LIGHT] = obj_offset
+
 
 def back_obj_find_img_dir_names(txt_dirs: list[str], back_id: str) -> tuple[str, str, str]:
 	"""
