@@ -1,0 +1,15 @@
+{
+	"api_version": 1,
+	"locations": {
+		"playground": {
+			"title": "Playground",
+			"description": "Feel free to edit anything, play around, and break things.",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 99,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/test.png",
+			"worldmap_coords": [420, 420],
+			"worldmap_icon_big": true
+		}
+	}
+}
