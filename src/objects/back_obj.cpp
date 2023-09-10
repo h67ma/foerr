@@ -33,7 +33,7 @@ bool BackObject::loadFromJson(const json &jsonNode)
 bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes, ResourceManager &resMgr,
 								const std::string &objId, int variantIdx) const
 {
-	if (variantIdx < 0)
+	if (variantIdx < 0 && this->variantsCnt > 1)
 		variantIdx = Randomizer::getRandomBetween(0, this->variantsCnt - 1);
 
 	bool gotOne = false;
