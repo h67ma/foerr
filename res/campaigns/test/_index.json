@@ -2,6 +2,6 @@
 	"api_version": 1,
 	"title": "Halls of Science 5",
 	"description": "Test campaign. Do not use.",
-	"start_location": "playground",
+	"start_location": "lights",
 	"worldmap_background": "res/campaigns/test/hud/world_map.png"
 }

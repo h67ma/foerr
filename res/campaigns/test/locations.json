@@ -1,9 +1,9 @@
 {
 	"api_version": 1,
 	"locations": {
-		"playground": {
-			"title": "Playground",
-			"description": "Feel free to edit anything, play around, and break things.",
+		"lights": {
+			"title": "Lights",
+			"description": "All light background objects test",
 			"grind": false,
 			"basecamp": false,
 			"rec_lvl": 99,
