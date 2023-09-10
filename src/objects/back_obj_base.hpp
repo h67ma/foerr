@@ -5,7 +5,7 @@
 #include "../util/json.hpp"
 
 // TODO find out the exact shade
-#define BACK_OBJ_COLOR COLOR_GRAY(110)
+#define BACK_OBJ_COLOR COLOR_GRAY(120)
 
 #define TXT_MAIN_SUFFIX ".png"
 #define TXT_HOLE_SUFFIX "_h.png"
@@ -31,7 +31,8 @@
  *
  * BackObject stores only one 2d offset per all types and all variants inside them. The idea is that the different
  * variants are representing the same general object, therefore their size should be the same. If one of them needs to
- * be slightly smaller, it can add padding to the image itself.
+ * be slightly smaller, it can add padding to the image itself. Note: offset might be different for each type of
+ * texture.
  *
  * Types of textures:
  *   - Main - the main object texture, displayed with reduced brightness (same as Room backwalls/background). This case
@@ -39,7 +40,8 @@
  *   - Hole - a mask that defines area which should be "trimmed" from combined Room backwalls, background, and other
  *			  objects' main textures. An example of this is a window - main texture would be the frame, and hole would
  *			  be the parts with glass. This case is handled by BackHoleObject class.
- *   - Light - TODO
+ *   - Light - usually a bright radial gradient. Usually displayed over main texture of some sort of lamp. This case
+ *			   is handled by BackObject class.
  */
 class BackObjectBase
 {

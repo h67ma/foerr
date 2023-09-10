@@ -11,6 +11,7 @@ bool BackObject::loadFromJson(const json &jsonNode)
 	parseJsonKey<uint>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_LIGHT_CNT, this->lightCnt, true);
 
 	parseJsonVector2Key<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_OFFSET, this->offset, true);
+	parseJsonVector2Key<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_OFFSET_LIGHT, this->offsetLight, true);
 
 	this->variantsCnt = std::max(this->mainCnt, this->lightCnt);
 
@@ -42,15 +43,20 @@ bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &l
 		mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
 															  TXT_MAIN_SUFFIX)));
 		mainSpriteRes.setPosition(this->offset);
-		mainSpriteRes.setColor(BACK_OBJ_COLOR);
+
+		// objects which are light sources are not dimmed
+		if (this->lightCnt == 0)
+			mainSpriteRes.setColor(BACK_OBJ_COLOR);
+
 		gotOne = true;
 	}
 
+	// TODO support light on/off variants
 	if (variantIdx < this->lightCnt)
 	{
 		lightSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
 															   TXT_LIGHT_SUFFIX)));
-		lightSpriteRes.setPosition(this->offset);
+		lightSpriteRes.setPosition(this->offsetLight);
 		gotOne = true;
 	}
 

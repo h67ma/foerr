@@ -14,6 +14,7 @@
 
 #define FOERR_JSON_KEY_ID "id"
 #define FOERR_JSON_KEY_OFFSET "offset"
+#define FOERR_JSON_KEY_OFFSET_LIGHT "offset_light"
 #define FOERR_JSON_KEY_VARIANT "var"
 #define FOERR_JSON_KEY_BLEND "blend"
 #define FOERR_JSON_KEY_MAIN_CNT "main_cnt"

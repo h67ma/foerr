@@ -268,18 +268,23 @@ bool Room::parseBackObjsNode(const json &root, const std::string &filePath, Reso
 
 			// note: move instead of setPosition, as objects were already moved according to offset
 			backObjMain.move(static_cast<sf::Vector2f>(objCoords));
+			backObjLight.move(static_cast<sf::Vector2f>(objCoords));
 
+			// note: we could use separate collections for main and lights, then draw one collection (layer) above the
+			// other, but this does not cover every case. instead, rely on the order in which objects are defined in a
+			// room, and just make sure the light texture is below main for any particular object.
 			if (far)
 			{
+				this->farBackObjectsMain.push_back(backObjLight);
 				this->farBackObjectsMain.push_back(backObjMain);
-				// light is unsupported for far back objects
 			}
 			else
 			{
-				//backObjLight.move(static_cast<sf::Vector2f>(objCoords)); // TODO
+				this->backObjectsMain.push_back(backObjLight);
 				this->backObjectsMain.push_back(backObjMain);
-				//this->backObjects.push_back(backObjLight); // TODO
 			}
+
+			// TODO? if the main and light textures are drawn at the same time, why not combine their textures?
 		}
 	}
 
