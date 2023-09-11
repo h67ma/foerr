@@ -220,125 +220,131 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 
 	///// background objects /////
 
-	if (!Room::parseBackObjsNode(root, filePath, resMgr, objMgr, FOERR_JSON_KEY_BACK_OBJS, false))
+	if (!Room::parseBackObjsNode(root, filePath, FOERR_JSON_KEY_BACK_OBJS, this->backObjectsData))
 		return false;
 
-	if (!Room::parseBackObjsNode(root, filePath, resMgr, objMgr, FOERR_JSON_KEY_FAR_BACK_OBJS, true))
+	if (!Room::parseBackObjsNode(root, filePath, FOERR_JSON_KEY_FAR_BACK_OBJS, this->backObjectsDataFar))
 		return false;
 
-	if (!Room::parseBackHoleObjsNode(root, filePath, resMgr, objMgr))
+	if (!Room::parseBackObjsNode(root, filePath, FOERR_JSON_KEY_BACK_HOLES, this->backHoleObjectsData))
 		return false;
+
+	this->setupAllBackObjects(resMgr, objMgr);
 
 	return true;
 }
 
-bool Room::parseBackObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr,
-							 const ObjectManager &objMgr, const char* key, bool far)
+void Room::setupAllBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr)
 {
-	// the room doesn't have to define any background objects (this is not an error)
+	Room::setupBackObjects(resMgr, objMgr, this->backObjectsData, this->backObjectsMain);
+	Room::setupBackObjects(resMgr, objMgr, this->backObjectsDataFar, this->farBackObjectsMain);
+	this->setupBackHoleObjects(resMgr, objMgr);
+}
+
+/**
+ * Parses a json node containing a list of background objects and adds their data into ::dataVector.
+ * @return true if parsing was successful
+ * @return false if parsing resulted in an error
+ */
+bool Room::parseBackObjsNode(const json &root, const std::string &filePath, const char* key,
+							 std::vector<struct back_obj_node> &dataVector)
+{
+	dataVector.clear();
+
 	auto bgObjsSearch = root.find(key);
-	if (bgObjsSearch != root.end())
+	if (bgObjsSearch == root.end())
 	{
-		if (!bgObjsSearch->is_array())
-		{
-			Log::e(STR_INVALID_TYPE, filePath.c_str(), key);
+		// the room doesn't have to define any background objects under any key (this is not an error)
+		return true;
+	}
+
+	if (!bgObjsSearch->is_array())
+	{
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), key);
+		return false;
+	}
+
+	for (const auto &backObjNode : *bgObjsSearch)
+	{
+		struct back_obj_node parsedNode;
+
+		if (!parseJsonKey<std::string>(backObjNode, filePath, FOERR_JSON_KEY_ID, parsedNode.id))
 			return false;
-		}
 
-		for (const auto &backObjNode : *bgObjsSearch)
-		{
-			sf::Vector2u objCoords;
-			if (!parseJsonVector2Key<uint>(backObjNode, filePath, FOERR_JSON_KEY_COORDS, objCoords))
-				return false;
+		if (!parseJsonVector2Key<uint>(backObjNode, filePath, FOERR_JSON_KEY_COORDS, parsedNode.coordinates))
+			return false;
 
-			std::string objId;
-			if (!parseJsonKey<std::string>(backObjNode, filePath, FOERR_JSON_KEY_ID, objId))
-				return false;
+		if (!parseJsonKey<int>(backObjNode, filePath, FOERR_JSON_KEY_VARIANT, parsedNode.variantIdx, true))
+			parsedNode.variantIdx = -1;
 
-			int variantIdx;
-			if (!parseJsonKey<int>(backObjNode, filePath, FOERR_JSON_KEY_VARIANT, variantIdx, true))
-				variantIdx = -1;
+		parsedNode.coordinates *= CELL_SIDE_LEN;
 
-			objCoords *= CELL_SIDE_LEN;
-
-			SpriteResource backObjMain;
-			SpriteResource backObjLight;
-			if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objId, variantIdx))
-				Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objId.c_str());
-
-			// note: move instead of setPosition, as objects were already moved according to offset
-			backObjMain.move(static_cast<sf::Vector2f>(objCoords));
-			backObjLight.move(static_cast<sf::Vector2f>(objCoords));
-
-			// note: we could use separate collections for main and lights, then draw one collection (layer) above the
-			// other, but this does not cover every case. instead, rely on the order in which objects are defined in a
-			// room, and just make sure the light texture is below main for any particular object.
-			if (far)
-			{
-				this->farBackObjectsMain.push_back(backObjLight);
-				this->farBackObjectsMain.push_back(backObjMain);
-			}
-			else
-			{
-				this->backObjectsMain.push_back(backObjLight);
-				this->backObjectsMain.push_back(backObjMain);
-			}
-
-			// TODO? if the main and light textures are drawn at the same time, why not combine their textures?
-		}
+		dataVector.push_back(parsedNode);
 	}
 
 	return true;
 }
 
-bool Room::parseBackHoleObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr,
-								 const ObjectManager &objMgr)
+/**
+ * Iterates over object data previously loaded via Room::parseBackObjsNode() and creates SpriteResources to draw.
+ * Texture variants are randomized on every call.
+ */
+void Room::setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr,
+							const std::vector<struct back_obj_node> &dataVector,
+							std::vector<SpriteResource> &spriteVector)
 {
-	// the room doesn't have to define any hole objects (this is not an error)
-	auto bgHolesSearch = root.find(FOERR_JSON_KEY_BACK_HOLES);
-	if (bgHolesSearch != root.end())
+	spriteVector.clear();
+
+	for (const auto &objNode : dataVector)
 	{
-		if (!bgHolesSearch->is_array())
-		{
-			Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_BACK_HOLES);
-			return false;
-		}
+		SpriteResource backObjMain;
+		SpriteResource backObjLight;
+		if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objNode.id, objNode.variantIdx))
+			Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objNode.id.c_str());
 
-		for (const auto &backHoleNode : *bgHolesSearch)
-		{
-			sf::Vector2u objCoords;
-			if (!parseJsonVector2Key<uint>(backHoleNode, filePath, FOERR_JSON_KEY_COORDS, objCoords))
-				return false;
+		// note: move instead of setPosition, as objects were already moved according to offset
+		backObjMain.move(static_cast<sf::Vector2f>(objNode.coordinates));
+		backObjLight.move(static_cast<sf::Vector2f>(objNode.coordinates));
 
-			std::string objId;
-			if (!parseJsonKey<std::string>(backHoleNode, filePath, FOERR_JSON_KEY_ID, objId))
-				return false;
+		// note: we could use separate collections for main and lights, then draw one collection (layer) above the
+		// other, but this does not cover every case. instead, rely on the order in which objects are defined in a
+		// room, and just make sure the light texture is below main for any particular object.
 
-			int variantIdx;
-			if (!parseJsonKey<int>(backHoleNode, filePath, FOERR_JSON_KEY_VARIANT, variantIdx, true))
-				variantIdx = -1;
+		spriteVector.push_back(backObjLight);
+		spriteVector.push_back(backObjMain);
 
-			objCoords *= CELL_SIDE_LEN;
-
-			SpriteResource backObjMain;
-			SpriteResource backObjHole;
-			bool blend;
-			if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objId, variantIdx))
-				Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objId.c_str());
-
-			// note: move instead of setPosition, as objects were already moved according to offset
-			backObjMain.move(static_cast<sf::Vector2f>(objCoords));
-			backObjHole.move(static_cast<sf::Vector2f>(objCoords));
-
-			this->backHoleObjectsMain.push_back({
-				.spriteRes = backObjMain,
-				.blend = blend
-			});
-			this->backHoleObjectsHoles.push_back(backObjHole);
-		}
+		// TODO? if the main and light textures are drawn at the same time, why not combine their textures?
 	}
+}
 
-	return true;
+/**
+ * Iterates over object data previously loaded via Room::parseBackObjsNode() and creates SpriteResources to draw.
+ * Texture variants are randomized on every call.
+ */
+void Room::setupBackHoleObjects(ResourceManager &resMgr, const ObjectManager &objMgr)
+{
+	this->backHoleObjectsMain.clear();
+	this->backHoleObjectsHoles.clear();
+
+	for (const auto &objNode : this->backHoleObjectsData)
+	{
+		SpriteResource backObjMain;
+		SpriteResource backObjHole;
+		bool blend;
+
+		if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objNode.id, objNode.variantIdx))
+			Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objNode.id.c_str());
+
+		// note: move instead of setPosition, as objects were already moved according to offset
+		backObjMain.move(static_cast<sf::Vector2f>(objNode.coordinates));
+		backObjHole.move(static_cast<sf::Vector2f>(objNode.coordinates));
+
+		this->backHoleObjectsMain.push_back({
+			.spriteRes = backObjMain,
+			.blend = blend
+		});
+		this->backHoleObjectsHoles.push_back(backObjHole);
+	}
 }
 
 /**

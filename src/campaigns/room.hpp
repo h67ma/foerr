@@ -25,6 +25,14 @@ struct blend_sprite
 	bool blend;
 };
 
+// representation of back object json node
+struct back_obj_node
+{
+	std::string id;
+	sf::Vector2u coordinates;
+	int variantIdx;
+};
+
 /**
  * Room is a representation of a part of a location that fits on a single screen.
  *
@@ -49,17 +57,25 @@ class Room : public sf::Drawable, public sf::Transformable
 		sf::Texture cachedLiquidLevelTxt;
 		sf::Sprite cachedLiquidLevel;
 		sf::Vector2u spawnCoords { ROOM_WIDTH_WITH_BORDER / 2, ROOM_HEIGHT_WITH_BORDER / 2 }; // Room center by default
+
+		std::vector<struct back_obj_node> backObjectsData;
+		std::vector<struct back_obj_node> backObjectsDataFar;
+		std::vector<struct back_obj_node> backHoleObjectsData;
+
 		std::vector<SpriteResource> backObjectsMain;
 		std::vector<SpriteResource> farBackObjectsMain;
 		std::vector<struct blend_sprite> backHoleObjectsMain;
 		std::vector<SpriteResource> backHoleObjectsHoles;
+	
 		Player &player;
 
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
-		bool parseBackObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr,
-							   const ObjectManager &objMgr, const char *key, bool far);
-		bool parseBackHoleObjsNode(const json &root, const std::string &filePath, ResourceManager &resMgr,
-								   const ObjectManager &objMgr);
+		static bool parseBackObjsNode(const json &root, const std::string &filePath, const char* key,
+									  std::vector<struct back_obj_node> &dataVector);
+		static void setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr,
+									 const std::vector<struct back_obj_node> &dataVector,
+									 std::vector<SpriteResource> &spriteVector);
+		void setupBackHoleObjects(ResourceManager &resMgr, const ObjectManager &objMgr);
 
 	public:
 		explicit Room(Player &player);
@@ -71,5 +87,6 @@ class Room : public sf::Drawable, public sf::Transformable
 		sf::Vector2u getSpawnCoords() const;
 		bool isCellCollider(uint x, uint y) const;
 		void redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const; // TODO use me
+		void setupAllBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr);
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

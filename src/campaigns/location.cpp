@@ -695,6 +695,14 @@ void Location::tick(uint lastFrameDurationUs)
 	}
 }
 
+/**
+ * Re-setups sprites in current room, which causes new texture variants to be picked.
+ */
+void Location::rerollObjVariants(ResourceManager &resMgr, const ObjectManager &objMgr)
+{
+	this->currentRoom->setupAllBackObjects(resMgr, objMgr);
+}
+
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// background full is drawn the same during transition and regular gameplay - it's "far away" so it shouldn't move

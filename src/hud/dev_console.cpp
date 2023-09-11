@@ -60,15 +60,21 @@ static void cmdToggleDebugNav(struct dev_console_cmd_params params)
 	SettingsManager::debugNavigation = !SettingsManager::debugNavigation;
 }
 
+static void cmdVariant(struct dev_console_cmd_params params)
+{
+	params.campaign.rerollObjVariants();
+	params.campaign.redraw();
+}
+
 static void cmdWhere(struct dev_console_cmd_params params)
 {
 	params.campaign.logWhereAmI();
 }
 
 
-// note: order matters - always keep this in alphabetical order, except aliases,
-// which should follow immediately after the main command
+// note: std::map used instead of std::unordered_map only so that `?`/`help` prints a sorted list
 const std::map<std::string, struct dev_console_cmd> DevConsole::commands {
+	{ "backvariant", { cmdVariant, STR_CMD_VARIANT } },
 	{ "box", { cmdToggleBoundingBoxes, STR_CMD_BOX } },
 	{ "boxen", { cmdToggleBoundingBoxes, STR_CMD_BOX } },
 	{ "fly", { cmdFly, STR_CMD_FLY } },
@@ -77,7 +83,7 @@ const std::map<std::string, struct dev_console_cmd> DevConsole::commands {
 	{ "port", { cmdTeleport, STR_CMD_PORT } },
 	{ "tp", { cmdTeleport, STR_CMD_PORT } },
 	{ "where", { cmdWhere, STR_CMD_WHERE, } },
-	{ "whereami", { cmdWhere, STR_CMD_WHERE } }
+	{ "whereami", { cmdWhere, STR_CMD_WHERE } },
 };
 
 

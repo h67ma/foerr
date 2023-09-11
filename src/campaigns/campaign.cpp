@@ -367,6 +367,14 @@ void Campaign::teleportPlayer(sf::Vector2f position)
 	this->player.setPosition(position);
 }
 
+/**
+ * Re-setups sprites in current location's current room, which causes new texture variants to be picked.
+ */
+void Campaign::rerollObjVariants()
+{
+	this->currentLocation->rerollObjVariants(this->resMgr, this->objMgr);
+}
+
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(*this->currentLocation, states);

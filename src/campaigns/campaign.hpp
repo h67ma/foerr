@@ -60,5 +60,6 @@ class Campaign : public sf::Drawable
 		void tick(uint lastFrameDurationUs);
 		void nextFrame();
 		void teleportPlayer(sf::Vector2f position);
+		void rerollObjVariants();
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

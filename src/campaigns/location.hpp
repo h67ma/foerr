@@ -110,5 +110,6 @@ class Location : public sf::Drawable
 		sf::Vector3i getPlayerRoomCoords() const;
 		sf::Vector2u getSpawnCoords() const;
 		void tick(uint lastFrameDurationUs);
+		void rerollObjVariants(ResourceManager &resMgr, const ObjectManager &objMgr);
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
