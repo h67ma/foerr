@@ -306,8 +306,11 @@ void Room::setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr
 		// other, but this does not cover every case. instead, rely on the order in which objects are defined in a
 		// room, and just make sure the light texture is below main for any particular object.
 
-		spriteVector.push_back(backObjLight);
-		spriteVector.push_back(backObjMain);
+		if (backObjLight.isTextureSet())
+			spriteVector.push_back(backObjLight);
+	
+		if (backObjMain.isTextureSet())
+			spriteVector.push_back(backObjMain);
 
 		// TODO? if the main and light textures are drawn at the same time, why not combine their textures?
 	}
@@ -331,6 +334,7 @@ void Room::setupBackHoleObjects(ResourceManager &resMgr, const ObjectManager &ob
 		if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objData))
 			Log::w(STR_BACK_OBJ_SETUP_FAIL, objData.id.c_str());
 
+		// both backObjMain and backObjHole are expected to have textures, don't check if they are nullptr
 		this->backHoleObjectsMain.push_back({
 			.spriteRes = backObjMain,
 			.blend = blend

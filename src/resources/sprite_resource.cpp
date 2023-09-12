@@ -14,6 +14,11 @@ void SpriteResource::setTexture(std::shared_ptr<sf::Texture> txt)
 	this->txt = txt;
 }
 
+bool SpriteResource::isTextureSet() const
+{
+	return this->txt != nullptr;
+}
+
 void SpriteResource::clearPtr()
 {
 	this->txt = nullptr;
