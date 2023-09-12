@@ -5,6 +5,9 @@ std::default_random_engine Randomizer::engine(Randomizer::ranDev());
 
 int Randomizer::getRandomBetween(int min, int max)
 {
+	if (min == max)
+		return min;
+
 	std::uniform_int_distribution<int> dist(min, max);
 	return dist(Randomizer::engine);
 }

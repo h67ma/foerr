@@ -35,7 +35,7 @@ bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &l
 {
 	int selectedVariant = backObjData.variantIdx;
 
-	if (selectedVariant < 0 && this->variantsCnt > 1)
+	if (selectedVariant < 0)
 		selectedVariant = Randomizer::getRandomBetween(0, this->variantsCnt - 1);
 
 	bool gotOne = false;
