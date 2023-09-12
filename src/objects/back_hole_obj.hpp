@@ -5,6 +5,7 @@
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 #include "back_obj_base.hpp"
+#include "back_obj_data.hpp"
 #include "../util/json.hpp"
 
 /**
@@ -29,5 +30,5 @@ class BackHoleObject : public BackObjectBase
 	public:
 		bool loadFromJson(const json &jsonNode);
 		bool setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &holeSpriteRes, bool &blend,
-						    ResourceManager &resMgr, const std::string &objId, int variantIdx) const;
+						    ResourceManager &resMgr, const struct back_obj_data &backObjData) const;
 };

@@ -31,16 +31,19 @@ bool BackObject::loadFromJson(const json &jsonNode)
  * @return false if no types provided texture for requested variant
  */
 bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes, ResourceManager &resMgr,
-								const std::string &objId, int variantIdx) const
+								const struct back_obj_data &backObjData) const
 {
-	if (variantIdx < 0 && this->variantsCnt > 1)
-		variantIdx = Randomizer::getRandomBetween(0, this->variantsCnt - 1);
+	int selectedVariant = backObjData.variantIdx;
+
+	if (selectedVariant < 0 && this->variantsCnt > 1)
+		selectedVariant = Randomizer::getRandomBetween(0, this->variantsCnt - 1);
 
 	bool gotOne = false;
 
-	if (variantIdx < this->mainCnt)
+	if (selectedVariant < this->mainCnt)
 	{
-		mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
+		mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK,
+															  backObjData.id.c_str(), selectedVariant,
 															  TXT_MAIN_SUFFIX)));
 		mainSpriteRes.setPosition(this->offset);
 
@@ -52,9 +55,10 @@ bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &l
 	}
 
 	// TODO support light on/off variants
-	if (variantIdx < this->lightCnt)
+	if (selectedVariant < this->lightCnt)
 	{
-		lightSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
+		lightSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK,
+															   backObjData.id.c_str(), selectedVariant,
 															   TXT_LIGHT_SUFFIX)));
 		lightSpriteRes.setPosition(this->offsetLight);
 		gotOne = true;

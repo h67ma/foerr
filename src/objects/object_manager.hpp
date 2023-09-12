@@ -4,6 +4,7 @@
 #include <string>
 
 #include "back_hole_obj.hpp"
+#include "back_obj_data.hpp"
 #include "back_obj.hpp"
 
 /**
@@ -19,7 +20,7 @@ class ObjectManager
 	public:
 		bool load();
 		bool setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes, ResourceManager &resMgr,
-							const std::string &objId, int variantIdx) const;
+							const struct back_obj_data &backObjData) const;
 		bool setupBgHoleSprites(SpriteResource &mainSpriteRes, SpriteResource &holeSpriteRes, bool &blend,
-								ResourceManager &resMgr, const std::string &objId, int variantIdx) const;
+								ResourceManager &resMgr, const struct back_obj_data &backObjData) const;
 };

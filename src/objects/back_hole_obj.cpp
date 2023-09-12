@@ -18,20 +18,22 @@ bool BackHoleObject::loadFromJson(const json &jsonNode)
 }
 
 bool BackHoleObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &holeSpriteRes, bool &blend,
-									ResourceManager &resMgr, const std::string &objId, int variantIdx) const
+									ResourceManager &resMgr, const struct back_obj_data &backObjData) const
 {
-	if (variantIdx < 0)
-		variantIdx = Randomizer::getRandomBetween(0, this->variantsCnt - 1);
-	else if (variantIdx >= this->variantsCnt)
+	int selectedVariant = backObjData.variantIdx;
+
+	if (selectedVariant < 0)
+		selectedVariant = Randomizer::getRandomBetween(0, this->variantsCnt - 1);
+	else if (selectedVariant >= this->variantsCnt)
 		return false;
 
-	mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
-														  TXT_MAIN_SUFFIX)));
+	mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(),
+														  selectedVariant, TXT_MAIN_SUFFIX)));
 	mainSpriteRes.setPosition(this->offset);
 	mainSpriteRes.setColor(BACK_OBJ_COLOR);
 
-	holeSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, objId.c_str(), variantIdx,
-														  TXT_HOLE_SUFFIX)));
+	holeSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(),
+														  selectedVariant, TXT_HOLE_SUFFIX)));
 	holeSpriteRes.setPosition(this->offset);
 
 	blend = this->blend;

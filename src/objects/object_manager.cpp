@@ -71,9 +71,9 @@ bool ObjectManager::load()
  * @return false if setup has failed
  */
 bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes,
-								   ResourceManager &resMgr, const std::string &objId, int variantIdx) const
+								   ResourceManager &resMgr, const struct back_obj_data &backObjData) const
 {
-	auto search = this->objects.find(objId);
+	auto search = this->objects.find(backObjData.id);
 	if (search == this->objects.end())
 	{
 		// setup main sprite with missing texture
@@ -81,7 +81,12 @@ bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource
 		return false;
 	}
 
-	search->second.setupBgSprites(mainSpriteRes, lightSpriteRes, resMgr, objId, variantIdx);
+	search->second.setupBgSprites(mainSpriteRes, lightSpriteRes, resMgr, backObjData);
+
+	// note: move() instead of setPosition(), as objects were already moved according to offset
+	mainSpriteRes.move(static_cast<sf::Vector2f>(backObjData.coordinates));
+	lightSpriteRes.move(static_cast<sf::Vector2f>(backObjData.coordinates));
+
 	return true;
 }
 
@@ -98,9 +103,9 @@ bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource
  * @return false if setup has failed
  */
 bool ObjectManager::setupBgHoleSprites(SpriteResource &mainSpriteRes, SpriteResource &holeSpriteRes, bool &blend,
-									   ResourceManager &resMgr, const std::string &objId, int variantIdx) const
+									   ResourceManager &resMgr, const struct back_obj_data &backObjData) const
 {
-	auto search = this->holeObjects.find(objId);
+	auto search = this->holeObjects.find(backObjData.id);
 	if (search == this->holeObjects.end())
 	{
 		// setup main sprite with missing texture
@@ -108,6 +113,11 @@ bool ObjectManager::setupBgHoleSprites(SpriteResource &mainSpriteRes, SpriteReso
 		return false;
 	}
 
-	search->second.setupBgSprites(mainSpriteRes, holeSpriteRes, blend, resMgr, objId, variantIdx);
+	search->second.setupBgSprites(mainSpriteRes, holeSpriteRes, blend, resMgr, backObjData);
+
+	// note: move() instead of setPosition(), as objects were already moved according to offset
+	mainSpriteRes.move(static_cast<sf::Vector2f>(backObjData.coordinates));
+	holeSpriteRes.move(static_cast<sf::Vector2f>(backObjData.coordinates));
+
 	return true;
 }

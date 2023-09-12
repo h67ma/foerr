@@ -247,7 +247,7 @@ void Room::setupAllBackObjects(ResourceManager &resMgr, const ObjectManager &obj
  * @return false if parsing resulted in an error
  */
 bool Room::parseBackObjsNode(const json &root, const std::string &filePath, const char* key,
-							 std::vector<struct back_obj_node> &dataVector)
+							 std::vector<struct back_obj_data> &dataVector)
 {
 	dataVector.clear();
 
@@ -266,7 +266,7 @@ bool Room::parseBackObjsNode(const json &root, const std::string &filePath, cons
 
 	for (const auto &backObjNode : *bgObjsSearch)
 	{
-		struct back_obj_node parsedNode;
+		struct back_obj_data parsedNode;
 
 		if (!parseJsonKey<std::string>(backObjNode, filePath, FOERR_JSON_KEY_ID, parsedNode.id))
 			return false;
@@ -290,7 +290,7 @@ bool Room::parseBackObjsNode(const json &root, const std::string &filePath, cons
  * Texture variants are randomized on every call.
  */
 void Room::setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr,
-							const std::vector<struct back_obj_node> &dataVector,
+							const std::vector<struct back_obj_data> &dataVector,
 							std::vector<SpriteResource> &spriteVector)
 {
 	spriteVector.clear();
@@ -299,12 +299,8 @@ void Room::setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr
 	{
 		SpriteResource backObjMain;
 		SpriteResource backObjLight;
-		if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objNode.id, objNode.variantIdx))
+		if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objNode))
 			Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objNode.id.c_str());
-
-		// note: move instead of setPosition, as objects were already moved according to offset
-		backObjMain.move(static_cast<sf::Vector2f>(objNode.coordinates));
-		backObjLight.move(static_cast<sf::Vector2f>(objNode.coordinates));
 
 		// note: we could use separate collections for main and lights, then draw one collection (layer) above the
 		// other, but this does not cover every case. instead, rely on the order in which objects are defined in a
@@ -332,12 +328,8 @@ void Room::setupBackHoleObjects(ResourceManager &resMgr, const ObjectManager &ob
 		SpriteResource backObjHole;
 		bool blend;
 
-		if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objNode.id, objNode.variantIdx))
+		if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objNode))
 			Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objNode.id.c_str());
-
-		// note: move instead of setPosition, as objects were already moved according to offset
-		backObjMain.move(static_cast<sf::Vector2f>(objNode.coordinates));
-		backObjHole.move(static_cast<sf::Vector2f>(objNode.coordinates));
 
 		this->backHoleObjectsMain.push_back({
 			.spriteRes = backObjMain,
