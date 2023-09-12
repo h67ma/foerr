@@ -60,13 +60,15 @@ bool ObjectManager::load()
 }
 
 /**
- * @brief Sets up sprite resources for the specified object id and variant
+ * Sets up sprite resources for the specified object id and variant
+ *
+ * Object id should not contain file extension nor variant index.
+ * Variant can be set to negative to use random one.
  *
  * @param mainSpriteRes reference to a sprite resource to use as main texture
  * @param lightSpriteRes reference to a sprite resource to use as light
  * @param resMgr reference to Resource Manager
- * @param objId object id/name (without extension and variant index)
- * @param variantIdx variant index to use, or negative to use random
+ * @param backObjData object data
  * @return true if setup was successful
  * @return false if setup has failed
  */
@@ -91,14 +93,16 @@ bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource
 }
 
 /**
- * @brief Sets up sprite resources for the specified hole object id and variant
+ * Sets up sprite resources for the specified hole object id and variant
+ *
+ * Object id should not contain file extension nor variant index.
+ * Variant can be set to negative to use random one.
  *
  * @param mainSpriteRes reference to a sprite resource to use as main texture
  * @param holeSpriteRes reference to a sprite resource to use as light
  * @param blend reference to blend variable
  * @param resMgr reference to Resource Manager
- * @param objId object id/name (without extension and variant index)
- * @param variantIdx variant index to use, or negative to use random
+ * @param backObjData object data
  * @return true if setup was successful
  * @return false if setup has failed
  */
