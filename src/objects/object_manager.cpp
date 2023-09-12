@@ -81,7 +81,8 @@ bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource
 		return false;
 	}
 
-	search->second.setupBgSprites(mainSpriteRes, lightSpriteRes, resMgr, backObjData);
+	if (!search->second.setupBgSprites(mainSpriteRes, lightSpriteRes, resMgr, backObjData))
+		return false;
 
 	// note: move() instead of setPosition(), as objects were already moved according to offset
 	mainSpriteRes.move(static_cast<sf::Vector2f>(backObjData.coordinates));
@@ -113,7 +114,8 @@ bool ObjectManager::setupBgHoleSprites(SpriteResource &mainSpriteRes, SpriteReso
 		return false;
 	}
 
-	search->second.setupBgSprites(mainSpriteRes, holeSpriteRes, blend, resMgr, backObjData);
+	if (!search->second.setupBgSprites(mainSpriteRes, holeSpriteRes, blend, resMgr, backObjData))
+		return false;
 
 	// note: move() instead of setPosition(), as objects were already moved according to offset
 	mainSpriteRes.move(static_cast<sf::Vector2f>(backObjData.coordinates));
