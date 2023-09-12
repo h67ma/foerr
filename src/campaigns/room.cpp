@@ -295,12 +295,12 @@ void Room::setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr
 {
 	spriteVector.clear();
 
-	for (const auto &objNode : dataVector)
+	for (const auto &objData : dataVector)
 	{
 		SpriteResource backObjMain;
 		SpriteResource backObjLight;
-		if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objNode))
-			Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objNode.id.c_str());
+		if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objData))
+			Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objData.id.c_str());
 
 		// note: we could use separate collections for main and lights, then draw one collection (layer) above the
 		// other, but this does not cover every case. instead, rely on the order in which objects are defined in a
@@ -322,14 +322,14 @@ void Room::setupBackHoleObjects(ResourceManager &resMgr, const ObjectManager &ob
 	this->backHoleObjectsMain.clear();
 	this->backHoleObjectsHoles.clear();
 
-	for (const auto &objNode : this->backHoleObjectsData)
+	for (const auto &objData : this->backHoleObjectsData)
 	{
 		SpriteResource backObjMain;
 		SpriteResource backObjHole;
 		bool blend;
 
-		if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objNode))
-			Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objNode.id.c_str());
+		if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objData))
+			Log::w(STR_BACK_OBJ_DEF_NOT_FOUND, objData.id.c_str());
 
 		this->backHoleObjectsMain.push_back({
 			.spriteRes = backObjMain,
