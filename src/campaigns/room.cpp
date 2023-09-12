@@ -300,7 +300,10 @@ void Room::setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr
 		SpriteResource backObjMain;
 		SpriteResource backObjLight;
 		if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objData))
+		{
 			Log::w(STR_BACK_OBJ_SETUP_FAIL, objData.id.c_str());
+			continue;
+		}
 
 		// note: we could use separate collections for main and lights, then draw one collection (layer) above the
 		// other, but this does not cover every case. instead, rely on the order in which objects are defined in a
@@ -332,7 +335,10 @@ void Room::setupBackHoleObjects(ResourceManager &resMgr, const ObjectManager &ob
 		bool blend;
 
 		if (!objMgr.setupBgHoleSprites(backObjMain, backObjHole, blend, resMgr, objData))
+		{
 			Log::w(STR_BACK_OBJ_SETUP_FAIL, objData.id.c_str());
+			continue;
+		}
 
 		// both backObjMain and backObjHole are expected to have textures, don't check if they are nullptr
 		this->backHoleObjectsMain.push_back({

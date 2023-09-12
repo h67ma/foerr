@@ -88,6 +88,7 @@
 #define STR_ACTION_NOT_FOUND "Action not found (%d)"
 #define STR_ACTION_STR_NOT_FOUND "Unknown action string (%s)"
 #define STR_BACK_OBJ_SETUP_FAIL "Background object setup failed (%s)"
+#define STR_BACK_OBJ_SETUP_FAIL_DEF_MISSING "Background object definition not found (%s)"
 #define STR_KEYMAP_SAVED "Saved keymap"
 #define STR_SETTINGS_SAVED "Saved settings"
 #define STR_KEYMAP_INIT_FAIL_ACTION_STR_DUPL "Error setting up keymap - duplicate action string \"%s\""

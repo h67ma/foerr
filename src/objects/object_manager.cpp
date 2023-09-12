@@ -76,8 +76,7 @@ bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource
 	auto search = this->objects.find(backObjData.id);
 	if (search == this->objects.end())
 	{
-		// setup main sprite with missing texture
-		mainSpriteRes.setTexture(resMgr.getNotFoundTexture());
+		Log::e(STR_BACK_OBJ_SETUP_FAIL_DEF_MISSING, backObjData.id.c_str());
 		return false;
 	}
 
@@ -109,8 +108,7 @@ bool ObjectManager::setupBgHoleSprites(SpriteResource &mainSpriteRes, SpriteReso
 	auto search = this->holeObjects.find(backObjData.id);
 	if (search == this->holeObjects.end())
 	{
-		// setup main sprite with missing texture
-		mainSpriteRes.setTexture(resMgr.getNotFoundTexture());
+		Log::e(STR_BACK_OBJ_SETUP_FAIL_DEF_MISSING, backObjData.id.c_str());
 		return false;
 	}
 
