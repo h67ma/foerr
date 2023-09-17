@@ -237,6 +237,10 @@ void DevConsole::execute(const std::string &cmdline, sf::Vector2f mouseCoords)
 			Log::e(STR_UNKNOWN_COMMAND, tokens[0].c_str());
 	}
 
+	// if previous command was identical, don't add it to history
+	if (!this->history.empty() && this->history.back() == cmdline)
+		return;
+
 	// add the cmdline to history, even if command does not exist or resulted in an error
 	this->history.push_back(cmdline);
 
