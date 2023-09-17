@@ -215,8 +215,7 @@ obj_back_blend_blacklist = [
 	"blood2",
 ]
 
-# objects which are referenced by variants, but not defined in AllData.
-# values are (object_id, light_cnt)
+# objects which are referenced by variants, but not defined in AllData
 obj_back_missing_parent_variants = {
 	BackObject(id="lcolor", has_light_txt=True),
 }
