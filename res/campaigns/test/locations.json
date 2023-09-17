@@ -10,6 +10,16 @@
 			"worldmap_icon": "res/campaigns/test/hud/loc_icons/test.png",
 			"worldmap_coords": [420, 420],
 			"worldmap_icon_big": true
+		},
+		"holes": {
+			"title": "Holes",
+			"description": "All hole background objects test",
+			"grind": false,
+			"basecamp": false,
+			"rec_lvl": 99,
+			"worldmap_icon": "res/campaigns/test/hud/loc_icons/test.png",
+			"worldmap_coords": [100, 300],
+			"worldmap_icon_big": true
 		}
 	}
 }
