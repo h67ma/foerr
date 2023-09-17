@@ -60,7 +60,9 @@ constexpr uchar COLOR_MAX_CHANNEL_VALUE = 0xFF;
 // credits to oomek on https://en.sfml-dev.org/forums/index.php?topic=24250.msg164091#msg164091
 const sf::BlendMode BlendAlphaTransparent(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
 
-// makes a hole in dst
+// makes a hole in dst.
+// note: hole textures ("*_h") come in various colors, but only alpha channel seems to matter in Remains, and this
+// blend mode works in a similar way.
 const sf::BlendMode BlendSubtractOrSomething(sf::BlendMode::Zero, sf::BlendMode::OneMinusSrcAlpha);
 
 // mixes src and dst where alpha != 0, makes src transparent where dst alpha == 0
