@@ -166,6 +166,7 @@ pad_img_data = {
 	"hole_2_h.png": (0, 18),
 	"hole_3_h.png": (14, 6),
 	"hole_4_h.png": (8, 13),
+	"light7_0_l.png": (18, 18), # adjust to light7_1_l size
 	"skel_1.png": (0, 7),
 	"skel_2.png": (0, 10),
 }
@@ -304,7 +305,7 @@ back_obj_lights_offsets = {
 	"light4": (-88, 0),
 	"light5": (-53, -53),
 	"light6": (-56, -56),
-	"light7": (-35, -35),
+	"light7": (-53, -53),
 	"stlight1": (-111, -111),
 	"stlight3": (-114, -79),
 	"stlight4": (-88, 0),

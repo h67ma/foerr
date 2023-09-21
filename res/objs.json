@@ -221,7 +221,7 @@
 		},
 		"light7": {
 			"light_cnt": 2,
-			"offset_light": [-35, -35],
+			"offset_light": [-53, -53],
 			"main_cnt": 3
 		},
 		"med": {
