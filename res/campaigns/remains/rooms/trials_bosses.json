@@ -3828,6 +3828,7 @@
 		},
 		{
 			"backwall": "tMetalPlates",
+			"lights_on": -1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|A|_|_|_|_|_|_|A|_|_|_|_|_|_|_|A|_|_|_|_|_|_|A",

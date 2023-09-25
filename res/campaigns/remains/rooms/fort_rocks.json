@@ -813,6 +813,7 @@
 		{
 			"coords": [3, 2, 0],
 			"backwall": "tMbase",
+			"lights_on": -1,
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|M|_T|_T|_T|M",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|M|_T|_T|_T|M",
@@ -2680,6 +2681,7 @@
 		{
 			"coords": [1, 0, 0],
 			"backwall": "tMbase",
+			"lights_on": -1,
 			"cells": [
 				"O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|A|A|A|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O",
 				"O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|A|A|A|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O",
@@ -3829,6 +3831,7 @@
 		{
 			"coords": [9, 0, 0],
 			"backwall": "tMbase",
+			"lights_on": -1,
 			"cells": [
 				"O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O",
 				"O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O|O",
@@ -5494,6 +5497,7 @@
 		{
 			"coords": [6, 2, 0],
 			"backwall": "tMbase",
+			"lights_on": -1,
 			"cells": [
 				"M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M|M",
 				"_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_S|_S|_S|_H|_H|_H|_H|_H|_H|_H|_H|M|_H|_H|_H|_H|_H|_H|_H|M|_T|_T|_T|_T|_S|_S|_S|_T|_T|_T|_T|M",

@@ -6,6 +6,7 @@
 			"coords": [5, 0, 0],
 			"is_start": true,
 			"backwall": "tStConcrete",
+			"lights_on": 1,
 			"cells": [
 				"J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J",
 				"J|_G|_G|_G|_G|J|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_G|_G|_G|_G|_G|J",
@@ -355,6 +356,7 @@
 		{
 			"coords": [3, 0, 0],
 			"backwall": "tStConcrete",
+			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"_Q|_Q|_P|_P|_P|_P|_Q|_P|_P|_P|_P|_Q|_P|_P|_P|_P|_Q|_P|_P|_P|_P|_Q|_P|_P|_P|_P|_Q|_P|_P|_P|_|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_R|_R|_R|_R|AR",
@@ -453,6 +455,7 @@
 		{
 			"coords": [1, 0, 1],
 			"backwall": "tStConcrete",
+			"lights_on": 1,
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -602,6 +605,7 @@
 		{
 			"coords": [2, 0, 0],
 			"backwall": "tRivets",
+			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_P|_P|_P|_P|_P|_P|AP|AP|_P|_P|_P|_P|_P|_P|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -849,6 +853,7 @@
 		{
 			"coords": [4, 0, 1],
 			"backwall": "tStConcrete",
+			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|H|H|H|H|H|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_P|_P|_P|_P|_Q|_P|_P|_P|_P|_P|_Q|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_Q|_P|_P|_P|_P|_P|A|H|H|H|H|H|A|_|_|_|_|_|_|_|_|_|A",
@@ -962,6 +967,7 @@
 		{
 			"coords": [1, 0, 0],
 			"backwall": "tStConcrete",
+			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|J|_|_|_|_|_|_|_Q|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N",
@@ -1469,6 +1475,7 @@
 		{
 			"coords": [4, 0, 0],
 			"backwall": "tStConcrete",
+			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"AR|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A|_R|_R|_R|_R|_R|_R|_R|_R|AR",

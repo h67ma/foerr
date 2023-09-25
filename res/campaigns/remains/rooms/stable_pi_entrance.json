@@ -1429,6 +1429,7 @@
 		{
 			"coords": [1, 6, 0],
 			"backwall": "tCave",
+			"lights_on": -1,
 			"cells": [
 				"G|G|G|G|G|G|_A|_A|_A|_A|_A|_A|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|M|M|M|M|M|M|M|M|M|M|M|M|M|G|G",
 				"G|G|G|G|G|G|_A|_A|_A|_A|_A|_A|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|M|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|M|G|G",
@@ -1862,6 +1863,7 @@
 		{
 			"coords": [1, 5, 0],
 			"backwall": "tCave",
+			"lights_on": -1,
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|M|K|K|K|K|K|K|K|K|K|K|K|_T|_T|_T|_T|K|K|M|G|G|G|G",
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|M|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|M|G|G|G|G",
@@ -2104,6 +2106,7 @@
 			"coords": [1, 7, 0],
 			"is_start": true,
 			"backwall": "tCave",
+			"lights_on": -1,
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|MT|_T|_T|_T|M|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|MT|_T|_T|_T|M|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
