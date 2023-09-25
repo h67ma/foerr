@@ -6,6 +6,123 @@ from log import Log
 from consts import *
 from convert_data import *
 from common import read_json, write_nicer_json, read_xml
+from xml.etree import ElementTree
+
+
+def room_parse_options_node(out_room_node: object, room_node: ElementTree.Element, room_name: str, loc_liquid_type: str, loc_backwall_path: str, log: Log):
+	"""
+	Parses the <options> node present in <room> node alongside... well, everything else.
+	Extract useful attributes and fill out_room_node.
+	Return values used later on as a tuple.
+	"""
+	in_options_node = room_node.findall("options")
+
+	if len(in_options_node) > 1:
+		log.e(room_name + ": multiple <options> nodes declared, ignoring all")
+		in_options_node = None
+	elif len(in_options_node) != 0:
+		in_options_node = in_options_node[0] # the only element
+	else:
+		in_options_node = None
+
+	# liquids are handled differently than in Remains. Remains stores all liquids as the same symbol ('*'), and adds
+	# information about its color in location or room settings ("wtip"). since there are only four possible liquids,
+	# it makes more sense to define them as different materials and just place directly in cells. this approach also
+	# makes it possible to have multiple types of liquids in a single room.
+	room_liquid_symbol = liquid_type_map[0] # default (blue)
+
+	# overwrite default liquid type with location-defined type
+	if loc_liquid_type is not None:
+		room_liquid_symbol = loc_liquid_type
+
+	# "wtip" - room-wide liquid type
+	if in_options_node is not None:
+		in_liquid_type = in_options_node.attrib.get("wtip")
+		if in_liquid_type is not None:
+			in_liquid_type = int(in_liquid_type)
+			if in_liquid_type in liquid_type_map:
+				# overwrite default liquid type, or location-defined type, with room-defined type
+				room_liquid_symbol = liquid_type_map[in_liquid_type]
+			else:
+				log.w(room_name + " has an unknown liquid type, ignoring")
+
+	# "wlevel" - room-wide liquid height
+	liquid_level = None
+	if in_options_node is not None:
+		in_liquid_level = in_options_node.attrib.get("wlevel")
+		if in_liquid_level is not None:
+			# "wlevel" is defined as "0 -> full room submerged". change it to "0 -> room not submerged" to be more intuitive
+			liquid_level = ROOM_HEIGHT_WITH_BORDER - int(in_liquid_level)
+			if liquid_level > 0:
+				out_room_node[FOERR_JSON_KEY_LIQUID_LEVEL] = liquid_level
+				# since we've placed a room-wide liquid level, we also need to define which liquid it is
+				out_room_node[FOERR_JSON_KEY_LIQUID_SYMBOL] = room_liquid_symbol
+
+	# "backform"
+	# a few rooms in Remains define "backform" attribute, which means that backwall needs to be partially displayed.
+	# there are two possible values:
+	#   1 - display backwall only on left and right side, about 11 cells wide on each side (incl. border)
+	#   2 - display backwall only on bottom side, about 9 cells high (incl. border)
+	# instead of implementing this special case just for a handful of Rooms, let's instead use cell backgrounds to
+	# achieve the desired effect, i.e. for cells included in the pattern which do not define background, we'll add
+	# background set to backwall.
+	room_backform = None
+	if in_options_node is not None:
+		in_backform = in_options_node.attrib.get("backform")
+		if in_backform is not None:
+			if in_backform in ["1", "2"]:
+				log.v(room_name + " defines backform, adding background to some cells")
+				room_backform = int(in_backform)
+			else:
+				log.w(room_name + " defines unknown backform, ignoring")
+
+	# "backwall" - repeated background texture filling whole room
+	room_backwall_defined = False
+	backwall_value = None
+	if in_options_node is not None:
+		in_backwall = in_options_node.attrib.get("backwall")
+		if in_backwall is not None:
+			# "sky" as backwall value is a special case.
+			# in ::drawBackWall() in Grafon.as room backwall is not drawn if "sky"
+			# let's handle this differently than in Remains: let's not define backwall for location, as it can be
+			# overwritten by room's backwall. let's just store backwall only in each room. if Remains location
+			# defines backwall, just add it to every room which doesn't define its own backwall. additionally skip
+			# "sky" as it causes room backwall to be ignored - with current approach we don't need it.
+			room_backwall_defined = True
+			if in_backwall != "sky":
+				backwall_value = in_backwall
+
+	if not room_backwall_defined and loc_backwall_path is not None:
+		backwall_value = loc_backwall_path
+
+	backwall_symbol = None
+	if backwall_value is not None:
+		if room_backform is None:
+			# write backwall normally
+			out_room_node[FOERR_JSON_KEY_BACKWALL] = backwall_value
+		else:
+			# backform was specified, get character which we need to put instead of backwall into cells backgrounds
+			# because so few rooms actually use backform, let's just hardcode symbols for these two textures here
+			if backwall_value == "tWindows":
+				backwall_symbol = 'u'
+			elif backwall_value == "tLeaking":
+				backwall_symbol = 'v'
+			else:
+				log.e(room_name + " no mapping found for " + backwall_value)
+
+	# TODO parse remaining attributes:
+	# "base"
+	# "color"
+	# "dark"
+	# "desoff"
+	# "lon"
+	# "noblack"
+	# "nomap"
+	# "rad"
+	# "vis"
+	# "wrad"
+
+	return room_backform, backwall_symbol, room_liquid_symbol, liquid_level
 
 
 def maybe_write_objs_node(objs_sorter, out_node, key):
@@ -93,91 +210,8 @@ def translate_rooms(log: Log, output_id: str, input_filename: str, output_filena
 				out_room_node[FOERR_JSON_KEY_IS_START] = True
 				start_room_found = True
 
-		##### liquids #####
-
-		# liquids are handled differently than in Remains. Remains stores all liquids as the same symbol ('*'), and adds
-		# information about its color in location or room settings ("wtip"). since there are only four possible liquids,
-		# it makes more sense to define them as different materials and just place directly in cells. this approach also
-		# makes it possible to have multiple types of liquids in a single room.
-		room_liquid_symbol = liquid_type_map[0] # default (blue)
-
-		# overwrite default liquid type with location-defined type
-		if loc_liquid_type is not None:
-			room_liquid_symbol = loc_liquid_type
-
-		in_options_node = room_node.find("options")
-		if in_options_node is not None:
-			liquid_type = in_options_node.attrib.get("wtip")
-			if liquid_type is not None:
-				liquid_type = int(liquid_type)
-				if liquid_type in liquid_type_map:
-					# overwrite default liquid type, or location-defined type, with room-defined type
-					room_liquid_symbol = liquid_type_map[liquid_type]
-				else:
-					log.w(room_name + " has an unknown liquid type, ignoring")
-
-			liquid_level = in_options_node.attrib.get("wlevel")
-			if liquid_level is not None:
-				# "wlevel" is defined as "0 -> full room submerged". change it to "0 -> room not submerged" to be more intuitive
-				liquid_level = ROOM_HEIGHT_WITH_BORDER - int(liquid_level)
-				if liquid_level > 0:
-					out_room_node[FOERR_JSON_KEY_LIQUID_LEVEL] = liquid_level
-					# since we've placed a room-wide liquid level, we also need to define which liquid it is
-					out_room_node[FOERR_JSON_KEY_LIQUID_SYMBOL] = room_liquid_symbol
-
-		##### backform #####
-
-		# a few rooms in Remains define "backform" attribute, which means that backwall needs to be partially displayed.
-		# there are two possible values:
-		#   1 - display backwall only on left and right side, about 11 cells wide on each side (incl. border)
-		#   2 - display backwall only on bottom side, about 9 cells high (incl. border)
-		# instead of implementing this special case just for a handful of Rooms, let's instead use cell backgrounds to
-		# achieve the desired effect, i.e. for cells included in the pattern which do not define background, we'll add
-		# background set to backwall.
-		room_backform = None
-		if in_options_node is not None:
-			room_backform = in_options_node.attrib.get("backform")
-			if room_backform is not None:
-				if room_backform in ["1", "2"]:
-					log.v(room_name + " defines backform, adding background to some cells")
-					room_backform = int(room_backform)
-				else:
-					log.w(room_name + " defines unknown backform, ignoring")
-
-		##### room backwall #####
-
-		room_backwall_defined = False
-		backwall_value = None
-		if in_options_node is not None: # skip backwall if backform was used
-			in_backwall = in_options_node.attrib.get("backwall")
-			if in_backwall is not None:
-				# "sky" as backwall value is a special case.
-				# in ::drawBackWall() in Grafon.as room backwall is not drawn if "sky"
-				# let's handle this differently than in Remains: let's not define backwall for location, as it can be
-				# overwritten by room's backwall. let's just store backwall only in each room. if Remains location
-				# defines backwall, just add it to every room which doesn't define its own backwall. additionally skip
-				# "sky" as it causes room backwall to be ignored - with current approach we don't need it.
-				room_backwall_defined = True
-				if in_backwall != "sky":
-					backwall_value = in_backwall
-
-		if not room_backwall_defined and loc_backwall_path is not None:
-			backwall_value = loc_backwall_path
-
-		backwall_symbol = None
-		if backwall_value is not None:
-			if room_backform is None:
-				# write backwall normally
-				out_room_node[FOERR_JSON_KEY_BACKWALL] = backwall_value
-			else:
-				# backform was specified, get character which we need to put instead of backwall into cells backgrounds
-				# because so few rooms actually use backform, let's just hardcode symbols for these two textures here
-				if backwall_value == "tWindows":
-					backwall_symbol = 'u'
-				elif backwall_value == "tLeaking":
-					backwall_symbol = 'v'
-				else:
-					log.e(room_name + " no mapping found for " + backwall_value)
+		##### options #####
+		room_backform, backwall_symbol, room_liquid_symbol, liquid_level = room_parse_options_node(out_room_node, room_node, room_name, loc_liquid_type, loc_backwall_path, log)
 
 		##### cells #####
 
