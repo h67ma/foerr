@@ -110,17 +110,28 @@ def room_parse_options_node(out_room_node: object, room_node: ElementTree.Elemen
 			else:
 				log.e(room_name + " no mapping found for " + backwall_value)
 
+	# "lon" - set all background light objects in the room to on or off state
+	if in_options_node is not None:
+		in_lon = in_options_node.attrib.get("lon")
+		if in_lon is not None:
+			lon = int(in_lon)
+			if lon not in [1, -1]:
+				log.w(room_name + " declares unexpected \"lon\" value (" + in_lon + ")")
+
+			# keep 1 and -1, it's a pretty intuitive representation without using enum
+			out_room_node[FOERR_JSON_KEY_LIGHTS_ON] = lon
+
 	# TODO parse remaining attributes:
 	# "base"
 	# "color"
 	# "dark"
 	# "desoff"
-	# "lon"
 	# "noblack"
 	# "nomap"
 	# "rad"
 	# "vis"
 	# "wrad"
+	# ...?
 
 	return room_backform, backwall_symbol, room_liquid_symbol, liquid_level
 
