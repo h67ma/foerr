@@ -22,11 +22,14 @@ bool BackObject::loadFromJson(const json &jsonNode)
 /**
  * @brief Sets up back object sprites with a variant of textures
  *
+ * backObjData.id should not contain extension and variant index
+ * backObjData.variantIdx is zero-based, use negative to randomize variant
+ *
  * @param mainSpriteRes reference to a sprite resource to use as main texture
  * @param lightSpriteRes reference to a sprite resource to use as light
  * @param resMgr reference to Resource Manager
- * @param objId object id/name (without extension and variant index)
- * @param variantIdx zero-based variant index to use, or negative to use random
+ * @param backObjData object data
+ * @param lightState override light state (only valid for light object)
  * @return true if at least one of the types has set a texture
  * @return false if no types provided texture for requested variant
  */

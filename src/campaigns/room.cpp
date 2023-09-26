@@ -288,7 +288,7 @@ bool Room::parseBackObjsNode(const json &root, const std::string &filePath, cons
 			return false;
 
 		if (!parseJsonKey<int>(backObjNode, filePath, FOERR_JSON_KEY_VARIANT, parsedNode.variantIdx, true))
-			parsedNode.variantIdx = -1;
+			parsedNode.variantIdx = -1; // negative -> use random variant
 
 		parsedNode.coordinates *= CELL_SIDE_LEN;
 
