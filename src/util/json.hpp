@@ -23,6 +23,7 @@
 #define FOERR_JSON_KEY_BACK_OBJS "back_objs"
 #define FOERR_JSON_KEY_FAR_BACK_OBJS "far_back_objs"
 #define FOERR_JSON_KEY_BACK_HOLES "back_holes"
+#define FOERR_JSON_KEY_LIGHTS_ON "lights_on"
 #define FOERR_JSON_KEY_BACKWALL "backwall"
 #define FOERR_JSON_KEY_LIQUID_LEVEL "liquid_level"
 #define FOERR_JSON_KEY_LIQUID_SYMBOL "liquid_symbol"

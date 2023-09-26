@@ -31,12 +31,27 @@ bool BackObject::loadFromJson(const json &jsonNode)
  * @return false if no types provided texture for requested variant
  */
 bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes, ResourceManager &resMgr,
-								const struct back_obj_data &backObjData) const
+								const struct back_obj_data &backObjData, enum LightObjectsState lightState) const
 {
 	int selectedVariant = backObjData.variantIdx;
 
+	// explicitly set variant idx (>=0) overwrites everything else
 	if (selectedVariant < 0)
-		selectedVariant = Randomizer::getRandomBetween(0, this->variantsCnt - 1);
+	{
+		// note: this method of switching light "on" or "off" is used mostly to keep all Remains rooms looking the same
+		// as in original. the way it's done there is:
+		// room.lon == 1 (lights on) -> frame = lon (always set to 1, which is first variant)
+		// room.lon == -1 (lights off) -> frame = loff (set to first variant which doesn't have light texture)
+		// alternative way to select on/off variant:
+		// on: getRandomBetween(0, lightCnt - 1)
+		// off: getRandomBetween(lightCnt, mainCnt)
+		if (this->lightCnt > 0 && lightState == LIGHTS_ON)
+			selectedVariant = 0;
+		else if (this->lightCnt > 0 && lightState == LIGHTS_OFF)
+			selectedVariant = this->lightCnt;
+		else if (selectedVariant < 0)
+			selectedVariant = Randomizer::getRandomBetween(0, this->variantsCnt - 1);
+	}
 
 	bool gotOne = false;
 
@@ -54,7 +69,6 @@ bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &l
 		gotOne = true;
 	}
 
-	// TODO support light on/off variants
 	if (selectedVariant < this->lightCnt)
 	{
 		lightSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK,

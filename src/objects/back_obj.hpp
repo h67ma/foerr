@@ -8,6 +8,13 @@
 #include "back_obj_data.hpp"
 #include "../util/json.hpp"
 
+enum LightObjectsState
+{
+	LIGHTS_DEFAULT,	// leave lights state up to randomness
+	LIGHTS_ON,		// force all lights to be turned on
+	LIGHTS_OFF,		// force all lights to be turned off
+};
+
 /**
  * BackObject can define a main texture and a light texture. Both textures are optional, but obviously there needs to be
  * at least one texture of some type.
@@ -37,5 +44,5 @@ class BackObject : public BackObjectBase
 	public:
 		bool loadFromJson(const json &jsonNode);
 		bool setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes, ResourceManager &resMgr,
-							const struct back_obj_data &backObjData) const;
+							const struct back_obj_data &backObjData, enum LightObjectsState lightState) const;
 };

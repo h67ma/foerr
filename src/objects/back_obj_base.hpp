@@ -27,7 +27,7 @@
  * While it makes sense to have an object which has several possible textures, there might be cases when a specific
  * variant is needed (e.g. we really really want to display variant 2 of "door" object, because it just fits the scene).
  * For this purpose, objects placed in Rooms can overwrite picking a random variant by specifying "var" field with
- * variant index.
+ * variant index. Note: light objects can additionally be turned "on" or "off" - see BackObject.
  *
  * BackObject stores only one 2d offset per all types and all variants inside them. The idea is that the different
  * variants are representing the same general object, therefore their size should be the same. If one of them needs to

@@ -50,6 +50,7 @@ class Room : public sf::Drawable, public sf::Transformable
 		sf::Texture cachedLiquidLevelTxt;
 		sf::Sprite cachedLiquidLevel;
 		sf::Vector2u spawnCoords { ROOM_WIDTH_WITH_BORDER / 2, ROOM_HEIGHT_WITH_BORDER / 2 }; // Room center by default
+		enum LightObjectsState lightsState;
 
 		std::vector<struct back_obj_data> backObjectsData;
 		std::vector<struct back_obj_data> backObjectsDataFar;
@@ -65,9 +66,9 @@ class Room : public sf::Drawable, public sf::Transformable
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
 		static bool parseBackObjsNode(const json &root, const std::string &filePath, const char* key,
 									  std::vector<struct back_obj_data> &dataVector);
-		static void setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr,
-									 const std::vector<struct back_obj_data> &dataVector,
-									 std::vector<SpriteResource> &spriteVector);
+		void setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr,
+							  const std::vector<struct back_obj_data> &dataVector,
+							  std::vector<SpriteResource> &spriteVector);
 		void setupBackHoleObjects(ResourceManager &resMgr, const ObjectManager &objMgr);
 
 	public:

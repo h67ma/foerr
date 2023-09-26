@@ -115,6 +115,19 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 	// spawn coords are usually only defined for the first room
 	parseJsonVector2Key<uint>(root, filePath, FOERR_JSON_KEY_SPAWN_COORDS, this->spawnCoords, true);
 
+	///// lights state override /////
+
+	int lightsOn;
+	this->lightsState = LIGHTS_DEFAULT;
+	if (parseJsonKey<int>(root, filePath, FOERR_JSON_KEY_LIGHTS_ON, lightsOn, true))
+	{
+		if (lightsOn > 0)
+			this->lightsState = LIGHTS_ON;
+		else if (lightsOn < 0)
+			this->lightsState = LIGHTS_OFF;
+		// assume 0 is default
+	}
+
 	///// cells /////
 
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
@@ -236,8 +249,8 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 
 void Room::setupAllBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr)
 {
-	Room::setupBackObjects(resMgr, objMgr, this->backObjectsData, this->backObjectsMain);
-	Room::setupBackObjects(resMgr, objMgr, this->backObjectsDataFar, this->farBackObjectsMain);
+	this->setupBackObjects(resMgr, objMgr, this->backObjectsData, this->backObjectsMain);
+	this->setupBackObjects(resMgr, objMgr, this->backObjectsDataFar, this->farBackObjectsMain);
 	this->setupBackHoleObjects(resMgr, objMgr);
 }
 
@@ -299,7 +312,7 @@ void Room::setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr
 	{
 		SpriteResource backObjMain;
 		SpriteResource backObjLight;
-		if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objData))
+		if (!objMgr.setupBgSprites(backObjMain, backObjLight, resMgr, objData, this->lightsState))
 		{
 			Log::w(STR_BACK_OBJ_SETUP_FAIL, objData.id.c_str());
 			continue;

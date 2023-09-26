@@ -69,11 +69,13 @@ bool ObjectManager::load()
  * @param lightSpriteRes reference to a sprite resource to use as light
  * @param resMgr reference to Resource Manager
  * @param backObjData object data
+ * @param lightState override light state (only valid for light object)
  * @return true if setup was successful
  * @return false if setup has failed
  */
 bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes,
-								   ResourceManager &resMgr, const struct back_obj_data &backObjData) const
+								   ResourceManager &resMgr, const struct back_obj_data &backObjData,
+								   enum LightObjectsState lightState) const
 {
 	auto search = this->objects.find(backObjData.id);
 	if (search == this->objects.end())
@@ -82,7 +84,7 @@ bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource
 		return false;
 	}
 
-	if (!search->second.setupBgSprites(mainSpriteRes, lightSpriteRes, resMgr, backObjData))
+	if (!search->second.setupBgSprites(mainSpriteRes, lightSpriteRes, resMgr, backObjData, lightState))
 		return false;
 
 	// note: move() instead of setPosition(), as objects were already moved according to offset
