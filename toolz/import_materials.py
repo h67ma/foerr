@@ -141,7 +141,7 @@ def import_materials(log: Log, alldata_path: str, add_legacy: bool, output_filen
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="A tool for extracting material data from AllData to use in FoERR.")
 	parser.add_argument("-d", "--alldata", action="store", required=True, type=str, help=("Path to AllData.xml (just remove beginning and end from AllData.as)"))
-	parser.add_argument("-g", "--legacy", action="store_true", help=("Add information about legacy symbols"))
+	parser.add_argument("-g", "--legacy", action="store_true", help=("Add information about legacy symbols (used in import_locs.py)"))
 	parser.add_argument("-o", "--output", action="store", default="materials.json", type=str, help=("Output filename"))
 	parser.add_argument("-l", "--log", action="store", type=int, default=3, help=("Log level"))
 	args = parser.parse_args()
