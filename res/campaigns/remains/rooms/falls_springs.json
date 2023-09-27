@@ -139,7 +139,7 @@
 		},
 		{
 			"coords": [6, 2, 0],
-			"backwall": "tConcreteDirt",
+			"backwall": "concrete_dirt",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|C|_h|_|C|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|C|_h|_|C|H|H|H|H|H|H|H",
@@ -236,7 +236,7 @@
 		},
 		{
 			"coords": [6, 1, 0],
-			"backwall": "tConcreteDirt",
+			"backwall": "concrete_dirt",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_g|C|C",
 				"C|_|_|_|_|_|_|_|_|_|_|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_H|_H|_H|_H|_H|_H|_H|_H|_H|C|_|_|_g|_|C",
@@ -482,7 +482,7 @@
 			"coords": [2, 2, 0],
 			"liquid_level": 5,
 			"liquid_symbol": "&",
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_T|_Tg|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_T|_Tg|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
@@ -692,7 +692,7 @@
 		},
 		{
 			"coords": [7, 2, 0],
-			"backwall": "tConcreteDirt",
+			"backwall": "concrete_dirt",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -1263,7 +1263,7 @@
 		},
 		{
 			"coords": [10, 1, 0],
-			"backwall": "tLeaking",
+			"backwall": "leaking",
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
@@ -1370,7 +1370,7 @@
 			"coords": [0, 2, 0],
 			"liquid_level": 3,
 			"liquid_symbol": "&",
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|_T|_Tg|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D",
 				"D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|_T|_Tg|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D",
@@ -1689,7 +1689,7 @@
 		},
 		{
 			"coords": [5, 3, 0],
-			"backwall": "tDirt",
+			"backwall": "dirt",
 			"cells": [
 				"H|H|H|H|H|_h|_|H|H|H|H|H|H|H|C|C|C|C|C|C|C|C|H|H|H|H|H|H|H|H|D|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|_h|_|H|H|H|H|H|H|H|C|_C|_C|_C|_C|_C|_C|_C|_|_|H|H|H|H|H|H|D|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -1782,7 +1782,7 @@
 		},
 		{
 			"coords": [3, 2, 0],
-			"backwall": "tDirt",
+			"backwall": "dirt",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -1931,7 +1931,7 @@
 		},
 		{
 			"coords": [6, 3, 0],
-			"backwall": "tDirt",
+			"backwall": "dirt",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -2132,7 +2132,7 @@
 		},
 		{
 			"coords": [4, 2, 0],
-			"backwall": "tDirt",
+			"backwall": "dirt",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|C|_|_g|C|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|C|_|_g|C|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -2349,7 +2349,7 @@
 		},
 		{
 			"coords": [6, 0, 0],
-			"backwall": "tConcreteDirt",
+			"backwall": "concrete_dirt",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
@@ -2626,7 +2626,7 @@
 		},
 		{
 			"coords": [5, 2, 0],
-			"backwall": "tConcreteDirt",
+			"backwall": "concrete_dirt",
 			"cells": [
 				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|H|H|H|H|H|H|H|H|H|H|H|H|H",

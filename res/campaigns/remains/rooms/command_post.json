@@ -5,7 +5,7 @@
 	"rooms": [
 		{
 			"coords": [1, 0, 1],
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"B|_Y|_Y|_Y|_N|_N|_N|_G|_N|_N|_N|_G|_N|_N|_G|_N|_N|_G|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|S",
@@ -113,7 +113,7 @@
 		{
 			"coords": [0, 0, 0],
 			"is_start": true,
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|_|_|_|_|_|_|_|_|_|_|_|_|_|S|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|S|_|_|_|_|_|_|_|_|_|_|_|_|_|S",
@@ -417,7 +417,7 @@
 		},
 		{
 			"coords": [2, 0, 0],
-			"backwall": "tSteklo",
+			"backwall": "steklo",
 			"cells": [
 				"SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF|SF",
 				"SF|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|SF",
@@ -798,7 +798,7 @@
 		},
 		{
 			"coords": [1, 0, 0],
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|A|S|S|A|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|_|_G|_G|_G|_|_|_|S|_|_|_|_|_|_|_|_|_|_|_|_|_|A|_I|_I|A|_|_|_|_|_G|_G|_G|_G|_G|_G|_G|_|_|_|_|_|_|_|_|_|_|S",
@@ -982,7 +982,7 @@
 		},
 		{
 			"coords": [3, 0, 0],
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",

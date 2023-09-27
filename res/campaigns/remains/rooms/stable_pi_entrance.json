@@ -5,7 +5,7 @@
 	"rooms": [
 		{
 			"coords": [0, 3, 0],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"G|G|G|G|G|G|G|D|_T|_T|_T|_T|_T|C|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|D|_T|_T|_T|_T|_T|C|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
@@ -102,7 +102,7 @@
 		},
 		{
 			"coords": [0, 4, 1],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
@@ -187,7 +187,7 @@
 		},
 		{
 			"coords": [0, 2, 0],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"G|G|G|G|G|G|G|C|_T|_T|_T|_T|_T|C|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|C|_T|_T|_T|_T|_T|C|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
@@ -742,7 +742,7 @@
 		},
 		{
 			"coords": [0, 4, 0],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"G|G|G|G|G|G|G|CT|_T|_T|_T|_T|_T|CT|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|CT|_T|_T|_T|_T|_T|CT|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
@@ -933,7 +933,7 @@
 		},
 		{
 			"coords": [0, 1, 0],
-			"backwall": "tCave",
+			"backwall": "cave",
 			"cells": [
 				"H|H|H|H|H|H|H|C|_T|_T|_T|_T|_T|C|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|C|_T|_T|_T|_T|_T|C|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -1045,7 +1045,7 @@
 		},
 		{
 			"coords": [1, 4, 1],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
@@ -1106,7 +1106,7 @@
 		},
 		{
 			"coords": [0, 0, 0],
-			"backwall": "tCave",
+			"backwall": "cave",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|B|B|B|B|B|B|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|B|B|B|B|B|B|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -1215,7 +1215,7 @@
 		},
 		{
 			"coords": [1, 4, 0],
-			"backwall": "tCave",
+			"backwall": "cave",
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
@@ -1428,7 +1428,7 @@
 		},
 		{
 			"coords": [1, 6, 0],
-			"backwall": "tCave",
+			"backwall": "cave",
 			"lights_on": -1,
 			"cells": [
 				"G|G|G|G|G|G|_A|_A|_A|_A|_A|_A|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|M|M|M|M|M|M|M|M|M|M|M|M|M|G|G",
@@ -1862,7 +1862,7 @@
 		},
 		{
 			"coords": [1, 5, 0],
-			"backwall": "tCave",
+			"backwall": "cave",
 			"lights_on": -1,
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|M|K|K|K|K|K|K|K|K|K|K|K|_T|_T|_T|_T|K|K|M|G|G|G|G",
@@ -2105,7 +2105,7 @@
 		{
 			"coords": [1, 7, 0],
 			"is_start": true,
-			"backwall": "tCave",
+			"backwall": "cave",
 			"lights_on": -1,
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|MT|_T|_T|_T|M|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",

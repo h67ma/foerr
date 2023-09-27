@@ -3,7 +3,7 @@
 	"version": 1,
 	"rooms": [
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_R|_R|_R|_R|_R|_R|_|_I|_I|_I|_I|_I|_I|_I|_I|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
@@ -180,7 +180,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|J|J|J|A|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_|_P|_P|_P|_P|_P|_P|_P|_P|_P|A",
@@ -413,7 +413,7 @@
 			"spawn_coords": [23, 11]
 		},
 		{
-			"backwall": "tRivets",
+			"backwall": "rivets",
 			"cells": [
 				"J|J|J|J|J|_Q|_Q|J|J|J|J|J|J|_Q|_Q|_Q|_Qg|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|_Q|_Q|_Q|_Q|J|J|J|J",
 				"_Q|_F|_F|_R|_R|_R|_R|_R|J|_P|_P|_P|_P|_P|_P|_P|_Pg|_P|J|_N|_N|_N|_N|_N|_N|_N|J|_R|_R|_R|_R|J|_R|_R|_R|_R|J|_P|_P|_P|_H|_H|_H|_H|_P|_P|_P|_Q",
@@ -626,7 +626,7 @@
 			"spawn_coords": [22, 15]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A",
 				"_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|J|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|J|J|J|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|A",
@@ -812,7 +812,7 @@
 			"spawn_coords": [30, 23]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -944,7 +944,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A",
 				"A|J|J|J|_R|_R|_R|_R|J|J|J|J|J|J|J|J|J|J|J|J|J|J|_R|_R|_R|_R|J|J|J|J|J|J|J|J|J|J|J|J|J|J|_R|_R|_R|_R|J|J|J|A",
@@ -1115,7 +1115,7 @@
 			"spawn_coords": [5, 7]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A",
 				"A|J|J|J|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|J|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q",
@@ -1342,7 +1342,7 @@
 			"spawn_coords": [40, 9]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"_Q|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|J|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_|_R|_R|_R|_R|_O|_O|_O|_R|_R|_R|_R|A",
@@ -1619,7 +1619,7 @@
 			"spawn_coords": [8, 7]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|_P|_P|_P|_P|A|A|A|A",
 				"A|J|J|J|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|J|J|J|J|J|J|J|J|J|J|J|J|J|J|_R|_R|_R|_R|J|J|J|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P",
@@ -1814,7 +1814,7 @@
 			"spawn_coords": [12, 7]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_P|_P|_P|_P|A|A|A|A|A|_P|_P|_P|_P|AG|A|A|A|A|A|A|A|A|A|A|A|A|A|_P|_P|_P|_P|A|A|A|A|A|_P|_P|_P|_P|A|A|A|A",
 				"A|_|_|_|_|_|_|_Q|_Q|_P|_P|_P|_Q|_P|_P|_P|_P|_G|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_G|_P|_P|_P|_P|_Q|_P|_P|_P|_Q|_Q|_|_|_|_|_|_|A",
@@ -1974,7 +1974,7 @@
 			]
 		},
 		{
-			"backwall": "tCave",
+			"backwall": "cave",
 			"cells": [
 				"A|A|A|A|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|G|G|G|_|_|_|_|G|G|G|G|G|G|G|G|G|G|G|G|G|G|_|_|_|_|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|_|_|_",
@@ -2103,7 +2103,7 @@
 			"spawn_coords": [13, 19]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|J|J|J|J|J|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|K|J|K|K|K|K|K|K|K|J|J|A",
@@ -2208,7 +2208,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|_|_|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A",
 				"A|J|J|J|J|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|J|J|J|J|A",
@@ -2378,7 +2378,7 @@
 			"spawn_coords": [45, 11]
 		},
 		{
-			"backwall": "tRivets",
+			"backwall": "rivets",
 			"cells": [
 				"_|_|_|_|_Q|_Q|_Q|_Q|_|_|_|_P|_Q|_P|_P|_P|_P|_P|K|K|K|_P|_P|_P|_P|_P|_P|K|K|K|_P|_P|_P|_P|_P|_Q|_P|_|_|_|_Q|_Q|_Q|_Q|_|_|_|_",
 				"_|_|_|_|_Q|_Q|_Q|_Q|_|_|_|_P|_Q|_P|_P|_P|_P|_P|K|K|K|_P|_P|_P|_P|_P|_P|K|K|K|_P|_P|_P|_P|_P|_Q|_P|_|_|_|_Q|_Q|_Q|_Q|_|_|_|_",
@@ -2439,7 +2439,7 @@
 			"spawn_coords": [10, 23]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|_P|_P|_P|_P|A|A|A|A|A|_P|_P|_P|_P|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|J|J|J|J|J|J|J|J|J|J|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|A",
@@ -2705,7 +2705,7 @@
 			"spawn_coords": [21, 23]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_Q|_Q|A|A|A|A|A",
 				"_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_|_R|_R|_R|_R|_R|_R|_R",
@@ -2974,7 +2974,7 @@
 			"spawn_coords": [43, 7]
 		},
 		{
-			"backwall": "tRivets",
+			"backwall": "rivets",
 			"cells": [
 				"J|J|J|J|_P|_P|_P|_P|J|J|J|J|J|JR|JR|JR|JR|J|J|J|J|J|_Q|_R|_R|_Q|J|J|J|J|J|_R|_R|_R|_R|J|J|J|J|J|J|J|J|J|J|J|J|J",
 				"_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_Q|_R|_R|_R|_R|_R|_R|_R|_R|_Q|_R|_R|_Q|_O|_O|_Q|_R|_R|_Q|_R|_R|_R|_R|_R|_R|_R|_R|_Q|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P",
@@ -3107,7 +3107,7 @@
 			"spawn_coords": [4, 23]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|_R|_R|A|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"_R|_R|_R|_R|_R|_R|_R|J|J|J|J|J|J|_R|_R|_R|_R|J|J|J|J|J|_R|_R|_R|_R|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|A",
@@ -3292,7 +3292,7 @@
 			"spawn_coords": [32, 23]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_R|_R|_R|_Rg|A|A|A|A",
 				"A|J|J|J|J|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|_R|_R|_R|_Rg|J|J|J|A",
@@ -3542,7 +3542,7 @@
 			"spawn_coords": [41, 7]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_Q|_Q|_Q|_Q|_Q|_Q|KQ|_F|_F|_F|_F|_F|_F|_F|_F|_F|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
@@ -3676,7 +3676,7 @@
 			]
 		},
 		{
-			"backwall": "tStPlates",
+			"backwall": "st_plates",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_|_|_|_|_|_|_|J|_|_|_|_|_|_|_|_|_|_|_|_|_|_|J|J|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A",
@@ -3884,7 +3884,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|J|J|J|J|J|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|J|J|J|J|J|J|J|_I|_I|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|A",
@@ -3997,7 +3997,7 @@
 			]
 		},
 		{
-			"backwall": "tMetalPlates2",
+			"backwall": "metal_plates2",
 			"cells": [
 				"A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_P|_P|A|A|A|A|A",
 				"A|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|J|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P",
@@ -4295,7 +4295,7 @@
 			"spawn_coords": [39, 4]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A",
 				"A|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|J|_Q|_Q|_Q|_Q|_Q|J|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|J|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_Q",
@@ -4628,7 +4628,7 @@
 			"spawn_coords": [40, 9]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_P|_P|_P|_P|A|A|A|A|A|_P|_P|_P|_P|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_P|_P|_P|_P|A|A|A|A|A|_P|_P|_P|_P|A|A|A|A",
 				"A|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_R|_R|_R|_R|_R|_R|_R|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|A",
@@ -4829,7 +4829,7 @@
 			"spawn_coords": [7, 23]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A",
 				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|J|_P|_P|_P|_P|_P|_P|_P|_P|J|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A",
@@ -5066,7 +5066,7 @@
 			"spawn_coords": [23, 4]
 		},
 		{
-			"backwall": "tTiles",
+			"backwall": "tiles",
 			"cells": [
 				"MF|MF|MF|MF|_F|_F|_F|_F|MF|MF|MF|MF|MF|_F|_F|_F|_F|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|MF|_F|_F|_F|_F|MF|MF|MF|MF",
 				"MF|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|MF",
@@ -5488,7 +5488,7 @@
 			"spawn_coords": [17, 15]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|_R|_R|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_R|_R|A|G|G|G|G|G|G|G|G|G|G|G|A|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|A|G|G|G|G|G|G|G|G|G|G|G|G|G|G|A",
@@ -5712,7 +5712,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|J|_R|_R|_R|_R|_R|_R|_R|J|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A",
@@ -5872,7 +5872,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|A",
@@ -6075,7 +6075,7 @@
 			"spawn_coords": [8, 23]
 		},
 		{
-			"backwall": "tRivets",
+			"backwall": "rivets",
 			"cells": [
 				"J|J|J|J|J|_Ph|_P|J|J|J|J|J|J|_N|_N|_N|_N|J|J|J|J|J|J|J|J|J|J|J|J|J|J|_N|_N|_N|_N|J|J|J|J|J|J|J|J|J|J|J|J|J",
 				"_P|_P|_P|_P|_P|_Ph|_P|_P|_P|_P|J|_N|_N|_N|_N|_N|_N|_N|_N|_N|_Q|_N|_N|_N|_N|_N|_N|_Q|_N|_N|_N|_N|_N|_N|_N|_N|_N|J|_P|_P|_P|_P|_P|_P|_P|_P|_P|J",
@@ -6256,7 +6256,7 @@
 			"spawn_coords": [39, 15]
 		},
 		{
-			"backwall": "tRivets",
+			"backwall": "rivets",
 			"cells": [
 				"_P|_P|_P|_P|_P|_P|_P|_P|_P|_Q|_P|_Q|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_Q|_P|_Q|_P|_P|_P|_P|_P|_P|_P|_P|_P",
 				"_P|_P|_P|_P|_P|_P|_P|_P|_P|_Q|_P|_Q|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_O|_O|_O|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_Q|_P|_Q|_P|_P|_P|_P|_P|_P|_P|_P|_P",
@@ -6395,7 +6395,7 @@
 			"spawn_coords": [8, 3]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_P|_P|_P|_P|A|A|A|A",
 				"A|J|J|J|_R|_R|_R|_R|_H|_H|_H|_H|_H|_R|_R|_R|_R|J|J|J|J|J|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|A",
@@ -6656,7 +6656,7 @@
 			"spawn_coords": [5, 5]
 		},
 		{
-			"backwall": "tMetalPlates2",
+			"backwall": "metal_plates2",
 			"cells": [
 				"A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A",
 				"_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|J|_P|_P|_P|_P|_P|_P|_P|_P|J|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P",
@@ -7007,7 +7007,7 @@
 			"spawn_coords": [2, 11]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|J|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|A",
@@ -7185,7 +7185,7 @@
 			"spawn_coords": [1, 4]
 		},
 		{
-			"backwall": "tTiles",
+			"backwall": "tiles",
 			"cells": [
 				"MF|MF|MF|MF|MF|MF|MF|MF|MF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF|AF",
 				"_F|_F|_F|_F|_F|_F|_F|_F|_F|A|A|A|A|A|A|_N|_N|_N|_N|_N|_N|_N|_F|_F|_F|_N|_N|_N|_N|_N|_|_|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|AF",
@@ -7417,7 +7417,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|A",
@@ -7473,7 +7473,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A|A|A|_I|_I|A|A|A|A|A",
 				"_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I",
@@ -7720,7 +7720,7 @@
 			"spawn_coords": [23, 19]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|J|J|J|J|J|J|J|J|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R",
@@ -7943,7 +7943,7 @@
 			"spawn_coords": [36, 23]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_Q|_Q|_Q|_Q|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|_Q|A",
@@ -8146,7 +8146,7 @@
 			"spawn_coords": [5, 7]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|J|J|J|J|J|J|J|J|J|J|J|J|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|A",
@@ -8287,7 +8287,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_R|_R|_R|_R|A|A|A|A|A|_Rh|_R|_R|_R|A|A|A|A|A|_R|_R|_R|_Rg|A|A|A|A",
 				"_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|J|_R|_O|_O|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|J|J|J|J|J|_Rh|_R|_R|_R|J|K|K|K|J|_R|_R|_R|_Rg|J|J|J|A",
@@ -8465,7 +8465,7 @@
 			"spawn_coords": [13, 3]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|J|J|J|A|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|A",
@@ -8525,7 +8525,7 @@
 			]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"JP|JP|JP|JP|JP|JP|JP|JP|JP|JP|JP|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P",
 				"JP|_P|_P|_P|_P|_P|_P|_P|_P|_P|JP|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P",
@@ -8852,7 +8852,7 @@
 			"spawn_coords": [37, 23]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"_R|_R|_R|_R|_R|_R|_Rg|_R|_R|_R|AR|A|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|A|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R",
 				"_R|_R|_R|_R|_R|_R|_Rg|_R|_R|_R|_R|A|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|A|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R|_R",
@@ -9030,7 +9030,7 @@
 			"spawn_coords": [14, 23]
 		},
 		{
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|A",

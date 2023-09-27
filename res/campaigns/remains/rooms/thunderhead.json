@@ -132,7 +132,7 @@
 		},
 		{
 			"coords": [2, 0, 0],
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|_U|T|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|S",
@@ -455,7 +455,7 @@
 		},
 		{
 			"coords": [2, 1, 0],
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|_|_|_|_|S|S|S|S",
 				"S|_Y|_Y|_Q|_|_|_|_|_Q|_Y|_Y|_Y|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_Y|_Y|_Y|_Q|_|_|_|_|_Q|_Y|_Y|S",
@@ -764,7 +764,7 @@
 		},
 		{
 			"coords": [2, 2, 0],
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_G|_G|_G|_G|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|S|_|_|_G|_G|_G|_G|_|_|S|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|S",
@@ -930,7 +930,7 @@
 		},
 		{
 			"coords": [2, 2, 1],
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|A|A|A|A|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|_O|_O|_O|T|_|_|_|_|_|_|_|_|_|_|_|_|_|_O|_O|_Y|_Y|AY|AY|AY|AY|_Y|_Y|_O|_O|_|_|_|_|_|_|_|_|_|_|_|_|_|T|_O|_O|_O|S",
@@ -972,7 +972,7 @@
 		},
 		{
 			"coords": [3, 2, 1],
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",

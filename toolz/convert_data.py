@@ -125,11 +125,11 @@ missing_mats = {
 	},
 	'u': {
 		FOERR_JSON_KEY_TYPE: 2,
-		FOERR_JSON_KEY_TEXTURE: "tWindows",
+		FOERR_JSON_KEY_TEXTURE: "windows",
 	},
 	'v': {
 		FOERR_JSON_KEY_TYPE: 2,
-		FOERR_JSON_KEY_TEXTURE: "tLeaking",
+		FOERR_JSON_KEY_TEXTURE: "leaking",
 	},
 }
 

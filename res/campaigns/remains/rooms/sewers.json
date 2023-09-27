@@ -3,7 +3,7 @@
 	"version": 1,
 	"rooms": [
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A",
 				"A|_K|_K|_K|M|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|M|L|L|L|L|M|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|_T|M|H|A",
@@ -300,7 +300,7 @@
 			"spawn_coords": [13, 23]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_L|_L|A|A|A|A|A|A|A|_T|_T|A|A|A|A|A|A|A|_L|_L|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_L|_L|A|A|A|A|A",
 				"A|_L|_L|_L|_L|_L|_L|_A|_T|_T|M|L|L|M|_T|_T|M|HL|HL|HL|HL|HL|_L|_L|_L|_L|_L|_L|_L|HL|HL|_L|_L|_L|_L|_L|_L|_L|_L|_L|_L|_L|_L|_L|HL|HL|HL|A",
@@ -641,7 +641,7 @@
 			"spawn_coords": [21, 11]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_|_|A|A|A|A|A|A|A|_|_|A|A|A|A|A|A|A|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|L|L|L|_|_|_|_|_|_|_|_|_|_|_|_|L|L|L|L|L|L|L|_|_|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|A",
@@ -1010,7 +1010,7 @@
 			"spawn_coords": [1, 11]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|_|_|A|A|A|A|A|A|_|_|A|A|A|A|A|A|_|_|_|_|A|A|A|A",
 				"A|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|L|L|L|A",
@@ -1499,7 +1499,7 @@
 			"spawn_coords": [8, 7]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|_A|_A|_A|_A|A|A|A|A|A|_A|_A|_A|_A|A|A|A|A|A|_A|_A|_A|_A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|L|L|L|L|L|L|L|L|L|L|L|L|_|_|_|_",
@@ -1984,7 +1984,7 @@
 			"spawn_coords": [20, 7]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_h|_|A|A|A|A|A|A|A|_|_g|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|A|A|A|A|A|A|_|_|_|_|A|A|A|A",
 				"A|L|L|L|_|_h|_|_|_|_|_|_|_|_|_|_g|_|L|L|L|L|L|L|L|L|L|L|_|_|_|_|_|_|_|_|F|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C",
@@ -2441,7 +2441,7 @@
 			"spawn_coords": [18, 23]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_K|_K|A|A|A|A|A",
 				"A|_|_|_|_|_|_|_|_|_|_|_S|_S|_S|_S|_S|_S|_|_|_|_|_|_|_|_|_|_|_|_|_|_|L|L|L|L|L|L|L|L|L|L|_K|_K|_|_|L|L|A",
@@ -2890,7 +2890,7 @@
 			"spawn_coords": [32, 23]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|A|A|A|A|A|A|A|_|_|A|A|A|A|A",
 				"_|_|_|_|_|_|_|_|_|_|L|L|L|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|L|L|L|L|L|L|L|_|_|L|L|L|L|A",
@@ -3419,7 +3419,7 @@
 			"spawn_coords": [5, 6]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|_|_|A|A|A|A",
 				"A|_E|_E|_E|_E|L|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E",
@@ -3824,7 +3824,7 @@
 			"spawn_coords": [41, 3]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|_|_|_|_|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|L|L|L|_|_|_|_|_|_|_|L|L|_|_|_|_|_|_|_|_|_|_|_|L|L|L|L|_K|_K|_|_|_|_|_|_|_|_",
@@ -4281,7 +4281,7 @@
 			"spawn_coords": [5, 7]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_|_|A|A|A|A|A|A|A|_|_|A|A|A|A|A|A|A|_|_|A|A|A|A|A|A|A|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_|_|_|_|_|_|L|L|_|_|_|L|L|_|_|L|L|L|L|L|_K|_K|_|_|L|L|L|_|_|_|_|_|_|L|L|L|L|L|L|L|L|L|L|L|L|L|A",
@@ -4638,7 +4638,7 @@
 			"spawn_coords": [19, 4]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|_A|_A|_A|_A|A|A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|_H|_H|_H|_H|A|A|A|A",
 				"_A|_S|_S|_S|_|_|_|_|L|L|L|L|L|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|L|_|_|_|_|_|_|_|_|_|_H|_H|_H|_H|L|L|L|A",
@@ -5027,7 +5027,7 @@
 			"spawn_coords": [5, 23]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|A|A|A|A|A",
 				"_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|_|_|_|_|_|_|_|_|_|_|A",
@@ -5360,7 +5360,7 @@
 			"spawn_coords": [14, 3]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|A|A|A|A|A",
 				"_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_H|_H|_H|_H|_H|_C|_C|_C|_C|_C|_C|_H|_H|_H|_H|_H|_C|_C|_C|_C|_C|_C|_C|_C|_C|FA|_A|_A|_A|_A|_A|_A|_A|EA|DA|DA|_A|A",
@@ -5805,7 +5805,7 @@
 			"spawn_coords": [5, 20]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|_|_|A|A|A|A",
 				"A|H|H|H|H|H|H|H|H|H|L|L|L|_|_|_|_|L|L|L|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|L|L|L|_|_|_|_|L|L|L|A",
@@ -6146,7 +6146,7 @@
 			"spawn_coords": [7, 7]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|_|_|_|_|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|L|L|L|_|_|_|_|_|_|_|L|L|_|_|_|_|_|_|_|_|_|_|_|L|L|L|L|_K|_K|_|_|_|_|_|_|_|_",
@@ -6603,7 +6603,7 @@
 			"spawn_coords": [5, 7]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"_|_|_|_|_|_|_|_|_|_|_K|_K|_K|_S|_S|_S|_|_|_E|_E|_E|_E|_E|_E|_E|_E|_E|_H|_H|_H|_H|_K|_K|_K|_K|_|_|_|_|_|_K|_K|_K|_S|_S|_S|_S|A",
@@ -6960,7 +6960,7 @@
 			"spawn_coords": [32, 19]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_|_|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|A|A|A|A|A|A|A|_|_|A|A|A|A|A",
 				"A|L|L|L|L|_|_|_|_|_|_|_|_|_|_|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|L|L|L|_|_|_|_|_|_|A",
@@ -7465,7 +7465,7 @@
 			"spawn_coords": [9, 11]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A",
 				"A|L|L|L|L|L|L|L|L|L|L|L|L|L|_|_|L|L|L|_|_|_K|_K|_|_|L|L|L|L|L|L|L|L|L|L|L|L|L|L|L|_K|_K|_K|L|L|L|L|A",
@@ -7774,7 +7774,7 @@
 			"spawn_coords": [43, 19]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|A|_|_|A|A|A|A|A",
 				"A|_|_|_|_|L|L|L|L|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|L|L|_|_|L|L|L|L|A",
@@ -8203,7 +8203,7 @@
 			"spawn_coords": [42, 7]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_K|_K|A|A|A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A|A|A|_|_|A|A|A|A|A",
 				"A|_|_|_|_|_K|_K|_|_|_K|_K|_|_|_|_|_|_|M|_T|_T|_T|M|_|_|_|_|M|_T|_T|_T|M|_|_|_|_|_|_|_|_|_|_|_|_|_K|_K|L|L|A",
@@ -8548,7 +8548,7 @@
 			"spawn_coords": [1, 6]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A",
 				"A|L|L|L|_|_|_|_|_|_|_|_|_K|_K|_K|_K|_|_|_|_|_|_|_|_|L|L|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_K|_K|_|_|A",
@@ -9209,7 +9209,7 @@
 			"spawn_coords": [1, 18]
 		},
 		{
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|_A|_A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|_|_|_|_|A|A|A|A|A|_|_|_|_|A|A|A|A",
 				"A|L|L|L|L|_|_|_|_|_|_|_|_|_|_|_|L|L|L|L|L|L|L|HL|HL|HL|HL|HL|L|L|L|_K|_K|_K|_K|L|L|L|L|L|_K|_K|_K|_K|M|M|M|A",

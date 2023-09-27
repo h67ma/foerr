@@ -54,3 +54,18 @@ def read_xml(path: str) -> ElementTree.Element:
 		print(ex)
 		return None
 	return tree.getroot()
+
+
+def nicify_texture_name(name: str) -> str:
+	"""
+	Removes 't' prefix and changes name to snake case.
+	Example: "tSampleText" -> "sample_text"
+	"""
+	if name[0] == 't':
+		name = name[1:]
+
+	name = re.sub(r"([A-Z])", r"_\1", name).lower()
+	if name[0] == '_':
+		name = name[1:]
+
+	return name

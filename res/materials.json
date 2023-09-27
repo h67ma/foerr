@@ -3,83 +3,83 @@
 	"version": 1,
 	"solids": {
 		"A": {
-			"txt": "tMetal",
+			"txt": "metal",
 			"type": 1
 		},
 		"B": {
-			"txt": "tSuperCon",
+			"txt": "super_con",
 			"type": 1
 		},
 		"C": {
-			"txt": "tConcrete",
+			"txt": "concrete",
 			"type": 1
 		},
 		"D": {
-			"txt": "tConcreteD",
+			"txt": "concrete_d",
 			"type": 1
 		},
 		"E": {
-			"txt": "tCracked",
+			"txt": "cracked",
 			"type": 1
 		},
 		"F": {
-			"txt": "tWood",
+			"txt": "wood",
 			"type": 1
 		},
 		"G": {
-			"txt": "tRock",
+			"txt": "rock",
 			"type": 1
 		},
 		"H": {
-			"txt": "tStones",
+			"txt": "stones",
 			"type": 1
 		},
 		"I": {
-			"txt": "tBrick2",
+			"txt": "brick2",
 			"type": 1
 		},
 		"J": {
-			"txt": "tMWall",
+			"txt": "m_wall",
 			"type": 1
 		},
 		"K": {
-			"txt": "tMWall2",
+			"txt": "m_wall2",
 			"type": 1
 		},
 		"L": {
-			"txt": "tConcreteMoss",
+			"txt": "concrete_moss",
 			"type": 1
 		},
 		"M": {
-			"txt": "tRust",
+			"txt": "rust",
 			"type": 1
 		},
 		"N": {
-			"txt": "tBuild",
+			"txt": "build",
 			"type": 1
 		},
 		"O": {
-			"txt": "tBaseMetal",
+			"txt": "base_metal",
 			"type": 1
 		},
 		"P": {
-			"txt": "tCanBrick",
+			"txt": "can_brick",
 			"type": 1
 		},
 		"Q": {
-			"txt": "tConRough",
+			"txt": "con_rough",
 			"type": 1
 		},
 		"R": {
-			"txt": "tRoof",
+			"txt": "roof",
 			"type": 1
 		},
 		"S": {
-			"txt": "tEncl1",
+			"txt": "encl1",
 			"type": 1
 		},
 		"T": {
-			"txt": "tEncl2",
+			"txt": "encl2",
 			"type": 1
 		}
 	},
@@ -103,7 +103,7 @@
 			"txt_delim_offset": [-2, -30]
 		},
 		"a": {
-			"txt": "tShelf",
+			"txt": "shelf",
 			"legacy_symbol": "-",
 			"type": 4
 		},
@@ -120,7 +120,7 @@
 			"type": 5
 		},
 		"b": {
-			"txt": "tWoodBeam",
+			"txt": "wood_beam",
 			"legacy_symbol": "\u0414",
 			"type": 4
 		},
@@ -138,7 +138,7 @@
 			"type": 5
 		},
 		"c": {
-			"txt": "tStShelf",
+			"txt": "st_shelf",
 			"legacy_symbol": "\u0415",
 			"type": 4
 		},
@@ -156,7 +156,7 @@
 			"type": 5
 		},
 		"d": {
-			"txt": "tConBeam",
+			"txt": "con_beam",
 			"legacy_symbol": "\u041a",
 			"type": 4
 		},
@@ -173,7 +173,7 @@
 			"type": 5
 		},
 		"e": {
-			"txt": "tCanBeam",
+			"txt": "can_beam",
 			"legacy_symbol": "\u041d",
 			"type": 4
 		},
@@ -191,7 +191,7 @@
 			"type": 5
 		},
 		"f": {
-			"txt": "tCloudBeam",
+			"txt": "cloud_beam",
 			"legacy_symbol": "\u0420",
 			"type": 4
 		},
@@ -209,107 +209,107 @@
 			"type": 5
 		},
 		"A": {
-			"txt": "tConcreteBack",
+			"txt": "concrete_back",
 			"type": 2
 		},
 		"B": {
-			"txt": "tKaf",
+			"txt": "kaf",
 			"type": 2
 		},
 		"C": {
-			"txt": "tConPlates",
+			"txt": "con_plates",
 			"type": 2
 		},
 		"D": {
-			"txt": "tBrick",
+			"txt": "brick",
 			"type": 2
 		},
 		"E": {
-			"txt": "tBlocks",
+			"txt": "blocks",
 			"type": 2
 		},
 		"F": {
-			"txt": "tMetalPlates",
+			"txt": "metal_plates",
 			"type": 2
 		},
 		"G": {
-			"txt": "tMetalVert",
+			"txt": "metal_vert",
 			"type": 2
 		},
 		"H": {
-			"txt": "tMetalRust",
+			"txt": "metal_rust",
 			"type": 2
 		},
 		"I": {
-			"txt": "tVent",
+			"txt": "vent",
 			"type": 2
 		},
 		"J": {
-			"txt": "tShtuk",
+			"txt": "shtuk",
 			"type": 2
 		},
 		"K": {
-			"txt": "tSetka",
+			"txt": "setka",
 			"type": 2
 		},
 		"L": {
-			"txt": "tDirt2",
+			"txt": "dirt2",
 			"type": 2
 		},
 		"M": {
-			"txt": "tWoodPlanks",
+			"txt": "wood_planks",
 			"type": 2
 		},
 		"N": {
-			"txt": "tStPlates",
+			"txt": "st_plates",
 			"type": 2
 		},
 		"O": {
-			"txt": "tMeh",
+			"txt": "meh",
 			"type": 2
 		},
 		"P": {
-			"txt": "tDarkMetal",
+			"txt": "dark_metal",
 			"type": 2
 		},
 		"Q": {
-			"txt": "tDarkPlates",
+			"txt": "dark_plates",
 			"type": 2
 		},
 		"R": {
-			"txt": "tDarkRivets",
+			"txt": "dark_rivets",
 			"type": 2
 		},
 		"S": {
-			"txt": "tPipes",
+			"txt": "pipes",
 			"type": 2
 		},
 		"T": {
-			"txt": "tRustPlates",
+			"txt": "rust_plates",
 			"type": 2
 		},
 		"U": {
-			"txt": "tBase",
+			"txt": "base",
 			"type": 2
 		},
 		"V": {
-			"txt": "tCanStuc",
+			"txt": "can_stuc",
 			"type": 2
 		},
 		"W": {
-			"txt": "tCanTiles",
+			"txt": "can_tiles",
 			"type": 2
 		},
 		"X": {
-			"txt": "tOrn",
+			"txt": "orn",
 			"type": 2
 		},
 		"Y": {
-			"txt": "tEncl2",
+			"txt": "encl2",
 			"type": 2
 		},
 		"Z": {
-			"txt": "tCloud",
+			"txt": "cloud",
 			"type": 2
 		},
 		"*": {
@@ -334,11 +334,11 @@
 		},
 		"u": {
 			"type": 2,
-			"txt": "tWindows"
+			"txt": "windows"
 		},
 		"v": {
 			"type": 2,
-			"txt": "tLeaking"
+			"txt": "leaking"
 		}
 	}
 }

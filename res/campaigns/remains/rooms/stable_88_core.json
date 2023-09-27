@@ -5,7 +5,7 @@
 		{
 			"coords": [5, 0, 0],
 			"is_start": true,
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"lights_on": 1,
 			"cells": [
 				"J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J",
@@ -208,7 +208,7 @@
 		},
 		{
 			"coords": [3, 0, 1],
-			"backwall": "tDarkMetal",
+			"backwall": "dark_metal",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_R|_R|_R|JR|_P|_P|_Q|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_Q|_P|_P|_P|_P|_P|_P|_Q|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_P|_Q|_P|_P|JR|_R|_R|_R|A",
@@ -355,7 +355,7 @@
 		},
 		{
 			"coords": [3, 0, 0],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
@@ -454,7 +454,7 @@
 		},
 		{
 			"coords": [1, 0, 1],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"lights_on": 1,
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -604,7 +604,7 @@
 		},
 		{
 			"coords": [2, 0, 0],
-			"backwall": "tRivets",
+			"backwall": "rivets",
 			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
@@ -852,7 +852,7 @@
 		},
 		{
 			"coords": [4, 0, 1],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|H|H|H|H|H|A|A|A|A|A|A|A|A|A|A|A",
@@ -966,7 +966,7 @@
 		},
 		{
 			"coords": [1, 0, 0],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
@@ -1196,7 +1196,7 @@
 		},
 		{
 			"coords": [0, 0, 0],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|A|A|A|A|A|A|A|A|A|A|AF|AF|AF|AF|AF|A|A|A|A|A|A|A|A|A|A",
@@ -1474,7 +1474,7 @@
 		},
 		{
 			"coords": [4, 0, 0],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",

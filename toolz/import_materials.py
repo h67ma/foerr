@@ -2,7 +2,7 @@ import argparse
 from log import Log
 from consts import *
 from convert_data import *
-from common import write_nicer_json, read_xml
+from common import write_nicer_json, read_xml, nicify_texture_name
 
 
 def import_materials(log: Log, alldata_path: str, add_legacy: bool, output_filename: str):
@@ -38,7 +38,7 @@ def import_materials(log: Log, alldata_path: str, add_legacy: bool, output_filen
 			if texture_attrib is not None:
 				texture_name = texture_attrib
 
-		out_mat[FOERR_JSON_KEY_TEXTURE] = texture_name
+		out_mat[FOERR_JSON_KEY_TEXTURE] = nicify_texture_name(texture_name)
 
 		mat_symbol = mat.attrib.get("id")
 		if mat_symbol is None:

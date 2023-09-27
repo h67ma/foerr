@@ -4,7 +4,7 @@
 	"background_full": "clouds",
 	"rooms": [
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S",
 				"_|_|_|_|_O|_O|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|S|_|_|_|_|S|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -247,7 +247,7 @@
 			"spawn_coords": [3, 23]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_|_|_|_|_|_|_|_",
@@ -586,7 +586,7 @@
 			"spawn_coords": [37, 10]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|_|_|_|_|S|S|S|S",
 				"S|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|S|S|S|S|_|_|_|_|_|_|_|_|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_|_|_|_|_|_|_|_|_",
@@ -845,7 +845,7 @@
 			"spawn_coords": [40, 23]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|_|_|_|_|_|_|_F|_F|_F|_F|_|_|_O|_O|_|_|S|S|S|S|S|S|S|S|S|S|S",
@@ -1051,7 +1051,7 @@
 			]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_Z|_Z|_Z|_Z|S|S|S|S|S|_Z|_Z|_Z|_Z|S|S|S|S|S|_Z|_Z|_Z|_Z|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_Z|_Z|_Z|_Z|S|S|S|S",
 				"_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_|_O|_O|_|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z",
@@ -1170,7 +1170,7 @@
 			"spawn_coords": [35, 14]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|S|_O|_O|S|S|S|S|S|S|S|_O|_O|S|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S",
 				"_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_O|_O|_Y|_Y|S|_O|_O|_O|_Y|_Y|_Y|_Y|_Y|_Y|_O|_O|_O|_|_Z|_Z|_Z|_|_|_|_|_Z|_Z|_Z|_Z|_Z|_Z|_|_|_|_|_Z|_Z|_Z|_F",
@@ -1577,7 +1577,7 @@
 			"spawn_coords": [37, 19]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|_Y|_Y|S|S|S|S|S|S|_|_O|_O|_|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_|_O|_O|_|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|_Y|_Y|_Y|_Y|_Y|_Y|_|_Z|_Z|_Z|_Z|_Z|_|_O|_O|_|_Z|_Z|_|_|_|_|_|_|_|_|_|_|_Z|_Z|_|_O|_O|_|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z",
@@ -1744,7 +1744,7 @@
 			"spawn_coords": [41, 15]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S",
 				"_|_|_|_|_|_|_Y|_Y|_Y|_Y|_Y|S|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_Y|_Y|_Y|_Y|_Y|_|_|_|_|_|_",
@@ -2139,7 +2139,7 @@
 			"spawn_coords": [23, 3]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|S|_|_|S|S|S|S|S|S|S|_|_|S|S|S|S|S",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|S|_|_|_|_|_|_|_|_|_|_O|_O|_|_|S|_Y|_Y|_Y|_Y|_Y|S|_|_|_O|_O|_|_|_",
@@ -2370,7 +2370,7 @@
 			"spawn_coords": [2, 7]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|S|S|S|S|S|S|S|S|S|S|_O|_Y|_Y|_O|_Y|_Y|_O|_O|_O|_O|_Y|_Y|_Y|_O|_O|_Y|_O|_O|_Y|_|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|_G|S",
@@ -2612,7 +2612,7 @@
 			]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_|_|_|_|S|S|S|S|S|_Y|_O|_O|_Y|S|S|S|S|S|_Y|_O|_O|_Y|S|S|S|S|S|S|S|S|S|S|S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S",
 				"_|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Y|_O|_O|_Y|_Z|_Z|_Z|_Z|_Z|_Y|_O|_O|_Y|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y",
@@ -2784,7 +2784,7 @@
 			"spawn_coords": [23, 14]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|_Y|_Y|S|S|S|S|S|S|S|_O|_O|S|S|S|S|S|S|S|_F|_F|S|S|S|S|S|S|S|_F|_F|S|S|S|S|S|S|S|_Y|_Y|S|S|S|S|S",
 				"S|_Y|_Y|_O|_F|_O|_F|_F|_O|_F|_Y|_Y|_Y|_O|_O|_O|_O|_Y|_Y|T|_Y|_Y|_F|_F|_F|_F|_Y|_Y|_Y|_O|_O|_O|_F|_F|_O|_O|T|T|T|_O|_O|_O|_O|_Y|_Y|_Y|_Y|S",
@@ -2967,7 +2967,7 @@
 			"spawn_coords": [8, 15]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|_O|_O|S|S|S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|S|_Y|_Y|S|S|S|S|S",
 				"S|_Y|_Y|_Y|_Y|_O|_O|_Y|S|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_F|_F|_F|_F|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|S|_Y|_Y|_Y|_Y|_Y|_Y|_Y|S",
@@ -3370,7 +3370,7 @@
 			"spawn_coords": [5, 23]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|T|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y",
@@ -3661,7 +3661,7 @@
 			"spawn_coords": [23, 15]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_Z|_Z|_Z|_Z|S|S|S|S|S|_Z|_Z|_Z|_Z|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_Z|_Z|_Z|_Z|S|S|S|S",
 				"_|_|_|_|_|_|_|_|_|_|_Z|_Z|_Z|_Z|_Z|_Z|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|S|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z|_Z",
@@ -4120,7 +4120,7 @@
 			"spawn_coords": [41, 3]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|SF|SF|SF|SF|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S",
 				"S|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_O|_O|_Y|_Y|_O|_O|_Y|_Y|_Y|_Y|S|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|S",
@@ -4495,7 +4495,7 @@
 			"spawn_coords": [2, 23]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -4742,7 +4742,7 @@
 			"spawn_coords": [32, 17]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|_|_|S|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S|S|_F|_F|_F|_F|S|S|S|S",
 				"_|_|_|_|_|_|_|_Z|_Z|_Z|S|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -5025,7 +5025,7 @@
 			"spawn_coords": [3, 3]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S",
 				"S|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|S",
@@ -5616,7 +5616,7 @@
 			"spawn_coords": [10, 23]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S",
 				"S|S|S|S|S|S|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|S|S|S|S|S|S|S",
@@ -6004,7 +6004,7 @@
 			]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|_Y|_Y|_Y|_Y|S|S|S|S|S|_|_|_|_|S|S|S|S|S|S|S|S|S|S|S|S|S|S|_|_|_|_|S|S|S|S",
 				"_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_Y|_|_|_|_|_|_|_|_|_O|_O|_|_|_|_|_|_|_|_|_O|_O|_|_|_|_|_|_|_|_",
@@ -6293,7 +6293,7 @@
 			"spawn_coords": [2, 3]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|S",
@@ -6478,7 +6478,7 @@
 			"spawn_coords": [45, 23]
 		},
 		{
-			"backwall": "tEncl3",
+			"backwall": "encl3",
 			"cells": [
 				"S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S|S|_|_|_|_|S|S|S|S",
 				"S|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|S",

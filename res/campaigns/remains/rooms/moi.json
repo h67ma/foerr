@@ -5,7 +5,7 @@
 	"rooms": [
 		{
 			"coords": [1, 0, 0],
-			"backwall": "tMarble",
+			"backwall": "marble",
 			"cells": [
 				"QW|QW|QW|QW|QW|QW|QW|QW|QW|QW|QW|QW|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q",
 				"QW|_W|_W|_W|_W|_W|_W|_W|_W|_W|_W|_W|Q|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_W|_W|_W|_W|QW",
@@ -224,7 +224,7 @@
 		},
 		{
 			"coords": [2, -1, 0],
-			"backwall": "tMarble",
+			"backwall": "marble",
 			"cells": [
 				"Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q",
 				"Q|_W|_W|_W|_W|_|_|_|_|_|_|_|_|_|_|_|Q|_W|_W|_W|_|_|_|_|_|_|_|_|_W|_W|_W|Q|_|_|_|_|_|_|_|_|_|_|_|_W|_W|_W|_W|Q",
@@ -654,7 +654,7 @@
 			"coords": [3, 2, 0],
 			"liquid_level": 3,
 			"liquid_symbol": "%",
-			"backwall": "tConRough",
+			"backwall": "con_rough",
 			"cells": [
 				"I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I",
 				"I|_|_|_|_|I|_|_|_|_|I|_|_|_|_|I|_|_|_|_|_|I|_|_|_|_|_|I|_|_|_|_|_g|_|_|_|_|_|_g|_|_|_|_|_|_|_|_|_",
@@ -767,7 +767,7 @@
 		},
 		{
 			"coords": [3, 0, 0],
-			"backwall": "tMarble",
+			"backwall": "marble",
 			"cells": [
 				"Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q",
 				"QN|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|Q|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|Q|_N|_N|_N|_N|_N|_N|_N|_N|_N|Q|_|_|_|_|_|_|_|Q",
@@ -1375,7 +1375,7 @@
 			"coords": [2, 2, 0],
 			"liquid_level": 3,
 			"liquid_symbol": "%",
-			"backwall": "tConRough",
+			"backwall": "con_rough",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|I|I|I|I|I|H",
@@ -1464,7 +1464,7 @@
 		},
 		{
 			"coords": [1, 1, 0],
-			"backwall": "tConRough",
+			"backwall": "con_rough",
 			"cells": [
 				"Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q",
 				"Q|_|_|_|_|_G|_|_|_H|QH|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_|_|_|_|_|_|_|_|_|_|_|_|_|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|Q",
@@ -1712,7 +1712,7 @@
 			"coords": [1, 2, 0],
 			"liquid_level": 6,
 			"liquid_symbol": "%",
-			"backwall": "tConRough",
+			"backwall": "con_rough",
 			"cells": [
 				"H|H|H|A|_T|_T|_T|_T|A|H|H|H|H|H|H|H|H|H|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I",
 				"H|H|H|A|_T|_T|_T|_T|A|H|H|_|_|_|_|H|H|H|I|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|_V|IV",
@@ -1909,7 +1909,7 @@
 		},
 		{
 			"coords": [4, 0, 0],
-			"backwall": "tMarble",
+			"backwall": "marble",
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
@@ -1978,7 +1978,7 @@
 		},
 		{
 			"coords": [4, 2, 0],
-			"backwall": "tConRough",
+			"backwall": "con_rough",
 			"cells": [
 				"I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|I|_|_g|I|I|I|I",
 				"_|_|_|_|_|_|_|_|_|_|_|I|_|_|_|_|_|_|_|_|_|_|_|_|_|I|_W|_W|_W|_W|_W|_W|_W|_W|_W|_W|I|_|_|_|_|_|_|_g|_|_|_|I",
@@ -2341,7 +2341,7 @@
 		},
 		{
 			"coords": [2, 1, 0],
-			"backwall": "tConRough",
+			"backwall": "con_rough",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_G|_F|_F|_F|_G|A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_G|_F|_F|_F|_F|_G|_|_|_|_|_|_|_|_|_|_|_|_|_|_|A|_G|_F|_F|_F|_G|A",
@@ -2404,7 +2404,7 @@
 		},
 		{
 			"coords": [2, 0, 0],
-			"backwall": "tMarble",
+			"backwall": "marble",
 			"cells": [
 				"Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|_|_|_|_|_|_|_|_|_|_|_|_|_|_|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q",
 				"Q|_|_|_|_|_|_|_|Q|_W|_W|_W|_W|_W|_W|_W|QW|_W|_W|_W|_|_|_|_|_|_|_|_|_W|_W|_W|QW|_W|_W|_W|_W|_W|_W|_W|Q|_|_|_|_|_|_|_|Q",
@@ -2620,7 +2620,7 @@
 		},
 		{
 			"coords": [4, 1, 0],
-			"backwall": "tConRough",
+			"backwall": "con_rough",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|_N|_N|_N|_N|J|_N|_N|_N|_N|A|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|_N|A",
@@ -2982,7 +2982,7 @@
 		},
 		{
 			"coords": [3, 1, 0],
-			"backwall": "tConRough",
+			"backwall": "con_rough",
 			"cells": [
 				"Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|_|_|_g|Q|Q|Q",
 				"Q|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|Q|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_g|_|_|Q",

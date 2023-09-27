@@ -6,7 +6,7 @@
 		{
 			"coords": [0, 0, 0],
 			"is_start": true,
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"lights_on": 1,
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
@@ -300,7 +300,7 @@
 		},
 		{
 			"coords": [-1, 0, 0],
-			"backwall": "tBackWall",
+			"backwall": "back_wall",
 			"lights_on": 1,
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
@@ -386,7 +386,7 @@
 		},
 		{
 			"coords": [0, 0, 1],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"lights_on": 1,
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
@@ -659,7 +659,7 @@
 		},
 		{
 			"coords": [1, 0, 0],
-			"backwall": "tStConcrete",
+			"backwall": "st_concrete",
 			"lights_on": 1,
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",

@@ -6,7 +6,7 @@
 		{
 			"coords": [0, 0, 0],
 			"is_start": true,
-			"backwall": "tRustPlates",
+			"backwall": "rust_plates",
 			"lights_on": 1,
 			"cells": [
 				"J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J|J",

@@ -6,7 +6,7 @@
 		{
 			"coords": [0, 0, 0],
 			"is_start": true,
-			"backwall": "tBackWall",
+			"backwall": "back_wall",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|H",
@@ -105,7 +105,7 @@
 		},
 		{
 			"coords": [1, 0, 0],
-			"backwall": "tDirt",
+			"backwall": "dirt",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|H",
@@ -168,7 +168,7 @@
 		},
 		{
 			"coords": [0, 1, 0],
-			"backwall": "tStPlates",
+			"backwall": "st_plates",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|_|_|_|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|H",
@@ -221,7 +221,7 @@
 		},
 		{
 			"coords": [1, 1, 0],
-			"backwall": "tStones",
+			"backwall": "stones",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|_|_|_|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|H",

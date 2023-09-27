@@ -4,7 +4,7 @@
 	"background_full": "manehattan",
 	"rooms": [
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_A|_A|_A|_A|N|N|NA|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N",
 				"_A|_J|_J|_J|_J|_J|_J|_J|_J|_J|FA|_|_|_|_|_|_|_|_|N|_|_|_|_|_|_|_|_|D|_|_|_|_|_|_|_|_|N|_J|_J|_J|_J|_J|_J|_J|_J|_J|N",
@@ -240,7 +240,7 @@
 			"spawn_coords": [2, 19]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -395,7 +395,7 @@
 			"spawn_coords": [2, 19]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_C|_C|_C|_C|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_|_|_|_|N|N|N|N",
 				"_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|N|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|N|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N",
@@ -588,7 +588,7 @@
 			"spawn_coords": [2, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -659,7 +659,7 @@
 			"spawn_coords": [37, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|N|N|N|N|N|_Ch|_C|_C|_C|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_C|_C|_C|_C|N|N|N|N",
 				"B|_H|_H|_H|_H|_G|_H|_H|_H|_H|_H|_G|_H|_H|_H|_H|B|_C|_C|_C|_C|_C|_Ch|_C|_C|_C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_C|_C|_C|_C|_C|_C|_C|N",
@@ -906,7 +906,7 @@
 			"spawn_coords": [2, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N",
 				"N|_|_|_|_|_|_|_|_|_|N|_J|_J|_J|_J|_J|_J|_J|_J|N|_K|_K|_K|_K|_K|_K|_K|_K|N|_J|_J|_J|_J|_J|_J|_J|_J|N|_|_|_|_|_|_|_|_|_|_A",
@@ -1110,7 +1110,7 @@
 			"spawn_coords": [23, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|N|_A|_A|N|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|N|N|N|N|N|N|N|N",
 				"N|_S|_S|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|N|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_A",
@@ -1401,7 +1401,7 @@
 			"spawn_coords": [36, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|NA|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|N|N|_|_|_|_|N|N|N|N",
 				"_|_|_|_|_|_|_|_|_|_|_A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|DA|_|_|_|_|_|_|_|_|_|_",
@@ -1516,7 +1516,7 @@
 			"spawn_coords": [41, 15]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N",
 				"N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|D|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -1667,7 +1667,7 @@
 			"spawn_coords": [44, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|N|ND|ND|N|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N",
 				"_A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_A|_|_|_|_D|_D|_|_|_|_|_|_|_|_D|_D|_|_|_|N|N|_E|_E|_E|_E|_E|_E|_E|_E|N",
@@ -1904,7 +1904,7 @@
 			"spawn_coords": [39, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|_D|_D|N|N|N|N|N|N|N|_D|_D|N|N|N|N|N|N|N|_D|_D|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N",
 				"_|_|_|_|_|_D|_D|_|_|_|_|_|_|_|_D|_D|_|_|_|_|_|_|_|_D|_D|_|_|_|_|_|_|_|_D|_D|_|_|_|_|_D|_H|_H|_H|_H|_D|_A|_A|_A|_A",
@@ -2131,7 +2131,7 @@
 			"spawn_coords": [2, 15]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|_|_|_|_|_|_|_|_|_|_",
@@ -2334,7 +2334,7 @@
 			"spawn_coords": [14, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_|_S|_S|_|N|N|N|N",
 				"N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|N|N|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_S|_S|_|_|_|_|_",
@@ -2549,7 +2549,7 @@
 			"spawn_coords": [8, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -2692,7 +2692,7 @@
 			"spawn_coords": [39, 15]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|N|N|N|N|N|N|N|N|N|_S|_S|N|N|N|N|N|N|N|_S|_S|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_D|_D|_D|_D|N|N|N|N",
 				"N|_|_|_|_|_|_|_|_|_|_|_|_|_A|_S|_S|_|_|_|_|_|_|_|_S|_S|_|_|_|_|_|_|_|_|_|D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D",
@@ -2837,7 +2837,7 @@
 			"spawn_coords": [38, 19]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|N|N|_|_|_|_|N|N|N|N",
 				"N|_C|_C|_C|_|_|_|_|_|_|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|E|_|_|_|_|_|_|_C|_C|_C|N",
@@ -2972,7 +2972,7 @@
 			"spawn_coords": [45, 11]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|NA|N|N|_D|_D|_D|_D|N|N|N|N",
 				"N|_C|_C|_C|_|_|_|_|_C|_C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_A|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D",
@@ -3155,7 +3155,7 @@
 			"spawn_coords": [8, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|N|N|_|_|_|_|N|N|N|N",
 				"_C|_C|_C|_C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_C|_C|_C|_C",
@@ -3330,7 +3330,7 @@
 			"spawn_coords": [45, 3]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|N|N|N|N|N|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|N|N|_D|_D|_D|_D|N|N|N|N",
 				"_C|_C|_C|_C|_|_|_|_|_C|_C|D|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D",
@@ -3505,7 +3505,7 @@
 			"spawn_coords": [38, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_g|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N",
 				"N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_A|_C|_C|_|_|_|_g|_C|_C|_A|_|_|_|_F|_F|_|_|_|_|_|_|_|_F|_F|_|_|_|_|_",
@@ -3680,7 +3680,7 @@
 			"spawn_coords": [5, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_D|_D|_D|_D|N|N|NA|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|NA|N|N|_|_|_|_|N|N|N|N",
 				"N|_D|_D|_D|_D|_D|_D|_D|_D|_D|_A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_A|_C|_C|_|_|_|_|_C|_C|_C|_C",
@@ -3783,7 +3783,7 @@
 			"spawn_coords": [38, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
@@ -3863,7 +3863,7 @@
 			]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|N|N|N|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_C|_S|_S|_C|N|N|N|N|N|N|N|N|N|NS|NS|N|N|N|_C|_C|_C|_C|N|N|N|N",
 				"N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|D|_|_|_C|_S|_S|_C|_|_|_|_|_|_|_|_|_C|_S|_S|_C|_|_|_C|_C|_C|_C|_|_|_|_",
@@ -4212,7 +4212,7 @@
 			"spawn_coords": [44, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_C|_C|_C|_C|N|N|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N",
 				"_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_A|_|_|_|_|_|_|_|_|_|N",
@@ -4363,7 +4363,7 @@
 			"spawn_coords": [1, 15]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|_A|_A|N|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N|N|N",
 				"_A|_C|_C|_C|_C|_C|_C|E|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_D|_D|_D|_D|_D|_A",
@@ -4524,7 +4524,7 @@
 			"spawn_coords": [9, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N",
 				"N|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_C|_C|_|_|_|_|_C|_C|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|N",
@@ -4779,7 +4779,7 @@
 			"spawn_coords": [11, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|_A|_A|NA|N|N|N|N|N|N|_A|_A|N|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|NA|_A|_A|NA|N|N|N|N",
 				"N|N|N|NA|_A|_A|_A|_A|_A|NA|N|N|NA|_A|_A|_A|N|N|_C|_C|_|_|_|_|_|_|_|_|_C|_C|N|N|N|N|NA|_A|_A|_A|_A|_A|_A|_A|_A|_A|_A|_A|_A|_A",
@@ -4952,7 +4952,7 @@
 			"spawn_coords": [28, 19]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -5091,7 +5091,7 @@
 			"spawn_coords": [5, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
 				"A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A",
@@ -5131,7 +5131,7 @@
 			]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_I|_I|N|N|N|N|N",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|_K|_K|_K|_K|_K|_K|_K|_K|_K|_K|_K|_|_I|_I|_I|_I|_I|_I|NA",
@@ -5386,7 +5386,7 @@
 			"spawn_coords": [7, 14]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_|_|_|_|N|N|N|N",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -5574,7 +5574,7 @@
 			"spawn_coords": [41, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|NA|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|NA|N|N|_|_|_|_|N|N|N|N",
 				"N|_C|_C|_C|_|_|_|_|_|_|_A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_C|_C|_C|_C",
@@ -5765,7 +5765,7 @@
 			"spawn_coords": [38, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -5908,7 +5908,7 @@
 			"spawn_coords": [41, 15]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N",
 				"_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_H|_|_|_|_|_|_|D|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|N",
@@ -6186,7 +6186,7 @@
 			"spawn_coords": [5, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -6301,7 +6301,7 @@
 			"spawn_coords": [42, 19]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|N|_I|_I|N|N|N|N|N|N|N|_I|_I|N|N|N|N|N|N|N|_I|_I|N|N|N|N|N",
 				"_A|_A|_A|_A|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_S|_S|_S|D|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|N",
@@ -6600,7 +6600,7 @@
 			"spawn_coords": [14, 15]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|N|_A|_A|N|N|N|N|N|N|NA|_A|_A|N|N|N|N|N|N|N|_A|_A|N|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N",
 				"_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_H|_H|_H|_C|_C|_C|_C|_C|_C|_H|_H|_H|_H|_C|_C|_C|_C|_C|_C|_H|_H|_H|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C",
@@ -6839,7 +6839,7 @@
 			"spawn_coords": [40, 3]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|N|N|N|N|N|N|N|N|N|_I|_I|N|N|N|N|N|N|NI|_I|_I|N|N|N|N|N|N|N|_I|_I|N|N|N|N|N|N|_I|_I|_I|_I|N|N|N|N",
 				"N|N|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|N|N",
@@ -7046,7 +7046,7 @@
 			"spawn_coords": [23, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_C|_C|_C|_C|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N",
 				"N|B|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_I|_C|_C|_C|_C|_C|_C|_C|_C|N|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|N",
@@ -7497,7 +7497,7 @@
 			"spawn_coords": [34, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -7663,7 +7663,7 @@
 			"spawn_coords": [44, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N",
 				"_A|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_D|_D|_D|_D|_D|_D|_D|_|_|_|_|_D|_D|_|_|_|_|_|_|_|_D|_D|_|_|_|_|_|_|_|_D|_D|_|_|_|_|_A",
@@ -7950,7 +7950,7 @@
 			"spawn_coords": [32, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
 				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
@@ -8062,7 +8062,7 @@
 			]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_D|_D|_|N|N|N|N|N|_|_D|_D|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_|_D|_D|_|N|N|N|N|N|_|_D|_D|_|N|N|N|N",
 				"N|_|_|_|_|_D|_D|_|_|_|_|_|_|_|_D|_D|_|_|_|_|_|_|_H|_H|_H|_H|_|_|_|_|_|_|_D|_D|_|_|_|_|_|_|_|_D|_D|_|_|_|_|N",
@@ -8332,7 +8332,7 @@
 			"spawn_coords": [2, 15]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_S|_S|_|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N",
 				"N|_|_|_|_|_S|_S|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|D|N|N|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|N",
@@ -8527,7 +8527,7 @@
 			"spawn_coords": [38, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -8706,7 +8706,7 @@
 			"spawn_coords": [45, 19]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
 				"_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_",
@@ -8941,7 +8941,7 @@
 			"spawn_coords": [42, 19]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_D|_D|_D|_D|N|N|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|N|N|_|_|_|_C|N|N|N|N",
 				"N|_D|_D|_D|_D|_D|_D|_D|_D|_D|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|NA|_|_|_|_|_|_C|_C|_C|_C|_C",
@@ -9084,7 +9084,7 @@
 			"spawn_coords": [2, 15]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N",
 				"N|N|_|_|_|_|_|_|_|_|N|_J|_J|_J|_J|_J|_J|_J|_J|N|B|B|B|B|B|B|B|B|N|_J|_J|_J|_J|_J|_J|_J|_J|N|_|_|_|_|_|_|_|_|N|N",
@@ -9255,7 +9255,7 @@
 			]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|N|_Dh|_D|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|NT|_D|_D|NT|N|N|N|N|N|N|N|N|N|N|N|N|N|N|N|_D|_D|N|N|N|N|N",
 				"N|_|_|_|_|_Dh|_D|_|_|_|_|_|N|_T|_D|_D|_T|_T|_T|_T|_T|_T|_T|_D|_D|_T|_T|_T|_T|_T|_T|_T|_D|_D|_T|N|_|_|_|_|_|_D|_D|_|_|_|_|_A",
@@ -9474,7 +9474,7 @@
 			"spawn_coords": [41, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_|_|_|_|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N",
 				"_A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_D|_D|_D|_D|_D|_D|_A",
@@ -9819,7 +9819,7 @@
 			"spawn_coords": [5, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_D|_D|_D|_D|N|N|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|N|N|N|_|_|_|_|N|N|N|N",
 				"N|_D|_D|_D|_D|_D|_D|_D|_D|_D|N|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|E|_|_|_|_|_|_|_C|_C|_C|_C",
@@ -9922,7 +9922,7 @@
 			"spawn_coords": [1, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"NA|N|N|NA|_A|_A|_A|_A|NA|N|N|N|N|NA|_A|_A|NA|N|N|N|N|N|NA|_A|_A|NA|N|N|N|N|NA|_A|_A|_A|_A|NA|N|N|N|N|N|_|_|N|N|N|N|N",
 				"_A|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|N|_C|_C|_C|_C|_H|_H|_H|_C|_C|_C|_C|_A|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|N|N|_|_|_|_|_|_|_|_",
@@ -10263,7 +10263,7 @@
 			"spawn_coords": [2, 23]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_|_|_|_|N|N|NA|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|NA|N|N|_D|_D|_D|_D|N|N|N|N",
 				"_C|_C|_C|_C|_|_|_|_|_C|_C|_A|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|D|_D|_D|_D|_D|_D|_D|_D|_D|_D|N",
@@ -10422,7 +10422,7 @@
 			"spawn_coords": [8, 7]
 		},
 		{
-			"backwall": "tWindows",
+			"backwall": "windows",
 			"cells": [
 				"N|N|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N|NA|_A|_A|_A|_A|N|N|NA|N|N|_A|_A|_A|_A|N|N|N|N|N|_A|_A|_A|_A|N|N|N|N",
 				"N|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_A|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_A",

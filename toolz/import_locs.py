@@ -5,7 +5,7 @@ from typing import List
 from log import Log
 from consts import *
 from convert_data import *
-from common import read_json, write_nicer_json, read_xml
+from common import read_json, write_nicer_json, read_xml, nicify_texture_name
 from xml.etree import ElementTree
 
 
@@ -89,7 +89,9 @@ def room_parse_options_node(out_room_node: object, room_node: ElementTree.Elemen
 			# defines backwall, just add it to every room which doesn't define its own backwall. additionally skip
 			# "sky" as it causes room backwall to be ignored - with current approach we don't need it.
 			room_backwall_defined = True
-			if in_backwall != "sky":
+			if in_backwall != "sky" and in_backwall != "":
+				# note: backwall="" happens only in Factory, and seems to make no sense. in this case backwall just
+				# fallbacks to location backwall
 				backwall_value = in_backwall
 
 	if not room_backwall_defined and loc_backwall_path is not None:
@@ -97,15 +99,17 @@ def room_parse_options_node(out_room_node: object, room_node: ElementTree.Elemen
 
 	backwall_symbol = None
 	if backwall_value is not None:
+		backwall_value = nicify_texture_name(backwall_value)
+
 		if room_backform is None:
 			# write backwall normally
 			out_room_node[FOERR_JSON_KEY_BACKWALL] = backwall_value
 		else:
 			# backform was specified, get character which we need to put instead of backwall into cells backgrounds
 			# because so few rooms actually use backform, let's just hardcode symbols for these two textures here
-			if backwall_value == "tWindows":
+			if backwall_value == "windows":
 				backwall_symbol = 'u'
-			elif backwall_value == "tLeaking":
+			elif backwall_value == "leaking":
 				backwall_symbol = 'v'
 			else:
 				log.e(room_name + " no mapping found for " + backwall_value)

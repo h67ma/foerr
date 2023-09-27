@@ -4,7 +4,7 @@
 	"rooms": [
 		{
 			"coords": [1, 0, 0],
-			"backwall": "tBackWall",
+			"backwall": "back_wall",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|C|C|C|C|C|C|C|C|C|C|C|C|C|C|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|_C|C|H|H|H|H|H|H|H",
@@ -173,7 +173,7 @@
 		},
 		{
 			"coords": [4, 1, 0],
-			"backwall": "tConcreteDirt",
+			"backwall": "concrete_dirt",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_g|C|H|H|H|H|H|H",
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_E|_E|_E|_E|_E|_E|_E|_E|C|C|C|C|C|C|C|C|C|C|C|C|_|_|_g|C|H|H|H|H|H|H",
@@ -255,7 +255,7 @@
 		},
 		{
 			"coords": [3, 1, 0],
-			"backwall": "tConcreteDirt",
+			"backwall": "concrete_dirt",
 			"cells": [
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
@@ -313,7 +313,7 @@
 		},
 		{
 			"coords": [1, 3, 0],
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D",
 				"D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|DD|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|DD|_D|_D|_D|_D|_D|_D|_D|_D|DD|DD|_D|_D|D",
@@ -414,7 +414,7 @@
 		},
 		{
 			"coords": [0, 3, 0],
-			"backwall": "tBackWall",
+			"backwall": "back_wall",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"H|H|H|H|H|H|H|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_F|_F|_F|_F|_F|_F|C",
@@ -516,7 +516,7 @@
 		},
 		{
 			"coords": [1, 2, 0],
-			"backwall": "tLeaking",
+			"backwall": "leaking",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"_E|_E|_E|_E|_E|_E|_E|_E|EE|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|CE|CE|CE|CE|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E",
@@ -586,7 +586,7 @@
 		},
 		{
 			"coords": [2, 1, 0],
-			"backwall": "tDirt",
+			"backwall": "dirt",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"_|_|F|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|F|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C",
@@ -618,7 +618,7 @@
 		},
 		{
 			"coords": [4, 0, 0],
-			"backwall": "tBackWall",
+			"backwall": "back_wall",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|C|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|_F|CF|CF|CF|CF|CF",
@@ -865,7 +865,7 @@
 		},
 		{
 			"coords": [2, 2, 0],
-			"backwall": "tLeaking",
+			"backwall": "leaking",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_E|_E|_E|_E|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
@@ -937,7 +937,7 @@
 		},
 		{
 			"coords": [3, 2, 0],
-			"backwall": "tLeaking",
+			"backwall": "leaking",
 			"cells": [
 				"H|H|H|H|H|H|C|_C|_Cg|C|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|C|_C|_Cg|C|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -1007,7 +1007,7 @@
 		},
 		{
 			"coords": [2, 3, 0],
-			"backwall": "tBackWall",
+			"backwall": "back_wall",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_h|_|_|_|_|_|_|_g|C|C|C|C|C|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B",
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_h|_|_|_|_|_|_|_g|C|C|C|C|C|B|_J|_J|_J|_J|_J|_J|_J|_J|_J|B|B|B|B|B",
@@ -1092,7 +1092,7 @@
 		},
 		{
 			"coords": [0, 2, 0],
-			"backwall": "tBackWall",
+			"backwall": "back_wall",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|_|_g|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"C|C|C|C|C|_|_|C|C|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_g|C|C|C|C|C|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D|_D",
@@ -1222,7 +1222,7 @@
 		},
 		{
 			"coords": [2, 4, 0],
-			"backwall": "tDirt",
+			"backwall": "dirt",
 			"cells": [
 				"D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D",
 				"D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|_J|D",
@@ -1355,7 +1355,7 @@
 		},
 		{
 			"coords": [0, 1, 0],
-			"backwall": "tDirt",
+			"backwall": "dirt",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"C|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|C|C|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|_B|C",
@@ -1476,7 +1476,7 @@
 		},
 		{
 			"coords": [1, 1, 0],
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D",
 				"D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|D|_|_|_|_|_|_",
@@ -1526,7 +1526,7 @@
 		},
 		{
 			"coords": [2, 0, 0],
-			"backwall": "tBackWall",
+			"backwall": "back_wall",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H",
@@ -1620,7 +1620,7 @@
 		},
 		{
 			"coords": [3, 0, 0],
-			"backwall": "tDirt",
+			"backwall": "dirt",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|C",
 				"C|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|_E|C|C|_|_|_|_|_|_|_|_|_|_|_|_|_K|_K|_K|_K|_|_|_|C",
@@ -1758,7 +1758,7 @@
 		},
 		{
 			"coords": [1, 4, 0],
-			"backwall": "tMossy",
+			"backwall": "mossy",
 			"cells": [
 				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|D|D|D|D|_|_g|D|D|D",
 				"B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|B|D|D|D|D|_|_g|D|D|D",
@@ -1797,7 +1797,7 @@
 		},
 		{
 			"coords": [3, 3, 0],
-			"backwall": "tCave",
+			"backwall": "cave",
 			"cells": [
 				"C|C|C|C|C|C|C|C|C|C|C|C|C|C|C|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G",
 				"CC|CC|CC|CC|CC|CC|CC|CC|_C|_C|_C|_C|_C|_C|_|_|_|_|_|_|_|_|_|F|_|_|_|_|_|_|_|_|_|_|F|_|_|_|_|_|_|_K|_K|_K|_K|_K|_|G",
@@ -1896,7 +1896,7 @@
 		{
 			"coords": [0, 0, 0],
 			"is_start": true,
-			"backwall": "tLeaking",
+			"backwall": "leaking",
 			"cells": [
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|C|C|C|C|C|C|C|C|C|H|H|H|H|H|H",
 				"H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|H|C|_|_|_|_|_|_|_|C|H|H|H|H|H|H",
