@@ -111,5 +111,6 @@ class Location : public sf::Drawable
 		sf::Vector2u getSpawnCoords() const;
 		void tick(uint lastFrameDurationUs);
 		void rerollObjVariants(ResourceManager &resMgr, const ObjectManager &objMgr);
+		void setRoomLightsState(enum LightObjectsState state);
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

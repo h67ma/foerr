@@ -44,6 +44,26 @@ static void cmdGoto(struct dev_console_cmd_params params)
 		Log::e(STR_INVALID_COORDS, params.tokens[0].c_str());
 }
 
+static void cmdLights(struct dev_console_cmd_params params)
+{
+	if (params.tokens.size() < 2)
+	{
+		Log::e(STR_MISSING_OPERANDS, params.tokens[0].c_str());
+		return;
+	}
+
+	int lon;
+
+	if (!strToInt(params.tokens[1], lon))
+	{
+		Log::e(STR_INVALID_OPERANDS, params.tokens[0].c_str());
+		return;
+	}
+
+	params.campaign.setRoomLightsState(lonToLightObjectsState(lon));
+	params.campaign.redraw();
+}
+
 static void cmdTeleport(struct dev_console_cmd_params params)
 {
 	params.campaign.teleportPlayer(params.mousePos);
@@ -78,7 +98,8 @@ const std::map<std::string, struct dev_console_cmd> DevConsole::commands {
 	{ "box", { cmdToggleBoundingBoxes, STR_CMD_BOX } },
 	{ "boxen", { cmdToggleBoundingBoxes, STR_CMD_BOX } },
 	{ "fly", { cmdFly, STR_CMD_FLY } },
-	{ "goto", { cmdGoto, STR_CMD_GOTO, "1 2 [3]" } },
+	{ "goto", { cmdGoto, STR_CMD_GOTO, "$1 $2 [$3]" } },
+	{ "lights", { cmdLights, STR_CMD_LIGHTS, "$1" } },
 	{ "nav", { cmdToggleDebugNav, STR_CMD_NAV } },
 	{ "port", { cmdTeleport, STR_CMD_PORT } },
 	{ "tp", { cmdTeleport, STR_CMD_PORT } },

@@ -4,16 +4,10 @@
 
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
+#include "light_objects_state.hpp"
 #include "back_obj_base.hpp"
 #include "back_obj_data.hpp"
 #include "../util/json.hpp"
-
-enum LightObjectsState
-{
-	LIGHTS_DEFAULT,	// leave lights state up to randomness
-	LIGHTS_ON,		// force all lights to be turned on
-	LIGHTS_OFF,		// force all lights to be turned off
-};
 
 /**
  * BackObject can define a main texture and a light texture. Both textures are optional, but obviously there needs to be

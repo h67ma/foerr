@@ -375,6 +375,16 @@ void Campaign::rerollObjVariants()
 	this->currentLocation->rerollObjVariants(this->resMgr, this->objMgr);
 }
 
+/**
+ * Sets lights state for current room in current location.
+ * Re-setups sprites with new variants so that the change is applied.
+ */
+void Campaign::setRoomLightsState(enum LightObjectsState state)
+{
+	this->currentLocation->setRoomLightsState(state);
+	this->rerollObjVariants();
+}
+
 void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(*this->currentLocation, states);

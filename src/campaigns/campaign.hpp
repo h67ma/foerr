@@ -61,5 +61,6 @@ class Campaign : public sf::Drawable
 		void nextFrame();
 		void teleportPlayer(sf::Vector2f position);
 		void rerollObjVariants();
+		void setRoomLightsState(enum LightObjectsState state);
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

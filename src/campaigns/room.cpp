@@ -120,13 +120,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 	int lightsOn;
 	this->lightsState = LIGHTS_DEFAULT;
 	if (parseJsonKey<int>(root, filePath, FOERR_JSON_KEY_LIGHTS_ON, lightsOn, true))
-	{
-		if (lightsOn > 0)
-			this->lightsState = LIGHTS_ON;
-		else if (lightsOn < 0)
-			this->lightsState = LIGHTS_OFF;
-		// assume 0 is default
-	}
+		this->lightsState = lonToLightObjectsState(lightsOn);
 
 	///// cells /////
 
@@ -708,6 +702,11 @@ bool Room::isCellCollider(uint x, uint y) const
 	}
 
 	return this->cells[y][x].getHasSolid();
+}
+
+void Room::setLightsState(enum LightObjectsState state)
+{
+	this->lightsState = state;
 }
 
 /**

@@ -703,6 +703,11 @@ void Location::rerollObjVariants(ResourceManager &resMgr, const ObjectManager &o
 	this->currentRoom->setupAllBackObjects(resMgr, objMgr);
 }
 
+void Location::setRoomLightsState(enum LightObjectsState state)
+{
+	this->currentRoom->setLightsState(state);
+}
+
 void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	// background full is drawn the same during transition and regular gameplay - it's "far away" so it shouldn't move

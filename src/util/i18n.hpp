@@ -116,6 +116,7 @@
 #define STR_CMD_BOX "toggle debug overlay"
 #define STR_CMD_FLY "toggle character flight"
 #define STR_CMD_GOTO "go to a room at specified coordinates"
+#define STR_CMD_LIGHTS "set lights state for current room (-1/0/1)"
 #define STR_CMD_NAV "toggle debug navigation"
 #define STR_CMD_PORT "teleport player to mouse position within room"
 #define STR_CMD_VARIANT "redraw current room with new randomized back object variants"

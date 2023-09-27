@@ -80,6 +80,7 @@ class Room : public sf::Drawable, public sf::Transformable
 		void tick(uint lastFrameDurationUs);
 		sf::Vector2u getSpawnCoords() const;
 		bool isCellCollider(uint x, uint y) const;
+		void setLightsState(enum LightObjectsState state);
 		void redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const; // TODO use me
 		void setupAllBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr);
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
