@@ -34,6 +34,7 @@ class BackObject : public BackObjectBase
 		sf::Vector2f offsetLight{ 0.F, 0.F };
 		uint mainCnt = 0;
 		uint lightCnt = 0;
+		uchar alphaChannel = COLOR_MAX_CHANNEL_VALUE;
 
 	public:
 		bool loadFromJson(const json &jsonNode);

@@ -13,6 +13,11 @@ bool BackObject::loadFromJson(const json &jsonNode)
 	parseJsonVector2Key<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_OFFSET, this->offset, true);
 	parseJsonVector2Key<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_OFFSET_LIGHT, this->offsetLight, true);
 
+	float alphaFactor = 1.F;
+	parseJsonKey<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_ALPHA, alphaFactor, true);
+	// convert alpha from float (0..1) to u8 channel value (0..255)
+	this->alphaChannel = alphaFactor * COLOR_MAX_CHANNEL_VALUE;
+
 	this->variantsCnt = std::max(this->mainCnt, this->lightCnt);
 
 	// the only condition for the object being valid is that at least one of the types defines at least one variant
@@ -71,7 +76,9 @@ bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &l
 
 		// objects which are light sources are not dimmed
 		if (this->lightCnt == 0)
-			mainSpriteRes.setColor(BACK_OBJ_COLOR);
+			mainSpriteRes.setColor(BACK_OBJ_COLOR_ALPHA(this->alphaChannel));
+		else
+			mainSpriteRes.setColor(COLOR_ALPHA(this->alphaChannel));
 
 		gotOne = true;
 	}
@@ -82,6 +89,9 @@ bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &l
 															   backObjData.id.c_str(), selectedVariant,
 															   TXT_LIGHT_SUFFIX)));
 		lightSpriteRes.setPosition(this->offsetLight);
+
+		// note: light texture is not dimmed like main texture
+
 		gotOne = true;
 	}
 

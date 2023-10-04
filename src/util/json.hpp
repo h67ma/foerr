@@ -17,6 +17,7 @@
 #define FOERR_JSON_KEY_OFFSET_LIGHT "offset_light"
 #define FOERR_JSON_KEY_VARIANT "var"
 #define FOERR_JSON_KEY_BLEND "blend"
+#define FOERR_JSON_KEY_ALPHA "alpha"
 #define FOERR_JSON_KEY_MAIN_CNT "main_cnt"
 #define FOERR_JSON_KEY_LIGHT_CNT "light_cnt"
 #define FOERR_JSON_KEY_CELLS "cells"

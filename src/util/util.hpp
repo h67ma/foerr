@@ -37,6 +37,8 @@ inline std::string pathCombine(const std::string &path1, const std::string &path
 }
 
 #define COLOR_GRAY(shade) sf::Color(shade, shade, shade)
+#define COLOR_GRAY_ALPHA(shade, alpha) sf::Color(shade, shade, shade, alpha)
+#define COLOR_ALPHA(alpha) sf::Color(0xFF, 0xFF, 0xFF, alpha)
 #define DIM_COLOR(color, shade) color * COLOR_GRAY(shade)
 
 /**

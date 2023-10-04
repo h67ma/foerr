@@ -6,6 +6,7 @@
 
 // TODO find out the exact shade
 #define BACK_OBJ_COLOR COLOR_GRAY(120)
+#define BACK_OBJ_COLOR_ALPHA(alpha) COLOR_GRAY_ALPHA(120, alpha)
 
 #define TXT_MAIN_SUFFIX ".png"
 #define TXT_HOLE_SUFFIX "_h.png"

@@ -13,6 +13,8 @@ bool BackHoleObject::loadFromJson(const json &jsonNode)
 
 	parseJsonVector2Key<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_OFFSET, this->offset, true);
 
+	// note: hole objects don't support alpha attribute
+
 	// the only condition for the object being valid is that there's at least one variant
 	return this->variantsCnt > 0;
 }
