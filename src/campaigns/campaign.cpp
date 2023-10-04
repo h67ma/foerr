@@ -372,6 +372,9 @@ void Campaign::teleportPlayer(sf::Vector2f position)
  */
 void Campaign::rerollObjVariants()
 {
+	if (this->currentLocation == nullptr)
+		return;
+
 	this->currentLocation->rerollObjVariants(this->resMgr, this->objMgr);
 }
 
@@ -381,6 +384,9 @@ void Campaign::rerollObjVariants()
  */
 void Campaign::setRoomLightsState(enum LightObjectsState state)
 {
+	if (this->currentLocation == nullptr)
+		return;
+
 	this->currentLocation->setRoomLightsState(state);
 	this->rerollObjVariants();
 }
