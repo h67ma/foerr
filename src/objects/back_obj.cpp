@@ -50,7 +50,11 @@ bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &l
 		// off: getRandomBetween(lightCnt, mainCnt)
 		if (this->lightCnt > 0 && lightState == LIGHTS_ON)
 			selectedVariant = 0;
-		else if (this->lightCnt > 0 && lightState == LIGHTS_OFF)
+		else if (this->lightCnt > 0 && this->mainCnt > this->lightCnt && lightState == LIGHTS_OFF)
+			// in case mainCnt <= lightCnt, turning light off makes no sense as both textures would be empty (no main
+			// texture to display). to prevent this, check if mainCnt > lightCnt. if not, the light alone *will* appear
+			// instead of main texture and no light. this is mostly relevant to shadows and ambient lighting which
+			// should always be displayed.
 			selectedVariant = this->lightCnt;
 		else if (selectedVariant < 0)
 			selectedVariant = Randomizer::getRandomBetween(0, this->variantsCnt - 1);
