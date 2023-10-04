@@ -37,7 +37,7 @@ class BackObject : public BackObjectBase
 		uchar alphaChannel = COLOR_MAX_CHANNEL_VALUE;
 
 	public:
-		bool loadFromJson(const json &jsonNode);
+		bool loadFromJson(const json &jsonNode) override;
 		bool setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes, ResourceManager &resMgr,
 							const struct back_obj_data &backObjData, enum LightObjectsState lightState) const;
 };
