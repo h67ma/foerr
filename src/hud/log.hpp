@@ -35,7 +35,7 @@ class Log
 		static float scale;
 
 		static uint fontGap;
-		static std::list<std::unique_ptr<LogElementText>> history;
+		static std::list<std::unique_ptr<LogElementText>> hudHistory;
 		static sf::Clock clock;
 		static std::ofstream logFile;
 		static void logToFile(const char* prefix, const std::string &msg);
@@ -78,7 +78,7 @@ class Log
 			if (hideInGui || Log::font == nullptr)
 				return;
 
-			Log::history.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font, Log::scale, color));
+			Log::hudHistory.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font, Log::scale, color));
 			Log::tick(true);
 		}
 

@@ -18,7 +18,7 @@ bool Log::verboseDebug = true;
 float Log::scale = 1.F;
 uint Log::fontGap;
 
-std::list<std::unique_ptr<LogElementText>> Log::history;
+std::list<std::unique_ptr<LogElementText>> Log::hudHistory;
 sf::Clock Log::clock;
 
 std::ofstream Log::logFile;
@@ -60,7 +60,7 @@ void Log::setGuiScale(float scale)
 {
 	Log::scale = scale;
 	Log::fontGap = Log::font->getLineSpacing(static_cast<uint>(scale * FONT_H3));
-	for (const auto &item : Log::history)
+	for (const auto &item : Log::hudHistory)
 	{
 		item->setGuiScale(Log::scale);
 	}
@@ -78,17 +78,17 @@ void Log::tick(bool force)
 	uint y = LOG_ANCHOR_PADDING_TOP; // constant offset from top, will be enough for CORNER_TOP_*
 	uint timesUpCnt = 0;
 
-	if ((Log::history.empty() || Log::clock.getElapsedTime().asMilliseconds() < LOG_UPDATE_FREQUENCY_MS) && !force)
+	if ((Log::hudHistory.empty() || Log::clock.getElapsedTime().asMilliseconds() < LOG_UPDATE_FREQUENCY_MS) && !force)
 		return;
 
 	// remove items which were in the log for longer than LOG_ELEMENT_LIFE_TIME_S
-	Log::history.remove_if([](const auto &item){ return item->isTimeUp(); });
+	Log::hudHistory.remove_if([](const auto &item){ return item->isTimeUp(); });
 
 	// initial offset from top/bottom
 	if (Log::anchor == CORNER_BOTTOM_LEFT || Log::anchor == CORNER_BOTTOM_RIGHT)
-		y = Log::windowSize.y - static_cast<uint>(Log::history.size()) * Log::fontGap - LOG_ANCHOR_NEG_PADDING_BOTTOM;
+		y = Log::windowSize.y - static_cast<uint>(Log::hudHistory.size()) * Log::fontGap - LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
-	for (auto &item : Log::history)
+	for (auto &item : Log::hudHistory)
 	{
 		if (Log::anchor == CORNER_TOP_RIGHT || Log::anchor == CORNER_BOTTOM_RIGHT)
 			x = Log::windowSize.x - static_cast<uint>(item->getLocalBounds().width) - LOG_ANCHOR_NEG_PADDING_RIGHT;
@@ -103,7 +103,7 @@ void Log::tick(bool force)
 
 void Log::draw(sf::RenderTarget &target)
 {
-	for (const auto &item : Log::history)
+	for (const auto &item : Log::hudHistory)
 	{
 		target.draw(*item);
 	}
