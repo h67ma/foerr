@@ -132,13 +132,11 @@ void SettingsManager::setup()
 	SETT_SETUP(LogicSetting, debugPrintToStderr, false);
 	SETT_SETUP(LogicSetting, debugVerbose, false);
 
-	// TODO this should also include `testmode` (i.e. ability to travel to any location). should be settable only via command line/settings file editing
+	// TODO debugNavigation should also include `testmode` functionality (i.e. ability to travel to any location)
 	SETT_SETUP(LogicSetting, debugNavigation, false);
 	SETT_SETUP(LogicSetting, debugBoundingBoxes, false);
 	SETT_SETUP_ENUM_SCREENSIDE(debugConsoleAnchor, SIDE_BOTTOM);
 	SETT_SETUP(LogicSetting, debugConsoleEnabled, false);
-
-	// TODO SETT_SETUP(LogicSetting, showBoundingBoxen, false);
 }
 
 void SettingsManager::saveConfig()
