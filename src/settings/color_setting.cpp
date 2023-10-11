@@ -11,12 +11,12 @@ std::string ColorSetting::defaultToString() const
 	return this->defaultVal.toString();
 }
 
-json ColorSetting::getJsonValue() const
+nlohmann::json ColorSetting::getJsonValue() const
 {
-	return json(this->val.toString());
+	return nlohmann::json(this->val.toString());
 }
 
-void ColorSetting::loadFromJson(const json &node)
+void ColorSetting::loadFromJson(const nlohmann::json &node)
 {
 	std::string readString = node;
 	if (!this->val.loadFromColorString(readString))

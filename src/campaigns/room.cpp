@@ -58,7 +58,7 @@ Room::Room(Player &player) : player(player)
  * @returns false on load fail
  */
 bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
-				const json &root, const std::string &filePath)
+				const nlohmann::json &root, const std::string &filePath)
 {
 	///// room-wide backwall /////
 
@@ -151,7 +151,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 		{
 			line = (*it);
 		}
-		catch (const json::type_error &ex)
+		catch (const nlohmann::json::type_error &ex)
 		{
 			Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), FOERR_JSON_KEY_CELLS, ex.what());
 			return false;
@@ -253,7 +253,7 @@ void Room::setupAllBackObjects(ResourceManager &resMgr, const ObjectManager &obj
  * @return true if parsing was successful
  * @return false if parsing resulted in an error
  */
-bool Room::parseBackObjsNode(const json &root, const std::string &filePath, const char* key,
+bool Room::parseBackObjsNode(const nlohmann::json &root, const std::string &filePath, const char* key,
 							 std::vector<struct back_obj_data> &dataVector)
 {
 	dataVector.clear();

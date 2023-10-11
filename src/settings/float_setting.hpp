@@ -13,6 +13,6 @@ class FloatSetting : public GenericSetting<float>, public ConstraintSetting<floa
 		FloatSetting(const std::string &key, float &val, float defaultVal, const std::function<bool(float)> &constraint,
 					 const std::string &valueHint); // both constraint and hint must be set if one of them is set
 		std::string defaultToString() const override;
-		json getJsonValue() const override;
-		void loadFromJson(const json &node) override;
+		nlohmann::json getJsonValue() const override;
+		void loadFromJson(const nlohmann::json &node) override;
 };

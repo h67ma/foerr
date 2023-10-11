@@ -5,7 +5,7 @@
 
 bool ObjectManager::load()
 {
-	json root;
+	nlohmann::json root;
 	if (!loadJsonFromFile(root, PATH_OBJS))
 		return false;
 

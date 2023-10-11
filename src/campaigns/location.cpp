@@ -55,7 +55,7 @@ Location::Location(const std::string &id, Player &player) : id(id), player(playe
  * @returns true if load succeeded
  * @returns false if load failed
  */
-bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
+bool Location::loadMeta(const nlohmann::json &locMetaNode, const std::string &campaignDir)
 {
 	Log::v(STR_LOADING_LOCATION_META, this->id.c_str());
 
@@ -131,7 +131,7 @@ bool Location::loadMeta(const json &locMetaNode, const std::string &campaignDir)
 bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr)
 {
 	std::string backgroundFullPath;
-	json root;
+	nlohmann::json root;
 
 	this->unloadContent();
 

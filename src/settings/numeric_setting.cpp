@@ -17,16 +17,16 @@ std::string NumericSetting::defaultToString() const
 	return std::to_string(this->defaultVal);
 }
 
-json NumericSetting::getJsonValue() const
+nlohmann::json NumericSetting::getJsonValue() const
 {
 	// return default value if constraint is not met on current value
 	if (this->constraint != nullptr && !this->constraint(this->val))
-		return json(this->defaultVal);
+		return nlohmann::json(this->defaultVal);
 
-	return json(this->val);
+	return nlohmann::json(this->val);
 }
 
-void NumericSetting::loadFromJson(const json &node)
+void NumericSetting::loadFromJson(const nlohmann::json &node)
 {
 	uint readUint = node;
 	if (this->constraint != nullptr && !this->constraint(readUint))

@@ -17,16 +17,16 @@ std::string FloatSetting::defaultToString() const
 	return std::to_string(this->defaultVal);
 }
 
-json FloatSetting::getJsonValue() const
+nlohmann::json FloatSetting::getJsonValue() const
 {
 	// return default value if constraint is not met on current value
 	if (this->constraint != nullptr && !this->constraint(this->val))
-		return json(this->defaultVal);
+		return nlohmann::json(this->defaultVal);
 
-	return json(this->val);
+	return nlohmann::json(this->val);
 }
 
-void FloatSetting::loadFromJson(const json &node)
+void FloatSetting::loadFromJson(const nlohmann::json &node)
 {
 	float readFloat = node;
 	if (this->constraint != nullptr && !this->constraint(readFloat))

@@ -11,12 +11,12 @@ std::string TextSetting::defaultToString() const
 	return this->defaultVal;
 }
 
-json TextSetting::getJsonValue() const
+nlohmann::json TextSetting::getJsonValue() const
 {
-	return json(this->val);
+	return nlohmann::json(this->val);
 }
 
-void TextSetting::loadFromJson(const json &node)
+void TextSetting::loadFromJson(const nlohmann::json &node)
 {
 	this->val = node;
 	Log::d(STR_LOADED_SETTING_SQ, this->getKey().c_str(), this->val.c_str());

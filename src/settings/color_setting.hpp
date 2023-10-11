@@ -16,6 +16,6 @@ class ColorSetting : public GenericSetting<SerializableColor>
 	public:
 		ColorSetting(const std::string &key, SerializableColor &val, SerializableColor defaultVal);
 		std::string defaultToString() const override;
-		json getJsonValue() const override;
-		void loadFromJson(const json &node) override;
+		nlohmann::json getJsonValue() const override;
+		void loadFromJson(const nlohmann::json &node) override;
 };

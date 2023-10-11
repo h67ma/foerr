@@ -382,7 +382,7 @@ void Keymap::resetToDefault()
  */
 void Keymap::load()
 {
-	json root;
+	nlohmann::json root;
 
 	if (!loadJsonFromFile(root, pathCombine(SettingsManager::getGameRootDir(), std::string(PATH_KEYMAP)), true))
 	{
@@ -420,11 +420,11 @@ void Keymap::load()
  */
 void Keymap::save()
 {
-	json root;
+	nlohmann::json root;
 
 	root.emplace(FOERR_JSON_API_VERSION, JSON_API_VERSION);
 
-	json keysNode;
+	nlohmann::json keysNode;
 	for (const auto &item : Keymap::keyToActionMap)
 	{
 		// translate bolth key and action to strings.

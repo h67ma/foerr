@@ -51,7 +51,7 @@ bool Campaign::load(const std::string &campaignDir)
 	// load basic campaign infos
 
 	std::string indexPath = pathCombine(campaignDir, std::string(FILENAME_INDEX));
-	json root;
+	nlohmann::json root;
 	if (!loadJsonFromFile(root, indexPath))
 	{
 		Log::e(STR_CAMPAIGN_LOAD_ERR, indexPath.c_str());

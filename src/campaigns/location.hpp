@@ -93,7 +93,7 @@ class Location : public sf::Drawable
 
 	public:
 		Location(const std::string &id, Player &player);
-		bool loadMeta(const json &locMetaNode, const std::string &campaignDir);
+		bool loadMeta(const nlohmann::json &locMetaNode, const std::string &campaignDir);
 		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr);
 		void unloadContent();
 		std::string getId() const;

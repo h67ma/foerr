@@ -4,7 +4,7 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct material> &theMap, const char* nodeKey)
+bool MaterialManager::loadMap(const nlohmann::json &root, std::unordered_map<char, struct material> &theMap, const char* nodeKey)
 {
 	auto nodeSearch = root.find(nodeKey);
 	if (nodeSearch == root.end())
@@ -110,7 +110,7 @@ bool MaterialManager::loadMap(const json &root, std::unordered_map<char, struct 
  */
 bool MaterialManager::load()
 {
-	json root;
+	nlohmann::json root;
 
 	Log::d(STR_LOADING_MATERIALS);
 

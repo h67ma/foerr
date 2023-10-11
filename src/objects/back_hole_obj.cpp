@@ -2,7 +2,7 @@
 
 #include "../util/random.hpp"
 
-bool BackHoleObject::loadFromJson(const json &jsonNode)
+bool BackHoleObject::loadFromJson(const nlohmann::json &jsonNode)
 {
 	parseJsonKey<uint>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_MAIN_CNT, this->variantsCnt);
 

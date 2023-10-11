@@ -22,12 +22,12 @@ class EnumSetting : public GenericSetting<T>
 			return std::to_string(this->defaultVal);
 		}
 
-		json getJsonValue() const override
+		nlohmann::json getJsonValue() const override
 		{
-			return json(this->val);
+			return nlohmann::json(this->val);
 		}
 
-		void loadFromJson(const json &node) override
+		void loadFromJson(const nlohmann::json &node) override
 		{
 			int readEnum = node;
 			if (readEnum >= this->maxEnumValue)

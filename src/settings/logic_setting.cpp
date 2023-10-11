@@ -11,12 +11,12 @@ std::string LogicSetting::defaultToString() const
 	return this->defaultVal ? "true" : "false";
 }
 
-json LogicSetting::getJsonValue() const
+nlohmann::json LogicSetting::getJsonValue() const
 {
-	return json(this->val);
+	return nlohmann::json(this->val);
 }
 
-void LogicSetting::loadFromJson(const json &node)
+void LogicSetting::loadFromJson(const nlohmann::json &node)
 {
 	this->val = node;
 	Log::d(STR_LOADED_SETTING_S, this->getKey().c_str(), this->val ? "true" : "false");

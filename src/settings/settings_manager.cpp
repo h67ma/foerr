@@ -141,11 +141,11 @@ void SettingsManager::setup()
 
 void SettingsManager::saveConfig()
 {
-	json root;
+	nlohmann::json root;
 
 	root.emplace(FOERR_JSON_API_VERSION, JSON_API_VERSION);
 
-	json keysNode;
+	nlohmann::json keysNode;
 	for (const auto &sett : SettingsManager::settings)
 	{
 		keysNode.emplace(sett->getKey(), sett->getJsonValue());
@@ -159,7 +159,7 @@ void SettingsManager::saveConfig()
 
 void SettingsManager::loadConfig()
 {
-	json root;
+	nlohmann::json root;
 	std::string path = pathCombine(SettingsManager::gameRootDir, PATH_SETTINGS);
 
 	if (!loadJsonFromFile(root, path, true))
@@ -195,7 +195,7 @@ void SettingsManager::loadConfig()
 		{
 			sett->loadFromJson(search.value());
 		}
-		catch (const json::type_error &ex)
+		catch (const nlohmann::json::type_error &ex)
 		{
 			Log::w(STR_INVALID_TYPE_EX, path.c_str(), sett->getKey().c_str(), ex.what());
 		}

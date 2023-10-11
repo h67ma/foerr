@@ -4,7 +4,7 @@
 
 #include "../util/random.hpp"
 
-bool BackObject::loadFromJson(const json &jsonNode)
+bool BackObject::loadFromJson(const nlohmann::json &jsonNode)
 {
 	// each can be undefined, in which case we assume 0
 	parseJsonKey<uint>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_MAIN_CNT, this->mainCnt, true);

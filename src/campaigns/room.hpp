@@ -64,7 +64,7 @@ class Room : public sf::Drawable, public sf::Transformable
 		Player &player;
 
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
-		static bool parseBackObjsNode(const json &root, const std::string &filePath, const char* key,
+		static bool parseBackObjsNode(const nlohmann::json &root, const std::string &filePath, const char* key,
 									  std::vector<struct back_obj_data> &dataVector);
 		void setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr,
 							  const std::vector<struct back_obj_data> &dataVector,
@@ -74,7 +74,7 @@ class Room : public sf::Drawable, public sf::Transformable
 	public:
 		explicit Room(Player &player);
 		bool load(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
-				  const json &root, const std::string &filePath);
+				  const nlohmann::json &root, const std::string &filePath);
 		void init();
 		void deinit();
 		void tick(uint lastFrameDurationUs);
