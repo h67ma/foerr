@@ -1,8 +1,9 @@
 #pragma once
 
 #include <SFML/System/Vector2.hpp>
+#include <nlohmann/json.hpp>
 
-#include "../util/json.hpp"
+#include "../util/util.hpp"
 
 // TODO find out the exact shade
 #define BACK_OBJ_COLOR COLOR_GRAY(120)

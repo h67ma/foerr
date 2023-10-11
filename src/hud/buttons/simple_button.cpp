@@ -5,6 +5,7 @@
 #include <cmath>
 
 #include "../../settings/settings_manager.hpp"
+#include "../../util/util.hpp"
 
 #define BTN_TEXT_SMALL_TOP_OFFSET 8U
 #define BTN_TEXT_NORMAL_TOP_OFFSET 12U

@@ -3,7 +3,8 @@
 #include <unordered_map>
 #include <string>
 
-#include "../util/json.hpp"
+#include <nlohmann/json.hpp>
+
 #include "material.hpp"
 
 // TODO find the exact value, or just store it in materials.json

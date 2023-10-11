@@ -1,6 +1,7 @@
 #include "back_hole_obj.hpp"
 
 #include "../util/random.hpp"
+#include "../util/json.hpp"
 
 bool BackHoleObject::loadFromJson(const nlohmann::json &jsonNode)
 {

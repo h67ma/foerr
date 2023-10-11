@@ -2,8 +2,9 @@
 
 #include <string>
 
+#include <nlohmann/json.hpp>
+
 #include "generic_setting.hpp"
-#include "../util/json.hpp"
 #include "../hud/log.hpp"
 
 template<typename T>

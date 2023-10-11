@@ -1,10 +1,10 @@
 #include "location_button.hpp"
 
+#include <utility>
 #include <cmath>
 
-#include <utility>
-
 #include "../../settings/settings_manager.hpp"
+#include "../../util/util.hpp"
 
 // values from 0 to 255, where 255 is the original color and 0 is black
 #define BTN_COLOR_BASECAMP_FACTOR 90

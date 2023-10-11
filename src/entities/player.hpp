@@ -7,6 +7,7 @@
 #include "../resources/resource_manager.hpp"
 #include "../campaigns/room_cell.hpp"
 #include "physics_entity.hpp"
+#include "../util/util.hpp"
 #include "../consts.hpp"
 #include "animation.hpp"
 

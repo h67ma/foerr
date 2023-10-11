@@ -8,6 +8,7 @@
 
 #include "../settings/settings_manager.hpp"
 #include "../objects/back_obj.hpp"
+#include "../util/json.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 

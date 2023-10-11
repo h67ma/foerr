@@ -1,6 +1,7 @@
 #include "color_selector.hpp"
 
 #include "../settings/settings_manager.hpp"
+#include "../util/util.hpp"
 #include "clickable.hpp"
 
 const sf::Vector2f secondLabelPosition(0, 25);

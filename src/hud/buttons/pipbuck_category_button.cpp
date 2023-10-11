@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Color.hpp>
 
 #include "../../settings/settings_manager.hpp"
+#include "../../util/util.hpp"
 
 const sf::Color colorHover(0xFF, 0xFF, 0xFF, 0x10);
 

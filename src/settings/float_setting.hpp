@@ -2,9 +2,10 @@
 
 #include <string>
 
+#include <nlohmann/json.hpp>
+
 #include "constraint_setting.hpp"
 #include "generic_setting.hpp"
-#include "../util/json.hpp"
 
 class FloatSetting : public GenericSetting<float>, public ConstraintSetting<float>
 {

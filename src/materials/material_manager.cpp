@@ -1,6 +1,7 @@
 #include "material_manager.hpp"
 
 #include "../util/serializable_color.hpp"
+#include "../util/json.hpp"
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 

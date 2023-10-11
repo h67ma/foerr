@@ -3,10 +3,10 @@
 #include <string>
 
 #include <SFML/Graphics/Color.hpp>
+#include <nlohmann/json.hpp>
 
 #include "../util/serializable_color.hpp"
 #include "generic_setting.hpp"
-#include "../util/json.hpp"
 
 /**
  * Color is stored as a string in json, and as an uint in SettingsManager

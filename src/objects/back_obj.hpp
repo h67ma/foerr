@@ -2,12 +2,14 @@
 
 #include <string>
 
+#include <nlohmann/json.hpp>
+
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 #include "light_objects_state.hpp"
 #include "back_obj_base.hpp"
 #include "back_obj_data.hpp"
-#include "../util/json.hpp"
+#include "../consts.hpp"
 
 /**
  * BackObject can define a main texture and a light texture. Both textures are optional, but obviously there needs to be

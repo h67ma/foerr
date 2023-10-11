@@ -9,12 +9,12 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector3.hpp>
 #include <SFML/System/Clock.hpp>
+#include <nlohmann/json.hpp>
 
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 #include "../objects/object_manager.hpp"
-#include "../util/json.hpp"
 #include "../consts.hpp"
 #include "room_grid.hpp"
 

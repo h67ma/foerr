@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "../util/random.hpp"
+#include "../util/json.hpp"
 
 bool BackObject::loadFromJson(const nlohmann::json &jsonNode)
 {

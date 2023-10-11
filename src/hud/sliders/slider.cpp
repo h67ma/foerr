@@ -3,6 +3,7 @@
 #include <string>
 
 #include "../../settings/settings_manager.hpp"
+#include "../../util/util.hpp"
 #include "../../consts.hpp"
 #include "../hud.hpp"
 

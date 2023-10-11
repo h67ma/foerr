@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <nlohmann/json.hpp>
 
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
@@ -13,7 +14,6 @@
 #include "../objects/object_manager.hpp"
 #include "../objects/back_obj_data.hpp"
 #include "../entities/player.hpp"
-#include "../util/json.hpp"
 #include "room_cell.hpp"
 
 constexpr uint ROOM_WIDTH_WITH_BORDER = 48;

@@ -2,11 +2,12 @@
 
 #include <string>
 
+#include <nlohmann/json.hpp>
+
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
 #include "back_obj_base.hpp"
 #include "back_obj_data.hpp"
-#include "../util/json.hpp"
 
 /**
  * BackHoleObject is used for back objects which create a hole in background/backwall. This is achieved by defining two

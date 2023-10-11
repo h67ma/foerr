@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "../util/json.hpp"
+#include <nlohmann/json.hpp>
 
 class Setting
 {

@@ -1,6 +1,7 @@
 #include "text_input.hpp"
 
 #include "../settings/settings_manager.hpp"
+#include "../util/util.hpp"
 #include "hud.hpp"
 
 constexpr uint TEXT_INPUT_PADDING = 5;
