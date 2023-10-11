@@ -29,6 +29,7 @@ int main()
 	GameState gameState = STATE_MAINMENU; // TODO? potentially could be made static
 
 	SettingsManager::setup();
+	Log::setup(); // must be called after SettingsManager::setup() and before SettingsManager::loadConfig()
 
 	if (!SettingsManager::generatePathsAndMkdir())
 	{
@@ -37,6 +38,7 @@ int main()
 	}
 
 	SettingsManager::loadConfig();
+	Log::openLogFile();
 
 	sf::RenderWindow window;
 	sf::View gameWorldView({ GAME_AREA_MID_X, GAME_AREA_MID_Y }, { GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
@@ -60,15 +62,9 @@ int main()
 	window.draw(loadingScreen);
 	window.display();
 
-	if (SettingsManager::debugWriteLogToFile)
-		Log::openLogFile(pathCombine(SettingsManager::getGameRootDir(), PATH_LOGFILE));
-
 	Log::setFont(resManager.getFont(FONT_NORMAL));
-	Log::setPosition(SettingsManager::logAnchor, window.getSize());
-	Log::setWriteLogToFile(SettingsManager::debugWriteLogToFile);
-	Log::setPrintMsgs(SettingsManager::debugPrintToStderr);
-	Log::setVerboseDebug(SettingsManager::debugVerbose);
-	Log::setGuiScale(SettingsManager::guiScale);
+	Log::handleSettingsChange();
+	Log::handleScreenResize(window.getSize());
 
 	Log::d("Save dir = %s", SettingsManager::getSaveDir().c_str());
 
@@ -411,13 +407,13 @@ int main()
 						CLICK_CONSUMED_SETTINGS_CHANGED)
 					{
 						Slider::calculateCoeffs();
+						Log::handleSettingsChange();
 						pipBuck.handleSettingsChange();
 						pipBuck.handleScreenResize(window.getSize());
 						mainMenu.handleSettingsChange();
 						fpsMeter.handleSettingsChange();
 						console.handleSettingsChange();
 						console.handleScreenResize(window.getSize());
-						Log::setGuiScale(SettingsManager::guiScale);
 					}
 
 					continue;

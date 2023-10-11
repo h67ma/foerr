@@ -11,6 +11,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Clock.hpp>
 
+#include "../settings/settings_manager.hpp"
 #include "log_element_text.hpp"
 #include "../util/util.hpp"
 #include "../hud/hud.hpp"
@@ -27,13 +28,6 @@ class Log
 		static sf::Font *font;
 		static sf::Vector2u windowSize;
 
-		// unfortunately we have to keep a local copy of settings because of a circular dependency :/ TODO?
-		static ScreenCorner anchor;
-		static bool writeLogToFile;
-		static bool printMsgs;
-		static bool verboseDebug;
-		static float scale;
-
 		static uint fontGap;
 		static std::list<std::unique_ptr<LogElementText>> hudHistory;
 		static sf::Clock clock;
@@ -42,13 +36,11 @@ class Log
 		static void logStderr(const char* prefix, const std::string &msg);
 
 	public:
+		static void setup();
 		static void setFont(sf::Font *font);
-		static void setPosition(ScreenCorner anchor, sf::Vector2u windowSize);
-		static void openLogFile(const std::string &logFilePath);
-		static void setWriteLogToFile(bool writeLogToFile);
-		static void setPrintMsgs(bool printMsgs);
-		static void setVerboseDebug(bool verboseDebug);
-		static void setGuiScale(float scale);
+		static void handleScreenResize(sf::Vector2u windowSize);
+		static void handleSettingsChange();
+		static void openLogFile();
 		static void tick(bool force = false);
 		static void draw(sf::RenderTarget &target);
 		static void close();
@@ -68,17 +60,18 @@ class Log
 
 			std::string formatted = litSprintf(fmt, args...);
 
-			if (Log::printMsgs)
+			if (SettingsManager::debugPrintToStderr)
 				Log::logStderr(prefix, formatted);
 
-			if (Log::writeLogToFile)
+			if (SettingsManager::debugWriteLogToFile)
 				Log::logToFile(prefix, formatted);
 
 			// don't display debug msgs in hud, or any messages whatsoever when gui is not initialized
 			if (hideInGui || Log::font == nullptr)
 				return;
 
-			Log::hudHistory.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font, Log::scale, color));
+			Log::hudHistory.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font,
+																		  SettingsManager::guiScale, color));
 			Log::tick(true);
 		}
 
@@ -124,7 +117,7 @@ class Log
 		template<typename... T>
 		static void v(const char *fmt, T... args)
 		{
-			if (!Log::verboseDebug)
+			if (!SettingsManager::debugVerbose)
 				return;
 
 			log(LOG_PREFIX_VERBOSE, sf::Color::Blue, true, fmt, args...);

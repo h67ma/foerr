@@ -68,7 +68,7 @@ void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hu
 					   PipBuck &pipBuck, MainMenu &mainMenu, DevConsole &console)
 {
 	// update position of dockable elements
-	Log::setPosition(SettingsManager::logAnchor, windowSize);
+	Log::handleScreenResize(windowSize);
 	fpsMeter.setPosition(windowSize);
 	pipBuck.handleScreenResize(windowSize);
 	mainMenu.handleScreenResize(windowSize);

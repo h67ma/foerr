@@ -8,14 +8,8 @@
 #define LOG_ANCHOR_NEG_PADDING_BOTTOM 7U
 
 sf::Font* Log::font = nullptr;
-ScreenCorner Log::anchor;
 sf::Vector2u Log::windowSize;
 
-// default values are only relevant until SettingsManager is loaded
-bool Log::writeLogToFile = false;
-bool Log::printMsgs = true;
-bool Log::verboseDebug = true;
-float Log::scale = 1.F;
 uint Log::fontGap;
 
 std::list<std::unique_ptr<LogElementText>> Log::hudHistory;
@@ -23,47 +17,50 @@ sf::Clock Log::clock;
 
 std::ofstream Log::logFile;
 
+/**
+ * Sets *temporary* SettingsManager settings, which are relevant only in the short window of time between when
+ * SettingsManager has initialized its settings (and reset them to actual default values), and SettingsManager loads
+ * settings from a file. A few settings are used in Log::log and need to have specific values, mostly so that messages
+ * are always displayed in stdout during settings load, so that it can be debugged.
+ */
+void Log::setup()
+{
+	SettingsManager::debugWriteLogToFile = false;
+	SettingsManager::debugPrintToStderr = true;
+	SettingsManager::debugVerbose = true;
+	SettingsManager::guiScale = 1.F;
+}
+
 void Log::setFont(sf::Font *font)
 {
 	Log::font = font;
 }
 
-// TODO when we'll have the ability to modify settings during runtime,
-// we need to call this when setting SETT_WRITE_LOG_TO_FILE = true
-void Log::setPosition(ScreenCorner anchor, sf::Vector2u windowSize)
+void Log::handleScreenResize(sf::Vector2u windowSize)
 {
-	Log::anchor = anchor;
 	Log::windowSize = windowSize;
 }
 
-void Log::openLogFile(const std::string &logFilePath)
+void Log::handleSettingsChange()
 {
-	Log::logFile.open(logFilePath);
-}
-
-void Log::setWriteLogToFile(bool writeLogToFile)
-{
-	Log::writeLogToFile = writeLogToFile;
-}
-
-void Log::setPrintMsgs(bool printMsgs)
-{
-	Log::printMsgs = printMsgs;
-}
-
-void Log::setVerboseDebug(bool verboseDebug)
-{
-	Log::verboseDebug = verboseDebug;
-}
-
-void Log::setGuiScale(float scale)
-{
-	Log::scale = scale;
-	Log::fontGap = Log::font->getLineSpacing(static_cast<uint>(scale * FONT_H3));
+	Log::fontGap = Log::font->getLineSpacing(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
 	for (const auto &item : Log::hudHistory)
 	{
-		item->setGuiScale(Log::scale);
+		item->setGuiScale(SettingsManager::guiScale);
 	}
+}
+
+/**
+ * Should be called after SettingsManager is already loaded its settings.
+ * TODO call this when setting SettingsManager::debugWriteLogToFile = true
+ */
+void Log::openLogFile()
+{
+	if (!SettingsManager::debugWriteLogToFile)
+		return;
+
+	const std::string logFilePath = pathCombine(SettingsManager::getGameRootDir(), PATH_LOGFILE);
+	Log::logFile.open(logFilePath);
 }
 
 /**
@@ -85,12 +82,12 @@ void Log::tick(bool force)
 	Log::hudHistory.remove_if([](const auto &item){ return item->isTimeUp(); });
 
 	// initial offset from top/bottom
-	if (Log::anchor == CORNER_BOTTOM_LEFT || Log::anchor == CORNER_BOTTOM_RIGHT)
+	if (SettingsManager::logAnchor == CORNER_BOTTOM_LEFT || SettingsManager::logAnchor == CORNER_BOTTOM_RIGHT)
 		y = Log::windowSize.y - static_cast<uint>(Log::hudHistory.size()) * Log::fontGap - LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
 	for (auto &item : Log::hudHistory)
 	{
-		if (Log::anchor == CORNER_TOP_RIGHT || Log::anchor == CORNER_BOTTOM_RIGHT)
+		if (SettingsManager::logAnchor == CORNER_TOP_RIGHT || SettingsManager::logAnchor == CORNER_BOTTOM_RIGHT)
 			x = Log::windowSize.x - static_cast<uint>(item->getLocalBounds().width) - LOG_ANCHOR_NEG_PADDING_RIGHT;
 
 		item->setPosition(static_cast<float>(x), static_cast<float>(y));
