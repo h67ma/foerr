@@ -1,10 +1,13 @@
-# Dependencies
-
-* [SFML](https://www.sfml-dev.org)
-  * Refer to [SFML documentation](https://www.sfml-dev.org/tutorials/2.5/compile-with-cmake.php) for SFML dependencies.
-* [JSON for Modern C++](https://github.com/nlohmann/json)
+# External libraries
+This project uses the following libraries:
+* [SFML](https://www.sfml-dev.org), which is licensed under the [zlib/png license](https://www.sfml-dev.org/license.php)
+* [JSON for Modern C++](https://github.com/nlohmann/json),
+which is licensed under the [MIT license](https://github.com/nlohmann/json/blob/develop/LICENSE.MIT)
 
 # Build
+Refer to [SFML documentation](https://www.sfml-dev.org/tutorials/2.6/compile-with-cmake.php#installing-dependencies)
+for satisfying SFML dependencies.
+
 ```
 mkdir build
 cd build
