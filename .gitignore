@@ -3,7 +3,6 @@ foerr
 .vscode/
 build/
 res/audio/
-res/fonts/
 res/texture/
 *.dll
 *.gch
