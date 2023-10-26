@@ -1,4 +1,4 @@
-#include "text.hpp"
+#include "wrappable_text.hpp"
 
 #include "../settings/settings_manager.hpp"
 
@@ -6,7 +6,7 @@
  * Modifies input string by changing some spaces to newlines to prevent text overflow.
  * Based on https://gist.github.com/andrew-d-jackson/7858095
  */
-void Text::setStringWrap()
+void WrappableText::setStringWrap()
 {
 	if (maxWidth == TEXT_NO_WRAP)
 		return;
@@ -49,41 +49,41 @@ void Text::setStringWrap()
 	this->text.setString(this->textValue);
 }
 
-void Text::setString(const std::string &newText, uint maxWidth)
+void WrappableText::setString(const std::string &newText, uint maxWidth)
 {
 	this->maxWidth = maxWidth;
 	this->textValue = newText;
 	this->setStringWrap();
 }
 
-void Text::setString(const std::string &newText)
+void WrappableText::setString(const std::string &newText)
 {
 	this->textValue = newText;
 	this->text.setString(newText);
 }
 
-void Text::setFont(const sf::Font& font)
+void WrappableText::setFont(const sf::Font& font)
 {
 	this->text.setFont(font);
 }
 
-void Text::setFillColor(const sf::Color& color)
+void WrappableText::setFillColor(const sf::Color& color)
 {
 	this->text.setFillColor(color);
 }
 
-void Text::setCharacterSize(unsigned int size)
+void WrappableText::setCharacterSize(unsigned int size)
 {
 	this->text.setCharacterSize(size);
 }
 
-void Text::handleSettingsChange()
+void WrappableText::handleSettingsChange()
 {
 	this->handleGuiScaleChange();
 	this->setStringWrap();
 }
 
-void Text::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void WrappableText::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

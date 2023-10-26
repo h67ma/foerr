@@ -20,7 +20,7 @@ constexpr uint TEXT_NO_WRAP = 0;
  * ::setPosition() gets called (and not the good one either). Current approach which encapsulates sf::Text is not ideal,
  * but gets the job done, without straight copying parts of GuiTransformable here.
  */
-class Text : public GuiTransformable, public sf::Drawable
+class WrappableText : public GuiTransformable, public sf::Drawable
 {
 	private:
 		sf::Text text;
