@@ -6,9 +6,9 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Window/Keyboard.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 #include "configurable_gui_component.hpp"
+#include "text_label.hpp"
 
 /**
  * A single line text input field with a cursor.
@@ -18,7 +18,7 @@
 class TextInput : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent
 {
 	private:
-		sf::Text text;
+		TextLabel text;
 		std::string currentInput;
 		sf::RectangleShape box;
 		sf::RectangleShape cursor;

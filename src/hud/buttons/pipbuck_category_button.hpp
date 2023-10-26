@@ -3,11 +3,11 @@
 #include <string>
 
 #include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 #include "../../resources/resource_manager.hpp"
 #include "../../resources/sprite_resource.hpp"
 #include "../../util/trapeze_shape.hpp"
+#include "../text_label.hpp"
 #include "../hud.hpp"
 #include "button.hpp"
 
@@ -22,7 +22,7 @@ class PipBuckCategoryButton : public Button
 		bool hover = false;
 		const struct trapeze_data trapezeData;
 		TrapezeShape trapeze;
-		sf::Text text;
+		TextLabel text;
 		void updateState();
 		void centerText();
 		SpriteResource hoverImgSprite;

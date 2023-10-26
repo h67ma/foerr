@@ -20,11 +20,10 @@ constexpr float SLIDER_OUTLINE_THICKNESS = 1;
 uint Slider::adjustedHandleHalf;
 uint Slider::adjustedPossibleMouseValCnt;
 
-Slider::Slider(const sf::Font &font)
+Slider::Slider(const sf::Font &font) :
+	currValueText(font, FONT_H3)
 {
 	this->sliderOutline.setFillColor(sf::Color::Transparent);
-
-	this->currValueText.setFont(font);
 }
 
 /**
@@ -90,7 +89,7 @@ void Slider::handleSettingsChange()
 
 	this->currValueText.setPosition(calculateGuiAwarePoint({ SLIDER_TEXT_X, getFontVOffset(FONT_H3) }));
 
-	this->currValueText.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
+	this->currValueText.handleSettingsChange();
 	this->currValueText.setFillColor(SettingsManager::hudColor);
 
 	this->handle.handleSettingsChange();

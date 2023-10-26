@@ -6,9 +6,9 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 #include "../../resources/resource_manager.hpp"
+#include "../text_label.hpp"
 #include "../../consts.hpp"
 #include "../hud.hpp"
 #include "button.hpp"
@@ -30,7 +30,7 @@ class SimpleButton : public Button
 		sf::Color colorSelected; // selected background color
 		sf::Color colorUnselected; // unselected background color
 		sf::RectangleShape rect;
-		sf::Text text;
+		TextLabel text;
 		sf::VertexArray gradient = sf::VertexArray(sf::Quads, 8);
 		void setThickness();
 		void updateState();
@@ -38,7 +38,7 @@ class SimpleButton : public Button
 		void setGuiScale();
 
 	public:
-		SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::Vector2u position,
+		SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, const sf::Vector2u &position,
 					 const std::string &text = "Button", std::function<void(void)> callback = nullptr,
 					 ClickStatus consumedStatus = CLICK_CONSUMED);
 		bool containsPoint(sf::Vector2i coords) override;

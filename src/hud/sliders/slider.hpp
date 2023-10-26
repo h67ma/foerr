@@ -3,9 +3,9 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 #include "../gui_transformable.hpp"
+#include "../text_label.hpp"
 #include "slider_handle.hpp"
 
 /**
@@ -21,7 +21,7 @@ class Slider : public GuiTransformable, public sf::Drawable
 		virtual void setSliderPos(int mouseX) = 0;
 
 	protected:
-		sf::Text currValueText;
+		TextLabel currValueText;
 		SliderHandle handle;
 
 		// coefficients can be shared between all instances, as they only depend on GUI scale.

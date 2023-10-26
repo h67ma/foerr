@@ -14,6 +14,23 @@ TextLabel::TextLabel(const std::string &text, const sf::Font &font, uint fontSiz
 	this->handleSettingsChange();
 }
 
+TextLabel::TextLabel(const std::string &text, const sf::Font &font, uint fontSize) :
+	fontSize(fontSize)
+{
+	this->setString(text);
+	this->setFont(font);
+
+	this->handleSettingsChange();
+}
+
+TextLabel::TextLabel(const sf::Font &font, uint fontSize) :
+	fontSize(fontSize)
+{
+	this->setFont(font);
+
+	this->handleSettingsChange();
+}
+
 void TextLabel::handleSettingsChange()
 {
 	this->setCharacterSize(static_cast<uint>(SettingsManager::guiScale * this->fontSize));

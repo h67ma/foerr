@@ -5,18 +5,16 @@
 #include "../settings/settings_manager.hpp"
 #include "../consts.hpp"
 
-FpsMeter::FpsMeter(sf::Font &font, sf::Vector2u windowSize)
+FpsMeter::FpsMeter(const sf::Font &font, const sf::Vector2u &windowSize) :
+	text("??", font, FONT_H3, sf::Color::Green)
 {
-	this->text.setFont(font);
 	this->handleSettingsChange();
-	this->text.setFillColor(sf::Color::Green);
-	this->text.setString("??");
 	this->setPosition(windowSize);
 }
 
 void FpsMeter::handleSettingsChange()
 {
-	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
+	this->text.handleSettingsChange();
 }
 
 void FpsMeter::setPosition(sf::Vector2u windowSize)

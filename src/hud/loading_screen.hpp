@@ -2,14 +2,14 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 #include "../resources/resource_manager.hpp"
+#include "text_label.hpp"
 
 class LoadingScreen : public sf::Drawable
 {
 	private:
-		sf::Text loadingText;
+		TextLabel loadingText;
 
 	public:
 		LoadingScreen(ResourceManager &resMgr, sf::Vector2u windowSize);

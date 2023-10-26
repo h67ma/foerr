@@ -18,16 +18,13 @@
 
 const sf::Color buttonBgBlack(0x00, 0x0B, 0x06);
 
-SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, sf::Vector2u position,
+SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, const sf::Vector2u &position,
 						   const std::string &text, std::function<void(void)> callback,
 						   ClickStatus consumedStatus) :
-	Button(position, std::move(callback), consumedStatus)
+	Button(position, std::move(callback), consumedStatus),
+	text(text, *resMgr.getFont(FONT_MEDIUM), FONT_H3)
 {
 	this->size = size;
-
-	// text
-	this->text.setFont(*resMgr.getFont(FONT_MEDIUM));
-	this->text.setString(text);
 
 	this->setGuiScale();
 	this->setColor();
@@ -89,7 +86,7 @@ void SimpleButton::setGuiScale()
 {
 	sf::Vector2u dim;
 
-	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
+	this->text.handleSettingsChange();
 
 	switch (this->size)
 	{

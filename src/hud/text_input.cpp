@@ -14,12 +14,11 @@ constexpr float BOX_OUTLINE_THICKNESS = 1;
  * Note: font must use fixed-width characters.
  */
 TextInput::TextInput(uint fontSize, uint width, const sf::Font &font, uint maxCharacters) :
+	text(font, fontSize),
 	fontSize(fontSize),
 	width(width),
 	maxCharacters(maxCharacters)
 {
-	this->text.setFont(font);
-
 	// TODO this only works for fixed-width fonts, should be more generic
 	this->fontAdvance = font.getGlyph('E', fontSize, false).advance;
 
@@ -164,7 +163,7 @@ void TextInput::handleSettingsChange()
 	this->cursor.setSize(calculateGuiAwarePoint(sf::Vector2f(CURSOR_WIDTH, this->fontSize)));
 	this->cursor.setFillColor(SettingsManager::hudColor);
 
-	this->text.setCharacterSize(static_cast<uint>(calculateGuiAwareScalar(this->fontSize)));
+	this->text.handleSettingsChange();
 	this->text.setPosition(calculateGuiAwarePoint({ TEXT_INPUT_PADDING,
 													TEXT_INPUT_PADDING + getFontVOffset(this->fontSize) }));
 	this->text.setFillColor(SettingsManager::hudColor);

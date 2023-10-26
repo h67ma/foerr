@@ -3,10 +3,10 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Font.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Clock.hpp>
 
 #include "configurable_gui_component.hpp"
+#include "text_label.hpp"
 
 #define FPS_METER_MAX_CHARS 6 // yes, we CAN go beyond 4 digits with fps limit off
 #define FPS_METER_UPDATE_S 0.25
@@ -19,14 +19,14 @@
 class FpsMeter : public sf::Drawable, public ConfigurableGuiComponent
 {
 	private:
-		sf::Text text;
+		TextLabel text;
 		uint elapsedFrames;
 		bool firstFrame = true;
 		char buf[FPS_METER_MAX_CHARS];
 		sf::Clock clock;
 
 	public:
-		FpsMeter(sf::Font &font, sf::Vector2u windowSize);
+		FpsMeter(const sf::Font &font, const sf::Vector2u &windowSize);
 		void handleSettingsChange() override;
 		void setPosition(sf::Vector2u windowSize);
 		void tick();

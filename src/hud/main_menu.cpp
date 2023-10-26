@@ -42,7 +42,8 @@ MainMenu::MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::Render
 			window.close();
 		}}
 	}),
-	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
+	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK)),
+	versionText(GIT_VERSION, *resMgr.getFont(FONT_FIXED), FONT_H3, SettingsManager::hudColor)
 {
 	this->btnSound.setVolume(static_cast<float>(SettingsManager::fxVolume));
 
@@ -52,10 +53,6 @@ MainMenu::MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::Render
 		this->clickMgr += &btn;
 	}
 
-	this->versionText.setFont(*resMgr.getFont(FONT_FIXED));
-	this->versionText.setFillColor(SettingsManager::hudColor);
-	this->versionText.setString(GIT_VERSION);
-	this->versionText.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
 	this->handleScreenResize(window.getSize());
 }
 
@@ -82,6 +79,8 @@ void MainMenu::handleScreenResize(sf::Vector2u newSize)
 
 void MainMenu::handleSettingsChange()
 {
+	this->versionText.handleSettingsChange();
+
 	for (auto &btn : this->buttons)
 	{
 		btn.handleSettingsChange();

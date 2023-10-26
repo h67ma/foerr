@@ -13,21 +13,20 @@ const sf::Color colorTextSelected(0xA8, 0x14, 0x00);
 const sf::Vector2f hoverImgOffset(-22.F, -22.F);
 
 constexpr uint TEXT_BOTTOM_OFFSET = 14;
-constexpr uint FONT_SIZE = 20;
+constexpr uint CATEGORY_BTN_FONT_SIZE = 20;
 
 PipBuckCategoryButton::PipBuckCategoryButton(ResourceManager &resMgr, sf::Vector2u position,
 											 const struct trapeze_data &shape, const std::string &text,
 											 const std::string& hoverImgPath) :
 	Button(position),
+	text(text, *resMgr.getFont(FONT_FIXED), CATEGORY_BTN_FONT_SIZE),
 	trapezeData(shape),
 	trapeze(shape),
 	hoverImgSprite(resMgr.getTexture(hoverImgPath))
 {
 	this->handleSettingsChange();
 
-	this->text.setFont(*resMgr.getFont(FONT_FIXED));
 	this->text.setStyle(sf::Text::Bold);
-	this->setText(text);
 
 	this->updateState();
 }
@@ -88,7 +87,7 @@ void PipBuckCategoryButton::handleSettingsChange()
 {
 	this->handleGuiScaleChange();
 
-	this->text.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_SIZE));
+	this->text.handleSettingsChange();
 	this->hoverImgSprite.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
 	this->hoverImgSprite.setPosition(hoverImgOffset * SettingsManager::guiScale);
 

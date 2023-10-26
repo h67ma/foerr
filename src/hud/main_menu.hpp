@@ -5,7 +5,6 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 #include "../resources/sound_resource.hpp"
 #include "configurable_gui_component.hpp"
@@ -15,6 +14,7 @@
 #include "pipbuck/pipbuck.hpp"
 #include "hover_manager.hpp"
 #include "click_manager.hpp"
+#include "text_label.hpp"
 
 class MainMenu : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent
 {
@@ -23,7 +23,7 @@ class MainMenu : public sf::Drawable, public sf::Transformable, public Configura
 		ClickManager clickMgr;
 		SoundResource btnSound;
 		std::vector<SimpleButton> buttons;
-		sf::Text versionText;
+		TextLabel versionText;
 
 	public:
 		MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::RenderWindow &window, Campaign &campaign,
