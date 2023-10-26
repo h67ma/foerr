@@ -46,7 +46,7 @@ void Log::handleSettingsChange()
 	Log::fontGap = Log::font->getLineSpacing(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
 	for (const auto &item : Log::hudHistory)
 	{
-		item->setGuiScale(SettingsManager::guiScale);
+		item->handleSettingsChange();
 	}
 }
 

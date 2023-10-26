@@ -3,16 +3,16 @@
 #include <string>
 
 #include <SFML/Graphics/Font.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Clock.hpp>
 
-class LogElementText: public sf::Text
+#include "text_label.hpp"
+
+class LogElementText : public TextLabel
 {
 	private:
 		sf::Clock clock;
 
 	public:
-		LogElementText(const std::string &text, sf::Font &font, float scale, sf::Color color);
-		void setGuiScale(float scale);
+		LogElementText(const std::string &text, sf::Font &font, const sf::Color &color);
 		bool isTimeUp();
 };

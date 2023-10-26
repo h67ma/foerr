@@ -70,8 +70,7 @@ class Log
 			if (hideInGui || Log::font == nullptr)
 				return;
 
-			Log::hudHistory.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font,
-																		  SettingsManager::guiScale, color));
+			Log::hudHistory.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font, color));
 			Log::tick(true);
 		}
 
