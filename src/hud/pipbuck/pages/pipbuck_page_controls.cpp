@@ -19,7 +19,8 @@ PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr) :
 			Log::i(STR_KEYMAP_RESETTED);
 			Keymap::save();
 		}}
-	})
+	}),
+	dummyMapDump(*resMgr.getFont(FONT_NORMAL), 17U, { 400.F, 250.F })
 {
 	for (auto &btn : this->buttons)
 	{
@@ -27,9 +28,6 @@ PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr) :
 		this->clickMgr += &btn;
 	}
 
-	this->dummyMapDump.setFont(*resMgr.getFont(FONT_NORMAL));
-	this->dummyMapDump.setCharacterSize(17);
-	this->dummyMapDump.setPosition(400.F, 250.F);
 	this->updateDisplay();
 }
 

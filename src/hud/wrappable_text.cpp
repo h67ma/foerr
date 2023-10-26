@@ -2,6 +2,12 @@
 
 #include "../settings/settings_manager.hpp"
 
+WrappableText::WrappableText(const sf::Font &font, uint fontSize, const sf::Vector2f& position) :
+	text(font, fontSize)
+{
+	this->setPosition(position);
+}
+
 /**
  * Modifies input string by changing some spaces to newlines to prevent text overflow.
  * Based on https://gist.github.com/andrew-d-jackson/7858095
@@ -62,23 +68,14 @@ void WrappableText::setString(const std::string &newText)
 	this->text.setString(newText);
 }
 
-void WrappableText::setFont(const sf::Font& font)
-{
-	this->text.setFont(font);
-}
-
 void WrappableText::setFillColor(const sf::Color& color)
 {
 	this->text.setFillColor(color);
 }
 
-void WrappableText::setCharacterSize(unsigned int size)
-{
-	this->text.setCharacterSize(size);
-}
-
 void WrappableText::handleSettingsChange()
 {
+	this->text.handleSettingsChange();
 	this->handleGuiScaleChange();
 	this->setStringWrap();
 }

@@ -39,14 +39,10 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) 
 		search->second.setSelected(false);
 		this->selectedLocId = NO_LOCATION_SELECTED;
 		this->travelButtonAvailable = false;
-	})
+	}),
+	locTitle(*resMgr.getFont(FONT_MEDIUM), FONT_H2, locTitlePos),
+	locDescription(*resMgr.getFont(FONT_NORMAL), FONT_SPAN, locDescriptionPos)
 {
-	this->locTitle.setFont(*resMgr.getFont(FONT_MEDIUM));
-	this->locTitle.setPosition(locTitlePos);
-
-	this->locDescription.setFont(*resMgr.getFont(FONT_NORMAL));
-	this->locDescription.setPosition(locDescriptionPos);
-
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
 	this->activeLocIndicator.setOutlineThickness(ACTIVE_LOC_INDICATOR_OUTLINE_THICKNESS);
 
@@ -267,8 +263,8 @@ void PipBuckPageWorld::unloadCampaignInfos()
 
 void PipBuckPageWorld::setGuiScale()
 {
-	this->locTitle.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_H2));
-	this->locDescription.setCharacterSize(static_cast<uint>(SettingsManager::guiScale * FONT_SPAN));
+	this->locTitle.handleSettingsChange();
+	this->locDescription.handleSettingsChange();
 	this->mapBg.setPosition(mapPos * SettingsManager::guiScale);
 	this->mapBg.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
 

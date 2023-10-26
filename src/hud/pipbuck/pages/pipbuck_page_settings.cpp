@@ -27,17 +27,14 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 		}, CLICK_CONSUMED_SETTINGS_CHANGED}
 	}),
 	hudColorSelector(*resMgr.getFont(FONT_NORMAL), SettingsManager::hudColor),
-	guiScaleSlider(*resMgr.getFont(FONT_NORMAL), GUI_SCALE_MIN_VALUE, SettingsManager::guiScale, GUI_SCALE_MAX_VALUE, 2)
+	guiScaleSlider(*resMgr.getFont(FONT_NORMAL), GUI_SCALE_MIN_VALUE, SettingsManager::guiScale, GUI_SCALE_MAX_VALUE, 2),
+	infoText(*resMgr.getFont(FONT_NORMAL), 17U, { 400.F, 272.F })
 {
 	for (auto &btn : this->buttons)
 	{
 		this->hoverMgr += &btn;
 		this->clickMgr += &btn;
 	}
-
-	this->infoText.setFont(*resMgr.getFont(FONT_NORMAL));
-	this->infoText.setCharacterSize(17);
-	this->infoText.setPosition(400.F, 272.F);
 
 	this->hudColorSelector.setPosition(500.F, 250.F);
 	this->guiScaleSlider.setPosition(500.F, 345.F);
