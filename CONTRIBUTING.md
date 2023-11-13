@@ -57,7 +57,7 @@ Title contains a short identifier at the beginning, then a colon (`:`), then the
 The identifier should point to the main part of the repository that is being changed. Identifiers in use:
 * `foerr` - most of the changes were done in `src` directory
 * `toolz` - most of the changes were done in `toolz` directory
-* `res` - most of the changes were done in `res` directory
+* `res` - most of the changes were done in `res` or `fonts` directories
 * `build` - changes related to the build system (CMake, dependencies)
 * `git` - changes related to git (e.g. `.gitignore` modifications)
 * `docs` - changes related to non-code documentation

@@ -9,9 +9,9 @@
 
 // order matters!
 const char* _fonts[] = {
-	"res/fonts/OpenSans-Regular.ttf",	// FONT_NORMAL
-	"res/fonts/OpenSans-Medium.ttf",	// FONT_MEDIUM
-	"res/fonts/Inconsolata-Regular.ttf"	// FONT_FIXED
+	"fonts/OpenSans-Regular.ttf",	// FONT_NORMAL
+	"fonts/OpenSans-Medium.ttf",	// FONT_MEDIUM
+	"fonts/Inconsolata-Regular.ttf"	// FONT_FIXED
 };
 
 const char* _coreTextures[] = {
