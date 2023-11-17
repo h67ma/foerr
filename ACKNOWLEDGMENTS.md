@@ -1,9 +1,3 @@
-# Special thanks
-* Empalu, for creating _FoE: Remains_ and sharing its full source
-* Kkat, for creating _Fallout: Equestria_
-* Lauren Faust, for creating _MLP: FiM_
-* Tim Cain, for creating _Fallout_
-
 # Libraries
 This project uses the following libraries:
 * [SFML](https://www.sfml-dev.org),
@@ -42,3 +36,9 @@ the resources are what make it resemble the original game.
 Resources (except fonts) are located in the `res` directory, which also includes the license file.
 
 Many of these original resources have been modified and new ones have been created.
+
+# Special thanks
+* Empalu, for creating _FoE: Remains_ and sharing its full source
+* Kkat, for creating _Fallout: Equestria_
+* Lauren Faust, for creating _MLP: FiM_
+* Tim Cain, for creating _Fallout_
