@@ -2,13 +2,10 @@ foerr
 .cache/
 .vscode/
 build/
-res/audio/
-res/texture/
 *.dll
 *.gch
 *.log
 *.o
-*.png
 *.sh
 *.svg
 *.tmp
