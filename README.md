@@ -3,13 +3,15 @@ Refer to [SFML documentation](https://www.sfml-dev.org/tutorials/2.6/compile-wit
 for satisfying SFML dependencies.
 
 ```
+cd $PROJECT_ROOT
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 cmake --build . -j`nproc` --config Debug
 ```
 
-Source code of dependencies is automaticaly downloaded on project configure. Libraries are built from source and linked statically, with the exception of openal32.
+Source code of dependencies is automatically downloaded on project configure. Libraries are built from source and linked
+statically, with the exception of openal32.
 
 ## Switching build type
 ```
@@ -25,7 +27,7 @@ Just add `-v`.
 cd $PROJECT_ROOT
 build/bin/Release/foerr
 ```
-Where `$PROJECT_ROOT` is a directory containing the `res` directory.
+Where `$PROJECT_ROOT` is a directory containing `res` and `fonts` directories.
 
 On Windows, `openal32.dll` must be present in PATH or in current directory.
 
