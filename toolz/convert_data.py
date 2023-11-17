@@ -61,7 +61,7 @@ bg_full_name_map = {
 	"fonClear": "desert_day",
 	"fonDarkClouds": "surface",
 	"fonEnclave": "clouds",
-	"fonFinalb": "its_a_fine_night",
+	"fonFinalb": "fine_night_tonight",
 	"fonFire": "hell_clouds",
 	"fonRuins": "manehattan",
 	"fonWay": "crystal_mountains",
