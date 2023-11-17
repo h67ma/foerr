@@ -43,7 +43,8 @@ MainMenu::MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::Render
 		}}
 	}),
 	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK)),
-	versionText(GIT_VERSION, *resMgr.getFont(FONT_FIXED), FONT_H3, SettingsManager::hudColor)
+	versionText(GIT_VERSION, *resMgr.getFont(FONT_FIXED), FONT_H3, SettingsManager::hudColor),
+	licenseText(GPL_SPLAT, *resMgr.getFont(FONT_NORMAL), FONT_H3, SettingsManager::hudColor)
 {
 	this->btnSound.setVolume(static_cast<float>(SettingsManager::fxVolume));
 
@@ -75,11 +76,17 @@ void MainMenu::handleScreenResize(sf::Vector2u newSize)
 		newSize.x - 5 - this->versionText.getLocalBounds().width,
 		newSize.y - 10 - this->versionText.getLocalBounds().height
 	);
+
+	this->licenseText.setPosition(
+		5,
+		newSize.y - 10 - this->licenseText.getLocalBounds().height
+	);
 }
 
 void MainMenu::handleSettingsChange()
 {
 	this->versionText.handleSettingsChange();
+	this->licenseText.handleSettingsChange();
 
 	for (auto &btn : this->buttons)
 	{
@@ -97,4 +104,5 @@ void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	}
 
 	target.draw(this->versionText, states);
+	target.draw(this->licenseText, states);
 }

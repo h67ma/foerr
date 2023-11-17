@@ -24,6 +24,7 @@ class MainMenu : public sf::Drawable, public sf::Transformable, public Configura
 		SoundResource btnSound;
 		std::vector<SimpleButton> buttons;
 		TextLabel versionText;
+		TextLabel licenseText;
 
 	public:
 		MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::RenderWindow &window, Campaign &campaign,
