@@ -6,6 +6,5 @@ build/
 *.gch
 *.log
 *.o
-*.sh
 *.svg
 *.tmp
