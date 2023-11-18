@@ -1,3 +1,7 @@
+# SPDX-License-Identifier: GPL-3.0-only
+#
+# (c) 2023 h67ma <szycikm@gmail.com>
+
 import argparse
 import re
 import os

@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-only
+//
+// (c) 2023 h67ma <szycikm@gmail.com>
+
 #include "color_selector.hpp"
 
 #include "../settings/settings_manager.hpp"

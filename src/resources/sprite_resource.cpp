@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-only
+//
+// (c) 2022-2023 h67ma <szycikm@gmail.com>
+
 #include "sprite_resource.hpp"
 
 SpriteResource::SpriteResource(std::shared_ptr<sf::Texture> txt) : txt(txt)

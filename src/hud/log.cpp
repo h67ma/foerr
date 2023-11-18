@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-only
+//
+// (c) 2022-2023 h67ma <szycikm@gmail.com>
+
 #include "log.hpp"
 
 #define LOG_UPDATE_FREQUENCY_MS 200U
