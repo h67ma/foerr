@@ -32,12 +32,12 @@ class PipBuckCategoryButton : public Button
 		SpriteResource hoverImgSprite;
 
 	public:
-		PipBuckCategoryButton(ResourceManager &resMgr, sf::Vector2u position, const struct trapeze_data &shape,
-							  const std::string &text, const std::string& hoverImgPath);
+		PipBuckCategoryButton(ResourceManager& resMgr, sf::Vector2u position, const struct trapeze_data& shape,
+							  const std::string& text, const std::string& hoverImgPath);
 		bool containsPoint(sf::Vector2i coords) override;
 		void setHover(bool hover) override;
 		void setSelected(bool selected) override;
-		void setText(const std::string &text);
+		void setText(const std::string& text);
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

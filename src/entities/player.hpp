@@ -43,13 +43,13 @@ class Player : public sf::Drawable, public sf::Transformable
 		enum MovementMode movementMode = MOVM_WALK;
 
 	public:
-		explicit Player(ResourceManager &resMgr);
+		explicit Player(ResourceManager& resMgr);
 		void nextFrame();
 		void updateVelocity(uint lastFrameDurationUs);
 		void stopVertical();
 		void stopHorizontal();
 		void debugToggleFlight();
 		const sf::Vector2f& getVelocity() const;
-		void debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void debugDrawBounds(sf::RenderTarget& target, sf::RenderStates& states) const;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

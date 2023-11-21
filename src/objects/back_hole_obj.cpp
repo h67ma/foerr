@@ -7,7 +7,7 @@
 #include "../util/random.hpp"
 #include "../util/json.hpp"
 
-bool BackHoleObject::loadFromJson(const nlohmann::json &jsonNode)
+bool BackHoleObject::loadFromJson(const nlohmann::json& jsonNode)
 {
 	parseJsonKey<uint>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_MAIN_CNT, this->variantsCnt);
 
@@ -24,8 +24,8 @@ bool BackHoleObject::loadFromJson(const nlohmann::json &jsonNode)
 	return this->variantsCnt > 0;
 }
 
-bool BackHoleObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &holeSpriteRes, bool &blend,
-									ResourceManager &resMgr, const struct back_obj_data &backObjData) const
+bool BackHoleObject::setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& holeSpriteRes, bool& blend,
+									ResourceManager& resMgr, const struct back_obj_data& backObjData) const
 {
 	int selectedVariant = backObjData.variantIdx;
 

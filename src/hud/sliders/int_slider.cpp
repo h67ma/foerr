@@ -7,7 +7,7 @@
 #include <cassert>
 #include <string>
 
-IntSlider::IntSlider(const sf::Font &font, int minVal, int defaultVal, int maxVal) :
+IntSlider::IntSlider(const sf::Font& font, int minVal, int defaultVal, int maxVal) :
 	Slider(font),
 	minVal(minVal),
 	maxVal(maxVal),

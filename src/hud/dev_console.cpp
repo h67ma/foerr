@@ -112,7 +112,7 @@ const std::map<std::string, struct dev_console_cmd> DevConsole::commands {
 };
 
 
-DevConsole::DevConsole(sf::Vector2u windowSize, const sf::Font &font, Campaign &campaign) :
+DevConsole::DevConsole(sf::Vector2u windowSize, const sf::Font& font, Campaign& campaign) :
 	inputField(FONT_H2, CONSOLE_WIDTH, font, MAX_INPUT_CHARS),
 	campaign(campaign)
 {
@@ -228,7 +228,7 @@ void DevConsole::executeLast(sf::Vector2f mouseCoords)
  *
  * @param cmdline command line to execute
  */
-void DevConsole::execute(const std::string &cmdline, sf::Vector2f mouseCoords)
+void DevConsole::execute(const std::string& cmdline, sf::Vector2f mouseCoords)
 {
 	if (!SettingsManager::debugConsoleEnabled)
 		return;
@@ -244,7 +244,7 @@ void DevConsole::execute(const std::string &cmdline, sf::Vector2f mouseCoords)
 	if (tokens[0] == "?" || tokens[0] == "help")
 	{
 		// help command entered - print all available commands
-		for (const auto &cmd : this->commands)
+		for (const auto& cmd : this->commands)
 		{
 			if (cmd.second.helpArgs != nullptr)
 				Log::i("%s %s - %s", cmd.first.c_str(), cmd.second.helpArgs, cmd.second.helpString);
@@ -279,7 +279,7 @@ void DevConsole::handleSettingsChange()
 	this->inputField.handleSettingsChange();
 }
 
-void DevConsole::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void DevConsole::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->inputField, states);
 }

@@ -10,8 +10,8 @@
 #include "git_version.h"
 #include "log.hpp"
 
-MainMenu::MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::RenderWindow &window, Campaign &campaign,
-				   GameState &gameState, PipBuck &pipBuck) :
+MainMenu::MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window, Campaign& campaign,
+				   GameState& gameState, PipBuck& pipBuck) :
 	buttons({
 		{ BTN_NORMAL, resMgr, { 100, 100 }, STR_CONTINUE, [&resMgr, &cursorMgr, &campaign, &gameState, &window,
 														   &pipBuck](){
@@ -52,7 +52,7 @@ MainMenu::MainMenu(ResourceManager &resMgr, CursorManager &cursorMgr, sf::Render
 {
 	this->btnSound.setVolume(static_cast<float>(SettingsManager::fxVolume));
 
-	for (auto &btn : this->buttons)
+	for (auto& btn : this->buttons)
 	{
 		this->hoverMgr += &btn;
 		this->clickMgr += &btn;
@@ -92,17 +92,17 @@ void MainMenu::handleSettingsChange()
 	this->versionText.handleSettingsChange();
 	this->licenseText.handleSettingsChange();
 
-	for (auto &btn : this->buttons)
+	for (auto& btn : this->buttons)
 	{
 		btn.handleSettingsChange();
 	}
 }
 
-void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
-	for (const auto &btn : this->buttons)
+	for (const auto& btn : this->buttons)
 	{
 		target.draw(btn, states);
 	}

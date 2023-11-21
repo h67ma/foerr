@@ -190,7 +190,7 @@ bool Keymap::setup()
 {
 	Keymap::resetToDefault();
 
-	for (const auto &item : Keymap::actionsMap)
+	for (const auto& item : Keymap::actionsMap)
 	{
 		std::string actionStr = item.second.serializeKey;
 		if (Keymap::actionStringToActionMap.find(actionStr) != Keymap::actionStringToActionMap.end())
@@ -251,7 +251,7 @@ std::string Keymap::keyToString(sf::Keyboard::Key key)
 	return search->second;
 }
 
-sf::Keyboard::Key Keymap::keyStringToKey(const std::string &keyStr)
+sf::Keyboard::Key Keymap::keyStringToKey(const std::string& keyStr)
 {
 	auto search = Keymap::keyStringToKeyMap.find(keyStr);
 	if (search == Keymap::keyStringToKeyMap.end())
@@ -275,7 +275,7 @@ std::string Keymap::actionToString(KeyAction action)
 	return search->second.serializeKey;
 }
 
-KeyAction Keymap::actionStringToAction(const std::string &actionStr)
+KeyAction Keymap::actionStringToAction(const std::string& actionStr)
 {
 	auto search = Keymap::actionStringToActionMap.find(actionStr);
 	if (search == Keymap::actionStringToActionMap.end())
@@ -367,7 +367,7 @@ void Keymap::resetToDefault()
 {
 	Keymap::keyToActionMap.clear();
 
-	for (const auto &action : Keymap::actionsMap)
+	for (const auto& action : Keymap::actionsMap)
 	{
 		for (const auto key : action.second.defaultKeys)
 		{
@@ -407,7 +407,7 @@ void Keymap::load()
 		return;
 	}
 
-	for (const auto &node : keysSearch->items())
+	for (const auto& node : keysSearch->items())
 	{
 		sf::Keyboard::Key key = Keymap::keyStringToKey(node.key());
 		if (key == sf::Keyboard::Unknown)
@@ -429,7 +429,7 @@ void Keymap::save()
 	root.emplace(FOERR_JSON_API_VERSION, JSON_API_VERSION);
 
 	nlohmann::json keysNode;
-	for (const auto &item : Keymap::keyToActionMap)
+	for (const auto& item : Keymap::keyToActionMap)
 	{
 		// translate bolth key and action to strings.
 		// there shouldn't be key duplicates as we've already checked for it in ::setup(),

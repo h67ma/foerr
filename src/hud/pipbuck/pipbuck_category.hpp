@@ -45,7 +45,7 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable, public Co
 		const std::unordered_map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages;
 
 	public:
-		PipBuckCategory(ResourceManager &resMgr, PipBuckPageType defaultPage,
+		PipBuckCategory(ResourceManager& resMgr, PipBuckPageType defaultPage,
 						std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages);
 		bool setup();
 		PipBuckPageType getSelectedPage() const;
@@ -57,5 +57,5 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable, public Co
 		void unloadCampaignInfos();
 		static PipBuckCategoryType pageTypeToCategoryType(PipBuckPageType pageType);
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

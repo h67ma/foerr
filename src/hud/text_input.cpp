@@ -17,7 +17,7 @@ constexpr float BOX_OUTLINE_THICKNESS = 1;
 /**
  * Note: font must use fixed-width characters.
  */
-TextInput::TextInput(uint fontSize, uint width, const sf::Font &font, uint maxCharacters) :
+TextInput::TextInput(uint fontSize, uint width, const sf::Font& font, uint maxCharacters) :
 	text(font, fontSize),
 	fontSize(fontSize),
 	width(width),
@@ -84,7 +84,7 @@ bool TextInput::handleTextEntered(uint keycode)
  *
  * @param input new input text
  */
-void TextInput::setInput(const std::string &input)
+void TextInput::setInput(const std::string& input)
 {
 	this->currentInput = input;
 	this->text.setString(this->currentInput);
@@ -175,7 +175,7 @@ void TextInput::handleSettingsChange()
 	this->updateCursorPosition();
 }
 
-void TextInput::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void TextInput::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

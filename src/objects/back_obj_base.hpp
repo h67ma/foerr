@@ -56,5 +56,5 @@ class BackObjectBase
 		uint variantsCnt = 0;
 
 	public:
-		virtual bool loadFromJson(const nlohmann::json &jsonNode) = 0;
+		virtual bool loadFromJson(const nlohmann::json& jsonNode) = 0;
 };

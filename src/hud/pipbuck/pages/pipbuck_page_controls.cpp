@@ -10,7 +10,7 @@
 #include "../../../util/i18n.hpp"
 #include "../../log.hpp"
 
-PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr) :
+PipBuckPageControls::PipBuckPageControls(ResourceManager& resMgr) :
 	PipBuckPage("Controls"), // TODO translate
 	buttons({
 		{ BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() {
@@ -26,7 +26,7 @@ PipBuckPageControls::PipBuckPageControls(ResourceManager &resMgr) :
 	}),
 	dummyMapDump(*resMgr.getFont(FONT_NORMAL), 17U, { 400.F, 250.F })
 {
-	for (auto &btn : this->buttons)
+	for (auto& btn : this->buttons)
 	{
 		this->hoverMgr += &btn;
 		this->clickMgr += &btn;
@@ -50,7 +50,7 @@ void PipBuckPageControls::updateDisplay()
 
 void PipBuckPageControls::handleSettingsChange()
 {
-	for (auto &btn : this->buttons)
+	for (auto& btn : this->buttons)
 	{
 		btn.handleSettingsChange();
 	}
@@ -58,9 +58,9 @@ void PipBuckPageControls::handleSettingsChange()
 	this->dummyMapDump.handleSettingsChange();
 }
 
-void PipBuckPageControls::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageControls::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (const auto &btn : this->buttons)
+	for (const auto& btn : this->buttons)
 	{
 		target.draw(btn, states);
 	}

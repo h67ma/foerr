@@ -30,9 +30,9 @@ class FpsMeter : public sf::Drawable, public ConfigurableGuiComponent
 		sf::Clock clock;
 
 	public:
-		FpsMeter(const sf::Font &font, const sf::Vector2u &windowSize);
+		FpsMeter(const sf::Font& font, const sf::Vector2u& windowSize);
 		void handleSettingsChange() override;
 		void setPosition(sf::Vector2u windowSize);
 		void tick();
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

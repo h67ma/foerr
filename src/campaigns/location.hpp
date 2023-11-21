@@ -80,7 +80,7 @@ class Location : public sf::Drawable
 		SpriteResource backgroundFullSprite;
 		RoomGrid rooms;
 		std::shared_ptr<Room> currentRoom = nullptr;
-		Player &player;
+		Player& player;
 
 		// room transition is *not* another GameState (see ::gameState in main), but rather an internal state of
 		// Location. from main's perspective, the state could be still STATE_PLAYING, but the Location, instead of
@@ -93,12 +93,12 @@ class Location : public sf::Drawable
 		sf::Texture roomTransitionTxt;
 		sf::Sprite roomTransitionSprite;
 
-		bool validateRoomGeometry(const std::shared_ptr<Room> &room, const HashableVector3i &roomCoords) const;
+		bool validateRoomGeometry(const std::shared_ptr<Room>& room, const HashableVector3i& roomCoords) const;
 
 	public:
-		Location(const std::string &id, Player &player);
-		bool loadMeta(const nlohmann::json &locMetaNode, const std::string &campaignDir);
-		bool loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr);
+		Location(const std::string& id, Player& player);
+		bool loadMeta(const nlohmann::json& locMetaNode, const std::string& campaignDir);
+		bool loadContent(ResourceManager& resMgr, const MaterialManager& matMgr, const ObjectManager& objMgr);
 		void unloadContent();
 		std::string getId() const;
 		std::string getTitle() const;
@@ -114,7 +114,7 @@ class Location : public sf::Drawable
 		sf::Vector3i getPlayerRoomCoords() const;
 		sf::Vector2u getSpawnCoords() const;
 		void tick(uint lastFrameDurationUs);
-		void rerollObjVariants(ResourceManager &resMgr, const ObjectManager &objMgr);
+		void rerollObjVariants(ResourceManager& resMgr, const ObjectManager& objMgr);
 		void setRoomLightsState(enum LightObjectsState state);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

@@ -48,7 +48,7 @@ void Log::handleScreenResize(sf::Vector2u windowSize)
 void Log::handleSettingsChange()
 {
 	Log::fontGap = Log::font->getLineSpacing(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
-	for (const auto &item : Log::hudHistory)
+	for (const auto& item : Log::hudHistory)
 	{
 		item->handleSettingsChange();
 	}
@@ -83,13 +83,13 @@ void Log::tick(bool force)
 		return;
 
 	// remove items which were in the log for longer than LOG_ELEMENT_LIFE_TIME_S
-	Log::hudHistory.remove_if([](const auto &item){ return item->isTimeUp(); });
+	Log::hudHistory.remove_if([](const auto& item){ return item->isTimeUp(); });
 
 	// initial offset from top/bottom
 	if (SettingsManager::logAnchor == CORNER_BOTTOM_LEFT || SettingsManager::logAnchor == CORNER_BOTTOM_RIGHT)
 		y = Log::windowSize.y - static_cast<uint>(Log::hudHistory.size()) * Log::fontGap - LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
-	for (auto &item : Log::hudHistory)
+	for (auto& item : Log::hudHistory)
 	{
 		if (SettingsManager::logAnchor == CORNER_TOP_RIGHT || SettingsManager::logAnchor == CORNER_BOTTOM_RIGHT)
 			x = Log::windowSize.x - static_cast<uint>(item->getLocalBounds().width) - LOG_ANCHOR_NEG_PADDING_RIGHT;
@@ -102,9 +102,9 @@ void Log::tick(bool force)
 	Log::clock.restart();
 }
 
-void Log::draw(sf::RenderTarget &target)
+void Log::draw(sf::RenderTarget& target)
 {
-	for (const auto &item : Log::hudHistory)
+	for (const auto& item : Log::hudHistory)
 	{
 		target.draw(*item);
 	}
@@ -113,7 +113,7 @@ void Log::draw(sf::RenderTarget &target)
 /**
  * Writes a formatted message to log file.
  */
-void Log::logToFile(const char* prefix, const std::string &msg)
+void Log::logToFile(const char* prefix, const std::string& msg)
 {
 	// TODO log file should always contain messages in english, not in selected language, for easier debugging
 	Log::logFile << prefix << msg << std::endl;
@@ -124,7 +124,7 @@ void Log::logToFile(const char* prefix, const std::string &msg)
  *
  * Use only if no Log object is available (writing to hud or log file is preferred).
  */
-void Log::logStderr(const char* prefix, const std::string &msg)
+void Log::logStderr(const char* prefix, const std::string& msg)
 {
 	std::cerr << prefix << msg << std::endl;
 }

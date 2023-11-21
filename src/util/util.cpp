@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <sstream>
 
-void splitString(std::vector<std::string> &tokens, const std::string &input, char delim)
+void splitString(std::vector<std::string>& tokens, const std::string& input, char delim)
 {
 	std::stringstream ss(input);
 	std::string tmpToken;
@@ -16,7 +16,7 @@ void splitString(std::vector<std::string> &tokens, const std::string &input, cha
 		tokens.push_back(tmpToken);
 }
 
-bool strToInt(const std::string &input, int &output)
+bool strToInt(const std::string& input, int& output)
 {
 	try
 	{
@@ -34,7 +34,7 @@ bool strToInt(const std::string &input, int &output)
 	return true;
 }
 
-void operator-=(sf::Vector2i &lhs, sf::Vector2f rhs)
+void operator-=(sf::Vector2i& lhs, sf::Vector2f rhs)
 {
 	lhs.x -= rhs.x;
 	lhs.y -= rhs.y;

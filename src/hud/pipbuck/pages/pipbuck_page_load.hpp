@@ -20,7 +20,7 @@ class PipBuckPageLoad : public PipBuckPage
 		SimpleButton exitBtn;
 
 	public:
-		explicit PipBuckPageLoad(ResourceManager &resMgr);
+		explicit PipBuckPageLoad(ResourceManager& resMgr);
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

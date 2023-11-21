@@ -65,27 +65,27 @@ class Room : public sf::Drawable, public sf::Transformable
 		std::vector<struct blend_sprite> backHoleObjectsMain;
 		std::vector<SpriteResource> backHoleObjectsHoles;
 	
-		Player &player;
+		Player& player;
 
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
-		static bool parseBackObjsNode(const nlohmann::json &root, const std::string &filePath, const char* key,
-									  std::vector<struct back_obj_data> &dataVector);
-		void setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr,
-							  const std::vector<struct back_obj_data> &dataVector,
-							  std::vector<SpriteResource> &spriteVector);
-		void setupBackHoleObjects(ResourceManager &resMgr, const ObjectManager &objMgr);
+		static bool parseBackObjsNode(const nlohmann::json& root, const std::string& filePath, const char* key,
+									  std::vector<struct back_obj_data>& dataVector);
+		void setupBackObjects(ResourceManager& resMgr, const ObjectManager& objMgr,
+							  const std::vector<struct back_obj_data>& dataVector,
+							  std::vector<SpriteResource>& spriteVector);
+		void setupBackHoleObjects(ResourceManager& resMgr, const ObjectManager& objMgr);
 
 	public:
-		explicit Room(Player &player);
-		bool load(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
-				  const nlohmann::json &root, const std::string &filePath);
+		explicit Room(Player& player);
+		bool load(ResourceManager& resMgr, const MaterialManager& matMgr, const ObjectManager& objMgr,
+				  const nlohmann::json& root, const std::string& filePath);
 		void init();
 		void deinit();
 		void tick(uint lastFrameDurationUs);
 		sf::Vector2u getSpawnCoords() const;
 		bool isCellCollider(uint x, uint y) const;
 		void setLightsState(enum LightObjectsState state);
-		void redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const; // TODO use me
-		void setupAllBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void redrawCell(uint x, uint y, sf::RenderTarget& target, sf::RenderStates states) const; // TODO use me
+		void setupAllBackObjects(ResourceManager& resMgr, const ObjectManager& objMgr);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

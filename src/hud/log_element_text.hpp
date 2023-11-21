@@ -17,6 +17,6 @@ class LogElementText : public TextLabel
 		sf::Clock clock;
 
 	public:
-		LogElementText(const std::string &text, sf::Font &font, const sf::Color &color);
+		LogElementText(const std::string& text, sf::Font& font, const sf::Color& color);
 		bool isTimeUp();
 };

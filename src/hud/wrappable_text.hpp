@@ -33,10 +33,10 @@ class WrappableText : public GuiTransformable, public sf::Drawable
 		void setStringWrap();
 
 	public:
-		WrappableText(const sf::Font &font, uint fontSize, const sf::Vector2f& position);
-		void setString(const std::string &newText, uint maxWidth);
-		void setString(const std::string &newText);
+		WrappableText(const sf::Font& font, uint fontSize, const sf::Vector2f& position);
+		void setString(const std::string& newText, uint maxWidth);
+		void setString(const std::string& newText);
 		void setFillColor(const sf::Color& color);
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

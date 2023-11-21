@@ -6,7 +6,7 @@
 
 #include "../settings/settings_manager.hpp"
 
-WrappableText::WrappableText(const sf::Font &font, uint fontSize, const sf::Vector2f& position) :
+WrappableText::WrappableText(const sf::Font& font, uint fontSize, const sf::Vector2f& position) :
 	text(font, fontSize)
 {
 	this->setPosition(position);
@@ -59,14 +59,14 @@ void WrappableText::setStringWrap()
 	this->text.setString(this->textValue);
 }
 
-void WrappableText::setString(const std::string &newText, uint maxWidth)
+void WrappableText::setString(const std::string& newText, uint maxWidth)
 {
 	this->maxWidth = maxWidth;
 	this->textValue = newText;
 	this->setStringWrap();
 }
 
-void WrappableText::setString(const std::string &newText)
+void WrappableText::setString(const std::string& newText)
 {
 	this->textValue = newText;
 	this->text.setString(newText);
@@ -84,7 +84,7 @@ void WrappableText::handleSettingsChange()
 	this->setStringWrap();
 }
 
-void WrappableText::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void WrappableText::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

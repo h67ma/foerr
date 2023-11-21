@@ -6,7 +6,7 @@
 
 #include <string>
 
-PipBuckPageInventoryOther::PipBuckPageInventoryOther(ResourceManager &resMgr) :
+PipBuckPageInventoryOther::PipBuckPageInventoryOther(ResourceManager& resMgr) :
 	PipBuckPage("Other") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
@@ -14,7 +14,7 @@ PipBuckPageInventoryOther::PipBuckPageInventoryOther(ResourceManager &resMgr) :
 	this->dummy.setString("inv other");
 }
 
-void PipBuckPageInventoryOther::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageInventoryOther::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->dummy, states);
 }

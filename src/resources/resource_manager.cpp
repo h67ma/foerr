@@ -95,7 +95,7 @@ bool ResourceManager::loadCore()
  * @param returnSomething if true, and requested texture is not found, a dummy texture will be returned instead of nullptr
  * @returns shared pointer to the loaded texture resource (can be `nullptr` if loading fails and !returnSomething)
  */
-std::shared_ptr<sf::Texture> ResourceManager::getTexture(const std::string &path, bool returnSomething)
+std::shared_ptr<sf::Texture> ResourceManager::getTexture(const std::string& path, bool returnSomething)
 {
 	auto search = this->textures.find(path);
 	if (search != this->textures.end())
@@ -137,7 +137,7 @@ std::shared_ptr<sf::Texture> ResourceManager::getNotFoundTexture() const
  * @param path audio resource path
  * @returns shared pointer to the loaded sound buffer resource (can be `nullptr` if loading fails)
  */
-std::shared_ptr<sf::SoundBuffer> ResourceManager::getSoundBuffer(const std::string &path)
+std::shared_ptr<sf::SoundBuffer> ResourceManager::getSoundBuffer(const std::string& path)
 {
 	auto search = this->audios.find(path);
 	if (search != this->audios.end())

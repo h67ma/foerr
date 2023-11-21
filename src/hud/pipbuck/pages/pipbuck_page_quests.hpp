@@ -15,6 +15,6 @@
 class PipBuckPageQuests : public PipBuckPage
 {
 	public:
-		explicit PipBuckPageQuests(ResourceManager &resMgr);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		explicit PipBuckPageQuests(ResourceManager& resMgr);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

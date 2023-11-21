@@ -29,7 +29,7 @@ constexpr uint ROOM_BORDER_TOP_INNER_Y = 1;
 constexpr uint ROOM_BORDER_BOTTOM_Y = ROOM_HEIGHT_WITH_BORDER - 1;
 constexpr uint ROOM_BORDER_BOTTOM_INNER_Y = ROOM_HEIGHT_WITH_BORDER - 2;
 
-Location::Location(const std::string &id, Player &player) : id(id), player(player)
+Location::Location(const std::string& id, Player& player) : id(id), player(player)
 {
 	// "It's ghouls, I tell ya. Religious ghouls in rockets looking for a land to call their own."
 }
@@ -59,7 +59,7 @@ Location::Location(const std::string &id, Player &player) : id(id), player(playe
  * @returns true if load succeeded
  * @returns false if load failed
  */
-bool Location::loadMeta(const nlohmann::json &locMetaNode, const std::string &campaignDir)
+bool Location::loadMeta(const nlohmann::json& locMetaNode, const std::string& campaignDir)
 {
 	Log::v(STR_LOADING_LOCATION_META, this->id.c_str());
 
@@ -132,7 +132,7 @@ bool Location::loadMeta(const nlohmann::json &locMetaNode, const std::string &ca
  * @returns true if load succeeded
  * @returns false if load failed
  */
-bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr)
+bool Location::loadContent(ResourceManager& resMgr, const MaterialManager& matMgr, const ObjectManager& objMgr)
 {
 	std::string backgroundFullPath;
 	nlohmann::json root;
@@ -167,7 +167,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
 	// TODO this is a prime candidate for parallelization - run N threads, each gets a few rooms
 	bool foundStart = false;
 	HashableVector3i startRoomCoords;
-	for (const auto &roomNode : (*roomsSearch))
+	for (const auto& roomNode : (*roomsSearch))
 	{
 		HashableVector3i roomCoords;
 		if (!parseJsonVector3iKey(roomNode, this->roomDataPath, FOERR_JSON_KEY_COORDS, roomCoords))
@@ -276,7 +276,7 @@ bool Location::loadContent(ResourceManager &resMgr, const MaterialManager &matMg
  *
  * @return true if validation passed, false otherwise
  */
-bool Location::validateRoomGeometry(const std::shared_ptr<Room> &room, const HashableVector3i &roomCoords) const
+bool Location::validateRoomGeometry(const std::shared_ptr<Room>& room, const HashableVector3i& roomCoords) const
 {
 	HashableVector3i coordsLeft = roomCoords;
 	HashableVector3i coordsRight = roomCoords;
@@ -702,7 +702,7 @@ void Location::tick(uint lastFrameDurationUs)
 /**
  * Re-setups sprites in current room, which causes new texture variants to be picked.
  */
-void Location::rerollObjVariants(ResourceManager &resMgr, const ObjectManager &objMgr)
+void Location::rerollObjVariants(ResourceManager& resMgr, const ObjectManager& objMgr)
 {
 	this->currentRoom->setupAllBackObjects(resMgr, objMgr);
 }
@@ -712,7 +712,7 @@ void Location::setRoomLightsState(enum LightObjectsState state)
 	this->currentRoom->setLightsState(state);
 }
 
-void Location::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// background full is drawn the same during transition and regular gameplay - it's "far away" so it shouldn't move
 	target.draw(this->backgroundFullSprite, states); // note: can be empty

@@ -46,7 +46,7 @@ const std::vector<sf::Vector2f> radIndicatorPointPositions {
 	{ 5, 60 },
 };
 
-PipBuck::PipBuck(ResourceManager &resMgr, CursorManager &cursorMgr, Campaign &campaign, GameState &gameState) :
+PipBuck::PipBuck(ResourceManager& resMgr, CursorManager& cursorMgr, Campaign& campaign, GameState& gameState) :
 	resMgr(resMgr),
 	cursorMgr(cursorMgr),
 	gameState(gameState),
@@ -110,7 +110,7 @@ PipBuck::PipBuck(ResourceManager &resMgr, CursorManager &cursorMgr, Campaign &ca
 	this->setGuiScale();
 	this->setAudioVolume();
 
-	for (auto &btn : this->categoryButtons)
+	for (auto& btn : this->categoryButtons)
 	{
 		this->hoverMgr += btn.second.get(); // FIXME this is pretty bad...
 	}
@@ -265,7 +265,7 @@ ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 		return status;
 	}
 
-	for (auto &btn : this->categoryButtons)
+	for (auto& btn : this->categoryButtons)
 	{
 		if (btn.second->containsPoint(clickPos))
 		{
@@ -313,7 +313,7 @@ void PipBuck::handleMouseMove(sf::Vector2i mousePos)
  */
 bool PipBuck::setupCampaignInfos()
 {
-	for (auto &cat : this->categories)
+	for (auto& cat : this->categories)
 	{
 		if (!cat.second.setupCampaignInfos())
 		{
@@ -330,7 +330,7 @@ void PipBuck::unloadCampaignInfos()
 {
 	Log::d(STR_PIPBUCK_UNLOADING_CAMPAIGN);
 
-	for (auto &cat : this->categories)
+	for (auto& cat : this->categories)
 	{
 		cat.second.unloadCampaignInfos();
 	}
@@ -382,7 +382,7 @@ bool PipBuck::switchToPage(PipBuckPageType pageType, sf::Vector2i mousePos)
 
 bool PipBuck::setup()
 {
-	for (auto &cat : this->categories)
+	for (auto& cat : this->categories)
 	{
 		if (!cat.second.setup())
 			return false;
@@ -443,18 +443,18 @@ void PipBuck::handleSettingsChange()
 
 	this->closeBtn.handleSettingsChange();
 
-	for (auto &cat : this->categories)
+	for (auto& cat : this->categories)
 	{
 		cat.second.handleSettingsChange();
 	}
 
-	for (auto &btn : this->categoryButtons)
+	for (auto& btn : this->categoryButtons)
 	{
 		btn.second->handleSettingsChange();
 	}
 }
 
-void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuck::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
@@ -467,7 +467,7 @@ void PipBuck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	target.draw(this->categories.at(this->selectedCategory), states);
 
-	for (const auto &btn : this->categoryButtons)
+	for (const auto& btn : this->categoryButtons)
 	{
 		target.draw(*btn.second, states);
 	}

@@ -15,6 +15,6 @@
 class PipBuckPageMap : public PipBuckPage
 {
 	public:
-		explicit PipBuckPageMap(ResourceManager &resMgr);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		explicit PipBuckPageMap(ResourceManager& resMgr);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

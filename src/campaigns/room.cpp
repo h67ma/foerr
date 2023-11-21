@@ -20,7 +20,7 @@
 #define ROOM_SYMBOL_EMPTY '_'
 #define ROOM_SYMBOL_UNKNOWN '?'
 
-Room::Room(Player &player) : player(player)
+Room::Room(Player& player) : player(player)
 {
 	// "The box is there for a reason. I like thinking inside of it. I feel safe in there."
 }
@@ -62,8 +62,8 @@ Room::Room(Player &player) : player(player)
  * @returns true on load success
  * @returns false on load fail
  */
-bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const ObjectManager &objMgr,
-				const nlohmann::json &root, const std::string &filePath)
+bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const ObjectManager& objMgr,
+				const nlohmann::json& root, const std::string& filePath)
 {
 	///// room-wide backwall /////
 
@@ -156,7 +156,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 		{
 			line = (*it);
 		}
-		catch (const nlohmann::json::type_error &ex)
+		catch (const nlohmann::json::type_error& ex)
 		{
 			Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), FOERR_JSON_KEY_CELLS, ex.what());
 			return false;
@@ -223,7 +223,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 			return false;
 		}
 
-		for (auto &cell : this->cells[y])
+		for (auto& cell : this->cells[y])
 		{
 			if (!cell.finishSetup())
 				return false;
@@ -246,7 +246,7 @@ bool Room::load(ResourceManager &resMgr, const MaterialManager &matMgr, const Ob
 	return true;
 }
 
-void Room::setupAllBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr)
+void Room::setupAllBackObjects(ResourceManager& resMgr, const ObjectManager& objMgr)
 {
 	this->setupBackObjects(resMgr, objMgr, this->backObjectsData, this->backObjectsMain);
 	this->setupBackObjects(resMgr, objMgr, this->backObjectsDataFar, this->farBackObjectsMain);
@@ -258,8 +258,8 @@ void Room::setupAllBackObjects(ResourceManager &resMgr, const ObjectManager &obj
  * @return true if parsing was successful
  * @return false if parsing resulted in an error
  */
-bool Room::parseBackObjsNode(const nlohmann::json &root, const std::string &filePath, const char* key,
-							 std::vector<struct back_obj_data> &dataVector)
+bool Room::parseBackObjsNode(const nlohmann::json& root, const std::string& filePath, const char* key,
+							 std::vector<struct back_obj_data>& dataVector)
 {
 	dataVector.clear();
 
@@ -276,7 +276,7 @@ bool Room::parseBackObjsNode(const nlohmann::json &root, const std::string &file
 		return false;
 	}
 
-	for (const auto &backObjNode : *bgObjsSearch)
+	for (const auto& backObjNode : *bgObjsSearch)
 	{
 		struct back_obj_data parsedNode;
 
@@ -301,13 +301,13 @@ bool Room::parseBackObjsNode(const nlohmann::json &root, const std::string &file
  * Iterates over object data previously loaded via Room::parseBackObjsNode() and creates SpriteResources to draw.
  * Texture variants are randomized on every call.
  */
-void Room::setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr,
-							const std::vector<struct back_obj_data> &dataVector,
-							std::vector<SpriteResource> &spriteVector)
+void Room::setupBackObjects(ResourceManager& resMgr, const ObjectManager& objMgr,
+							const std::vector<struct back_obj_data>& dataVector,
+							std::vector<SpriteResource>& spriteVector)
 {
 	spriteVector.clear();
 
-	for (const auto &objData : dataVector)
+	for (const auto& objData : dataVector)
 	{
 		SpriteResource backObjMain;
 		SpriteResource backObjLight;
@@ -335,12 +335,12 @@ void Room::setupBackObjects(ResourceManager &resMgr, const ObjectManager &objMgr
  * Iterates over object data previously loaded via Room::parseBackObjsNode() and creates SpriteResources to draw.
  * Texture variants are randomized on every call.
  */
-void Room::setupBackHoleObjects(ResourceManager &resMgr, const ObjectManager &objMgr)
+void Room::setupBackHoleObjects(ResourceManager& resMgr, const ObjectManager& objMgr)
 {
 	this->backHoleObjectsMain.clear();
 	this->backHoleObjectsHoles.clear();
 
-	for (const auto &objData : this->backHoleObjectsData)
+	for (const auto& objData : this->backHoleObjectsData)
 	{
 		SpriteResource backObjMain;
 		SpriteResource backObjHole;
@@ -389,7 +389,7 @@ void Room::init()
 	// note: in Remains far back object drawing seems to work a bit differently: they seem to be drawn over cell
 	// backgrounds, but it makes little sense. in that case just use a regular, non-far back object. because of this,
 	// some rooms might look a bit different than in Remains. for an example compare M.A.S. (2, 8, 0).
-	for (const auto &backObj : this->farBackObjectsMain)
+	for (const auto& backObj : this->farBackObjectsMain)
 	{
 		// blend mode not supported for far back objects
 		tmpRender.draw(backObj);
@@ -403,7 +403,7 @@ void Room::init()
 		}
 	}
 
-	for (const auto &backObj : this->backHoleObjectsMain)
+	for (const auto& backObj : this->backHoleObjectsMain)
 	{
 		if (backObj.blend)
 			states.blendMode = BlendOverlayOrSomething;
@@ -414,12 +414,12 @@ void Room::init()
 	}
 
 	states.blendMode = BlendSubtractOrSomething;
-	for (const auto &backObj : this->backHoleObjectsHoles)
+	for (const auto& backObj : this->backHoleObjectsHoles)
 	{
 		tmpRender.draw(backObj, states);
 	}
 
-	for (const auto &backObj : this->backObjectsMain)
+	for (const auto& backObj : this->backObjectsMain)
 	{
 		tmpRender.draw(backObj);
 	}
@@ -487,7 +487,7 @@ void Room::init()
 		debugBox.setOutlineThickness(1.F);
 
 		debugBox.setOutlineColor(sf::Color::Green);
-		for (const auto &backObj : this->farBackObjectsMain)
+		for (const auto& backObj : this->farBackObjectsMain)
 		{
 			debugBox.setPosition(backObj.getPosition());
 			debugBox.setSize({ backObj.getLocalBounds().width, backObj.getLocalBounds().height });
@@ -495,7 +495,7 @@ void Room::init()
 		}
 
 		debugBox.setOutlineColor(sf::Color::Red);
-		for (const auto &backObj : this->backHoleObjectsMain)
+		for (const auto& backObj : this->backHoleObjectsMain)
 		{
 			debugBox.setPosition(backObj.spriteRes.getPosition());
 			debugBox.setSize({ backObj.spriteRes.getLocalBounds().width, backObj.spriteRes.getLocalBounds().height });
@@ -503,7 +503,7 @@ void Room::init()
 		}
 
 		debugBox.setOutlineColor(sf::Color::Cyan);
-		for (const auto &backObj : this->backObjectsMain)
+		for (const auto& backObj : this->backObjectsMain)
 		{
 			debugBox.setPosition(backObj.getPosition());
 			debugBox.setSize({ backObj.getLocalBounds().width, backObj.getLocalBounds().height });
@@ -726,7 +726,7 @@ void Room::setLightsState(enum LightObjectsState state)
  * @param target reference to render target
  * @param states render states
  */
-void Room::redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates states) const
+void Room::redrawCell(uint x, uint y, sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if (x >= ROOM_WIDTH_WITH_BORDER || y >= ROOM_HEIGHT_WITH_BORDER)
 		return;
@@ -738,7 +738,7 @@ void Room::redrawCell(uint x, uint y, sf::RenderTarget &target, sf::RenderStates
 	cell->drawLiquidAndSolid(target);
 }
 
-void Room::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

@@ -15,6 +15,6 @@
 class PipBuckPageAmmo : public PipBuckPage
 {
 	public:
-		explicit PipBuckPageAmmo(ResourceManager &resMgr);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		explicit PipBuckPageAmmo(ResourceManager& resMgr);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

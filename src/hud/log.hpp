@@ -36,8 +36,8 @@ class Log
 		static std::list<std::unique_ptr<LogElementText>> hudHistory;
 		static sf::Clock clock;
 		static std::ofstream logFile;
-		static void logToFile(const char* prefix, const std::string &msg);
-		static void logStderr(const char* prefix, const std::string &msg);
+		static void logToFile(const char* prefix, const std::string& msg);
+		static void logStderr(const char* prefix, const std::string& msg);
 
 	public:
 		static void setup();
@@ -46,7 +46,7 @@ class Log
 		static void handleSettingsChange();
 		static void openLogFile();
 		static void tick(bool force = false);
-		static void draw(sf::RenderTarget &target);
+		static void draw(sf::RenderTarget& target);
 		static void close();
 
 		/**

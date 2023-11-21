@@ -8,7 +8,7 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-CustomCursor::CustomCursor(const std::string &path, sf::Vector2u hotPoint, sf::Cursor::Type fallback) :
+CustomCursor::CustomCursor(const std::string& path, sf::Vector2u hotPoint, sf::Cursor::Type fallback) :
 	path(path),
 	hotPoint(hotPoint),
 	fallbackCursor(fallback)

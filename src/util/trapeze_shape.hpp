@@ -16,7 +16,7 @@ struct trapeze_data
 };
 
 template <typename T>
-constexpr struct trapeze_data operator*(const struct trapeze_data &lhs, T rhs)
+constexpr struct trapeze_data operator*(const struct trapeze_data& lhs, T rhs)
 {
 	return trapeze_data { lhs.topStartX * rhs,
 						  lhs.bottomStartX * rhs,
@@ -40,11 +40,11 @@ class TrapezeShape : public sf::Shape
 		void updateCoeffs();
 
 	public:
-		explicit TrapezeShape(const struct trapeze_data &data);
+		explicit TrapezeShape(const struct trapeze_data& data);
 		explicit TrapezeShape(float topStartX, float bottomStartX, float topWidth, float bottomWidth, float height);
 		std::size_t getPointCount() const override;
 		sf::Vector2f getPoint(std::size_t index) const override;
 		bool contains(sf::Vector2f point) const;
 		struct trapeze_data getData() const;
-		void setData(const struct trapeze_data &data);
+		void setData(const struct trapeze_data& data);
 };

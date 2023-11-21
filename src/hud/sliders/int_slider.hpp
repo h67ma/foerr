@@ -19,7 +19,7 @@ class IntSlider : public Slider
 		void setSliderPos(int mouseX) override;
 
 	public:
-		IntSlider(const sf::Font &font, int minVal, int defaultVal, int maxVal);
+		IntSlider(const sf::Font& font, int minVal, int defaultVal, int maxVal);
 		int getValue() const;
 		void setValue(int value);
 };

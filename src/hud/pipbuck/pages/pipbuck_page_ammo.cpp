@@ -6,7 +6,7 @@
 
 #include <string>
 
-PipBuckPageAmmo::PipBuckPageAmmo(ResourceManager &resMgr) :
+PipBuckPageAmmo::PipBuckPageAmmo(ResourceManager& resMgr) :
 	PipBuckPage("Ammunition") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
@@ -14,7 +14,7 @@ PipBuckPageAmmo::PipBuckPageAmmo(ResourceManager &resMgr) :
 	this->dummy.setString("ammo");
 }
 
-void PipBuckPageAmmo::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageAmmo::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->dummy, states);
 }

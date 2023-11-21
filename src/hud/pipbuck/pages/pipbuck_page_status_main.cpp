@@ -6,7 +6,7 @@
 
 #include <string>
 
-PipBuckPageMainStatus::PipBuckPageMainStatus(ResourceManager &resMgr) :
+PipBuckPageMainStatus::PipBuckPageMainStatus(ResourceManager& resMgr) :
 	PipBuckPage("Main") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
@@ -14,7 +14,7 @@ PipBuckPageMainStatus::PipBuckPageMainStatus(ResourceManager &resMgr) :
 	this->dummy.setString("main");
 }
 
-void PipBuckPageMainStatus::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageMainStatus::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->dummy, states);
 }

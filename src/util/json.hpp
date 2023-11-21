@@ -62,9 +62,9 @@
 #define FOERR_JSON_KEY_OFFSET_LEFT "offset_left"
 #define FOERR_JSON_KEY_SPAWN_COORDS "spawn_coords"
 
-void writeJsonToFile(const nlohmann::json &root, const std::string &path);
-bool loadJsonFromFile(nlohmann::json &root, const std::string &path, bool quiet = false);
-bool parseJsonVector3iKey(const nlohmann::json &node, const std::string &filePath, const char* key, sf::Vector3i &value,
+void writeJsonToFile(const nlohmann::json& root, const std::string& path);
+bool loadJsonFromFile(nlohmann::json& root, const std::string& path, bool quiet = false);
+bool parseJsonVector3iKey(const nlohmann::json& node, const std::string& filePath, const char* key, sf::Vector3i& value,
 						  bool quiet = false);
 
 /**
@@ -72,8 +72,8 @@ bool parseJsonVector3iKey(const nlohmann::json &node, const std::string &filePat
  * Coordinate element in json looks like this: "key": [123, 456]
  */
 template<typename T>
-bool parseJsonVector2Key(const nlohmann::json &node, const std::string &filePath, const char* key,
-						  sf::Vector2<T> &value, bool quiet = false)
+bool parseJsonVector2Key(const nlohmann::json& node, const std::string& filePath, const char* key,
+						  sf::Vector2<T>& value, bool quiet = false)
 {
 	auto search = node.find(key);
 	if (search == node.end())
@@ -100,7 +100,7 @@ bool parseJsonVector2Key(const nlohmann::json &node, const std::string &filePath
 	{
 		value = { (*search)[0], (*search)[1] };
 	}
-	catch (const nlohmann::json::type_error &ex)
+	catch (const nlohmann::json::type_error& ex)
 	{
 		Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), key, ex.what());
 		return false;
@@ -110,7 +110,7 @@ bool parseJsonVector2Key(const nlohmann::json &node, const std::string &filePath
 }
 
 template<typename T>
-bool parseJsonKey(const nlohmann::json &node, const std::string &filePath, const char* key, T &value,
+bool parseJsonKey(const nlohmann::json& node, const std::string& filePath, const char* key, T& value,
 				  bool quiet = false)
 {
 	auto search = node.find(key);
@@ -126,7 +126,7 @@ bool parseJsonKey(const nlohmann::json &node, const std::string &filePath, const
 	{
 		value = search.value();
 	}
-	catch (const nlohmann::json::type_error &ex)
+	catch (const nlohmann::json::type_error& ex)
 	{
 		Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), key, ex.what());
 		return false;

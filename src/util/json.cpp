@@ -8,7 +8,7 @@
 
 #include "../hud/log.hpp"
 
-void writeJsonToFile(const nlohmann::json &root, const std::string &path)
+void writeJsonToFile(const nlohmann::json& root, const std::string& path)
 {
 	std::ofstream writer(path);
 	writer << std::setfill('\t') << std::setw(1) << root << std::endl;
@@ -26,7 +26,7 @@ void writeJsonToFile(const nlohmann::json &root, const std::string &path)
  * @return true if loading succeeded
  * @return false if loading failed
  */
-bool loadJsonFromFile(nlohmann::json &root, const std::string &path, bool quiet)
+bool loadJsonFromFile(nlohmann::json& root, const std::string& path, bool quiet)
 {
 	std::ifstream reader(path);
 
@@ -41,7 +41,7 @@ bool loadJsonFromFile(nlohmann::json &root, const std::string &path, bool quiet)
 	{
 		root = nlohmann::json::parse(reader, nullptr, true, true);
 	}
-	catch (const nlohmann::json::parse_error &ex)
+	catch (const nlohmann::json::parse_error& ex)
 	{
 		Log::e(STR_ERROR_PARSING_JSON_FILE, path.c_str(), ex.what());
 		reader.close(); // no finally :(
@@ -63,7 +63,7 @@ bool loadJsonFromFile(nlohmann::json &root, const std::string &path, bool quiet)
  * Parses a three-element vector from json. Useful for sizes, coordinates, etc.
  * Coordinate element in json looks like this: "key": [123, 456, 1]
  */
-bool parseJsonVector3iKey(const nlohmann::json &node, const std::string &filePath, const char* key, sf::Vector3i &value,
+bool parseJsonVector3iKey(const nlohmann::json& node, const std::string& filePath, const char* key, sf::Vector3i& value,
 						  bool quiet)
 {
 	auto search = node.find(key);
@@ -91,7 +91,7 @@ bool parseJsonVector3iKey(const nlohmann::json &node, const std::string &filePat
 	{
 		value = { (*search)[0], (*search)[1], (*search)[2] };
 	}
-	catch (const nlohmann::json::type_error &ex)
+	catch (const nlohmann::json::type_error& ex)
 	{
 		Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), key, ex.what());
 		return false;

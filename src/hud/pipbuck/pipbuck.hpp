@@ -47,10 +47,10 @@
 class PipBuck : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent
 {
 	private:
-		ResourceManager &resMgr;
-		Campaign &campaign;
+		ResourceManager& resMgr;
+		Campaign& campaign;
 		HoverManager hoverMgr;
-		CursorManager &cursorMgr;
+		CursorManager& cursorMgr;
 		SpriteResource pipBuckSprite;
 		SpriteResource pipBuckScreenRadialGrad; // note: can be generated purely by SFML, but it's hard to get right
 		sf::ConvexShape radIndicator;
@@ -65,7 +65,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		SimpleButton closeBtn;
 		SoundResource soundOpenClose;
 		SoundResource soundCategoryBtn;
-		GameState &gameState;
+		GameState& gameState;
 		bool changeCategory(PipBuckCategoryType categoryType);
 		static double getSmoothNoise(double time);
 		void updateCampaignInfos();
@@ -79,7 +79,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		void setRadLevel(float rads);
 
 	public:
-		PipBuck(ResourceManager &resMgr, CursorManager &cursorMgr, Campaign &campaign, GameState &gameState);
+		PipBuck(ResourceManager& resMgr, CursorManager& cursorMgr, Campaign& campaign, GameState& gameState);
 		void handleScreenResize(sf::Vector2u windowSize);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
@@ -92,5 +92,5 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		bool setup();
 		void tick();
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

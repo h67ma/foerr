@@ -7,7 +7,7 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-ColorSetting::ColorSetting(const std::string &key, SerializableColor &val, SerializableColor defaultVal) :
+ColorSetting::ColorSetting(const std::string& key, SerializableColor &val, SerializableColor defaultVal) :
 	GenericSetting<SerializableColor>(key, val, defaultVal) {}
 
 std::string ColorSetting::defaultToString() const
@@ -20,7 +20,7 @@ nlohmann::json ColorSetting::getJsonValue() const
 	return nlohmann::json(this->val.toString());
 }
 
-void ColorSetting::loadFromJson(const nlohmann::json &node)
+void ColorSetting::loadFromJson(const nlohmann::json& node)
 {
 	std::string readString = node;
 	if (!this->val.loadFromColorString(readString))

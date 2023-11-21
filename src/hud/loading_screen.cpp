@@ -7,7 +7,7 @@
 #include "../settings/settings_manager.hpp"
 #include "../util/i18n.hpp"
 
-LoadingScreen::LoadingScreen(ResourceManager &resMgr, sf::Vector2u windowSize) :
+LoadingScreen::LoadingScreen(ResourceManager& resMgr, sf::Vector2u windowSize) :
 	loadingText(STR_LOADING, *resMgr.getFont(FONT_FIXED), FONT_H1, SettingsManager::hudColor)
 {
 	this->loadingText.setPosition(
@@ -16,7 +16,7 @@ LoadingScreen::LoadingScreen(ResourceManager &resMgr, sf::Vector2u windowSize) :
 	);
 }
 
-void LoadingScreen::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void LoadingScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->loadingText, states);
 }

@@ -93,7 +93,7 @@ class Keymap
 		static std::unordered_map<std::string, sf::Keyboard::Key> keyStringToKeyMap;
 		static std::unordered_map<std::string, KeyAction> actionStringToActionMap;
 		static std::unordered_map<sf::Keyboard::Key, std::string> keyNamesMap;
-		static sf::Keyboard::Key keyStringToKey(const std::string &keyStr);
+		static sf::Keyboard::Key keyStringToKey(const std::string& keyStr);
 
 		// flags used to determine if a key is being pressed. this is pretty lame, but for a different approach
 		// (directly checking keyboard state via sf::Keyboard::isKeyPressed()), supporting configurable keys would be
@@ -111,7 +111,7 @@ class Keymap
 		static KeyAction keyToAction(sf::Keyboard::Key key);
 		static std::string keyToString(sf::Keyboard::Key key);
 		static std::string actionToString(KeyAction action);
-		static KeyAction actionStringToAction(const std::string &actionStr);
+		static KeyAction actionStringToAction(const std::string& actionStr);
 		static std::string actionToDisplayString(KeyAction action);
 		static bool handleKeyUpDown(enum KeyAction action, bool down);
 		static bool isLeftHeld();

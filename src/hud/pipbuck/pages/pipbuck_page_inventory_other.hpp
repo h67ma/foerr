@@ -15,6 +15,6 @@
 class PipBuckPageInventoryOther : public PipBuckPage
 {
 	public:
-		explicit PipBuckPageInventoryOther(ResourceManager &resMgr);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		explicit PipBuckPageInventoryOther(ResourceManager& resMgr);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

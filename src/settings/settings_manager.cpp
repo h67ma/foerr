@@ -150,7 +150,7 @@ void SettingsManager::saveConfig()
 	root.emplace(FOERR_JSON_API_VERSION, JSON_API_VERSION);
 
 	nlohmann::json keysNode;
-	for (const auto &sett : SettingsManager::settings)
+	for (const auto& sett : SettingsManager::settings)
 	{
 		keysNode.emplace(sett->getKey(), sett->getJsonValue());
 	}
@@ -186,7 +186,7 @@ void SettingsManager::loadConfig()
 		return;
 	}
 
-	for (auto &sett : SettingsManager::settings)
+	for (auto& sett : SettingsManager::settings)
 	{
 		auto search = keysSearch->find(sett->getKey());
 		if (search == keysSearch->end())
@@ -199,7 +199,7 @@ void SettingsManager::loadConfig()
 		{
 			sett->loadFromJson(search.value());
 		}
-		catch (const nlohmann::json::type_error &ex)
+		catch (const nlohmann::json::type_error& ex)
 		{
 			Log::w(STR_INVALID_TYPE_EX, path.c_str(), sett->getKey().c_str(), ex.what());
 		}
@@ -208,7 +208,7 @@ void SettingsManager::loadConfig()
 
 void SettingsManager::resetAllToDefault()
 {
-	for (auto &sett : SettingsManager::settings)
+	for (auto& sett : SettingsManager::settings)
 	{
 		sett->resetToDefault();
 	}

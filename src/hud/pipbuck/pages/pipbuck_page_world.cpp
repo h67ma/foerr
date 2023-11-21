@@ -23,7 +23,7 @@ constexpr uint DESC_TEXT_WIDTH = 430;
 constexpr float MAP_GRID_SPACING = 110;
 constexpr float SQRT2 = 1.414213562;
 
-PipBuckPageWorld::PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign) :
+PipBuckPageWorld::PipBuckPageWorld(ResourceManager& resMgr, Campaign& campaign) :
 	PipBuckPage("World"), // TODO translate
 	resMgr(resMgr),
 	campaign(campaign),
@@ -86,7 +86,7 @@ ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 	{
 		auto oldBtnSearch = this->mapButtons.find(this->selectedLocId);
 
-		for (auto &btn : this->mapButtons)
+		for (auto& btn : this->mapButtons)
 		{
 			if (btn.second.handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
 			{
@@ -229,7 +229,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 	this->mapBg.setTexture(mapBgTxt);
 	this->setupMapDecorations();
 
-	for (const auto &loc : this->campaign.getLocations())
+	for (const auto& loc : this->campaign.getLocations())
 	{
 		std::shared_ptr<sf::Texture> iconTxt = this->resMgr.getTexture(loc.second->getWorldMapIconId(), false);
 		if (iconTxt == nullptr)
@@ -248,7 +248,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 
 	this->updateActiveIndicator();
 
-	for (auto &btn : this->mapButtons)
+	for (auto& btn : this->mapButtons)
 	{
 		this->mapButtonHoverMgr += &btn.second;
 	}
@@ -279,7 +279,7 @@ void PipBuckPageWorld::handleSettingsChange()
 {
 	this->gotoLocationBtn.handleSettingsChange();
 
-	for (auto &btn : this->mapButtons)
+	for (auto& btn : this->mapButtons)
 	{
 		btn.second.handleSettingsChange();
 	}
@@ -292,13 +292,13 @@ void PipBuckPageWorld::handleSettingsChange()
 	this->setComponentColors();
 }
 
-void PipBuckPageWorld::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->mapBg, states);
 	target.draw(this->mapGridLines, states);
 	target.draw(this->mapBorder, states);
 
-	for (const auto &btn : this->mapButtons)
+	for (const auto& btn : this->mapButtons)
 	{
 		target.draw(btn.second, states);
 	}

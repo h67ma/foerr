@@ -28,7 +28,7 @@ class Campaign : public sf::Drawable
 {
 	private:
 		Player player;
-		ResourceManager &resMgr;
+		ResourceManager& resMgr;
 		MaterialManager matMgr;
 		ObjectManager objMgr;
 		std::string title;
@@ -45,8 +45,8 @@ class Campaign : public sf::Drawable
 		std::unordered_map<std::string, std::shared_ptr<Location>> locations;
 
 	public:
-		explicit Campaign(ResourceManager &resMgr);
-		bool load(const std::string &campaignDir);
+		explicit Campaign(ResourceManager& resMgr);
+		bool load(const std::string& campaignDir);
 		void unload();
 		std::string getTitle() const;
 		std::string getDescription() const;
@@ -54,8 +54,8 @@ class Campaign : public sf::Drawable
 		Player& getPlayer();
 		const std::unordered_map<std::string, std::shared_ptr<Location>>& getLocations() const;
 		const std::shared_ptr<Location> getCurrentLocation() const;
-		const std::shared_ptr<Location> getLocation(const std::string &locId) const;
-		bool changeLocation(const std::string &newLocId);
+		const std::shared_ptr<Location> getLocation(const std::string& locId) const;
+		bool changeLocation(const std::string& newLocId);
 		bool isLoaded();
 		bool gotoRoom(Direction direction);
 		bool gotoRoom(HashableVector3i coords);
@@ -66,5 +66,5 @@ class Campaign : public sf::Drawable
 		void teleportPlayer(sf::Vector2f position);
 		void rerollObjVariants();
 		void setRoomLightsState(enum LightObjectsState state);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

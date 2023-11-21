@@ -8,7 +8,7 @@
 
 #include "../settings/settings_manager.hpp"
 
-TextLabel::TextLabel(const std::string &text, const sf::Font &font, uint fontSize, const sf::Color &color) :
+TextLabel::TextLabel(const std::string& text, const sf::Font& font, uint fontSize, const sf::Color& color) :
 	fontSize(fontSize)
 {
 	this->setString(text);
@@ -18,7 +18,7 @@ TextLabel::TextLabel(const std::string &text, const sf::Font &font, uint fontSiz
 	this->handleSettingsChange();
 }
 
-TextLabel::TextLabel(const std::string &text, const sf::Font &font, uint fontSize) :
+TextLabel::TextLabel(const std::string& text, const sf::Font& font, uint fontSize) :
 	fontSize(fontSize)
 {
 	this->setString(text);
@@ -27,7 +27,7 @@ TextLabel::TextLabel(const std::string &text, const sf::Font &font, uint fontSiz
 	this->handleSettingsChange();
 }
 
-TextLabel::TextLabel(const sf::Font &font, uint fontSize) :
+TextLabel::TextLabel(const sf::Font& font, uint fontSize) :
 	fontSize(fontSize)
 {
 	this->setFont(font);

@@ -16,6 +16,6 @@ class LoadingScreen : public sf::Drawable
 		TextLabel loadingText;
 
 	public:
-		LoadingScreen(ResourceManager &resMgr, sf::Vector2u windowSize);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		LoadingScreen(ResourceManager& resMgr, sf::Vector2u windowSize);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

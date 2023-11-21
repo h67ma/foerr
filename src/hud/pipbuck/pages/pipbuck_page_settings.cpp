@@ -9,7 +9,7 @@
 #include "../../../settings/settings_manager.hpp"
 #include "../../../util/i18n.hpp"
 
-PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
+PipBuckPageSettings::PipBuckPageSettings(ResourceManager& resMgr) :
 	PipBuckPage("Settings"), // TODO translate
 	buttons({
 		{BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, [this]() {
@@ -34,7 +34,7 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager &resMgr) :
 	guiScaleSlider(*resMgr.getFont(FONT_NORMAL), GUI_SCALE_MIN_VALUE, SettingsManager::guiScale, GUI_SCALE_MAX_VALUE, 2),
 	infoText(*resMgr.getFont(FONT_NORMAL), 17U, { 400.F, 272.F })
 {
-	for (auto &btn : this->buttons)
+	for (auto& btn : this->buttons)
 	{
 		this->hoverMgr += &btn;
 		this->clickMgr += &btn;
@@ -79,7 +79,7 @@ bool PipBuckPageSettings::handleMouseMove(sf::Vector2i mousePos)
 
 void PipBuckPageSettings::handleSettingsChange()
 {
-	for (auto &btn : this->buttons)
+	for (auto& btn : this->buttons)
 	{
 		btn.handleSettingsChange();
 	}
@@ -89,9 +89,9 @@ void PipBuckPageSettings::handleSettingsChange()
 	this->infoText.handleSettingsChange();
 }
 
-void PipBuckPageSettings::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageSettings::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (const auto &btn : this->buttons)
+	for (const auto& btn : this->buttons)
 	{
 		target.draw(btn, states);
 	}

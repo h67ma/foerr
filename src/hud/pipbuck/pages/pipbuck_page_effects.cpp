@@ -6,7 +6,7 @@
 
 #include <string>
 
-PipBuckPageEffects::PipBuckPageEffects(ResourceManager &resMgr) :
+PipBuckPageEffects::PipBuckPageEffects(ResourceManager& resMgr) :
 	PipBuckPage("Effects") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
@@ -14,7 +14,7 @@ PipBuckPageEffects::PipBuckPageEffects(ResourceManager &resMgr) :
 	this->dummy.setString("effects");
 }
 
-void PipBuckPageEffects::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageEffects::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->dummy, states);
 }

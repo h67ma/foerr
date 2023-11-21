@@ -11,7 +11,7 @@
 
 #define LOG_ELEMENT_LIFE_TIME_S 5
 
-LogElementText::LogElementText(const std::string &text, sf::Font &font, const sf::Color &color) :
+LogElementText::LogElementText(const std::string& text, sf::Font& font, const sf::Color& color) :
 	TextLabel(text, font, FONT_H3, color)
 {
 	this->setString(text);

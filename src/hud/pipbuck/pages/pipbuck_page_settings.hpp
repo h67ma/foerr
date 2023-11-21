@@ -27,10 +27,10 @@ class PipBuckPageSettings : public PipBuckPage
 		WrappableText infoText;
 
 	public:
-		explicit PipBuckPageSettings(ResourceManager &resMgr);
+		explicit PipBuckPageSettings(ResourceManager& resMgr);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		void handleLeftClickUp() override;
 		bool handleMouseMove(sf::Vector2i mousePos) override;
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

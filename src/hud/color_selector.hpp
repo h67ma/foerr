@@ -20,12 +20,12 @@ class ColorSelector : public sf::Drawable, public GuiTransformable
 		void updateColor();
 
 	public:
-		ColorSelector(const sf::Font &font, sf::Color initialColor);
+		ColorSelector(const sf::Font& font, sf::Color initialColor);
 		sf::Color getSelectedColor() const;
 		void setSelectedColor(sf::Color color);
 		bool handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		bool handleMouseMove(sf::Vector2i mousePos);
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

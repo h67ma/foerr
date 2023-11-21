@@ -39,13 +39,13 @@ class TextInput : public sf::Drawable, public sf::Transformable, public Configur
 		void setSize();
 
 	public:
-		TextInput(uint fontSize, uint width, const sf::Font &font, uint maxCharacters);
+		TextInput(uint fontSize, uint width, const sf::Font& font, uint maxCharacters);
 		std::string getCurrentInput() const;
 		uint getHeight() const;
 		bool handleTextEntered(uint keycode);
-		void setInput(const std::string &input);
+		void setInput(const std::string& input);
 		void clearInput();
 		void handleKeyPress(sf::Keyboard::Key key);
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

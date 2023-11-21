@@ -15,6 +15,6 @@
 class PipBuckPageArmor : public PipBuckPage
 {
 	public:
-		explicit PipBuckPageArmor(ResourceManager &resMgr);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		explicit PipBuckPageArmor(ResourceManager& resMgr);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

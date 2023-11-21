@@ -42,13 +42,13 @@ class SimpleButton : public Button
 		void setGuiScale();
 
 	public:
-		SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, const sf::Vector2u &position,
-					 const std::string &text = "Button", std::function<void(void)> callback = nullptr,
+		SimpleButton(SimpleButtonSize size, ResourceManager& resMgr, const sf::Vector2u& position,
+					 const std::string& text = "Button", std::function<void(void)> callback = nullptr,
 					 ClickStatus consumedStatus = CLICK_CONSUMED);
 		bool containsPoint(sf::Vector2i coords) override;
 		void setHover(bool hover) override;
 		void setSelected(bool selected) override;
-		void setText(const std::string &text);
+		void setText(const std::string& text);
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

@@ -4,7 +4,7 @@
 
 #include "trapeze_shape.hpp"
 
-TrapezeShape::TrapezeShape(const struct trapeze_data &data) : data(data)
+TrapezeShape::TrapezeShape(const struct trapeze_data& data) : data(data)
 {
 	this->updateCoeffs();
 	this->update();
@@ -66,7 +66,7 @@ struct trapeze_data TrapezeShape::getData() const
 	return this->data;
 }
 
-void TrapezeShape::setData(const struct trapeze_data &data)
+void TrapezeShape::setData(const struct trapeze_data& data)
 {
 	this->data = data;
 	this->updateCoeffs();

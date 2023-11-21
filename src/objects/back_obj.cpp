@@ -9,7 +9,7 @@
 #include "../util/random.hpp"
 #include "../util/json.hpp"
 
-bool BackObject::loadFromJson(const nlohmann::json &jsonNode)
+bool BackObject::loadFromJson(const nlohmann::json& jsonNode)
 {
 	// each can be undefined, in which case we assume 0
 	parseJsonKey<uint>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_MAIN_CNT, this->mainCnt, true);
@@ -43,8 +43,8 @@ bool BackObject::loadFromJson(const nlohmann::json &jsonNode)
  * @return true if at least one of the types has set a texture
  * @return false if no types provided texture for requested variant
  */
-bool BackObject::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes, ResourceManager &resMgr,
-								const struct back_obj_data &backObjData, enum LightObjectsState lightState) const
+bool BackObject::setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& lightSpriteRes, ResourceManager& resMgr,
+								const struct back_obj_data& backObjData, enum LightObjectsState lightState) const
 {
 	int selectedVariant = backObjData.variantIdx;
 

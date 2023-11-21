@@ -74,18 +74,18 @@ class RoomCell : public sf::Transformable
 
 	public:
 		static const sf::Color liquidSpriteColor;
-		bool addSolidSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr);
+		bool addSolidSymbol(char symbol, ResourceManager& resMgr, const MaterialManager& matMgr);
 		bool addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool topCellBlocksLiquidDelim,
-							ResourceManager &resMgr, const MaterialManager &matMgr);
+							ResourceManager& resMgr, const MaterialManager& matMgr);
 		bool finishSetup();
 		bool blocksBottomCellLadderDelim() const;
 		bool blocksBottomCellLiquidDelim() const;
 		bool getHasSolid() const;
 		bool getIsCollider() const;
 		const sf::FloatRect& getSolidCollider() const;
-		void drawBackground(sf::RenderTarget &target) const;
-		void drawPlatform(sf::RenderTarget &target) const;
-		void drawStairs(sf::RenderTarget &target) const;
-		void drawLadder(sf::RenderTarget &target) const;
-		void drawLiquidAndSolid(sf::RenderTarget &target) const;
+		void drawBackground(sf::RenderTarget& target) const;
+		void drawPlatform(sf::RenderTarget& target) const;
+		void drawStairs(sf::RenderTarget& target) const;
+		void drawLadder(sf::RenderTarget& target) const;
+		void drawLiquidAndSolid(sf::RenderTarget& target) const;
 };

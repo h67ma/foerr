@@ -6,7 +6,7 @@
 
 #include <string>
 
-PipBuckPagePerks::PipBuckPagePerks(ResourceManager &resMgr) :
+PipBuckPagePerks::PipBuckPagePerks(ResourceManager& resMgr) :
 	PipBuckPage("Perks") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
@@ -14,7 +14,7 @@ PipBuckPagePerks::PipBuckPagePerks(ResourceManager &resMgr) :
 	this->dummy.setString("perks");
 }
 
-void PipBuckPagePerks::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPagePerks::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->dummy, states);
 }

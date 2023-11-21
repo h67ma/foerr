@@ -40,5 +40,5 @@ class LocButton : public Button
 		bool getIsBig() const;
 		static uint getSideLen(bool big);
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

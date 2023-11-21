@@ -15,6 +15,6 @@
 class PipBuckPageMainStatus : public PipBuckPage
 {
 	public:
-		explicit PipBuckPageMainStatus(ResourceManager &resMgr);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		explicit PipBuckPageMainStatus(ResourceManager& resMgr);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

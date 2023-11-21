@@ -19,8 +19,8 @@ const sf::Vector2f hoverImgOffset(-22.F, -22.F);
 constexpr uint TEXT_BOTTOM_OFFSET = 14;
 constexpr uint CATEGORY_BTN_FONT_SIZE = 20;
 
-PipBuckCategoryButton::PipBuckCategoryButton(ResourceManager &resMgr, sf::Vector2u position,
-											 const struct trapeze_data &shape, const std::string &text,
+PipBuckCategoryButton::PipBuckCategoryButton(ResourceManager& resMgr, sf::Vector2u position,
+											 const struct trapeze_data& shape, const std::string& text,
 											 const std::string& hoverImgPath) :
 	Button(position),
 	text(text, *resMgr.getFont(FONT_FIXED), CATEGORY_BTN_FONT_SIZE),
@@ -81,7 +81,7 @@ void PipBuckCategoryButton::setSelected(bool selected)
 	this->updateState();
 }
 
-void PipBuckCategoryButton::setText(const std::string &text)
+void PipBuckCategoryButton::setText(const std::string& text)
 {
 	this->text.setString(text);
 	this->centerText();
@@ -100,7 +100,7 @@ void PipBuckCategoryButton::handleSettingsChange()
 	this->centerText();
 }
 
-void PipBuckCategoryButton::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckCategoryButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

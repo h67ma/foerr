@@ -114,7 +114,7 @@ void LocButton::handleSettingsChange()
 	this->updateState();
 }
 
-void LocButton::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void LocButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

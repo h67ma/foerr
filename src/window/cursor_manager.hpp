@@ -21,10 +21,10 @@ class CursorManager
 {
 	private:
 		std::unordered_map<CursorType, CustomCursor> cursors;
-		sf::Window &window;
+		sf::Window& window;
 
 	public:
-		explicit CursorManager(sf::Window &window);
+		explicit CursorManager(sf::Window& window);
 		bool loadCursors();
 		void setCursor(CursorType type);
 };

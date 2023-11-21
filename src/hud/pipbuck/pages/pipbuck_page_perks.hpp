@@ -15,6 +15,6 @@
 class PipBuckPagePerks : public PipBuckPage
 {
 	public:
-		explicit PipBuckPagePerks(ResourceManager &resMgr);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		explicit PipBuckPagePerks(ResourceManager& resMgr);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

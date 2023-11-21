@@ -24,7 +24,7 @@ class FloatSlider : public Slider
 		void setSliderPos(int mouseX) override;
 
 	public:
-		FloatSlider(const sf::Font &font, float minVal, float defaultVal, float maxVal, uint decimalPlaces);
+		FloatSlider(const sf::Font& font, float minVal, float defaultVal, float maxVal, uint decimalPlaces);
 		float getValue() const;
 		void setValue(float value);
 };

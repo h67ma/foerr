@@ -9,7 +9,7 @@
 #include "../hud/log.hpp"
 #include "../consts.hpp"
 
-void recreateWindow(sf::RenderWindow &window)
+void recreateWindow(sf::RenderWindow& window)
 {
 	// TODO settings activity should detect valid video modes and list them, with the standard "confirm in 15 seconds"
 	// dialog after changing resolution.
@@ -43,7 +43,7 @@ void recreateWindow(sf::RenderWindow &window)
  * Stolen from https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view & slightly modified.
  * Really, this should've been build into SFML.
  */
-void setLetterboxView(sf::View &view, sf::Vector2u windowSize)
+void setLetterboxView(sf::View& view, sf::Vector2u windowSize)
 {
 	float windowRatio = windowSize.x / static_cast<float>(windowSize.y);
 	float viewRatio = view.getSize().x / static_cast<float>(view.getSize().y);
@@ -68,8 +68,8 @@ void setLetterboxView(sf::View &view, sf::Vector2u windowSize)
 	view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
 }
 
-void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView,
-					   PipBuck &pipBuck, MainMenu &mainMenu, DevConsole &console)
+void windowSizeChanged(sf::Vector2u windowSize, FpsMeter& fpsMeter, sf::View& hudView, sf::View& gameWorldView,
+					   PipBuck& pipBuck, MainMenu& mainMenu, DevConsole& console)
 {
 	// update position of dockable elements
 	Log::handleScreenResize(windowSize);
@@ -83,8 +83,8 @@ void windowSizeChanged(sf::Vector2u windowSize, FpsMeter &fpsMeter, sf::View &hu
 	setLetterboxView(gameWorldView, windowSize);
 }
 
-void toggleFullscreen(sf::RenderWindow &window, FpsMeter &fpsMeter, sf::View &hudView, sf::View &gameWorldView,
-					  PipBuck &pipBuck, MainMenu &mainMenu, DevConsole &console)
+void toggleFullscreen(sf::RenderWindow& window, FpsMeter& fpsMeter, sf::View& hudView, sf::View& gameWorldView,
+					  PipBuck& pipBuck, MainMenu& mainMenu, DevConsole& console)
 {
 	if (SettingsManager::fullscreen)
 	{

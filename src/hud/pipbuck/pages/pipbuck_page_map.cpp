@@ -6,7 +6,7 @@
 
 #include <string>
 
-PipBuckPageMap::PipBuckPageMap(ResourceManager &resMgr) :
+PipBuckPageMap::PipBuckPageMap(ResourceManager& resMgr) :
 	PipBuckPage("Map") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
@@ -20,7 +20,7 @@ PipBuckPageMap::PipBuckPageMap(ResourceManager &resMgr) :
 	// to current layer
 }
 
-void PipBuckPageMap::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->dummy, states);
 }

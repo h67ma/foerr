@@ -34,11 +34,11 @@ class Slider : public GuiTransformable, public sf::Drawable
 		static uint adjustedPossibleMouseValCnt;
 
 	public:
-		explicit Slider(const sf::Font &font);
+		explicit Slider(const sf::Font& font);
 		static void calculateCoeffs();
 		bool handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		bool handleMouseMove(sf::Vector2i mousePos);
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

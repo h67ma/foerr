@@ -22,9 +22,9 @@
 
 struct dev_console_cmd_params
 {
-	const std::vector<std::string> &tokens;
-	const sf::Vector2f &mousePos;
-	Campaign &campaign;
+	const std::vector<std::string>& tokens;
+	const sf::Vector2f& mousePos;
+	Campaign& campaign;
 };
 
 struct dev_console_cmd
@@ -50,12 +50,12 @@ class DevConsole : public sf::Drawable, public ConfigurableGuiComponent
 		static const std::map<std::string, struct dev_console_cmd> commands;
 
 		// needed to actually make things happen in the game
-		Campaign &campaign;
+		Campaign& campaign;
 
-		void execute(const std::string &cmdline, sf::Vector2f mouseCoords);
+		void execute(const std::string& cmdline, sf::Vector2f mouseCoords);
 
 	public:
-		DevConsole(sf::Vector2u windowSize, const sf::Font &font, Campaign &campaign);
+		DevConsole(sf::Vector2u windowSize, const sf::Font& font, Campaign& campaign);
 		void open();
 		bool getIsOpen() const;
 		void handleScreenResize(sf::Vector2u windowSize);
@@ -63,5 +63,5 @@ class DevConsole : public sf::Drawable, public ConfigurableGuiComponent
 		void handleTextEntered(uint keycode);
 		void executeLast(sf::Vector2f mouseCoords = { 0.F, 0.F });
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

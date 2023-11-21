@@ -23,8 +23,8 @@ class ObjectManager
 
 	public:
 		bool load();
-		bool setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes, ResourceManager &resMgr,
-							const struct back_obj_data &backObjData, enum LightObjectsState lightState) const;
-		bool setupBgHoleSprites(SpriteResource &mainSpriteRes, SpriteResource &holeSpriteRes, bool &blend,
-								ResourceManager &resMgr, const struct back_obj_data &backObjData) const;
+		bool setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& lightSpriteRes, ResourceManager& resMgr,
+							const struct back_obj_data& backObjData, enum LightObjectsState lightState) const;
+		bool setupBgHoleSprites(SpriteResource& mainSpriteRes, SpriteResource& holeSpriteRes, bool& blend,
+								ResourceManager& resMgr, const struct back_obj_data& backObjData) const;
 };

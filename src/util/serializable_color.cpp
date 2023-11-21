@@ -6,7 +6,7 @@
 
 #include "../consts.hpp"
 
-SerializableColor& SerializableColor::operator=(const sf::Color &color)
+SerializableColor& SerializableColor::operator=(const sf::Color& color)
 {
 	this->r = color.r;
 	this->g = color.g;
@@ -21,7 +21,7 @@ SerializableColor& SerializableColor::operator=(const sf::Color &color)
  *   - /#[0-9a-f]{3}/i
  *   - /#[0-9a-f]{6}/i
  */
-bool SerializableColor::loadFromColorString(const std::string &input)
+bool SerializableColor::loadFromColorString(const std::string& input)
 {
 	uint r, g, b;
 

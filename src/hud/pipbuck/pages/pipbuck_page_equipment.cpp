@@ -6,7 +6,7 @@
 
 #include <string>
 
-PipBuckPageEquipment::PipBuckPageEquipment(ResourceManager &resMgr) :
+PipBuckPageEquipment::PipBuckPageEquipment(ResourceManager& resMgr) :
 	PipBuckPage("Equipment") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
@@ -14,7 +14,7 @@ PipBuckPageEquipment::PipBuckPageEquipment(ResourceManager &resMgr) :
 	this->dummy.setString("equipment");
 }
 
-void PipBuckPageEquipment::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageEquipment::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->dummy, states);
 }

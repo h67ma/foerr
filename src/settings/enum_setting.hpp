@@ -18,7 +18,7 @@ class EnumSetting : public GenericSetting<T>
 		uint maxEnumValue;
 
 	public:
-		EnumSetting(const std::string &key, T &val, T defaultVal, uint maxEnumValue) :
+		EnumSetting(const std::string& key, T& val, T defaultVal, uint maxEnumValue) :
 			GenericSetting<T>(key, val, defaultVal),
 			maxEnumValue(maxEnumValue) {}
 
@@ -32,7 +32,7 @@ class EnumSetting : public GenericSetting<T>
 			return nlohmann::json(this->val);
 		}
 
-		void loadFromJson(const nlohmann::json &node) override
+		void loadFromJson(const nlohmann::json& node) override
 		{
 			int readEnum = node;
 			if (readEnum >= this->maxEnumValue)

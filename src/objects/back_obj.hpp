@@ -43,7 +43,7 @@ class BackObject : public BackObjectBase
 		uchar alphaChannel = COLOR_MAX_CHANNEL_VALUE;
 
 	public:
-		bool loadFromJson(const nlohmann::json &jsonNode) override;
-		bool setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes, ResourceManager &resMgr,
-							const struct back_obj_data &backObjData, enum LightObjectsState lightState) const;
+		bool loadFromJson(const nlohmann::json& jsonNode) override;
+		bool setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& lightSpriteRes, ResourceManager& resMgr,
+							const struct back_obj_data& backObjData, enum LightObjectsState lightState) const;
 };

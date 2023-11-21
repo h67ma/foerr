@@ -20,7 +20,7 @@ const sf::Vector2f colorPreviewPosition(280, 0);
 const sf::Vector2f colorPreviewSize(65, 65);
 constexpr float COLOR_PREVIEW_OUTLINE_THICKNESS = 1;
 
-ColorSelector::ColorSelector(const sf::Font &font, sf::Color initialColor) :
+ColorSelector::ColorSelector(const sf::Font& font, sf::Color initialColor) :
 	sliderR(font, 0, initialColor.r, COLOR_MAX_CHANNEL_VALUE),
 	sliderG(font, 0, initialColor.g, COLOR_MAX_CHANNEL_VALUE),
 	sliderB(font, 0, initialColor.b, COLOR_MAX_CHANNEL_VALUE)
@@ -138,7 +138,7 @@ void ColorSelector::handleSettingsChange()
 	this->selectedColorPreview.setOutlineColor(SettingsManager::hudColor);
 }
 
-void ColorSelector::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void ColorSelector::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

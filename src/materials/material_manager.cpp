@@ -9,7 +9,7 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-bool MaterialManager::loadMap(const nlohmann::json &root, std::unordered_map<char, struct material> &theMap, const char* nodeKey)
+bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<char, struct material>& theMap, const char* nodeKey)
 {
 	auto nodeSearch = root.find(nodeKey);
 	if (nodeSearch == root.end())
@@ -24,7 +24,7 @@ bool MaterialManager::loadMap(const nlohmann::json &root, std::unordered_map<cha
 		return false;
 	}
 
-	for (const auto &matNode : nodeSearch->items())
+	for (const auto& matNode : nodeSearch->items())
 	{
 		if (matNode.key().length() != 1)
 		{

@@ -11,7 +11,7 @@
 #include "../hud/log.hpp"
 #include "../consts.hpp"
 
-Campaign::Campaign(ResourceManager &resMgr) :
+Campaign::Campaign(ResourceManager& resMgr) :
 	resMgr(resMgr),
 	player(resMgr)
 {
@@ -46,7 +46,7 @@ Campaign::Campaign(ResourceManager &resMgr) :
  * @return true if load succeeded
  * @return false if load failed
  */
-bool Campaign::load(const std::string &campaignDir)
+bool Campaign::load(const std::string& campaignDir)
 {
 	Log::d(STR_CAMPAIGN_LOADING, campaignDir.c_str());
 
@@ -107,7 +107,7 @@ bool Campaign::load(const std::string &campaignDir)
 		return false;
 	}
 
-	for (const auto &locNode : locsSearch->items())
+	for (const auto& locNode : locsSearch->items())
 	{
 		std::string locId = locNode.key();
 		if (locId.length() == 0)
@@ -195,7 +195,7 @@ const std::shared_ptr<Location> Campaign::getCurrentLocation() const
  * @param locId requested Location id
  * @return const shared pointer to requested Location, or nullptr if not found
  */
-const std::shared_ptr<Location> Campaign::getLocation(const std::string &locId) const
+const std::shared_ptr<Location> Campaign::getLocation(const std::string& locId) const
 {
 	const auto search = this->locations.find(locId);
 	if (search == this->locations.end())
@@ -211,7 +211,7 @@ const std::shared_ptr<Location> Campaign::getLocation(const std::string &locId) 
  * @return true if location change was successful
  * @return false if location change failed
  */
-bool Campaign::changeLocation(const std::string &newLocId)
+bool Campaign::changeLocation(const std::string& newLocId)
 {
 	if (this->currentLocation != nullptr && this->currentLocation->getId() == newLocId)
 		return true; // we're already in this location, silly
@@ -395,7 +395,7 @@ void Campaign::setRoomLightsState(enum LightObjectsState state)
 	this->rerollObjVariants();
 }
 
-void Campaign::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void Campaign::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(*this->currentLocation, states);
 }

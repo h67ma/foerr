@@ -26,8 +26,8 @@
 class PipBuckPageWorld : public PipBuckPage
 {
 	private:
-		ResourceManager &resMgr;
-		Campaign &campaign;
+		ResourceManager& resMgr;
+		Campaign& campaign;
 		SpriteResource mapBg;
 		sf::VertexArray mapBorder = sf::VertexArray(sf::LineStrip, 5);
 		sf::VertexArray mapGridLines = sf::VertexArray(sf::Lines, 16); // max 4 horizontal, 4 vertical
@@ -46,11 +46,11 @@ class PipBuckPageWorld : public PipBuckPage
 		void setGuiScale();
 
 	public:
-		PipBuckPageWorld(ResourceManager &resMgr, Campaign &campaign);
+		PipBuckPageWorld(ResourceManager& resMgr, Campaign& campaign);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		bool handleMouseMove(sf::Vector2i mousePos) override;
 		bool setupCampaignInfos() override;
 		void unloadCampaignInfos() override;
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

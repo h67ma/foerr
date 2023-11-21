@@ -22,8 +22,8 @@
 
 const sf::Color buttonBgBlack(0x00, 0x0B, 0x06);
 
-SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager &resMgr, const sf::Vector2u &position,
-						   const std::string &text, std::function<void(void)> callback,
+SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager& resMgr, const sf::Vector2u& position,
+						   const std::string& text, std::function<void(void)> callback,
 						   ClickStatus consumedStatus) :
 	Button(position, std::move(callback), consumedStatus),
 	text(text, *resMgr.getFont(FONT_MEDIUM), FONT_H3)
@@ -144,7 +144,7 @@ void SimpleButton::setGuiScale()
 	);
 }
 
-void SimpleButton::setText(const std::string &text)
+void SimpleButton::setText(const std::string& text)
 {
 	this->text.setString(text);
 	this->setGuiScale(); // need to re-center text
@@ -164,7 +164,7 @@ void SimpleButton::handleSettingsChange()
 	this->setGuiScale();
 }
 
-void SimpleButton::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void SimpleButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

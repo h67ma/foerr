@@ -27,7 +27,7 @@ std::string litSprintf(const char *fmt, T... args)
 	return ret;
 }
 
-inline std::string pathCombine(const std::string &path1, const std::string &path2)
+inline std::string pathCombine(const std::string& path1, const std::string& path2)
 {
 	return path1 + PATH_DELIM + path2;
 }
@@ -35,7 +35,7 @@ inline std::string pathCombine(const std::string &path1, const std::string &path
 /**
  * eh, why not
  */
-inline std::string pathCombine(const std::string &path1, const std::string &path2, const std::string &path3)
+inline std::string pathCombine(const std::string& path1, const std::string& path2, const std::string& path3)
 {
 	return path1 + PATH_DELIM + path2 + PATH_DELIM + path3;
 }
@@ -54,10 +54,10 @@ inline void hash_combine(std::size_t& seed, const T& v)
 	seed ^= std::hash<T>{}(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 
-void splitString(std::vector<std::string> &tokens, const std::string &input, char delim);
-bool strToInt(const std::string &input, int &output);
+void splitString(std::vector<std::string>& tokens, const std::string& input, char delim);
+bool strToInt(const std::string& input, int& output);
 
-void operator-=(sf::Vector2i &lhs, sf::Vector2f rhs);
+void operator-=(sf::Vector2i& lhs, sf::Vector2f rhs);
 sf::Vector2u operator+(sf::Vector2f lhs, sf::Vector2u rhs);
 
 /**

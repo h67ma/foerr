@@ -9,7 +9,7 @@
 #include "../settings/settings_manager.hpp"
 #include "../consts.hpp"
 
-FpsMeter::FpsMeter(const sf::Font &font, const sf::Vector2u &windowSize) :
+FpsMeter::FpsMeter(const sf::Font& font, const sf::Vector2u& windowSize) :
 	text("??", font, FONT_H3, sf::Color::Green)
 {
 	this->handleSettingsChange();
@@ -68,7 +68,7 @@ void FpsMeter::tick()
 	}
 }
 
-void FpsMeter::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void FpsMeter::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->text);
 }

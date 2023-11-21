@@ -44,7 +44,7 @@ void SliderHandle::handleSettingsChange()
 	}
 }
 
-void SliderHandle::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void SliderHandle::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

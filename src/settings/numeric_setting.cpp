@@ -7,12 +7,12 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVal) :
+NumericSetting::NumericSetting(const std::string& key, uint& val, uint defaultVal) :
 	GenericSetting(key, val, defaultVal),
 	ConstraintSetting(nullptr, "") {}
 
-NumericSetting::NumericSetting(const std::string &key, uint &val, uint defaultVal,
-							   const std::function<bool(uint)> &constraint, const std::string &valueHint) :
+NumericSetting::NumericSetting(const std::string& key, uint& val, uint defaultVal,
+							   const std::function<bool(uint)>& constraint, const std::string& valueHint) :
 	GenericSetting(key, val, defaultVal),
 	ConstraintSetting(constraint, valueHint) {}
 
@@ -30,7 +30,7 @@ nlohmann::json NumericSetting::getJsonValue() const
 	return nlohmann::json(this->val);
 }
 
-void NumericSetting::loadFromJson(const nlohmann::json &node)
+void NumericSetting::loadFromJson(const nlohmann::json& node)
 {
 	uint readUint = node;
 	if (this->constraint != nullptr && !this->constraint(readUint))

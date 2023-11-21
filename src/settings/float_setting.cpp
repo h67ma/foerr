@@ -7,12 +7,12 @@
 #include "../util/i18n.hpp"
 #include "../hud/log.hpp"
 
-FloatSetting::FloatSetting(const std::string &key, float &val, float defaultVal) :
+FloatSetting::FloatSetting(const std::string& key, float& val, float defaultVal) :
 	GenericSetting(key, val, defaultVal),
 	ConstraintSetting(nullptr, "") {}
 
-FloatSetting::FloatSetting(const std::string &key, float &val, float defaultVal,
-						   const std::function<bool(float)> &constraint, const std::string &valueHint) :
+FloatSetting::FloatSetting(const std::string& key, float& val, float defaultVal,
+						   const std::function<bool(float)>& constraint, const std::string& valueHint) :
 	GenericSetting(key, val, defaultVal),
 	ConstraintSetting(constraint, valueHint) {}
 
@@ -30,7 +30,7 @@ nlohmann::json FloatSetting::getJsonValue() const
 	return nlohmann::json(this->val);
 }
 
-void FloatSetting::loadFromJson(const nlohmann::json &node)
+void FloatSetting::loadFromJson(const nlohmann::json& node)
 {
 	float readFloat = node;
 	if (this->constraint != nullptr && !this->constraint(readFloat))

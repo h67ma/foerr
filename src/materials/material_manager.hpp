@@ -27,7 +27,7 @@ class MaterialManager
 	private:
 		std::unordered_map<char, struct material> mapSolids;
 		std::unordered_map<char, struct material> mapOthers;
-		bool loadMap(const nlohmann::json &root, std::unordered_map<char, struct material> &theMap,
+		bool loadMap(const nlohmann::json& root, std::unordered_map<char, struct material>& theMap,
 					 const char* nodeKey);
 
 	public:

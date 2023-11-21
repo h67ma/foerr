@@ -16,7 +16,7 @@
  * Note: pages can't be passed as an unordered map, because order is important for creating buttons.
  * However nothing prevents internal pages and buttons maps from being unordered.
  */
-PipBuckCategory::PipBuckCategory(ResourceManager &resMgr, PipBuckPageType defaultPage,
+PipBuckCategory::PipBuckCategory(ResourceManager& resMgr, PipBuckPageType defaultPage,
 								 std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages) :
 	selectedPage(defaultPage),
 	pages(pages.begin(), pages.end()),
@@ -29,7 +29,7 @@ PipBuckCategory::PipBuckCategory(ResourceManager &resMgr, PipBuckPageType defaul
 
 	// create buttons for switching pages
 	uint x = PIPB_PAGE_BTNS_X_START;
-	for (const auto &page : pages)
+	for (const auto& page : pages)
 	{
 		this->pageButtons.emplace(page.first, SimpleButton(BTN_NARROW, resMgr, { x, 210 }, page.second->pageTitle));
 		x += PIPB_PAGE_BTNS_X_DISTANCE;
@@ -53,7 +53,7 @@ bool PipBuckCategory::setup()
 	if (!this->changePage(this->selectedPage))
 		return false;
 
-	for (auto &btn : this->pageButtons)
+	for (auto& btn : this->pageButtons)
 	{
 		this->hoverMgr += &btn.second;
 	}
@@ -137,7 +137,7 @@ bool PipBuckCategory::handleMouseMove(sf::Vector2i mousePos)
  */
 bool PipBuckCategory::setupCampaignInfos()
 {
-	for (const auto &page : this->pages)
+	for (const auto& page : this->pages)
 	{
 		if (!page.second->setupCampaignInfos())
 			return false;
@@ -148,7 +148,7 @@ bool PipBuckCategory::setupCampaignInfos()
 
 void PipBuckCategory::unloadCampaignInfos()
 {
-	for (const auto &page : this->pages)
+	for (const auto& page : this->pages)
 	{
 		page.second->unloadCampaignInfos();
 	}
@@ -189,24 +189,24 @@ PipBuckCategoryType PipBuckCategory::pageTypeToCategoryType(PipBuckPageType page
 
 void PipBuckCategory::handleSettingsChange()
 {
-	for (auto &btn : this->pageButtons)
+	for (auto& btn : this->pageButtons)
 	{
 		btn.second.handleSettingsChange();
 	}
 
-	for (const auto &page : this->pages)
+	for (const auto& page : this->pages)
 	{
 		page.second->handleSettingsChange();
 	}
 }
 
-void PipBuckCategory::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckCategory::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
 	target.draw(*this->pages.at(this->selectedPage), states);
 
-	for (const auto &btn : this->pageButtons)
+	for (const auto& btn : this->pageButtons)
 	{
 		target.draw(btn.second, states);
 	}

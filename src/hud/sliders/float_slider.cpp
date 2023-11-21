@@ -15,7 +15,7 @@ constexpr uint BASE10 = 10;
  * @param decimalPlaces controls how many decimal places are displayed in text next to the slider, as well as how
  *						precisely the value can be set
  */
-FloatSlider::FloatSlider(const sf::Font &font, float minVal, float defaultVal, float maxVal, uint decimalPlaces) :
+FloatSlider::FloatSlider(const sf::Font& font, float minVal, float defaultVal, float maxVal, uint decimalPlaces) :
 	Slider(font),
 	minVal(minVal),
 	maxVal(maxVal),

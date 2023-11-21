@@ -30,5 +30,5 @@ class SliderHandle : public sf::Drawable, public sf::Transformable, public Confi
 	public:
 		SliderHandle();
 		void handleSettingsChange() override;
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

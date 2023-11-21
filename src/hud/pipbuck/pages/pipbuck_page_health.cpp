@@ -6,7 +6,7 @@
 
 #include <string>
 
-PipBuckPageHealth::PipBuckPageHealth(ResourceManager &resMgr) :
+PipBuckPageHealth::PipBuckPageHealth(ResourceManager& resMgr) :
 	PipBuckPage("Health") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
@@ -14,7 +14,7 @@ PipBuckPageHealth::PipBuckPageHealth(ResourceManager &resMgr) :
 	this->dummy.setString("health");
 }
 
-void PipBuckPageHealth::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void PipBuckPageHealth::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->dummy, states);
 }

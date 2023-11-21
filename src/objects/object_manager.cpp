@@ -26,7 +26,7 @@ bool ObjectManager::load()
 		return false;
 	}
 
-	for (const auto &objNode : bgObjsSearch->items())
+	for (const auto& objNode : bgObjsSearch->items())
 	{
 		this->objects.emplace(objNode.key(), BackObject());
 		if (!this->objects.at(objNode.key()).loadFromJson(objNode.value()))
@@ -49,7 +49,7 @@ bool ObjectManager::load()
 		return false;
 	}
 
-	for (const auto &objNode : bgHoleObjsSearch->items())
+	for (const auto& objNode : bgHoleObjsSearch->items())
 	{
 		this->holeObjects.emplace(objNode.key(), BackHoleObject());
 		if (!this->holeObjects.at(objNode.key()).loadFromJson(objNode.value()))
@@ -77,8 +77,8 @@ bool ObjectManager::load()
  * @return true if setup was successful
  * @return false if setup has failed
  */
-bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource &lightSpriteRes,
-								   ResourceManager &resMgr, const struct back_obj_data &backObjData,
+bool ObjectManager::setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& lightSpriteRes,
+								   ResourceManager& resMgr, const struct back_obj_data& backObjData,
 								   enum LightObjectsState lightState) const
 {
 	auto search = this->objects.find(backObjData.id);
@@ -112,8 +112,8 @@ bool ObjectManager::setupBgSprites(SpriteResource &mainSpriteRes, SpriteResource
  * @return true if setup was successful
  * @return false if setup has failed
  */
-bool ObjectManager::setupBgHoleSprites(SpriteResource &mainSpriteRes, SpriteResource &holeSpriteRes, bool &blend,
-									   ResourceManager &resMgr, const struct back_obj_data &backObjData) const
+bool ObjectManager::setupBgHoleSprites(SpriteResource& mainSpriteRes, SpriteResource& holeSpriteRes, bool& blend,
+									   ResourceManager& resMgr, const struct back_obj_data& backObjData) const
 {
 	auto search = this->holeObjects.find(backObjData.id);
 	if (search == this->holeObjects.end())

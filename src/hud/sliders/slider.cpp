@@ -24,7 +24,7 @@ constexpr float SLIDER_OUTLINE_THICKNESS = 1;
 uint Slider::adjustedHandleHalf;
 uint Slider::adjustedPossibleMouseValCnt;
 
-Slider::Slider(const sf::Font &font) :
+Slider::Slider(const sf::Font& font) :
 	currValueText(font, FONT_H3)
 {
 	this->sliderOutline.setFillColor(sf::Color::Transparent);
@@ -99,7 +99,7 @@ void Slider::handleSettingsChange()
 	this->handle.handleSettingsChange();
 }
 
-void Slider::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void Slider::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

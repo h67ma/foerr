@@ -34,7 +34,7 @@ const sf::Color RoomCell::liquidSpriteColor = sf::Color(255, 255, 255, LIQUID_OP
  * @return true if the symbol was added successfully
  * @return false if the symbol cannot be added
  */
-bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const MaterialManager &matMgr)
+bool RoomCell::addSolidSymbol(char symbol, ResourceManager& resMgr, const MaterialManager& matMgr)
 {
 	// check 1
 	if (this->hasSolid)
@@ -101,7 +101,7 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager &resMgr, const Materi
  * @return false if the symbol cannot be added
  */
 bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool topCellBlocksLiquidDelim,
-							  ResourceManager &resMgr, const MaterialManager &matMgr)
+							  ResourceManager& resMgr, const MaterialManager& matMgr)
 {
 	// first check if symbol is a height flag, as it won't be present in mat mgr
 	auto heightFlagSearch = heightFlags.find(symbol);
@@ -382,7 +382,7 @@ bool RoomCell::finishSetup()
 /**
  * First stage of drawing the cell. Draws background.
  */
-void RoomCell::drawBackground(sf::RenderTarget &target) const
+void RoomCell::drawBackground(sf::RenderTarget& target) const
 {
 	sf::RenderStates states(this->getTransform());
 
@@ -395,7 +395,7 @@ void RoomCell::drawBackground(sf::RenderTarget &target) const
  *
  * Should be called after ::drawBackground() was already called for this cell.
  */
-void RoomCell::drawPlatform(sf::RenderTarget &target) const
+void RoomCell::drawPlatform(sf::RenderTarget& target) const
 {
 	sf::RenderStates states(this->getTransform());
 
@@ -414,7 +414,7 @@ void RoomCell::drawPlatform(sf::RenderTarget &target) const
  * Stairs need to be drawn separately from previous stages, as the surrounding cells might draw over the parts of stairs
  * outside cell area, which is undesirable.
  */
-void RoomCell::drawStairs(sf::RenderTarget &target) const
+void RoomCell::drawStairs(sf::RenderTarget& target) const
 {
 	sf::RenderStates states(this->getTransform());
 
@@ -430,7 +430,7 @@ void RoomCell::drawStairs(sf::RenderTarget &target) const
  * Same logic as in ::drawStairs() applies to ladders as well, i.e. ladders have parts that are sticking out of cell
  * area, so they need to be drawn separately.
  */
-void RoomCell::drawLadder(sf::RenderTarget &target) const
+void RoomCell::drawLadder(sf::RenderTarget& target) const
 {
 	sf::RenderStates states(this->getTransform());
 
@@ -451,7 +451,7 @@ void RoomCell::drawLadder(sf::RenderTarget &target) const
  * stuff. In case of solid, it will prevent the parts of stairs/ladders that are sticking out of their cell from being
  * displayed over solids, which would not make sense.
  */
-void RoomCell::drawLiquidAndSolid(sf::RenderTarget &target) const
+void RoomCell::drawLiquidAndSolid(sf::RenderTarget& target) const
 {
 	sf::RenderStates states(this->getTransform());
 

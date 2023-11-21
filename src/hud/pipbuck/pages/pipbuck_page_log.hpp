@@ -15,6 +15,6 @@
 class PipBuckPageLog : public PipBuckPage
 {
 	public:
-		explicit PipBuckPageLog(ResourceManager &resMgr);
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		explicit PipBuckPageLog(ResourceManager& resMgr);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

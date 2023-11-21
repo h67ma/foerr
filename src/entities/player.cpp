@@ -17,7 +17,7 @@ constexpr float MAX_VELOCITY_SPRINT = 0.0008;
 constexpr float PLAYER_VELOCITY_JUMP = 0.0006;
 constexpr float PLAYER_ACCELERATION = 0.000000004;
 
-Player::Player(ResourceManager &resMgr) :
+Player::Player(ResourceManager& resMgr) :
 	// TODO actual animation
 	animation(resMgr.getTexture("res/entities/mchavi.png"), { PLAYER_SPRITE_W, PLAYER_SPRITE_H }, {
 		{ ANIM_STAND, 1 },
@@ -207,7 +207,7 @@ const sf::Vector2f& Player::getVelocity() const
  *
  * This is done in a function in order not to waste stack memory while in normal (non-debug) operation.
  */
-void Player::debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states) const
+void Player::debugDrawBounds(sf::RenderTarget& target, sf::RenderStates& states) const
 {
 	sf::RectangleShape debugBox;
 	debugBox.setFillColor(sf::Color::Transparent);
@@ -225,7 +225,7 @@ void Player::debugDrawBounds(sf::RenderTarget &target, sf::RenderStates &states)
 	target.draw(originPoint, states);
 }
 
-void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

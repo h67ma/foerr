@@ -22,7 +22,7 @@ void ClickManager::operator +=(Clickable *clickable)
  */
 ClickStatus ClickManager::handleLeftClick(sf::Vector2i clickPos)
 {
-	for (auto &clickable : this->clickables)
+	for (auto& clickable : this->clickables)
 	{
 		ClickStatus status = clickable->handleLeftClick(clickPos);
 		if (status != CLICK_NOT_CONSUMED)
