@@ -306,10 +306,6 @@ int main()
 		} },
 	};
 
-
-	// TODO remove all comments below
-
-
 	// initial size
 	windowSizeChanged(window.getSize(), fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
 
