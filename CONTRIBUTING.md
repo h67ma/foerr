@@ -56,6 +56,7 @@ Title must fit in one line.
 Title contains a short identifier at the beginning, then a colon (`:`), then the actual title.
 The identifier should point to the main part of the repository that is being changed. Identifiers in use:
 * `foerr` - most of the changes were done in `src` directory
+* `style` - code style refactors with **no functional changes**
 * `toolz` - most of the changes were done in `toolz` directory
 * `res` - most of the changes were done in `res` or `fonts` directories
 * `build` - changes related to the build system (CMake, dependencies)
