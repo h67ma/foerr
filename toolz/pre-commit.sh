@@ -63,7 +63,7 @@ for FILENAME in $C_FILES; do
 	check_license_header "$EXPECTED_SIGNOFF" "$STAGED_FILE" "//" ""
 
 	# check code style
-	echo "$STAGED_FILE" | clang-format -style=file -Werror --dry-run
+	echo "$STAGED_FILE" | clang-format -style=file -Werror --dry-run --assume-filename=$FILENAME
 	if [[ $? -ne 0 ]]; then
 		echo "Code style errors found, aborting."
 		exit 1
