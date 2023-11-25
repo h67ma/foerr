@@ -5,6 +5,7 @@
 #include "int_slider.hpp"
 
 #include <cassert>
+
 #include <string>
 
 IntSlider::IntSlider(const sf::Font& font, int minVal, int defaultVal, int maxVal) :
@@ -58,7 +59,7 @@ void IntSlider::updateText()
 
 void IntSlider::updateHandle()
 {
-	float x = static_cast<float>(this->currentVal - this->minVal) /
-								 this->possibleValCnt * Slider::adjustedPossibleMouseValCnt;
+	float x = static_cast<float>(this->currentVal - this->minVal) / this->possibleValCnt *
+			  Slider::adjustedPossibleMouseValCnt;
 	this->handle.setPosition(x, 0);
 }

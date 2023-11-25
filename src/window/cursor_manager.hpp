@@ -10,7 +10,8 @@
 
 #include "custom_cursor.hpp"
 
-enum CursorType {
+enum CursorType
+{
 	POINTER,
 	CROSSHAIR_WHITE,
 	CROSSHAIR_YELLOW,

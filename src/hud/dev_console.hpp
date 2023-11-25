@@ -4,34 +4,34 @@
 
 #pragma once
 
+#include <deque>
 #include <functional>
+#include <map>
 #include <string>
 #include <vector>
-#include <deque>
-#include <map>
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Window/Keyboard.hpp>
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
-#include "configurable_gui_component.hpp"
 #include "../campaigns/campaign.hpp"
+#include "configurable_gui_component.hpp"
 #include "text_input.hpp"
 
 struct dev_console_cmd_params
 {
-	const std::vector<std::string>& tokens;
-	const sf::Vector2f& mousePos;
-	Campaign& campaign;
+		const std::vector<std::string>& tokens;
+		const sf::Vector2f& mousePos;
+		Campaign& campaign;
 };
 
 struct dev_console_cmd
 {
-	const std::function<void(struct dev_console_cmd_params)> cmd;
-	const char* helpString;
-	const char* helpArgs = nullptr;
+		const std::function<void(struct dev_console_cmd_params)> cmd;
+		const char* helpString;
+		const char* helpArgs = nullptr;
 };
 
 /**

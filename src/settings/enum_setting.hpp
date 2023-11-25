@@ -8,8 +8,8 @@
 
 #include <nlohmann/json.hpp>
 
-#include "generic_setting.hpp"
 #include "../hud/log.hpp"
+#include "generic_setting.hpp"
 
 template<typename T>
 class EnumSetting : public GenericSetting<T>
@@ -20,7 +20,9 @@ class EnumSetting : public GenericSetting<T>
 	public:
 		EnumSetting(const std::string& key, T& val, T defaultVal, uint maxEnumValue) :
 			GenericSetting<T>(key, val, defaultVal),
-			maxEnumValue(maxEnumValue) {}
+			maxEnumValue(maxEnumValue)
+		{
+		}
 
 		std::string defaultToString() const override
 		{

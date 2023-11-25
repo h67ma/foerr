@@ -7,14 +7,14 @@
 #include <functional>
 #include <string>
 
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Color.hpp>
 
-#include "../../resources/resource_manager.hpp"
-#include "../text_label.hpp"
 #include "../../consts.hpp"
+#include "../../resources/resource_manager.hpp"
 #include "../hud.hpp"
+#include "../text_label.hpp"
 #include "button.hpp"
 
 enum SimpleButtonSize

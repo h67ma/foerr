@@ -6,8 +6,7 @@
 
 #include <string>
 
-PipBuckPageSave::PipBuckPageSave(ResourceManager& resMgr) :
-	PipBuckPage("Save") // TODO translate
+PipBuckPageSave::PipBuckPageSave(ResourceManager& resMgr) : PipBuckPage("Save") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);

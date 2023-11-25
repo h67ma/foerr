@@ -6,8 +6,8 @@
 
 #include <memory>
 
-#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 /**
  * Used to track usage of resources in ResourceManager (shared ptr must be kept
@@ -23,7 +23,9 @@ class SpriteResource : public sf::Sprite
 		std::shared_ptr<sf::Texture> txt;
 
 	public:
-		SpriteResource() { /* kappa */ }
+		SpriteResource()
+		{ /* kappa */
+		}
 		explicit SpriteResource(std::shared_ptr<sf::Texture> txt);
 		void setTexture(std::shared_ptr<sf::Texture> txt);
 		bool isTextureSet() const;

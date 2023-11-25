@@ -4,12 +4,13 @@
 
 #include "material_manager.hpp"
 
-#include "../util/serializable_color.hpp"
-#include "../util/json.hpp"
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
+#include "../util/json.hpp"
+#include "../util/serializable_color.hpp"
 
-bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<char, struct material>& theMap, const char* nodeKey)
+bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<char, struct material>& theMap,
+							  const char* nodeKey)
 {
 	auto nodeSearch = root.find(nodeKey);
 	if (nodeSearch == root.end())
@@ -92,16 +93,14 @@ bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<cha
 		color.loadFromColorString(colorString);
 		color.a = LIQUID_OPACITY;
 
-		theMap.emplace(matSymbol, material {
-			.type = matType,
-			.texturePath = texturePath,
-			.textureDelimPath = textureDelimPath,
-			.maskTexturePath = maskTexturePath,
-			.isRight = matIsRight,
-			.offsetLeft = offsetLeft,
-			.delimOffset = delimOffset,
-			.color = color
-		});
+		theMap.emplace(matSymbol, material { .type = matType,
+											 .texturePath = texturePath,
+											 .textureDelimPath = textureDelimPath,
+											 .maskTexturePath = maskTexturePath,
+											 .isRight = matIsRight,
+											 .offsetLeft = offsetLeft,
+											 .delimOffset = delimOffset,
+											 .color = color });
 	}
 
 	return true;

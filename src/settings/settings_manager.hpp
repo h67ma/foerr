@@ -4,13 +4,13 @@
 
 #pragma once
 
-#include <vector>
 #include <memory>
 #include <string>
+#include <vector>
 
-#include "../util/serializable_color.hpp"
-#include "../hud/hud.hpp"
 #include "../consts.hpp"
+#include "../hud/hud.hpp"
+#include "../util/serializable_color.hpp"
 #include "setting.hpp"
 
 constexpr float GUI_SCALE_MIN_VALUE = 0.25F;

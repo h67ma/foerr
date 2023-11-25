@@ -6,8 +6,8 @@
 
 #include <string>
 
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
 
 enum MaterialType
 {
@@ -21,12 +21,12 @@ enum MaterialType
 
 struct material
 {
-	enum MaterialType type;
-	std::string texturePath;
-	std::string textureDelimPath;
-	std::string maskTexturePath;
-	bool isRight; // stairs, ladders
-	int offsetLeft; // can be negative
-	sf::Vector2i delimOffset;
-	sf::Color color;
+		enum MaterialType type;
+		std::string texturePath;
+		std::string textureDelimPath;
+		std::string maskTexturePath;
+		bool isRight; // stairs, ladders
+		int offsetLeft; // can be negative
+		sf::Vector2i delimOffset;
+		sf::Color color;
 };

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022 h67ma <szycikm@gmail.com>
+// (c) 2022-2023 h67ma <szycikm@gmail.com>
 
 #include "hover_manager.hpp"
 
@@ -9,7 +9,7 @@
  *
  * @param hoverable a Hoverable to add
  */
-void HoverManager::operator +=(Hoverable *hoverable)
+void HoverManager::operator+=(Hoverable* hoverable)
 {
 	this->hoverables.emplace_back(hoverable);
 }

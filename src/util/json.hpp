@@ -10,8 +10,8 @@
 #include <SFML/System/Vector3.hpp>
 #include <nlohmann/json.hpp>
 
-#include "../hud/log.hpp"
 #include "../consts.hpp"
+#include "../hud/log.hpp"
 #include "i18n.hpp"
 
 #define JSON_API_VERSION 1
@@ -73,7 +73,7 @@ bool parseJsonVector3iKey(const nlohmann::json& node, const std::string& filePat
  */
 template<typename T>
 bool parseJsonVector2Key(const nlohmann::json& node, const std::string& filePath, const char* key,
-						  sf::Vector2<T>& value, bool quiet = false)
+						 sf::Vector2<T>& value, bool quiet = false)
 {
 	auto search = node.find(key);
 	if (search == node.end())

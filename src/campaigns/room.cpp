@@ -4,17 +4,17 @@
 
 #include "room.hpp"
 
-#include <string>
 #include <memory>
+#include <string>
 
-#include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
 
-#include "../settings/settings_manager.hpp"
-#include "../objects/back_obj.hpp"
-#include "../util/json.hpp"
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../objects/back_obj.hpp"
+#include "../settings/settings_manager.hpp"
+#include "../util/i18n.hpp"
+#include "../util/json.hpp"
 
 #define ROOM_SYMBOL_SEPARATOR '|'
 #define ROOM_SYMBOL_EMPTY '_'
@@ -100,7 +100,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 
 		char liquidSymbol = liquidSymbolStr[0];
 
-		const struct material *liquidMat = matMgr.getOther(liquidSymbol);
+		const struct material* liquidMat = matMgr.getOther(liquidSymbol);
 		if (liquidMat == nullptr || liquidMat->type != MAT_LIQUID)
 		{
 			Log::e(STR_MAT_MISSING_OR_WRONG_TYPE, liquidSymbol);
@@ -144,7 +144,8 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 
 	if (cellsSearch->size() != ROOM_HEIGHT_WITH_BORDER)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_CELLS, ROOM_HEIGHT_WITH_BORDER, cellsSearch->size());
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_CELLS, ROOM_HEIGHT_WITH_BORDER,
+			   cellsSearch->size());
 		return false;
 	}
 
@@ -323,7 +324,7 @@ void Room::setupBackObjects(ResourceManager& resMgr, const ObjectManager& objMgr
 
 		if (backObjLight.isTextureSet())
 			spriteVector.push_back(backObjLight);
-	
+
 		if (backObjMain.isTextureSet())
 			spriteVector.push_back(backObjMain);
 
@@ -353,10 +354,7 @@ void Room::setupBackHoleObjects(ResourceManager& resMgr, const ObjectManager& ob
 		}
 
 		// both backObjMain and backObjHole are expected to have textures, don't check if they are nullptr
-		this->backHoleObjectsMain.push_back({
-			.spriteRes = backObjMain,
-			.blend = blend
-		});
+		this->backHoleObjectsMain.push_back({ .spriteRes = backObjMain, .blend = blend });
 		this->backHoleObjectsHoles.push_back(backObjHole);
 	}
 }
@@ -585,7 +583,6 @@ void Room::tick(uint lastFrameDurationUs)
 	// put the bigger shapes in a vector and iterate through it (it will also eliminate the need to repeat that awkward
 	// nested for loop). the clusterization algo can generate suboptimal results as long as it's fast.
 
-
 	// object position is counted from center - subtract its halved size to get top left corner
 	float playerX = this->player.getPosition().x - PLAYER_W2;
 	float playerY = this->player.getPosition().y - PLAYER_H2;
@@ -608,16 +605,20 @@ void Room::tick(uint lastFrameDurationUs)
 		objCollider.left += velocity * lastFrameDurationUs;
 
 		// only check the cells that are near the object
-		for (uint y = std::max(0, playerCellY - 1); !stop && y < std::min(playerCellY + PLAYER_CELL_H + 1, ROOM_HEIGHT_WITH_BORDER); y++)
+		for (uint y = std::max(0, playerCellY - 1);
+			 !stop && y < std::min(playerCellY + PLAYER_CELL_H + 1, ROOM_HEIGHT_WITH_BORDER); y++)
 		{
-			for (uint x = std::max(0, playerCellX - 1); x < std::min(playerCellX + PLAYER_CELL_W + 1, ROOM_WIDTH_WITH_BORDER); x++)
+			for (uint x = std::max(0, playerCellX - 1);
+				 x < std::min(playerCellX + PLAYER_CELL_W + 1, ROOM_WIDTH_WITH_BORDER); x++)
 			{
 				const RoomCell& cell = this->cells[y][x];
 				if (!cell.getIsCollider())
 					continue;
 
-				const sf::FloatRect& cellCollider = cell.getSolidCollider(); // TODO other types of colliders (stairs, platform)
+				const sf::FloatRect& cellCollider = cell.getSolidCollider();
 				sf::FloatRect intersection;
+
+				// TODO other types of colliders (stairs, platform)
 				if (!objCollider.intersects(cellCollider, intersection))
 					continue;
 
@@ -643,16 +644,20 @@ void Room::tick(uint lastFrameDurationUs)
 		objCollider.top += velocity * lastFrameDurationUs;
 
 		// only check the cells that are near the object
-		for (uint y = std::max(0, playerCellY - 1); !stop && y < std::min(playerCellY + PLAYER_CELL_H + 1, ROOM_HEIGHT_WITH_BORDER); y++)
+		for (uint y = std::max(0, playerCellY - 1);
+			 !stop && y < std::min(playerCellY + PLAYER_CELL_H + 1, ROOM_HEIGHT_WITH_BORDER); y++)
 		{
-			for (uint x = std::max(0, playerCellX - 1); x < std::min(playerCellX + PLAYER_CELL_W + 1, ROOM_WIDTH_WITH_BORDER); x++)
+			for (uint x = std::max(0, playerCellX - 1);
+				 x < std::min(playerCellX + PLAYER_CELL_W + 1, ROOM_WIDTH_WITH_BORDER); x++)
 			{
 				const RoomCell& cell = this->cells[y][x];
 				if (!cell.getIsCollider())
 					continue;
 
-				const sf::FloatRect& cellCollider = cell.getSolidCollider(); // TODO other types of colliders (stairs, platform)
+				const sf::FloatRect& cellCollider = cell.getSolidCollider();
 				sf::FloatRect intersection;
+
+				// TODO other types of colliders (stairs, platform)
 				if (!objCollider.intersects(cellCollider, intersection))
 					continue;
 
@@ -731,7 +736,7 @@ void Room::redrawCell(uint x, uint y, sf::RenderTarget& target, sf::RenderStates
 	if (x >= ROOM_WIDTH_WITH_BORDER || y >= ROOM_HEIGHT_WITH_BORDER)
 		return;
 
-	const RoomCell *cell = &this->cells[y][x];
+	const RoomCell* cell = &this->cells[y][x];
 	cell->drawPlatform(target);
 	cell->drawStairs(target);
 	cell->drawLadder(target);

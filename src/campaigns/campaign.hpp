@@ -4,17 +4,17 @@
 
 #pragma once
 
-#include <unordered_map>
-#include <string>
 #include <memory>
+#include <string>
+#include <unordered_map>
 
 #include <SFML/System/Vector3.hpp>
 
-#include "../resources/resource_manager.hpp"
+#include "../entities/player.hpp"
 #include "../materials/material_manager.hpp"
 #include "../objects/object_manager.hpp"
+#include "../resources/resource_manager.hpp"
 #include "../settings/keymap.hpp"
-#include "../entities/player.hpp"
 #include "location.hpp"
 
 /**

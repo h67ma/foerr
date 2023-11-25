@@ -4,8 +4,9 @@
 
 #include "location_button.hpp"
 
-#include <utility>
 #include <cmath>
+
+#include <utility>
 
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
@@ -77,10 +78,8 @@ void LocButton::setGuiScale()
 
 	// center icon
 	// floor the coordinates to avoid pixel misalignment
-	this->icon.setPosition(
-		floor((sideLen - this->icon.getGlobalBounds().width) / 2),
-		floor((sideLen - this->icon.getGlobalBounds().height) / 2)
-	);
+	this->icon.setPosition(floor((sideLen - this->icon.getGlobalBounds().width) / 2),
+						   floor((sideLen - this->icon.getGlobalBounds().height) / 2));
 }
 
 void LocButton::setColor()

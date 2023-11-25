@@ -37,10 +37,9 @@ void SliderHandle::handleSettingsChange()
 			this->thingy[i].position = sf::Vector2f((SLIDER_HANDLE_THINGY_LINES_X + i) * SettingsManager::guiScale,
 													SLIDER_HANDLE_THINGY_LINE_Y * SettingsManager::guiScale);
 		else
-			this->thingy[i].position = sf::Vector2f((SLIDER_HANDLE_THINGY_LINES_X - 1 + i) *
-													SettingsManager::guiScale,
+			this->thingy[i].position = sf::Vector2f((SLIDER_HANDLE_THINGY_LINES_X - 1 + i) * SettingsManager::guiScale,
 													(SLIDER_HANDLE_THINGY_LINE_Y + SLIDER_HANDLE_THINGY_LINE_HEIGHT) *
-													SettingsManager::guiScale);
+														SettingsManager::guiScale);
 	}
 }
 

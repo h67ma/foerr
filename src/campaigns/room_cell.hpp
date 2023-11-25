@@ -7,8 +7,8 @@
 #include <unordered_map>
 
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
@@ -55,7 +55,7 @@ class RoomCell : public sf::Transformable
 		SpriteResource ladder;
 		SpriteResource ladderDelim;
 		SpriteResource liquidDelim;
-		sf::RectangleShape liquid{ sf::Vector2f(CELL_SIDE_LEN, CELL_SIDE_LEN) };
+		sf::RectangleShape liquid { sf::Vector2f(CELL_SIDE_LEN, CELL_SIDE_LEN) };
 		sf::FloatRect solidCollider;
 		int topOffset = 0; // offset from top of cell area, used to create part-height cells
 		bool topCellBlocksLadderDelim;

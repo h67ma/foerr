@@ -6,6 +6,7 @@
 
 // bruh, that's some next level i18n
 
+// clang-format off
 #define STR_WINDOW_TITLE "FoE: Remains of Remains"
 #define STR_CURSOR_LOAD_IMG_ERR "Error loading custom cursor image resource (%s), fallback cursor will be used."
 #define STR_CURSOR_LOAD_PIXELS_ERR "Error loading image data (%s), fallback cursor will be used."
@@ -128,3 +129,4 @@
 #define STR_ROOM_GEOMETRY_VAL_FAIL "Room (%d, %d, %d) geometry validation failed at (%d, %d) - room edge collider mismatch"
 #define STR_ROOM_GEOMETRY_VAL_FAIL_INSUF "Room (%d, %d, %d) geometry validation failed at (%d, %d) - insufficient space for the player"
 #define GPL_SPLAT "This program comes with ABSOLUTELY NO WARRANTY.\nThis is free software, and you are welcome to redistribute it\nunder certain conditions; see LICENSE file for details."
+// clang-format on

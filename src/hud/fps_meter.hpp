@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Clock.hpp>
 
 #include "configurable_gui_component.hpp"

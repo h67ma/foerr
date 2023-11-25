@@ -8,12 +8,12 @@
 
 #include <nlohmann/json.hpp>
 
+#include "../consts.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
-#include "light_objects_state.hpp"
 #include "back_obj_base.hpp"
 #include "back_obj_data.hpp"
-#include "../consts.hpp"
+#include "light_objects_state.hpp"
 
 /**
  * BackObject can define a main texture and a light texture. Both textures are optional, but obviously there needs to be
@@ -37,7 +37,7 @@
 class BackObject : public BackObjectBase
 {
 	private:
-		sf::Vector2f offsetLight{ 0.F, 0.F };
+		sf::Vector2f offsetLight { 0.F, 0.F };
 		uint mainCnt = 0;
 		uint lightCnt = 0;
 		uchar alphaChannel = COLOR_MAX_CHANNEL_VALUE;

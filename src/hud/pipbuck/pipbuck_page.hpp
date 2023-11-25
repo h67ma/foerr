@@ -6,15 +6,15 @@
 
 #include <string>
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include "../configurable_gui_component.hpp"
 #include "../../campaigns/campaign.hpp"
-#include "../hover_manager.hpp"
-#include "../click_manager.hpp"
 #include "../../consts.hpp"
+#include "../click_manager.hpp"
+#include "../configurable_gui_component.hpp"
+#include "../hover_manager.hpp"
 
 enum PipBuckPageType
 {
@@ -61,10 +61,13 @@ class PipBuckPage : public sf::Drawable, public ConfigurableGuiComponent
 
 	public:
 		virtual ClickStatus handleLeftClick(sf::Vector2i clickPos);
-		virtual void handleLeftClickUp() { };
+		virtual void handleLeftClickUp() {};
 		virtual bool handleMouseMove(sf::Vector2i mousePos);
-		virtual bool setupCampaignInfos() { return true; }
-		virtual void unloadCampaignInfos() { }
-		void handleSettingsChange() override { }
+		virtual bool setupCampaignInfos()
+		{
+			return true;
+		}
+		virtual void unloadCampaignInfos() {}
+		void handleSettingsChange() override {}
 		const std::string pageTitle;
 };

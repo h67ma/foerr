@@ -9,8 +9,8 @@
 
 #include "../../../resources/resource_manager.hpp"
 #include "../../buttons/simple_button.hpp"
-#include "../../sliders/float_slider.hpp"
 #include "../../color_selector.hpp"
+#include "../../sliders/float_slider.hpp"
 #include "../../wrappable_text.hpp"
 #include "../pipbuck_page.hpp"
 

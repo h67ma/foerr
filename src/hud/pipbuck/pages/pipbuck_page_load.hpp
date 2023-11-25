@@ -6,9 +6,9 @@
 
 #include <string>
 
+#include "../../../campaigns/campaign.hpp"
 #include "../../../resources/resource_manager.hpp"
 #include "../../buttons/simple_button.hpp"
-#include "../../../campaigns/campaign.hpp"
 #include "../pipbuck_page.hpp"
 
 /**

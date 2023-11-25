@@ -5,8 +5,8 @@
 #include "settings_manager.hpp"
 
 #ifdef __linux__
-#include <unistd.h>
 #include <pwd.h>
+#include <unistd.h>
 #endif /* __linux__ */
 
 #include <filesystem>
@@ -14,17 +14,17 @@
 
 #include <SFML/Graphics/RenderTexture.hpp>
 
-#include "numeric_setting.hpp"
-#include "color_setting.hpp"
-#include "logic_setting.hpp"
-#include "float_setting.hpp"
+#include "../consts.hpp"
+#include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
 #include "../util/util.hpp"
-#include "text_setting.hpp"
+#include "color_setting.hpp"
 #include "enum_setting.hpp"
-#include "../hud/log.hpp"
-#include "../consts.hpp"
+#include "float_setting.hpp"
+#include "logic_setting.hpp"
+#include "numeric_setting.hpp"
+#include "text_setting.hpp"
 
 #define SETT_SETUP(type, name, def) \
 	SettingsManager::settings.emplace_back(std::make_unique<type>(#name, SettingsManager::name, def))
@@ -94,9 +94,9 @@ void SettingsManager::setup()
 	// TODO? windowed size + position override
 
 	// 0 = disable transition effect
-	SETT_SETUP_CONSTR(NumericSetting, roomTransitionDurationMs, 200, [](uint val){
-		return val <= MAX_ROOM_TRANSITION_MS;
-	}, "between 0 and " STR_EXP(MAX_ROOM_TRANSITION_MS) "ms");
+	SETT_SETUP_CONSTR(
+		NumericSetting, roomTransitionDurationMs, 200, [](uint val) { return val <= MAX_ROOM_TRANSITION_MS; },
+		"between 0 and " STR_EXP(MAX_ROOM_TRANSITION_MS) "ms");
 
 	///// hud /////
 
@@ -104,30 +104,34 @@ void SettingsManager::setup()
 	SETT_SETUP(LogicSetting, showFpsCounter, true);
 	SETT_SETUP_ENUM_SCREENCORNER(logAnchor, CORNER_TOP_RIGHT);
 	SETT_SETUP_ENUM_SCREENCORNER(fpsAnchor, CORNER_TOP_LEFT);
-	SETT_SETUP_CONSTR(FloatSetting, guiScale, 1.F, [](float val){
-		return val >= GUI_SCALE_MIN_VALUE && val <= GUI_SCALE_MAX_VALUE;
-	}, litSprintf("between %g and %g", GUI_SCALE_MIN_VALUE, GUI_SCALE_MAX_VALUE));
+	SETT_SETUP_CONSTR(
+		FloatSetting, guiScale, 1.F, [](float val) { return val >= GUI_SCALE_MIN_VALUE && val <= GUI_SCALE_MAX_VALUE; },
+		litSprintf("between %g and %g", GUI_SCALE_MIN_VALUE, GUI_SCALE_MAX_VALUE));
 	SETT_SETUP(ColorSetting, hudColor, SerializableColor(0, 255, 153)); // default is greenish, same as in Remains
 	SETT_SETUP(LogicSetting, pauseOnFocusLoss, true);
 	// TODO? SETT_SETUP(NumericSetting, logMsgTimeoutSec, 3); // is this really necessary?
 
 	///// audio /////
 
-	SETT_SETUP_CONSTR(NumericSetting, fxVolume, MAX_VOLUME, [](uint val){ return val <= MAX_VOLUME; },
-					  "between 0 and " STR_EXP(MAX_VOLUME));
+	SETT_SETUP_CONSTR(
+		NumericSetting, fxVolume, MAX_VOLUME, [](uint val) { return val <= MAX_VOLUME; },
+		"between 0 and " STR_EXP(MAX_VOLUME));
 
 	///// video /////
 
 	uint maxSupportedAA = sf::RenderTexture::getMaximumAntialiasingLevel();
-	SETT_SETUP_CONSTR(NumericSetting, antiAliasing, DEFAULT_AA > maxSupportedAA ? maxSupportedAA : DEFAULT_AA,
-					  [maxSupportedAA](uint val){ return val % 2 == 0 && val <= maxSupportedAA; },
-					  litSprintf("a power of 2, between 0 and %d", maxSupportedAA));
+	SETT_SETUP_CONSTR(
+		NumericSetting, antiAliasing, DEFAULT_AA > maxSupportedAA ? maxSupportedAA : DEFAULT_AA,
+		[maxSupportedAA](uint val) { return val % 2 == 0 && val <= maxSupportedAA; },
+		litSprintf("a power of 2, between 0 and %d", maxSupportedAA));
 
 	// TODO maybe we could save window w&h on program exit and then restore it?
-	SETT_SETUP_CONSTR(NumericSetting, windowWidth, 1280, [](uint val){ return val > 0 && val <= MAX_RESOLUTION; },
-					  "between 0 and " STR_EXP(MAX_RESOLUTION));
-	SETT_SETUP_CONSTR(NumericSetting, windowHeight, 720, [](uint val){ return val > 0 && val <= MAX_RESOLUTION; },
-					  "between 0 and " STR_EXP(MAX_RESOLUTION));
+	SETT_SETUP_CONSTR(
+		NumericSetting, windowWidth, 1280, [](uint val) { return val > 0 && val <= MAX_RESOLUTION; },
+		"between 0 and " STR_EXP(MAX_RESOLUTION));
+	SETT_SETUP_CONSTR(
+		NumericSetting, windowHeight, 720, [](uint val) { return val > 0 && val <= MAX_RESOLUTION; },
+		"between 0 and " STR_EXP(MAX_RESOLUTION));
 
 	///// debug /////
 

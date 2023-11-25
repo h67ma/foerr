@@ -6,8 +6,7 @@
 
 #include <string>
 
-PipBuckPageEnemies::PipBuckPageEnemies(ResourceManager& resMgr) :
-	PipBuckPage("Enemies") // TODO translate
+PipBuckPageEnemies::PipBuckPageEnemies(ResourceManager& resMgr) : PipBuckPage("Enemies") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);

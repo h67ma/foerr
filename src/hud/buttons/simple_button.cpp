@@ -4,9 +4,10 @@
 
 #include "simple_button.hpp"
 
-#include <utility>
-#include <string>
 #include <cmath>
+
+#include <string>
+#include <utility>
 
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
@@ -23,8 +24,7 @@
 const sf::Color buttonBgBlack(0x00, 0x0B, 0x06);
 
 SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager& resMgr, const sf::Vector2u& position,
-						   const std::string& text, std::function<void(void)> callback,
-						   ClickStatus consumedStatus) :
+						   const std::string& text, std::function<void(void)> callback, ClickStatus consumedStatus) :
 	Button(position, std::move(callback), consumedStatus),
 	text(text, *resMgr.getFont(FONT_MEDIUM), FONT_H3)
 {
@@ -138,10 +138,8 @@ void SimpleButton::setGuiScale()
 	// center button text
 	// to center vertically, we can't use local bounds, as the baselines on different buttons would not match.
 	// use a constant top offset instead
-	this->text.setPosition(
-		std::round(dim.x - this->text.getLocalBounds().width) / 2,
-		std::round((dim.y / 2) - (SettingsManager::guiScale * BTN_TEXT_NORMAL_TOP_OFFSET))
-	);
+	this->text.setPosition(std::round(dim.x - this->text.getLocalBounds().width) / 2,
+						   std::round((dim.y / 2) - (SettingsManager::guiScale * BTN_TEXT_NORMAL_TOP_OFFSET)));
 }
 
 void SimpleButton::setText(const std::string& text)

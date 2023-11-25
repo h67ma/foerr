@@ -5,9 +5,10 @@
 #include "float_slider.hpp"
 
 #include <cassert>
+#include <cmath>
+
 #include <iomanip>
 #include <sstream>
-#include <cmath>
 
 constexpr uint BASE10 = 10;
 
@@ -37,12 +38,12 @@ void FloatSlider::setSliderPos(int mouseX)
 
 	if (mouseX < 0)
 		mouseX = 0;
-	
+
 	if (mouseX > Slider::adjustedPossibleMouseValCnt)
 		mouseX = Slider::adjustedPossibleMouseValCnt;
 
-	this->currentVal = (static_cast<float>(mouseX) * this->possibleValCnt /
-						Slider::adjustedPossibleMouseValCnt / this->precisionFactor) +
+	this->currentVal = (static_cast<float>(mouseX) * this->possibleValCnt / Slider::adjustedPossibleMouseValCnt /
+						this->precisionFactor) +
 					   this->minVal;
 
 	this->currentVal = floorf(this->currentVal * this->precisionFactor) / this->precisionFactor;
@@ -74,7 +75,7 @@ void FloatSlider::updateText()
 
 void FloatSlider::updateHandle()
 {
-	float x = (this->currentVal - this->minVal) /
-			  this->possibleValCnt * Slider::adjustedPossibleMouseValCnt * this->precisionFactor;
+	float x = (this->currentVal - this->minVal) / this->possibleValCnt * Slider::adjustedPossibleMouseValCnt *
+			  this->precisionFactor;
 	this->handle.setPosition(x, 0);
 }

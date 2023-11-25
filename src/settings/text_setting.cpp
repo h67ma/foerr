@@ -4,11 +4,13 @@
 
 #include "text_setting.hpp"
 
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
 TextSetting::TextSetting(const std::string& key, std::string& val, const std::string& defaultVal) :
-	GenericSetting<std::string>(key, val, defaultVal) {}
+	GenericSetting<std::string>(key, val, defaultVal)
+{
+}
 
 std::string TextSetting::defaultToString() const
 {

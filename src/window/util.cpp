@@ -4,10 +4,10 @@
 
 #include "util.hpp"
 
+#include "../consts.hpp"
+#include "../hud/log.hpp"
 #include "../settings/settings_manager.hpp"
 #include "../util/i18n.hpp"
-#include "../hud/log.hpp"
-#include "../consts.hpp"
 
 void recreateWindow(sf::RenderWindow& window)
 {
@@ -22,12 +22,10 @@ void recreateWindow(sf::RenderWindow& window)
 
 	if (SettingsManager::fullscreen)
 		// TODO support overriding fullscreen resolution via settings
-		window.create(sf::VideoMode::getDesktopMode(),
-					  STR_WINDOW_TITLE, sf::Style::Fullscreen, context);
+		window.create(sf::VideoMode::getDesktopMode(), STR_WINDOW_TITLE, sf::Style::Fullscreen, context);
 	else
-		window.create(sf::VideoMode(SettingsManager::windowWidth,
-									SettingsManager::windowHeight),
-					  STR_WINDOW_TITLE, sf::Style::Default, context);
+		window.create(sf::VideoMode(SettingsManager::windowWidth, SettingsManager::windowHeight), STR_WINDOW_TITLE,
+					  sf::Style::Default, context);
 
 	if (SettingsManager::fpsLimitEnabled)
 		window.setFramerateLimit(SettingsManager::fpsLimit);

@@ -63,10 +63,10 @@ void PipBuckCategoryButton::updateState()
 
 void PipBuckCategoryButton::centerText()
 {
-	this->text.setPosition(
-		static_cast<float>(((this->trapeze.getLocalBounds().width - this->text.getLocalBounds().width) / 2)),
-		static_cast<float>((this->trapeze.getLocalBounds().height / 2) - TEXT_BOTTOM_OFFSET * SettingsManager::guiScale)
-	);
+	this->text.setPosition(static_cast<float>(
+							   (this->trapeze.getLocalBounds().width - this->text.getLocalBounds().width) / 2),
+						   static_cast<float>((this->trapeze.getLocalBounds().height / 2) -
+											  TEXT_BOTTOM_OFFSET * SettingsManager::guiScale));
 }
 
 void PipBuckCategoryButton::setHover(bool hover)

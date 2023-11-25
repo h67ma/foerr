@@ -7,17 +7,17 @@
 #include <string>
 #include <vector>
 
-#include <SFML/Graphics/Transformable.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 #include <nlohmann/json.hpp>
 
+#include "../entities/player.hpp"
 #include "../materials/material_manager.hpp"
+#include "../objects/back_obj_data.hpp"
+#include "../objects/object_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"
-#include "../objects/object_manager.hpp"
-#include "../objects/back_obj_data.hpp"
-#include "../entities/player.hpp"
 #include "room_cell.hpp"
 
 constexpr uint ROOM_WIDTH_WITH_BORDER = 48;
@@ -26,8 +26,8 @@ constexpr uint ROOM_HEIGHT_WITH_BORDER = 25;
 // that's the worst name ever for a struct
 struct blend_sprite
 {
-	SpriteResource spriteRes;
-	bool blend;
+		SpriteResource spriteRes;
+		bool blend;
 };
 
 /**
@@ -64,7 +64,7 @@ class Room : public sf::Drawable, public sf::Transformable
 		std::vector<SpriteResource> farBackObjectsMain;
 		std::vector<struct blend_sprite> backHoleObjectsMain;
 		std::vector<SpriteResource> backHoleObjectsHoles;
-	
+
 		Player& player;
 
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful

@@ -4,11 +4,13 @@
 
 #include "color_setting.hpp"
 
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
-ColorSetting::ColorSetting(const std::string& key, SerializableColor &val, SerializableColor defaultVal) :
-	GenericSetting<SerializableColor>(key, val, defaultVal) {}
+ColorSetting::ColorSetting(const std::string& key, SerializableColor& val, SerializableColor defaultVal) :
+	GenericSetting<SerializableColor>(key, val, defaultVal)
+{
+}
 
 std::string ColorSetting::defaultToString() const
 {

@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
 #include "../resources/resource_manager.hpp"
 #include "text_label.hpp"

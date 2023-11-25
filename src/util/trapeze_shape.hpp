@@ -8,20 +8,17 @@
 
 struct trapeze_data
 {
-	float topStartX;
-	float bottomStartX;
-	float topWidth;
-	float bottomWidth;
-	float height;
+		float topStartX;
+		float bottomStartX;
+		float topWidth;
+		float bottomWidth;
+		float height;
 };
 
-template <typename T>
+template<typename T>
 constexpr struct trapeze_data operator*(const struct trapeze_data& lhs, T rhs)
 {
-	return trapeze_data { lhs.topStartX * rhs,
-						  lhs.bottomStartX * rhs,
-						  lhs.topWidth * rhs,
-						  lhs.bottomWidth * rhs,
+	return trapeze_data { lhs.topStartX * rhs, lhs.bottomStartX * rhs, lhs.topWidth * rhs, lhs.bottomWidth * rhs,
 						  lhs.height * rhs };
 }
 

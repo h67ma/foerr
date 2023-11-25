@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "../pipbuck_page.hpp"
+#include <string>
 
 #include "../../../resources/resource_manager.hpp"
-#include <string>
+#include "../pipbuck_page.hpp"
 
 /**
  * PipBuck -> Information -> Map

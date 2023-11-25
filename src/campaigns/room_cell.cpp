@@ -9,13 +9,13 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
 const std::unordered_map<char, int> heightFlags {
-	{ ',', CELL_SIDE_LEN * 0.25},	// 3/4 height
-	{ ';', CELL_SIDE_LEN * 0.5},	// 1/2 height
-	{ ':', CELL_SIDE_LEN * 0.75}	// 1/4 height
+	{ ',', CELL_SIDE_LEN * 0.25 }, // 3/4 height
+	{ ';', CELL_SIDE_LEN * 0.5 }, // 1/2 height
+	{ ':', CELL_SIDE_LEN * 0.75 } // 1/4 height
 };
 
 const sf::Color RoomCell::liquidSpriteColor = sf::Color(255, 255, 255, LIQUID_OPACITY);
@@ -44,7 +44,7 @@ bool RoomCell::addSolidSymbol(char symbol, ResourceManager& resMgr, const Materi
 	}
 
 	// check 2
-	const struct material *mat = matMgr.getSolid(symbol);
+	const struct material* mat = matMgr.getSolid(symbol);
 	if (mat == nullptr || mat->type != MAT_SOLID)
 	{
 		Log::e(STR_MAT_MISSING_OR_WRONG_TYPE, symbol);
@@ -128,7 +128,7 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 	}
 
 	// check 2
-	const struct material *mat = matMgr.getOther(symbol);
+	const struct material* mat = matMgr.getOther(symbol);
 	if (mat == nullptr)
 	{
 		Log::e(STR_MAT_MISSING_OR_WRONG_TYPE, symbol);
@@ -149,12 +149,8 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 			txt->setRepeated(true);
 
 		this->background.setTexture(txt);
-		this->background.setTextureRect({
-			static_cast<int>(this->getPosition().x),
-			static_cast<int>(this->getPosition().y),
-			CELL_SIDE_LEN,
-			CELL_SIDE_LEN
-		});
+		this->background.setTextureRect({ static_cast<int>(this->getPosition().x),
+										  static_cast<int>(this->getPosition().y), CELL_SIDE_LEN, CELL_SIDE_LEN });
 		this->background.setColor(BACKWALL_COLOR); // darken background
 
 		this->hasBackground = true;
@@ -212,12 +208,8 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 			txt->setRepeated(true);
 
 		this->platform.setTexture(txt);
-		this->platform.setTextureRect({
-			static_cast<int>(this->getPosition().x),
-			static_cast<int>(this->getPosition().y),
-			CELL_SIDE_LEN,
-			CELL_SIDE_LEN
-		});
+		this->platform.setTextureRect({ static_cast<int>(this->getPosition().x),
+										static_cast<int>(this->getPosition().y), CELL_SIDE_LEN, CELL_SIDE_LEN });
 
 		this->hasPlatform = true;
 	}
@@ -331,12 +323,9 @@ bool RoomCell::finishSetup()
 	// down and decreasing height of the texture rect. we can't do it inside ::addSolidSymbol(), as the height flag (if
 	// any) is not yet added at that point.
 	this->solid.setPosition({ 0, static_cast<float>(this->topOffset) });
-	this->solid.setTextureRect({
-		static_cast<int>(this->getPosition().x),
-		static_cast<int>(this->getPosition().y) + this->topOffset,
-		CELL_SIDE_LEN,
-		static_cast<int>(CELL_SIDE_LEN) - this->topOffset
-	});
+	this->solid.setTextureRect({ static_cast<int>(this->getPosition().x),
+								 static_cast<int>(this->getPosition().y) + this->topOffset, CELL_SIDE_LEN,
+								 static_cast<int>(CELL_SIDE_LEN) - this->topOffset });
 
 	// set the collider flag and calculate the collider (if applicable). the three cases are mutually exclusive,
 	// which should have already been ensured in ::addOtherSymbol().
@@ -351,16 +340,16 @@ bool RoomCell::finishSetup()
 		this->solidCollider.width = CELL_SIDE_LEN;
 		this->solidCollider.height = CELL_SIDE_LEN - this->topOffset;
 	}
-	//else if (this->hasStairs)
+	// else if (this->hasStairs)
 	//{
 	//	this->isCollider = true;
-	// TODO
-	//}
-	//else if (this->hasPlatform)
+	//	TODO
+	// }
+	// else if (this->hasPlatform)
 	//{
 	//	this->isCollider = true;
-	// TODO
-	//}
+	//	TODO
+	// }
 
 	return true;
 }

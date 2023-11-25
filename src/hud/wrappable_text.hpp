@@ -6,8 +6,8 @@
 
 #include <string>
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
 #include "gui_transformable.hpp"
 #include "text_label.hpp"

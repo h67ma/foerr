@@ -4,11 +4,11 @@
 
 #include "player.hpp"
 
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
-#include "../settings/settings_manager.hpp"
 #include "../settings/keymap.hpp"
+#include "../settings/settings_manager.hpp"
 
 // no worries, float can handle precision at this order of magnitude
 constexpr float MAX_VELOCITY = 0.0004;
@@ -19,18 +19,19 @@ constexpr float PLAYER_ACCELERATION = 0.000000004;
 
 Player::Player(ResourceManager& resMgr) :
 	// TODO actual animation
-	animation(resMgr.getTexture("res/entities/mchavi.png"), { PLAYER_SPRITE_W, PLAYER_SPRITE_H }, {
-		{ ANIM_STAND, 1 },
-		{ ANIM_TROT, 17 },
-		{ ANIM_GALLOP, 8 },
-		{ ANIM_JUMP, 16 },
-		{ ANIM_DIE_GROUND, 20 },
-		{ ANIM_DIE_AIR, 13 },
-		{ ANIM_TK_HOLD, 8 },
-		{ ANIM_SWIM, 24 },
-		{ ANIM_CLIMB, 12 },
-		{ ANIM_WALK, 24 },
-	})
+	animation(resMgr.getTexture("res/entities/mchavi.png"), { PLAYER_SPRITE_W, PLAYER_SPRITE_H },
+			  {
+				  { ANIM_STAND, 1 },
+				  { ANIM_TROT, 17 },
+				  { ANIM_GALLOP, 8 },
+				  { ANIM_JUMP, 16 },
+				  { ANIM_DIE_GROUND, 20 },
+				  { ANIM_DIE_AIR, 13 },
+				  { ANIM_TK_HOLD, 8 },
+				  { ANIM_SWIM, 24 },
+				  { ANIM_CLIMB, 12 },
+				  { ANIM_WALK, 24 },
+			  })
 {
 	// TODO actual animation
 	this->animation.setAnimation(ANIM_SWIM);

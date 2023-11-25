@@ -4,27 +4,27 @@
 
 #pragma once
 
-#include <unordered_map>
 #include <memory>
+#include <unordered_map>
 #include <vector>
 
-#include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/ConvexShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 #include <SFML/System/Clock.hpp>
 
+#include "../../campaigns/campaign.hpp"
 #include "../../resources/resource_manager.hpp"
-#include "../../settings/settings_manager.hpp"
-#include "../../resources/sprite_resource.hpp"
 #include "../../resources/sound_resource.hpp"
-#include "../configurable_gui_component.hpp"
+#include "../../resources/sprite_resource.hpp"
+#include "../../settings/settings_manager.hpp"
 #include "../../window/cursor_manager.hpp"
 #include "../buttons/simple_button.hpp"
-#include "../../campaigns/campaign.hpp"
-#include "../hover_manager.hpp"
-#include "pipbuck_category.hpp"
 #include "../clickable.hpp"
+#include "../configurable_gui_component.hpp"
+#include "../hover_manager.hpp"
 #include "../hud.hpp"
+#include "pipbuck_category.hpp"
 
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.

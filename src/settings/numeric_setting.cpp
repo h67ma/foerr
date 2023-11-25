@@ -4,17 +4,21 @@
 
 #include "numeric_setting.hpp"
 
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
 NumericSetting::NumericSetting(const std::string& key, uint& val, uint defaultVal) :
 	GenericSetting(key, val, defaultVal),
-	ConstraintSetting(nullptr, "") {}
+	ConstraintSetting(nullptr, "")
+{
+}
 
 NumericSetting::NumericSetting(const std::string& key, uint& val, uint defaultVal,
 							   const std::function<bool(uint)>& constraint, const std::string& valueHint) :
 	GenericSetting(key, val, defaultVal),
-	ConstraintSetting(constraint, valueHint) {}
+	ConstraintSetting(constraint, valueHint)
+{
+}
 
 std::string NumericSetting::defaultToString() const
 {

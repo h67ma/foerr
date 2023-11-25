@@ -6,8 +6,7 @@
 
 #include <string>
 
-PipBuckPageInventoryOther::PipBuckPageInventoryOther(ResourceManager& resMgr) :
-	PipBuckPage("Other") // TODO translate
+PipBuckPageInventoryOther::PipBuckPageInventoryOther(ResourceManager& resMgr) : PipBuckPage("Other") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);

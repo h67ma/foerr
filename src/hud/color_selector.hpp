@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
-#include "sliders/int_slider.hpp"
 #include "gui_transformable.hpp"
+#include "sliders/int_slider.hpp"
 
 class ColorSelector : public sf::Drawable, public GuiTransformable
 {

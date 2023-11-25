@@ -4,15 +4,15 @@
 
 #pragma once
 
+#include <memory>
 #include <unordered_map>
 #include <vector>
-#include <memory>
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
-#include "../resources/sprite_resource.hpp"
 #include "../consts.hpp"
+#include "../resources/sprite_resource.hpp"
 
 enum AnimationKind
 {
@@ -33,14 +33,14 @@ enum AnimationKind
 
 struct anim_kind_details
 {
-	AnimationKind kind;
-	uint frameCnt;
+		AnimationKind kind;
+		uint frameCnt;
 };
 
 struct anim_kind_details_internal
 {
-	uint frameCnt;
-	uint offsetTop;
+		uint frameCnt;
+		uint offsetTop;
 };
 
 class Animation : public sf::Drawable, public sf::Transformable
@@ -56,7 +56,8 @@ class Animation : public sf::Drawable, public sf::Transformable
 		void moveTexture();
 
 	public:
-		Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u size, const std::vector<struct anim_kind_details> kinds);
+		Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u size,
+				  const std::vector<struct anim_kind_details> kinds);
 		void nextFrame();
 		bool setAnimation(AnimationKind kind);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

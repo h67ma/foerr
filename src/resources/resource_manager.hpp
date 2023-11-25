@@ -4,13 +4,13 @@
 
 #pragma once
 
-#include <unordered_map>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 #include <SFML/Audio/SoundBuffer.hpp>
-#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 #include "texture_resource.hpp"
 

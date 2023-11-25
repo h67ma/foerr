@@ -10,10 +10,14 @@
 
 PipBuckPageLoad::PipBuckPageLoad(ResourceManager& resMgr) :
 	PipBuckPage("Load"), // TODO translate
-	exitBtn(BTN_NORMAL, resMgr, { 400, 815 }, STR_EXIT_TO_MAIN_MENU, []() {
-		// TODO display confirm box
-		// TODO also save game before unloading campaign
-	}, CLICK_CONSUMED_UNLOAD)
+	exitBtn(
+		BTN_NORMAL, resMgr, { 400, 815 }, STR_EXIT_TO_MAIN_MENU,
+		[]()
+		{
+			// TODO display confirm box
+			// TODO also save game before unloading campaign
+		},
+		CLICK_CONSUMED_UNLOAD)
 {
 	this->hoverMgr += &this->exitBtn;
 	this->clickMgr += &this->exitBtn;

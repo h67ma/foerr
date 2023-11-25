@@ -4,21 +4,21 @@
 
 #pragma once
 
+#include <map>
+#include <memory>
 #include <unordered_map>
 #include <vector>
-#include <memory>
-#include <map>
 
-#include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 
+#include "../../campaigns/campaign.hpp"
 #include "../../resources/resource_manager.hpp"
 #include "../../resources/sound_resource.hpp"
-#include "../configurable_gui_component.hpp"
 #include "../buttons/simple_button.hpp"
-#include "../../campaigns/campaign.hpp"
-#include "../hover_manager.hpp"
 #include "../clickable.hpp"
+#include "../configurable_gui_component.hpp"
+#include "../hover_manager.hpp"
 #include "pipbuck_page.hpp"
 
 enum PipBuckCategoryType

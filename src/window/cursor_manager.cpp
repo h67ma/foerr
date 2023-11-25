@@ -6,8 +6,8 @@
 
 #include <SFML/Window/Cursor.hpp>
 
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
 CursorManager::CursorManager(sf::Window& window) : window(window)
 {

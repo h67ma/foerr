@@ -6,9 +6,9 @@
 
 #include <string>
 
+#include "../../consts.hpp"
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
-#include "../../consts.hpp"
 #include "../hud.hpp"
 
 constexpr uint SLIDER_TEXT_X = 220;
@@ -24,8 +24,7 @@ constexpr float SLIDER_OUTLINE_THICKNESS = 1;
 uint Slider::adjustedHandleHalf;
 uint Slider::adjustedPossibleMouseValCnt;
 
-Slider::Slider(const sf::Font& font) :
-	currValueText(font, FONT_H3)
+Slider::Slider(const sf::Font& font) : currValueText(font, FONT_H3)
 {
 	this->sliderOutline.setFillColor(sf::Color::Transparent);
 }

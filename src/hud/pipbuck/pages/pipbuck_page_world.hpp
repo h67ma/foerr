@@ -4,16 +4,16 @@
 
 #pragma once
 
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
 
 #include <SFML/Graphics/CircleShape.hpp>
 
+#include "../../../campaigns/campaign.hpp"
 #include "../../../resources/resource_manager.hpp"
 #include "../../../resources/sprite_resource.hpp"
 #include "../../buttons/location_button.hpp"
 #include "../../buttons/simple_button.hpp"
-#include "../../../campaigns/campaign.hpp"
 #include "../../wrappable_text.hpp"
 #include "../pipbuck_page.hpp"
 

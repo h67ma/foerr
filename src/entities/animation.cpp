@@ -10,7 +10,8 @@
  * @param height height (in px) of a single animation frame
  * @param kinds vector of animation kinds which the spritesheet contains. Order matters.
  */
-Animation::Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u size, const std::vector<struct anim_kind_details> kinds) :
+Animation::Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u size,
+					 const std::vector<struct anim_kind_details> kinds) :
 	sprite(texture),
 	textureRect(0, 0, size.x, size.y),
 	size(size)
@@ -31,10 +32,7 @@ Animation::Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u size, co
 			first = false;
 		}
 
-		this->kinds[kind.kind] = {
-			kind.frameCnt,
-			topOffset
-		};
+		this->kinds[kind.kind] = { kind.frameCnt, topOffset };
 		topOffset += size.y;
 	}
 }

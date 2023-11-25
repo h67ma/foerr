@@ -17,10 +17,10 @@
 enum ClickStatus
 {
 	CLICK_NOT_CONSUMED,
-	CLICK_CONSUMED,						// omnomnom
-	CLICK_CONSUMED_CLOSE,				// PipBuck should be closed
-	CLICK_CONSUMED_UNLOAD,				// PipBuck should unload its campaign infos
-	CLICK_CONSUMED_SETTINGS_CHANGED,	// components should update their state after settings change
+	CLICK_CONSUMED, // omnomnom
+	CLICK_CONSUMED_CLOSE, // PipBuck should be closed
+	CLICK_CONSUMED_UNLOAD, // PipBuck should unload its campaign infos
+	CLICK_CONSUMED_SETTINGS_CHANGED, // components should update their state after settings change
 };
 
 class Clickable

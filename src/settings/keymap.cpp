@@ -4,38 +4,39 @@
 
 #include "keymap.hpp"
 
-#include "settings_manager.hpp"
+#include "../consts.hpp"
+#include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
-#include "../hud/log.hpp"
-#include "../consts.hpp"
+#include "settings_manager.hpp"
 
 #define CONFUSION "???"
 
 // defines available actions, along with action strings, display strings, and default keys
 // ::serializeKey must be unique (will be checked in ::setup())
 const std::unordered_map<KeyAction, action_def> Keymap::actionsMap {
-	{ ACTION_PIPBUCK_TOGGLE_OPEN, { "pipbuck_toggle_open", "Open/close PipBuck", { sf::Keyboard::Tab, sf::Keyboard::Escape } } },
-	{ ACTION_PIPB_GOTO_LOAD, { "pipbuck_open_load", "Open Load page", { } } },
-	{ ACTION_PIPB_GOTO_SAVE, { "pipbuck_open_save", "Open Save page", { } } },
-	{ ACTION_PIPB_GOTO_SETTINGS, { "pipbuck_open_sett", "Open Settings page", { } } },
-	{ ACTION_PIPB_GOTO_CONTROLS, { "pipbuck_open_contr", "Open Controls page", { } } },
+	{ ACTION_PIPBUCK_TOGGLE_OPEN,
+	  { "pipbuck_toggle_open", "Open/close PipBuck", { sf::Keyboard::Tab, sf::Keyboard::Escape } } },
+	{ ACTION_PIPB_GOTO_LOAD, { "pipbuck_open_load", "Open Load page", {} } },
+	{ ACTION_PIPB_GOTO_SAVE, { "pipbuck_open_save", "Open Save page", {} } },
+	{ ACTION_PIPB_GOTO_SETTINGS, { "pipbuck_open_sett", "Open Settings page", {} } },
+	{ ACTION_PIPB_GOTO_CONTROLS, { "pipbuck_open_contr", "Open Controls page", {} } },
 	{ ACTION_PIPB_GOTO_LOG, { "pipbuck_open_log", "Open Log page", { sf::Keyboard::L } } },
-	{ ACTION_PIPB_GOTO_STATUS_MAIN, { "pipbuck_open_statmain", "Open Main status page", { } } },
+	{ ACTION_PIPB_GOTO_STATUS_MAIN, { "pipbuck_open_statmain", "Open Main status page", {} } },
 	{ ACTION_PIPB_GOTO_SKILLS, { "pipbuck_open_skills", "Open Skills page", { sf::Keyboard::K } } },
-	{ ACTION_PIPB_GOTO_PERKS, { "pipbuck_open_perks", "Open Perks page", { } } },
+	{ ACTION_PIPB_GOTO_PERKS, { "pipbuck_open_perks", "Open Perks page", {} } },
 	{ ACTION_PIPB_GOTO_EFFECTS, { "pipbuck_open_eff", "Open Effects page", { sf::Keyboard::O } } },
 	{ ACTION_PIPB_GOTO_HEALTH, { "pipbuck_open_health", "Open Health page", { sf::Keyboard::H } } },
 	{ ACTION_PIPB_GOTO_WEAPONS, { "pipbuck_open_wpn", "Open Weapons page", { sf::Keyboard::I } } },
-	{ ACTION_PIPB_GOTO_ARMOR, { "pipbuck_open_armor", "Open Armor page", { } } },
-	{ ACTION_PIPB_GOTO_EQUIPMENT, { "pipbuck_open_eq", "Open Equipment page", { } } },
-	{ ACTION_PIPB_GOTO_INVENTORY_OTHER, { "pipbuck_open_invother", "Open Other inventory page", { } } },
-	{ ACTION_PIPB_GOTO_AMMO, { "pipbuck_open_ammo", "Open Ammo page", { } } },
+	{ ACTION_PIPB_GOTO_ARMOR, { "pipbuck_open_armor", "Open Armor page", {} } },
+	{ ACTION_PIPB_GOTO_EQUIPMENT, { "pipbuck_open_eq", "Open Equipment page", {} } },
+	{ ACTION_PIPB_GOTO_INVENTORY_OTHER, { "pipbuck_open_invother", "Open Other inventory page", {} } },
+	{ ACTION_PIPB_GOTO_AMMO, { "pipbuck_open_ammo", "Open Ammo page", {} } },
 	{ ACTION_PIPB_GOTO_MAP, { "pipbuck_open_map", "Open Map page", { sf::Keyboard::M } } },
 	{ ACTION_PIPB_GOTO_WORLD, { "pipbuck_open_world", "Open World page", { sf::Keyboard::N } } },
 	{ ACTION_PIPB_GOTO_QUESTS, { "pipbuck_open_quests", "Open Quests page", { sf::Keyboard::J } } },
-	{ ACTION_PIPB_GOTO_NOTES, { "pipbuck_open_notes", "Open Notes page", { } } },
-	{ ACTION_PIPB_GOTO_ENEMIES, { "pipbuck_open_enemies", "Open Enemies page", { } } },
+	{ ACTION_PIPB_GOTO_NOTES, { "pipbuck_open_notes", "Open Notes page", {} } },
+	{ ACTION_PIPB_GOTO_ENEMIES, { "pipbuck_open_enemies", "Open Enemies page", {} } },
 	{ ACTION_TOGGLE_FULLSCREEN, { "toggle_fullscreen", "Toggle fullscreen mode", { sf::Keyboard::F11 } } },
 	{ ACTION_PLAYER_MOVE_LEFT, { "player_move_left", "Move left", { sf::Keyboard::A } } },
 	{ ACTION_PLAYER_MOVE_RIGHT, { "player_move_right", "Move right", { sf::Keyboard::D } } },
@@ -44,18 +45,20 @@ const std::unordered_map<KeyAction, action_def> Keymap::actionsMap {
 	{ ACTION_PLAYER_SPRINT, { "player_sprint", "Sprint", { sf::Keyboard::LShift } } },
 	{ ACTION_PLAYER_JUMP, { "player_jump", "Jump", { sf::Keyboard::Space } } },
 	{ ACTION_DEBUG_TOGGLE_CONSOLE, { "debug_toggle_console", "Debug toggle console", { sf::Keyboard::Slash } } },
-	{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, { "debug_repeat_last_console_cmd", "Debug repeat last command",
-											  { sf::Keyboard::Tilde } } },
+	{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD,
+	  { "debug_repeat_last_console_cmd", "Debug repeat last command", { sf::Keyboard::Tilde } } },
 	{ ACTION_DEBUG_NAV_LEFT, { "debug_nav_left", "Debug navigation left", { sf::Keyboard::Left } } },
 	{ ACTION_DEBUG_NAV_RIGHT, { "debug_nav_right", "Debug navigation right", { sf::Keyboard::Right } } },
 	{ ACTION_DEBUG_NAV_UP, { "debug_nav_up", "Debug navigation up", { sf::Keyboard::Up } } },
 	{ ACTION_DEBUG_NAV_DOWN, { "debug_nav_down", "Debug navigation down", { sf::Keyboard::Down } } },
 	{ ACTION_DEBUG_NAV_FRONT, { "debug_nav_front", "Debug navigation front", { sf::Keyboard::PageUp } } },
 	{ ACTION_DEBUG_NAV_BACK, { "debug_nav_back", "Debug navigation back", { sf::Keyboard::PageDown } } },
-	{ ACTION_NO_ACTION, { "no_action", "No action", { } } },
+	{ ACTION_NO_ACTION, { "no_action", "No action", {} } },
 };
 
+// clang-format off
 #define KEY_STR(keyCode, str) { sf::Keyboard::keyCode, str }
+// clang-format on
 #define KEY_STR_DEFAULT(keyCode) KEY_STR(keyCode, #keyCode)
 
 // all from 2.5.1 <SFML/Window/Keyboard.hpp>, excluding the super key

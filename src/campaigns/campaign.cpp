@@ -6,14 +6,12 @@
 
 #include <string>
 
-#include "../util/json.hpp"
-#include "../util/i18n.hpp"
-#include "../hud/log.hpp"
 #include "../consts.hpp"
+#include "../hud/log.hpp"
+#include "../util/i18n.hpp"
+#include "../util/json.hpp"
 
-Campaign::Campaign(ResourceManager& resMgr) :
-	resMgr(resMgr),
-	player(resMgr)
+Campaign::Campaign(ResourceManager& resMgr) : resMgr(resMgr), player(resMgr)
 {
 	// big iron on his hip
 }
@@ -84,7 +82,8 @@ bool Campaign::load(const std::string& campaignDir)
 	// progress. Metadata for all locations is kept in a single file, separate from room data (and background big path),
 	// to avoid processing all files containing all room data when we only want to get metadata for each location to
 	// display it on the world map.
-	// TODO? we could add a button in campaign selector which would trigger test-loading all locations along with all rooms.
+	// TODO? we could add a button in campaign selector which would trigger test-loading all locations along with all
+	// rooms.
 
 	std::string locMetaPath = pathCombine(campaignDir, std::string(PATH_LOCATIONS_META));
 	root.clear();
@@ -340,9 +339,8 @@ void Campaign::logWhereAmI()
 	sf::Vector3i coords = this->currentLocation->getPlayerRoomCoords();
 	sf::Vector2f playerCoords = this->player.getPosition();
 
-	Log::i(STR_DEBUG_WHEREAMI, this->currentLocation->getId().c_str(), coords.x, coords.y, coords.z,
-		   playerCoords.x, playerCoords.y,
-		   static_cast<int>(playerCoords.x / CELL_SIDE_LEN),
+	Log::i(STR_DEBUG_WHEREAMI, this->currentLocation->getId().c_str(), coords.x, coords.y, coords.z, playerCoords.x,
+		   playerCoords.y, static_cast<int>(playerCoords.x / CELL_SIDE_LEN),
 		   static_cast<int>(playerCoords.y / CELL_SIDE_LEN));
 }
 

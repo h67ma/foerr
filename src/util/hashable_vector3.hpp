@@ -9,7 +9,7 @@
 #include "../util/util.hpp"
 
 template<typename T>
-struct HashableVector3: public sf::Vector3<T>
+struct HashableVector3 : public sf::Vector3<T>
 {
 	public:
 		HashableVector3() : sf::Vector3<T>() {}
@@ -17,9 +17,11 @@ struct HashableVector3: public sf::Vector3<T>
 
 		bool operator==(const HashableVector3& other) const
 		{
+			// clang-format off
 			return this->x == other.x &&
 				   this->y == other.y &&
 				   this->z == other.z;
+			// clang-format on
 		}
 };
 
@@ -28,12 +30,12 @@ typedef HashableVector3<int> HashableVector3i;
 template<typename T>
 struct Vector3Hasher
 {
-	std::size_t operator()(HashableVector3<T> const& vec) const
-	{
-		std::size_t seed = 0;
-		hash_combine(seed, vec.x);
-		hash_combine(seed, vec.y);
-		hash_combine(seed, vec.z);
-		return seed;
-	}
+		std::size_t operator()(HashableVector3<T> const& vec) const
+		{
+			std::size_t seed = 0;
+			hash_combine(seed, vec.x);
+			hash_combine(seed, vec.y);
+			hash_combine(seed, vec.z);
+			return seed;
+		}
 };

@@ -18,8 +18,7 @@ TextLabel::TextLabel(const std::string& text, const sf::Font& font, uint fontSiz
 	this->handleSettingsChange();
 }
 
-TextLabel::TextLabel(const std::string& text, const sf::Font& font, uint fontSize) :
-	fontSize(fontSize)
+TextLabel::TextLabel(const std::string& text, const sf::Font& font, uint fontSize) : fontSize(fontSize)
 {
 	this->setString(text);
 	this->setFont(font);
@@ -27,8 +26,7 @@ TextLabel::TextLabel(const std::string& text, const sf::Font& font, uint fontSiz
 	this->handleSettingsChange();
 }
 
-TextLabel::TextLabel(const sf::Font& font, uint fontSize) :
-	fontSize(fontSize)
+TextLabel::TextLabel(const sf::Font& font, uint fontSize) : fontSize(fontSize)
 {
 	this->setFont(font);
 

@@ -4,11 +4,13 @@
 
 #include "logic_setting.hpp"
 
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
 LogicSetting::LogicSetting(const std::string& key, bool& val, bool defaultVal) :
-	GenericSetting<bool>(key, val, defaultVal) {}
+	GenericSetting<bool>(key, val, defaultVal)
+{
+}
 
 std::string LogicSetting::defaultToString() const
 {

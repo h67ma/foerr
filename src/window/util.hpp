@@ -8,10 +8,10 @@
 #include <SFML/Graphics/View.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-#include "../hud/pipbuck/pipbuck.hpp"
 #include "../hud/dev_console.hpp"
 #include "../hud/fps_meter.hpp"
 #include "../hud/main_menu.hpp"
+#include "../hud/pipbuck/pipbuck.hpp"
 
 void recreateWindow(sf::RenderWindow& window);
 void windowSizeChanged(sf::Vector2u windowSize, FpsMeter& fpsMeter, sf::View& hudView, sf::View& gameWorldView,

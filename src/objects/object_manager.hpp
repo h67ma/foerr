@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
 
 #include "back_hole_obj.hpp"
-#include "back_obj_data.hpp"
 #include "back_obj.hpp"
+#include "back_obj_data.hpp"
 
 /**
  * ObjectManager is used to provide access to object properties. It's mostly a representation of .json files defining

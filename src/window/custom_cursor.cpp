@@ -4,9 +4,9 @@
 
 #include "custom_cursor.hpp"
 
+#include "../hud/log.hpp"
 #include "../settings/settings_manager.hpp"
 #include "../util/i18n.hpp"
-#include "../hud/log.hpp"
 
 CustomCursor::CustomCursor(const std::string& path, sf::Vector2u hotPoint, sf::Cursor::Type fallback) :
 	path(path),
@@ -29,12 +29,14 @@ bool CustomCursor::load()
 
 	sf::Image img;
 
-	if (!img.loadFromFile(this->path)) {
+	if (!img.loadFromFile(this->path))
+	{
 		Log::w(STR_CURSOR_LOAD_IMG_ERR, this->path.c_str());
 		return this->loadFromSystem(this->fallbackCursor);
 	}
 
-	if (!this->loadFromPixels(img.getPixelsPtr(), img.getSize(), this->hotPoint)) {
+	if (!this->loadFromPixels(img.getPixelsPtr(), img.getSize(), this->hotPoint))
+	{
 		Log::w(STR_CURSOR_LOAD_PIXELS_ERR, this->path.c_str());
 		return this->loadFromSystem(this->fallbackCursor);
 	}

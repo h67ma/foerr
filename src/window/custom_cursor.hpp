@@ -7,6 +7,7 @@
 #include <string>
 
 #include <SFML/Window/Cursor.hpp>
+
 #include "../consts.hpp"
 
 class CustomCursor : public sf::Cursor

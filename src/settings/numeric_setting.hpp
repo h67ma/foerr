@@ -9,9 +9,9 @@
 
 #include <nlohmann/json.hpp>
 
+#include "../consts.hpp"
 #include "constraint_setting.hpp"
 #include "generic_setting.hpp"
-#include "../consts.hpp"
 
 class NumericSetting : public GenericSetting<uint>, public ConstraintSetting<uint>
 {

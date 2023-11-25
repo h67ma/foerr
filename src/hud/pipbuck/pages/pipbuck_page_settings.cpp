@@ -11,27 +11,38 @@
 
 PipBuckPageSettings::PipBuckPageSettings(ResourceManager& resMgr) :
 	PipBuckPage("Settings"), // TODO translate
-	buttons({
-		{BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, [this]() {
-			// read new settings values from GUI controls on this page, save to SettingsManager
+	buttons({ { BTN_NORMAL,
+				resMgr,
+				{ 400, 815 },
+				STR_SAVE,
+				[this]()
+				{
+					// read new settings values from GUI controls on this page, save to SettingsManager
 
-			SettingsManager::hudColor = this->hudColorSelector.getSelectedColor();
-			SettingsManager::guiScale = this->guiScaleSlider.getValue();
+					SettingsManager::hudColor = this->hudColorSelector.getSelectedColor();
+					SettingsManager::guiScale = this->guiScaleSlider.getValue();
 
-			SettingsManager::saveConfig();
-		}, CLICK_CONSUMED_SETTINGS_CHANGED},
-		{BTN_NORMAL, resMgr, { 600, 815 }, STR_RESET_DEFAULT, [this]() {
-			// reset all settings, write to file, update controls state on this page
+					SettingsManager::saveConfig();
+				},
+				CLICK_CONSUMED_SETTINGS_CHANGED },
+			  { BTN_NORMAL,
+				resMgr,
+				{ 600, 815 },
+				STR_RESET_DEFAULT,
+				[this]()
+				{
+					// reset all settings, write to file, update controls state on this page
 
-			SettingsManager::resetAllToDefault();
-			SettingsManager::saveConfig();
+					SettingsManager::resetAllToDefault();
+					SettingsManager::saveConfig();
 
-			this->hudColorSelector.setSelectedColor(SettingsManager::hudColor);
-			this->guiScaleSlider.setValue(SettingsManager::guiScale);
-		}, CLICK_CONSUMED_SETTINGS_CHANGED}
-	}),
+					this->hudColorSelector.setSelectedColor(SettingsManager::hudColor);
+					this->guiScaleSlider.setValue(SettingsManager::guiScale);
+				},
+				CLICK_CONSUMED_SETTINGS_CHANGED } }),
 	hudColorSelector(*resMgr.getFont(FONT_NORMAL), SettingsManager::hudColor),
-	guiScaleSlider(*resMgr.getFont(FONT_NORMAL), GUI_SCALE_MIN_VALUE, SettingsManager::guiScale, GUI_SCALE_MAX_VALUE, 2),
+	guiScaleSlider(*resMgr.getFont(FONT_NORMAL), GUI_SCALE_MIN_VALUE, SettingsManager::guiScale, GUI_SCALE_MAX_VALUE,
+				   2),
 	infoText(*resMgr.getFont(FONT_NORMAL), 17U, { 400.F, 272.F })
 {
 	for (auto& btn : this->buttons)
@@ -44,9 +55,9 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager& resMgr) :
 	this->guiScaleSlider.setPosition(500.F, 345.F);
 
 	// TODO would be cool if there was a button here "Open game directory" which opens file explorer in this dir
-	this->infoText.setString(litSprintf("HUD color\n\n\nGUI scale\n\n\n\nMain game directory: %s\nSavegame directory: %s",
-										SettingsManager::getGameRootDir().c_str(),
-										SettingsManager::getSaveDir().c_str()));
+	this->infoText.setString(
+		litSprintf("HUD color\n\n\nGUI scale\n\n\n\nMain game directory: %s\nSavegame directory: %s",
+				   SettingsManager::getGameRootDir().c_str(), SettingsManager::getSaveDir().c_str()));
 }
 
 ClickStatus PipBuckPageSettings::handleLeftClick(sf::Vector2i clickPos)

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022 h67ma <szycikm@gmail.com>
+// (c) 2022-2023 h67ma <szycikm@gmail.com>
 
 #include "click_manager.hpp"
 
@@ -9,7 +9,7 @@
  *
  * @param clickable a Clickable to add
  */
-void ClickManager::operator +=(Clickable *clickable)
+void ClickManager::operator+=(Clickable* clickable)
 {
 	this->clickables.emplace_back(clickable);
 }

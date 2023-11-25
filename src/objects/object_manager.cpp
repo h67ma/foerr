@@ -4,8 +4,8 @@
 
 #include "object_manager.hpp"
 
-#include "../util/json.hpp"
 #include "../hud/log.hpp"
+#include "../util/json.hpp"
 
 bool ObjectManager::load()
 {

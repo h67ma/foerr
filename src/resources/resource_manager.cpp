@@ -7,24 +7,26 @@
 #include <filesystem>
 #include <string>
 
-#include "../util/i18n.hpp"
-#include "../hud/log.hpp"
 #include "../consts.hpp"
+#include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
 // order matters!
 const char* _fonts[] = {
-	"fonts/OpenSans-Regular.ttf",	// FONT_NORMAL
-	"fonts/OpenSans-Medium.ttf",	// FONT_MEDIUM
-	"fonts/Inconsolata-Regular.ttf"	// FONT_FIXED
+	"fonts/OpenSans-Regular.ttf", // FONT_NORMAL
+	"fonts/OpenSans-Medium.ttf", // FONT_MEDIUM
+	"fonts/Inconsolata-Regular.ttf" // FONT_FIXED
 };
 
+// clang-format off
 const char* _coreTextures[] = {
 	PATH_TXT_PIPBUCK_OVERLAY,
 	PATH_TXT_PIPBUCK_CAT_BTN_LEFT,
 	PATH_TXT_PIPBUCK_CAT_BTN_MID,
 	PATH_TXT_PIPBUCK_CAT_BTN_RIGHT,
-	PATH_TXT_PIPBUCK_BG_RADIAL
+	PATH_TXT_PIPBUCK_BG_RADIAL,
 };
+// clang-format on
 
 const char* _coreAudio[] = {
 	PATH_AUD_PIPBUCK_OPENCLOSE,
@@ -92,7 +94,8 @@ bool ResourceManager::loadCore()
  * loaded, duplicate loading does not occur.
  *
  * @param path image resource path
- * @param returnSomething if true, and requested texture is not found, a dummy texture will be returned instead of nullptr
+ * @param returnSomething if true, and requested texture is not found, a dummy texture will be returned instead of
+ * nullptr
  * @returns shared pointer to the loaded texture resource (can be `nullptr` if loading fails and !returnSomething)
  */
 std::shared_ptr<sf::Texture> ResourceManager::getTexture(const std::string& path, bool returnSomething)
@@ -176,7 +179,7 @@ void ResourceManager::cleanUnused()
 {
 	size_t oldSize = this->textures.size();
 
-	for (auto it = this->textures.begin(); it != this->textures.end(); )
+	for (auto it = this->textures.begin(); it != this->textures.end();)
 	{
 		if (it->second.use_count() <= 1) // the only shared ptr exists in res mgr itself
 			it = this->textures.erase(it);
@@ -188,7 +191,7 @@ void ResourceManager::cleanUnused()
 
 	oldSize = this->audios.size();
 
-	for (auto it = this->audios.begin(); it != this->audios.end(); )
+	for (auto it = this->audios.begin(); it != this->audios.end();)
 	{
 		if (it->second.use_count() <= 1) // the only shared ptr exists in res mgr itself
 			it = this->audios.erase(it);

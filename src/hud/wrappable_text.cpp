@@ -6,8 +6,7 @@
 
 #include "../settings/settings_manager.hpp"
 
-WrappableText::WrappableText(const sf::Font& font, uint fontSize, const sf::Vector2f& position) :
-	text(font, fontSize)
+WrappableText::WrappableText(const sf::Font& font, uint fontSize, const sf::Vector2f& position) : text(font, fontSize)
 {
 	this->setPosition(position);
 }
@@ -22,7 +21,7 @@ void WrappableText::setStringWrap()
 		return;
 
 	uint fontSize = this->text.getCharacterSize();
-	const sf::Font *font = this->text.getFont();
+	const sf::Font* font = this->text.getFont();
 	bool bold = this->text.getStyle() == sf::Text::Bold;
 	uint currentOffset = 0;
 	bool firstWord = true;

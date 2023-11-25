@@ -4,15 +4,15 @@
 
 #include "location.hpp"
 
-#include <string>
 #include <memory>
+#include <string>
 
 #include <SFML/Graphics/RenderTexture.hpp>
 
-#include "../settings/settings_manager.hpp"
-#include "../util/json.hpp"
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../settings/settings_manager.hpp"
+#include "../util/i18n.hpp"
+#include "../util/json.hpp"
 
 #define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
 
@@ -178,8 +178,8 @@ bool Location::loadContent(ResourceManager& resMgr, const MaterialManager& matMg
 
 		if (this->rooms.get(roomCoords) != nullptr)
 		{
-			Log::e(STR_DUPLICATE_ROOM_IN_SAME_COORDS, this->roomDataPath.c_str(),
-				   roomCoords.x, roomCoords.y, roomCoords.z);
+			Log::e(STR_DUPLICATE_ROOM_IN_SAME_COORDS, this->roomDataPath.c_str(), roomCoords.x, roomCoords.y,
+				   roomCoords.z);
 			this->unloadContent();
 			return false;
 		}
@@ -237,8 +237,8 @@ bool Location::loadContent(ResourceManager& resMgr, const MaterialManager& matMg
 	this->currentRoom = this->rooms.moveTo(startRoomCoords);
 	if (this->currentRoom == nullptr)
 	{
-		Log::e(STR_ROOM_MISSING_COORDS, this->roomDataPath.c_str(),
-			   startRoomCoords.x, startRoomCoords.y, startRoomCoords.z);
+		Log::e(STR_ROOM_MISSING_COORDS, this->roomDataPath.c_str(), startRoomCoords.x, startRoomCoords.y,
+			   startRoomCoords.z);
 		this->unloadContent();
 		return false;
 	}
@@ -379,15 +379,15 @@ bool Location::validateRoomGeometry(const std::shared_ptr<Room>& room, const Has
 
 				if (room->isCellCollider(x, ROOM_BORDER_TOP_INNER_Y))
 				{
-					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, roomCoords.x, roomCoords.y, roomCoords.z,
-						   x, ROOM_BORDER_TOP_INNER_Y);
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, roomCoords.x, roomCoords.y, roomCoords.z, x,
+						   ROOM_BORDER_TOP_INNER_Y);
 					return false;
 				}
 
 				if (roomUp->isCellCollider(x, ROOM_BORDER_BOTTOM_INNER_Y))
 				{
-					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, coordsUp.x, coordsUp.y, coordsUp.z,
-						   x, ROOM_BORDER_BOTTOM_INNER_Y);
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, coordsUp.x, coordsUp.y, coordsUp.z, x,
+						   ROOM_BORDER_BOTTOM_INNER_Y);
 					return false;
 				}
 			}
@@ -412,15 +412,15 @@ bool Location::validateRoomGeometry(const std::shared_ptr<Room>& room, const Has
 
 				if (room->isCellCollider(x, ROOM_BORDER_BOTTOM_INNER_Y))
 				{
-					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, roomCoords.x, roomCoords.y, roomCoords.z,
-						   x, ROOM_BORDER_BOTTOM_INNER_Y);
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, roomCoords.x, roomCoords.y, roomCoords.z, x,
+						   ROOM_BORDER_BOTTOM_INNER_Y);
 					return false;
 				}
 
 				if (roomDown->isCellCollider(x, ROOM_BORDER_TOP_INNER_Y))
 				{
-					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, coordsDown.x, coordsDown.y, coordsDown.z,
-						   x, ROOM_BORDER_TOP_INNER_Y);
+					Log::e(STR_ROOM_GEOMETRY_VAL_FAIL_INSUF, coordsDown.x, coordsDown.y, coordsDown.z, x,
+						   ROOM_BORDER_TOP_INNER_Y);
 					return false;
 				}
 			}
@@ -679,16 +679,18 @@ void Location::tick(uint lastFrameDurationUs)
 		switch (this->roomTransitionDirection)
 		{
 			case DIR_UP:
-				pos.y = static_cast<int>(elapsed * GAME_AREA_HEIGHT / SettingsManager::roomTransitionDurationMs) - GAME_AREA_HEIGHT;
+				pos.y = static_cast<int>(elapsed * GAME_AREA_HEIGHT / SettingsManager::roomTransitionDurationMs) -
+						GAME_AREA_HEIGHT;
 				break;
 			case DIR_DOWN:
-				pos.y = - static_cast<int>(elapsed * GAME_AREA_HEIGHT / SettingsManager::roomTransitionDurationMs);
+				pos.y = -static_cast<int>(elapsed * GAME_AREA_HEIGHT / SettingsManager::roomTransitionDurationMs);
 				break;
 			case DIR_LEFT:
-				pos.x = static_cast<int>(elapsed * GAME_AREA_WIDTH / SettingsManager::roomTransitionDurationMs) - GAME_AREA_WIDTH;
+				pos.x = static_cast<int>(elapsed * GAME_AREA_WIDTH / SettingsManager::roomTransitionDurationMs) -
+						GAME_AREA_WIDTH;
 				break;
 			case DIR_RIGHT:
-				pos.x = - static_cast<int>(elapsed * GAME_AREA_WIDTH / SettingsManager::roomTransitionDurationMs);
+				pos.x = -static_cast<int>(elapsed * GAME_AREA_WIDTH / SettingsManager::roomTransitionDurationMs);
 				break;
 			default:
 				// this should never happen

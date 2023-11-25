@@ -4,8 +4,8 @@
 
 #include "util.hpp"
 
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 void splitString(std::vector<std::string>& tokens, const std::string& input, char delim)
 {

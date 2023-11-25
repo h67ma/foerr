@@ -4,12 +4,12 @@
 
 #include "pipbuck_page_world.hpp"
 
-#include <string>
 #include <memory>
+#include <string>
 
 #include "../../../settings/settings_manager.hpp"
-#include "../../../util/util.hpp"
 #include "../../../util/i18n.hpp"
+#include "../../../util/util.hpp"
 
 // all relative to the page area
 const sf::Vector2f mapPos(400, 260);
@@ -27,23 +27,25 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager& resMgr, Campaign& campaign) 
 	PipBuckPage("World"), // TODO translate
 	resMgr(resMgr),
 	campaign(campaign),
-	gotoLocationBtn(BTN_NORMAL, resMgr, gotoLocationBtnPos, "Travel", [this](){
-		auto search = this->mapButtons.find(this->selectedLocId);
-		if (search == this->mapButtons.end())
-			return;
+	gotoLocationBtn(BTN_NORMAL, resMgr, gotoLocationBtnPos, "Travel",
+					[this]()
+					{
+						auto search = this->mapButtons.find(this->selectedLocId);
+						if (search == this->mapButtons.end())
+							return;
 
-		// TODO display a loading screen
-		if (!this->campaign.changeLocation(this->selectedLocId))
-			return;
+						// TODO display a loading screen
+						if (!this->campaign.changeLocation(this->selectedLocId))
+							return;
 
-		this->updateActiveIndicator();
+						this->updateActiveIndicator();
 
-		// reset selection
-		// no need to reset texts as now they are not shown anyway
-		search->second.setSelected(false);
-		this->selectedLocId = NO_LOCATION_SELECTED;
-		this->travelButtonAvailable = false;
-	}),
+						// reset selection
+						// no need to reset texts as now they are not shown anyway
+						search->second.setSelected(false);
+						this->selectedLocId = NO_LOCATION_SELECTED;
+						this->travelButtonAvailable = false;
+					}),
 	locTitle(*resMgr.getFont(FONT_MEDIUM), FONT_H2, locTitlePos),
 	locDescription(*resMgr.getFont(FONT_NORMAL), FONT_SPAN, locDescriptionPos)
 {
@@ -126,8 +128,7 @@ ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 		}
 	}
 
-	if (this->travelButtonAvailable &&
-		this->gotoLocationBtn.handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
+	if (this->travelButtonAvailable && this->gotoLocationBtn.handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
 	{
 		this->hoverMgr.removeHover(); // otherwise the "travel" btn will be highlighted when it next appears
 		return CLICK_CONSUMED_CLOSE;
@@ -190,8 +191,7 @@ void PipBuckPageWorld::setupMapDecorations()
 		if (pos - mapPos.x > mapW)
 			break; // just in case someone will make a smaller map
 
-		sf::Vector2f top(std::round(pos * SettingsManager::guiScale),
-						 std::round(mapPos.y * SettingsManager::guiScale));
+		sf::Vector2f top(std::round(pos * SettingsManager::guiScale), std::round(mapPos.y * SettingsManager::guiScale));
 		sf::Vector2f bottom(std::round(pos * SettingsManager::guiScale),
 							std::round((mapPos.y + mapH) * SettingsManager::guiScale));
 
@@ -238,12 +238,8 @@ bool PipBuckPageWorld::setupCampaignInfos()
 			return false;
 		}
 
-		this->mapButtons.try_emplace(
-			loc.first,
-			loc.second->isWorldMapIconBig(),
-			loc.second->isBasecamp(),
-			mapPos + loc.second->getWorldMapCoords(),
-			iconTxt);
+		this->mapButtons.try_emplace(loc.first, loc.second->isWorldMapIconBig(), loc.second->isBasecamp(),
+									 mapPos + loc.second->getWorldMapCoords(), iconTxt);
 	}
 
 	this->updateActiveIndicator();

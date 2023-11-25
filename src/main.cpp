@@ -12,21 +12,21 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-#include "resources/resource_manager.hpp"
-#include "settings/settings_manager.hpp"
-#include "window/cursor_manager.hpp"
-#include "hud/pipbuck/pipbuck.hpp"
-#include "hud/loading_screen.hpp"
 #include "campaigns/campaign.hpp"
-#include "hud/sliders/slider.hpp"
-#include "settings/keymap.hpp"
+#include "consts.hpp"
 #include "hud/dev_console.hpp"
 #include "hud/fps_meter.hpp"
-#include "hud/main_menu.hpp"
-#include "window/util.hpp"
-#include "util/i18n.hpp"
+#include "hud/loading_screen.hpp"
 #include "hud/log.hpp"
-#include "consts.hpp"
+#include "hud/main_menu.hpp"
+#include "hud/pipbuck/pipbuck.hpp"
+#include "hud/sliders/slider.hpp"
+#include "resources/resource_manager.hpp"
+#include "settings/keymap.hpp"
+#include "settings/settings_manager.hpp"
+#include "util/i18n.hpp"
+#include "window/cursor_manager.hpp"
+#include "window/util.hpp"
 
 int main()
 {
@@ -121,189 +121,151 @@ int main()
 	// while this would improve performance a bit, it would also significantly complicate things and possibly introduce
 	// bugs. for now the current simple solution is fine, until we face issues with keypress response time.
 	std::unordered_map<KeyAction, std::function<void(void)>> playingCbs {
-		{ ACTION_PIPBUCK_TOGGLE_OPEN, [&pipBuck, &window](){
-			pipBuck.open(sf::Mouse::getPosition(window));
-		} },
+		{ ACTION_PIPBUCK_TOGGLE_OPEN, [&pipBuck, &window]() { pipBuck.open(sf::Mouse::getPosition(window)); } },
 
-		{ ACTION_PIPB_GOTO_LOAD, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_LOAD, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_SAVE, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_SAVE, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_SETTINGS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_SETTINGS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_CONTROLS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_CONTROLS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_LOG, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_LOG, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_STATUS_MAIN, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_SKILLS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_SKILLS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_PERKS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_PERKS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_EFFECTS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_EFFECTS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_HEALTH, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_HEALTH, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_WEAPONS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_WEAPONS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_ARMOR, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_ARMOR, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_EQUIPMENT, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_INVENTORY_OTHER, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_AMMO, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_AMMO, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_MAP, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_MAP, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_WORLD, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_WORLD, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_QUESTS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_QUESTS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_NOTES, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_NOTES, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_ENEMIES, sf::Mouse::getPosition(window));
-		} },
+		{ ACTION_PIPB_GOTO_LOAD,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_LOAD, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_SAVE,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_SAVE, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_SETTINGS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_SETTINGS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_CONTROLS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_CONTROLS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_LOG,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_LOG, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_STATUS_MAIN,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_SKILLS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_SKILLS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_PERKS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_PERKS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_EFFECTS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_EFFECTS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_HEALTH,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_HEALTH, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_WEAPONS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_WEAPONS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_ARMOR,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_ARMOR, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_EQUIPMENT,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_INVENTORY_OTHER,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_AMMO,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_AMMO, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_MAP,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_MAP, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_WORLD,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_WORLD, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_QUESTS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_QUESTS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_NOTES,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_NOTES, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_ENEMIES,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_ENEMIES, sf::Mouse::getPosition(window)); } },
 
-		{ ACTION_DEBUG_NAV_LEFT, [&campaign](){
-			if (SettingsManager::debugNavigation)
-				campaign.gotoRoom(DIR_LEFT);
-		} },
-		{ ACTION_DEBUG_NAV_RIGHT, [&campaign](){
-			if (SettingsManager::debugNavigation)
-				campaign.gotoRoom(DIR_RIGHT);
-		} },
-		{ ACTION_DEBUG_NAV_UP, [&campaign](){
-			if (SettingsManager::debugNavigation)
-				campaign.gotoRoom(DIR_UP);
-		} },
-		{ ACTION_DEBUG_NAV_DOWN, [&campaign](){
-			if (SettingsManager::debugNavigation)
-				campaign.gotoRoom(DIR_DOWN);
-		} },
-		{ ACTION_DEBUG_NAV_FRONT, [&campaign](){
-			if (SettingsManager::debugNavigation)
-				campaign.gotoRoom(DIR_FRONT);
-		} },
-		{ ACTION_DEBUG_NAV_BACK, [&campaign](){
-			if (SettingsManager::debugNavigation)
-				campaign.gotoRoom(DIR_BACK);
-		} },
+		{ ACTION_DEBUG_NAV_LEFT,
+		  [&campaign]()
+		  {
+			  if (SettingsManager::debugNavigation)
+				  campaign.gotoRoom(DIR_LEFT);
+		  } },
+		{ ACTION_DEBUG_NAV_RIGHT,
+		  [&campaign]()
+		  {
+			  if (SettingsManager::debugNavigation)
+				  campaign.gotoRoom(DIR_RIGHT);
+		  } },
+		{ ACTION_DEBUG_NAV_UP,
+		  [&campaign]()
+		  {
+			  if (SettingsManager::debugNavigation)
+				  campaign.gotoRoom(DIR_UP);
+		  } },
+		{ ACTION_DEBUG_NAV_DOWN,
+		  [&campaign]()
+		  {
+			  if (SettingsManager::debugNavigation)
+				  campaign.gotoRoom(DIR_DOWN);
+		  } },
+		{ ACTION_DEBUG_NAV_FRONT,
+		  [&campaign]()
+		  {
+			  if (SettingsManager::debugNavigation)
+				  campaign.gotoRoom(DIR_FRONT);
+		  } },
+		{ ACTION_DEBUG_NAV_BACK,
+		  [&campaign]()
+		  {
+			  if (SettingsManager::debugNavigation)
+				  campaign.gotoRoom(DIR_BACK);
+		  } },
 
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
-			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
-		} },
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console]()
+		  { toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console); } },
 
-		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console, &window, &gameWorldView](){
-			console.executeLast(getMousePos(window, gameWorldView));
-		} },
+		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console]() { console.open(); } },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD,
+		  [&console, &window, &gameWorldView]() { console.executeLast(getMousePos(window, gameWorldView)); } },
 	};
 
 	std::unordered_map<KeyAction, std::function<void(void)>> pipBuckCbs {
-		{ ACTION_PIPBUCK_TOGGLE_OPEN, [&pipBuck](){ pipBuck.close(); } },
+		{ ACTION_PIPBUCK_TOGGLE_OPEN, [&pipBuck]() { pipBuck.close(); } },
 
-		{ ACTION_PIPB_GOTO_LOAD, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_LOAD, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_SAVE, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_SAVE, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_SETTINGS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_SETTINGS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_CONTROLS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_CONTROLS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_LOG, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_LOG, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_STATUS_MAIN, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_SKILLS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_SKILLS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_PERKS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_PERKS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_EFFECTS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_EFFECTS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_HEALTH, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_HEALTH, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_WEAPONS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_WEAPONS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_ARMOR, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_ARMOR, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_EQUIPMENT, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_INVENTORY_OTHER, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_AMMO, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_AMMO, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_MAP, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_MAP, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_WORLD, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_WORLD, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_QUESTS, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_QUESTS, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_NOTES, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_NOTES, sf::Mouse::getPosition(window));
-		} },
-		{ ACTION_PIPB_GOTO_ENEMIES, [&pipBuck, &window](){
-			pipBuck.switchToPage(PIPB_PAGE_ENEMIES, sf::Mouse::getPosition(window));
-		} },
+		{ ACTION_PIPB_GOTO_LOAD,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_LOAD, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_SAVE,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_SAVE, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_SETTINGS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_SETTINGS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_CONTROLS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_CONTROLS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_LOG,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_LOG, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_STATUS_MAIN,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_STATUS_MAIN, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_SKILLS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_SKILLS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_PERKS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_PERKS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_EFFECTS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_EFFECTS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_HEALTH,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_HEALTH, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_WEAPONS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_WEAPONS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_ARMOR,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_ARMOR, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_EQUIPMENT,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_EQUIPMENT, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_INVENTORY_OTHER,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_INVENTORY_OTHER, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_AMMO,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_AMMO, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_MAP,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_MAP, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_WORLD,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_WORLD, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_QUESTS,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_QUESTS, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_NOTES,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_NOTES, sf::Mouse::getPosition(window)); } },
+		{ ACTION_PIPB_GOTO_ENEMIES,
+		  [&pipBuck, &window]() { pipBuck.switchToPage(PIPB_PAGE_ENEMIES, sf::Mouse::getPosition(window)); } },
 
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
-			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
-		} },
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console]()
+		  { toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console); } },
 
-		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
-			console.executeLast();
-		} },
+		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console]() { console.open(); } },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console]() { console.executeLast(); } },
 	};
 
 	std::unordered_map<KeyAction, std::function<void(void)>> mainMenuCbs {
-		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console](){
-			toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console);
-		} },
+		{ ACTION_TOGGLE_FULLSCREEN, [&window, &fpsMeter, &hudView, &gameWorldView, &pipBuck, &mainMenu, &console]()
+		  { toggleFullscreen(window, fpsMeter, hudView, gameWorldView, pipBuck, mainMenu, console); } },
 
-		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console](){ console.open(); } },
-		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console](){
-			console.executeLast();
-		} },
+		{ ACTION_DEBUG_TOGGLE_CONSOLE, [&console]() { console.open(); } },
+		{ ACTION_DEBUG_REPEAT_LAST_CONSOLE_CMD, [&console]() { console.executeLast(); } },
 	};
 
 	// initial size
@@ -404,7 +366,7 @@ int main()
 				{
 					if (event.mouseButton.button == sf::Mouse::Left &&
 						pipBuck.handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) ==
-						CLICK_CONSUMED_SETTINGS_CHANGED)
+							CLICK_CONSUMED_SETTINGS_CHANGED)
 					{
 						Slider::calculateCoeffs();
 						Log::handleSettingsChange();
@@ -438,7 +400,8 @@ int main()
 
 				if (event.type == sf::Event::MouseButtonPressed)
 				{
-					//sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+					// sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x,
+					// event.mouseButton.y));
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
 						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });

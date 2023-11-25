@@ -6,8 +6,8 @@
 
 #include <memory>
 
-#include <SFML/Audio/SoundBuffer.hpp>
 #include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 
 /**
  * Used to track usage of resources in ResourceManager (shared ptr must be kept
@@ -23,7 +23,9 @@ class SoundResource : public sf::Sound
 		std::shared_ptr<sf::SoundBuffer> buffer;
 
 	public:
-		SoundResource() { /* kappa */ }
+		SoundResource()
+		{ /* kappa */
+		}
 		explicit SoundResource(std::shared_ptr<sf::SoundBuffer> buffer);
 		void setBuffer(std::shared_ptr<sf::SoundBuffer> buffer);
 		void clear();

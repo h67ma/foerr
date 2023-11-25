@@ -6,11 +6,10 @@
 
 #include <cmath>
 
-#include "../settings/settings_manager.hpp"
 #include "../consts.hpp"
+#include "../settings/settings_manager.hpp"
 
-FpsMeter::FpsMeter(const sf::Font& font, const sf::Vector2u& windowSize) :
-	text("??", font, FONT_H3, sf::Color::Green)
+FpsMeter::FpsMeter(const sf::Font& font, const sf::Vector2u& windowSize) : text("??", font, FONT_H3, sf::Color::Green)
 {
 	this->handleSettingsChange();
 	this->setPosition(windowSize);
@@ -23,16 +22,19 @@ void FpsMeter::handleSettingsChange()
 
 void FpsMeter::setPosition(sf::Vector2u windowSize)
 {
-	switch(SettingsManager::fpsAnchor)
+	switch (SettingsManager::fpsAnchor)
 	{
 		case CORNER_TOP_RIGHT:
-			this->text.setPosition(windowSize.x - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, FPS_ANCHOR_PADDING_TOP);
+			this->text.setPosition(windowSize.x - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width,
+								   FPS_ANCHOR_PADDING_TOP);
 			break;
 		case CORNER_BOTTOM_LEFT:
-			this->text.setPosition(FPS_ANCHOR_PADDING_LEFT, windowSize.y - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
+			this->text.setPosition(FPS_ANCHOR_PADDING_LEFT,
+								   windowSize.y - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
 			break;
 		case CORNER_BOTTOM_RIGHT:
-			this->text.setPosition(windowSize.x - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width, windowSize.y - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
+			this->text.setPosition(windowSize.x - FPS_ANCHOR_NEG_PADDING_RIGHT - this->text.getLocalBounds().width,
+								   windowSize.y - FPS_ANCHOR_NEG_PADDING_BOTTOM - this->text.getLocalBounds().height);
 			break;
 		case CORNER_TOP_LEFT:
 		default:

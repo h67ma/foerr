@@ -8,10 +8,10 @@
 
 #include <SFML/Graphics/Drawable.hpp>
 
+#include "../../consts.hpp"
+#include "../clickable.hpp"
 #include "../gui_transformable.hpp"
 #include "../hoverable.hpp"
-#include "../clickable.hpp"
-#include "../../consts.hpp"
 
 #define BTN_BORDER_THICKNESS_SMALL 1.F
 #define BTN_BORDER_THICKNESS_SMALL_SELECTED 2.F

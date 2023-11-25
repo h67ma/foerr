@@ -35,5 +35,5 @@ class BackHoleObject : public BackObjectBase
 	public:
 		bool loadFromJson(const nlohmann::json& jsonNode);
 		bool setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& holeSpriteRes, bool& blend,
-						    ResourceManager& resMgr, const struct back_obj_data& backObjData) const;
+							ResourceManager& resMgr, const struct back_obj_data& backObjData) const;
 };

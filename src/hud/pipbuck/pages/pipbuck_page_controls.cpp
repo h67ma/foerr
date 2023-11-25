@@ -12,18 +12,19 @@
 
 PipBuckPageControls::PipBuckPageControls(ResourceManager& resMgr) :
 	PipBuckPage("Controls"), // TODO translate
-	buttons({
-		{ BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() {
-			Keymap::save();
-		}},
-		{ BTN_NORMAL, resMgr, { 600, 815 }, STR_RESET_DEFAULT, [this]() {
-			// TODO display confirm dialog
-			Keymap::resetToDefault();
-			this->updateDisplay();
-			Log::i(STR_KEYMAP_RESETTED);
-			Keymap::save();
-		}}
-	}),
+	buttons({ { BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() { Keymap::save(); } },
+			  { BTN_NORMAL,
+				resMgr,
+				{ 600, 815 },
+				STR_RESET_DEFAULT,
+				[this]()
+				{
+					// TODO display confirm dialog
+					Keymap::resetToDefault();
+					this->updateDisplay();
+					Log::i(STR_KEYMAP_RESETTED);
+					Keymap::save();
+				} } }),
 	dummyMapDump(*resMgr.getFont(FONT_NORMAL), 17U, { 400.F, 250.F })
 {
 	for (auto& btn : this->buttons)

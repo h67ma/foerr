@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Transformable.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 
 #include "../configurable_gui_component.hpp"
 

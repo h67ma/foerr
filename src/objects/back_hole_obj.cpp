@@ -4,8 +4,8 @@
 
 #include "back_hole_obj.hpp"
 
-#include "../util/random.hpp"
 #include "../util/json.hpp"
+#include "../util/random.hpp"
 
 bool BackHoleObject::loadFromJson(const nlohmann::json& jsonNode)
 {
@@ -34,13 +34,13 @@ bool BackHoleObject::setupBgSprites(SpriteResource& mainSpriteRes, SpriteResourc
 	else if (selectedVariant >= this->variantsCnt)
 		return false;
 
-	mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(),
-														  selectedVariant, TXT_MAIN_SUFFIX)));
+	mainSpriteRes.setTexture(resMgr.getTexture(
+		litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(), selectedVariant, TXT_MAIN_SUFFIX)));
 	mainSpriteRes.setPosition(this->offset);
 	mainSpriteRes.setColor(BACK_OBJ_COLOR);
 
-	holeSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(),
-														  selectedVariant, TXT_HOLE_SUFFIX)));
+	holeSpriteRes.setTexture(resMgr.getTexture(
+		litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(), selectedVariant, TXT_HOLE_SUFFIX)));
 	holeSpriteRes.setPosition(this->offset);
 
 	blend = this->blend;

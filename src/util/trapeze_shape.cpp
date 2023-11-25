@@ -33,10 +33,14 @@ sf::Vector2f TrapezeShape::getPoint(std::size_t index) const
 	switch (index)
 	{
 		default:
-		case 0: return sf::Vector2f(this->data.topStartX, 0);
-		case 1: return sf::Vector2f(this->data.topStartX + this->data.topWidth, 0);
-		case 2: return sf::Vector2f(this->data.bottomStartX + this->data.bottomWidth, this->data.height);
-		case 3: return sf::Vector2f(this->data.bottomStartX, this->data.height);
+		case 0:
+			return sf::Vector2f(this->data.topStartX, 0);
+		case 1:
+			return sf::Vector2f(this->data.topStartX + this->data.topWidth, 0);
+		case 2:
+			return sf::Vector2f(this->data.bottomStartX + this->data.bottomWidth, this->data.height);
+		case 3:
+			return sf::Vector2f(this->data.bottomStartX, this->data.height);
 	}
 }
 
@@ -49,13 +53,11 @@ bool TrapezeShape::contains(sf::Vector2f point) const
 	// horizontal calculations are derived from the two-point form equation of a line
 
 	// horizontally - left side
-	if ((this->leftCoeff * point.y) -
-		((point.x - this->data.topStartX) * this->data.height) > 0)
+	if ((this->leftCoeff * point.y) - ((point.x - this->data.topStartX) * this->data.height) > 0)
 		return false;
 
 	// horizontally - right side
-	if ((this->rightCoeff * point.y) -
-		((point.x - this->data.topStartX - this->data.topWidth) * this->data.height) < 0)
+	if ((this->rightCoeff * point.y) - ((point.x - this->data.topStartX - this->data.topWidth) * this->data.height) < 0)
 		return false;
 
 	return true;

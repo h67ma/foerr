@@ -17,7 +17,6 @@
 
 #define MAX_INPUT_CHARS 80
 
-
 static void cmdFly(struct dev_console_cmd_params params)
 {
 	params.campaign.getPlayer().debugToggleFlight();
@@ -95,7 +94,6 @@ static void cmdWhere(struct dev_console_cmd_params params)
 	params.campaign.logWhereAmI();
 }
 
-
 // note: std::map used instead of std::unordered_map only so that `?`/`help` prints a sorted list
 const std::map<std::string, struct dev_console_cmd> DevConsole::commands {
 	{ "backvariant", { cmdVariant, STR_CMD_VARIANT } },
@@ -107,10 +105,9 @@ const std::map<std::string, struct dev_console_cmd> DevConsole::commands {
 	{ "nav", { cmdToggleDebugNav, STR_CMD_NAV } },
 	{ "port", { cmdTeleport, STR_CMD_PORT } },
 	{ "tp", { cmdTeleport, STR_CMD_PORT } },
-	{ "where", { cmdWhere, STR_CMD_WHERE, } },
+	{ "where", { cmdWhere, STR_CMD_WHERE } },
 	{ "whereami", { cmdWhere, STR_CMD_WHERE } },
 };
-
 
 DevConsole::DevConsole(sf::Vector2u windowSize, const sf::Font& font, Campaign& campaign) :
 	inputField(FONT_H2, CONSOLE_WIDTH, font, MAX_INPUT_CHARS),
@@ -139,14 +136,13 @@ bool DevConsole::getIsOpen() const
 
 void DevConsole::handleScreenResize(sf::Vector2u windowSize)
 {
-	switch(SettingsManager::debugConsoleAnchor)
+	switch (SettingsManager::debugConsoleAnchor)
 	{
 		case SIDE_TOP:
 			this->inputField.setPosition(CONSOLE_MARGIN, CONSOLE_MARGIN);
 			break;
 		default: // SIDE_BOTTOM
-			this->inputField.setPosition(CONSOLE_MARGIN,
-										 windowSize.y - CONSOLE_MARGIN - this->inputField.getHeight());
+			this->inputField.setPosition(CONSOLE_MARGIN, windowSize.y - CONSOLE_MARGIN - this->inputField.getHeight());
 			break;
 	}
 }

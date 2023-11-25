@@ -6,8 +6,8 @@
 
 #include <algorithm>
 
-#include "../util/random.hpp"
 #include "../util/json.hpp"
+#include "../util/random.hpp"
 
 bool BackObject::loadFromJson(const nlohmann::json& jsonNode)
 {
@@ -74,9 +74,8 @@ bool BackObject::setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& l
 
 	if (selectedVariant < this->mainCnt)
 	{
-		mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK,
-															  backObjData.id.c_str(), selectedVariant,
-															  TXT_MAIN_SUFFIX)));
+		mainSpriteRes.setTexture(resMgr.getTexture(
+			litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(), selectedVariant, TXT_MAIN_SUFFIX)));
 		mainSpriteRes.setPosition(this->offset);
 
 		// objects which are light sources are not dimmed
@@ -90,9 +89,8 @@ bool BackObject::setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& l
 
 	if (selectedVariant < this->lightCnt)
 	{
-		lightSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK,
-															   backObjData.id.c_str(), selectedVariant,
-															   TXT_LIGHT_SUFFIX)));
+		lightSpriteRes.setTexture(resMgr.getTexture(
+			litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(), selectedVariant, TXT_LIGHT_SUFFIX)));
 		lightSpriteRes.setPosition(this->offsetLight);
 
 		// note: light texture is not dimmed like main texture

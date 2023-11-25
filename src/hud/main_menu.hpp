@@ -6,18 +6,18 @@
 
 #include <vector>
 
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/Drawable.hpp>
 
+#include "../campaigns/campaign.hpp"
 #include "../resources/sound_resource.hpp"
-#include "configurable_gui_component.hpp"
 #include "../window/cursor_manager.hpp"
 #include "buttons/simple_button.hpp"
-#include "../campaigns/campaign.hpp"
-#include "pipbuck/pipbuck.hpp"
-#include "hover_manager.hpp"
 #include "click_manager.hpp"
+#include "configurable_gui_component.hpp"
+#include "hover_manager.hpp"
+#include "pipbuck/pipbuck.hpp"
 #include "text_label.hpp"
 
 class MainMenu : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent

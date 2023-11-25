@@ -35,7 +35,7 @@ void Log::setup()
 	SettingsManager::guiScale = 1.F;
 }
 
-void Log::setFont(sf::Font *font)
+void Log::setFont(sf::Font* font)
 {
 	Log::font = font;
 }
@@ -83,11 +83,12 @@ void Log::tick(bool force)
 		return;
 
 	// remove items which were in the log for longer than LOG_ELEMENT_LIFE_TIME_S
-	Log::hudHistory.remove_if([](const auto& item){ return item->isTimeUp(); });
+	Log::hudHistory.remove_if([](const auto& item) { return item->isTimeUp(); });
 
 	// initial offset from top/bottom
 	if (SettingsManager::logAnchor == CORNER_BOTTOM_LEFT || SettingsManager::logAnchor == CORNER_BOTTOM_RIGHT)
-		y = Log::windowSize.y - static_cast<uint>(Log::hudHistory.size()) * Log::fontGap - LOG_ANCHOR_NEG_PADDING_BOTTOM;
+		y = Log::windowSize.y - static_cast<uint>(Log::hudHistory.size()) * Log::fontGap -
+			LOG_ANCHOR_NEG_PADDING_BOTTOM;
 
 	for (auto& item : Log::hudHistory)
 	{

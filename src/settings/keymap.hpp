@@ -4,9 +4,9 @@
 
 #pragma once
 
+#include <string>
 #include <unordered_map>
 #include <vector>
-#include <string>
 
 #include <SFML/Window/Keyboard.hpp>
 
@@ -62,11 +62,11 @@ enum KeyAction
 
 struct action_def
 {
-	std::string serializeKey;
-	std::string displayName;
+		std::string serializeKey;
+		std::string displayName;
 
-	// could be a set, but it wouldn't really change anything, just add a bit of complexity
-	std::vector<sf::Keyboard::Key> defaultKeys;
+		// could be a set, but it wouldn't really change anything, just add a bit of complexity
+		std::vector<sf::Keyboard::Key> defaultKeys;
 };
 
 /**

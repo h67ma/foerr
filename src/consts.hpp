@@ -71,6 +71,6 @@ const sf::BlendMode BlendSubtractOrSomething(sf::BlendMode::Zero, sf::BlendMode:
 
 // mixes src and dst where alpha != 0, makes src transparent where dst alpha == 0
 // TODO? this looks pretty ok, but in the future could be replaced with a shader, or maybe some better blend mode
-const sf::BlendMode BlendOverlayOrSomething(sf::BlendMode::SrcColor, sf::BlendMode::One,
-											sf::BlendMode::ReverseSubtract, sf::BlendMode::OneMinusDstColor,
-											sf::BlendMode::One, sf::BlendMode::ReverseSubtract);
+const sf::BlendMode BlendOverlayOrSomething(sf::BlendMode::SrcColor, sf::BlendMode::One, sf::BlendMode::ReverseSubtract,
+											sf::BlendMode::OneMinusDstColor, sf::BlendMode::One,
+											sf::BlendMode::ReverseSubtract);

@@ -4,17 +4,21 @@
 
 #include "float_setting.hpp"
 
-#include "../util/i18n.hpp"
 #include "../hud/log.hpp"
+#include "../util/i18n.hpp"
 
 FloatSetting::FloatSetting(const std::string& key, float& val, float defaultVal) :
 	GenericSetting(key, val, defaultVal),
-	ConstraintSetting(nullptr, "") {}
+	ConstraintSetting(nullptr, "")
+{
+}
 
 FloatSetting::FloatSetting(const std::string& key, float& val, float defaultVal,
 						   const std::function<bool(float)>& constraint, const std::string& valueHint) :
 	GenericSetting(key, val, defaultVal),
-	ConstraintSetting(constraint, valueHint) {}
+	ConstraintSetting(constraint, valueHint)
+{
+}
 
 std::string FloatSetting::defaultToString() const
 {

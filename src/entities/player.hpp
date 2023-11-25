@@ -5,15 +5,15 @@
 #pragma once
 
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
 
-#include "../resources/resource_manager.hpp"
 #include "../campaigns/room_cell.hpp"
-#include "physics_entity.hpp"
-#include "../util/util.hpp"
 #include "../consts.hpp"
+#include "../resources/resource_manager.hpp"
+#include "../util/util.hpp"
 #include "animation.hpp"
+#include "physics_entity.hpp"
 
 // TODO we'll probably need something more sophisticated, based on current animation
 constexpr uint PLAYER_W = 60;
@@ -32,14 +32,9 @@ class Player : public sf::Drawable, public sf::Transformable
 {
 	private:
 		Animation animation;
-		sf::Vector2f velocity{ 0.F, 0.F };
+		sf::Vector2f velocity { 0.F, 0.F };
 		bool facingRight = true;
-		sf::IntRect collider {
-			PLAYER_COLLIDER_LEFT,
-			PLAYER_COLLIDER_TOP,
-			PLAYER_W,
-			PLAYER_H
-		};
+		sf::IntRect collider { PLAYER_COLLIDER_LEFT, PLAYER_COLLIDER_TOP, PLAYER_W, PLAYER_H };
 		enum MovementMode movementMode = MOVM_WALK;
 
 	public:
