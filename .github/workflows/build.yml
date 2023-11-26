@@ -25,6 +25,11 @@ jobs:
             cpp_compiler: g++
 
     steps:
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y libgl-dev
+
     - name: Checkout
       uses: actions/checkout@v4
 
