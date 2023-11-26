@@ -1,0 +1,22 @@
+name: clang-format
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  clang_format:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt install -y clang-format-13
+    - name: Run clang-format
+      run: clang-format-13 -style=file -Werror --dry-run ${{github.workspace}}/src/**/*.(hpp|cpp|c|h|h.in)
