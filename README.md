@@ -46,27 +46,31 @@ Features currently **outside** project scope:
 
 # Build
 Refer to [SFML documentation](https://www.sfml-dev.org/tutorials/2.6/compile-with-cmake.php#installing-dependencies)
-for satisfying SFML dependencies.
+for satisfying SFML dependencies. On most Debian-based systems the following should be enough:
+```
+sudo apt update
+sudo apt install -y \
+	libfreetype-dev \
+	libx11-dev \
+	libxrandr-dev \
+	libudev-dev \
+	libgl-dev \
+	libflac-dev \
+	libvorbis-dev \
+	libopenal-dev \
+	libxcursor-dev
+```
 
+Then:
 ```
 cd $PROJECT_ROOT
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-cmake --build . -j`nproc` --config Debug
+cmake -DCMAKE_BUILD_TYPE=$TYPE -B build
+cmake --build . -j`nproc` --config $TYPE
 ```
+Where `TYPE` can be either `Debug` or `Release`.
 
 Source code of dependencies is automatically downloaded on project configure. Libraries are built from source and linked
 statically, with the exception of openal32.
-
-## Switching build type
-```
-cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build . -j`nproc` --config Release
-```
-
-## Verbose build
-Just add `-v`.
 
 # Run
 ```
