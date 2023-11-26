@@ -19,4 +19,6 @@ jobs:
         sudo apt-get update
         sudo apt install -y clang-format-13
     - name: Run clang-format
-      run: clang-format-13 -style=file -Werror --dry-run ${{github.workspace}}/src/**/*.(hpp|cpp|c|h|h.in)
+      run: |
+        SOURCES=$(find ${{github.workspace}}/src -type f | grep "\.cpp$\|\.hpp$\|\.c$\|\.h$\|\.h\.in$")
+        clang-format-13 -style=file -Werror --dry-run $SOURCES
