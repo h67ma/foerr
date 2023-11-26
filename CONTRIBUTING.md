@@ -104,6 +104,7 @@ The identifier should point to the main part of the repository that is being cha
 * `res` - most of the changes were done in `res` or `fonts` directories
 * `build` - changes related to the build system (CMake, dependencies)
 * `git` - changes related to git (e.g. `.gitignore` modifications)
+* `github` - changes related to Github actions
 * `docs` - changes related to non-code documentation
 
 It is encouraged to use words such as `add`, `refactor`, `improve`, or `fix` in the title.
