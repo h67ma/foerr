@@ -44,7 +44,8 @@ Features currently **outside** project scope:
 * New playable player races/classes
 * Game console versions
 
-# Build
+# Installing dependencies
+## GNU/Linux
 Refer to [SFML documentation](https://www.sfml-dev.org/tutorials/2.6/compile-with-cmake.php#installing-dependencies)
 for satisfying SFML dependencies. On most Debian-based systems the following should be enough:
 ```
@@ -61,7 +62,13 @@ sudo apt install -y \
 	libxcursor-dev
 ```
 
-Then:
+## Windows
+1. Download Visual Studio Community installer
+2. Select individual components to install (minimal):
+	* Compilers, build tools, and runtimes -> MSVC [...] C++ x64/86 build tools (latest)
+	* SDKs, libraries, and frameworks -> Windows [...] SDK (latest one)
+
+# Build
 ```
 cd $PROJECT_ROOT
 cmake -DCMAKE_BUILD_TYPE=$TYPE -B build
@@ -79,7 +86,7 @@ build/bin/Release/foerr
 ```
 Where `$PROJECT_ROOT` is a directory containing `res` and `fonts` directories.
 
-On Windows, `openal32.dll` must be present in PATH or in current directory.
+On Windows, `openal32.dll` must be present in PATH or be in current directory.
 
 # Clean
 ```
