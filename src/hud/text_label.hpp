@@ -9,6 +9,7 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "../consts.hpp"
 #include "configurable_gui_component.hpp"
 
 /**

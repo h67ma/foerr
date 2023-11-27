@@ -19,4 +19,12 @@ set(SFML_BUILD_TEST_SUITE OFF)
 message(STATUS "Fetching SFML...")
 FetchContent_MakeAvailable(sfml)
 
+if(WIN32)
+	# /EHsc is to somehow mitigate warning C4530 (being treated as an error)
+	target_compile_options(sfml-audio PRIVATE /EHsc)
+	target_compile_options(sfml-graphics PRIVATE /EHsc)
+	target_compile_options(sfml-system PRIVATE /EHsc)
+	target_compile_options(sfml-window PRIVATE /EHsc)
+endif()
+
 # TODO copy openal.dll from sfml-src/extlibs/bin/{x64/x86} to root dir or somehow add it to PATH

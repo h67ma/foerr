@@ -9,6 +9,8 @@
 
 #include <SFML/System/Vector2.hpp>
 
+#include "../consts.hpp"
+
 #define STR(thing) #thing
 #define STR_EXP(thing) STR(thing) // "the double expansion trick"
 

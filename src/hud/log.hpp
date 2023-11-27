@@ -15,6 +15,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Clock.hpp>
 
+#include "../consts.hpp"
 #include "../hud/hud.hpp"
 #include "../settings/settings_manager.hpp"
 #include "../util/util.hpp"

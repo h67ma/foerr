@@ -72,7 +72,7 @@ bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<cha
 			maskTexturePath = pathCombine(PATH_TEXT_CELLS, maskTexturePath + ".png");
 		}
 
-		bool matIsRight;
+		bool matIsRight = false;
 		if (matType == MAT_LADDER || matType == MAT_STAIRS)
 		{
 			if (!parseJsonKey<bool>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_IS_RIGHT, matIsRight))
@@ -93,14 +93,14 @@ bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<cha
 		color.loadFromColorString(colorString);
 		color.a = LIQUID_OPACITY;
 
-		theMap.emplace(matSymbol, material { .type = matType,
-											 .texturePath = texturePath,
-											 .textureDelimPath = textureDelimPath,
-											 .maskTexturePath = maskTexturePath,
-											 .isRight = matIsRight,
-											 .offsetLeft = offsetLeft,
-											 .delimOffset = delimOffset,
-											 .color = color });
+		theMap.emplace(matSymbol, material { matType,
+											 texturePath,
+											 textureDelimPath,
+											 maskTexturePath,
+											 matIsRight,
+											 offsetLeft,
+											 delimOffset,
+											 color });
 	}
 
 	return true;

@@ -9,6 +9,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 
+#include "../../consts.hpp"
 #include "../configurable_gui_component.hpp"
 
 constexpr float SLIDER_HANDLE_HEIGHT = 15;

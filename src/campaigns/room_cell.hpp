@@ -10,6 +10,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 
+#include "../consts.hpp"
 #include "../materials/material_manager.hpp"
 #include "../resources/resource_manager.hpp"
 #include "../resources/sprite_resource.hpp"

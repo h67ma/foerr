@@ -10,6 +10,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 
+#include "../consts.hpp"
 #include "../hud/log.hpp"
 #include "../objects/back_obj.hpp"
 #include "../settings/settings_manager.hpp"
@@ -354,7 +355,7 @@ void Room::setupBackHoleObjects(ResourceManager& resMgr, const ObjectManager& ob
 		}
 
 		// both backObjMain and backObjHole are expected to have textures, don't check if they are nullptr
-		this->backHoleObjectsMain.push_back({ .spriteRes = backObjMain, .blend = blend });
+		this->backHoleObjectsMain.push_back({ backObjMain, blend });
 		this->backHoleObjectsHoles.push_back(backObjHole);
 	}
 }
