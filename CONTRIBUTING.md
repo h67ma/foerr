@@ -169,6 +169,7 @@ Fixes: aabbccddeeff ("foerr: Add the ability to pick up items")
 Signed-off-by: User <test2@example.com>
 ```
 
-# Maintainers note
-Maintainers reserve the right to have a final say in any decision related to the project. That being said, they must aim
-to listen to other contributors and users and ultimately take an action that is best for project goals.
+# Override note
+Project owner and collaborators reserve the right to have a final say in any decision related to the project. That being
+said, they must aim to listen to other contributors and users and ultimately take an action that is best for project
+goals.
