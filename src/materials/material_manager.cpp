@@ -93,14 +93,8 @@ bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<cha
 		color.loadFromColorString(colorString);
 		color.a = LIQUID_OPACITY;
 
-		theMap.emplace(matSymbol, material { matType,
-											 texturePath,
-											 textureDelimPath,
-											 maskTexturePath,
-											 matIsRight,
-											 offsetLeft,
-											 delimOffset,
-											 color });
+		theMap.emplace(matSymbol, material { matType, texturePath, textureDelimPath, maskTexturePath, matIsRight,
+											 offsetLeft, delimOffset, color });
 	}
 
 	return true;
