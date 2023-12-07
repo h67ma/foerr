@@ -46,6 +46,7 @@ Features currently **outside** project scope:
 
 # Installing dependencies
 ## GNU/Linux
+### Building
 Refer to [SFML documentation](https://www.sfml-dev.org/tutorials/2.6/compile-with-cmake.php#installing-dependencies)
 for satisfying SFML dependencies. On most Debian-based systems the following should be enough:
 ```
@@ -63,6 +64,11 @@ sudo apt install -y \
 ```
 
 ## Windows
+### Running
+Download and install latest
+[Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist).
+
+### Building
 1. Download Visual Studio Community installer
 2. Select individual components to install (minimal):
 	* Compilers, build tools, and runtimes -> MSVC [...] C++ x64/86 build tools (latest)
