@@ -26,5 +26,3 @@ if(WIN32)
 	target_compile_options(sfml-system PRIVATE /EHsc)
 	target_compile_options(sfml-window PRIVATE /EHsc)
 endif()
-
-# TODO copy openal.dll from sfml-src/extlibs/bin/{x64/x86} to root dir or somehow add it to PATH

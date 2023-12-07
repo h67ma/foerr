@@ -1,0 +1,64 @@
+name: CPack and upload
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+
+    strategy:
+      fail-fast: true
+
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        build_type: [Release]
+        include:
+          - os: windows-latest
+            c_compiler: cl
+            cpp_compiler: cl
+          - os: ubuntu-latest
+            c_compiler: gcc
+            cpp_compiler: g++
+
+    steps:
+    - name: Install Linux dependencies
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+      run: |
+        sudo apt update
+        sudo apt install -y libfreetype-dev libx11-dev libxrandr-dev libudev-dev libgl-dev libflac-dev libvorbis-dev libopenal-dev libxcursor-dev
+
+    - name: Install Windows dependencies
+      if: ${{ matrix.os == 'windows-latest' }}
+      run: |
+        iwr -useb get.scoop.sh -outfile 'install.ps1'
+        .\install.ps1 -RunAsAdmin
+        scoop update
+        scoop bucket add extras
+        scoop install nsis
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Configure
+      run: >
+        cmake -B ${{github.workspace}}/build
+        -DCMAKE_CXX_COMPILER=${{matrix.cpp_compiler}}
+        -DCMAKE_C_COMPILER=${{matrix.c_compiler}}
+        -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
+        -S ${{github.workspace}}
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{matrix.build_type}}
+
+    - name: Package
+      run: cpack --config ${{github.workspace}}/build/CPackConfig.cmake
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: cpacked
+        path: |
+          ${{github.workspace}}/foerr-*.tar.gz
+          ${{github.workspace}}/foerr-*.exe
+        if-no-files-found: ignore

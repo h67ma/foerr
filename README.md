@@ -46,6 +46,7 @@ Features currently **outside** project scope:
 
 # Installing dependencies
 ## GNU/Linux
+### Building
 Refer to [SFML documentation](https://www.sfml-dev.org/tutorials/2.6/compile-with-cmake.php#installing-dependencies)
 for satisfying SFML dependencies. On most Debian-based systems the following should be enough:
 ```
@@ -63,16 +64,24 @@ sudo apt install -y \
 ```
 
 ## Windows
+### Running
+Download and install latest
+[Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist).
+
+### Building
 1. Download Visual Studio Community installer
 2. Select individual components to install (minimal):
 	* Compilers, build tools, and runtimes -> MSVC [...] C++ x64/86 build tools (latest)
 	* SDKs, libraries, and frameworks -> Windows [...] SDK (latest one)
 
+### Packaging
+Download and install [NSIS](https://nsis.sourceforge.io).
+
 # Build
 ```
 cd $PROJECT_ROOT
 cmake -DCMAKE_BUILD_TYPE=$TYPE -B build
-cmake --build . -j`nproc` --config $TYPE
+cmake --build build --config $TYPE
 ```
 Where `TYPE` can be either `Debug` or `Release`.
 
@@ -98,6 +107,18 @@ cmake --build . --target clean
 
 # Install
 ```
-cd build
-cmake --install . --config Release --prefix $PATH_TO_INSTALL
+cd $PROJECT_ROOT
+cmake -DCMAKE_BUILD_TYPE=Release -B build
+cmake --build build --config Release
+cmake --install build --config Release --prefix $PATH_TO_INSTALL
 ```
+**Warning**: files will be installed **directly** to the specified path, i.e. without creating a subdirectory.
+
+# Package
+```
+cd $PROJECT_ROOT
+cmake -DCMAKE_BUILD_TYPE=Release -B build
+cmake --build build --config Release
+cpack --config build/CPackConfig.cmake
+```
+This will generate a tarball on GNU/Linux and NSIS installer on Windows.

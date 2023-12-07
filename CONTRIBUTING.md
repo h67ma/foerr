@@ -58,6 +58,13 @@ run
 
 Installed hook can be skipped with `git commit --no-verify`.
 
+# Resources
+All resources (images, audio, json, etc.) must be located in the `res` directory. Note that everything inside `res`
+is distributed under a different license than code (see `res/LICENSE.txt`).
+
+In case of files that can be compressed/optimized without sacrificing quality, it is recommended to do so. For example,
+for `.svg` files it is recommended to run them through `scour`.
+
 # Commits
 Commits should be atomic. Whenever possible, don't mix two new features in one commit.
 When renaming/refactoring a large chunk of code, don't do it alongside other changes - rather split it off into

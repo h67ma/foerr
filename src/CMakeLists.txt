@@ -1,10 +1,16 @@
 # SPDX-License-Identifier: GPL-3.0-only
 #
-# (c) 2022 h67ma <szycikm@gmail.com>
+# (c) 2022-2023 h67ma <szycikm@gmail.com>
 
 file(GLOB_RECURSE SOURCES *.cpp)
 
-add_executable(foerr ${SOURCES})
+if(WIN32)
+	# WIN32 flag prevents the console window from showing up alongside graphical window
+	# see https://www.sfml-dev.org/faq.php#tr-win-console
+	add_executable(foerr WIN32 ${SOURCES} exe_icon.rc)
+else()
+	add_executable(foerr ${SOURCES})
+endif()
 
 if(WIN32)
 	# set a tolerable warning level
@@ -16,10 +22,13 @@ else()
 endif()
 
 target_link_libraries(foerr PRIVATE sfml-graphics sfml-window sfml-system sfml-audio nlohmann_json)
+if(WIN32)
+	# needed for the WIN32 flag
+	# see https://www.sfml-dev.org/faq.php#tr-win-console
+	target_link_libraries(foerr PRIVATE sfml-main)
+endif()
 
-install(TARGETS foerr DESTINATION foerr)
-install(DIRECTORY "${PROJECT_BINARY_DIR}/../res" DESTINATION foerr)
-# TODO? on binbows also copy openal to install dir
+install(TARGETS foerr DESTINATION ".")
 
 # add version from git-describe
 # based on https://github.com/nocnokneo/cmake-git-versioning-example
