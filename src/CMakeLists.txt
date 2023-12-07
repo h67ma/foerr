@@ -7,7 +7,7 @@ file(GLOB_RECURSE SOURCES *.cpp)
 if(WIN32)
 	# WIN32 flag prevents the console window from showing up alongside graphical window
 	# see https://www.sfml-dev.org/faq.php#tr-win-console
-	add_executable(foerr WIN32 ${SOURCES})
+	add_executable(foerr WIN32 ${SOURCES} exe_icon.rc)
 else()
 	add_executable(foerr ${SOURCES})
 endif()
