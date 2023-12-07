@@ -74,6 +74,9 @@ Download and install latest
 	* Compilers, build tools, and runtimes -> MSVC [...] C++ x64/86 build tools (latest)
 	* SDKs, libraries, and frameworks -> Windows [...] SDK (latest one)
 
+### Packaging
+Download and install [NSIS](https://nsis.sourceforge.io).
+
 # Build
 ```
 cd $PROJECT_ROOT
@@ -110,3 +113,12 @@ cmake --build build --config Release
 cmake --install build --config Release --prefix $PATH_TO_INSTALL
 ```
 **Warning**: files will be installed **directly** to the specified path, i.e. without creating a subdirectory.
+
+# Package
+```
+cd $PROJECT_ROOT
+cmake -DCMAKE_BUILD_TYPE=Release -B build
+cmake --build build --config Release
+cpack --config build/CPackConfig.cmake
+```
+This will generate a tarball on GNU/Linux and NSIS installer on Windows.

@@ -1,4 +1,3 @@
-foerr
 .cache/
 .vscode/
 build/
@@ -7,3 +6,6 @@ build/
 *.log
 *.o
 *.tmp
+_CPack_Packages/
+foerr-*.tar.gz
+foerr-*.exe
