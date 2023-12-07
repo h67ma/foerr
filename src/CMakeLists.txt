@@ -28,9 +28,7 @@ if(WIN32)
 	target_link_libraries(foerr PRIVATE sfml-main)
 endif()
 
-install(TARGETS foerr DESTINATION foerr)
-install(DIRECTORY "${PROJECT_BINARY_DIR}/../res" DESTINATION foerr)
-# TODO? on binbows also copy openal to install dir
+install(TARGETS foerr DESTINATION ".")
 
 # add version from git-describe
 # based on https://github.com/nocnokneo/cmake-git-versioning-example

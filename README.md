@@ -72,7 +72,7 @@ sudo apt install -y \
 ```
 cd $PROJECT_ROOT
 cmake -DCMAKE_BUILD_TYPE=$TYPE -B build
-cmake --build . -j`nproc` --config $TYPE
+cmake --build build --config $TYPE
 ```
 Where `TYPE` can be either `Debug` or `Release`.
 
@@ -98,6 +98,9 @@ cmake --build . --target clean
 
 # Install
 ```
-cd build
-cmake --install . --config Release --prefix $PATH_TO_INSTALL
+cd $PROJECT_ROOT
+cmake -DCMAKE_BUILD_TYPE=Release -B build
+cmake --build build --config Release
+cmake --install build --config Release --prefix $PATH_TO_INSTALL
 ```
+**Warning**: files will be installed **directly** to the specified path, i.e. without creating a subdirectory.
