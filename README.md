@@ -23,10 +23,20 @@ way), using free, open and cross-platform technologies. Instead of developing it
 is shared freely, contributions are welcome from anyone (as long as they fulfill project goals), and discussion about
 the project's direction is encouraged.
 
+# Download
+See the [latest release](https://github.com/h67ma/foerr/releases/latest).
+
+Note: prebuilt packages in releases are generated with GitHub Actions (see
+[package.yml](https://github.com/h67ma/foerr/actions/workflows/package.yml)).
+
+# Completion status
+Project is currently in early stage of development. Many systems are missing entirely. Therefore, the game is currently
+not playable.
+
 # Project goals
 1. Create a reimplementation of _FoE: Remains_, faithful in gameplay, style (visual, audio), and overall vibe.
 2. Implement the entire campaign of _FoE: Remains_ (Chosen-25).
-3. Make the game compatible with major PC platforms - Linux, Windows, and possibly OS X.
+3. Make the game compatible with major PC platforms - GNU/Linux, Windows, and possibly OS X.
 4. Design the game with performance and extensibility in mind.
 5. Add meaningful quality of life features (e.g. search bar in inventory, scalable GUI, more configurable shortcut keys,
 customizable cutie mark, etc.).
