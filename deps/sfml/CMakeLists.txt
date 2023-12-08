@@ -6,8 +6,8 @@ include(FetchContent)
 
 FetchContent_Declare(
 	sfml
-	URL https://github.com/SFML/SFML/archive/refs/tags/2.6.0.zip
-	URL_HASH SHA256=cf9535356ab37067e871270fbc5ae19e4102b658d6ea96993e6c9452ddbf99b3
+	URL https://github.com/SFML/SFML/archive/refs/tags/2.6.1.zip
+	URL_HASH SHA256=d7c4c524b4224dbc31f802a270f62503a3c37540897de06290d856a74d6faf7c
 )
 
 set(SFML_BUILD_NETWORK OFF)
