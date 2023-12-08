@@ -26,6 +26,8 @@ add_subdirectory(src)
 install(DIRECTORY res DESTINATION ".")
 install(DIRECTORY fonts DESTINATION ".")
 install(FILES LICENSE DESTINATION ".")
+install(FILES "${PROJECT_BINARY_DIR}/_deps/sfml-src/license.md" DESTINATION "licenses" RENAME "SFML-LICENSE.md")
+install(FILES "${PROJECT_BINARY_DIR}/_deps/nlohmann_json-src/LICENSE.MIT" DESTINATION "licenses" RENAME "NLOHMANN-JSON-LICENSE.MIT")
 
 if(WIN32)
 	# seems a bit hacky but I guess it works?
