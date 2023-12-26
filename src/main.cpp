@@ -18,7 +18,7 @@
 #include "hud/fps_meter.hpp"
 #include "hud/loading_screen.hpp"
 #include "hud/log.hpp"
-#include "hud/main_menu.hpp"
+#include "hud/main_menu/main_menu.hpp"
 #include "hud/pipbuck/pipbuck.hpp"
 #include "hud/sliders/slider.hpp"
 #include "resources/resource_manager.hpp"
