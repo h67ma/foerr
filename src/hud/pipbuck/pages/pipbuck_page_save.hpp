@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -10,7 +10,7 @@
 #include "../pipbuck_page.hpp"
 
 /**
- * PipBuck -> Main Menu -> Save
+ * PipBuck -> Game -> Save
  */
 class PipBuckPageSave : public PipBuckPage
 {

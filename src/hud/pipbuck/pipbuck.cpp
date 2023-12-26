@@ -75,7 +75,7 @@ PipBuck::PipBuck(ResourceManager& resMgr, CursorManager& cursorMgr, Campaign& ca
 					   { PIPB_PAGE_QUESTS, std::make_shared<PipBuckPageQuests>(resMgr) },
 					   { PIPB_PAGE_NOTES, std::make_shared<PipBuckPageNotes>(resMgr) },
 					   { PIPB_PAGE_ENEMIES, std::make_shared<PipBuckPageEnemies>(resMgr) } } } },
-				 { PIPB_CAT_MAIN,
+				 { PIPB_CAT_GAME,
 				   { resMgr,
 					 PIPB_PAGE_LOAD,
 					 { { PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr) },
@@ -104,8 +104,8 @@ PipBuck::PipBuck(ResourceManager& resMgr, CursorManager& cursorMgr, Campaign& ca
 
 	// TODO this btn currently does not react properly to hud color change, but it will be replaced with a nicer, custom
 	// btn later
-	this->categoryButtons.emplace(PIPB_CAT_MAIN, std::make_unique<SimpleButton>(BTN_BIG, resMgr, sf::Vector2u(55, 700),
-																				STR_PIPBUCK_MAINMENU));
+	this->categoryButtons.emplace(PIPB_CAT_GAME, std::make_unique<SimpleButton>(BTN_BIG, resMgr, sf::Vector2u(55, 700),
+																				STR_PIPBUCK_GAME));
 
 	this->setupRadIndicator();
 	this->setupScreenBackground();

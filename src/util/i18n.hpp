@@ -73,7 +73,7 @@
 #define STR_PIPBUCK_STATUS "STATUS"
 #define STR_PIPBUCK_INV "INVENTORY"
 #define STR_PIPBUCK_INFO "INFO"
-#define STR_PIPBUCK_MAINMENU "Main Menu"
+#define STR_PIPBUCK_GAME "Game"
 #define STR_CONTINUE "Continue"
 #define STR_QUIT_GAME "Quit game"
 #define STR_SHUTTING_DOWN "Shutting down"

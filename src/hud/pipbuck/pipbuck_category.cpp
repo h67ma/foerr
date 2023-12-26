@@ -163,7 +163,7 @@ PipBuckCategoryType PipBuckCategory::pageTypeToCategoryType(PipBuckPageType page
 		case PIPB_PAGE_SETTINGS:
 		case PIPB_PAGE_CONTROLS:
 		case PIPB_PAGE_LOG:
-			return PIPB_CAT_MAIN;
+			return PIPB_CAT_GAME;
 		case PIPB_PAGE_STATUS_MAIN:
 		case PIPB_PAGE_SKILLS:
 		case PIPB_PAGE_PERKS:
