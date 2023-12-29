@@ -92,7 +92,9 @@ void MainMenu::handleScreenResize(sf::Vector2u newSize)
 void MainMenu::handleSettingsChange()
 {
 	this->versionText.handleSettingsChange();
+	this->versionText.setFillColor(SettingsManager::hudColor);
 	this->licenseText.handleSettingsChange();
+	this->licenseText.setFillColor(SettingsManager::hudColor);
 
 	for (auto& btn : this->buttons)
 	{
