@@ -26,6 +26,8 @@ class PipBuckPageSettings : public PipBuckPage
 		FloatSlider guiScaleSlider;
 		WrappableText infoText;
 
+		void updateControlsState();
+
 	public:
 		explicit PipBuckPageSettings(ResourceManager& resMgr);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "pipbuck_page_settings.hpp"
 
@@ -35,9 +35,7 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager& resMgr) :
 
 					SettingsManager::resetAllToDefault();
 					SettingsManager::saveConfig();
-
-					this->hudColorSelector.setSelectedColor(SettingsManager::hudColor);
-					this->guiScaleSlider.setValue(SettingsManager::guiScale);
+					this->updateControlsState();
 				},
 				CLICK_CONSUMED_SETTINGS_CHANGED } }),
 	hudColorSelector(*resMgr.getFont(FONT_NORMAL), SettingsManager::hudColor),
@@ -58,6 +56,15 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager& resMgr) :
 	this->infoText.setString(
 		litSprintf("HUD color\n\n\nGUI scale\n\n\n\nMain game directory: %s\nSavegame directory: %s",
 				   SettingsManager::getGameRootDir().c_str(), SettingsManager::getSaveDir().c_str()));
+}
+
+/**
+ * Update state of controls on this page to reflect current settings.
+ */
+void PipBuckPageSettings::updateControlsState()
+{
+	this->hudColorSelector.setSelectedColor(SettingsManager::hudColor);
+	this->guiScaleSlider.setValue(SettingsManager::guiScale);
 }
 
 ClickStatus PipBuckPageSettings::handleLeftClick(sf::Vector2i clickPos)
@@ -98,6 +105,11 @@ void PipBuckPageSettings::handleSettingsChange()
 	this->hudColorSelector.handleSettingsChange();
 	this->guiScaleSlider.handleSettingsChange();
 	this->infoText.handleSettingsChange();
+
+	// note: if this page initiated settings update, state of all controls should already be up to date.
+	// this is for the case when settings are updated elsewhere, not on this page. notably main menu Settings page can
+	// update settings and PipBuck Settings page must react to it, and vice versa.
+	this->updateControlsState();
 }
 
 void PipBuckPageSettings::draw(sf::RenderTarget& target, sf::RenderStates states) const
