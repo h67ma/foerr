@@ -69,6 +69,8 @@ void PipBuckPageSettings::updateControlsState()
 
 ClickStatus PipBuckPageSettings::handleLeftClick(sf::Vector2i clickPos)
 {
+	clickPos -= this->getPosition();
+
 	if (this->hudColorSelector.handleLeftClick(clickPos))
 		return CLICK_CONSUMED;
 
@@ -86,6 +88,8 @@ void PipBuckPageSettings::handleLeftClickUp()
 
 bool PipBuckPageSettings::handleMouseMove(sf::Vector2i mousePos)
 {
+	mousePos -= this->getPosition();
+
 	if (this->hudColorSelector.handleMouseMove(mousePos))
 		return true;
 
@@ -114,6 +118,8 @@ void PipBuckPageSettings::handleSettingsChange()
 
 void PipBuckPageSettings::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	states.transform *= this->getTransform();
+
 	for (const auto& btn : this->buttons)
 	{
 		target.draw(btn, states);

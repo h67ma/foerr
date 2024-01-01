@@ -13,6 +13,8 @@
 #include "../pipbuck/pages/pipbuck_page_settings.hpp"
 #include "git_version.h"
 
+static const sf::Vector2f PAGE_OFFSET = { 0.F, -200.F };
+
 static void menuItemContinue(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window,
 							 Campaign& campaign, GameState& gameState, PipBuck& pipBuck)
 {
@@ -81,6 +83,7 @@ MainMenu::MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::Render
 	for (const auto& page : this->pages)
 	{
 		this->buttons.at(page.first).setText(page.second->pageTitle);
+		page.second->setPosition(PAGE_OFFSET);
 	}
 
 	this->handleScreenResize(window.getSize());

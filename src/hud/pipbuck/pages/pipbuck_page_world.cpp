@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "pipbuck_page_world.hpp"
 
@@ -83,6 +83,8 @@ void PipBuckPageWorld::updateActiveIndicator()
 
 ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 {
+	clickPos -= this->getPosition();
+
 	// if click was outside map area, then no point in checking map buttons
 	if (this->mapContainsPoint(clickPos))
 	{
@@ -139,6 +141,8 @@ ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 
 bool PipBuckPageWorld::handleMouseMove(sf::Vector2i mousePos)
 {
+	mousePos -= this->getPosition();
+
 	// if hover was outside map area, then no point in checking map buttons
 	if (this->mapContainsPoint(mousePos))
 	{
@@ -290,6 +294,8 @@ void PipBuckPageWorld::handleSettingsChange()
 
 void PipBuckPageWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	states.transform *= this->getTransform();
+
 	target.draw(this->mapBg, states);
 	target.draw(this->mapGridLines, states);
 	target.draw(this->mapBorder, states);

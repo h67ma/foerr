@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "pipbuck_page_effects.hpp"
 
@@ -15,5 +15,7 @@ PipBuckPageEffects::PipBuckPageEffects(ResourceManager& resMgr) : PipBuckPage("E
 
 void PipBuckPageEffects::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	states.transform *= this->getTransform();
+
 	target.draw(this->dummy, states);
 }

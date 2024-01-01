@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -9,6 +9,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 
 #include "../../campaigns/campaign.hpp"
 #include "../../consts.hpp"
@@ -51,7 +52,7 @@ enum PipBuckPageType
  * first check if coordinates are within the defined area. This way, if the point is outside page bounds,
  * we can skip checking controls inside the page altogether.
  */
-class PipBuckPage : public sf::Drawable, public ConfigurableGuiComponent
+class PipBuckPage : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent
 {
 	protected:
 		HoverManager hoverMgr;
