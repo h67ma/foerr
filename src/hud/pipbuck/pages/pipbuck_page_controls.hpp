@@ -14,7 +14,7 @@
 
 /**
  * PipBuck -> Game -> Controls
- * TODO or Main Menu -> Controls
+ * or Main Menu -> Controls
  */
 class PipBuckPageControls : public PipBuckPage
 {

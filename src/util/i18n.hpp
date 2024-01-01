@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -75,7 +75,7 @@
 #define STR_PIPBUCK_INFO "INFO"
 #define STR_PIPBUCK_GAME "Game"
 #define STR_CONTINUE "Continue"
-#define STR_QUIT_GAME "Quit game"
+#define STR_QUIT_GAME "Quit"
 #define STR_SHUTTING_DOWN "Shutting down"
 #define STR_LOADING_CORE_RES "Loading core resources..."
 #define STR_LOADING_CORE_RES_DONE "Finished loading core resources."

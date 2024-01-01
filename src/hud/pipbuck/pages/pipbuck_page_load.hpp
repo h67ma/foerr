@@ -13,6 +13,7 @@
 
 /**
  * PipBuck -> Game -> Load
+ * or Main Menu -> Load
  */
 class PipBuckPageLoad : public PipBuckPage
 {

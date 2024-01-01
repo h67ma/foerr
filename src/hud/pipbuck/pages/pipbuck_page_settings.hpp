@@ -16,7 +16,7 @@
 
 /**
  * PipBuck -> Game -> Settings
- * TODO or Main Menu -> Settings
+ * or Main Menu -> Settings
  */
 class PipBuckPageSettings : public PipBuckPage
 {

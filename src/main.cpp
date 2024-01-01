@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include <csignal>
 #include <cstdlib>
@@ -406,6 +406,14 @@ int main()
 					{
 						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });
 					}
+
+					continue;
+				}
+
+				if (event.type == sf::Event::MouseButtonReleased)
+				{
+					if (event.mouseButton.button == sf::Mouse::Left)
+						mainMenu.handleLeftClickUp();
 
 					continue;
 				}

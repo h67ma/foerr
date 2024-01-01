@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
-#include <vector>
+#include <unordered_map>
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -14,26 +14,38 @@
 #include "../../resources/sound_resource.hpp"
 #include "../../window/cursor_manager.hpp"
 #include "../buttons/simple_button.hpp"
-#include "../click_manager.hpp"
 #include "../configurable_gui_component.hpp"
 #include "../hover_manager.hpp"
 #include "../pipbuck/pipbuck.hpp"
+#include "../pipbuck/pipbuck_page.hpp"
 #include "../text_label.hpp"
+#include "main_menu_page.hpp"
 
+/**
+ * Main Menu reuses PipBuck pages. They are displayed similarly to how it is done in PipBuckCategory.
+ * Some menu items (buttons) don't have an associated page - instead they have a callback (makes sense e.g. for "quit",
+ * or "continue").
+ */
 class MainMenu : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent
 {
 	private:
 		HoverManager hoverMgr;
-		ClickManager clickMgr;
 		SoundResource btnSound;
-		std::vector<SimpleButton> buttons;
+		MainMenuPageType selectedPageType = MAINM_PAGE_NONE;
+		std::shared_ptr<PipBuckPage> selectedPage = nullptr;
+		std::unordered_map<MainMenuPageType, SimpleButton> buttons;
+		const std::unordered_map<MainMenuPageType, std::shared_ptr<PipBuckPage>> pages;
 		TextLabel versionText;
 		TextLabel licenseText;
+
+		void changeActiveButton(MainMenuPageType newPageType);
+		void changePage(MainMenuPageType newPageType);
 
 	public:
 		MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window, Campaign& campaign,
 				 GameState& gameState, PipBuck& pipBuck);
 		void handleLeftClick(sf::Vector2i clickPos);
+		void handleLeftClickUp();
 		void handleMouseMove(sf::Vector2i mousePos);
 		void handleScreenResize(sf::Vector2u newSize);
 		void handleSettingsChange() override;

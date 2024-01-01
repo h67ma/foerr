@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -29,7 +29,7 @@
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.
  * PipBuck contains 4 *categories*, each of them containing 5 *pages*. Some pages
- * (settings, controls) can also be accessed via main menu.
+ * (settings, controls, load) can also be accessed via main menu.
  *
  * The convention is to keep all categories and their child pages in memory.
  * This way we can switch between them instantaneously, without the need to
