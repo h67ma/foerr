@@ -44,7 +44,7 @@ class MainMenu : public sf::Drawable, public sf::Transformable, public Configura
 	public:
 		MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window, Campaign& campaign,
 				 GameState& gameState, PipBuck& pipBuck);
-		void handleLeftClick(sf::Vector2i clickPos);
+		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		void handleMouseMove(sf::Vector2i mousePos);
 		void handleScreenResize(sf::Vector2u newSize);

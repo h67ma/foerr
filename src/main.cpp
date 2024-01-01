@@ -28,6 +28,23 @@
 #include "window/cursor_manager.hpp"
 #include "window/util.hpp"
 
+/**
+ * Let all applicable components know that settings have changed and they need to update things like GUI scale, colors,
+ * etc.
+ */
+static void propagateSettings(PipBuck& pipBuck, MainMenu& mainMenu, FpsMeter& fpsMeter, DevConsole& console,
+							  const sf::Vector2u& newWindowSize)
+{
+	Slider::calculateCoeffs();
+	Log::handleSettingsChange();
+	pipBuck.handleSettingsChange();
+	pipBuck.handleScreenResize(newWindowSize);
+	mainMenu.handleSettingsChange();
+	fpsMeter.handleSettingsChange();
+	console.handleSettingsChange();
+	console.handleScreenResize(newWindowSize);
+}
+
 int main()
 {
 	GameState gameState = STATE_MAINMENU; // TODO? potentially could be made static
@@ -368,14 +385,7 @@ int main()
 						pipBuck.handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) ==
 							CLICK_CONSUMED_SETTINGS_CHANGED)
 					{
-						Slider::calculateCoeffs();
-						Log::handleSettingsChange();
-						pipBuck.handleSettingsChange();
-						pipBuck.handleScreenResize(window.getSize());
-						mainMenu.handleSettingsChange();
-						fpsMeter.handleSettingsChange();
-						console.handleSettingsChange();
-						console.handleScreenResize(window.getSize());
+						propagateSettings(pipBuck, mainMenu, fpsMeter, console, window.getSize());
 					}
 
 					continue;
@@ -402,9 +412,11 @@ int main()
 				{
 					// sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x,
 					// event.mouseButton.y));
-					if (event.mouseButton.button == sf::Mouse::Left)
+					if (event.mouseButton.button == sf::Mouse::Left &&
+						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) ==
+							CLICK_CONSUMED_SETTINGS_CHANGED)
 					{
-						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });
+						propagateSettings(pipBuck, mainMenu, fpsMeter, console, window.getSize());
 					}
 
 					continue;

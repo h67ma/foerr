@@ -128,14 +128,18 @@ void MainMenu::changePage(MainMenuPageType newPageType)
 	this->selectedPage = nullptr;
 }
 
-void MainMenu::handleLeftClick(sf::Vector2i clickPos)
+ClickStatus MainMenu::handleLeftClick(sf::Vector2i clickPos)
 {
 	// don't need to subtract anything as menu position is (0, 0)
 
-	if (this->selectedPage != nullptr && this->selectedPage->handleLeftClick(clickPos) != CLICK_NOT_CONSUMED)
+	if (this->selectedPage != nullptr)
 	{
-		this->btnSound.play();
-		return;
+		ClickStatus status = this->selectedPage->handleLeftClick(clickPos);
+		if (status != CLICK_NOT_CONSUMED)
+		{
+			this->btnSound.play();
+			return status;
+		}
 	}
 
 	for (auto& btn : this->buttons)
@@ -154,9 +158,11 @@ void MainMenu::handleLeftClick(sf::Vector2i clickPos)
 			this->changePage(btn.first);
 
 			this->btnSound.play();
-			return;
+			return CLICK_CONSUMED;
 		}
 	}
+
+	return CLICK_NOT_CONSUMED;
 }
 
 void MainMenu::handleLeftClickUp()
