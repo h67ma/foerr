@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "main_menu.hpp"
 
@@ -10,6 +10,42 @@
 #include "../log.hpp"
 #include "git_version.h"
 
+static void menuItemContinue(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window,
+							 Campaign& campaign, GameState& gameState, PipBuck& pipBuck)
+{
+	// TODO some kind of campaign select
+
+	// this is a pretty terrible way of showing a loading screen, but it will do for now
+	// TODO load on thread, display loading screen in main loop with a progress bar
+	LoadingScreen loadingScreen(resMgr, window.getSize());
+	window.clear();
+	window.draw(loadingScreen);
+	window.display();
+
+	if (!campaign.load("res/campaigns/remains"))
+	{
+		Log::e(STR_CAMPAIGN_LOAD_FAILED);
+		return;
+	}
+
+	if (!pipBuck.setupCampaignInfos())
+	{
+		Log::e(STR_PIPBUCK_SETUP_FAILED);
+		return;
+	}
+
+	gameState = STATE_PLAYING;
+
+	// TODO query campaign to check what the player is actually pointing at and set proper cursor color
+	cursorMgr.setCursor(CROSSHAIR_WHITE);
+}
+
+static void menuItemQuit(sf::RenderWindow& window)
+{
+	Log::d(STR_SHUTTING_DOWN);
+	window.close();
+}
+
 MainMenu::MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window, Campaign& campaign,
 				   GameState& gameState, PipBuck& pipBuck) :
 	buttons({ { BTN_NORMAL,
@@ -17,42 +53,8 @@ MainMenu::MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::Render
 				{ 100, 100 },
 				STR_CONTINUE,
 				[&resMgr, &cursorMgr, &campaign, &gameState, &window, &pipBuck]()
-				{
-					// TODO some kind of campaign select
-
-					// this is a pretty terrible way of showing a loading screen, but it will do for now
-					// TODO load on thread, display loading screen in main loop with a progress bar
-					LoadingScreen loadingScreen(resMgr, window.getSize());
-					window.clear();
-					window.draw(loadingScreen);
-					window.display();
-
-					if (!campaign.load("res/campaigns/remains"))
-					{
-						Log::e(STR_CAMPAIGN_LOAD_FAILED);
-						return;
-					}
-
-					if (!pipBuck.setupCampaignInfos())
-					{
-						Log::e(STR_PIPBUCK_SETUP_FAILED);
-						return;
-					}
-
-					gameState = STATE_PLAYING;
-
-					// TODO query campaign to check what the player is actually pointing at and set proper cursor color
-					cursorMgr.setCursor(CROSSHAIR_WHITE);
-				} },
-			  { BTN_NORMAL,
-				resMgr,
-				{ 100, 150 },
-				STR_QUIT_GAME,
-				[&window]()
-				{
-					Log::d(STR_SHUTTING_DOWN);
-					window.close();
-				} } }),
+				{ menuItemContinue(resMgr, cursorMgr, window, campaign, gameState, pipBuck); } },
+			  { BTN_NORMAL, resMgr, { 100, 150 }, STR_QUIT_GAME, [&window]() { menuItemQuit(window); } } }),
 	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK)),
 	versionText(GIT_VERSION, *resMgr.getFont(FONT_FIXED), FONT_H3, SettingsManager::hudColor),
 	licenseText(GPL_SPLAT, *resMgr.getFont(FONT_NORMAL), FONT_H3, SettingsManager::hudColor)
