@@ -8,8 +8,13 @@
 
 #include "../../../util/i18n.hpp"
 
-PipBuckPageLoad::PipBuckPageLoad(ResourceManager& resMgr) :
+/**
+ * @param resMgr reference to resource manager
+ * @param isInMainMenu true if this page is displayed in main menu, false if in PipBuck
+ */
+PipBuckPageLoad::PipBuckPageLoad(ResourceManager& resMgr, bool isInMainMenu) :
 	PipBuckPage("Load"), // TODO translate
+	isInMainMenu(isInMainMenu),
 	exitBtn(
 		BTN_NORMAL, resMgr, { 400, 815 }, STR_EXIT_TO_MAIN_MENU,
 		[]()
@@ -19,18 +24,23 @@ PipBuckPageLoad::PipBuckPageLoad(ResourceManager& resMgr) :
 		},
 		CLICK_CONSUMED_UNLOAD)
 {
-	this->hoverMgr += &this->exitBtn;
-	this->clickMgr += &this->exitBtn;
+	if (!this->isInMainMenu)
+	{
+		this->hoverMgr += &this->exitBtn;
+		this->clickMgr += &this->exitBtn;
+	}
 }
 
 void PipBuckPageLoad::handleSettingsChange()
 {
-	this->exitBtn.handleSettingsChange();
+	if (!this->isInMainMenu)
+		this->exitBtn.handleSettingsChange();
 }
 
 void PipBuckPageLoad::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
-	target.draw(this->exitBtn, states);
+	if (!this->isInMainMenu)
+		target.draw(this->exitBtn, states);
 }

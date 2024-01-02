@@ -65,7 +65,7 @@ MainMenu::MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::Render
 			  { MAINM_PAGE_CONTROLS, { BTN_NORMAL, resMgr, { 100, 250 } } },
 			  { MAINM_PAGE_QUIT,
 				{ BTN_NORMAL, resMgr, { 100, 300 }, STR_QUIT_GAME, [&window]() { menuItemQuit(window); } } } }),
-	pages({ { MAINM_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr) },
+	pages({ { MAINM_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr, true) },
 			{ MAINM_PAGE_SETTINGS, std::make_shared<PipBuckPageSettings>(resMgr) },
 			{ MAINM_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr) } }),
 	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK)),

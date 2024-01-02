@@ -19,9 +19,10 @@ class PipBuckPageLoad : public PipBuckPage
 {
 	private:
 		SimpleButton exitBtn;
+		const bool isInMainMenu;
 
 	public:
-		explicit PipBuckPageLoad(ResourceManager& resMgr);
+		PipBuckPageLoad(ResourceManager& resMgr, bool isInMainMenu);
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

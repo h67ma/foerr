@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "pipbuck.hpp"
 
@@ -78,7 +78,7 @@ PipBuck::PipBuck(ResourceManager& resMgr, CursorManager& cursorMgr, Campaign& ca
 				 { PIPB_CAT_GAME,
 				   { resMgr,
 					 PIPB_PAGE_LOAD,
-					 { { PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr) },
+					 { { PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr, false) },
 					   { PIPB_PAGE_SAVE, std::make_shared<PipBuckPageSave>(resMgr) },
 					   { PIPB_PAGE_SETTINGS, std::make_shared<PipBuckPageSettings>(resMgr) },
 					   { PIPB_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr) },
