@@ -6,6 +6,7 @@
 
 #include "../../settings/settings_manager.hpp"
 #include "../../util/i18n.hpp"
+#include "../hud.hpp"
 #include "../loading_screen.hpp"
 #include "../log.hpp"
 #include "../pipbuck/pages/pipbuck_page_controls.hpp"
@@ -13,7 +14,13 @@
 #include "../pipbuck/pages/pipbuck_page_settings.hpp"
 #include "git_version.h"
 
-static const sf::Vector2f PAGE_OFFSET = { 0.F, -200.F };
+static const sf::Vector2f PAGE_OFFSET = { -70.F, -175.F };
+static const sf::Vector2f PAGE_POS(300, 50);
+static const sf::Vector2f PAGE_SIZE(1100, 650);
+constexpr std::size_t PAGE_VERT_COUNT = 9;
+constexpr float ITEM_FRAME_START_X = 87.F;
+constexpr float ITEM_FRAME_OFFSET_TOP = -13.F;
+constexpr float ITEM_FRAME_OFFSET_BOTTOM = 39.F;
 
 static void menuItemContinue(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window,
 							 Campaign& campaign, GameState& gameState, PipBuck& pipBuck)
@@ -56,23 +63,25 @@ MainMenu::MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::Render
 	buttons({ { MAINM_PAGE_CONTINUE,
 				{ BTN_NORMAL,
 				  resMgr,
-				  { 100, 100 },
+				  { 100, 50 },
 				  STR_CONTINUE,
 				  [&resMgr, &cursorMgr, &campaign, &gameState, &window, &pipBuck]()
 				  { menuItemContinue(resMgr, cursorMgr, window, campaign, gameState, pipBuck); } } },
-			  { MAINM_PAGE_LOAD, { BTN_NORMAL, resMgr, { 100, 150 } } },
-			  { MAINM_PAGE_SETTINGS, { BTN_NORMAL, resMgr, { 100, 200 } } },
-			  { MAINM_PAGE_CONTROLS, { BTN_NORMAL, resMgr, { 100, 250 } } },
+			  { MAINM_PAGE_LOAD, { BTN_NORMAL, resMgr, { 100, 100 } } },
+			  { MAINM_PAGE_SETTINGS, { BTN_NORMAL, resMgr, { 100, 150 } } },
+			  { MAINM_PAGE_CONTROLS, { BTN_NORMAL, resMgr, { 100, 200 } } },
 			  { MAINM_PAGE_QUIT,
-				{ BTN_NORMAL, resMgr, { 100, 300 }, STR_QUIT_GAME, [&window]() { menuItemQuit(window); } } } }),
+				{ BTN_NORMAL, resMgr, { 100, 250 }, STR_QUIT_GAME, [&window]() { menuItemQuit(window); } } } }),
 	pages({ { MAINM_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr, true) },
 			{ MAINM_PAGE_SETTINGS, std::make_shared<PipBuckPageSettings>(resMgr) },
 			{ MAINM_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr) } }),
 	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK)),
 	versionText(GIT_VERSION, *resMgr.getFont(FONT_FIXED), FONT_H3, SettingsManager::hudColor),
-	licenseText(GPL_SPLAT, *resMgr.getFont(FONT_NORMAL), FONT_H3, SettingsManager::hudColor)
+	licenseText(GPL_SPLAT, *resMgr.getFont(FONT_NORMAL), FONT_H3, SettingsManager::hudColor),
+	pageFrame(sf::LineStrip, PAGE_VERT_COUNT)
 {
 	this->btnSound.setVolume(static_cast<float>(SettingsManager::fxVolume));
+	this->setupPageFrameStatic();
 
 	for (auto& btn : this->buttons)
 	{
@@ -83,7 +92,7 @@ MainMenu::MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::Render
 	for (const auto& page : this->pages)
 	{
 		this->buttons.at(page.first).setText(page.second->pageTitle);
-		page.second->setPosition(PAGE_OFFSET);
+		page.second->setPosition(calculateGuiAwarePoint(PAGE_OFFSET));
 	}
 
 	this->handleScreenResize(window.getSize());
@@ -105,8 +114,9 @@ void MainMenu::changeActiveButton(MainMenuPageType newPageType)
 	auto foundNew = this->buttons.find(newPageType);
 	if (foundNew != this->buttons.end())
 	{
-		// found new button, select it
+		// found new button, select it and calculate new positions for selected item frame
 		foundNew->second.setSelected(true);
+		this->setupPageFrameSelectedItem(foundNew->second.getPosition().y);
 	}
 }
 
@@ -129,6 +139,63 @@ void MainMenu::changePage(MainMenuPageType newPageType)
 	this->changeActiveButton(MAINM_PAGE_NONE);
 	this->selectedPageType = MAINM_PAGE_NONE;
 	this->selectedPage = nullptr;
+}
+
+/**
+ * Calculates points for the page frame that don't change position when changing page.
+ * Concept art of what we want to draw (with vertex numbers):
+ * 0--1
+ *    |
+ *    |
+ *    |
+ * 3--2
+ */
+void MainMenu::setupPageFrameStatic()
+{
+	// point names refer to the bigger rectangle of the shape
+
+	sf::Vector2f topLeft = calculateGuiAwarePoint(PAGE_POS);
+	sf::Vector2f topRight = calculateGuiAwarePoint({ PAGE_POS.x + PAGE_SIZE.x, PAGE_POS.y });
+	sf::Vector2f bottomRight = calculateGuiAwarePoint({ PAGE_POS.x + PAGE_SIZE.x, PAGE_POS.y + PAGE_SIZE.y });
+	sf::Vector2f bottomLeft = calculateGuiAwarePoint({ PAGE_POS.x, PAGE_POS.y + PAGE_SIZE.y });
+
+	this->pageFrame[0] = sf::Vertex(topLeft, SettingsManager::hudColor);
+	this->pageFrame[1] = sf::Vertex(topRight, SettingsManager::hudColor);
+	this->pageFrame[2] = sf::Vertex(bottomRight, SettingsManager::hudColor);
+	this->pageFrame[3] = sf::Vertex(bottomLeft, SettingsManager::hudColor);
+	this->pageFrame[8] = this->pageFrame[0];
+}
+
+/**
+ * Calculates points for the page frame that depend on selected item position.
+ * Concept art of what we want to draw (with vertex numbers, in brackets are already set up):
+ *   (8)
+ *    |
+ * 6--7
+ * |
+ * 5--4
+ *    |
+ *   (3)
+ *
+ * @param selectedItemOffset y position of currently selected menu item (button)
+ */
+void MainMenu::setupPageFrameSelectedItem(float selectedItemOffset)
+{
+	float offTop = calculateGuiAwareScalar(ITEM_FRAME_OFFSET_TOP);
+	float offBottom = calculateGuiAwareScalar(ITEM_FRAME_OFFSET_BOTTOM);
+
+	// point names refer to the smaller rectangle of the shape
+
+	// selectedItemOffset is already adjusted to GUI scale, don't multiply it again
+	sf::Vector2f topLeft(calculateGuiAwareScalar(ITEM_FRAME_START_X), selectedItemOffset + offTop);
+	sf::Vector2f topRight(calculateGuiAwareScalar(PAGE_POS.x), selectedItemOffset + offTop);
+	sf::Vector2f bottomRight(calculateGuiAwareScalar(PAGE_POS.x), selectedItemOffset + offBottom);
+	sf::Vector2f bottomLeft(calculateGuiAwareScalar(ITEM_FRAME_START_X), selectedItemOffset + offBottom);
+
+	this->pageFrame[4] = sf::Vertex(bottomRight, SettingsManager::hudColor);
+	this->pageFrame[5] = sf::Vertex(bottomLeft, SettingsManager::hudColor);
+	this->pageFrame[6] = sf::Vertex(topLeft, SettingsManager::hudColor);
+	this->pageFrame[7] = sf::Vertex(topRight, SettingsManager::hudColor);
 }
 
 ClickStatus MainMenu::handleLeftClick(sf::Vector2i clickPos)
@@ -207,7 +274,14 @@ void MainMenu::handleSettingsChange()
 	for (const auto& page : this->pages)
 	{
 		page.second->handleSettingsChange();
+		page.second->setPosition(calculateGuiAwarePoint(PAGE_OFFSET));
 	}
+
+	this->setupPageFrameStatic();
+
+	auto foundActiveBtn = this->buttons.find(this->selectedPageType);
+	if (foundActiveBtn != this->buttons.end())
+		this->setupPageFrameSelectedItem(foundActiveBtn->second.getPosition().y);
 }
 
 void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -220,7 +294,10 @@ void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 
 	if (this->selectedPage != nullptr)
+	{
 		target.draw(*this->selectedPage, states);
+		target.draw(this->pageFrame, states);
+	}
 
 	target.draw(this->versionText, states);
 	target.draw(this->licenseText, states);

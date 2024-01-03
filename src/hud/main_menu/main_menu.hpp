@@ -37,9 +37,12 @@ class MainMenu : public sf::Drawable, public sf::Transformable, public Configura
 		const std::unordered_map<MainMenuPageType, std::shared_ptr<PipBuckPage>> pages;
 		TextLabel versionText;
 		TextLabel licenseText;
+		sf::VertexArray pageFrame;
 
 		void changeActiveButton(MainMenuPageType newPageType);
 		void changePage(MainMenuPageType newPageType);
+		void setupPageFrameStatic();
+		void setupPageFrameSelectedItem(float selectedItemOffset);
 
 	public:
 		MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window, Campaign& campaign,
