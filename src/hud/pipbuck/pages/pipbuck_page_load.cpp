@@ -33,6 +33,8 @@ PipBuckPageLoad::PipBuckPageLoad(ResourceManager& resMgr, bool isInMainMenu) :
 
 void PipBuckPageLoad::handleSettingsChange()
 {
+	PipBuckPage::handleSettingsChange();
+
 	if (!this->isInMainMenu)
 		this->exitBtn.handleSettingsChange();
 }

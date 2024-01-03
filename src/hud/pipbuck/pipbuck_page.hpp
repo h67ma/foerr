@@ -9,12 +9,12 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/Transformable.hpp>
 
 #include "../../campaigns/campaign.hpp"
 #include "../../consts.hpp"
 #include "../click_manager.hpp"
 #include "../configurable_gui_component.hpp"
+#include "../gui_transformable.hpp"
 #include "../hover_manager.hpp"
 
 enum PipBuckPageType
@@ -52,7 +52,7 @@ enum PipBuckPageType
  * first check if coordinates are within the defined area. This way, if the point is outside page bounds,
  * we can skip checking controls inside the page altogether.
  */
-class PipBuckPage : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent
+class PipBuckPage : public sf::Drawable, public GuiTransformable
 {
 	protected:
 		HoverManager hoverMgr;
@@ -69,6 +69,6 @@ class PipBuckPage : public sf::Drawable, public sf::Transformable, public Config
 			return true;
 		}
 		virtual void unloadCampaignInfos() {}
-		void handleSettingsChange() override {}
+		void handleSettingsChange() override;
 		const std::string pageTitle;
 };

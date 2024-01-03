@@ -101,6 +101,8 @@ bool PipBuckPageSettings::handleMouseMove(sf::Vector2i mousePos)
 
 void PipBuckPageSettings::handleSettingsChange()
 {
+	PipBuckPage::handleSettingsChange();
+
 	for (auto& btn : this->buttons)
 	{
 		btn.handleSettingsChange();

@@ -92,7 +92,7 @@ MainMenu::MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::Render
 	for (const auto& page : this->pages)
 	{
 		this->buttons.at(page.first).setText(page.second->pageTitle);
-		page.second->setPosition(calculateGuiAwarePoint(PAGE_OFFSET));
+		page.second->setPosition(PAGE_OFFSET);
 	}
 
 	this->handleScreenResize(window.getSize());
@@ -274,7 +274,6 @@ void MainMenu::handleSettingsChange()
 	for (const auto& page : this->pages)
 	{
 		page.second->handleSettingsChange();
-		page.second->setPosition(calculateGuiAwarePoint(PAGE_OFFSET));
 	}
 
 	this->setupPageFrameStatic();

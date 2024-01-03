@@ -277,6 +277,8 @@ void PipBuckPageWorld::setGuiScale()
 
 void PipBuckPageWorld::handleSettingsChange()
 {
+	PipBuckPage::handleSettingsChange();
+
 	this->gotoLocationBtn.handleSettingsChange();
 
 	for (auto& btn : this->mapButtons)

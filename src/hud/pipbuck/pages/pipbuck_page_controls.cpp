@@ -51,6 +51,8 @@ void PipBuckPageControls::updateDisplay()
 
 void PipBuckPageControls::handleSettingsChange()
 {
+	PipBuckPage::handleSettingsChange();
+
 	for (auto& btn : this->buttons)
 	{
 		btn.handleSettingsChange();

@@ -19,3 +19,8 @@ bool PipBuckPage::handleMouseMove(sf::Vector2i mousePos)
 
 	return this->hoverMgr.handleMouseMove(mousePos);
 }
+
+void PipBuckPage::handleSettingsChange()
+{
+	this->handleGuiScaleChange();
+}
