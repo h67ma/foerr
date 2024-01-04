@@ -16,7 +16,7 @@
  * PipBuck -> Game -> Controls
  * or Main Menu -> Controls
  */
-class PipBuckPageControls : public PipBuckPage
+class GuiPageControls : public GuiPage
 {
 	private:
 		std::vector<SimpleButton> buttons;
@@ -24,7 +24,7 @@ class PipBuckPageControls : public PipBuckPage
 		void updateDisplay();
 
 	public:
-		explicit PipBuckPageControls(ResourceManager& resMgr);
+		explicit GuiPageControls(ResourceManager& resMgr);
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

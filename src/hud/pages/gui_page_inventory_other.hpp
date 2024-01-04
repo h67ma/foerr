@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Inventory -> Other
  */
-class PipBuckPageInventoryOther : public PipBuckPage
+class GuiPageInventoryOther : public GuiPage
 {
 	public:
-		explicit PipBuckPageInventoryOther(ResourceManager& resMgr);
+		explicit GuiPageInventoryOther(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

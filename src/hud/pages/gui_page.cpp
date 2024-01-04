@@ -4,23 +4,23 @@
 
 #include "gui_page.hpp"
 
-PipBuckPage::PipBuckPage(const std::string& pageTitle) : pageTitle(pageTitle) {}
+GuiPage::GuiPage(const std::string& pageTitle) : pageTitle(pageTitle) {}
 
-ClickStatus PipBuckPage::handleLeftClick(sf::Vector2i clickPos)
+ClickStatus GuiPage::handleLeftClick(sf::Vector2i clickPos)
 {
 	clickPos -= this->getPosition();
 
 	return this->clickMgr.handleLeftClick(clickPos);
 }
 
-bool PipBuckPage::handleMouseMove(sf::Vector2i mousePos)
+bool GuiPage::handleMouseMove(sf::Vector2i mousePos)
 {
 	mousePos -= this->getPosition();
 
 	return this->hoverMgr.handleMouseMove(mousePos);
 }
 
-void PipBuckPage::handleSettingsChange()
+void GuiPage::handleSettingsChange()
 {
 	this->handleGuiScaleChange();
 }

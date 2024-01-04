@@ -32,9 +32,9 @@ class MainMenu : public sf::Drawable, public sf::Transformable, public Configura
 		HoverManager hoverMgr;
 		SoundResource btnSound;
 		MainMenuPageType selectedPageType = MAINM_PAGE_NONE;
-		std::shared_ptr<PipBuckPage> selectedPage = nullptr;
+		std::shared_ptr<GuiPage> selectedPage = nullptr;
 		std::unordered_map<MainMenuPageType, SimpleButton> buttons;
-		const std::unordered_map<MainMenuPageType, std::shared_ptr<PipBuckPage>> pages;
+		const std::unordered_map<MainMenuPageType, std::shared_ptr<GuiPage>> pages;
 		TextLabel versionText;
 		TextLabel licenseText;
 		sf::VertexArray pageFrame;

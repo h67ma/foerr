@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Status -> Health
  */
-class PipBuckPageHealth : public PipBuckPage
+class GuiPageHealth : public GuiPage
 {
 	public:
-		explicit PipBuckPageHealth(ResourceManager& resMgr);
+		explicit GuiPageHealth(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

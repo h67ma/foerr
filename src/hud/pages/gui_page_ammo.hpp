@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Inventory -> Ammunition
  */
-class PipBuckPageAmmo : public PipBuckPage
+class GuiPageAmmo : public GuiPage
 {
 	public:
-		explicit PipBuckPageAmmo(ResourceManager& resMgr);
+		explicit GuiPageAmmo(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Status -> Perks
  */
-class PipBuckPagePerks : public PipBuckPage
+class GuiPagePerks : public GuiPage
 {
 	public:
-		explicit PipBuckPagePerks(ResourceManager& resMgr);
+		explicit GuiPagePerks(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

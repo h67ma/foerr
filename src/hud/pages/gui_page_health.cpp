@@ -6,14 +6,14 @@
 
 #include <string>
 
-PipBuckPageHealth::PipBuckPageHealth(ResourceManager& resMgr) : PipBuckPage("Health") // TODO translate
+GuiPageHealth::GuiPageHealth(ResourceManager& resMgr) : GuiPage("Health") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);
 	this->dummy.setString("health");
 }
 
-void PipBuckPageHealth::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageHealth::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

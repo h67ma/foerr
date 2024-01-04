@@ -6,14 +6,14 @@
 
 #include <string>
 
-PipBuckPageWeapons::PipBuckPageWeapons(ResourceManager& resMgr) : PipBuckPage("Weapons") // TODO translate
+GuiPageWeapons::GuiPageWeapons(ResourceManager& resMgr) : GuiPage("Weapons") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);
 	this->dummy.setString("weapons");
 }
 
-void PipBuckPageWeapons::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageWeapons::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

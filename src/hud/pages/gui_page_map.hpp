@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Information -> Map
  */
-class PipBuckPageMap : public PipBuckPage
+class GuiPageMap : public GuiPage
 {
 	public:
-		explicit PipBuckPageMap(ResourceManager& resMgr);
+		explicit GuiPageMap(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

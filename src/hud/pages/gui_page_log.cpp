@@ -6,14 +6,14 @@
 
 #include <string>
 
-PipBuckPageLog::PipBuckPageLog(ResourceManager& resMgr) : PipBuckPage("Log") // TODO translate
+GuiPageLog::GuiPageLog(ResourceManager& resMgr) : GuiPage("Log") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);
 	this->dummy.setString("log");
 }
 
-void PipBuckPageLog::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageLog::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

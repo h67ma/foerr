@@ -10,8 +10,8 @@
 #include "../../util/i18n.hpp"
 #include "../log.hpp"
 
-PipBuckPageControls::PipBuckPageControls(ResourceManager& resMgr) :
-	PipBuckPage("Controls"), // TODO translate
+GuiPageControls::GuiPageControls(ResourceManager& resMgr) :
+	GuiPage("Controls"), // TODO translate
 	buttons({ { BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() { Keymap::save(); } },
 			  { BTN_NORMAL,
 				resMgr,
@@ -36,7 +36,7 @@ PipBuckPageControls::PipBuckPageControls(ResourceManager& resMgr) :
 	this->updateDisplay();
 }
 
-void PipBuckPageControls::updateDisplay()
+void GuiPageControls::updateDisplay()
 {
 	// for now only dump the current mapping as text. TODO proper scrollable table
 	std::string dump("");
@@ -49,9 +49,9 @@ void PipBuckPageControls::updateDisplay()
 	this->dummyMapDump.setString(dump);
 }
 
-void PipBuckPageControls::handleSettingsChange()
+void GuiPageControls::handleSettingsChange()
 {
-	PipBuckPage::handleSettingsChange();
+	GuiPage::handleSettingsChange();
 
 	for (auto& btn : this->buttons)
 	{
@@ -61,7 +61,7 @@ void PipBuckPageControls::handleSettingsChange()
 	this->dummyMapDump.handleSettingsChange();
 }
 
-void PipBuckPageControls::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageControls::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

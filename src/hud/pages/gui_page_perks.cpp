@@ -6,14 +6,14 @@
 
 #include <string>
 
-PipBuckPagePerks::PipBuckPagePerks(ResourceManager& resMgr) : PipBuckPage("Perks") // TODO translate
+GuiPagePerks::GuiPagePerks(ResourceManager& resMgr) : GuiPage("Perks") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);
 	this->dummy.setString("perks");
 }
 
-void PipBuckPagePerks::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPagePerks::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

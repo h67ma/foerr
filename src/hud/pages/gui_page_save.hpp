@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Game -> Save
  */
-class PipBuckPageSave : public PipBuckPage
+class GuiPageSave : public GuiPage
 {
 	public:
-		explicit PipBuckPageSave(ResourceManager& resMgr);
+		explicit GuiPageSave(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

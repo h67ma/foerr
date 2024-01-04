@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Information -> Enemies
  */
-class PipBuckPageEnemies : public PipBuckPage
+class GuiPageEnemies : public GuiPage
 {
 	public:
-		explicit PipBuckPageEnemies(ResourceManager& resMgr);
+		explicit GuiPageEnemies(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

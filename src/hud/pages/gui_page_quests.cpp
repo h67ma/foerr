@@ -6,14 +6,14 @@
 
 #include <string>
 
-PipBuckPageQuests::PipBuckPageQuests(ResourceManager& resMgr) : PipBuckPage("Quests") // TODO translate
+GuiPageQuests::GuiPageQuests(ResourceManager& resMgr) : GuiPage("Quests") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);
 	this->dummy.setString("quests");
 }
 
-void PipBuckPageQuests::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageQuests::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

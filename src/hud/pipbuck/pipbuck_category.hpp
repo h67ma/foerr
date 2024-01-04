@@ -20,6 +20,7 @@
 #include "../configurable_gui_component.hpp"
 #include "../hover_manager.hpp"
 #include "../pages/gui_page.hpp"
+#include "pipbuck_page.hpp"
 
 enum PipBuckCategoryType
 {
@@ -42,11 +43,11 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable, public Co
 		std::unordered_map<PipBuckPageType, SimpleButton> pageButtons;
 		SoundResource soundPageChange;
 		SoundResource soundClick;
-		const std::unordered_map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages;
+		const std::unordered_map<PipBuckPageType, std::shared_ptr<GuiPage>> pages;
 
 	public:
 		PipBuckCategory(ResourceManager& resMgr, PipBuckPageType defaultPage,
-						std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages);
+						std::map<PipBuckPageType, std::shared_ptr<GuiPage>> pages);
 		bool setup();
 		PipBuckPageType getSelectedPage() const;
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);

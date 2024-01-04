@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "pipbuck_category.hpp"
 
@@ -17,7 +17,7 @@
  * However nothing prevents internal pages and buttons maps from being unordered.
  */
 PipBuckCategory::PipBuckCategory(ResourceManager& resMgr, PipBuckPageType defaultPage,
-								 std::map<PipBuckPageType, std::shared_ptr<PipBuckPage>> pages) :
+								 std::map<PipBuckPageType, std::shared_ptr<GuiPage>> pages) :
 	selectedPage(defaultPage),
 	pages(pages.begin(), pages.end()),
 	soundPageChange(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),

@@ -12,8 +12,8 @@
  * @param resMgr reference to resource manager
  * @param isInMainMenu true if this page is displayed in main menu, false if in PipBuck
  */
-PipBuckPageLoad::PipBuckPageLoad(ResourceManager& resMgr, bool isInMainMenu) :
-	PipBuckPage("Load"), // TODO translate
+GuiPageLoad::GuiPageLoad(ResourceManager& resMgr, bool isInMainMenu) :
+	GuiPage("Load"), // TODO translate
 	isInMainMenu(isInMainMenu),
 	exitBtn(
 		BTN_NORMAL, resMgr, { 400, 815 }, STR_EXIT_TO_MAIN_MENU,
@@ -31,15 +31,15 @@ PipBuckPageLoad::PipBuckPageLoad(ResourceManager& resMgr, bool isInMainMenu) :
 	}
 }
 
-void PipBuckPageLoad::handleSettingsChange()
+void GuiPageLoad::handleSettingsChange()
 {
-	PipBuckPage::handleSettingsChange();
+	GuiPage::handleSettingsChange();
 
 	if (!this->isInMainMenu)
 		this->exitBtn.handleSettingsChange();
 }
 
-void PipBuckPageLoad::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageLoad::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

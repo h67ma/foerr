@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Inventory -> Armor
  */
-class PipBuckPageArmor : public PipBuckPage
+class GuiPageArmor : public GuiPage
 {
 	public:
-		explicit PipBuckPageArmor(ResourceManager& resMgr);
+		explicit GuiPageArmor(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

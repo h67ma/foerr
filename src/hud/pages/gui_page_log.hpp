@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Game -> Log
  */
-class PipBuckPageLog : public PipBuckPage
+class GuiPageLog : public GuiPage
 {
 	public:
-		explicit PipBuckPageLog(ResourceManager& resMgr);
+		explicit GuiPageLog(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

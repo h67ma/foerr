@@ -9,8 +9,8 @@
 #include "../../settings/settings_manager.hpp"
 #include "../../util/i18n.hpp"
 
-PipBuckPageSettings::PipBuckPageSettings(ResourceManager& resMgr) :
-	PipBuckPage("Settings"), // TODO translate
+GuiPageSettings::GuiPageSettings(ResourceManager& resMgr) :
+	GuiPage("Settings"), // TODO translate
 	buttons({ { BTN_NORMAL,
 				resMgr,
 				{ 400, 815 },
@@ -61,13 +61,13 @@ PipBuckPageSettings::PipBuckPageSettings(ResourceManager& resMgr) :
 /**
  * Update state of controls on this page to reflect current settings.
  */
-void PipBuckPageSettings::updateControlsState()
+void GuiPageSettings::updateControlsState()
 {
 	this->hudColorSelector.setSelectedColor(SettingsManager::hudColor);
 	this->guiScaleSlider.setValue(SettingsManager::guiScale);
 }
 
-ClickStatus PipBuckPageSettings::handleLeftClick(sf::Vector2i clickPos)
+ClickStatus GuiPageSettings::handleLeftClick(sf::Vector2i clickPos)
 {
 	clickPos -= this->getPosition();
 
@@ -80,13 +80,13 @@ ClickStatus PipBuckPageSettings::handleLeftClick(sf::Vector2i clickPos)
 	return this->clickMgr.handleLeftClick(clickPos);
 }
 
-void PipBuckPageSettings::handleLeftClickUp()
+void GuiPageSettings::handleLeftClickUp()
 {
 	this->hudColorSelector.handleLeftClickUp();
 	this->guiScaleSlider.handleLeftClickUp();
 }
 
-bool PipBuckPageSettings::handleMouseMove(sf::Vector2i mousePos)
+bool GuiPageSettings::handleMouseMove(sf::Vector2i mousePos)
 {
 	mousePos -= this->getPosition();
 
@@ -99,9 +99,9 @@ bool PipBuckPageSettings::handleMouseMove(sf::Vector2i mousePos)
 	return this->hoverMgr.handleMouseMove(mousePos);
 }
 
-void PipBuckPageSettings::handleSettingsChange()
+void GuiPageSettings::handleSettingsChange()
 {
-	PipBuckPage::handleSettingsChange();
+	GuiPage::handleSettingsChange();
 
 	for (auto& btn : this->buttons)
 	{
@@ -118,7 +118,7 @@ void PipBuckPageSettings::handleSettingsChange()
 	this->updateControlsState();
 }
 
-void PipBuckPageSettings::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageSettings::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

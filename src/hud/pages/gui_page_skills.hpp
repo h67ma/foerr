@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Status -> Skills
  */
-class PipBuckPageSkills : public PipBuckPage
+class GuiPageSkills : public GuiPage
 {
 	public:
-		explicit PipBuckPageSkills(ResourceManager& resMgr);
+		explicit GuiPageSkills(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

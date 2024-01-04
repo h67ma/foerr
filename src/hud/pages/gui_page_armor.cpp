@@ -6,14 +6,14 @@
 
 #include <string>
 
-PipBuckPageArmor::PipBuckPageArmor(ResourceManager& resMgr) : PipBuckPage("Armor") // TODO translate
+GuiPageArmor::GuiPageArmor(ResourceManager& resMgr) : GuiPage("Armor") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);
 	this->dummy.setString("armor");
 }
 
-void PipBuckPageArmor::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageArmor::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

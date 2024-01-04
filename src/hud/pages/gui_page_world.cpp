@@ -23,8 +23,8 @@ constexpr uint DESC_TEXT_WIDTH = 430;
 constexpr float MAP_GRID_SPACING = 110;
 constexpr float SQRT2 = 1.414213562;
 
-PipBuckPageWorld::PipBuckPageWorld(ResourceManager& resMgr, Campaign& campaign) :
-	PipBuckPage("World"), // TODO translate
+GuiPageWorld::GuiPageWorld(ResourceManager& resMgr, Campaign& campaign) :
+	GuiPage("World"), // TODO translate
 	resMgr(resMgr),
 	campaign(campaign),
 	gotoLocationBtn(BTN_NORMAL, resMgr, gotoLocationBtnPos, "Travel",
@@ -58,12 +58,12 @@ PipBuckPageWorld::PipBuckPageWorld(ResourceManager& resMgr, Campaign& campaign) 
 	this->hoverMgr += &this->gotoLocationBtn;
 }
 
-bool PipBuckPageWorld::mapContainsPoint(sf::Vector2i point)
+bool GuiPageWorld::mapContainsPoint(sf::Vector2i point)
 {
 	return this->mapBg.getGlobalBounds().contains(static_cast<sf::Vector2f>(point));
 }
 
-void PipBuckPageWorld::updateActiveIndicator()
+void GuiPageWorld::updateActiveIndicator()
 {
 	std::shared_ptr<Location> loc = this->campaign.getCurrentLocation();
 	if (loc == nullptr)
@@ -81,7 +81,7 @@ void PipBuckPageWorld::updateActiveIndicator()
 	this->activeLocIndicator.setRadius(radius);
 }
 
-ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
+ClickStatus GuiPageWorld::handleLeftClick(sf::Vector2i clickPos)
 {
 	clickPos -= this->getPosition();
 
@@ -139,7 +139,7 @@ ClickStatus PipBuckPageWorld::handleLeftClick(sf::Vector2i clickPos)
 	return CLICK_NOT_CONSUMED;
 }
 
-bool PipBuckPageWorld::handleMouseMove(sf::Vector2i mousePos)
+bool GuiPageWorld::handleMouseMove(sf::Vector2i mousePos)
 {
 	mousePos -= this->getPosition();
 
@@ -156,7 +156,7 @@ bool PipBuckPageWorld::handleMouseMove(sf::Vector2i mousePos)
 	return false;
 }
 
-void PipBuckPageWorld::setComponentColors()
+void GuiPageWorld::setComponentColors()
 {
 	this->mapBg.setColor(SettingsManager::hudColor);
 	this->locTitle.setFillColor(SettingsManager::hudColor);
@@ -164,7 +164,7 @@ void PipBuckPageWorld::setComponentColors()
 	this->activeLocIndicator.setOutlineColor(SettingsManager::hudColor);
 }
 
-void PipBuckPageWorld::setupMapDecorations()
+void GuiPageWorld::setupMapDecorations()
 {
 	sf::Color hudColor = SettingsManager::hudColor;
 	float mapW = this->mapBg.getLocalBounds().width;
@@ -222,7 +222,7 @@ void PipBuckPageWorld::setupMapDecorations()
 	}
 }
 
-bool PipBuckPageWorld::setupCampaignInfos()
+bool GuiPageWorld::setupCampaignInfos()
 {
 	this->unloadCampaignInfos();
 
@@ -256,7 +256,7 @@ bool PipBuckPageWorld::setupCampaignInfos()
 	return true;
 }
 
-void PipBuckPageWorld::unloadCampaignInfos()
+void GuiPageWorld::unloadCampaignInfos()
 {
 	this->mapBg.clearPtr();
 	this->mapButtonHoverMgr.clear();
@@ -265,7 +265,7 @@ void PipBuckPageWorld::unloadCampaignInfos()
 	this->travelButtonAvailable = false;
 }
 
-void PipBuckPageWorld::setGuiScale()
+void GuiPageWorld::setGuiScale()
 {
 	this->locTitle.handleSettingsChange();
 	this->locDescription.handleSettingsChange();
@@ -275,9 +275,9 @@ void PipBuckPageWorld::setGuiScale()
 	this->updateActiveIndicator();
 }
 
-void PipBuckPageWorld::handleSettingsChange()
+void GuiPageWorld::handleSettingsChange()
 {
-	PipBuckPage::handleSettingsChange();
+	GuiPage::handleSettingsChange();
 
 	this->gotoLocationBtn.handleSettingsChange();
 
@@ -294,7 +294,7 @@ void PipBuckPageWorld::handleSettingsChange()
 	this->setComponentColors();
 }
 
-void PipBuckPageWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

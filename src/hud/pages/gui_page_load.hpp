@@ -15,14 +15,14 @@
  * PipBuck -> Game -> Load
  * or Main Menu -> Load
  */
-class PipBuckPageLoad : public PipBuckPage
+class GuiPageLoad : public GuiPage
 {
 	private:
 		SimpleButton exitBtn;
 		const bool isInMainMenu;
 
 	public:
-		PipBuckPageLoad(ResourceManager& resMgr, bool isInMainMenu);
+		GuiPageLoad(ResourceManager& resMgr, bool isInMainMenu);
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

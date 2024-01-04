@@ -25,6 +25,7 @@
 #include "../hover_manager.hpp"
 #include "../hud.hpp"
 #include "pipbuck_category.hpp"
+#include "pipbuck_page.hpp"
 
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.
@@ -41,7 +42,7 @@
  *
  * Possible refactor: store each category (and each page in categories) as member,
  * not in an array & store pointers to pages in vector for convenience. This way
- * we can avoid defining some methods like ::setupCampaignInfos() in PipBuckPage,
+ * we can avoid defining some methods like ::setupCampaignInfos() in GuiPage,
  * and instead define them only in pages that actually use it.
  */
 class PipBuck : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent

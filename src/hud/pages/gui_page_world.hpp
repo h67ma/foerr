@@ -23,7 +23,7 @@
 /**
  * PipBuck -> Information -> World
  */
-class PipBuckPageWorld : public PipBuckPage
+class GuiPageWorld : public GuiPage
 {
 	private:
 		ResourceManager& resMgr;
@@ -46,7 +46,7 @@ class PipBuckPageWorld : public PipBuckPage
 		void setGuiScale();
 
 	public:
-		PipBuckPageWorld(ResourceManager& resMgr, Campaign& campaign);
+		GuiPageWorld(ResourceManager& resMgr, Campaign& campaign);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		bool handleMouseMove(sf::Vector2i mousePos) override;
 		bool setupCampaignInfos() override;

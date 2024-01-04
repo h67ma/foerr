@@ -6,14 +6,14 @@
 
 #include <string>
 
-PipBuckPageNotes::PipBuckPageNotes(ResourceManager& resMgr) : PipBuckPage("Notes") // TODO translate
+GuiPageNotes::GuiPageNotes(ResourceManager& resMgr) : GuiPage("Notes") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);
 	this->dummy.setString("notes");
 }
 
-void PipBuckPageNotes::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageNotes::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 

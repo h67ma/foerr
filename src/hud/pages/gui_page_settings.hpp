@@ -18,7 +18,7 @@
  * PipBuck -> Game -> Settings
  * or Main Menu -> Settings
  */
-class PipBuckPageSettings : public PipBuckPage
+class GuiPageSettings : public GuiPage
 {
 	private:
 		std::vector<SimpleButton> buttons;
@@ -29,7 +29,7 @@ class PipBuckPageSettings : public PipBuckPage
 		void updateControlsState();
 
 	public:
-		explicit PipBuckPageSettings(ResourceManager& resMgr);
+		explicit GuiPageSettings(ResourceManager& resMgr);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		void handleLeftClickUp() override;
 		bool handleMouseMove(sf::Vector2i mousePos) override;

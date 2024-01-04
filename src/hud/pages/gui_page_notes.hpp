@@ -12,9 +12,9 @@
 /**
  * PipBuck -> Information -> Notes
  */
-class PipBuckPageNotes : public PipBuckPage
+class GuiPageNotes : public GuiPage
 {
 	public:
-		explicit PipBuckPageNotes(ResourceManager& resMgr);
+		explicit GuiPageNotes(ResourceManager& resMgr);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

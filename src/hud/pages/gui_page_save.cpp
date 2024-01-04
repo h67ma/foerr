@@ -6,14 +6,14 @@
 
 #include <string>
 
-PipBuckPageSave::PipBuckPageSave(ResourceManager& resMgr) : PipBuckPage("Save") // TODO translate
+GuiPageSave::GuiPageSave(ResourceManager& resMgr) : GuiPage("Save") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
 	this->dummy.setPosition(500.F, 500.F);
 	this->dummy.setString("save");
 }
 
-void PipBuckPageSave::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GuiPageSave::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
