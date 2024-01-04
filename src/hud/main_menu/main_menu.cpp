@@ -9,9 +9,9 @@
 #include "../hud.hpp"
 #include "../loading_screen.hpp"
 #include "../log.hpp"
-#include "../pipbuck/pages/pipbuck_page_controls.hpp"
-#include "../pipbuck/pages/pipbuck_page_load.hpp"
-#include "../pipbuck/pages/pipbuck_page_settings.hpp"
+#include "../pages/gui_page_controls.hpp"
+#include "../pages/gui_page_load.hpp"
+#include "../pages/gui_page_settings.hpp"
 #include "git_version.h"
 
 static const sf::Vector2f PAGE_OFFSET = { -70.F, -175.F };

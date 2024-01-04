@@ -16,8 +16,8 @@
 #include "../buttons/simple_button.hpp"
 #include "../configurable_gui_component.hpp"
 #include "../hover_manager.hpp"
+#include "../pages/gui_page.hpp"
 #include "../pipbuck/pipbuck.hpp"
-#include "../pipbuck/pipbuck_page.hpp"
 #include "../text_label.hpp"
 #include "main_menu_page.hpp"
 

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -19,7 +19,7 @@
 #include "../clickable.hpp"
 #include "../configurable_gui_component.hpp"
 #include "../hover_manager.hpp"
-#include "pipbuck_page.hpp"
+#include "../pages/gui_page.hpp"
 
 enum PipBuckCategoryType
 {
