@@ -11,6 +11,7 @@
 #include "../log.hpp"
 #include "../pages/gui_page_controls.hpp"
 #include "../pages/gui_page_load.hpp"
+#include "../pages/gui_page_new_game.hpp"
 #include "../pages/gui_page_settings.hpp"
 #include "git_version.h"
 
@@ -67,12 +68,15 @@ MainMenu::MainMenu(ResourceManager& resMgr, CursorManager& cursorMgr, sf::Render
 				  STR_CONTINUE,
 				  [&resMgr, &cursorMgr, &campaign, &gameState, &window, &pipBuck]()
 				  { menuItemContinue(resMgr, cursorMgr, window, campaign, gameState, pipBuck); } } },
-			  { MAINM_PAGE_LOAD, { BTN_NORMAL, resMgr, { 100, 100 } } },
-			  { MAINM_PAGE_SETTINGS, { BTN_NORMAL, resMgr, { 100, 150 } } },
-			  { MAINM_PAGE_CONTROLS, { BTN_NORMAL, resMgr, { 100, 200 } } },
+			  { MAINM_PAGE_NEW_GAME, { BTN_NORMAL, resMgr, { 100, 100 } } },
+			  { MAINM_PAGE_LOAD, { BTN_NORMAL, resMgr, { 100, 150 } } },
+			  { MAINM_PAGE_SETTINGS, { BTN_NORMAL, resMgr, { 100, 200 } } },
+			  { MAINM_PAGE_CONTROLS, { BTN_NORMAL, resMgr, { 100, 250 } } },
 			  { MAINM_PAGE_QUIT,
-				{ BTN_NORMAL, resMgr, { 100, 250 }, STR_QUIT_GAME, [&window]() { menuItemQuit(window); } } } }),
-	pages({ { MAINM_PAGE_LOAD, std::make_shared<GuiPageLoad>(resMgr, true) },
+				{ BTN_NORMAL, resMgr, { 100, 300 }, STR_QUIT_GAME, [&window]() { menuItemQuit(window); } } } }),
+	pages({ { MAINM_PAGE_NEW_GAME,
+			  std::make_shared<GuiPageNewGame>(resMgr, cursorMgr, window, campaign, gameState, pipBuck) },
+			{ MAINM_PAGE_LOAD, std::make_shared<GuiPageLoad>(resMgr, true) },
 			{ MAINM_PAGE_SETTINGS, std::make_shared<GuiPageSettings>(resMgr) },
 			{ MAINM_PAGE_CONTROLS, std::make_shared<GuiPageControls>(resMgr) } }),
 	btnSound(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK)),

@@ -295,7 +295,7 @@ int main()
 	{
 		Log::d(STR_AUTLOADING_CAMPAIGN);
 
-		if (campaign.load(pathCombine("res/campaigns", SettingsManager::debugAutoloadCampaign)) &&
+		if (campaign.load(pathCombine(PATH_CAMPAIGNS, SettingsManager::debugAutoloadCampaign)) &&
 			pipBuck.setupCampaignInfos())
 		{
 			gameState = STATE_PLAYING;
