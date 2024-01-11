@@ -32,7 +32,9 @@ class GuiPageNewGame : public GuiPage
 				}
 		};
 
+		HoverManager campaignListHoverMgr;
 		std::vector<struct GuiPageNewGame::list_item> campaignItems; // TODO use some sort of scrollable list instead
+		SimpleButton refreshButton;
 		ResourceManager& resMgr;
 		CursorManager& cursorMgr;
 		sf::RenderWindow& window;
@@ -40,13 +42,14 @@ class GuiPageNewGame : public GuiPage
 		GameState& gameState;
 		PipBuck& pipBuck;
 
-		void rebuildCampaignList();
-		void loadCampaign(const std::string& campaignId);
+		bool loadCampaign(const std::string& campaignId);
 
 	public:
 		GuiPageNewGame(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window, Campaign& campaign,
 					   GameState& gameState, PipBuck& pipBuck);
+		void rebuildCampaignList();
 		void handleSettingsChange() override;
+		bool handleMouseMove(sf::Vector2i mousePos) override;
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

@@ -15,9 +15,16 @@ constexpr uint BTN_POS_LEFT = 400;
 constexpr uint BTN_POS_TOP = 260;
 constexpr uint BTN_POS_HEIGHT = 35;
 
+static void btnRefresh(GuiPageNewGame* page)
+{
+	Log::i(STR_REFRESHING_CAMPAIGN_LIST);
+	page->rebuildCampaignList();
+}
+
 GuiPageNewGame::GuiPageNewGame(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window,
 							   Campaign& campaign, GameState& gameState, PipBuck& pipBuck) :
 	GuiPage("New Game"),
+	refreshButton({ BTN_NORMAL, resMgr, { 400, 815 }, STR_REFRESH, [this]() { btnRefresh(this); } }),
 	resMgr(resMgr), // TODO translate
 	cursorMgr(cursorMgr),
 	window(window),
@@ -30,7 +37,7 @@ GuiPageNewGame::GuiPageNewGame(ResourceManager& resMgr, CursorManager& cursorMgr
 
 void GuiPageNewGame::rebuildCampaignList()
 {
-	this->hoverMgr.clear();
+	this->campaignListHoverMgr.clear();
 	this->campaignItems.clear();
 
 	uint i = 0;
@@ -52,11 +59,13 @@ void GuiPageNewGame::rebuildCampaignList()
 	// so it should be fine.
 	for (auto& item : this->campaignItems)
 	{
-		this->hoverMgr += &item.button;
+		this->campaignListHoverMgr += &item.button;
 	}
+
+	this->hoverMgr += &this->refreshButton;
 }
 
-void GuiPageNewGame::loadCampaign(const std::string& campaignId)
+bool GuiPageNewGame::loadCampaign(const std::string& campaignId)
 {
 	// this is a pretty terrible way of showing a loading screen, but it will do for now
 	// TODO load on thread, display loading screen in main loop with a progress bar
@@ -68,19 +77,25 @@ void GuiPageNewGame::loadCampaign(const std::string& campaignId)
 	if (!this->campaign.load(pathCombine(PATH_CAMPAIGNS, campaignId)))
 	{
 		Log::e(STR_CAMPAIGN_LOAD_FAILED);
-		return;
+		return false;
 	}
 
 	if (!this->pipBuck.setupCampaignInfos())
 	{
 		Log::e(STR_PIPBUCK_SETUP_FAILED);
-		return;
+
+		// unroll
+		this->campaign.unload();
+
+		return false;
 	}
 
 	this->gameState = STATE_PLAYING;
 
 	// TODO query campaign to check what the player is actually pointing at and set proper cursor color
 	this->cursorMgr.setCursor(CROSSHAIR_WHITE);
+
+	return true;
 }
 
 void GuiPageNewGame::handleSettingsChange()
@@ -93,6 +108,16 @@ void GuiPageNewGame::handleSettingsChange()
 	}
 }
 
+bool GuiPageNewGame::handleMouseMove(sf::Vector2i mousePos)
+{
+	mousePos -= this->getPosition();
+
+	if (this->campaignListHoverMgr.handleMouseMove(mousePos))
+		return true;
+
+	return this->hoverMgr.handleMouseMove(mousePos);
+}
+
 ClickStatus GuiPageNewGame::handleLeftClick(sf::Vector2i clickPos)
 {
 	clickPos -= this->getPosition();
@@ -102,12 +127,19 @@ ClickStatus GuiPageNewGame::handleLeftClick(sf::Vector2i clickPos)
 		ClickStatus status = item.button.handleLeftClick(clickPos);
 		if (status != CLICK_NOT_CONSUMED)
 		{
-			this->loadCampaign(item.campaignId);
+			if (!this->loadCampaign(item.campaignId))
+			{
+				// maybe something changed on disk since the list was initially loaded, e.g. a dir was renamed or
+				// removed. refresh campaign list in an attempt to reflect any changes
+				Log::w(STR_REFRESHING_CAMPAIGN_LIST);
+				this->rebuildCampaignList();
+			}
+
 			return CLICK_CONSUMED;
 		}
 	}
 
-	return CLICK_NOT_CONSUMED;
+	return this->refreshButton.handleLeftClick(clickPos);
 }
 
 void GuiPageNewGame::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -118,4 +150,6 @@ void GuiPageNewGame::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	{
 		target.draw(item.button, states);
 	}
+
+	target.draw(this->refreshButton, states);
 }

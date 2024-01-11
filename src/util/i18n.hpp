@@ -128,5 +128,7 @@
 #define STR_CMD_WHERE "log current position"
 #define STR_ROOM_GEOMETRY_VAL_FAIL "Room (%d, %d, %d) geometry validation failed at (%d, %d) - room edge collider mismatch"
 #define STR_ROOM_GEOMETRY_VAL_FAIL_INSUF "Room (%d, %d, %d) geometry validation failed at (%d, %d) - insufficient space for the player"
+#define STR_REFRESHING_CAMPAIGN_LIST "Refreshing campaign list"
+#define STR_REFRESH "Refresh"
 #define GPL_SPLAT "This program comes with ABSOLUTELY NO WARRANTY.\nThis is free software, and you are welcome to redistribute it\nunder certain conditions; see LICENSE file for details."
 // clang-format on
