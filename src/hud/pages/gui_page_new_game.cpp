@@ -5,6 +5,7 @@
 #include "gui_page_new_game.hpp"
 
 #include <filesystem>
+#include <set>
 
 #include "../../consts.hpp"
 #include "../../util/i18n.hpp"
@@ -40,13 +41,20 @@ void GuiPageNewGame::rebuildCampaignList()
 	this->campaignListHoverMgr.clear();
 	this->campaignItems.clear();
 
-	uint i = 0;
+	// directory_iterator outputs unsorted entries, use a set to sort them
+	std::set<std::string> sortedIds;
+
 	for (const auto& entry : std::filesystem::directory_iterator(PATH_CAMPAIGNS))
 	{
 		if (!entry.is_directory())
 			continue;
 
-		std::string campaignId = entry.path().stem();
+		sortedIds.insert(entry.path().stem().string());
+	}
+
+	uint i = 0;
+	for (std::string campaignId : sortedIds)
+	{
 		SimpleButton btn(BTN_NORMAL, this->resMgr, sf::Vector2u(BTN_POS_LEFT, BTN_POS_TOP + BTN_POS_HEIGHT * i),
 						 campaignId);
 
