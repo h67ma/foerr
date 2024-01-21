@@ -6,6 +6,8 @@
 
 #include <SFML/Graphics/BlendMode.hpp>
 
+#define CONFUSION "???"
+
 #define ANIM_FRAME_DURATION_MS 33 // around 30fps
 
 // game area size

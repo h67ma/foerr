@@ -9,12 +9,45 @@
 
 #include "../../consts.hpp"
 #include "../../util/i18n.hpp"
+#include "../../util/json.hpp"
 #include "../loading_screen.hpp"
 #include "../log.hpp"
 
 constexpr uint BTN_POS_LEFT = 400;
 constexpr uint BTN_POS_TOP = 260;
 constexpr uint BTN_POS_HEIGHT = 35;
+
+struct campaign_meta
+{
+		std::string title;
+		std::string description;
+};
+
+/**
+ * Reads a _index.json file for a given campaign ID and fills the meta structure with relevant info.
+ * In case of any errors, the meta struct will be filled with ??? and errors/warnings will be logged.
+ *
+ * @param meta reference to metadata struct to fill
+ * @param campaignId campaign ID
+ */
+static void getCampaignMeta(struct campaign_meta& meta, const std::string& campaignId)
+{
+	std::string indexPath = pathCombine(PATH_CAMPAIGNS, campaignId, FILENAME_INDEX);
+
+	nlohmann::json root;
+	if (!loadJsonFromFile(root, indexPath))
+	{
+		meta.title = CONFUSION;
+		meta.description = CONFUSION;
+		return;
+	}
+
+	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_TITLE, meta.title))
+		meta.title = CONFUSION;
+
+	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_DESCRIPTION, meta.description))
+		meta.description = CONFUSION;
+}
 
 static void btnRefresh(GuiPageNewGame* page)
 {
@@ -55,8 +88,12 @@ void GuiPageNewGame::rebuildCampaignList()
 	uint i = 0;
 	for (std::string campaignId : sortedIds)
 	{
+		struct campaign_meta meta;
+		getCampaignMeta(meta, campaignId);
+
 		SimpleButton btn(BTN_NORMAL, this->resMgr, sf::Vector2u(BTN_POS_LEFT, BTN_POS_TOP + BTN_POS_HEIGHT * i),
-						 campaignId);
+						 meta.title);
+		// TODO display meta.description in a side panel
 
 		this->campaignItems.emplace_back(campaignId, btn);
 		i++;
