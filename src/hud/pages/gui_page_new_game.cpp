@@ -119,7 +119,7 @@ bool GuiPageNewGame::loadCampaign(const std::string& campaignId)
 	this->window.draw(loadingScreen);
 	this->window.display();
 
-	if (!this->campaign.load(pathCombine(PATH_CAMPAIGNS, campaignId)))
+	if (!this->campaign.load(campaignId))
 	{
 		Log::e(STR_CAMPAIGN_LOAD_FAILED);
 		return false;

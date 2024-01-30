@@ -226,7 +226,9 @@ bool GuiPageWorld::setupCampaignInfos()
 {
 	this->unloadCampaignInfos();
 
-	std::shared_ptr<sf::Texture> mapBgTxt = this->resMgr.getTexture(this->campaign.getWorldMapBackground(), false);
+	std::string worldMapBgPath = pathCombine(PATH_CAMPAIGNS, this->campaign.getId(), PATH_WORLD_MAP);
+
+	std::shared_ptr<sf::Texture> mapBgTxt = this->resMgr.getTexture(worldMapBgPath, false);
 	if (mapBgTxt == nullptr)
 		return false;
 

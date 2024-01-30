@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -27,15 +27,13 @@
 class Campaign : public sf::Drawable
 {
 	private:
+		std::string id;
+		std::string title;
+		std::string description;
 		Player player;
 		ResourceManager& resMgr;
 		MaterialManager matMgr;
 		ObjectManager objMgr;
-		std::string title;
-		std::string description;
-
-		// could be hardcoded, but it would prevent reusing images from other campaigns
-		std::string worldMapBackgroundId;
 
 		std::shared_ptr<Location> currentLocation = nullptr;
 
@@ -46,11 +44,11 @@ class Campaign : public sf::Drawable
 
 	public:
 		explicit Campaign(ResourceManager& resMgr);
-		bool load(const std::string& campaignDir);
+		bool load(const std::string& campaignId);
 		void unload();
+		std::string getId() const;
 		std::string getTitle() const;
 		std::string getDescription() const;
-		std::string getWorldMapBackground() const;
 		Player& getPlayer();
 		const std::unordered_map<std::string, std::shared_ptr<Location>>& getLocations() const;
 		const std::shared_ptr<Location> getCurrentLocation() const;

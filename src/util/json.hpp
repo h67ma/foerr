@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -38,7 +38,6 @@
 #define FOERR_JSON_KEY_COORDS "coords"
 #define FOERR_JSON_KEY_IS_START "is_start"
 #define FOERR_JSON_KEY_WORLDMAP_ICON_BIG "worldmap_icon_big"
-#define FOERR_JSON_KEY_WORLDMAP_BACKGROUND "worldmap_background"
 #define FOERR_JSON_KEY_TYPE_GRIND "grind"
 #define FOERR_JSON_KEY_TYPE_BASECAMP "basecamp"
 #define FOERR_JSON_KEY_RECOMMENDED_LVL "rec_lvl"

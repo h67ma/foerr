@@ -36,6 +36,7 @@
 #define PATH_CAMPAIGNS "res/campaigns"
 #define PATH_DIR_ROOMS "rooms"
 #define FILENAME_INDEX "_index.json"
+#define PATH_WORLD_MAP "hud/world_map.png"
 
 // seriously though
 #ifndef uint
