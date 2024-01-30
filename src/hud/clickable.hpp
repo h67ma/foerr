@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -21,6 +21,7 @@ enum ClickStatus
 	CLICK_CONSUMED_CLOSE, // PipBuck should be closed
 	CLICK_CONSUMED_UNLOAD, // PipBuck should unload its campaign infos
 	CLICK_CONSUMED_SETTINGS_CHANGED, // components should update their state after settings change
+	CLICK_CONSUMED_RESET_MENU, // parent component should reset menu/list to initial state
 };
 
 class Clickable

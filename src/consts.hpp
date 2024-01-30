@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
 #include <SFML/Graphics/BlendMode.hpp>
+
+#define CONFUSION "???"
 
 #define ANIM_FRAME_DURATION_MS 33 // around 30fps
 
@@ -31,6 +33,7 @@
 #define PATH_BACKGROUNDS_FULL "res/texture/full_backgrounds"
 #define PATH_TEXT_CELLS "res/texture/cells"
 #define PATH_TEXT_OBJS_BACK "res/texture/objects_back"
+#define PATH_CAMPAIGNS "res/campaigns"
 #define PATH_DIR_ROOMS "rooms"
 #define FILENAME_INDEX "_index.json"
 

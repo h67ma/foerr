@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include <csignal>
 #include <cstdlib>
@@ -18,7 +18,7 @@
 #include "hud/fps_meter.hpp"
 #include "hud/loading_screen.hpp"
 #include "hud/log.hpp"
-#include "hud/main_menu.hpp"
+#include "hud/main_menu/main_menu.hpp"
 #include "hud/pipbuck/pipbuck.hpp"
 #include "hud/sliders/slider.hpp"
 #include "resources/resource_manager.hpp"
@@ -27,6 +27,23 @@
 #include "util/i18n.hpp"
 #include "window/cursor_manager.hpp"
 #include "window/util.hpp"
+
+/**
+ * Let all applicable components know that settings have changed and they need to update things like GUI scale, colors,
+ * etc.
+ */
+static void propagateSettings(PipBuck& pipBuck, MainMenu& mainMenu, FpsMeter& fpsMeter, DevConsole& console,
+							  const sf::Vector2u& newWindowSize)
+{
+	Slider::calculateCoeffs();
+	Log::handleSettingsChange();
+	pipBuck.handleSettingsChange();
+	pipBuck.handleScreenResize(newWindowSize);
+	mainMenu.handleSettingsChange();
+	fpsMeter.handleSettingsChange();
+	console.handleSettingsChange();
+	console.handleScreenResize(newWindowSize);
+}
 
 int main()
 {
@@ -278,7 +295,7 @@ int main()
 	{
 		Log::d(STR_AUTLOADING_CAMPAIGN);
 
-		if (campaign.load(pathCombine("res/campaigns", SettingsManager::debugAutoloadCampaign)) &&
+		if (campaign.load(pathCombine(PATH_CAMPAIGNS, SettingsManager::debugAutoloadCampaign)) &&
 			pipBuck.setupCampaignInfos())
 		{
 			gameState = STATE_PLAYING;
@@ -368,14 +385,7 @@ int main()
 						pipBuck.handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) ==
 							CLICK_CONSUMED_SETTINGS_CHANGED)
 					{
-						Slider::calculateCoeffs();
-						Log::handleSettingsChange();
-						pipBuck.handleSettingsChange();
-						pipBuck.handleScreenResize(window.getSize());
-						mainMenu.handleSettingsChange();
-						fpsMeter.handleSettingsChange();
-						console.handleSettingsChange();
-						console.handleScreenResize(window.getSize());
+						propagateSettings(pipBuck, mainMenu, fpsMeter, console, window.getSize());
 					}
 
 					continue;
@@ -402,10 +412,20 @@ int main()
 				{
 					// sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x,
 					// event.mouseButton.y));
-					if (event.mouseButton.button == sf::Mouse::Left)
+					if (event.mouseButton.button == sf::Mouse::Left &&
+						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) ==
+							CLICK_CONSUMED_SETTINGS_CHANGED)
 					{
-						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y });
+						propagateSettings(pipBuck, mainMenu, fpsMeter, console, window.getSize());
 					}
+
+					continue;
+				}
+
+				if (event.type == sf::Event::MouseButtonReleased)
+				{
+					if (event.mouseButton.button == sf::Mouse::Left)
+						mainMenu.handleLeftClickUp();
 
 					continue;
 				}

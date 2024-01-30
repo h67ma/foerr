@@ -10,7 +10,7 @@
 
 #include "../hud/dev_console.hpp"
 #include "../hud/fps_meter.hpp"
-#include "../hud/main_menu.hpp"
+#include "../hud/main_menu/main_menu.hpp"
 #include "../hud/pipbuck/pipbuck.hpp"
 
 void recreateWindow(sf::RenderWindow& window);

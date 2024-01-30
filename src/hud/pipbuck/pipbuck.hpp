@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -25,11 +25,12 @@
 #include "../hover_manager.hpp"
 #include "../hud.hpp"
 #include "pipbuck_category.hpp"
+#include "pipbuck_page.hpp"
 
 /**
  * In-game menu, containing both inventory/character info/map/etc. and settings.
  * PipBuck contains 4 *categories*, each of them containing 5 *pages*. Some pages
- * (settings, controls) can also be accessed via main menu.
+ * (settings, controls, load) can also be accessed via main menu.
  *
  * The convention is to keep all categories and their child pages in memory.
  * This way we can switch between them instantaneously, without the need to
@@ -41,7 +42,7 @@
  *
  * Possible refactor: store each category (and each page in categories) as member,
  * not in an array & store pointers to pages in vector for convenience. This way
- * we can avoid defining some methods like ::setupCampaignInfos() in PipBuckPage,
+ * we can avoid defining some methods like ::setupCampaignInfos() in GuiPage,
  * and instead define them only in pages that actually use it.
  */
 class PipBuck : public sf::Drawable, public sf::Transformable, public ConfigurableGuiComponent

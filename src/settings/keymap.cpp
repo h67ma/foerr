@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "keymap.hpp"
 
@@ -9,8 +9,6 @@
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
 #include "settings_manager.hpp"
-
-#define CONFUSION "???"
 
 // defines available actions, along with action strings, display strings, and default keys
 // ::serializeKey must be unique (will be checked in ::setup())

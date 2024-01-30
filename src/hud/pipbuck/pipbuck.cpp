@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "pipbuck.hpp"
 
@@ -13,26 +13,26 @@
 #include "../../util/util.hpp"
 #include "../buttons/pipbuck_category_button.hpp"
 #include "../log.hpp"
-#include "pages/pipbuck_page_ammo.hpp"
-#include "pages/pipbuck_page_armor.hpp"
-#include "pages/pipbuck_page_controls.hpp"
-#include "pages/pipbuck_page_effects.hpp"
-#include "pages/pipbuck_page_enemies.hpp"
-#include "pages/pipbuck_page_equipment.hpp"
-#include "pages/pipbuck_page_health.hpp"
-#include "pages/pipbuck_page_inventory_other.hpp"
-#include "pages/pipbuck_page_load.hpp"
-#include "pages/pipbuck_page_log.hpp"
-#include "pages/pipbuck_page_map.hpp"
-#include "pages/pipbuck_page_notes.hpp"
-#include "pages/pipbuck_page_perks.hpp"
-#include "pages/pipbuck_page_quests.hpp"
-#include "pages/pipbuck_page_save.hpp"
-#include "pages/pipbuck_page_settings.hpp"
-#include "pages/pipbuck_page_skills.hpp"
-#include "pages/pipbuck_page_status_main.hpp"
-#include "pages/pipbuck_page_weapons.hpp"
-#include "pages/pipbuck_page_world.hpp"
+#include "../pages/gui_page_ammo.hpp"
+#include "../pages/gui_page_armor.hpp"
+#include "../pages/gui_page_controls.hpp"
+#include "../pages/gui_page_effects.hpp"
+#include "../pages/gui_page_enemies.hpp"
+#include "../pages/gui_page_equipment.hpp"
+#include "../pages/gui_page_health.hpp"
+#include "../pages/gui_page_inventory_other.hpp"
+#include "../pages/gui_page_load.hpp"
+#include "../pages/gui_page_log.hpp"
+#include "../pages/gui_page_map.hpp"
+#include "../pages/gui_page_notes.hpp"
+#include "../pages/gui_page_perks.hpp"
+#include "../pages/gui_page_quests.hpp"
+#include "../pages/gui_page_save.hpp"
+#include "../pages/gui_page_settings.hpp"
+#include "../pages/gui_page_skills.hpp"
+#include "../pages/gui_page_status_main.hpp"
+#include "../pages/gui_page_weapons.hpp"
+#include "../pages/gui_page_world.hpp"
 
 const sf::Color screenColorGray = COLOR_GRAY(0x39);
 const sf::Vector2f screenPos { 365, 178 };
@@ -54,35 +54,35 @@ PipBuck::PipBuck(ResourceManager& resMgr, CursorManager& cursorMgr, Campaign& ca
 	categories { { PIPB_CAT_STATUS,
 				   { resMgr,
 					 PIPB_PAGE_STATUS_MAIN,
-					 { { PIPB_PAGE_STATUS_MAIN, std::make_shared<PipBuckPageMainStatus>(resMgr) },
-					   { PIPB_PAGE_SKILLS, std::make_shared<PipBuckPageSkills>(resMgr) },
-					   { PIPB_PAGE_PERKS, std::make_shared<PipBuckPagePerks>(resMgr) },
-					   { PIPB_PAGE_EFFECTS, std::make_shared<PipBuckPageEffects>(resMgr) },
-					   { PIPB_PAGE_HEALTH, std::make_shared<PipBuckPageHealth>(resMgr) } } } },
+					 { { PIPB_PAGE_STATUS_MAIN, std::make_shared<GuiPageMainStatus>(resMgr) },
+					   { PIPB_PAGE_SKILLS, std::make_shared<GuiPageSkills>(resMgr) },
+					   { PIPB_PAGE_PERKS, std::make_shared<GuiPagePerks>(resMgr) },
+					   { PIPB_PAGE_EFFECTS, std::make_shared<GuiPageEffects>(resMgr) },
+					   { PIPB_PAGE_HEALTH, std::make_shared<GuiPageHealth>(resMgr) } } } },
 				 { PIPB_CAT_INVENTORY,
 				   { resMgr,
 					 PIPB_PAGE_WEAPONS,
-					 { { PIPB_PAGE_WEAPONS, std::make_shared<PipBuckPageWeapons>(resMgr) },
-					   { PIPB_PAGE_ARMOR, std::make_shared<PipBuckPageArmor>(resMgr) },
-					   { PIPB_PAGE_EQUIPMENT, std::make_shared<PipBuckPageEquipment>(resMgr) },
-					   { PIPB_PAGE_INVENTORY_OTHER, std::make_shared<PipBuckPageInventoryOther>(resMgr) },
-					   { PIPB_PAGE_AMMO, std::make_shared<PipBuckPageAmmo>(resMgr) } } } },
+					 { { PIPB_PAGE_WEAPONS, std::make_shared<GuiPageWeapons>(resMgr) },
+					   { PIPB_PAGE_ARMOR, std::make_shared<GuiPageArmor>(resMgr) },
+					   { PIPB_PAGE_EQUIPMENT, std::make_shared<GuiPageEquipment>(resMgr) },
+					   { PIPB_PAGE_INVENTORY_OTHER, std::make_shared<GuiPageInventoryOther>(resMgr) },
+					   { PIPB_PAGE_AMMO, std::make_shared<GuiPageAmmo>(resMgr) } } } },
 				 { PIPB_CAT_INFO,
 				   { resMgr,
 					 PIPB_PAGE_MAP,
-					 { { PIPB_PAGE_MAP, std::make_shared<PipBuckPageMap>(resMgr) },
-					   { PIPB_PAGE_WORLD, std::make_shared<PipBuckPageWorld>(resMgr, campaign) },
-					   { PIPB_PAGE_QUESTS, std::make_shared<PipBuckPageQuests>(resMgr) },
-					   { PIPB_PAGE_NOTES, std::make_shared<PipBuckPageNotes>(resMgr) },
-					   { PIPB_PAGE_ENEMIES, std::make_shared<PipBuckPageEnemies>(resMgr) } } } },
-				 { PIPB_CAT_MAIN,
+					 { { PIPB_PAGE_MAP, std::make_shared<GuiPageMap>(resMgr) },
+					   { PIPB_PAGE_WORLD, std::make_shared<GuiPageWorld>(resMgr, campaign) },
+					   { PIPB_PAGE_QUESTS, std::make_shared<GuiPageQuests>(resMgr) },
+					   { PIPB_PAGE_NOTES, std::make_shared<GuiPageNotes>(resMgr) },
+					   { PIPB_PAGE_ENEMIES, std::make_shared<GuiPageEnemies>(resMgr) } } } },
+				 { PIPB_CAT_GAME,
 				   { resMgr,
 					 PIPB_PAGE_LOAD,
-					 { { PIPB_PAGE_LOAD, std::make_shared<PipBuckPageLoad>(resMgr) },
-					   { PIPB_PAGE_SAVE, std::make_shared<PipBuckPageSave>(resMgr) },
-					   { PIPB_PAGE_SETTINGS, std::make_shared<PipBuckPageSettings>(resMgr) },
-					   { PIPB_PAGE_CONTROLS, std::make_shared<PipBuckPageControls>(resMgr) },
-					   { PIPB_PAGE_LOG, std::make_shared<PipBuckPageLog>(resMgr) } } } } },
+					 { { PIPB_PAGE_LOAD, std::make_shared<GuiPageLoad>(resMgr, false) },
+					   { PIPB_PAGE_SAVE, std::make_shared<GuiPageSave>(resMgr) },
+					   { PIPB_PAGE_SETTINGS, std::make_shared<GuiPageSettings>(resMgr) },
+					   { PIPB_PAGE_CONTROLS, std::make_shared<GuiPageControls>(resMgr) },
+					   { PIPB_PAGE_LOG, std::make_shared<GuiPageLog>(resMgr) } } } } },
 	closeBtn(BTN_BIG, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, nullptr, CLICK_CONSUMED_CLOSE),
 	soundOpenClose(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE)),
 	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
@@ -104,8 +104,8 @@ PipBuck::PipBuck(ResourceManager& resMgr, CursorManager& cursorMgr, Campaign& ca
 
 	// TODO this btn currently does not react properly to hud color change, but it will be replaced with a nicer, custom
 	// btn later
-	this->categoryButtons.emplace(PIPB_CAT_MAIN, std::make_unique<SimpleButton>(BTN_BIG, resMgr, sf::Vector2u(55, 700),
-																				STR_PIPBUCK_MAINMENU));
+	this->categoryButtons.emplace(PIPB_CAT_GAME, std::make_unique<SimpleButton>(BTN_BIG, resMgr, sf::Vector2u(55, 700),
+																				STR_PIPBUCK_GAME));
 
 	this->setupRadIndicator();
 	this->setupScreenBackground();
