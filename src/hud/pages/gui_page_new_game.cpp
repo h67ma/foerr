@@ -180,7 +180,7 @@ ClickStatus GuiPageNewGame::handleLeftClick(sf::Vector2i clickPos)
 				this->rebuildCampaignList();
 			}
 
-			return CLICK_CONSUMED;
+			return CLICK_CONSUMED_RESET_MENU;
 		}
 	}
 

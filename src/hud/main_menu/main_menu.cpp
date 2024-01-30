@@ -176,6 +176,13 @@ ClickStatus MainMenu::handleLeftClick(sf::Vector2i clickPos)
 		if (status != CLICK_NOT_CONSUMED)
 		{
 			this->btnSound.play();
+
+			if (status == CLICK_CONSUMED_RESET_MENU)
+			{
+				this->changePage(MAINM_PAGE_NONE);
+				return CLICK_CONSUMED;
+			}
+
 			return status;
 		}
 	}
@@ -191,8 +198,7 @@ ClickStatus MainMenu::handleLeftClick(sf::Vector2i clickPos)
 			// if there's no associated page, ::changePage() will automatically deselect page, so e.g. when player
 			// selects "Settings" page, then clicks "Continue", plays the game a bit, and comes back to main menu, it
 			// will visually be in its initial state (no page selected), which is exactly what we want to happen.
-			// TODO? probably there will be other cases of this, where game state change initiated from inside a page
-			// ("Load" page). we'd need to somehow deselect page then.
+			// menu item can also be deselected by returning CLICK_CONSUMED_RESET_MENU in a page (see above).
 			this->changePage(btn.first);
 
 			this->btnSound.play();
