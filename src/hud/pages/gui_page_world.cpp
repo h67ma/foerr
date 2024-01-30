@@ -170,21 +170,16 @@ void GuiPageWorld::setupMapDecorations()
 	float mapW = this->mapBg.getLocalBounds().width;
 	float mapH = this->mapBg.getLocalBounds().height;
 
-	sf::Vector2f topLeft(std::round(mapPos.x * SettingsManager::guiScale),
-						 std::round((mapPos.y - 1) * SettingsManager::guiScale));
-	sf::Vector2f topRight(std::round((mapPos.x + mapW + 1) * SettingsManager::guiScale),
-						  std::round((mapPos.y - 1) * SettingsManager::guiScale));
-	sf::Vector2f bottomRight(std::round((mapPos.x + mapW + 1) * SettingsManager::guiScale),
-							 std::round((mapPos.y + mapH) * SettingsManager::guiScale));
-	// not sure why, but the left bottom corner needs to be moved 1px to the left, otherwise there's a blank pixel
-	sf::Vector2f bottomLeft(std::round((mapPos.x - 1) * SettingsManager::guiScale),
-							std::round((mapPos.y + mapH) * SettingsManager::guiScale));
+	sf::Vector2f topLeft = calculateGuiAwarePoint({ mapPos.x, mapPos.y - 1 });
+	sf::Vector2f topRight = calculateGuiAwarePoint({ mapPos.x + mapW + 1, mapPos.y - 1 });
+	sf::Vector2f bottomRight = calculateGuiAwarePoint({ mapPos.x + mapW + 1, mapPos.y + mapH });
+	sf::Vector2f bottomLeft = calculateGuiAwarePoint({ mapPos.x, mapPos.y + mapH });
 
-	mapBorder[0] = sf::Vertex(topLeft, hudColor);
-	mapBorder[1] = sf::Vertex(topRight, hudColor);
-	mapBorder[2] = sf::Vertex(bottomRight, hudColor);
-	mapBorder[3] = sf::Vertex(bottomLeft, hudColor);
-	mapBorder[4] = mapBorder[0];
+	this->mapBorder[0] = sf::Vertex(topLeft, hudColor);
+	this->mapBorder[1] = sf::Vertex(topRight, hudColor);
+	this->mapBorder[2] = sf::Vertex(bottomRight, hudColor);
+	this->mapBorder[3] = sf::Vertex(bottomLeft, hudColor);
+	this->mapBorder[4] = this->mapBorder[0];
 
 	// set transparency for grid lines
 	hudColor.a = GRID_LINES_TRANSPARENCY;
@@ -195,9 +190,8 @@ void GuiPageWorld::setupMapDecorations()
 		if (pos - mapPos.x > mapW)
 			break; // just in case someone will make a smaller map
 
-		sf::Vector2f top(std::round(pos * SettingsManager::guiScale), std::round(mapPos.y * SettingsManager::guiScale));
-		sf::Vector2f bottom(std::round(pos * SettingsManager::guiScale),
-							std::round((mapPos.y + mapH) * SettingsManager::guiScale));
+		sf::Vector2f top = calculateGuiAwarePoint({ pos, mapPos.y });
+		sf::Vector2f bottom = calculateGuiAwarePoint({ pos, mapPos.y + mapH });
 
 		mapGridLines[i] = sf::Vertex(top, hudColor);
 		mapGridLines[i + 1] = sf::Vertex(bottom, hudColor);
@@ -211,10 +205,8 @@ void GuiPageWorld::setupMapDecorations()
 		if (pos - mapPos.y > mapH)
 			break; // just in case someone will make a smaller map
 
-		sf::Vector2f left(std::round(mapPos.x * SettingsManager::guiScale),
-						  std::round(pos * SettingsManager::guiScale));
-		sf::Vector2f right(std::round((mapPos.x + mapW) * SettingsManager::guiScale),
-						   std::round(pos * SettingsManager::guiScale));
+		sf::Vector2f left = calculateGuiAwarePoint({ mapPos.x, pos });
+		sf::Vector2f right = calculateGuiAwarePoint({ mapPos.x + mapW, pos });
 
 		mapGridLines[i] = sf::Vertex(left, hudColor);
 		mapGridLines[i + 1] = sf::Vertex(right, hudColor);
