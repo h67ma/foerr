@@ -178,6 +178,7 @@ ClickStatus GuiPageNewGame::handleLeftClick(sf::Vector2i clickPos)
 				// removed. refresh campaign list in an attempt to reflect any changes
 				Log::w(STR_REFRESHING_CAMPAIGN_LIST);
 				this->rebuildCampaignList();
+				return CLICK_CONSUMED;
 			}
 
 			return CLICK_CONSUMED_RESET_MENU;
