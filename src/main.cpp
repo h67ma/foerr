@@ -409,8 +409,6 @@ int main()
 
 				if (event.type == sf::Event::MouseButtonPressed)
 				{
-					// sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x,
-					// event.mouseButton.y));
 					if (event.mouseButton.button == sf::Mouse::Left &&
 						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) ==
 							CLICK_CONSUMED_SETTINGS_CHANGED)
