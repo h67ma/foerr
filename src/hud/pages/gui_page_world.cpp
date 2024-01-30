@@ -150,7 +150,7 @@ bool GuiPageWorld::handleMouseMove(sf::Vector2i mousePos)
 			return true;
 	}
 
-	if (this->selectedLocId != NO_LOCATION_SELECTED && this->travelButtonAvailable)
+	if (this->isAnyLocationSelected() && this->travelButtonAvailable)
 		return this->hoverMgr.handleMouseMove(mousePos);
 
 	return false;
@@ -269,6 +269,11 @@ void GuiPageWorld::setGuiScale()
 	this->updateActiveIndicator();
 }
 
+bool GuiPageWorld::isAnyLocationSelected() const
+{
+	return this->selectedLocId != NO_LOCATION_SELECTED; // NOLINT(readability-container-size-empty)
+}
+
 void GuiPageWorld::handleSettingsChange()
 {
 	GuiPage::handleSettingsChange();
@@ -303,12 +308,12 @@ void GuiPageWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	target.draw(this->activeLocIndicator, states);
 
-	if (this->selectedLocId != NO_LOCATION_SELECTED)
+	if (this->isAnyLocationSelected())
 	{
 		target.draw(this->locTitle, states);
 		target.draw(this->locDescription, states);
 
-		if (travelButtonAvailable)
+		if (this->travelButtonAvailable)
 			target.draw(this->gotoLocationBtn, states);
 	}
 }

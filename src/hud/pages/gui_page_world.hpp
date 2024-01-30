@@ -37,13 +37,18 @@ class GuiPageWorld : public GuiPage
 		std::unordered_map<std::string, LocButton> mapButtons;
 		SimpleButton gotoLocationBtn;
 		HoverManager mapButtonHoverMgr;
-		std::string selectedLocId = NO_LOCATION_SELECTED; // represents selection on page, not currently active location
+
+		// represents selection on page, not currently active location
+		// NOLINTNEXTLINE(readability-redundant-string-init)
+		std::string selectedLocId = NO_LOCATION_SELECTED;
+
 		bool travelButtonAvailable = false;
 		void setComponentColors();
 		void setupMapDecorations();
 		bool mapContainsPoint(sf::Vector2i point);
 		void updateActiveIndicator();
 		void setGuiScale();
+		bool isAnyLocationSelected() const;
 
 	public:
 		GuiPageWorld(ResourceManager& resMgr, Campaign& campaign);
