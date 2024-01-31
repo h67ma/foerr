@@ -14,6 +14,7 @@
 #include "../../resources/sprite_resource.hpp"
 #include "../buttons/location_button.hpp"
 #include "../buttons/simple_button.hpp"
+#include "../hover_manager.hpp"
 #include "../wrappable_text.hpp"
 #include "gui_page.hpp"
 
@@ -36,6 +37,7 @@ class GuiPageWorld : public GuiPage
 		sf::CircleShape activeLocIndicator;
 		std::unordered_map<std::string, LocButton> mapButtons;
 		SimpleButton gotoLocationBtn;
+		HoverManager hoverMgr;
 		HoverManager mapButtonHoverMgr;
 
 		// represents selection on page, not currently active location

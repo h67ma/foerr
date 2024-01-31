@@ -49,6 +49,20 @@ void GuiPageControls::updateDisplay()
 	this->dummyMapDump.setString(dump);
 }
 
+bool GuiPageControls::handleMouseMove(sf::Vector2i mousePos)
+{
+	mousePos -= this->getPosition();
+
+	return this->hoverMgr.handleMouseMove(mousePos);
+}
+
+ClickStatus GuiPageControls::handleLeftClick(sf::Vector2i clickPos)
+{
+	clickPos -= this->getPosition();
+
+	return this->clickMgr.handleLeftClick(clickPos);
+}
+
 void GuiPageControls::handleSettingsChange()
 {
 	GuiPage::handleSettingsChange();

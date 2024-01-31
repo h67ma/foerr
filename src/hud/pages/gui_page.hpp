@@ -12,10 +12,9 @@
 
 #include "../../campaigns/campaign.hpp"
 #include "../../consts.hpp"
-#include "../click_manager.hpp"
+#include "../clickable.hpp"
 #include "../configurable_gui_component.hpp"
 #include "../gui_transformable.hpp"
-#include "../hover_manager.hpp"
 
 /**
  * Represents an abstract page to display in GUI (e.g. "Settings") - either in PipBuck or in main menu.
@@ -31,19 +30,26 @@
 class GuiPage : public sf::Drawable, public GuiTransformable
 {
 	protected:
-		HoverManager hoverMgr;
-		ClickManager clickMgr; // TODO delet if too many pages will implement a custom ::handleLeftClick()
 		sf::Text dummy; // TODO delet this
 		explicit GuiPage(const std::string& pageTitle);
 
 	public:
-		virtual ClickStatus handleLeftClick(sf::Vector2i clickPos);
+		virtual ClickStatus handleLeftClick(sf::Vector2i clickPos)
+		{
+			return CLICK_NOT_CONSUMED;
+		};
+
 		virtual void handleLeftClickUp() {};
-		virtual bool handleMouseMove(sf::Vector2i mousePos);
+		virtual bool handleMouseMove(sf::Vector2i mousePos)
+		{
+			return false;
+		};
+
 		virtual bool setupCampaignInfos()
 		{
 			return true;
 		}
+
 		virtual void unloadCampaignInfos() {}
 		void handleSettingsChange() override;
 		const std::string pageTitle;
