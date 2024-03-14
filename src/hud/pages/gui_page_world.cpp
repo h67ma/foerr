@@ -11,11 +11,10 @@
 #include "../../util/i18n.hpp"
 #include "../../util/util.hpp"
 
-// all relative to the page area
-const sf::Vector2f mapPos(400, 260);
-const sf::Vector2u gotoLocationBtnPos(1000, 815);
-const sf::Vector2f locTitlePos(970, 260);
-const sf::Vector2f locDescriptionPos(970, 300);
+const sf::Vector2f mapPos(0, 10);
+const sf::Vector2u gotoLocationBtnPos(600, POS_PAGE_BTNS_Y);
+const sf::Vector2f locTitlePos(570, 10);
+const sf::Vector2f locDescriptionPos(570, 50);
 
 constexpr float ACTIVE_LOC_INDICATOR_OUTLINE_THICKNESS = 2;
 constexpr uchar GRID_LINES_TRANSPARENCY = 0x40;

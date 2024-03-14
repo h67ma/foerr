@@ -16,6 +16,10 @@
 #include "../configurable_gui_component.hpp"
 #include "../gui_transformable.hpp"
 
+static constexpr uint POS_PAGE_BTNS_Y = 565;
+static const sf::Vector2u POS_PAGE_BTN_BOTTOM_1(0, POS_PAGE_BTNS_Y);
+static const sf::Vector2u POS_PAGE_BTN_BOTTOM_2(200, POS_PAGE_BTNS_Y);
+
 /**
  * Represents an abstract page to display in GUI (e.g. "Settings") - either in PipBuck or in main menu.
  * TODO Might display additional elements outside PipBuck screen area (e.g. question mark button).

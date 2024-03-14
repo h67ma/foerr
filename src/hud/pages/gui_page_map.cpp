@@ -9,7 +9,7 @@
 GuiPageMap::GuiPageMap(ResourceManager& resMgr) : GuiPage("Map") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
-	this->dummy.setPosition(500.F, 500.F);
+	this->dummy.setPosition(100.F, 250.F);
 	this->dummy.setString("map");
 
 	// TODO map should display the current layer, not only front/main layer. if player enters backstage, map should also

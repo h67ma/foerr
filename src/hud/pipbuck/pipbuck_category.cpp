@@ -10,6 +10,7 @@
 
 #define PIPB_PAGE_BTNS_X_START 385
 #define PIPB_PAGE_BTNS_X_DISTANCE 140
+static const sf::Vector2f POS_PAGE(400, 250);
 
 /**
  * Note: defaultPage *must* be the key of one of the pages, or else ::setup() will fail.
@@ -29,10 +30,12 @@ PipBuckCategory::PipBuckCategory(ResourceManager& resMgr, PipBuckPageType defaul
 
 	// create buttons for switching pages
 	uint x = PIPB_PAGE_BTNS_X_START;
-	for (const auto& page : pages)
+	for (auto& page : pages)
 	{
 		this->pageButtons.emplace(page.first, SimpleButton(BTN_NARROW, resMgr, { x, 210 }, page.second->pageTitle));
 		x += PIPB_PAGE_BTNS_X_DISTANCE;
+
+		page.second->setPosition(POS_PAGE);
 	}
 }
 
