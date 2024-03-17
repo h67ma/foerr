@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -46,7 +46,7 @@ inline std::string pathCombine(const std::string& path1, const std::string& path
 #define COLOR_GRAY_ALPHA(shade, alpha) sf::Color(shade, shade, shade, alpha)
 #define COLOR_ALPHA(alpha) sf::Color(0xFF, 0xFF, 0xFF, alpha)
 // clang-format off
-#define DIM_COLOR(color, shade) color * COLOR_GRAY(shade)
+#define DIM_COLOR(color, shade) ((color) * COLOR_GRAY(shade))
 // clang-format on
 
 /**
