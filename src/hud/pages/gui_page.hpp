@@ -16,7 +16,7 @@
 #include "../configurable_gui_component.hpp"
 #include "../gui_transformable.hpp"
 
-static constexpr uint POS_PAGE_BTNS_Y = 565;
+constexpr uint POS_PAGE_BTNS_Y = 565;
 static const sf::Vector2u POS_PAGE_BTN_BOTTOM_1(0, POS_PAGE_BTNS_Y);
 static const sf::Vector2u POS_PAGE_BTN_BOTTOM_2(200, POS_PAGE_BTNS_Y);
 
