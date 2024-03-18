@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "pipbuck_category_button.hpp"
 
@@ -9,12 +9,12 @@
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 
-const sf::Color colorHover(0xFF, 0xFF, 0xFF, 0x10);
+const sf::Color COLOR_HOVER(0xFF, 0xFF, 0xFF, 0x10);
 
-const sf::Color colorText(0x40, 0x23, 0x20);
-const sf::Color colorTextSelected(0xA8, 0x14, 0x00);
+const sf::Color COLOR_TEXT(0x40, 0x23, 0x20);
+const sf::Color COLOR_TEXT_SELECTED(0xA8, 0x14, 0x00);
 
-const sf::Vector2f hoverImgOffset(-22.F, -22.F);
+const sf::Vector2f OFFSET_IMG_HOVER(-22.F, -22.F);
 
 constexpr uint TEXT_BOTTOM_OFFSET = 14;
 constexpr uint CATEGORY_BTN_FONT_SIZE = 20;
@@ -45,19 +45,19 @@ bool PipBuckCategoryButton::containsPoint(sf::Vector2i coords)
 void PipBuckCategoryButton::updateState()
 {
 	if (this->hover)
-		this->trapeze.setFillColor(colorHover);
+		this->trapeze.setFillColor(COLOR_HOVER);
 	else
 		this->trapeze.setFillColor(sf::Color::Transparent);
 
 	if (this->selected)
 	{
 		this->hoverImgSprite.setColor(sf::Color::White);
-		this->text.setFillColor(colorTextSelected);
+		this->text.setFillColor(COLOR_TEXT_SELECTED);
 	}
 	else
 	{
 		this->hoverImgSprite.setColor(sf::Color::Transparent);
-		this->text.setFillColor(colorText);
+		this->text.setFillColor(COLOR_TEXT);
 	}
 }
 
@@ -93,7 +93,7 @@ void PipBuckCategoryButton::handleSettingsChange()
 
 	this->text.handleSettingsChange();
 	this->hoverImgSprite.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
-	this->hoverImgSprite.setPosition(hoverImgOffset * SettingsManager::guiScale);
+	this->hoverImgSprite.setPosition(OFFSET_IMG_HOVER * SettingsManager::guiScale);
 
 	this->trapeze.setData(this->trapezeData * SettingsManager::guiScale);
 

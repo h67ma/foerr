@@ -11,10 +11,10 @@
 #include "../../util/i18n.hpp"
 #include "../../util/util.hpp"
 
-const sf::Vector2f mapPos(0, 10);
-const sf::Vector2u gotoLocationBtnPos(600, POS_PAGE_BTNS_Y);
-const sf::Vector2f locTitlePos(570, 10);
-const sf::Vector2f locDescriptionPos(570, 50);
+const sf::Vector2f POS_MAP(0, 10);
+const sf::Vector2u POS_BTN_GOTO(600, POS_PAGE_BTNS_Y);
+const sf::Vector2f POS_LOC_TITLE(570, 10);
+const sf::Vector2f POS_LOC_DESCRIPTION(570, 50);
 
 constexpr float ACTIVE_LOC_INDICATOR_OUTLINE_THICKNESS = 2;
 constexpr uchar GRID_LINES_TRANSPARENCY = 0x40;
@@ -26,7 +26,7 @@ GuiPageWorld::GuiPageWorld(ResourceManager& resMgr, Campaign& campaign) :
 	GuiPage("World"), // TODO translate
 	resMgr(resMgr),
 	campaign(campaign),
-	gotoLocationBtn(BTN_NORMAL, resMgr, gotoLocationBtnPos, "Travel",
+	gotoLocationBtn(BTN_NORMAL, resMgr, POS_BTN_GOTO, "Travel",
 					[this]()
 					{
 						auto search = this->mapButtons.find(this->selectedLocId);
@@ -45,8 +45,8 @@ GuiPageWorld::GuiPageWorld(ResourceManager& resMgr, Campaign& campaign) :
 						this->selectedLocId = NO_LOCATION_SELECTED;
 						this->travelButtonAvailable = false;
 					}),
-	locTitle(*resMgr.getFont(FONT_MEDIUM), FONT_H2, locTitlePos),
-	locDescription(*resMgr.getFont(FONT_NORMAL), FONT_SPAN, locDescriptionPos)
+	locTitle(*resMgr.getFont(FONT_MEDIUM), FONT_H2, POS_LOC_TITLE),
+	locDescription(*resMgr.getFont(FONT_NORMAL), FONT_SPAN, POS_LOC_DESCRIPTION)
 {
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
 	this->activeLocIndicator.setOutlineThickness(ACTIVE_LOC_INDICATOR_OUTLINE_THICKNESS);
@@ -169,10 +169,10 @@ void GuiPageWorld::setupMapDecorations()
 	float mapW = this->mapBg.getLocalBounds().width;
 	float mapH = this->mapBg.getLocalBounds().height;
 
-	sf::Vector2f topLeft = calculateGuiAwarePoint({ mapPos.x, mapPos.y - 1 });
-	sf::Vector2f topRight = calculateGuiAwarePoint({ mapPos.x + mapW + 1, mapPos.y - 1 });
-	sf::Vector2f bottomRight = calculateGuiAwarePoint({ mapPos.x + mapW + 1, mapPos.y + mapH });
-	sf::Vector2f bottomLeft = calculateGuiAwarePoint({ mapPos.x, mapPos.y + mapH });
+	sf::Vector2f topLeft = calculateGuiAwarePoint({ POS_MAP.x, POS_MAP.y - 1 });
+	sf::Vector2f topRight = calculateGuiAwarePoint({ POS_MAP.x + mapW + 1, POS_MAP.y - 1 });
+	sf::Vector2f bottomRight = calculateGuiAwarePoint({ POS_MAP.x + mapW + 1, POS_MAP.y + mapH });
+	sf::Vector2f bottomLeft = calculateGuiAwarePoint({ POS_MAP.x, POS_MAP.y + mapH });
 
 	this->mapBorder[0] = sf::Vertex(topLeft, hudColor);
 	this->mapBorder[1] = sf::Vertex(topRight, hudColor);
@@ -183,29 +183,29 @@ void GuiPageWorld::setupMapDecorations()
 	// set transparency for grid lines
 	hudColor.a = GRID_LINES_TRANSPARENCY;
 
-	float pos = mapPos.x + MAP_GRID_SPACING;
+	float pos = POS_MAP.x + MAP_GRID_SPACING;
 	for (uint i = 0; i < 8; i += 2)
 	{
-		if (pos - mapPos.x > mapW)
+		if (pos - POS_MAP.x > mapW)
 			break; // just in case someone will make a smaller map
 
-		sf::Vector2f top = calculateGuiAwarePoint({ pos, mapPos.y });
-		sf::Vector2f bottom = calculateGuiAwarePoint({ pos, mapPos.y + mapH });
+		sf::Vector2f top = calculateGuiAwarePoint({ pos, POS_MAP.y });
+		sf::Vector2f bottom = calculateGuiAwarePoint({ pos, POS_MAP.y + mapH });
 
 		mapGridLines[i] = sf::Vertex(top, hudColor);
 		mapGridLines[i + 1] = sf::Vertex(bottom, hudColor);
 		pos += MAP_GRID_SPACING;
 	}
 
-	pos = mapPos.y + MAP_GRID_SPACING;
+	pos = POS_MAP.y + MAP_GRID_SPACING;
 
 	for (uint i = 8; i < 16; i += 2)
 	{
-		if (pos - mapPos.y > mapH)
+		if (pos - POS_MAP.y > mapH)
 			break; // just in case someone will make a smaller map
 
-		sf::Vector2f left = calculateGuiAwarePoint({ mapPos.x, pos });
-		sf::Vector2f right = calculateGuiAwarePoint({ mapPos.x + mapW, pos });
+		sf::Vector2f left = calculateGuiAwarePoint({ POS_MAP.x, pos });
+		sf::Vector2f right = calculateGuiAwarePoint({ POS_MAP.x + mapW, pos });
 
 		mapGridLines[i] = sf::Vertex(left, hudColor);
 		mapGridLines[i + 1] = sf::Vertex(right, hudColor);
@@ -236,7 +236,7 @@ bool GuiPageWorld::setupCampaignInfos()
 		}
 
 		this->mapButtons.try_emplace(loc.first, loc.second->isWorldMapIconBig(), loc.second->isBasecamp(),
-									 mapPos + loc.second->getWorldMapCoords(), iconTxt);
+									 POS_MAP + loc.second->getWorldMapCoords(), iconTxt);
 	}
 
 	this->updateActiveIndicator();
@@ -262,7 +262,7 @@ void GuiPageWorld::setGuiScale()
 {
 	this->locTitle.handleSettingsChange();
 	this->locDescription.handleSettingsChange();
-	this->mapBg.setPosition(mapPos * SettingsManager::guiScale);
+	this->mapBg.setPosition(POS_MAP * SettingsManager::guiScale);
 	this->mapBg.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
 
 	this->updateActiveIndicator();

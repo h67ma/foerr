@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "resource_manager.hpp"
 
@@ -12,14 +12,14 @@
 #include "../util/i18n.hpp"
 
 // order matters!
-const char* _fonts[] = {
+const char* FONTS[] = {
 	"fonts/OpenSans-Regular.ttf", // FONT_NORMAL
 	"fonts/OpenSans-Medium.ttf", // FONT_MEDIUM
 	"fonts/Inconsolata-Regular.ttf" // FONT_FIXED
 };
 
 // clang-format off
-const char* _coreTextures[] = {
+const char* TEXTURES_CORE[] = {
 	PATH_TXT_PIPBUCK_OVERLAY,
 	PATH_TXT_PIPBUCK_CAT_BTN_LEFT,
 	PATH_TXT_PIPBUCK_CAT_BTN_MID,
@@ -28,7 +28,7 @@ const char* _coreTextures[] = {
 };
 // clang-format on
 
-const char* _coreAudio[] = {
+const char* AUDIO_CORE[] = {
 	PATH_AUD_PIPBUCK_OPENCLOSE,
 	PATH_AUD_PIPBUCK_PAGECHANGE,
 	PATH_AUD_PIPBUCK_PAGE_CLICK,
@@ -44,9 +44,9 @@ bool ResourceManager::loadFonts()
 {
 	for (size_t i = 0; i < _FONT_CNT; i++)
 	{
-		if (!this->fonts[i].loadFromFile(_fonts[i]))
+		if (!this->fonts[i].loadFromFile(FONTS[i]))
 		{
-			Log::e(STR_FONT_LOAD_FAIL, _fonts[i]);
+			Log::e(STR_FONT_LOAD_FAIL, FONTS[i]);
 			return false;
 		}
 	}
@@ -64,13 +64,13 @@ bool ResourceManager::loadCore()
 {
 	Log::d(STR_LOADING_CORE_RES);
 
-	for (const char* txt : _coreTextures)
+	for (const char* txt : TEXTURES_CORE)
 	{
 		if (!this->getTexture(txt))
 			return false;
 	}
 
-	for (const char* buf : _coreAudio)
+	for (const char* buf : AUDIO_CORE)
 	{
 		if (!this->getSoundBuffer(buf))
 			return false;

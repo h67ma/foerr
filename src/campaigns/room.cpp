@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "room.hpp"
 
@@ -405,14 +405,14 @@ void Room::init()
 	for (const auto& backObj : this->backHoleObjectsMain)
 	{
 		if (backObj.blend)
-			states.blendMode = BlendOverlayOrSomething;
+			states.blendMode = BLEND_OVERLAY_OR_SOMETHING;
 		else
 			states.blendMode = sf::BlendAlpha;
 
 		tmpRender.draw(backObj.spriteRes, states);
 	}
 
-	states.blendMode = BlendSubtractOrSomething;
+	states.blendMode = BLEND_SUBTRACT_OR_SOMETHING;
 	for (const auto& backObj : this->backHoleObjectsHoles)
 	{
 		tmpRender.draw(backObj, states);
@@ -750,7 +750,7 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	// because we render stuff first to RenderTexture, and then the texture to target, alpha gets blended two times,
 	// and therefore gets screwed up. to fix it, use a custom blending mode.
-	states.blendMode = BlendAlphaTransparent;
+	states.blendMode = BLEND_ALPHA_TRANSPARENT;
 	target.draw(this->backCache, states);
 	target.draw(this->frontCache1, states);
 
@@ -758,7 +758,7 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	states.blendMode = sf::BlendAlpha;
 	target.draw(this->player, states);
 
-	states.blendMode = BlendAlphaTransparent;
+	states.blendMode = BLEND_ALPHA_TRANSPARENT;
 	target.draw(this->frontCache2, states);
 
 	// liquid is drawn over all cell elements, including solids

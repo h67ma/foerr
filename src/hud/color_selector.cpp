@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "color_selector.hpp"
 
@@ -8,16 +8,16 @@
 #include "../util/util.hpp"
 #include "clickable.hpp"
 
-const sf::Vector2f secondLabelPosition(0, 25);
-const sf::Vector2f thirdLabelPosition(0, 50);
-const sf::Vector2f labelSize(SLIDER_HANDLE_HEIGHT, SLIDER_HANDLE_HEIGHT);
+const sf::Vector2f POS_2ND_LABEL(0, 25);
+const sf::Vector2f POS_3RD_LABEL(0, 50);
+const sf::Vector2f SIZE_LABEL(SLIDER_HANDLE_HEIGHT, SLIDER_HANDLE_HEIGHT);
 
-const sf::Vector2f firstSliderPosition(20, 0);
-const sf::Vector2f secondSliderPosition(20, 25);
-const sf::Vector2f thirdSliderPosition(20, 50);
+const sf::Vector2f POS_1ST_SLIDER(20, 0);
+const sf::Vector2f POS_2ND_SLIDER(20, 25);
+const sf::Vector2f POS_3RD_SLIDER(20, 50);
 
-const sf::Vector2f colorPreviewPosition(280, 0);
-const sf::Vector2f colorPreviewSize(65, 65);
+const sf::Vector2f POS_COLOR_PREVIEW(280, 0);
+const sf::Vector2f SIZE_COLOR_PREVIEW(65, 65);
 constexpr float COLOR_PREVIEW_OUTLINE_THICKNESS = 1;
 
 ColorSelector::ColorSelector(const sf::Font& font, sf::Color initialColor) :
@@ -29,9 +29,9 @@ ColorSelector::ColorSelector(const sf::Font& font, sf::Color initialColor) :
 	this->labelG.setFillColor(sf::Color::Green);
 	this->labelB.setFillColor(sf::Color::Blue);
 
-	this->sliderR.setPosition(firstSliderPosition);
-	this->sliderG.setPosition(secondSliderPosition);
-	this->sliderB.setPosition(thirdSliderPosition);
+	this->sliderR.setPosition(POS_1ST_SLIDER);
+	this->sliderG.setPosition(POS_2ND_SLIDER);
+	this->sliderB.setPosition(POS_3RD_SLIDER);
 
 	this->selectedColorPreview.setOutlineThickness(COLOR_PREVIEW_OUTLINE_THICKNESS);
 
@@ -125,16 +125,16 @@ void ColorSelector::handleSettingsChange()
 	this->sliderB.handleSettingsChange();
 
 	// labelR is in (0, 0), no need to adjust position
-	this->labelR.setSize(labelSize * SettingsManager::guiScale);
+	this->labelR.setSize(SIZE_LABEL * SettingsManager::guiScale);
 
-	this->labelG.setPosition(secondLabelPosition * SettingsManager::guiScale);
-	this->labelG.setSize(labelSize * SettingsManager::guiScale);
+	this->labelG.setPosition(POS_2ND_LABEL * SettingsManager::guiScale);
+	this->labelG.setSize(SIZE_LABEL * SettingsManager::guiScale);
 
-	this->labelB.setPosition(thirdLabelPosition * SettingsManager::guiScale);
-	this->labelB.setSize(labelSize * SettingsManager::guiScale);
+	this->labelB.setPosition(POS_3RD_LABEL * SettingsManager::guiScale);
+	this->labelB.setSize(SIZE_LABEL * SettingsManager::guiScale);
 
-	this->selectedColorPreview.setPosition(colorPreviewPosition * SettingsManager::guiScale);
-	this->selectedColorPreview.setSize(colorPreviewSize * SettingsManager::guiScale);
+	this->selectedColorPreview.setPosition(POS_COLOR_PREVIEW * SettingsManager::guiScale);
+	this->selectedColorPreview.setSize(SIZE_COLOR_PREVIEW * SettingsManager::guiScale);
 	this->selectedColorPreview.setOutlineColor(SettingsManager::hudColor);
 }
 

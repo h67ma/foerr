@@ -34,13 +34,13 @@
 #include "../pages/gui_page_weapons.hpp"
 #include "../pages/gui_page_world.hpp"
 
-const sf::Color screenColorGray = COLOR_GRAY(0x39);
-const sf::Vector2f screenPos { 365, 178 };
-const sf::Vector2f screenSize { 1094, 685 };
+const sf::Color COLOR_SCREEN_GRAY = COLOR_GRAY(0x39);
+const sf::Vector2f POS_SCREEN { 365, 178 };
+const sf::Vector2f SIZE_SCREEN { 1094, 685 };
 
-const sf::Vector2f radIndicatorPosition { 130, 190 };
-const sf::Vector2f radIndicatorOrigin { 5, 0 };
-const std::vector<sf::Vector2f> radIndicatorPointPositions {
+const sf::Vector2f POS_RAD_INDICATOR { 130, 190 };
+const sf::Vector2f ORIGIN_RAD_INDICATOR { 5, 0 };
+const std::vector<sf::Vector2f> POS_RAD_INDICATOR_POINTS {
 	{ 0, 0 },
 	{ 10, 0 },
 	{ 5, 60 },
@@ -130,18 +130,18 @@ void PipBuck::setAudioVolume()
  */
 void PipBuck::setupRadIndicator()
 {
-	this->radIndicator.setPointCount(radIndicatorPointPositions.size());
+	this->radIndicator.setPointCount(POS_RAD_INDICATOR_POINTS.size());
 	this->radIndicator.setFillColor(sf::Color::Black);
 }
 
 void PipBuck::setRadIndicatorScale()
 {
-	this->radIndicator.setOrigin(radIndicatorOrigin * SettingsManager::guiScale);
-	this->radIndicator.setPosition(radIndicatorPosition * SettingsManager::guiScale);
+	this->radIndicator.setOrigin(ORIGIN_RAD_INDICATOR * SettingsManager::guiScale);
+	this->radIndicator.setPosition(POS_RAD_INDICATOR * SettingsManager::guiScale);
 
-	for (int i = 0; i < radIndicatorPointPositions.size(); i++)
+	for (int i = 0; i < POS_RAD_INDICATOR_POINTS.size(); i++)
 	{
-		this->radIndicator.setPoint(i, radIndicatorPointPositions[i] * SettingsManager::guiScale);
+		this->radIndicator.setPoint(i, POS_RAD_INDICATOR_POINTS[i] * SettingsManager::guiScale);
 	}
 }
 
@@ -153,7 +153,7 @@ void PipBuck::setRadIndicatorScale()
  */
 void PipBuck::setupScreenBackground()
 {
-	this->screenBackgroundGray.setFillColor(screenColorGray);
+	this->screenBackgroundGray.setFillColor(COLOR_SCREEN_GRAY);
 
 	// transparent radial gradient, tinted with hud color
 	this->setScreenTint();
@@ -171,15 +171,15 @@ void PipBuck::setupScreenBackground()
 
 void PipBuck::setScreenBackgroundScale()
 {
-	this->screenBackgroundGray.setPosition(screenPos * SettingsManager::guiScale);
-	this->screenBackgroundGray.setSize(screenSize * SettingsManager::guiScale);
+	this->screenBackgroundGray.setPosition(POS_SCREEN * SettingsManager::guiScale);
+	this->screenBackgroundGray.setSize(SIZE_SCREEN * SettingsManager::guiScale);
 
-	this->pipBuckScreenRadialGrad.setPosition(screenPos * SettingsManager::guiScale);
+	this->pipBuckScreenRadialGrad.setPosition(POS_SCREEN * SettingsManager::guiScale);
 	this->pipBuckScreenRadialGrad.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
 
 	this->screenBackgroundStripes.setTextureRect(
-		sf::IntRect(0, 0, screenSize.x * SettingsManager::guiScale, screenSize.y * SettingsManager::guiScale));
-	this->screenBackgroundStripes.setPosition(screenPos * SettingsManager::guiScale);
+		sf::IntRect(0, 0, SIZE_SCREEN.x * SettingsManager::guiScale, SIZE_SCREEN.y * SettingsManager::guiScale));
+	this->screenBackgroundStripes.setPosition(POS_SCREEN * SettingsManager::guiScale);
 }
 
 void PipBuck::handleScreenResize(sf::Vector2u windowSize)

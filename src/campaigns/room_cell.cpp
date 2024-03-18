@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "room_cell.hpp"
 
@@ -12,7 +12,7 @@
 #include "../hud/log.hpp"
 #include "../util/i18n.hpp"
 
-const std::unordered_map<char, int> heightFlags {
+const std::unordered_map<char, int> HEIGHT_FLAGS {
 	{ ',', CELL_SIDE_LEN * 0.25 }, // 3/4 height
 	{ ';', CELL_SIDE_LEN * 0.5 }, // 1/2 height
 	{ ':', CELL_SIDE_LEN * 0.75 } // 1/4 height
@@ -104,8 +104,8 @@ bool RoomCell::addOtherSymbol(char symbol, bool topCellBlocksLadderDelim, bool t
 							  ResourceManager& resMgr, const MaterialManager& matMgr)
 {
 	// first check if symbol is a height flag, as it won't be present in mat mgr
-	auto heightFlagSearch = heightFlags.find(symbol);
-	if (heightFlagSearch != heightFlags.end())
+	auto heightFlagSearch = HEIGHT_FLAGS.find(symbol);
+	if (heightFlagSearch != HEIGHT_FLAGS.end())
 	{
 		// check 1
 		if (!this->hasSolid)
