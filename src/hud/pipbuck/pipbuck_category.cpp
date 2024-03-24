@@ -19,7 +19,7 @@ static const sf::Vector2f POS_PAGE(400, 250);
  */
 PipBuckCategory::PipBuckCategory(ResourceManager& resMgr, PipBuckPageType defaultPage,
 								 std::map<PipBuckPageType, std::shared_ptr<GuiPage>> pages) :
-	selectedPage(defaultPage),
+	selectedPageType(defaultPage),
 	pages(pages.begin(), pages.end()),
 	soundPageChange(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
 	soundClick(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGE_CLICK))
@@ -53,7 +53,7 @@ PipBuckCategory::PipBuckCategory(ResourceManager& resMgr, PipBuckPageType defaul
 bool PipBuckCategory::setup()
 {
 	// set default page
-	if (!this->changePage(this->selectedPage))
+	if (!this->changePage(this->selectedPageType))
 		return false;
 
 	for (auto& btn : this->pageButtons)
@@ -64,31 +64,50 @@ bool PipBuckCategory::setup()
 	return true;
 }
 
-PipBuckPageType PipBuckCategory::getSelectedPage() const
+PipBuckPageType PipBuckCategory::getSelectedPageType() const
 {
-	return this->selectedPage;
+	return this->selectedPageType;
 }
 
-bool PipBuckCategory::changePage(PipBuckPageType pageType)
+void PipBuckCategory::changeActiveButton(PipBuckPageType newPageType)
 {
-	auto found = this->pages.find(pageType);
-	if (found == this->pages.end())
+	auto foundOld = this->pageButtons.find(this->selectedPageType);
+	if (foundOld != this->pageButtons.end())
+	{
+		// found previously selected button, deselect it
+		foundOld->second.setSelected(false);
+	}
+
+	auto foundNew = this->pageButtons.find(newPageType);
+	if (foundNew != this->pageButtons.end())
+	{
+		// found new button, select it
+		foundNew->second.setSelected(true);
+	}
+}
+
+bool PipBuckCategory::changePage(PipBuckPageType newPageType)
+{
+	auto foundPage = this->pages.find(newPageType);
+	if (foundPage == this->pages.end())
 		return false;
 
-	// ::pageButtons map has the same keys as ::pages map
-	// ...famous last words, right? let's hope not
-	this->pageButtons.at(this->selectedPage).setSelected(false);
-	this->pageButtons.at(pageType).setSelected(true);
+	this->changeActiveButton(newPageType);
 
-	this->selectedPage = pageType;
+	this->selectedPageType = newPageType;
+	this->selectedPage = foundPage->second;
+
 	return true;
 }
 
 ClickStatus PipBuckCategory::handleLeftClick(sf::Vector2i clickPos)
 {
+	if (this->selectedPage == nullptr)
+		return CLICK_NOT_CONSUMED;
+
 	clickPos -= this->getPosition();
 
-	ClickStatus pageResult = this->pages.at(this->selectedPage)->handleLeftClick(clickPos);
+	ClickStatus pageResult = this->selectedPage->handleLeftClick(clickPos);
 	if (pageResult != CLICK_NOT_CONSUMED)
 	{
 		// basically we want every page click to play the same sound
@@ -104,7 +123,7 @@ ClickStatus PipBuckCategory::handleLeftClick(sf::Vector2i clickPos)
 	{
 		if (btn.second.containsPoint(clickPos))
 		{
-			if (btn.first != this->selectedPage)
+			if (btn.first != this->selectedPageType)
 			{
 				this->changePage(btn.first);
 				this->soundPageChange.play();
@@ -118,14 +137,18 @@ ClickStatus PipBuckCategory::handleLeftClick(sf::Vector2i clickPos)
 
 void PipBuckCategory::handleLeftClickUp()
 {
-	this->pages.at(this->selectedPage)->handleLeftClickUp();
+	if (this->selectedPage != nullptr)
+		this->selectedPage->handleLeftClickUp();
 }
 
 bool PipBuckCategory::handleMouseMove(sf::Vector2i mousePos)
 {
+	if (this->selectedPage == nullptr)
+		return false;
+
 	mousePos -= this->getPosition();
 
-	if (this->pages.at(this->selectedPage)->handleMouseMove(mousePos))
+	if (this->selectedPage->handleMouseMove(mousePos))
 		return true;
 
 	return this->hoverMgr.handleMouseMove(mousePos);
@@ -207,7 +230,10 @@ void PipBuckCategory::draw(sf::RenderTarget& target, sf::RenderStates states) co
 {
 	states.transform *= this->getTransform();
 
-	target.draw(*this->pages.at(this->selectedPage), states);
+	if (this->selectedPage != nullptr)
+	{
+		target.draw(*this->selectedPage, states);
+	}
 
 	for (const auto& btn : this->pageButtons)
 	{

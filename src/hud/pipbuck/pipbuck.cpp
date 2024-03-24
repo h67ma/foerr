@@ -51,38 +51,40 @@ PipBuck::PipBuck(ResourceManager& resMgr, CursorManager& cursorMgr, Campaign& ca
 	cursorMgr(cursorMgr),
 	gameState(gameState),
 	campaign(campaign),
-	categories { { PIPB_CAT_STATUS,
-				   { resMgr,
-					 PIPB_PAGE_STATUS_MAIN,
-					 { { PIPB_PAGE_STATUS_MAIN, std::make_shared<GuiPageMainStatus>(resMgr) },
-					   { PIPB_PAGE_SKILLS, std::make_shared<GuiPageSkills>(resMgr) },
-					   { PIPB_PAGE_PERKS, std::make_shared<GuiPagePerks>(resMgr) },
-					   { PIPB_PAGE_EFFECTS, std::make_shared<GuiPageEffects>(resMgr) },
-					   { PIPB_PAGE_HEALTH, std::make_shared<GuiPageHealth>(resMgr) } } } },
-				 { PIPB_CAT_INVENTORY,
-				   { resMgr,
-					 PIPB_PAGE_WEAPONS,
-					 { { PIPB_PAGE_WEAPONS, std::make_shared<GuiPageWeapons>(resMgr) },
-					   { PIPB_PAGE_ARMOR, std::make_shared<GuiPageArmor>(resMgr) },
-					   { PIPB_PAGE_EQUIPMENT, std::make_shared<GuiPageEquipment>(resMgr) },
-					   { PIPB_PAGE_INVENTORY_OTHER, std::make_shared<GuiPageInventoryOther>(resMgr) },
-					   { PIPB_PAGE_AMMO, std::make_shared<GuiPageAmmo>(resMgr) } } } },
-				 { PIPB_CAT_INFO,
-				   { resMgr,
-					 PIPB_PAGE_MAP,
-					 { { PIPB_PAGE_MAP, std::make_shared<GuiPageMap>(resMgr) },
-					   { PIPB_PAGE_WORLD, std::make_shared<GuiPageWorld>(resMgr, campaign) },
-					   { PIPB_PAGE_QUESTS, std::make_shared<GuiPageQuests>(resMgr) },
-					   { PIPB_PAGE_NOTES, std::make_shared<GuiPageNotes>(resMgr) },
-					   { PIPB_PAGE_ENEMIES, std::make_shared<GuiPageEnemies>(resMgr) } } } },
-				 { PIPB_CAT_GAME,
-				   { resMgr,
-					 PIPB_PAGE_LOAD,
-					 { { PIPB_PAGE_LOAD, std::make_shared<GuiPageLoad>(resMgr, false) },
-					   { PIPB_PAGE_SAVE, std::make_shared<GuiPageSave>(resMgr) },
-					   { PIPB_PAGE_SETTINGS, std::make_shared<GuiPageSettings>(resMgr) },
-					   { PIPB_PAGE_CONTROLS, std::make_shared<GuiPageControls>(resMgr) },
-					   { PIPB_PAGE_LOG, std::make_shared<GuiPageLog>(resMgr) } } } } },
+	categories {
+		{ PIPB_CAT_STATUS,
+		  std::make_shared<PipBuckCategory>(resMgr, PIPB_PAGE_STATUS_MAIN,
+											std::map<PipBuckPageType, std::shared_ptr<GuiPage>> {
+												{ PIPB_PAGE_STATUS_MAIN, std::make_shared<GuiPageMainStatus>(resMgr) },
+												{ PIPB_PAGE_SKILLS, std::make_shared<GuiPageSkills>(resMgr) },
+												{ PIPB_PAGE_PERKS, std::make_shared<GuiPagePerks>(resMgr) },
+												{ PIPB_PAGE_EFFECTS, std::make_shared<GuiPageEffects>(resMgr) },
+												{ PIPB_PAGE_HEALTH, std::make_shared<GuiPageHealth>(resMgr) } }) },
+		{ PIPB_CAT_INVENTORY, std::make_shared<PipBuckCategory>(
+								  resMgr, PIPB_PAGE_WEAPONS,
+								  std::map<PipBuckPageType, std::shared_ptr<GuiPage>> {
+									  { PIPB_PAGE_WEAPONS, std::make_shared<GuiPageWeapons>(resMgr) },
+									  { PIPB_PAGE_ARMOR, std::make_shared<GuiPageArmor>(resMgr) },
+									  { PIPB_PAGE_EQUIPMENT, std::make_shared<GuiPageEquipment>(resMgr) },
+									  { PIPB_PAGE_INVENTORY_OTHER, std::make_shared<GuiPageInventoryOther>(resMgr) },
+									  { PIPB_PAGE_AMMO, std::make_shared<GuiPageAmmo>(resMgr) } }) },
+		{ PIPB_CAT_INFO,
+		  std::make_shared<PipBuckCategory>(resMgr, PIPB_PAGE_MAP,
+											std::map<PipBuckPageType, std::shared_ptr<GuiPage>> {
+												{ PIPB_PAGE_MAP, std::make_shared<GuiPageMap>(resMgr) },
+												{ PIPB_PAGE_WORLD, std::make_shared<GuiPageWorld>(resMgr, campaign) },
+												{ PIPB_PAGE_QUESTS, std::make_shared<GuiPageQuests>(resMgr) },
+												{ PIPB_PAGE_NOTES, std::make_shared<GuiPageNotes>(resMgr) },
+												{ PIPB_PAGE_ENEMIES, std::make_shared<GuiPageEnemies>(resMgr) } }) },
+		{ PIPB_CAT_GAME,
+		  std::make_shared<PipBuckCategory>(resMgr, PIPB_PAGE_LOAD,
+											std::map<PipBuckPageType, std::shared_ptr<GuiPage>> {
+												{ PIPB_PAGE_LOAD, std::make_shared<GuiPageLoad>(resMgr, false) },
+												{ PIPB_PAGE_SAVE, std::make_shared<GuiPageSave>(resMgr) },
+												{ PIPB_PAGE_SETTINGS, std::make_shared<GuiPageSettings>(resMgr) },
+												{ PIPB_PAGE_CONTROLS, std::make_shared<GuiPageControls>(resMgr) },
+												{ PIPB_PAGE_LOG, std::make_shared<GuiPageLog>(resMgr) } }) }
+	},
 	closeBtn(BTN_BIG, resMgr, { 55, 800 }, STR_PIPBUCK_CLOSE, nullptr, CLICK_CONSUMED_CLOSE),
 	soundOpenClose(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_OPENCLOSE)),
 	soundCategoryBtn(resMgr.getSoundBuffer(PATH_AUD_PIPBUCK_PAGECHANGE)),
@@ -224,26 +226,45 @@ void PipBuck::close()
 	Log::d(STR_GAME_RESUMED);
 }
 
-bool PipBuck::changeCategory(PipBuckCategoryType categoryType)
+void PipBuck::changeActiveCategoryButton(PipBuckCategoryType newCategoryType)
 {
-	auto found = this->categories.find(categoryType);
-	if (found == this->categories.end())
+	auto foundOld = this->categoryButtons.find(this->selectedCategoryType);
+	if (foundOld != this->categoryButtons.end())
+	{
+		// found previously selected button, deselect it
+		foundOld->second->setSelected(false);
+	}
+
+	auto foundNew = this->categoryButtons.find(newCategoryType);
+	if (foundNew != this->categoryButtons.end())
+	{
+		// found new button, select it
+		foundNew->second->setSelected(true);
+	}
+}
+
+bool PipBuck::changeCategory(PipBuckCategoryType newCategoryType)
+{
+	auto foundCat = this->categories.find(newCategoryType);
+	if (foundCat == this->categories.end())
 		return false;
 
-	// ::categoryButtons map has the same keys as ::categories map
-	// ...again, famous last words. let's hope not
-	this->categoryButtons.at(this->selectedCategory)->setSelected(false);
-	this->categoryButtons.at(categoryType)->setSelected(true);
+	this->changeActiveCategoryButton(newCategoryType);
 
-	this->selectedCategory = categoryType;
+	this->selectedCategoryType = newCategoryType;
+	this->selectedCategory = foundCat->second;
+
 	return true;
 }
 
 ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 {
+	if (this->selectedCategory == nullptr)
+		return CLICK_NOT_CONSUMED;
+
 	clickPos -= this->getPosition();
 
-	ClickStatus status = this->categories.at(this->selectedCategory).handleLeftClick(clickPos);
+	ClickStatus status = this->selectedCategory->handleLeftClick(clickPos);
 	if (status == CLICK_CONSUMED || status == CLICK_CONSUMED_SETTINGS_CHANGED)
 		return status;
 
@@ -269,7 +290,7 @@ ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 	{
 		if (btn.second->containsPoint(clickPos))
 		{
-			if (btn.first != this->selectedCategory)
+			if (btn.first != this->selectedCategoryType)
 			{
 				this->changeCategory(btn.first);
 				this->soundCategoryBtn.play();
@@ -291,14 +312,18 @@ ClickStatus PipBuck::handleLeftClick(sf::Vector2i clickPos)
 
 void PipBuck::handleLeftClickUp()
 {
-	this->categories.at(this->selectedCategory).handleLeftClickUp();
+	if (this->selectedCategory != nullptr)
+		this->selectedCategory->handleLeftClickUp();
 }
 
 void PipBuck::handleMouseMove(sf::Vector2i mousePos)
 {
+	if (this->selectedCategory == nullptr)
+		return;
+
 	mousePos -= this->getPosition();
 
-	if (this->categories.at(this->selectedCategory).handleMouseMove(mousePos))
+	if (this->selectedCategory->handleMouseMove(mousePos))
 		return; // hover "consumed"
 
 	this->hoverMgr.handleMouseMove(mousePos);
@@ -315,7 +340,7 @@ bool PipBuck::setupCampaignInfos()
 {
 	for (auto& cat : this->categories)
 	{
-		if (!cat.second.setupCampaignInfos())
+		if (!cat.second->setupCampaignInfos())
 		{
 			this->unloadCampaignInfos();
 			this->resMgr.cleanUnused();
@@ -332,7 +357,7 @@ void PipBuck::unloadCampaignInfos()
 
 	for (auto& cat : this->categories)
 	{
-		cat.second.unloadCampaignInfos();
+		cat.second->unloadCampaignInfos();
 	}
 }
 
@@ -356,14 +381,18 @@ void PipBuck::updateCampaignInfos()
  */
 bool PipBuck::switchToPage(PipBuckPageType pageType, sf::Vector2i mousePos)
 {
-	PipBuckCategoryType newCat = PipBuckCategory::pageTypeToCategoryType(pageType);
+	PipBuckCategoryType newCatType = PipBuckCategory::pageTypeToCategoryType(pageType);
 
-	if (newCat == PIPB_CAT_NO_CAT)
+	if (newCatType == PIPB_CAT_NO_CAT)
+		return false;
+
+	auto newCat = this->categories.find(newCatType);
+	if (newCat == this->categories.end())
 		return false;
 
 	if (this->gameState == STATE_PIPBUCK)
 	{
-		if (newCat == this->selectedCategory && this->categories.at(newCat).getSelectedPage() == pageType)
+		if (newCatType == this->selectedCategoryType && newCat->second->getSelectedPageType() == pageType)
 		{
 			// we're already on requested category & page and switch was requested again, close PipBuck
 			this->close();
@@ -377,18 +406,18 @@ bool PipBuck::switchToPage(PipBuckPageType pageType, sf::Vector2i mousePos)
 	else
 		this->open(mousePos);
 
-	return this->changeCategory(newCat) && this->categories.at(newCat).changePage(pageType);
+	return this->changeCategory(newCatType) && newCat->second->changePage(pageType);
 }
 
 bool PipBuck::setup()
 {
 	for (auto& cat : this->categories)
 	{
-		if (!cat.second.setup())
+		if (!cat.second->setup())
 			return false;
 	}
 
-	if (!this->changeCategory(this->selectedCategory)) // default category
+	if (!this->changeCategory(this->selectedCategoryType)) // default category
 		return false;
 
 	return true;
@@ -444,7 +473,7 @@ void PipBuck::handleSettingsChange()
 
 	for (auto& cat : this->categories)
 	{
-		cat.second.handleSettingsChange();
+		cat.second->handleSettingsChange();
 	}
 
 	for (auto& btn : this->categoryButtons)
@@ -464,7 +493,8 @@ void PipBuck::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(this->pipBuckSprite, states);
 	target.draw(this->radIndicator, states);
 
-	target.draw(this->categories.at(this->selectedCategory), states);
+	if (this->selectedCategory != nullptr)
+		target.draw(*this->selectedCategory, states);
 
 	for (const auto& btn : this->categoryButtons)
 	{
