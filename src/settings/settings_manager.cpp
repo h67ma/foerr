@@ -151,7 +151,7 @@ void SettingsManager::saveConfig()
 {
 	nlohmann::json root;
 
-	root.emplace(FOERR_JSON_API_VERSION, JSON_API_VERSION);
+	root.emplace(FOERR_JSON_KEY_API_VERSION, JSON_API_VERSION);
 
 	nlohmann::json keysNode;
 	for (const auto& sett : SettingsManager::settings)

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "json.hpp"
 
@@ -50,7 +50,7 @@ bool loadJsonFromFile(nlohmann::json& root, const std::string& path, bool quiet)
 
 	// check api version
 	int apiVersion = -1;
-	parseJsonKey<int>(root, path, FOERR_JSON_API_VERSION, apiVersion, true);
+	parseJsonKey<int>(root, path, FOERR_JSON_KEY_API_VERSION, apiVersion, true);
 	if (apiVersion != JSON_API_VERSION)
 		Log::w(STR_JSON_API_VERSION_MISMATCH, path.c_str(), apiVersion, JSON_API_VERSION);
 

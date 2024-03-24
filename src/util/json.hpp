@@ -48,7 +48,7 @@ constexpr int JSON_API_VERSION = 1;
 #define FOERR_JSON_KEY_TITLE "title"
 #define FOERR_JSON_KEY_DESCRIPTION "description"
 #define FOERR_JSON_KEY_START_LOC "start_location"
-#define FOERR_JSON_API_VERSION "api_version"
+#define FOERR_JSON_KEY_API_VERSION "api_version"
 #define FOERR_JSON_KEY_SOLIDS "solids"
 #define FOERR_JSON_KEY_OTHER "other"
 #define FOERR_JSON_KEY_TEXTURE "txt"
