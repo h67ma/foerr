@@ -12,9 +12,7 @@
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 
-constexpr uint BTN_TEXT_SMALL_TOP_OFFSET = 8;
-constexpr uint BTN_TEXT_NORMAL_TOP_OFFSET = 12;
-constexpr uint BTN_TEXT_LARGE_TOP_OFFSET = 17;
+constexpr uint BTN_TEXT_TOP_OFFSET = 12;
 
 // 255 is the original color, 0 is black
 constexpr uchar BTN_COLOR_SEL_FACTOR = 104;
@@ -139,7 +137,7 @@ void SimpleButton::setGuiScale()
 	// to center vertically, we can't use local bounds, as the baselines on different buttons would not match.
 	// use a constant top offset instead
 	this->text.setPosition(std::round(dim.x - this->text.getLocalBounds().width) / 2,
-						   std::round((dim.y / 2) - (SettingsManager::guiScale * BTN_TEXT_NORMAL_TOP_OFFSET)));
+						   std::round((dim.y / 2) - (SettingsManager::guiScale * BTN_TEXT_TOP_OFFSET)));
 }
 
 void SimpleButton::setText(const std::string& text)
