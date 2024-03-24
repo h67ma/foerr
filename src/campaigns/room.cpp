@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "room.hpp"
 
@@ -17,9 +17,9 @@
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
 
-#define ROOM_SYMBOL_SEPARATOR '|'
-#define ROOM_SYMBOL_EMPTY '_'
-#define ROOM_SYMBOL_UNKNOWN '?'
+constexpr char ROOM_SYMBOL_SEPARATOR = '|';
+constexpr char ROOM_SYMBOL_EMPTY = '_';
+constexpr char ROOM_SYMBOL_UNKNOWN = '?';
 
 Room::Room(Player& player) : player(player)
 {
@@ -77,7 +77,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 		std::shared_ptr<sf::Texture> backwallTxt = resMgr.getTexture(backwallTxtPath);
 		backwallTxt->setRepeated(true);
 		this->backwall.setTexture(backwallTxt);
-		this->backwall.setTextureRect({ 0, 0, GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
+		this->backwall.setTextureRect({ 0, 0, static_cast<int>(GAME_AREA_WIDTH), static_cast<int>(GAME_AREA_HEIGHT) });
 		this->backwall.setColor(BACKWALL_COLOR);
 	}
 
@@ -133,19 +133,19 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
 	if (cellsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, filePath.c_str(), FOERR_JSON_KEY_CELLS);
+		Log::e(STR_MISSING_KEY, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str());
 		return false;
 	}
 
 	if (!cellsSearch->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_CELLS);
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str());
 		return false;
 	}
 
 	if (cellsSearch->size() != ROOM_HEIGHT_WITH_BORDER)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_CELLS, ROOM_HEIGHT_WITH_BORDER,
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), ROOM_HEIGHT_WITH_BORDER,
 			   cellsSearch->size());
 		return false;
 	}
@@ -160,7 +160,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 		}
 		catch (const nlohmann::json::type_error& ex)
 		{
-			Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), FOERR_JSON_KEY_CELLS, ex.what());
+			Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), ex.what());
 			return false;
 		}
 
@@ -179,7 +179,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 
 			if (x >= ROOM_WIDTH_WITH_BORDER)
 			{
-				Log::w(STR_ROOM_LINE_TOO_LONG, filePath.c_str(), FOERR_JSON_KEY_CELLS, ROOM_WIDTH_WITH_BORDER);
+				Log::w(STR_ROOM_LINE_TOO_LONG, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), ROOM_WIDTH_WITH_BORDER);
 				break;
 			}
 
@@ -193,7 +193,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 
 				if (symbol == ROOM_SYMBOL_UNKNOWN)
 				{
-					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
+					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), x, y);
 				}
 				else if (symbol != ROOM_SYMBOL_EMPTY)
 				{
@@ -212,7 +212,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 				bool topBlocksLiquidDelim = y == 0 || this->cells[y - 1][x].blocksBottomCellLiquidDelim();
 
 				if (symbol == ROOM_SYMBOL_UNKNOWN)
-					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
+					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), x, y);
 				else if (!this->cells[y][x].addOtherSymbol(symbol, topBlocksLadderDelim, topBlocksLiquidDelim, resMgr,
 														   matMgr))
 					return false;
@@ -221,7 +221,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 
 		if (x != ROOM_WIDTH_WITH_BORDER - 1)
 		{
-			Log::e(STR_ROOM_ROW_TOO_SHORT, filePath.c_str(), FOERR_JSON_KEY_CELLS, y);
+			Log::e(STR_ROOM_ROW_TOO_SHORT, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), y);
 			return false;
 		}
 
@@ -260,7 +260,7 @@ void Room::setupAllBackObjects(ResourceManager& resMgr, const ObjectManager& obj
  * @return true if parsing was successful
  * @return false if parsing resulted in an error
  */
-bool Room::parseBackObjsNode(const nlohmann::json& root, const std::string& filePath, const char* key,
+bool Room::parseBackObjsNode(const nlohmann::json& root, const std::string& filePath, const std::string& key,
 							 std::vector<struct back_obj_data>& dataVector)
 {
 	dataVector.clear();
@@ -274,7 +274,7 @@ bool Room::parseBackObjsNode(const nlohmann::json& root, const std::string& file
 
 	if (!bgObjsSearch->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, filePath.c_str(), key);
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), key.c_str());
 		return false;
 	}
 
@@ -405,14 +405,14 @@ void Room::init()
 	for (const auto& backObj : this->backHoleObjectsMain)
 	{
 		if (backObj.blend)
-			states.blendMode = BlendOverlayOrSomething;
+			states.blendMode = BLEND_OVERLAY_OR_SOMETHING;
 		else
 			states.blendMode = sf::BlendAlpha;
 
 		tmpRender.draw(backObj.spriteRes, states);
 	}
 
-	states.blendMode = BlendSubtractOrSomething;
+	states.blendMode = BLEND_SUBTRACT_OR_SOMETHING;
 	for (const auto& backObj : this->backHoleObjectsHoles)
 	{
 		tmpRender.draw(backObj, states);
@@ -750,7 +750,7 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	// because we render stuff first to RenderTexture, and then the texture to target, alpha gets blended two times,
 	// and therefore gets screwed up. to fix it, use a custom blending mode.
-	states.blendMode = BlendAlphaTransparent;
+	states.blendMode = BLEND_ALPHA_TRANSPARENT;
 	target.draw(this->backCache, states);
 	target.draw(this->frontCache1, states);
 
@@ -758,7 +758,7 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	states.blendMode = sf::BlendAlpha;
 	target.draw(this->player, states);
 
-	states.blendMode = BlendAlphaTransparent;
+	states.blendMode = BLEND_ALPHA_TRANSPARENT;
 	target.draw(this->frontCache2, states);
 
 	// liquid is drawn over all cell elements, including solids

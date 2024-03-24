@@ -16,7 +16,7 @@ GuiPageLoad::GuiPageLoad(ResourceManager& resMgr, bool isInMainMenu) :
 	GuiPage("Load"), // TODO translate
 	isInMainMenu(isInMainMenu),
 	exitBtn(
-		BTN_NORMAL, resMgr, { 400, 815 }, STR_EXIT_TO_MAIN_MENU,
+		BTN_NORMAL, resMgr, POS_PAGE_BTN_BOTTOM_1, STR_EXIT_TO_MAIN_MENU,
 		[]()
 		{
 			// TODO display confirm box
@@ -29,6 +29,20 @@ GuiPageLoad::GuiPageLoad(ResourceManager& resMgr, bool isInMainMenu) :
 		this->hoverMgr += &this->exitBtn;
 		this->clickMgr += &this->exitBtn;
 	}
+}
+
+bool GuiPageLoad::handleMouseMove(sf::Vector2i mousePos)
+{
+	mousePos -= this->getPosition();
+
+	return this->hoverMgr.handleMouseMove(mousePos);
+}
+
+ClickStatus GuiPageLoad::handleLeftClick(sf::Vector2i clickPos)
+{
+	clickPos -= this->getPosition();
+
+	return this->clickMgr.handleLeftClick(clickPos);
 }
 
 void GuiPageLoad::handleSettingsChange()

@@ -11,11 +11,10 @@
 #include "../../util/i18n.hpp"
 #include "../../util/util.hpp"
 
-// all relative to the page area
-const sf::Vector2f mapPos(400, 260);
-const sf::Vector2u gotoLocationBtnPos(1000, 815);
-const sf::Vector2f locTitlePos(970, 260);
-const sf::Vector2f locDescriptionPos(970, 300);
+const sf::Vector2f POS_MAP(0, 10);
+const sf::Vector2u POS_BTN_GOTO(600, POS_PAGE_BTNS_Y);
+const sf::Vector2f POS_LOC_TITLE(570, 10);
+const sf::Vector2f POS_LOC_DESCRIPTION(570, 50);
 
 constexpr float ACTIVE_LOC_INDICATOR_OUTLINE_THICKNESS = 2;
 constexpr uchar GRID_LINES_TRANSPARENCY = 0x40;
@@ -27,7 +26,7 @@ GuiPageWorld::GuiPageWorld(ResourceManager& resMgr, Campaign& campaign) :
 	GuiPage("World"), // TODO translate
 	resMgr(resMgr),
 	campaign(campaign),
-	gotoLocationBtn(BTN_NORMAL, resMgr, gotoLocationBtnPos, "Travel",
+	gotoLocationBtn(BTN_NORMAL, resMgr, POS_BTN_GOTO, "Travel",
 					[this]()
 					{
 						auto search = this->mapButtons.find(this->selectedLocId);
@@ -46,8 +45,8 @@ GuiPageWorld::GuiPageWorld(ResourceManager& resMgr, Campaign& campaign) :
 						this->selectedLocId = NO_LOCATION_SELECTED;
 						this->travelButtonAvailable = false;
 					}),
-	locTitle(*resMgr.getFont(FONT_MEDIUM), FONT_H2, locTitlePos),
-	locDescription(*resMgr.getFont(FONT_NORMAL), FONT_SPAN, locDescriptionPos)
+	locTitle(*resMgr.getFont(FONT_MEDIUM), FONT_H2, POS_LOC_TITLE),
+	locDescription(*resMgr.getFont(FONT_NORMAL), FONT_SPAN, POS_LOC_DESCRIPTION)
 {
 	this->activeLocIndicator.setFillColor(sf::Color::Transparent);
 	this->activeLocIndicator.setOutlineThickness(ACTIVE_LOC_INDICATOR_OUTLINE_THICKNESS);
@@ -150,7 +149,7 @@ bool GuiPageWorld::handleMouseMove(sf::Vector2i mousePos)
 			return true;
 	}
 
-	if (this->selectedLocId != NO_LOCATION_SELECTED && this->travelButtonAvailable)
+	if (this->isAnyLocationSelected() && this->travelButtonAvailable)
 		return this->hoverMgr.handleMouseMove(mousePos);
 
 	return false;
@@ -170,51 +169,43 @@ void GuiPageWorld::setupMapDecorations()
 	float mapW = this->mapBg.getLocalBounds().width;
 	float mapH = this->mapBg.getLocalBounds().height;
 
-	sf::Vector2f topLeft(std::round(mapPos.x * SettingsManager::guiScale),
-						 std::round((mapPos.y - 1) * SettingsManager::guiScale));
-	sf::Vector2f topRight(std::round((mapPos.x + mapW + 1) * SettingsManager::guiScale),
-						  std::round((mapPos.y - 1) * SettingsManager::guiScale));
-	sf::Vector2f bottomRight(std::round((mapPos.x + mapW + 1) * SettingsManager::guiScale),
-							 std::round((mapPos.y + mapH) * SettingsManager::guiScale));
-	// not sure why, but the left bottom corner needs to be moved 1px to the left, otherwise there's a blank pixel
-	sf::Vector2f bottomLeft(std::round((mapPos.x - 1) * SettingsManager::guiScale),
-							std::round((mapPos.y + mapH) * SettingsManager::guiScale));
+	sf::Vector2f topLeft = calculateGuiAwarePoint({ POS_MAP.x, POS_MAP.y - 1 });
+	sf::Vector2f topRight = calculateGuiAwarePoint({ POS_MAP.x + mapW + 1, POS_MAP.y - 1 });
+	sf::Vector2f bottomRight = calculateGuiAwarePoint({ POS_MAP.x + mapW + 1, POS_MAP.y + mapH });
+	sf::Vector2f bottomLeft = calculateGuiAwarePoint({ POS_MAP.x, POS_MAP.y + mapH });
 
-	mapBorder[0] = sf::Vertex(topLeft, hudColor);
-	mapBorder[1] = sf::Vertex(topRight, hudColor);
-	mapBorder[2] = sf::Vertex(bottomRight, hudColor);
-	mapBorder[3] = sf::Vertex(bottomLeft, hudColor);
-	mapBorder[4] = mapBorder[0];
+	this->mapBorder[0] = sf::Vertex(topLeft, hudColor);
+	this->mapBorder[1] = sf::Vertex(topRight, hudColor);
+	this->mapBorder[2] = sf::Vertex(bottomRight, hudColor);
+	this->mapBorder[3] = sf::Vertex(bottomLeft, hudColor);
+	this->mapBorder[4] = this->mapBorder[0];
 
 	// set transparency for grid lines
 	hudColor.a = GRID_LINES_TRANSPARENCY;
 
-	float pos = mapPos.x + MAP_GRID_SPACING;
+	float pos = POS_MAP.x + MAP_GRID_SPACING;
 	for (uint i = 0; i < 8; i += 2)
 	{
-		if (pos - mapPos.x > mapW)
+		if (pos - POS_MAP.x > mapW)
 			break; // just in case someone will make a smaller map
 
-		sf::Vector2f top(std::round(pos * SettingsManager::guiScale), std::round(mapPos.y * SettingsManager::guiScale));
-		sf::Vector2f bottom(std::round(pos * SettingsManager::guiScale),
-							std::round((mapPos.y + mapH) * SettingsManager::guiScale));
+		sf::Vector2f top = calculateGuiAwarePoint({ pos, POS_MAP.y });
+		sf::Vector2f bottom = calculateGuiAwarePoint({ pos, POS_MAP.y + mapH });
 
 		mapGridLines[i] = sf::Vertex(top, hudColor);
 		mapGridLines[i + 1] = sf::Vertex(bottom, hudColor);
 		pos += MAP_GRID_SPACING;
 	}
 
-	pos = mapPos.y + MAP_GRID_SPACING;
+	pos = POS_MAP.y + MAP_GRID_SPACING;
 
 	for (uint i = 8; i < 16; i += 2)
 	{
-		if (pos - mapPos.y > mapH)
+		if (pos - POS_MAP.y > mapH)
 			break; // just in case someone will make a smaller map
 
-		sf::Vector2f left(std::round(mapPos.x * SettingsManager::guiScale),
-						  std::round(pos * SettingsManager::guiScale));
-		sf::Vector2f right(std::round((mapPos.x + mapW) * SettingsManager::guiScale),
-						   std::round(pos * SettingsManager::guiScale));
+		sf::Vector2f left = calculateGuiAwarePoint({ POS_MAP.x, pos });
+		sf::Vector2f right = calculateGuiAwarePoint({ POS_MAP.x + mapW, pos });
 
 		mapGridLines[i] = sf::Vertex(left, hudColor);
 		mapGridLines[i + 1] = sf::Vertex(right, hudColor);
@@ -226,7 +217,9 @@ bool GuiPageWorld::setupCampaignInfos()
 {
 	this->unloadCampaignInfos();
 
-	std::shared_ptr<sf::Texture> mapBgTxt = this->resMgr.getTexture(this->campaign.getWorldMapBackground(), false);
+	std::string worldMapBgPath = pathCombine(PATH_CAMPAIGNS, this->campaign.getId(), PATH_WORLD_MAP);
+
+	std::shared_ptr<sf::Texture> mapBgTxt = this->resMgr.getTexture(worldMapBgPath, false);
 	if (mapBgTxt == nullptr)
 		return false;
 
@@ -243,7 +236,7 @@ bool GuiPageWorld::setupCampaignInfos()
 		}
 
 		this->mapButtons.try_emplace(loc.first, loc.second->isWorldMapIconBig(), loc.second->isBasecamp(),
-									 mapPos + loc.second->getWorldMapCoords(), iconTxt);
+									 POS_MAP + loc.second->getWorldMapCoords(), iconTxt);
 	}
 
 	this->updateActiveIndicator();
@@ -269,10 +262,15 @@ void GuiPageWorld::setGuiScale()
 {
 	this->locTitle.handleSettingsChange();
 	this->locDescription.handleSettingsChange();
-	this->mapBg.setPosition(mapPos * SettingsManager::guiScale);
+	this->mapBg.setPosition(POS_MAP * SettingsManager::guiScale);
 	this->mapBg.setScale(SettingsManager::guiScale, SettingsManager::guiScale);
 
 	this->updateActiveIndicator();
+}
+
+bool GuiPageWorld::isAnyLocationSelected() const
+{
+	return this->selectedLocId != NO_LOCATION_SELECTED; // NOLINT(readability-container-size-empty)
 }
 
 void GuiPageWorld::handleSettingsChange()
@@ -309,12 +307,12 @@ void GuiPageWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	target.draw(this->activeLocIndicator, states);
 
-	if (this->selectedLocId != NO_LOCATION_SELECTED)
+	if (this->isAnyLocationSelected())
 	{
 		target.draw(this->locTitle, states);
 		target.draw(this->locDescription, states);
 
-		if (travelButtonAvailable)
+		if (this->travelButtonAvailable)
 			target.draw(this->gotoLocationBtn, states);
 	}
 }

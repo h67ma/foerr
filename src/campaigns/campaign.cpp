@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "campaign.hpp"
 
@@ -44,15 +44,18 @@ Campaign::Campaign(ResourceManager& resMgr) : resMgr(resMgr), player(resMgr)
  * @return true if load succeeded
  * @return false if load failed
  */
-bool Campaign::load(const std::string& campaignDir)
+bool Campaign::load(const std::string& campaignId)
 {
-	Log::d(STR_CAMPAIGN_LOADING, campaignDir.c_str());
+	Log::d(STR_CAMPAIGN_LOADING, campaignId.c_str());
 
 	this->unload();
 
 	// load basic campaign infos
 
-	std::string indexPath = pathCombine(campaignDir, std::string(FILENAME_INDEX));
+	this->id = campaignId;
+
+	const std::string campaignDir = pathCombine(PATH_CAMPAIGNS, campaignId);
+	std::string indexPath = pathCombine(campaignDir, FILENAME_INDEX);
 	nlohmann::json root;
 	if (!loadJsonFromFile(root, indexPath))
 	{
@@ -72,9 +75,6 @@ bool Campaign::load(const std::string& campaignDir)
 	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_START_LOC, startLocation))
 		return false;
 
-	if (!parseJsonKey<std::string>(root, indexPath, FOERR_JSON_KEY_WORLDMAP_BACKGROUND, this->worldMapBackgroundId))
-		return false;
-
 	// load metadata for all locations inside this campaign.
 	// Initially we only load metadata such as name, description, world map details, etc. Rooms are loaded separately
 	// via ::loadContent() when entering a location. There's a possibility that some location will fail to load in the
@@ -85,7 +85,7 @@ bool Campaign::load(const std::string& campaignDir)
 	// TODO? we could add a button in campaign selector which would trigger test-loading all locations along with all
 	// rooms.
 
-	std::string locMetaPath = pathCombine(campaignDir, std::string(PATH_LOCATIONS_META));
+	std::string locMetaPath = pathCombine(campaignDir, PATH_LOCATIONS_META);
 	root.clear();
 	if (!loadJsonFromFile(root, locMetaPath))
 	{
@@ -96,13 +96,13 @@ bool Campaign::load(const std::string& campaignDir)
 	auto locsSearch = root.find(FOERR_JSON_KEY_LOCATIONS);
 	if (locsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS);
+		Log::e(STR_MISSING_KEY, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS.c_str());
 		return false;
 	}
 
 	if (!locsSearch->is_object())
 	{
-		Log::e(STR_INVALID_TYPE, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS);
+		Log::e(STR_INVALID_TYPE, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS.c_str());
 		return false;
 	}
 
@@ -158,6 +158,11 @@ void Campaign::unload()
 	Log::d(STR_CAMPAIGN_UNLOADED);
 }
 
+std::string Campaign::getId() const
+{
+	return this->id;
+}
+
 std::string Campaign::getTitle() const
 {
 	return this->title;
@@ -166,11 +171,6 @@ std::string Campaign::getTitle() const
 std::string Campaign::getDescription() const
 {
 	return this->description;
-}
-
-std::string Campaign::getWorldMapBackground() const
-{
-	return this->worldMapBackgroundId;
 }
 
 Player& Campaign::getPlayer()

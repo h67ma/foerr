@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "material_manager.hpp"
 
@@ -10,18 +10,18 @@
 #include "../util/serializable_color.hpp"
 
 bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<char, struct material>& theMap,
-							  const char* nodeKey)
+							  const std::string& nodeKey)
 {
 	auto nodeSearch = root.find(nodeKey);
 	if (nodeSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, PATH_MATERIALS, nodeKey);
+		Log::e(STR_MISSING_KEY, PATH_MATERIALS.c_str(), nodeKey.c_str());
 		return false;
 	}
 
 	if (!nodeSearch->is_object())
 	{
-		Log::e(STR_INVALID_TYPE, PATH_MATERIALS, nodeKey);
+		Log::e(STR_INVALID_TYPE, PATH_MATERIALS.c_str(), nodeKey.c_str());
 		return false;
 	}
 
@@ -36,13 +36,13 @@ bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<cha
 		char matSymbol = matNode.key()[0];
 
 		int intType;
-		if (!parseJsonKey<int>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TYPE, intType))
+		if (!parseJsonKey<int>(matNode.value(), PATH_MATERIALS, FOERR_JSON_KEY_TYPE, intType))
 			return false;
 
 		// TODO surely this check can be done more elegantly?
 		if (intType < 1 || intType > 6)
 		{
-			Log::e(STR_INVALID_TYPE, PATH_MATERIALS, matNode.key().c_str());
+			Log::e(STR_INVALID_TYPE, PATH_MATERIALS.c_str(), matNode.key().c_str());
 			return false;
 		}
 
@@ -51,23 +51,21 @@ bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<cha
 		std::string texturePath;
 		if (matType != MAT_LIQUID)
 		{
-			if (!parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE,
-										   texturePath))
+			if (!parseJsonKey<std::string>(matNode.value(), PATH_MATERIALS, FOERR_JSON_KEY_TEXTURE, texturePath))
 				return false;
 
 			texturePath = pathCombine(PATH_TEXT_CELLS, texturePath + ".png");
 		}
 
 		std::string textureDelimPath;
-		if (parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM,
-									  textureDelimPath, true))
+		if (parseJsonKey<std::string>(matNode.value(), PATH_MATERIALS, FOERR_JSON_KEY_TEXTURE_DELIM, textureDelimPath,
+									  true))
 		{
 			textureDelimPath = pathCombine(PATH_TEXT_CELLS, textureDelimPath + ".png");
 		}
 
 		std::string maskTexturePath;
-		if (parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_MASK,
-									  maskTexturePath, true))
+		if (parseJsonKey<std::string>(matNode.value(), PATH_MATERIALS, FOERR_JSON_KEY_MASK, maskTexturePath, true))
 		{
 			maskTexturePath = pathCombine(PATH_TEXT_CELLS, maskTexturePath + ".png");
 		}
@@ -75,21 +73,20 @@ bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<cha
 		bool matIsRight = false;
 		if (matType == MAT_LADDER || matType == MAT_STAIRS)
 		{
-			if (!parseJsonKey<bool>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_IS_RIGHT, matIsRight))
+			if (!parseJsonKey<bool>(matNode.value(), PATH_MATERIALS, FOERR_JSON_KEY_IS_RIGHT, matIsRight))
 				return false;
 		}
 
 		int offsetLeft = 0;
-		parseJsonKey<int>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_OFFSET_LEFT, offsetLeft, true);
+		parseJsonKey<int>(matNode.value(), PATH_MATERIALS, FOERR_JSON_KEY_OFFSET_LEFT, offsetLeft, true);
 
 		sf::Vector2i delimOffset(0, 0);
-		parseJsonVector2Key<int>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_TEXTURE_DELIM_OFFSET,
-								 delimOffset, true);
+		parseJsonVector2Key<int>(matNode.value(), PATH_MATERIALS, FOERR_JSON_KEY_TEXTURE_DELIM_OFFSET, delimOffset,
+								 true);
 
 		SerializableColor color;
 		std::string colorString;
-		parseJsonKey<std::string>(matNode.value(), std::string(PATH_MATERIALS), FOERR_JSON_KEY_COLOR, colorString,
-								  true);
+		parseJsonKey<std::string>(matNode.value(), PATH_MATERIALS, FOERR_JSON_KEY_COLOR, colorString, true);
 		color.loadFromColorString(colorString);
 		color.a = LIQUID_OPACITY;
 
@@ -112,7 +109,7 @@ bool MaterialManager::load()
 
 	Log::d(STR_LOADING_MATERIALS);
 
-	if (!loadJsonFromFile(root, std::string(PATH_MATERIALS)))
+	if (!loadJsonFromFile(root, PATH_MATERIALS))
 		return false;
 
 	if (!this->loadMap(root, this->mapSolids, FOERR_JSON_KEY_SOLIDS))

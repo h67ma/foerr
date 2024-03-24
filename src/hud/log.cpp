@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "log.hpp"
 
-#define LOG_UPDATE_FREQUENCY_MS 200U
+constexpr int LOG_UPDATE_FREQUENCY_MS = 200;
 
-#define LOG_ANCHOR_PADDING_LEFT 7U
-#define LOG_ANCHOR_NEG_PADDING_RIGHT 7U
-#define LOG_ANCHOR_PADDING_TOP 2U
-#define LOG_ANCHOR_NEG_PADDING_BOTTOM 7U
+constexpr uint LOG_ANCHOR_PADDING_LEFT = 7;
+constexpr uint LOG_ANCHOR_NEG_PADDING_RIGHT = 7;
+constexpr uint LOG_ANCHOR_PADDING_TOP = 2;
+constexpr uint LOG_ANCHOR_NEG_PADDING_BOTTOM = 7;
 
 sf::Font* Log::font = nullptr;
 sf::Vector2u Log::windowSize;

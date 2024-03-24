@@ -15,7 +15,7 @@
 #include "../pages/gui_page_settings.hpp"
 #include "git_version.h"
 
-static const sf::Vector2f PAGE_OFFSET = { -70.F, -175.F };
+static const sf::Vector2f PAGE_OFFSET = { 330.F, 75.F };
 static const sf::Vector2f PAGE_POS(300, 50);
 static const sf::Vector2f PAGE_SIZE(1100, 650);
 constexpr std::size_t PAGE_VERT_COUNT = 9;

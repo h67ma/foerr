@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "location_button.hpp"
 
@@ -11,10 +11,10 @@
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 
-// values from 0 to 255, where 255 is the original color and 0 is black
-#define BTN_COLOR_BASECAMP_FACTOR 90
-#define BTN_COLOR_BASECAMP_HOVER_FACTOR 120
-#define BTN_COLOR_HOVER_FACTOR 60
+// 255 is the original color, 0 is black
+constexpr uchar BTN_COLOR_BASECAMP_FACTOR = 90;
+constexpr uchar BTN_COLOR_BASECAMP_HOVER_FACTOR = 120;
+constexpr uchar BTN_COLOR_HOVER_FACTOR = 60;
 
 LocButton::LocButton(bool isBig, bool isBaseCamp, sf::Vector2u position, std::shared_ptr<sf::Texture> iconTexture) :
 	Button(position, nullptr, CLICK_CONSUMED),

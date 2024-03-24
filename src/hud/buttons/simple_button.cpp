@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "simple_button.hpp"
 
@@ -12,16 +12,14 @@
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 
-#define BTN_TEXT_SMALL_TOP_OFFSET 8U
-#define BTN_TEXT_NORMAL_TOP_OFFSET 12U
-#define BTN_TEXT_LARGE_TOP_OFFSET 17U
+constexpr uint BTN_TEXT_TOP_OFFSET = 12;
 
-// values from 0 to 255, where 255 is the original color and 0 is black
-#define BTN_COLOR_SEL_FACTOR 104
-#define BTN_COLOR_UNSEL_FACTOR 68
-#define BTN_COLOR_HOVER_FACTOR 140
+// 255 is the original color, 0 is black
+constexpr uchar BTN_COLOR_SEL_FACTOR = 104;
+constexpr uchar BTN_COLOR_UNSEL_FACTOR = 68;
+constexpr uchar BTN_COLOR_HOVER_FACTOR = 140;
 
-const sf::Color buttonBgBlack(0x00, 0x0B, 0x06);
+const sf::Color COLOR_BUTTON_BG_BLACK(0x00, 0x0B, 0x06);
 
 SimpleButton::SimpleButton(SimpleButtonSize size, ResourceManager& resMgr, const sf::Vector2u& position,
 						   const std::string& text, std::function<void(void)> callback, ClickStatus consumedStatus) :
@@ -125,21 +123,21 @@ void SimpleButton::setGuiScale()
 
 	// left half
 	gradient[0] = sf::Vertex({ 0.F, 0.F }, sf::Color::Transparent);
-	gradient[1] = sf::Vertex({ midX, 0.F }, buttonBgBlack);
-	gradient[2] = sf::Vertex({ midX, static_cast<float>(dim.y) }, buttonBgBlack);
+	gradient[1] = sf::Vertex({ midX, 0.F }, COLOR_BUTTON_BG_BLACK);
+	gradient[2] = sf::Vertex({ midX, static_cast<float>(dim.y) }, COLOR_BUTTON_BG_BLACK);
 	gradient[3] = sf::Vertex({ 0.F, static_cast<float>(dim.y) }, sf::Color::Transparent);
 
 	// right half
-	gradient[4] = sf::Vertex({ midX, 0.F }, buttonBgBlack);
+	gradient[4] = sf::Vertex({ midX, 0.F }, COLOR_BUTTON_BG_BLACK);
 	gradient[5] = sf::Vertex({ static_cast<float>(dim.x), 0.F }, sf::Color::Transparent);
 	gradient[6] = sf::Vertex({ static_cast<float>(dim.x), static_cast<float>(dim.y) }, sf::Color::Transparent);
-	gradient[7] = sf::Vertex({ midX, static_cast<float>(dim.y) }, buttonBgBlack);
+	gradient[7] = sf::Vertex({ midX, static_cast<float>(dim.y) }, COLOR_BUTTON_BG_BLACK);
 
 	// center button text
 	// to center vertically, we can't use local bounds, as the baselines on different buttons would not match.
 	// use a constant top offset instead
 	this->text.setPosition(std::round(dim.x - this->text.getLocalBounds().width) / 2,
-						   std::round((dim.y / 2) - (SettingsManager::guiScale * BTN_TEXT_NORMAL_TOP_OFFSET)));
+						   std::round((dim.y / 2) - (SettingsManager::guiScale * BTN_TEXT_TOP_OFFSET)));
 }
 
 void SimpleButton::setText(const std::string& text)

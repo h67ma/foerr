@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "object_manager.hpp"
 
@@ -16,13 +16,13 @@ bool ObjectManager::load()
 	auto bgObjsSearch = root.find(FOERR_JSON_KEY_BACK_OBJS);
 	if (bgObjsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, PATH_OBJS, FOERR_JSON_KEY_BACK_OBJS);
+		Log::e(STR_MISSING_KEY, PATH_OBJS.c_str(), FOERR_JSON_KEY_BACK_OBJS.c_str());
 		return false;
 	}
 
 	if (!bgObjsSearch->is_object())
 	{
-		Log::e(STR_INVALID_TYPE, PATH_OBJS, FOERR_JSON_KEY_BACK_OBJS);
+		Log::e(STR_INVALID_TYPE, PATH_OBJS.c_str(), FOERR_JSON_KEY_BACK_OBJS.c_str());
 		return false;
 	}
 
@@ -39,13 +39,13 @@ bool ObjectManager::load()
 	auto bgHoleObjsSearch = root.find(FOERR_JSON_KEY_BACK_HOLES);
 	if (bgHoleObjsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, PATH_OBJS, FOERR_JSON_KEY_BACK_HOLES);
+		Log::e(STR_MISSING_KEY, PATH_OBJS.c_str(), FOERR_JSON_KEY_BACK_HOLES.c_str());
 		return false;
 	}
 
 	if (!bgHoleObjsSearch->is_object())
 	{
-		Log::e(STR_INVALID_TYPE, PATH_OBJS, FOERR_JSON_KEY_BACK_HOLES);
+		Log::e(STR_INVALID_TYPE, PATH_OBJS.c_str(), FOERR_JSON_KEY_BACK_HOLES.c_str());
 		return false;
 	}
 

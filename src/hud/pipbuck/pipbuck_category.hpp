@@ -39,21 +39,23 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable, public Co
 {
 	private:
 		HoverManager hoverMgr;
-		PipBuckPageType selectedPage;
+		PipBuckPageType selectedPageType;
+		std::shared_ptr<GuiPage> selectedPage = nullptr;
 		std::unordered_map<PipBuckPageType, SimpleButton> pageButtons;
 		SoundResource soundPageChange;
 		SoundResource soundClick;
 		const std::unordered_map<PipBuckPageType, std::shared_ptr<GuiPage>> pages;
+		void changeActiveButton(PipBuckPageType newPageType);
 
 	public:
 		PipBuckCategory(ResourceManager& resMgr, PipBuckPageType defaultPage,
 						std::map<PipBuckPageType, std::shared_ptr<GuiPage>> pages);
 		bool setup();
-		PipBuckPageType getSelectedPage() const;
+		PipBuckPageType getSelectedPageType() const;
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
 		bool handleMouseMove(sf::Vector2i mousePos);
-		bool changePage(PipBuckPageType pageType);
+		bool changePage(PipBuckPageType newPageType);
 		bool setupCampaignInfos();
 		void unloadCampaignInfos();
 		static PipBuckCategoryType pageTypeToCategoryType(PipBuckPageType pageType);

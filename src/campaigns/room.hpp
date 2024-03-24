@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -68,7 +68,7 @@ class Room : public sf::Drawable, public sf::Transformable
 		Player& player;
 
 		// TODO void flip(); // for mirroring room vertically, only for grind maps. here "is_right" will become useful
-		static bool parseBackObjsNode(const nlohmann::json& root, const std::string& filePath, const char* key,
+		static bool parseBackObjsNode(const nlohmann::json& root, const std::string& filePath, const std::string& key,
 									  std::vector<struct back_obj_data>& dataVector);
 		void setupBackObjects(ResourceManager& resMgr, const ObjectManager& objMgr,
 							  const std::vector<struct back_obj_data>& dataVector,

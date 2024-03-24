@@ -12,6 +12,7 @@
 #include "../../resources/resource_manager.hpp"
 #include "../../window/cursor_manager.hpp"
 #include "../buttons/simple_button.hpp"
+#include "../hover_manager.hpp"
 #include "../pipbuck/pipbuck.hpp"
 #include "gui_page.hpp"
 
@@ -33,6 +34,7 @@ class GuiPageNewGame : public GuiPage
 		};
 
 		HoverManager campaignListHoverMgr;
+		HoverManager hoverMgr;
 		std::vector<struct GuiPageNewGame::list_item> campaignItems; // TODO use some sort of scrollable list instead
 		SimpleButton refreshButton;
 		ResourceManager& resMgr;

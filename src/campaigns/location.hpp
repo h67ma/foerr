@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -22,7 +22,7 @@
 #include "../resources/sprite_resource.hpp"
 #include "room_grid.hpp"
 
-#define REC_LVL_EMPTY -1
+constexpr uint REC_LVL_EMPTY = -1;
 
 /**
  * Location represents a collection of Rooms connected to each other. Player is able to move between Rooms belonging to

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "location.hpp"
 
@@ -14,11 +14,11 @@
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
 
-#define LOC_WORLDMAP_MAX 600 // max x/y coordinate of worldmap icons
+constexpr int LOC_WORLDMAP_MAX = 600; // max x/y coordinate of worldmap icons
 
-#define PLAYER_NEW_ROOM_OFFSET_H 60
-#define PLAYER_NEW_ROOM_OFFSET_V_TOP 40
-#define PLAYER_NEW_ROOM_OFFSET_V_BOTTOM 80 // platform jump
+constexpr float PLAYER_NEW_ROOM_OFFSET_H = 60;
+constexpr float PLAYER_NEW_ROOM_OFFSET_V_TOP = 40;
+constexpr float PLAYER_NEW_ROOM_OFFSET_V_BOTTOM = 80; // platform jump
 
 constexpr uint ROOM_BORDER_LEFT_X = 0;
 constexpr uint ROOM_BORDER_LEFT_INNER_X = 1;
@@ -88,7 +88,7 @@ bool Location::loadMeta(const nlohmann::json& locMetaNode, const std::string& ca
 	if (roomsFilename.empty())
 		roomsFilename = this->id;
 
-	this->roomDataPath = pathCombine(campaignDir, std::string(PATH_DIR_ROOMS), roomsFilename + ".json");
+	this->roomDataPath = pathCombine(campaignDir, PATH_DIR_ROOMS, roomsFilename + ".json");
 
 	if (!parseJsonKey<std::string>(locMetaNode, this->id, FOERR_JSON_KEY_WORLDMAP_ICON, this->worldMapIconId))
 		return false;
@@ -98,7 +98,7 @@ bool Location::loadMeta(const nlohmann::json& locMetaNode, const std::string& ca
 
 	if (this->worldMapCoords.x > LOC_WORLDMAP_MAX || this->worldMapCoords.y > LOC_WORLDMAP_MAX)
 	{
-		Log::e(STR_SUS_LARGE_VALUE, FOERR_JSON_KEY_WORLDMAP_COORDS);
+		Log::e(STR_SUS_LARGE_VALUE, FOERR_JSON_KEY_WORLDMAP_COORDS.c_str());
 		return false;
 	}
 
@@ -154,13 +154,13 @@ bool Location::loadContent(ResourceManager& resMgr, const MaterialManager& matMg
 	auto roomsSearch = root.find(FOERR_JSON_KEY_ROOMS);
 	if (roomsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS);
+		Log::e(STR_MISSING_KEY, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS.c_str());
 		return false;
 	}
 
 	if (!roomsSearch->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS);
+		Log::e(STR_INVALID_TYPE, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS.c_str());
 		return false;
 	}
 

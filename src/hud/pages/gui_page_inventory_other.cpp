@@ -9,7 +9,7 @@
 GuiPageInventoryOther::GuiPageInventoryOther(ResourceManager& resMgr) : GuiPage("Other") // TODO translate
 {
 	this->dummy.setFont(*resMgr.getFont(FONT_FIXED));
-	this->dummy.setPosition(500.F, 500.F);
+	this->dummy.setPosition(100.F, 250.F);
 	this->dummy.setString("inv other");
 }
 

@@ -11,10 +11,7 @@
 
 GuiPageSettings::GuiPageSettings(ResourceManager& resMgr) :
 	GuiPage("Settings"), // TODO translate
-	buttons({ { BTN_NORMAL,
-				resMgr,
-				{ 400, 815 },
-				STR_SAVE,
+	buttons({ { BTN_NORMAL, resMgr, POS_PAGE_BTN_BOTTOM_1, STR_SAVE,
 				[this]()
 				{
 					// read new settings values from GUI controls on this page, save to SettingsManager
@@ -25,10 +22,7 @@ GuiPageSettings::GuiPageSettings(ResourceManager& resMgr) :
 					SettingsManager::saveConfig();
 				},
 				CLICK_CONSUMED_SETTINGS_CHANGED },
-			  { BTN_NORMAL,
-				resMgr,
-				{ 600, 815 },
-				STR_RESET_DEFAULT,
+			  { BTN_NORMAL, resMgr, POS_PAGE_BTN_BOTTOM_2, STR_RESET_DEFAULT,
 				[this]()
 				{
 					// reset all settings, write to file, update controls state on this page
@@ -41,7 +35,7 @@ GuiPageSettings::GuiPageSettings(ResourceManager& resMgr) :
 	hudColorSelector(*resMgr.getFont(FONT_NORMAL), SettingsManager::hudColor),
 	guiScaleSlider(*resMgr.getFont(FONT_NORMAL), GUI_SCALE_MIN_VALUE, SettingsManager::guiScale, GUI_SCALE_MAX_VALUE,
 				   2),
-	infoText(*resMgr.getFont(FONT_NORMAL), 17U, { 400.F, 272.F })
+	infoText(*resMgr.getFont(FONT_NORMAL), 17U, { 0.F, 22.F })
 {
 	for (auto& btn : this->buttons)
 	{
@@ -49,8 +43,8 @@ GuiPageSettings::GuiPageSettings(ResourceManager& resMgr) :
 		this->clickMgr += &btn;
 	}
 
-	this->hudColorSelector.setPosition(500.F, 250.F);
-	this->guiScaleSlider.setPosition(500.F, 345.F);
+	this->hudColorSelector.setPosition(100.F, 0.F);
+	this->guiScaleSlider.setPosition(100.F, 95.F);
 
 	// TODO would be cool if there was a button here "Open game directory" which opens file explorer in this dir
 	this->infoText.setString(

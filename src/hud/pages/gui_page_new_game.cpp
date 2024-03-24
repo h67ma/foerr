@@ -13,8 +13,8 @@
 #include "../loading_screen.hpp"
 #include "../log.hpp"
 
-constexpr uint BTN_POS_LEFT = 400;
-constexpr uint BTN_POS_TOP = 260;
+constexpr uint BTN_POS_LEFT = 0;
+constexpr uint BTN_POS_TOP = 10;
 constexpr uint BTN_POS_HEIGHT = 35;
 
 struct campaign_meta
@@ -58,7 +58,7 @@ static void btnRefresh(GuiPageNewGame* page)
 GuiPageNewGame::GuiPageNewGame(ResourceManager& resMgr, CursorManager& cursorMgr, sf::RenderWindow& window,
 							   Campaign& campaign, GameState& gameState, PipBuck& pipBuck) :
 	GuiPage("New Game"),
-	refreshButton({ BTN_NORMAL, resMgr, { 400, 815 }, STR_REFRESH, [this]() { btnRefresh(this); } }),
+	refreshButton({ BTN_NORMAL, resMgr, POS_PAGE_BTN_BOTTOM_1, STR_REFRESH, [this]() { btnRefresh(this); } }),
 	resMgr(resMgr), // TODO translate
 	cursorMgr(cursorMgr),
 	window(window),
@@ -119,7 +119,7 @@ bool GuiPageNewGame::loadCampaign(const std::string& campaignId)
 	this->window.draw(loadingScreen);
 	this->window.display();
 
-	if (!this->campaign.load(pathCombine(PATH_CAMPAIGNS, campaignId)))
+	if (!this->campaign.load(campaignId))
 	{
 		Log::e(STR_CAMPAIGN_LOAD_FAILED);
 		return false;
@@ -178,6 +178,7 @@ ClickStatus GuiPageNewGame::handleLeftClick(sf::Vector2i clickPos)
 				// removed. refresh campaign list in an attempt to reflect any changes
 				Log::w(STR_REFRESHING_CAMPAIGN_LIST);
 				this->rebuildCampaignList();
+				return CLICK_CONSUMED;
 			}
 
 			return CLICK_CONSUMED_RESET_MENU;

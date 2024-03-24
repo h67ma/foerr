@@ -295,8 +295,7 @@ int main()
 	{
 		Log::d(STR_AUTLOADING_CAMPAIGN);
 
-		if (campaign.load(pathCombine(PATH_CAMPAIGNS, SettingsManager::debugAutoloadCampaign)) &&
-			pipBuck.setupCampaignInfos())
+		if (campaign.load(SettingsManager::debugAutoloadCampaign) && pipBuck.setupCampaignInfos())
 		{
 			gameState = STATE_PLAYING;
 
@@ -410,8 +409,6 @@ int main()
 
 				if (event.type == sf::Event::MouseButtonPressed)
 				{
-					// sf::Vector2f worldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x,
-					// event.mouseButton.y));
 					if (event.mouseButton.button == sf::Mouse::Left &&
 						mainMenu.handleLeftClick({ event.mouseButton.x, event.mouseButton.y }) ==
 							CLICK_CONSUMED_SETTINGS_CHANGED)

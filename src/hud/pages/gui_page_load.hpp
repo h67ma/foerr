@@ -9,6 +9,8 @@
 #include "../../campaigns/campaign.hpp"
 #include "../../resources/resource_manager.hpp"
 #include "../buttons/simple_button.hpp"
+#include "../click_manager.hpp"
+#include "../hover_manager.hpp"
 #include "gui_page.hpp"
 
 /**
@@ -20,9 +22,13 @@ class GuiPageLoad : public GuiPage
 	private:
 		SimpleButton exitBtn;
 		const bool isInMainMenu;
+		HoverManager hoverMgr;
+		ClickManager clickMgr;
 
 	public:
 		GuiPageLoad(ResourceManager& resMgr, bool isInMainMenu);
+		bool handleMouseMove(sf::Vector2i mousePos) override;
+		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

@@ -9,7 +9,9 @@
 
 #include "../../resources/resource_manager.hpp"
 #include "../buttons/simple_button.hpp"
+#include "../click_manager.hpp"
 #include "../color_selector.hpp"
+#include "../hover_manager.hpp"
 #include "../sliders/float_slider.hpp"
 #include "../wrappable_text.hpp"
 #include "gui_page.hpp"
@@ -25,6 +27,8 @@ class GuiPageSettings : public GuiPage
 		ColorSelector hudColorSelector;
 		FloatSlider guiScaleSlider;
 		WrappableText infoText;
+		HoverManager hoverMgr;
+		ClickManager clickMgr;
 
 		void updateControlsState();
 

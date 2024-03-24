@@ -60,13 +60,15 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		sf::Sprite screenBackgroundStripes;
 		sf::Clock timer;
 		float radIndicatorLevel = 0.F;
-		PipBuckCategoryType selectedCategory = PIPB_CAT_STATUS;
-		std::unordered_map<PipBuckCategoryType, PipBuckCategory> categories;
+		PipBuckCategoryType selectedCategoryType = PIPB_CAT_STATUS;
+		std::shared_ptr<PipBuckCategory> selectedCategory = nullptr;
+		std::unordered_map<PipBuckCategoryType, std::shared_ptr<PipBuckCategory>> categories;
 		std::unordered_map<PipBuckCategoryType, std::unique_ptr<Button>> categoryButtons;
 		SimpleButton closeBtn;
 		SoundResource soundOpenClose;
 		SoundResource soundCategoryBtn;
 		GameState& gameState;
+		void changeActiveCategoryButton(PipBuckCategoryType newCategoryType);
 		bool changeCategory(PipBuckCategoryType categoryType);
 		static double getSmoothNoise(double time);
 		void updateCampaignInfos();

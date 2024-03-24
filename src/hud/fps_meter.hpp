@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -12,13 +12,13 @@
 #include "configurable_gui_component.hpp"
 #include "text_label.hpp"
 
-#define FPS_METER_MAX_CHARS 6 // yes, we CAN go beyond 4 digits with fps limit off
-#define FPS_METER_UPDATE_S 0.25
+constexpr uint FPS_METER_MAX_CHARS = 6; // yes, we CAN go beyond 4 digits with fps limit off
+constexpr float FPS_METER_UPDATE_S = 0.25;
 
-#define FPS_ANCHOR_PADDING_LEFT 3
-#define FPS_ANCHOR_NEG_PADDING_RIGHT 5
-#define FPS_ANCHOR_PADDING_TOP 0
-#define FPS_ANCHOR_NEG_PADDING_BOTTOM 10
+constexpr float FPS_ANCHOR_PADDING_LEFT = 3;
+constexpr float FPS_ANCHOR_NEG_PADDING_RIGHT = 5;
+constexpr float FPS_ANCHOR_PADDING_TOP = 0;
+constexpr float FPS_ANCHOR_NEG_PADDING_BOTTOM = 10;
 
 class FpsMeter : public sf::Drawable, public ConfigurableGuiComponent
 {

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -15,16 +15,16 @@
 #include "texture_resource.hpp"
 
 // core textures
-#define PATH_TXT_PIPBUCK_OVERLAY "res/hud/pipbuck.png"
-#define PATH_TXT_PIPBUCK_CAT_BTN_LEFT "res/hud/pipbuck_cat_btn_left.png"
-#define PATH_TXT_PIPBUCK_CAT_BTN_MID "res/hud/pipbuck_cat_btn_mid.png"
-#define PATH_TXT_PIPBUCK_CAT_BTN_RIGHT "res/hud/pipbuck_cat_btn_right.png"
-#define PATH_TXT_PIPBUCK_BG_RADIAL "res/hud/screen_bg_radial.png"
+const std::string PATH_TXT_PIPBUCK_OVERLAY = "res/hud/pipbuck.png";
+const std::string PATH_TXT_PIPBUCK_CAT_BTN_LEFT = "res/hud/pipbuck_cat_btn_left.png";
+const std::string PATH_TXT_PIPBUCK_CAT_BTN_MID = "res/hud/pipbuck_cat_btn_mid.png";
+const std::string PATH_TXT_PIPBUCK_CAT_BTN_RIGHT = "res/hud/pipbuck_cat_btn_right.png";
+const std::string PATH_TXT_PIPBUCK_BG_RADIAL = "res/hud/screen_bg_radial.png";
 
 // core audio
-#define PATH_AUD_PIPBUCK_OPENCLOSE "res/audio/pipbuck_openclose.wav"
-#define PATH_AUD_PIPBUCK_PAGECHANGE "res/audio/pipbuck_change_page.wav"
-#define PATH_AUD_PIPBUCK_PAGE_CLICK "res/audio/pipbuck_click.wav"
+const std::string PATH_AUD_PIPBUCK_OPENCLOSE = "res/audio/pipbuck_openclose.wav";
+const std::string PATH_AUD_PIPBUCK_PAGECHANGE = "res/audio/pipbuck_change_page.wav";
+const std::string PATH_AUD_PIPBUCK_PAGE_CLICK = "res/audio/pipbuck_click.wav";
 
 enum FontType
 {

@@ -6,20 +6,6 @@
 
 GuiPage::GuiPage(const std::string& pageTitle) : pageTitle(pageTitle) {}
 
-ClickStatus GuiPage::handleLeftClick(sf::Vector2i clickPos)
-{
-	clickPos -= this->getPosition();
-
-	return this->clickMgr.handleLeftClick(clickPos);
-}
-
-bool GuiPage::handleMouseMove(sf::Vector2i mousePos)
-{
-	mousePos -= this->getPosition();
-
-	return this->hoverMgr.handleMouseMove(mousePos);
-}
-
 void GuiPage::handleSettingsChange()
 {
 	this->handleGuiScaleChange();

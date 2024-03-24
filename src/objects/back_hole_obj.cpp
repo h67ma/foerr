@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "back_hole_obj.hpp"
 
@@ -9,14 +9,14 @@
 
 bool BackHoleObject::loadFromJson(const nlohmann::json& jsonNode)
 {
-	parseJsonKey<uint>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_MAIN_CNT, this->variantsCnt);
+	parseJsonKey<uint>(jsonNode, PATH_OBJS, FOERR_JSON_KEY_MAIN_CNT, this->variantsCnt);
 
 	// we assume that the number of hole textures equals the number of main textures, therefore no need to store it
 	// separately - just store both as ::variantsCnt
 
-	parseJsonKey<bool>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_BLEND, this->blend, true);
+	parseJsonKey<bool>(jsonNode, PATH_OBJS, FOERR_JSON_KEY_BLEND, this->blend, true);
 
-	parseJsonVector2Key<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_OFFSET, this->offset, true);
+	parseJsonVector2Key<float>(jsonNode, PATH_OBJS, FOERR_JSON_KEY_OFFSET, this->offset, true);
 
 	// note: hole objects don't support alpha attribute
 
@@ -34,13 +34,13 @@ bool BackHoleObject::setupBgSprites(SpriteResource& mainSpriteRes, SpriteResourc
 	else if (selectedVariant >= this->variantsCnt)
 		return false;
 
-	mainSpriteRes.setTexture(resMgr.getTexture(
-		litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(), selectedVariant, TXT_MAIN_SUFFIX)));
+	mainSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK.c_str(),
+														  backObjData.id.c_str(), selectedVariant, TXT_MAIN_SUFFIX)));
 	mainSpriteRes.setPosition(this->offset);
 	mainSpriteRes.setColor(BACK_OBJ_COLOR);
 
-	holeSpriteRes.setTexture(resMgr.getTexture(
-		litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(), selectedVariant, TXT_HOLE_SUFFIX)));
+	holeSpriteRes.setTexture(resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK.c_str(),
+														  backObjData.id.c_str(), selectedVariant, TXT_HOLE_SUFFIX)));
 	holeSpriteRes.setPosition(this->offset);
 
 	blend = this->blend;

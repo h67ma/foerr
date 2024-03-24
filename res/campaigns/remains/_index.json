@@ -2,6 +2,5 @@
 	"api_version": 1,
 	"title": "FoE: Remains",
 	"description": "Chosen-25's story.",
-	"start_location": "technical_tunnels",
-	"worldmap_background": "res/campaigns/remains/hud/world_map.png"
+	"start_location": "technical_tunnels"
 }

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -14,13 +14,24 @@
 #define STR(thing) #thing
 #define STR_EXP(thing) STR(thing) // "the double expansion trick"
 
-#define PATH_DELIM '/'
+constexpr char PATH_DELIM = '/';
 
 // stolen from https://stackoverflow.com/questions/63121776/simplest-syntax-for-string-interpolation-in-c
 // TODO should be a part of Translator
 template<typename... T>
 std::string litSprintf(const char* fmt, T... args)
 {
+	// prevent directly printing std::string and such
+	// clang-format off
+	static_assert(((std::is_same_v<T, const char*> ||
+					std::is_same_v<T, int> ||
+					std::is_same_v<T, uint> ||
+					std::is_same_v<T, float> ||
+					std::is_same_v<T, std::size_t> ||
+					std::is_same_v<T, char> ||
+					std::is_enum_v<T>) && ...), "Illegal argument type for snprintf");
+	// clang-format on
+
 	const size_t actualSize = snprintf(nullptr, 0, fmt, args...) + 1;
 	char* buf = new char[actualSize];
 	snprintf(buf, actualSize, fmt, args...);
@@ -46,7 +57,7 @@ inline std::string pathCombine(const std::string& path1, const std::string& path
 #define COLOR_GRAY_ALPHA(shade, alpha) sf::Color(shade, shade, shade, alpha)
 #define COLOR_ALPHA(alpha) sf::Color(0xFF, 0xFF, 0xFF, alpha)
 // clang-format off
-#define DIM_COLOR(color, shade) color * COLOR_GRAY(shade)
+#define DIM_COLOR(color, shade) ((color) * COLOR_GRAY(shade))
 // clang-format on
 
 /**

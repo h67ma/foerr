@@ -12,11 +12,8 @@
 
 GuiPageControls::GuiPageControls(ResourceManager& resMgr) :
 	GuiPage("Controls"), // TODO translate
-	buttons({ { BTN_NORMAL, resMgr, { 400, 815 }, STR_SAVE, []() { Keymap::save(); } },
-			  { BTN_NORMAL,
-				resMgr,
-				{ 600, 815 },
-				STR_RESET_DEFAULT,
+	buttons({ { BTN_NORMAL, resMgr, POS_PAGE_BTN_BOTTOM_1, STR_SAVE, []() { Keymap::save(); } },
+			  { BTN_NORMAL, resMgr, POS_PAGE_BTN_BOTTOM_2, STR_RESET_DEFAULT,
 				[this]()
 				{
 					// TODO display confirm dialog
@@ -25,7 +22,7 @@ GuiPageControls::GuiPageControls(ResourceManager& resMgr) :
 					Log::i(STR_KEYMAP_RESETTED);
 					Keymap::save();
 				} } }),
-	dummyMapDump(*resMgr.getFont(FONT_NORMAL), 17U, { 400.F, 250.F })
+	dummyMapDump(*resMgr.getFont(FONT_NORMAL), 17U, { 0.F, 0.F })
 {
 	for (auto& btn : this->buttons)
 	{
@@ -47,6 +44,20 @@ void GuiPageControls::updateDisplay()
 	}
 
 	this->dummyMapDump.setString(dump);
+}
+
+bool GuiPageControls::handleMouseMove(sf::Vector2i mousePos)
+{
+	mousePos -= this->getPosition();
+
+	return this->hoverMgr.handleMouseMove(mousePos);
+}
+
+ClickStatus GuiPageControls::handleLeftClick(sf::Vector2i clickPos)
+{
+	clickPos -= this->getPosition();
+
+	return this->clickMgr.handleLeftClick(clickPos);
 }
 
 void GuiPageControls::handleSettingsChange()

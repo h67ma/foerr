@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "dev_console.hpp"
 
@@ -9,13 +9,13 @@
 #include "../util/util.hpp"
 #include "log.hpp"
 
-#define CONSOLE_MARGIN 40
-#define CONSOLE_WIDTH 1000
+constexpr float CONSOLE_MARGIN = 40;
+constexpr uint CONSOLE_WIDTH = 1000;
 
 // storing this in SettingsManager would be an overkill
-#define MAX_HISTORY_SIZE 25
+constexpr uint MAX_HISTORY_SIZE = 25;
 
-#define MAX_INPUT_CHARS 80
+constexpr uint MAX_INPUT_CHARS = 80;
 
 static void cmdFly(struct dev_console_cmd_params params)
 {

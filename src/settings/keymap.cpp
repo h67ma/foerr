@@ -389,7 +389,7 @@ void Keymap::load()
 {
 	nlohmann::json root;
 
-	if (!loadJsonFromFile(root, pathCombine(SettingsManager::getGameRootDir(), std::string(PATH_KEYMAP)), true))
+	if (!loadJsonFromFile(root, pathCombine(SettingsManager::getGameRootDir(), PATH_KEYMAP), true))
 	{
 		Log::d(STR_KEYMAP_OPEN_ERROR);
 		return;
@@ -398,13 +398,13 @@ void Keymap::load()
 	auto keysSearch = root.find(FOERR_JSON_KEY_KEYS);
 	if (keysSearch == root.end())
 	{
-		Log::w(STR_MISSING_KEY, PATH_KEYMAP, FOERR_JSON_KEY_KEYS);
+		Log::w(STR_MISSING_KEY, PATH_KEYMAP.c_str(), FOERR_JSON_KEY_KEYS.c_str());
 		return;
 	}
 
 	if (!keysSearch->is_object())
 	{
-		Log::w(STR_INVALID_TYPE, PATH_KEYMAP, FOERR_JSON_KEY_KEYS);
+		Log::w(STR_INVALID_TYPE, PATH_KEYMAP.c_str(), FOERR_JSON_KEY_KEYS.c_str());
 		return;
 	}
 
@@ -427,7 +427,7 @@ void Keymap::save()
 {
 	nlohmann::json root;
 
-	root.emplace(FOERR_JSON_API_VERSION, JSON_API_VERSION);
+	root.emplace(FOERR_JSON_KEY_API_VERSION, JSON_API_VERSION);
 
 	nlohmann::json keysNode;
 	for (const auto& item : Keymap::keyToActionMap)
@@ -449,6 +449,6 @@ void Keymap::save()
 
 	root.emplace(FOERR_JSON_KEY_KEYS, keysNode);
 
-	writeJsonToFile(root, pathCombine(SettingsManager::getGameRootDir(), std::string(PATH_KEYMAP)));
+	writeJsonToFile(root, pathCombine(SettingsManager::getGameRootDir(), PATH_KEYMAP));
 	Log::i(STR_KEYMAP_SAVED);
 }
