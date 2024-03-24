@@ -398,13 +398,13 @@ void Keymap::load()
 	auto keysSearch = root.find(FOERR_JSON_KEY_KEYS);
 	if (keysSearch == root.end())
 	{
-		Log::w(STR_MISSING_KEY, PATH_KEYMAP.c_str(), FOERR_JSON_KEY_KEYS);
+		Log::w(STR_MISSING_KEY, PATH_KEYMAP.c_str(), FOERR_JSON_KEY_KEYS.c_str());
 		return;
 	}
 
 	if (!keysSearch->is_object())
 	{
-		Log::w(STR_INVALID_TYPE, PATH_KEYMAP.c_str(), FOERR_JSON_KEY_KEYS);
+		Log::w(STR_INVALID_TYPE, PATH_KEYMAP.c_str(), FOERR_JSON_KEY_KEYS.c_str());
 		return;
 	}
 

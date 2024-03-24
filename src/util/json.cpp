@@ -63,27 +63,27 @@ bool loadJsonFromFile(nlohmann::json& root, const std::string& path, bool quiet)
  * Parses a three-element vector from json. Useful for sizes, coordinates, etc.
  * Coordinate element in json looks like this: "key": [123, 456, 1]
  */
-bool parseJsonVector3iKey(const nlohmann::json& node, const std::string& filePath, const char* key, sf::Vector3i& value,
-						  bool quiet)
+bool parseJsonVector3iKey(const nlohmann::json& node, const std::string& filePath, const std::string& key,
+						  sf::Vector3i& value, bool quiet)
 {
 	auto search = node.find(key);
 	if (search == node.end())
 	{
 		if (!quiet)
-			Log::w(STR_MISSING_KEY, filePath.c_str(), key);
+			Log::w(STR_MISSING_KEY, filePath.c_str(), key.c_str());
 
 		return false;
 	}
 
 	if (!search->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, filePath.c_str(), key);
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), key.c_str());
 		return false;
 	}
 
 	if (search->size() != 3)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), key, 3, search->size());
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), key.c_str(), 3, search->size());
 		return false;
 	}
 
@@ -93,7 +93,7 @@ bool parseJsonVector3iKey(const nlohmann::json& node, const std::string& filePat
 	}
 	catch (const nlohmann::json::type_error& ex)
 	{
-		Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), key, ex.what());
+		Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), key.c_str(), ex.what());
 		return false;
 	}
 

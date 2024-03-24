@@ -133,19 +133,19 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 	auto cellsSearch = root.find(FOERR_JSON_KEY_CELLS);
 	if (cellsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, filePath.c_str(), FOERR_JSON_KEY_CELLS);
+		Log::e(STR_MISSING_KEY, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str());
 		return false;
 	}
 
 	if (!cellsSearch->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_CELLS);
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str());
 		return false;
 	}
 
 	if (cellsSearch->size() != ROOM_HEIGHT_WITH_BORDER)
 	{
-		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_CELLS, ROOM_HEIGHT_WITH_BORDER,
+		Log::e(STR_INVALID_ARR_SIZE, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), ROOM_HEIGHT_WITH_BORDER,
 			   cellsSearch->size());
 		return false;
 	}
@@ -160,7 +160,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 		}
 		catch (const nlohmann::json::type_error& ex)
 		{
-			Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), FOERR_JSON_KEY_CELLS, ex.what());
+			Log::e(STR_INVALID_TYPE_EX, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), ex.what());
 			return false;
 		}
 
@@ -179,7 +179,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 
 			if (x >= ROOM_WIDTH_WITH_BORDER)
 			{
-				Log::w(STR_ROOM_LINE_TOO_LONG, filePath.c_str(), FOERR_JSON_KEY_CELLS, ROOM_WIDTH_WITH_BORDER);
+				Log::w(STR_ROOM_LINE_TOO_LONG, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), ROOM_WIDTH_WITH_BORDER);
 				break;
 			}
 
@@ -193,7 +193,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 
 				if (symbol == ROOM_SYMBOL_UNKNOWN)
 				{
-					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
+					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), x, y);
 				}
 				else if (symbol != ROOM_SYMBOL_EMPTY)
 				{
@@ -212,7 +212,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 				bool topBlocksLiquidDelim = y == 0 || this->cells[y - 1][x].blocksBottomCellLiquidDelim();
 
 				if (symbol == ROOM_SYMBOL_UNKNOWN)
-					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS, x, y);
+					Log::w(STR_UNKNOWN_SYMBOL_AT_POS, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), x, y);
 				else if (!this->cells[y][x].addOtherSymbol(symbol, topBlocksLadderDelim, topBlocksLiquidDelim, resMgr,
 														   matMgr))
 					return false;
@@ -221,7 +221,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 
 		if (x != ROOM_WIDTH_WITH_BORDER - 1)
 		{
-			Log::e(STR_ROOM_ROW_TOO_SHORT, filePath.c_str(), FOERR_JSON_KEY_CELLS, y);
+			Log::e(STR_ROOM_ROW_TOO_SHORT, filePath.c_str(), FOERR_JSON_KEY_CELLS.c_str(), y);
 			return false;
 		}
 
@@ -260,7 +260,7 @@ void Room::setupAllBackObjects(ResourceManager& resMgr, const ObjectManager& obj
  * @return true if parsing was successful
  * @return false if parsing resulted in an error
  */
-bool Room::parseBackObjsNode(const nlohmann::json& root, const std::string& filePath, const char* key,
+bool Room::parseBackObjsNode(const nlohmann::json& root, const std::string& filePath, const std::string& key,
 							 std::vector<struct back_obj_data>& dataVector)
 {
 	dataVector.clear();
@@ -274,7 +274,7 @@ bool Room::parseBackObjsNode(const nlohmann::json& root, const std::string& file
 
 	if (!bgObjsSearch->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, filePath.c_str(), key);
+		Log::e(STR_INVALID_TYPE, filePath.c_str(), key.c_str());
 		return false;
 	}
 

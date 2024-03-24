@@ -98,7 +98,7 @@ bool Location::loadMeta(const nlohmann::json& locMetaNode, const std::string& ca
 
 	if (this->worldMapCoords.x > LOC_WORLDMAP_MAX || this->worldMapCoords.y > LOC_WORLDMAP_MAX)
 	{
-		Log::e(STR_SUS_LARGE_VALUE, FOERR_JSON_KEY_WORLDMAP_COORDS);
+		Log::e(STR_SUS_LARGE_VALUE, FOERR_JSON_KEY_WORLDMAP_COORDS.c_str());
 		return false;
 	}
 
@@ -154,13 +154,13 @@ bool Location::loadContent(ResourceManager& resMgr, const MaterialManager& matMg
 	auto roomsSearch = root.find(FOERR_JSON_KEY_ROOMS);
 	if (roomsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS);
+		Log::e(STR_MISSING_KEY, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS.c_str());
 		return false;
 	}
 
 	if (!roomsSearch->is_array())
 	{
-		Log::e(STR_INVALID_TYPE, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS);
+		Log::e(STR_INVALID_TYPE, this->roomDataPath.c_str(), FOERR_JSON_KEY_ROOMS.c_str());
 		return false;
 	}
 

@@ -180,13 +180,13 @@ void SettingsManager::loadConfig()
 	auto keysSearch = root.find(FOERR_JSON_KEY_SETTINGS);
 	if (keysSearch == root.end())
 	{
-		Log::w(STR_MISSING_KEY, PATH_SETTINGS.c_str(), FOERR_JSON_KEY_SETTINGS);
+		Log::w(STR_MISSING_KEY, PATH_SETTINGS.c_str(), FOERR_JSON_KEY_SETTINGS.c_str());
 		return;
 	}
 
 	if (!keysSearch->is_object())
 	{
-		Log::w(STR_INVALID_TYPE, PATH_SETTINGS.c_str(), FOERR_JSON_KEY_SETTINGS);
+		Log::w(STR_INVALID_TYPE, PATH_SETTINGS.c_str(), FOERR_JSON_KEY_SETTINGS.c_str());
 		return;
 	}
 

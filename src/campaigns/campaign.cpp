@@ -96,13 +96,13 @@ bool Campaign::load(const std::string& campaignId)
 	auto locsSearch = root.find(FOERR_JSON_KEY_LOCATIONS);
 	if (locsSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS);
+		Log::e(STR_MISSING_KEY, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS.c_str());
 		return false;
 	}
 
 	if (!locsSearch->is_object())
 	{
-		Log::e(STR_INVALID_TYPE, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS);
+		Log::e(STR_INVALID_TYPE, locMetaPath.c_str(), FOERR_JSON_KEY_LOCATIONS.c_str());
 		return false;
 	}
 

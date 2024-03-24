@@ -10,18 +10,18 @@
 #include "../util/serializable_color.hpp"
 
 bool MaterialManager::loadMap(const nlohmann::json& root, std::unordered_map<char, struct material>& theMap,
-							  const char* nodeKey)
+							  const std::string& nodeKey)
 {
 	auto nodeSearch = root.find(nodeKey);
 	if (nodeSearch == root.end())
 	{
-		Log::e(STR_MISSING_KEY, PATH_MATERIALS.c_str(), nodeKey);
+		Log::e(STR_MISSING_KEY, PATH_MATERIALS.c_str(), nodeKey.c_str());
 		return false;
 	}
 
 	if (!nodeSearch->is_object())
 	{
-		Log::e(STR_INVALID_TYPE, PATH_MATERIALS.c_str(), nodeKey);
+		Log::e(STR_INVALID_TYPE, PATH_MATERIALS.c_str(), nodeKey.c_str());
 		return false;
 	}
 
