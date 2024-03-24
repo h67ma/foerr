@@ -14,7 +14,7 @@
 #define STR(thing) #thing
 #define STR_EXP(thing) STR(thing) // "the double expansion trick"
 
-#define PATH_DELIM '/'
+constexpr char PATH_DELIM = '/';
 
 // stolen from https://stackoverflow.com/questions/63121776/simplest-syntax-for-string-interpolation-in-c
 // TODO should be a part of Translator

@@ -19,7 +19,7 @@
 #include "gui_page.hpp"
 
 // valid loc id length is guaranteed to have len > 0, as checked in Campaign::load()
-#define NO_LOCATION_SELECTED ""
+const std::string NO_LOCATION_SELECTED = ""; // NOLINT(readability-redundant-string-init)
 
 /**
  * PipBuck -> Information -> World

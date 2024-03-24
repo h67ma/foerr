@@ -17,9 +17,9 @@
 #include "../util/i18n.hpp"
 #include "../util/json.hpp"
 
-#define ROOM_SYMBOL_SEPARATOR '|'
-#define ROOM_SYMBOL_EMPTY '_'
-#define ROOM_SYMBOL_UNKNOWN '?'
+constexpr char ROOM_SYMBOL_SEPARATOR = '|';
+constexpr char ROOM_SYMBOL_EMPTY = '_';
+constexpr char ROOM_SYMBOL_UNKNOWN = '?';
 
 Room::Room(Player& player) : player(player)
 {
@@ -77,7 +77,7 @@ bool Room::load(ResourceManager& resMgr, const MaterialManager& matMgr, const Ob
 		std::shared_ptr<sf::Texture> backwallTxt = resMgr.getTexture(backwallTxtPath);
 		backwallTxt->setRepeated(true);
 		this->backwall.setTexture(backwallTxt);
-		this->backwall.setTextureRect({ 0, 0, GAME_AREA_WIDTH, GAME_AREA_HEIGHT });
+		this->backwall.setTextureRect({ 0, 0, static_cast<int>(GAME_AREA_WIDTH), static_cast<int>(GAME_AREA_HEIGHT) });
 		this->backwall.setColor(BACKWALL_COLOR);
 	}
 

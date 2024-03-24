@@ -12,14 +12,14 @@
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 
-#define BTN_TEXT_SMALL_TOP_OFFSET 8U
-#define BTN_TEXT_NORMAL_TOP_OFFSET 12U
-#define BTN_TEXT_LARGE_TOP_OFFSET 17U
+constexpr uint BTN_TEXT_SMALL_TOP_OFFSET = 8;
+constexpr uint BTN_TEXT_NORMAL_TOP_OFFSET = 12;
+constexpr uint BTN_TEXT_LARGE_TOP_OFFSET = 17;
 
-// values from 0 to 255, where 255 is the original color and 0 is black
-#define BTN_COLOR_SEL_FACTOR 104
-#define BTN_COLOR_UNSEL_FACTOR 68
-#define BTN_COLOR_HOVER_FACTOR 140
+// 255 is the original color, 0 is black
+constexpr uchar BTN_COLOR_SEL_FACTOR = 104;
+constexpr uchar BTN_COLOR_UNSEL_FACTOR = 68;
+constexpr uchar BTN_COLOR_HOVER_FACTOR = 140;
 
 const sf::Color COLOR_BUTTON_BG_BLACK(0x00, 0x0B, 0x06);
 

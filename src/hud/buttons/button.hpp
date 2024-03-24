@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -13,12 +13,12 @@
 #include "../gui_transformable.hpp"
 #include "../hoverable.hpp"
 
-#define BTN_BORDER_THICKNESS_SMALL 1.F
-#define BTN_BORDER_THICKNESS_SMALL_SELECTED 2.F
-#define BTN_BORDER_THICKNESS_NORMAL 1.F
-#define BTN_BORDER_THICKNESS_NORMAL_SELECTED 3.F
-#define BTN_BORDER_THICKNESS_LARGE 2.F
-#define BTN_BORDER_THICKNESS_LARGE_SELECTED 6.F
+constexpr float BTN_BORDER_THICKNESS_SMALL = 1;
+constexpr float BTN_BORDER_THICKNESS_SMALL_SELECTED = 2;
+constexpr float BTN_BORDER_THICKNESS_NORMAL = 1;
+constexpr float BTN_BORDER_THICKNESS_NORMAL_SELECTED = 3;
+constexpr float BTN_BORDER_THICKNESS_LARGE = 2;
+constexpr float BTN_BORDER_THICKNESS_LARGE_SELECTED = 6;
 
 class Button : public sf::Drawable, public GuiTransformable, public Hoverable, public Clickable
 {

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "back_obj.hpp"
 
@@ -12,14 +12,14 @@
 bool BackObject::loadFromJson(const nlohmann::json& jsonNode)
 {
 	// each can be undefined, in which case we assume 0
-	parseJsonKey<uint>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_MAIN_CNT, this->mainCnt, true);
-	parseJsonKey<uint>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_LIGHT_CNT, this->lightCnt, true);
+	parseJsonKey<uint>(jsonNode, PATH_OBJS, FOERR_JSON_KEY_MAIN_CNT, this->mainCnt, true);
+	parseJsonKey<uint>(jsonNode, PATH_OBJS, FOERR_JSON_KEY_LIGHT_CNT, this->lightCnt, true);
 
-	parseJsonVector2Key<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_OFFSET, this->offset, true);
-	parseJsonVector2Key<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_OFFSET_LIGHT, this->offsetLight, true);
+	parseJsonVector2Key<float>(jsonNode, PATH_OBJS, FOERR_JSON_KEY_OFFSET, this->offset, true);
+	parseJsonVector2Key<float>(jsonNode, PATH_OBJS, FOERR_JSON_KEY_OFFSET_LIGHT, this->offsetLight, true);
 
 	float alphaFactor = 1.F;
-	parseJsonKey<float>(jsonNode, std::string(PATH_OBJS), FOERR_JSON_KEY_ALPHA, alphaFactor, true);
+	parseJsonKey<float>(jsonNode, PATH_OBJS, FOERR_JSON_KEY_ALPHA, alphaFactor, true);
 	// convert alpha from float (0..1) to u8 channel value (0..255)
 	this->alphaChannel = alphaFactor * COLOR_MAX_CHANNEL_VALUE;
 
@@ -74,8 +74,9 @@ bool BackObject::setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& l
 
 	if (selectedVariant < this->mainCnt)
 	{
-		mainSpriteRes.setTexture(resMgr.getTexture(
-			litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(), selectedVariant, TXT_MAIN_SUFFIX)));
+		mainSpriteRes.setTexture(
+			resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK.c_str(), backObjData.id.c_str(),
+										 selectedVariant, TXT_MAIN_SUFFIX)));
 		mainSpriteRes.setPosition(this->offset);
 
 		// objects which are light sources are not dimmed
@@ -89,8 +90,9 @@ bool BackObject::setupBgSprites(SpriteResource& mainSpriteRes, SpriteResource& l
 
 	if (selectedVariant < this->lightCnt)
 	{
-		lightSpriteRes.setTexture(resMgr.getTexture(
-			litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK, backObjData.id.c_str(), selectedVariant, TXT_LIGHT_SUFFIX)));
+		lightSpriteRes.setTexture(
+			resMgr.getTexture(litSprintf("%s/%s_%d%s", PATH_TEXT_OBJS_BACK.c_str(), backObjData.id.c_str(),
+										 selectedVariant, TXT_LIGHT_SUFFIX)));
 		lightSpriteRes.setPosition(this->offsetLight);
 
 		// note: light texture is not dimmed like main texture

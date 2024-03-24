@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #include "settings_manager.hpp"
 
@@ -38,11 +38,11 @@
 #define SETT_SETUP_CONSTR(type, name, def, constraint, hint) \
 	SettingsManager::settings.emplace_back(std::make_unique<type>(#name, SettingsManager::name, def, constraint, hint))
 
-#define MAX_RESOLUTION 7680 // let's be realistic about max window size
-#define MAX_VOLUME 100
-#define MAX_ROOM_TRANSITION_MS 5000
+constexpr uint MAX_RESOLUTION = 7680; // let's be realistic about max window size
+constexpr uint MAX_VOLUME = 100;
+constexpr uint MAX_ROOM_TRANSITION_MS = 5000;
 
-#define DEFAULT_AA 8
+constexpr uint DEFAULT_AA = 8;
 
 std::string SettingsManager::gameRootDir;
 std::string SettingsManager::saveDir;
@@ -180,13 +180,13 @@ void SettingsManager::loadConfig()
 	auto keysSearch = root.find(FOERR_JSON_KEY_SETTINGS);
 	if (keysSearch == root.end())
 	{
-		Log::w(STR_MISSING_KEY, PATH_SETTINGS, FOERR_JSON_KEY_SETTINGS);
+		Log::w(STR_MISSING_KEY, PATH_SETTINGS.c_str(), FOERR_JSON_KEY_SETTINGS);
 		return;
 	}
 
 	if (!keysSearch->is_object())
 	{
-		Log::w(STR_INVALID_TYPE, PATH_SETTINGS, FOERR_JSON_KEY_SETTINGS);
+		Log::w(STR_INVALID_TYPE, PATH_SETTINGS.c_str(), FOERR_JSON_KEY_SETTINGS);
 		return;
 	}
 

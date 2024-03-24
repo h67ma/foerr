@@ -14,7 +14,7 @@
 #include "../hud/log.hpp"
 #include "i18n.hpp"
 
-#define JSON_API_VERSION 1
+constexpr int JSON_API_VERSION = 1;
 
 #define FOERR_JSON_KEY_ID "id"
 #define FOERR_JSON_KEY_OFFSET "offset"

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -9,10 +9,11 @@
 
 #include <nlohmann/json.hpp>
 
+#include "../consts.hpp"
 #include "material.hpp"
 
 // TODO find the exact value, or just store it in materials.json
-#define LIQUID_OPACITY 0x9A
+constexpr uchar LIQUID_OPACITY = 0x9A;
 
 /**
  * Material Manager stores information about materials and allows retrieving it. This data must be loaded from a file.

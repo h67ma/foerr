@@ -8,8 +8,8 @@
 
 #include "../../settings/settings_manager.hpp"
 
-#define PIPB_PAGE_BTNS_X_START 385
-#define PIPB_PAGE_BTNS_X_DISTANCE 140
+constexpr uint PIPB_PAGE_BTNS_X_START = 385;
+constexpr uint PIPB_PAGE_BTNS_X_DISTANCE = 140;
 static const sf::Vector2f POS_PAGE(400, 250);
 
 /**

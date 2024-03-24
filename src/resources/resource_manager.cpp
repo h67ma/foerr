@@ -12,14 +12,14 @@
 #include "../util/i18n.hpp"
 
 // order matters!
-const char* FONTS[] = {
+const std::array<std::string, 3> FONTS = {
 	"fonts/OpenSans-Regular.ttf", // FONT_NORMAL
 	"fonts/OpenSans-Medium.ttf", // FONT_MEDIUM
 	"fonts/Inconsolata-Regular.ttf" // FONT_FIXED
 };
 
 // clang-format off
-const char* TEXTURES_CORE[] = {
+const std::array<std::string, 5> TEXTURES_CORE = {
 	PATH_TXT_PIPBUCK_OVERLAY,
 	PATH_TXT_PIPBUCK_CAT_BTN_LEFT,
 	PATH_TXT_PIPBUCK_CAT_BTN_MID,
@@ -28,7 +28,7 @@ const char* TEXTURES_CORE[] = {
 };
 // clang-format on
 
-const char* AUDIO_CORE[] = {
+const std::array<std::string, 3> AUDIO_CORE = {
 	PATH_AUD_PIPBUCK_OPENCLOSE,
 	PATH_AUD_PIPBUCK_PAGECHANGE,
 	PATH_AUD_PIPBUCK_PAGE_CLICK,
@@ -46,7 +46,7 @@ bool ResourceManager::loadFonts()
 	{
 		if (!this->fonts[i].loadFromFile(FONTS[i]))
 		{
-			Log::e(STR_FONT_LOAD_FAIL, FONTS[i]);
+			Log::e(STR_FONT_LOAD_FAIL, FONTS[i].c_str());
 			return false;
 		}
 	}
@@ -64,13 +64,13 @@ bool ResourceManager::loadCore()
 {
 	Log::d(STR_LOADING_CORE_RES);
 
-	for (const char* txt : TEXTURES_CORE)
+	for (const auto& txt : TEXTURES_CORE)
 	{
 		if (!this->getTexture(txt))
 			return false;
 	}
 
-	for (const char* buf : AUDIO_CORE)
+	for (const auto& buf : AUDIO_CORE)
 	{
 		if (!this->getSoundBuffer(buf))
 			return false;

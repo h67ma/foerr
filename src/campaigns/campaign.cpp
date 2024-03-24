@@ -55,7 +55,7 @@ bool Campaign::load(const std::string& campaignId)
 	this->id = campaignId;
 
 	const std::string campaignDir = pathCombine(PATH_CAMPAIGNS, campaignId);
-	std::string indexPath = pathCombine(campaignDir, std::string(FILENAME_INDEX));
+	std::string indexPath = pathCombine(campaignDir, FILENAME_INDEX);
 	nlohmann::json root;
 	if (!loadJsonFromFile(root, indexPath))
 	{
@@ -85,7 +85,7 @@ bool Campaign::load(const std::string& campaignId)
 	// TODO? we could add a button in campaign selector which would trigger test-loading all locations along with all
 	// rooms.
 
-	std::string locMetaPath = pathCombine(campaignDir, std::string(PATH_LOCATIONS_META));
+	std::string locMetaPath = pathCombine(campaignDir, PATH_LOCATIONS_META);
 	root.clear();
 	if (!loadJsonFromFile(root, locMetaPath))
 	{

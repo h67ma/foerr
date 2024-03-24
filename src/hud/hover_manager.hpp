@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -8,7 +8,7 @@
 
 #include "hoverable.hpp"
 
-#define NO_HOVER_IDX -1
+constexpr int NO_HOVER_IDX = -1;
 
 /**
  * Manages hover-related behaviour of a collection of hoverable elements.
