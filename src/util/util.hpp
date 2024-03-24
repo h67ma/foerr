@@ -21,6 +21,17 @@ constexpr char PATH_DELIM = '/';
 template<typename... T>
 std::string litSprintf(const char* fmt, T... args)
 {
+	// prevent directly printing std::string and such
+	// clang-format off
+	static_assert(((std::is_same_v<T, const char*> ||
+					std::is_same_v<T, int> ||
+					std::is_same_v<T, uint> ||
+					std::is_same_v<T, float> ||
+					std::is_same_v<T, std::size_t> ||
+					std::is_same_v<T, char> ||
+					std::is_enum_v<T>) && ...), "Illegal argument type for snprintf");
+	// clang-format on
+
 	const size_t actualSize = snprintf(nullptr, 0, fmt, args...) + 1;
 	char* buf = new char[actualSize];
 	snprintf(buf, actualSize, fmt, args...);
