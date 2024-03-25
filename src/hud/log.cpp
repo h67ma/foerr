@@ -16,7 +16,7 @@ sf::Vector2u Log::windowSize;
 
 uint Log::fontGap;
 
-std::list<std::unique_ptr<LogElementText>> Log::hudHistory;
+std::list<LogElementText> Log::hudHistory;
 sf::Clock Log::clock;
 
 std::ofstream Log::logFile;
@@ -48,9 +48,9 @@ void Log::handleScreenResize(sf::Vector2u windowSize)
 void Log::handleSettingsChange()
 {
 	Log::fontGap = Log::font->getLineSpacing(static_cast<uint>(SettingsManager::guiScale * FONT_H3));
-	for (const auto& item : Log::hudHistory)
+	for (auto& item : Log::hudHistory)
 	{
-		item->handleSettingsChange();
+		item.handleSettingsChange();
 	}
 }
 
@@ -83,7 +83,7 @@ void Log::tick(bool force)
 		return;
 
 	// remove items which were in the log for longer than LOG_ELEMENT_LIFE_TIME_S
-	Log::hudHistory.remove_if([](const auto& item) { return item->isTimeUp(); });
+	Log::hudHistory.remove_if([](const auto& item) { return item.isTimeUp(); });
 
 	// initial offset from top/bottom
 	if (SettingsManager::logAnchor == CORNER_BOTTOM_LEFT || SettingsManager::logAnchor == CORNER_BOTTOM_RIGHT)
@@ -93,9 +93,9 @@ void Log::tick(bool force)
 	for (auto& item : Log::hudHistory)
 	{
 		if (SettingsManager::logAnchor == CORNER_TOP_RIGHT || SettingsManager::logAnchor == CORNER_BOTTOM_RIGHT)
-			x = Log::windowSize.x - static_cast<uint>(item->getLocalBounds().width) - LOG_ANCHOR_NEG_PADDING_RIGHT;
+			x = Log::windowSize.x - static_cast<uint>(item.getLocalBounds().width) - LOG_ANCHOR_NEG_PADDING_RIGHT;
 
-		item->setPosition(static_cast<float>(x), static_cast<float>(y));
+		item.setPosition(static_cast<float>(x), static_cast<float>(y));
 
 		y += Log::fontGap;
 	}
@@ -107,7 +107,7 @@ void Log::draw(sf::RenderTarget& target)
 {
 	for (const auto& item : Log::hudHistory)
 	{
-		target.draw(*item);
+		target.draw(item);
 	}
 }
 

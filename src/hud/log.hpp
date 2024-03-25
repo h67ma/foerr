@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
 #include <fstream>
 #include <iostream>
 #include <list>
-#include <memory>
 #include <string>
 
 #include <SFML/Graphics/Color.hpp>
@@ -16,7 +15,6 @@
 #include <SFML/System/Clock.hpp>
 
 #include "../consts.hpp"
-#include "../hud/hud.hpp"
 #include "../settings/settings_manager.hpp"
 #include "../util/util.hpp"
 #include "log_element_text.hpp"
@@ -34,7 +32,7 @@ class Log
 		static sf::Vector2u windowSize;
 
 		static uint fontGap;
-		static std::list<std::unique_ptr<LogElementText>> hudHistory;
+		static std::list<LogElementText> hudHistory;
 		static sf::Clock clock;
 		static std::ofstream logFile;
 		static void logToFile(const char* prefix, const std::string& msg);
@@ -76,7 +74,7 @@ class Log
 			if (hideInGui || Log::font == nullptr)
 				return;
 
-			Log::hudHistory.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font, color));
+			Log::hudHistory.emplace_back(formatted, *Log::font, color);
 			Log::tick(true);
 		}
 
