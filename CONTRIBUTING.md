@@ -12,17 +12,34 @@ instead amend your commit(s) and force push.
 6. Pull request can be approved by a Contributor (or Maintainer). Once at least one approve is received, a Maintainer
 can merge it.
 
+# Continuous Integration
+CI is hosted on Github Actions. Currently it only includes basic build jobs for GNU/Linux, Windows, and a clang-format
+check. All three must pass in order to merge.
+
+# Releases and tags
+[Most recent release download](https://github.com/h67ma/foerr/releases/latest)
+
+Any precompiled binaries uploaded to Github releases page are built using
+[Github Actions](.github/workflows/package.yml).
+
+Version tags should follow the format `vX.Y.Z`
+
 # Coding conventions and style
 Code must be cleanly formatted and cannot include any WIP leftovers, such as messy comments, debug prints, etc.
 
-C code formatting is defined in `src/.clang-format`. To format a file in-place:
+C code formatting is handled by [clang-format](src/.clang-format). To format a file in-place:
 ```
 clang-format -i $FILE
 ```
 
 Alternatively `--dry-run` flag can be added to only print current style issues.
 
-For automatic code style checks see the [pre-commit hook](#pre-commit-hook) section.
+Note: checking code style with `clang-format` is a part of CI - there can be no warnings.
+
+For automatic code style checks, see the [pre-commit hook](#pre-commit-hook) section.
+
+A config file for `clang-tidy` is also present in the repository, however none of its checks are currently being
+enforced.
 
 Python/shell/CMake code style is currently not enforced.
 

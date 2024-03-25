@@ -57,6 +57,11 @@ Features currently **outside** project scope:
 # Installing dependencies
 ## GNU/Linux
 ### Building
+Required software:
+* CMake
+* make
+* g++
+
 Refer to [SFML documentation](https://www.sfml-dev.org/tutorials/2.6/compile-with-cmake.php#installing-dependencies)
 for satisfying SFML dependencies. On most Debian-based systems the following should be enough:
 ```
