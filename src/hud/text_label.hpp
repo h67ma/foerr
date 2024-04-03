@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -21,6 +21,8 @@ class TextLabel : public sf::Text, ConfigurableGuiComponent
 		const uint fontSize; // e.g. FONT_H1
 
 	public:
+		TextLabel(const std::string& text, const sf::Font& font, uint fontSize, const sf::Color& color,
+				  const sf::Vector2f& position);
 		TextLabel(const std::string& text, const sf::Font& font, uint fontSize, const sf::Color& color);
 		TextLabel(const std::string& text, const sf::Font& font, uint fontSize);
 		TextLabel(const sf::Font& font, uint fontSize);

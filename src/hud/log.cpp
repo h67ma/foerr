@@ -20,6 +20,7 @@ std::list<LogElementText> Log::hudHistory;
 sf::Clock Log::clock;
 
 std::ofstream Log::logFile;
+std::function<void(const std::string& text, const sf::Color& color)> Log::msgAddedCallback = nullptr;
 
 /**
  * Sets *temporary* SettingsManager settings, which are relevant only in the short window of time between when
@@ -38,6 +39,11 @@ void Log::setup()
 void Log::setFont(sf::Font* font)
 {
 	Log::font = font;
+}
+
+void Log::setMsgAddedCallback(const msg_add_function& callback)
+{
+	Log::msgAddedCallback = callback;
 }
 
 void Log::handleScreenResize(sf::Vector2u windowSize)

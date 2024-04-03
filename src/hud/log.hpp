@@ -5,6 +5,7 @@
 #pragma once
 
 #include <fstream>
+#include <functional>
 #include <iostream>
 #include <list>
 #include <string>
@@ -25,6 +26,8 @@
 #define LOG_PREFIX_DEBUG "[DEBG] "
 #define LOG_PREFIX_VERBOSE "[VERB] "
 
+using msg_add_function = std::function<void(const std::string&, const sf::Color&)>;
+
 class Log
 {
 	private:
@@ -35,12 +38,14 @@ class Log
 		static std::list<LogElementText> hudHistory;
 		static sf::Clock clock;
 		static std::ofstream logFile;
+		static msg_add_function msgAddedCallback;
 		static void logToFile(const char* prefix, const std::string& msg);
 		static void logStderr(const char* prefix, const std::string& msg);
 
 	public:
 		static void setup();
 		static void setFont(sf::Font* font);
+		static void setMsgAddedCallback(const msg_add_function& callback);
 		static void handleScreenResize(sf::Vector2u windowSize);
 		static void handleSettingsChange();
 		static void openLogFile();
@@ -70,12 +75,18 @@ class Log
 			if (SettingsManager::debugWriteLogToFile)
 				Log::logToFile(prefix, formatted);
 
-			// don't display debug msgs in hud, or any messages whatsoever when gui is not initialized
-			if (hideInGui || Log::font == nullptr)
+			// don't display debug msgs in hud
+			if (hideInGui)
 				return;
 
-			Log::hudHistory.emplace_back(formatted, *Log::font, color);
-			Log::tick(true);
+			if (Log::font != nullptr)
+			{
+				Log::hudHistory.emplace_back(formatted, *Log::font, color);
+				Log::tick(true);
+			}
+
+			if (msgAddedCallback != nullptr)
+				msgAddedCallback(formatted, color);
 		}
 
 		/**

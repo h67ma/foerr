@@ -127,6 +127,10 @@ int main()
 		exit(1);
 	}
 
+	// hook up the Log PipBuck page to receive log messages
+	Log::setMsgAddedCallback([&pipBuck](const std::string& text, const sf::Color& color)
+							 { pipBuck.addLogMessage(text, color); });
+
 	MainMenu mainMenu(resManager, cursorMgr, window, campaign, gameState, pipBuck);
 
 	DevConsole console(window.getSize(), *resManager.getFont(FONT_FIXED), campaign);

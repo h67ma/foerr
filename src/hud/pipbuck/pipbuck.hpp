@@ -88,6 +88,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		void handleLeftClickUp();
 		void handleMouseMove(sf::Vector2i mousePos);
 		bool setupCampaignInfos();
+		void addLogMessage(const std::string& text, const sf::Color& color);
 		void unloadCampaignInfos();
 		void open(sf::Vector2i mousePos, bool sound = true);
 		bool switchToPage(PipBuckPageType pageType, sf::Vector2i mousePos);
