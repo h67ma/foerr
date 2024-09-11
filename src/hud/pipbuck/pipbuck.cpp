@@ -316,6 +316,16 @@ void PipBuck::handleLeftClickUp()
 		this->selectedCategory->handleLeftClickUp();
 }
 
+void PipBuck::handleScroll(float delta, sf::Vector2i mousePos)
+{
+	if (this->selectedCategory != nullptr)
+	{
+		mousePos -= this->getPosition();
+
+		this->selectedCategory->handleScroll(delta, mousePos);
+	}
+}
+
 void PipBuck::handleMouseMove(sf::Vector2i mousePos)
 {
 	if (this->selectedCategory == nullptr)

@@ -12,28 +12,38 @@ constexpr uint LOG_HISTORY_MAX_LENGTH = 1000; // TODO? make configurable via set
 
 GuiPageLog::GuiPageLog(ResourceManager& resMgr) :
 	GuiPage("Log"), // TODO translate
-	resMgr(resMgr)
+	logListView(resMgr, FONT_NORMAL, FONT_SPAN, { FULL_PAGE_WIDTH, FULL_PAGE_HEIGHT }, this->msgList)
 {
 }
 
 void GuiPageLog::addMsg(const StringAndColor& strAndColor)
 {
-	// obviously a temporary solution. should be a scrollable list.
-	sf::Vector2f position = sf::Vector2f(20, 20 + (this->msgList.size() * 30));
-
-	this->msgList.emplace_back(strAndColor.first, *resMgr.getFont(FONT_NORMAL), FONT_H3, strAndColor.second, position);
+	this->msgList.emplace_back(strAndColor);
 
 	// remove oldest message if limit is reached
 	if (this->msgList.size() > LOG_HISTORY_MAX_LENGTH)
 		this->msgList.pop_front();
+
+	this->logListView.handleItemsChanged();
+}
+
+void GuiPageLog::handleScroll(float delta, sf::Vector2i mousePos)
+{
+	mousePos -= this->getPosition();
+
+	this->logListView.handleScroll(delta, mousePos);
+}
+
+void GuiPageLog::handleSettingsChange()
+{
+	GuiPage::handleSettingsChange();
+
+	this->logListView.handleSettingsChange();
 }
 
 void GuiPageLog::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
 
-	for (const auto& msg : this->msgList)
-	{
-		target.draw(msg, states);
-	}
+	target.draw(this->logListView, states);
 }

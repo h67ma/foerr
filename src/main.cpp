@@ -400,6 +400,14 @@ int main()
 
 					continue;
 				}
+
+				if (event.type == sf::Event::MouseWheelScrolled)
+				{
+					pipBuck.handleScroll(event.mouseWheelScroll.delta,
+										 { event.mouseWheelScroll.x, event.mouseWheelScroll.y });
+
+					continue;
+				}
 			}
 			else if (gameState == STATE_MAINMENU)
 			{

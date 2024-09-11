@@ -9,7 +9,7 @@
 
 #include "../../consts.hpp"
 #include "../../resources/resource_manager.hpp"
-#include "../text_label.hpp"
+#include "../scrollable/text_list_view.hpp"
 #include "gui_page.hpp"
 
 /**
@@ -18,11 +18,13 @@
 class GuiPageLog : public GuiPage
 {
 	private:
-		std::deque<TextLabel> msgList;
-		ResourceManager& resMgr;
+		std::deque<StringAndColor> msgList;
+		TextListView logListView;
 
 	public:
 		explicit GuiPageLog(ResourceManager& resMgr);
 		void addMsg(const StringAndColor& strAndColor);
+		void handleScroll(float delta, sf::Vector2i mousePos) override;
+		void handleSettingsChange() override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

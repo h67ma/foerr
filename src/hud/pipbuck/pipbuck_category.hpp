@@ -54,6 +54,7 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable, public Co
 		PipBuckPageType getSelectedPageType() const;
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
+		void handleScroll(float delta, sf::Vector2i mousePos);
 		bool handleMouseMove(sf::Vector2i mousePos);
 		bool changePage(PipBuckPageType newPageType);
 		bool setupCampaignInfos();

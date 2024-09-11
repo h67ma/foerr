@@ -20,6 +20,9 @@ constexpr uint POS_PAGE_BTNS_Y = 565;
 static const sf::Vector2u POS_PAGE_BTN_BOTTOM_1(0, POS_PAGE_BTNS_Y);
 static const sf::Vector2u POS_PAGE_BTN_BOTTOM_2(200, POS_PAGE_BTNS_Y);
 
+constexpr float FULL_PAGE_WIDTH = 1024;
+constexpr float FULL_PAGE_HEIGHT = 596;
+
 /**
  * Represents an abstract page to display in GUI (e.g. "Settings") - either in PipBuck or in main menu.
  * TODO Might display additional elements outside PipBuck screen area (e.g. question mark button).
@@ -44,6 +47,7 @@ class GuiPage : public sf::Drawable, public GuiTransformable
 		};
 
 		virtual void handleLeftClickUp() {};
+		virtual void handleScroll(float delta, sf::Vector2i mousePos) {};
 		virtual bool handleMouseMove(sf::Vector2i mousePos)
 		{
 			return false;

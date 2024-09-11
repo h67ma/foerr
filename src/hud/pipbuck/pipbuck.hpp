@@ -87,6 +87,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		void handleScreenResize(sf::Vector2u windowSize);
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
+		void handleScroll(float delta, sf::Vector2i mousePos);
 		void handleMouseMove(sf::Vector2i mousePos);
 		bool setupCampaignInfos();
 		void addLogMessage(const StringAndColor& strAndColor);
