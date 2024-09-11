@@ -14,6 +14,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include "../../campaigns/campaign.hpp"
+#include "../../consts.hpp"
 #include "../../resources/resource_manager.hpp"
 #include "../../resources/sound_resource.hpp"
 #include "../../resources/sprite_resource.hpp"
@@ -88,7 +89,7 @@ class PipBuck : public sf::Drawable, public sf::Transformable, public Configurab
 		void handleLeftClickUp();
 		void handleMouseMove(sf::Vector2i mousePos);
 		bool setupCampaignInfos();
-		void addLogMessage(const std::string& text, const sf::Color& color);
+		void addLogMessage(const StringAndColor& strAndColor);
 		void unloadCampaignInfos();
 		void open(sf::Vector2i mousePos, bool sound = true);
 		bool switchToPage(PipBuckPageType pageType, sf::Vector2i mousePos);

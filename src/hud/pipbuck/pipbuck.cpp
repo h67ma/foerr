@@ -354,7 +354,7 @@ bool PipBuck::setupCampaignInfos()
 /**
  * Adds a log message to the Log PipBuck page.
  */
-void PipBuck::addLogMessage(const std::string& text, const sf::Color& color)
+void PipBuck::addLogMessage(const StringAndColor& strAndColor)
 {
 	auto foundCat = this->categories.find(PIPB_CAT_GAME);
 	if (foundCat == this->categories.end())
@@ -364,7 +364,7 @@ void PipBuck::addLogMessage(const std::string& text, const sf::Color& color)
 	if (logPage == nullptr)
 		return;
 
-	logPage->addMsg(text, color);
+	logPage->addMsg(strAndColor);
 }
 
 void PipBuck::unloadCampaignInfos()

@@ -16,12 +16,12 @@ GuiPageLog::GuiPageLog(ResourceManager& resMgr) :
 {
 }
 
-void GuiPageLog::addMsg(const std::string& text, const sf::Color& color)
+void GuiPageLog::addMsg(const StringAndColor& strAndColor)
 {
 	// obviously a temporary solution. should be a scrollable list.
 	sf::Vector2f position = sf::Vector2f(20, 20 + (this->msgList.size() * 30));
 
-	this->msgList.emplace_back(text, *resMgr.getFont(FONT_NORMAL), FONT_H3, color, position);
+	this->msgList.emplace_back(strAndColor.first, *resMgr.getFont(FONT_NORMAL), FONT_H3, strAndColor.second, position);
 
 	// remove oldest message if limit is reached
 	if (this->msgList.size() > LOG_HISTORY_MAX_LENGTH)

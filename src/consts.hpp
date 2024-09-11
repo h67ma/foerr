@@ -7,6 +7,7 @@
 #include <string>
 
 #include <SFML/Graphics/BlendMode.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 const std::string CONFUSION = "???";
 
@@ -47,6 +48,8 @@ typedef unsigned int uint;
 #ifndef uchar
 typedef unsigned char uchar;
 #endif
+
+using StringAndColor = std::pair<std::string, sf::Color>;
 
 enum GameState
 {

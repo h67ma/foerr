@@ -26,7 +26,7 @@
 #define LOG_PREFIX_DEBUG "[DEBG] "
 #define LOG_PREFIX_VERBOSE "[VERB] "
 
-using msg_add_function = std::function<void(const std::string&, const sf::Color&)>;
+using msg_add_function = std::function<void(const StringAndColor&)>;
 
 class Log
 {
@@ -86,7 +86,7 @@ class Log
 			}
 
 			if (msgAddedCallback != nullptr)
-				msgAddedCallback(formatted, color);
+				msgAddedCallback({ formatted, color });
 		}
 
 		/**

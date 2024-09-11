@@ -20,7 +20,7 @@ std::list<LogElementText> Log::hudHistory;
 sf::Clock Log::clock;
 
 std::ofstream Log::logFile;
-std::function<void(const std::string& text, const sf::Color& color)> Log::msgAddedCallback = nullptr;
+msg_add_function Log::msgAddedCallback = nullptr;
 
 /**
  * Sets *temporary* SettingsManager settings, which are relevant only in the short window of time between when

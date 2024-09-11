@@ -7,6 +7,7 @@
 #include <deque>
 #include <string>
 
+#include "../../consts.hpp"
 #include "../../resources/resource_manager.hpp"
 #include "../text_label.hpp"
 #include "gui_page.hpp"
@@ -22,6 +23,6 @@ class GuiPageLog : public GuiPage
 
 	public:
 		explicit GuiPageLog(ResourceManager& resMgr);
-		void addMsg(const std::string& text, const sf::Color& color);
+		void addMsg(const StringAndColor& strAndColor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

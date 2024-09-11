@@ -128,8 +128,7 @@ int main()
 	}
 
 	// hook up the Log PipBuck page to receive log messages
-	Log::setMsgAddedCallback([&pipBuck](const std::string& text, const sf::Color& color)
-							 { pipBuck.addLogMessage(text, color); });
+	Log::setMsgAddedCallback([&pipBuck](const StringAndColor& strAndColor) { pipBuck.addLogMessage(strAndColor); });
 
 	MainMenu mainMenu(resManager, cursorMgr, window, campaign, gameState, pipBuck);
 
