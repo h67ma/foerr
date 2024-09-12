@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "int_slider.hpp"
 
@@ -8,8 +8,8 @@
 
 #include <string>
 
-IntSlider::IntSlider(const sf::Font& font, int minVal, int defaultVal, int maxVal) :
-	Slider(font),
+IntSlider::IntSlider(const sf::Font& font, bool showValueText, int minVal, int defaultVal, int maxVal) :
+	Slider(font, showValueText),
 	minVal(minVal),
 	maxVal(maxVal),
 	currentVal(defaultVal),
@@ -54,6 +54,9 @@ void IntSlider::setValue(int value)
 
 void IntSlider::updateText()
 {
+	if (!this->showValueText)
+		return;
+
 	this->currValueText.setString(std::to_string(this->currentVal));
 }
 

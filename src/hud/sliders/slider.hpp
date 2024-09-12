@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -26,6 +26,7 @@ class Slider : public GuiTransformable, public sf::Drawable
 
 	protected:
 		TextLabel currValueText;
+		const bool showValueText;
 		SliderHandle handle;
 
 		// coefficients can be shared between all instances, as they only depend on GUI scale.
@@ -34,7 +35,7 @@ class Slider : public GuiTransformable, public sf::Drawable
 		static uint adjustedPossibleMouseValCnt;
 
 	public:
-		explicit Slider(const sf::Font& font);
+		Slider(const sf::Font& font, bool showValueText);
 		static void calculateCoeffs();
 		bool handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();

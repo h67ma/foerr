@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "float_slider.hpp"
 
@@ -16,8 +16,9 @@ constexpr uint BASE10 = 10;
  * @param decimalPlaces controls how many decimal places are displayed in text next to the slider, as well as how
  *						precisely the value can be set
  */
-FloatSlider::FloatSlider(const sf::Font& font, float minVal, float defaultVal, float maxVal, uint decimalPlaces) :
-	Slider(font),
+FloatSlider::FloatSlider(const sf::Font& font, bool showValueText, float minVal, float defaultVal, float maxVal,
+						 uint decimalPlaces) :
+	Slider(font, showValueText),
 	minVal(minVal),
 	maxVal(maxVal),
 	currentVal(defaultVal),
@@ -68,6 +69,9 @@ void FloatSlider::setValue(float value)
 
 void FloatSlider::updateText()
 {
+	if (!this->showValueText)
+		return;
+
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(this->decimalPlaces) << this->currentVal;
 	this->currValueText.setString(stream.str());

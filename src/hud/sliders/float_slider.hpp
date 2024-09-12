@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -24,7 +24,8 @@ class FloatSlider : public Slider
 		void setSliderPos(int mouseX) override;
 
 	public:
-		FloatSlider(const sf::Font& font, float minVal, float defaultVal, float maxVal, uint decimalPlaces);
+		FloatSlider(const sf::Font& font, bool showValueText, float minVal, float defaultVal, float maxVal,
+					uint decimalPlaces);
 		float getValue() const;
 		void setValue(float value);
 };

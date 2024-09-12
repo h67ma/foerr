@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "slider.hpp"
 
@@ -24,7 +24,7 @@ constexpr float SLIDER_OUTLINE_THICKNESS = 1;
 uint Slider::adjustedHandleHalf;
 uint Slider::adjustedPossibleMouseValCnt;
 
-Slider::Slider(const sf::Font& font) : currValueText(font, FONT_H3)
+Slider::Slider(const sf::Font& font, bool showValueText) : currValueText(font, FONT_H3), showValueText(showValueText)
 {
 	this->sliderOutline.setFillColor(sf::Color::Transparent);
 }
@@ -90,10 +90,13 @@ void Slider::handleSettingsChange()
 
 	this->sliderOutline.setOutlineColor(DIM_COLOR(SettingsManager::hudColor, SLIDER_COLOR_DIM_FACTOR));
 
-	this->currValueText.setPosition(calculateGuiAwarePoint({ SLIDER_TEXT_X, getFontVOffset(FONT_H3) }));
+	if (this->showValueText)
+	{
+		this->currValueText.setPosition(calculateGuiAwarePoint({ SLIDER_TEXT_X, getFontVOffset(FONT_H3) }));
 
-	this->currValueText.handleSettingsChange();
-	this->currValueText.setFillColor(SettingsManager::hudColor);
+		this->currValueText.handleSettingsChange();
+		this->currValueText.setFillColor(SettingsManager::hudColor);
+	}
 
 	this->handle.handleSettingsChange();
 }
@@ -103,6 +106,9 @@ void Slider::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	states.transform *= this->getTransform();
 
 	target.draw(this->sliderOutline, states);
-	target.draw(this->currValueText, states);
+
+	if (this->showValueText)
+		target.draw(this->currValueText, states);
+
 	target.draw(this->handle, states);
 }
