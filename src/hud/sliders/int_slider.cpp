@@ -5,11 +5,13 @@
 #include "int_slider.hpp"
 
 #include <cassert>
+#include <cmath>
 
 #include <string>
 
-IntSlider::IntSlider(const sf::Font& font, bool showValueText, int minVal, int defaultVal, int maxVal) :
-	Slider(font, showValueText),
+IntSlider::IntSlider(enum SliderOrientation orientation, const sf::Font& font, bool showValueText, int minVal,
+					 int defaultVal, int maxVal) :
+	Slider(orientation, font, showValueText),
 	minVal(minVal),
 	maxVal(maxVal),
 	currentVal(defaultVal),
@@ -22,22 +24,11 @@ IntSlider::IntSlider(const sf::Font& font, bool showValueText, int minVal, int d
 	this->handleSettingsChange();
 }
 
-void IntSlider::setSliderPos(int mouseX)
+void IntSlider::setValueFromMouse(int mouseValue)
 {
-	mouseX -= Slider::adjustedHandleHalf;
-
-	if (mouseX < 0)
-		mouseX = 0;
-
-	if (mouseX > Slider::adjustedPossibleMouseValCnt)
-		mouseX = Slider::adjustedPossibleMouseValCnt;
-
-	this->currentVal = (mouseX * this->possibleValCnt / Slider::adjustedPossibleMouseValCnt) + this->minVal;
+	this->currentVal = (mouseValue * this->possibleValCnt / Slider::adjustedPossibleMouseValCnt) + this->minVal;
 
 	this->updateText();
-
-	// no need to call updateHandle() since it would needlessly calculate X from currentVal, and we already have X
-	this->handle.setPosition(static_cast<float>(mouseX), 0);
 }
 
 int IntSlider::getValue() const
@@ -62,7 +53,12 @@ void IntSlider::updateText()
 
 void IntSlider::updateHandle()
 {
-	float x = static_cast<float>(this->currentVal - this->minVal) / this->possibleValCnt *
-			  Slider::adjustedPossibleMouseValCnt;
-	this->handle.setPosition(x, 0);
+	float pos =
+		std::ceil(static_cast<float>(this->currentVal - this->minVal) / static_cast<float>(this->possibleValCnt) *
+				  static_cast<float>(Slider::adjustedPossibleMouseValCnt));
+
+	if (this->orientation == SLIDER_HORIZONTAL)
+		this->handle.setPosition(pos, 0);
+	else
+		this->handle.setPosition(0, pos);
 }

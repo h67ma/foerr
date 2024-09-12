@@ -10,7 +10,7 @@
 
 const sf::Vector2f POS_2ND_LABEL(0, 25);
 const sf::Vector2f POS_3RD_LABEL(0, 50);
-const sf::Vector2f SIZE_LABEL(SLIDER_HANDLE_HEIGHT, SLIDER_HANDLE_HEIGHT);
+const sf::Vector2f SIZE_LABEL(SLIDER_HANDLE_THICKNESS, SLIDER_HANDLE_THICKNESS);
 
 const sf::Vector2f POS_1ST_SLIDER(20, 0);
 const sf::Vector2f POS_2ND_SLIDER(20, 25);
@@ -21,9 +21,9 @@ const sf::Vector2f SIZE_COLOR_PREVIEW(65, 65);
 constexpr float COLOR_PREVIEW_OUTLINE_THICKNESS = 1;
 
 ColorSelector::ColorSelector(const sf::Font& font, sf::Color initialColor) :
-	sliderR(font, true, 0, initialColor.r, COLOR_MAX_CHANNEL_VALUE),
-	sliderG(font, true, 0, initialColor.g, COLOR_MAX_CHANNEL_VALUE),
-	sliderB(font, true, 0, initialColor.b, COLOR_MAX_CHANNEL_VALUE)
+	sliderR(SLIDER_HORIZONTAL, font, true, 0, initialColor.r, COLOR_MAX_CHANNEL_VALUE),
+	sliderG(SLIDER_HORIZONTAL, font, true, 0, initialColor.g, COLOR_MAX_CHANNEL_VALUE),
+	sliderB(SLIDER_HORIZONTAL, font, true, 0, initialColor.b, COLOR_MAX_CHANNEL_VALUE)
 {
 	this->labelR.setFillColor(sf::Color::Red);
 	this->labelG.setFillColor(sf::Color::Green);

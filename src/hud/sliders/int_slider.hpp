@@ -16,10 +16,11 @@ class IntSlider : public Slider
 
 		void updateText();
 		void updateHandle() override;
-		void setSliderPos(int mouseX) override;
+		void setValueFromMouse(int mouseValue) override;
 
 	public:
-		IntSlider(const sf::Font& font, bool showValueText, int minVal, int defaultVal, int maxVal);
+		IntSlider(enum SliderOrientation orientation, const sf::Font& font, bool showValueText, int minVal,
+				  int defaultVal, int maxVal);
 		int getValue() const;
 		void setValue(int value);
 };
