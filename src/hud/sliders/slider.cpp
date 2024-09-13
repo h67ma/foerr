@@ -15,21 +15,16 @@ constexpr float SLIDER_TEXT_X = 220;
 constexpr uint SLIDER_TEXT_Y_PADDING = 5;
 constexpr uchar SLIDER_COLOR_DIM_FACTOR = 200;
 
-constexpr uint SLIDER_LENGTH = 215;
 constexpr uint SLIDER_HANDLE_HALF = SLIDER_HANDLE_LENGTH / 2;
-constexpr uint SLIDER_MOUSE_POSSIBLE_VALS = SLIDER_LENGTH - SLIDER_HANDLE_LENGTH;
 
-const sf::Vector2f hSliderOutlineSize(SLIDER_LENGTH, SLIDER_HANDLE_THICKNESS);
-const sf::Vector2f vSliderOutlineSize(SLIDER_HANDLE_THICKNESS, SLIDER_LENGTH);
 constexpr float SLIDER_OUTLINE_THICKNESS = 1;
 
-uint Slider::adjustedHandleHalf;
-uint Slider::adjustedPossibleMouseValCnt;
-
-Slider::Slider(enum SliderOrientation orientation, const sf::Font& font, bool showValueText) :
+Slider::Slider(enum SliderOrientation orientation, uint sliderLength, const sf::Font& font, bool showValueText) :
 	currValueText(font, FONT_H3),
 	showValueText(showValueText),
 	orientation(orientation),
+	sliderLength(sliderLength),
+	possibleMouseVals(sliderLength - static_cast<uint>(SLIDER_HANDLE_LENGTH)),
 	handle(orientation)
 {
 	this->sliderOutline.setFillColor(sf::Color::Transparent);
@@ -41,8 +36,8 @@ Slider::Slider(enum SliderOrientation orientation, const sf::Font& font, bool sh
  */
 void Slider::calculateCoeffs()
 {
-	Slider::adjustedHandleHalf = SLIDER_HANDLE_HALF * SettingsManager::guiScale;
-	Slider::adjustedPossibleMouseValCnt = std::ceil(SLIDER_MOUSE_POSSIBLE_VALS * SettingsManager::guiScale);
+	this->adjustedHandleHalf = calculateGuiAwareScalar(SLIDER_HANDLE_HALF);
+	this->adjustedPossibleMouseValCnt = calculateGuiAwareScalar(this->possibleMouseVals);
 }
 
 /**
@@ -100,15 +95,15 @@ bool Slider::handleMouseMove(sf::Vector2i mousePos)
 	return true;
 }
 
-int Slider::trimSliderPos(int mouseValue)
+int Slider::trimSliderPos(int mouseValue) const
 {
-	mouseValue -= Slider::adjustedHandleHalf;
+	mouseValue -= this->adjustedHandleHalf;
 
 	if (mouseValue < 0)
 		mouseValue = 0;
 
-	if (mouseValue > Slider::adjustedPossibleMouseValCnt)
-		mouseValue = Slider::adjustedPossibleMouseValCnt;
+	if (mouseValue > this->adjustedPossibleMouseValCnt)
+		mouseValue = this->adjustedPossibleMouseValCnt;
 
 	return mouseValue;
 }
@@ -133,6 +128,8 @@ void Slider::setSliderPosV(int mouseY)
 
 void Slider::handleSettingsChange()
 {
+	this->calculateCoeffs();
+
 	this->updateHandle();
 
 	this->handleGuiScaleChange();
@@ -140,9 +137,11 @@ void Slider::handleSettingsChange()
 	this->sliderOutline.setOutlineThickness(calculateGuiAwareScalar(SLIDER_OUTLINE_THICKNESS));
 
 	if (this->orientation == SLIDER_HORIZONTAL)
-		this->sliderOutline.setSize(calculateGuiAwarePoint(hSliderOutlineSize));
+		this->sliderOutline.setSize(
+			calculateGuiAwarePoint({ static_cast<float>(this->sliderLength), SLIDER_HANDLE_THICKNESS }));
 	else
-		this->sliderOutline.setSize(calculateGuiAwarePoint(vSliderOutlineSize));
+		this->sliderOutline.setSize(
+			calculateGuiAwarePoint({ SLIDER_HANDLE_THICKNESS, static_cast<float>(this->sliderLength) }));
 
 	this->sliderOutline.setOutlineColor(DIM_COLOR(SettingsManager::hudColor, SLIDER_COLOR_DIM_FACTOR));
 

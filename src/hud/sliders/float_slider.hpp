@@ -24,8 +24,8 @@ class FloatSlider : public Slider
 		void setValueFromMouse(int mouseValue) override;
 
 	public:
-		FloatSlider(enum SliderOrientation orientation, const sf::Font& font, bool showValueText, float minVal,
-					float defaultVal, float maxVal, uint decimalPlaces);
+		FloatSlider(enum SliderOrientation orientation, uint sliderLength, const sf::Font& font, bool showValueText,
+					float minVal, float defaultVal, float maxVal, uint decimalPlaces);
 		float getValue() const;
 		void setValue(float value);
 };

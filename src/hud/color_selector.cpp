@@ -21,9 +21,9 @@ const sf::Vector2f SIZE_COLOR_PREVIEW(65, 65);
 constexpr float COLOR_PREVIEW_OUTLINE_THICKNESS = 1;
 
 ColorSelector::ColorSelector(const sf::Font& font, sf::Color initialColor) :
-	sliderR(SLIDER_HORIZONTAL, font, true, 0, initialColor.r, COLOR_MAX_CHANNEL_VALUE),
-	sliderG(SLIDER_HORIZONTAL, font, true, 0, initialColor.g, COLOR_MAX_CHANNEL_VALUE),
-	sliderB(SLIDER_HORIZONTAL, font, true, 0, initialColor.b, COLOR_MAX_CHANNEL_VALUE)
+	sliderR(SLIDER_HORIZONTAL, INPUT_SLIDER_LENGTH, font, true, 0, initialColor.r, COLOR_MAX_CHANNEL_VALUE),
+	sliderG(SLIDER_HORIZONTAL, INPUT_SLIDER_LENGTH, font, true, 0, initialColor.g, COLOR_MAX_CHANNEL_VALUE),
+	sliderB(SLIDER_HORIZONTAL, INPUT_SLIDER_LENGTH, font, true, 0, initialColor.b, COLOR_MAX_CHANNEL_VALUE)
 {
 	this->labelR.setFillColor(sf::Color::Red);
 	this->labelG.setFillColor(sf::Color::Green);

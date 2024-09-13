@@ -20,7 +20,6 @@
 #include "hud/log.hpp"
 #include "hud/main_menu/main_menu.hpp"
 #include "hud/pipbuck/pipbuck.hpp"
-#include "hud/sliders/slider.hpp"
 #include "resources/resource_manager.hpp"
 #include "settings/keymap.hpp"
 #include "settings/settings_manager.hpp"
@@ -35,7 +34,6 @@
 static void propagateSettings(PipBuck& pipBuck, MainMenu& mainMenu, FpsMeter& fpsMeter, DevConsole& console,
 							  const sf::Vector2u& newWindowSize)
 {
-	Slider::calculateCoeffs();
 	Log::handleSettingsChange();
 	pipBuck.handleSettingsChange();
 	pipBuck.handleScreenResize(newWindowSize);
@@ -88,9 +86,6 @@ int main()
 	Log::handleScreenResize(window.getSize());
 
 	Log::d("Save dir = %s", SettingsManager::getSaveDir().c_str());
-
-	// initial coefficient calculation for all sliders
-	Slider::calculateCoeffs();
 
 	if (!resManager.loadCore())
 	{

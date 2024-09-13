@@ -9,9 +9,9 @@
 
 #include <string>
 
-IntSlider::IntSlider(enum SliderOrientation orientation, const sf::Font& font, bool showValueText, int minVal,
-					 int defaultVal, int maxVal) :
-	Slider(orientation, font, showValueText),
+IntSlider::IntSlider(enum SliderOrientation orientation, uint sliderLength, const sf::Font& font, bool showValueText,
+					 int minVal, int defaultVal, int maxVal) :
+	Slider(orientation, sliderLength, font, showValueText),
 	minVal(minVal),
 	maxVal(maxVal),
 	currentVal(defaultVal),
@@ -26,7 +26,7 @@ IntSlider::IntSlider(enum SliderOrientation orientation, const sf::Font& font, b
 
 void IntSlider::setValueFromMouse(int mouseValue)
 {
-	this->currentVal = (mouseValue * this->possibleValCnt / Slider::adjustedPossibleMouseValCnt) + this->minVal;
+	this->currentVal = (mouseValue * this->possibleValCnt / this->adjustedPossibleMouseValCnt) + this->minVal;
 
 	this->updateText();
 }
@@ -55,7 +55,7 @@ void IntSlider::updateHandle()
 {
 	float pos =
 		std::ceil(static_cast<float>(this->currentVal - this->minVal) / static_cast<float>(this->possibleValCnt) *
-				  static_cast<float>(Slider::adjustedPossibleMouseValCnt));
+				  static_cast<float>(this->adjustedPossibleMouseValCnt));
 
 	if (this->orientation == SLIDER_HORIZONTAL)
 		this->handle.setPosition(pos, 0);

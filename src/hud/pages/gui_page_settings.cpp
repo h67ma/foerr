@@ -33,7 +33,7 @@ GuiPageSettings::GuiPageSettings(ResourceManager& resMgr) :
 				},
 				CLICK_CONSUMED_SETTINGS_CHANGED } }),
 	hudColorSelector(*resMgr.getFont(FONT_NORMAL), SettingsManager::hudColor),
-	guiScaleSlider(SLIDER_HORIZONTAL, *resMgr.getFont(FONT_NORMAL), true, GUI_SCALE_MIN_VALUE,
+	guiScaleSlider(SLIDER_HORIZONTAL, INPUT_SLIDER_LENGTH, *resMgr.getFont(FONT_NORMAL), true, GUI_SCALE_MIN_VALUE,
 				   SettingsManager::guiScale, GUI_SCALE_MAX_VALUE, 2),
 	infoText(*resMgr.getFont(FONT_NORMAL), 17U, { 0.F, 22.F })
 {

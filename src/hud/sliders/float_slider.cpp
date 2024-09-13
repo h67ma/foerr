@@ -16,9 +16,9 @@ constexpr uint BASE10 = 10;
  * @param decimalPlaces controls how many decimal places are displayed in text next to the slider, as well as how
  *						precisely the value can be set
  */
-FloatSlider::FloatSlider(enum SliderOrientation orientation, const sf::Font& font, bool showValueText, float minVal,
-						 float defaultVal, float maxVal, uint decimalPlaces) :
-	Slider(orientation, font, showValueText),
+FloatSlider::FloatSlider(enum SliderOrientation orientation, uint sliderLength, const sf::Font& font,
+						 bool showValueText, float minVal, float defaultVal, float maxVal, uint decimalPlaces) :
+	Slider(orientation, sliderLength, font, showValueText),
 	minVal(minVal),
 	maxVal(maxVal),
 	currentVal(defaultVal),
@@ -35,7 +35,7 @@ FloatSlider::FloatSlider(enum SliderOrientation orientation, const sf::Font& fon
 
 void FloatSlider::setValueFromMouse(int mouseValue)
 {
-	this->currentVal = (static_cast<float>(mouseValue) * this->possibleValCnt / Slider::adjustedPossibleMouseValCnt /
+	this->currentVal = (static_cast<float>(mouseValue) * this->possibleValCnt / this->adjustedPossibleMouseValCnt /
 						this->precisionFactor) +
 					   this->minVal;
 
@@ -70,7 +70,7 @@ void FloatSlider::updateHandle()
 {
 	float pos =
 		std::ceil((this->currentVal - this->minVal) / static_cast<float>(this->possibleValCnt) *
-				  static_cast<float>(Slider::adjustedPossibleMouseValCnt) * static_cast<float>(this->precisionFactor));
+				  static_cast<float>(this->adjustedPossibleMouseValCnt) * static_cast<float>(this->precisionFactor));
 
 	if (this->orientation == SLIDER_HORIZONTAL)
 		this->handle.setPosition(pos, 0);

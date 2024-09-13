@@ -19,8 +19,8 @@ class IntSlider : public Slider
 		void setValueFromMouse(int mouseValue) override;
 
 	public:
-		IntSlider(enum SliderOrientation orientation, const sf::Font& font, bool showValueText, int minVal,
-				  int defaultVal, int maxVal);
+		IntSlider(enum SliderOrientation orientation, uint sliderLength, const sf::Font& font, bool showValueText,
+				  int minVal, int defaultVal, int maxVal);
 		int getValue() const;
 		void setValue(int value);
 };
