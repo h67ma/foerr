@@ -47,6 +47,7 @@ class Scrollable : public sf::Drawable, public GuiTransformable
 		sf::RectangleShape scrollArea;
 		const sf::Vector2f scrollableAreaSize; // original size, GUI-independent
 		IntSlider scrollbar;
+		bool showScrollbar = false; // automatically hide and disable scrollbar when the content fits entirely
 		void setGuiScale();
 		void updateScrollbar();
 		void handleScrollbarMoved();

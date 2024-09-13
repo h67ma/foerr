@@ -152,7 +152,10 @@ void Scrollable::handleScroll(float delta, sf::Vector2i mousePos)
 
 void Scrollable::updateScrollbar()
 {
-	this->scrollbar.setValue(this->scrollOffset * SCROLLBAR_MAX_VALUE / this->bottomScrollLimit);
+	this->showScrollbar = this->scrollableContentHeight > this->scrollArea.getSize().y;
+
+	if (this->showScrollbar)
+		this->scrollbar.setValue(this->scrollOffset * SCROLLBAR_MAX_VALUE / this->bottomScrollLimit);
 }
 
 /**
@@ -169,7 +172,7 @@ ClickStatus Scrollable::handleLeftClick(sf::Vector2i clickPos)
 {
 	clickPos -= this->getPosition();
 
-	if (this->scrollbar.handleLeftClick(clickPos))
+	if (this->showScrollbar && this->scrollbar.handleLeftClick(clickPos))
 	{
 		this->handleScrollbarMoved();
 		return CLICK_CONSUMED;
@@ -180,14 +183,15 @@ ClickStatus Scrollable::handleLeftClick(sf::Vector2i clickPos)
 
 void Scrollable::handleLeftClickUp()
 {
-	this->scrollbar.handleLeftClickUp();
+	if (this->showScrollbar)
+		this->scrollbar.handleLeftClickUp();
 }
 
 bool Scrollable::handleMouseMove(sf::Vector2i mousePos)
 {
 	mousePos -= this->getPosition();
 
-	if (this->scrollbar.handleMouseMove(mousePos))
+	if (this->showScrollbar && this->scrollbar.handleMouseMove(mousePos))
 	{
 		this->handleScrollbarMoved();
 		return true;
@@ -211,5 +215,7 @@ void Scrollable::handleSettingsChange()
 void Scrollable::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->scrollableContentSprite, states);
-	target.draw(this->scrollbar, states);
+
+	if (this->showScrollbar)
+		target.draw(this->scrollbar, states);
 }
