@@ -11,7 +11,7 @@
 #include "../buttons/simple_button.hpp"
 #include "../click_manager.hpp"
 #include "../hover_manager.hpp"
-#include "../wrappable_text.hpp"
+#include "../scrollable/text_list_view.hpp"
 #include "gui_page.hpp"
 
 /**
@@ -24,13 +24,16 @@ class GuiPageControls : public GuiPage
 		std::vector<SimpleButton> buttons;
 		HoverManager hoverMgr;
 		ClickManager clickMgr;
-		WrappableText dummyMapDump; // TODO delet this
+		std::deque<StringAndColor> dumpList;
+		TextListView mappingDump; // TODO allow changing keybinds
 		void updateDisplay();
 
 	public:
 		explicit GuiPageControls(ResourceManager& resMgr);
 		bool handleMouseMove(sf::Vector2i mousePos) override;
 		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
+		void handleLeftClickUp() override;
+		void handleScroll(float delta, sf::Vector2i mousePos) override;
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
