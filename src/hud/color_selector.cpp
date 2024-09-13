@@ -7,6 +7,7 @@
 #include "../settings/settings_manager.hpp"
 #include "../util/util.hpp"
 #include "clickable.hpp"
+#include "sliders/slider_consts.hpp"
 
 const sf::Vector2f POS_2ND_LABEL(0, 25);
 const sf::Vector2f POS_3RD_LABEL(0, 50);

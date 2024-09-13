@@ -12,7 +12,7 @@ constexpr uint LOG_HISTORY_MAX_LENGTH = 1000; // TODO? make configurable via set
 
 GuiPageLog::GuiPageLog(ResourceManager& resMgr) :
 	GuiPage("Log"), // TODO translate
-	logListView(resMgr, FONT_NORMAL, FONT_SPAN, { FULL_PAGE_WIDTH, FULL_PAGE_HEIGHT }, this->msgList)
+	logListView(resMgr, FONT_NORMAL, FONT_SPAN, { FULL_PAGE_WIDTH_SANS_SCROLLBAR, FULL_PAGE_HEIGHT }, this->msgList)
 {
 }
 

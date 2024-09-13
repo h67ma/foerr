@@ -6,6 +6,7 @@
 
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
+#include "slider_consts.hpp"
 
 constexpr uchar SLIDER_HANDLE_COLOR_DIM_FACTOR = 50;
 

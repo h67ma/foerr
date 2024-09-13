@@ -10,6 +10,7 @@
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
 #include "../hud.hpp"
+#include "slider_consts.hpp"
 
 constexpr float SLIDER_TEXT_X = 220;
 constexpr uint SLIDER_TEXT_Y_PADDING = 5;

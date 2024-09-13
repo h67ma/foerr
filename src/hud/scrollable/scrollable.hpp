@@ -31,6 +31,10 @@ enum ScrollPosition
  *
  * Component which inherits Scrollable should always notify the base class when the scrollable content height changes
  * (via ::handleScrollableContentHeightChanged()). This ensures that scroll limits and scroll bar will behave correctly.
+ *
+ * The scroll bar id displayed on the right side of scrollable content and is the same height as scrollable area.
+ * It's drawn alongside the scrollable area, so the total width of Scrollable is
+ * scrollableAreaSize.x + SLIDER_HANDLE_THICKNESS.
  */
 class Scrollable : public sf::Drawable, public GuiTransformable
 {

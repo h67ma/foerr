@@ -13,7 +13,6 @@
 #include "../configurable_gui_component.hpp"
 #include "slider_orientation.hpp"
 
-constexpr float SLIDER_HANDLE_THICKNESS = 15;
 constexpr float SLIDER_HANDLE_LENGTH = 21;
 
 constexpr uint SLIDER_HANDLE_THINGY_VERT_CNT = 8;
