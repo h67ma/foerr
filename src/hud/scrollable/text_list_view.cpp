@@ -10,7 +10,7 @@ constexpr float TEXT_V_MARGIN = 5;
 
 TextListView::TextListView(ResourceManager& resMgr, enum FontType fontType, uint fontSize,
 						   const sf::Vector2f& scrollableAreaSize, std::deque<StringAndColor>& items) :
-	ListView(scrollableAreaSize, resMgr.getFont(fontType)->getLineSpacing(fontSize) + TEXT_V_MARGIN, items),
+	ListView(resMgr, scrollableAreaSize, resMgr.getFont(fontType)->getLineSpacing(fontSize) + TEXT_V_MARGIN, items),
 	viewHolder(*resMgr.getFont(fontType), fontSize)
 {
 }

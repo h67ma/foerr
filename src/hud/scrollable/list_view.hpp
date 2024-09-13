@@ -8,6 +8,7 @@
 
 #include <SFML/System/Vector2.hpp>
 
+#include "../../resources/resource_manager.hpp"
 #include "../../util/util.hpp"
 #include "../clickable.hpp"
 #include "../hud.hpp"
@@ -42,12 +43,20 @@ class ListView : public Scrollable
 		virtual const Holder& bindViewHolder(const Data& item) = 0;
 
 	public:
-		ListView(const sf::Vector2f& scrollableAreaSize, float itemHeight,
+		ListView(ResourceManager& resMgr, const sf::Vector2f& scrollableAreaSize, float itemHeight,
 				 Container<Data, std::allocator<Data>>& items) :
-			Scrollable(scrollableAreaSize),
+			Scrollable(resMgr, scrollableAreaSize),
 			itemHeight(itemHeight),
 			items(items)
 		{
+		}
+
+		/**
+		 * Click handler that does not support detecting clicks on items (only scrollbar).
+		 */
+		ClickStatus handleLeftClick(sf::Vector2i clickPos) override
+		{
+			return Scrollable::handleLeftClick(clickPos);
 		}
 
 		/**
@@ -60,6 +69,10 @@ class ListView : public Scrollable
 		ClickStatus handleLeftClick(sf::Vector2i clickPos, Data& clickedData)
 		{
 			clickPos -= this->getPosition();
+
+			ClickStatus status = Scrollable::handleLeftClick(clickPos);
+			if (status != CLICK_NOT_CONSUMED)
+				return status;
 
 			if (!this->isWithinScrollArea(static_cast<sf::Vector2f>(clickPos)))
 				return CLICK_NOT_CONSUMED;

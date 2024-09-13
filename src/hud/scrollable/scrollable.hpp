@@ -13,7 +13,10 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include "../../resources/resource_manager.hpp"
+#include "../clickable.hpp"
 #include "../gui_transformable.hpp"
+#include "../sliders/int_slider.hpp"
 
 enum ScrollPosition
 {
@@ -39,7 +42,10 @@ class Scrollable : public sf::Drawable, public GuiTransformable
 		sf::Sprite scrollableContentSprite;
 		sf::RectangleShape scrollArea;
 		const sf::Vector2f scrollableAreaSize; // original size, GUI-independent
+		IntSlider scrollbar;
 		void setGuiScale();
+		void updateScrollbar();
+		void handleScrollbarMoved();
 
 	protected:
 		void redrawScrollableContent(bool resize);
@@ -51,8 +57,11 @@ class Scrollable : public sf::Drawable, public GuiTransformable
 		virtual void drawScrollableContent(sf::RenderTarget& target, sf::RenderStates states) = 0;
 
 	public:
-		explicit Scrollable(const sf::Vector2f& scrollableAreaSize);
+		Scrollable(ResourceManager& resMgr, const sf::Vector2f& scrollableAreaSize);
 		void handleScroll(float delta, sf::Vector2i mousePos);
+		virtual ClickStatus handleLeftClick(sf::Vector2i clickPos);
+		void handleLeftClickUp();
+		bool handleMouseMove(sf::Vector2i mousePos);
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

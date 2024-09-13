@@ -26,5 +26,8 @@ class GuiPageLog : public GuiPage
 		void addMsg(const StringAndColor& strAndColor);
 		void handleScroll(float delta, sf::Vector2i mousePos) override;
 		void handleSettingsChange() override;
+		ClickStatus handleLeftClick(sf::Vector2i clickPos) override;
+		void handleLeftClickUp() override;
+		bool handleMouseMove(sf::Vector2i mousePos) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

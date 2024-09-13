@@ -11,8 +11,17 @@
 
 constexpr float SCROLL_FACTOR = 25; // TODO? make configurable in settings
 
-Scrollable::Scrollable(const sf::Vector2f& scrollableAreaSize) : scrollableAreaSize(scrollableAreaSize)
+// arbitrary, doesn't matter that much, as long as it's reasonably large (>= slider height in px).
+// ideally it should be = ::bottomScrollLimit, to avoid scaling in ::updateScrollbar() and ::handleScrollbarMoved(),
+// but that would require adding support for changing max value in IntSlider. TODO at some point?
+constexpr int SCROLLBAR_MAX_VALUE = 5000;
+
+Scrollable::Scrollable(ResourceManager& resMgr, const sf::Vector2f& scrollableAreaSize) :
+	scrollableAreaSize(scrollableAreaSize),
+	scrollbar(SLIDER_VERTICAL, static_cast<uint>(scrollableAreaSize.y), *resMgr.getFont(FONT_NORMAL), false, 0, 0,
+			  SCROLLBAR_MAX_VALUE)
 {
+	this->scrollbar.setPosition(scrollableAreaSize.x, 0);
 	this->setGuiScale();
 }
 
@@ -81,6 +90,8 @@ void Scrollable::handleScrollableContentHeightChanged(float newHeight, enum Scro
 
 	// the content height changed, so the content itself also changed - redraw it
 	this->redrawScrollableContent(resize);
+
+	this->updateScrollbar();
 }
 
 /**
@@ -135,11 +146,60 @@ void Scrollable::handleScroll(float delta, sf::Vector2i mousePos)
 	// items into a tall texture, and just draw it with some offset (and mask it). however, this could consume a lot of
 	// GPU memory if there are a lot of items.
 	this->redrawScrollableContent(false);
+
+	this->updateScrollbar();
+}
+
+void Scrollable::updateScrollbar()
+{
+	this->scrollbar.setValue(this->scrollOffset * SCROLLBAR_MAX_VALUE / this->bottomScrollLimit);
+}
+
+/**
+ * Called when the scrollbar is dragged or clicked.
+ */
+void Scrollable::handleScrollbarMoved()
+{
+	// round result for display clarity
+	this->scrollOffset = std::round(this->scrollbar.getValue() * this->bottomScrollLimit / SCROLLBAR_MAX_VALUE);
+	this->redrawScrollableContent(false);
+}
+
+ClickStatus Scrollable::handleLeftClick(sf::Vector2i clickPos)
+{
+	clickPos -= this->getPosition();
+
+	if (this->scrollbar.handleLeftClick(clickPos))
+	{
+		this->handleScrollbarMoved();
+		return CLICK_CONSUMED;
+	}
+
+	return CLICK_NOT_CONSUMED;
+}
+
+void Scrollable::handleLeftClickUp()
+{
+	this->scrollbar.handleLeftClickUp();
+}
+
+bool Scrollable::handleMouseMove(sf::Vector2i mousePos)
+{
+	mousePos -= this->getPosition();
+
+	if (this->scrollbar.handleMouseMove(mousePos))
+	{
+		this->handleScrollbarMoved();
+		return true;
+	}
+
+	return false;
 }
 
 void Scrollable::handleSettingsChange()
 {
 	this->handleGuiScaleChange();
+	this->scrollbar.handleSettingsChange();
 	this->setGuiScale();
 
 	// scroll limit depends on scrollable area size, which can change along with GUI scale.
@@ -151,4 +211,5 @@ void Scrollable::handleSettingsChange()
 void Scrollable::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->scrollableContentSprite, states);
+	target.draw(this->scrollbar, states);
 }

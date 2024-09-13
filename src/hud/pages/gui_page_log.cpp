@@ -41,6 +41,25 @@ void GuiPageLog::handleSettingsChange()
 	this->logListView.handleSettingsChange();
 }
 
+ClickStatus GuiPageLog::handleLeftClick(sf::Vector2i clickPos)
+{
+	clickPos -= this->getPosition();
+
+	return this->logListView.handleLeftClick(clickPos);
+}
+
+void GuiPageLog::handleLeftClickUp()
+{
+	this->logListView.handleLeftClickUp();
+}
+
+bool GuiPageLog::handleMouseMove(sf::Vector2i mousePos)
+{
+	mousePos -= this->getPosition();
+
+	return this->logListView.handleMouseMove(mousePos);
+}
+
 void GuiPageLog::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= this->getTransform();
