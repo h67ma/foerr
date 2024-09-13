@@ -24,7 +24,7 @@ void GuiPageLog::addMsg(const StringAndColor& strAndColor)
 	if (this->msgList.size() > LOG_HISTORY_MAX_LENGTH)
 		this->msgList.pop_front();
 
-	this->logListView.handleItemsChanged();
+	this->logListView.handleItemsChanged(SCROLL_BOTTOM);
 }
 
 void GuiPageLog::handleScroll(float delta, sf::Vector2i mousePos)

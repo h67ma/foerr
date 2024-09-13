@@ -44,7 +44,7 @@ void GuiPageControls::updateDisplay()
 									SettingsManager::hudColor);
 	}
 
-	this->mappingDump.handleItemsChanged();
+	this->mappingDump.handleItemsChanged(SCROLL_TOP);
 }
 
 bool GuiPageControls::handleMouseMove(sf::Vector2i mousePos)

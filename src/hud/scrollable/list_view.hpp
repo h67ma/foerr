@@ -33,10 +33,10 @@ class ListView : public Scrollable
 		const float itemHeight; // the height of a single item
 		Container<Data, std::allocator<Data>>& items;
 
-		void scrollableContentHeightChanged(bool resize)
+		void scrollableContentHeightChanged(enum ScrollPosition scrollTo, bool resize)
 		{
 			float totalHeight = calculateGuiAwareScalar(this->itemHeight) * static_cast<float>(this->items.size());
-			this->handleScrollableContentHeightChanged(totalHeight, SCROLL_BOTTOM, resize);
+			this->handleScrollableContentHeightChanged(totalHeight, scrollTo, resize);
 		}
 
 	protected:
@@ -94,16 +94,16 @@ class ListView : public Scrollable
 			return CLICK_CONSUMED;
 		}
 
-		void handleItemsChanged()
+		void handleItemsChanged(enum ScrollPosition scrollTo)
 		{
-			this->scrollableContentHeightChanged(false);
+			this->scrollableContentHeightChanged(scrollTo, false);
 		}
 
 		void handleSettingsChange() override
 		{
 			Scrollable::handleSettingsChange();
 
-			this->scrollableContentHeightChanged(true);
+			this->scrollableContentHeightChanged(SCROLL_UNCHANGED, true);
 		}
 
 		/**
