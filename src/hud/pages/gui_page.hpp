@@ -12,13 +12,20 @@
 
 #include "../../campaigns/campaign.hpp"
 #include "../../consts.hpp"
+#include "../buttons/button_consts.hpp"
 #include "../clickable.hpp"
 #include "../configurable_gui_component.hpp"
 #include "../gui_transformable.hpp"
+#include "../sliders/slider_consts.hpp"
 
 constexpr uint POS_PAGE_BTNS_Y = 565;
 static const sf::Vector2u POS_PAGE_BTN_BOTTOM_1(0, POS_PAGE_BTNS_Y);
 static const sf::Vector2u POS_PAGE_BTN_BOTTOM_2(200, POS_PAGE_BTNS_Y);
+
+constexpr float FULL_PAGE_WIDTH = 1024;
+constexpr float FULL_PAGE_WIDTH_SANS_SCROLLBAR = FULL_PAGE_WIDTH - SLIDER_HANDLE_THICKNESS;
+constexpr float FULL_PAGE_HEIGHT = 596;
+constexpr float FULL_PAGE_HEIGHT_SANS_BOTTOM_BTNS = FULL_PAGE_HEIGHT - BTN_SIMPLE_NORMAL_HEIGHT - 10;
 
 /**
  * Represents an abstract page to display in GUI (e.g. "Settings") - either in PipBuck or in main menu.
@@ -44,6 +51,7 @@ class GuiPage : public sf::Drawable, public GuiTransformable
 		};
 
 		virtual void handleLeftClickUp() {};
+		virtual void handleScroll(float delta, sf::Vector2i mousePos) {};
 		virtual bool handleMouseMove(sf::Vector2i mousePos)
 		{
 			return false;

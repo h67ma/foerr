@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -17,6 +17,6 @@ class LogElementText : public TextLabel
 		sf::Clock clock;
 
 	public:
-		LogElementText(const std::string& text, sf::Font& font, const sf::Color& color);
-		bool isTimeUp();
+		LogElementText(const std::string& text, const sf::Font& font, const sf::Color& color);
+		bool isTimeUp() const;
 };

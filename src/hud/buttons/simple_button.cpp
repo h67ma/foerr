@@ -11,6 +11,7 @@
 
 #include "../../settings/settings_manager.hpp"
 #include "../../util/util.hpp"
+#include "button_consts.hpp"
 
 constexpr uint BTN_TEXT_TOP_OFFSET = 12;
 
@@ -86,30 +87,24 @@ void SimpleButton::setColor()
 
 void SimpleButton::setGuiScale()
 {
-	sf::Vector2u dim;
+	sf::Vector2f dim;
 
 	this->text.handleSettingsChange();
 
 	switch (this->size)
 	{
 		case BTN_BIG:
-			dim.x = 128;
-			dim.y = 65;
+			dim = calculateGuiAwarePoint({ BTN_SIMPLE_BIG_WIDTH, BTN_SIMPLE_BIG_HEIGHT });
 			break;
 		case BTN_NARROW:
-			dim.x = 131;
-			dim.y = 27;
+			dim = calculateGuiAwarePoint({ BTN_SIMPLE_NARROW_WIDTH, BTN_SIMPLE_NARROW_HEIGHT });
 			break;
 		case BTN_NORMAL:
 		default:
-			dim.x = 187;
-			dim.y = 27;
+			dim = calculateGuiAwarePoint({ BTN_SIMPLE_NORMAL_WIDTH, BTN_SIMPLE_NORMAL_HEIGHT });
 	}
 
-	dim.x *= SettingsManager::guiScale;
-	dim.y *= SettingsManager::guiScale;
-
-	this->rect.setSize(static_cast<sf::Vector2f>(dim));
+	this->rect.setSize(dim);
 	this->setThickness();
 
 	// gradient fill (transparent - almost black - transparent)
@@ -122,21 +117,21 @@ void SimpleButton::setGuiScale()
 	// 3 -- 2
 
 	// left half
-	gradient[0] = sf::Vertex({ 0.F, 0.F }, sf::Color::Transparent);
-	gradient[1] = sf::Vertex({ midX, 0.F }, COLOR_BUTTON_BG_BLACK);
-	gradient[2] = sf::Vertex({ midX, static_cast<float>(dim.y) }, COLOR_BUTTON_BG_BLACK);
-	gradient[3] = sf::Vertex({ 0.F, static_cast<float>(dim.y) }, sf::Color::Transparent);
+	gradient[0] = sf::Vertex({ 0, 0 }, sf::Color::Transparent);
+	gradient[1] = sf::Vertex({ midX, 0 }, COLOR_BUTTON_BG_BLACK);
+	gradient[2] = sf::Vertex({ midX, dim.y }, COLOR_BUTTON_BG_BLACK);
+	gradient[3] = sf::Vertex({ 0, dim.y }, sf::Color::Transparent);
 
 	// right half
-	gradient[4] = sf::Vertex({ midX, 0.F }, COLOR_BUTTON_BG_BLACK);
-	gradient[5] = sf::Vertex({ static_cast<float>(dim.x), 0.F }, sf::Color::Transparent);
-	gradient[6] = sf::Vertex({ static_cast<float>(dim.x), static_cast<float>(dim.y) }, sf::Color::Transparent);
-	gradient[7] = sf::Vertex({ midX, static_cast<float>(dim.y) }, COLOR_BUTTON_BG_BLACK);
+	gradient[4] = sf::Vertex({ midX, 0 }, COLOR_BUTTON_BG_BLACK);
+	gradient[5] = sf::Vertex({ dim.x, 0 }, sf::Color::Transparent);
+	gradient[6] = sf::Vertex({ dim.x, dim.y }, sf::Color::Transparent);
+	gradient[7] = sf::Vertex({ midX, dim.y }, COLOR_BUTTON_BG_BLACK);
 
 	// center button text
 	// to center vertically, we can't use local bounds, as the baselines on different buttons would not match.
 	// use a constant top offset instead
-	this->text.setPosition(std::round(dim.x - this->text.getLocalBounds().width) / 2,
+	this->text.setPosition(std::round((dim.x - this->text.getLocalBounds().width) / 2),
 						   std::round((dim.y / 2) - (SettingsManager::guiScale * BTN_TEXT_TOP_OFFSET)));
 }
 

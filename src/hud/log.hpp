@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2022-2023 h67ma <szycikm@gmail.com>
+// (c) 2022-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
 #include <fstream>
+#include <functional>
 #include <iostream>
 #include <list>
-#include <memory>
 #include <string>
 
 #include <SFML/Graphics/Color.hpp>
@@ -16,7 +16,6 @@
 #include <SFML/System/Clock.hpp>
 
 #include "../consts.hpp"
-#include "../hud/hud.hpp"
 #include "../settings/settings_manager.hpp"
 #include "../util/util.hpp"
 #include "log_element_text.hpp"
@@ -27,6 +26,8 @@
 #define LOG_PREFIX_DEBUG "[DEBG] "
 #define LOG_PREFIX_VERBOSE "[VERB] "
 
+using msg_add_function = std::function<void(const StringAndColor&)>;
+
 class Log
 {
 	private:
@@ -34,15 +35,17 @@ class Log
 		static sf::Vector2u windowSize;
 
 		static uint fontGap;
-		static std::list<std::unique_ptr<LogElementText>> hudHistory;
+		static std::list<LogElementText> hudHistory;
 		static sf::Clock clock;
 		static std::ofstream logFile;
+		static msg_add_function msgAddedCallback;
 		static void logToFile(const char* prefix, const std::string& msg);
 		static void logStderr(const char* prefix, const std::string& msg);
 
 	public:
 		static void setup();
 		static void setFont(sf::Font* font);
+		static void setMsgAddedCallback(const msg_add_function& callback);
 		static void handleScreenResize(sf::Vector2u windowSize);
 		static void handleSettingsChange();
 		static void openLogFile();
@@ -72,12 +75,18 @@ class Log
 			if (SettingsManager::debugWriteLogToFile)
 				Log::logToFile(prefix, formatted);
 
-			// don't display debug msgs in hud, or any messages whatsoever when gui is not initialized
-			if (hideInGui || Log::font == nullptr)
+			// don't display debug msgs in hud
+			if (hideInGui)
 				return;
 
-			Log::hudHistory.emplace_back(std::make_unique<LogElementText>(formatted, *Log::font, color));
-			Log::tick(true);
+			if (Log::font != nullptr)
+			{
+				Log::hudHistory.emplace_back(formatted, *Log::font, color);
+				Log::tick(true);
+			}
+
+			if (msgAddedCallback != nullptr)
+				msgAddedCallback({ formatted, color });
 		}
 
 		/**

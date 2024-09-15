@@ -141,6 +141,16 @@ void PipBuckCategory::handleLeftClickUp()
 		this->selectedPage->handleLeftClickUp();
 }
 
+void PipBuckCategory::handleScroll(float delta, sf::Vector2i mousePos)
+{
+	if (this->selectedPage != nullptr)
+	{
+		mousePos -= this->getPosition();
+
+		this->selectedPage->handleScroll(delta, mousePos);
+	}
+}
+
 bool PipBuckCategory::handleMouseMove(sf::Vector2i mousePos)
 {
 	if (this->selectedPage == nullptr)

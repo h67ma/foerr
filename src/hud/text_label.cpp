@@ -1,12 +1,24 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #include "text_label.hpp"
 
 #include <string>
 
 #include "../settings/settings_manager.hpp"
+
+TextLabel::TextLabel(const std::string& text, const sf::Font& font, uint fontSize, const sf::Color& color,
+					 const sf::Vector2f& position) :
+	fontSize(fontSize)
+{
+	this->setString(text);
+	this->setFont(font);
+	this->setFillColor(color);
+	this->setPosition(position);
+
+	this->handleSettingsChange();
+}
 
 TextLabel::TextLabel(const std::string& text, const sf::Font& font, uint fontSize, const sf::Color& color) :
 	fontSize(fontSize)

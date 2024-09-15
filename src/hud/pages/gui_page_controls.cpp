@@ -22,7 +22,8 @@ GuiPageControls::GuiPageControls(ResourceManager& resMgr) :
 					Log::i(STR_KEYMAP_RESETTED);
 					Keymap::save();
 				} } }),
-	dummyMapDump(*resMgr.getFont(FONT_NORMAL), 17U, { 0.F, 0.F })
+	mappingDump(resMgr, FONT_FIXED, FONT_H3, { FULL_PAGE_WIDTH_SANS_SCROLLBAR, FULL_PAGE_HEIGHT_SANS_BOTTOM_BTNS },
+				this->dumpList)
 {
 	for (auto& btn : this->buttons)
 	{
@@ -35,29 +36,48 @@ GuiPageControls::GuiPageControls(ResourceManager& resMgr) :
 
 void GuiPageControls::updateDisplay()
 {
-	// for now only dump the current mapping as text. TODO proper scrollable table
-	std::string dump("");
-
+	this->dumpList.clear();
 	for (const auto item : Keymap::getKeyToActionMap())
 	{
-		dump += Keymap::actionToDisplayString(item.second) + " -> " + Keymap::keyToString(item.first) + '\n';
+		this->dumpList.emplace_back(Keymap::actionToDisplayString(item.second) + " -> " +
+										Keymap::keyToString(item.first),
+									SettingsManager::hudColor);
 	}
 
-	this->dummyMapDump.setString(dump);
+	this->mappingDump.handleItemsChanged(SCROLL_TOP);
 }
 
 bool GuiPageControls::handleMouseMove(sf::Vector2i mousePos)
 {
 	mousePos -= this->getPosition();
 
-	return this->hoverMgr.handleMouseMove(mousePos);
+	if (this->hoverMgr.handleMouseMove(mousePos))
+		return true;
+
+	return this->mappingDump.handleMouseMove(mousePos);
 }
 
 ClickStatus GuiPageControls::handleLeftClick(sf::Vector2i clickPos)
 {
 	clickPos -= this->getPosition();
 
-	return this->clickMgr.handleLeftClick(clickPos);
+	ClickStatus status = this->clickMgr.handleLeftClick(clickPos);
+	if (status != CLICK_NOT_CONSUMED)
+		return status;
+
+	return this->mappingDump.handleLeftClick(clickPos);
+}
+
+void GuiPageControls::handleLeftClickUp()
+{
+	this->mappingDump.handleLeftClickUp();
+}
+
+void GuiPageControls::handleScroll(float delta, sf::Vector2i mousePos)
+{
+	mousePos -= this->getPosition();
+
+	this->mappingDump.handleScroll(delta, mousePos);
 }
 
 void GuiPageControls::handleSettingsChange()
@@ -69,7 +89,7 @@ void GuiPageControls::handleSettingsChange()
 		btn.handleSettingsChange();
 	}
 
-	this->dummyMapDump.handleSettingsChange();
+	this->mappingDump.handleSettingsChange();
 }
 
 void GuiPageControls::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -81,5 +101,5 @@ void GuiPageControls::draw(sf::RenderTarget& target, sf::RenderStates states) co
 		target.draw(btn, states);
 	}
 
-	target.draw(this->dummyMapDump, states);
+	target.draw(this->mappingDump, states);
 }

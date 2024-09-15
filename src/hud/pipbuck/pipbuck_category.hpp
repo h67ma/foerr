@@ -54,6 +54,7 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable, public Co
 		PipBuckPageType getSelectedPageType() const;
 		ClickStatus handleLeftClick(sf::Vector2i clickPos);
 		void handleLeftClickUp();
+		void handleScroll(float delta, sf::Vector2i mousePos);
 		bool handleMouseMove(sf::Vector2i mousePos);
 		bool changePage(PipBuckPageType newPageType);
 		bool setupCampaignInfos();
@@ -61,4 +62,19 @@ class PipBuckCategory : public sf::Drawable, public sf::Transformable, public Co
 		static PipBuckCategoryType pageTypeToCategoryType(PipBuckPageType pageType);
 		void handleSettingsChange() override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+		/**
+		 * Finds a page and casts it to specific type.
+		 * Return value can be a nullptr if page was not found or if the cast failed.
+		 */
+		template<typename T>
+		T* getPage(PipBuckPageType type) const
+		{
+			auto foundPage = this->pages.find(type);
+			if (foundPage == this->pages.end())
+				return nullptr;
+
+			// dynamic_pointer_cast with template type is C++20
+			return dynamic_cast<T*>(foundPage->second.get());
+		}
 };

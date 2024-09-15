@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 //
-// (c) 2023 h67ma <szycikm@gmail.com>
+// (c) 2023-2024 h67ma <szycikm@gmail.com>
 
 #pragma once
 
@@ -16,10 +16,11 @@ class IntSlider : public Slider
 
 		void updateText();
 		void updateHandle() override;
-		void setSliderPos(int mouseX) override;
+		void setValueFromMouse(int mouseValue) override;
 
 	public:
-		IntSlider(const sf::Font& font, int minVal, int defaultVal, int maxVal);
+		IntSlider(enum SliderOrientation orientation, uint sliderLength, const sf::Font& font, bool showValueText,
+				  int minVal, int defaultVal, int maxVal);
 		int getValue() const;
 		void setValue(int value);
 };

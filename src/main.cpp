@@ -20,7 +20,6 @@
 #include "hud/log.hpp"
 #include "hud/main_menu/main_menu.hpp"
 #include "hud/pipbuck/pipbuck.hpp"
-#include "hud/sliders/slider.hpp"
 #include "resources/resource_manager.hpp"
 #include "settings/keymap.hpp"
 #include "settings/settings_manager.hpp"
@@ -35,7 +34,6 @@
 static void propagateSettings(PipBuck& pipBuck, MainMenu& mainMenu, FpsMeter& fpsMeter, DevConsole& console,
 							  const sf::Vector2u& newWindowSize)
 {
-	Slider::calculateCoeffs();
 	Log::handleSettingsChange();
 	pipBuck.handleSettingsChange();
 	pipBuck.handleScreenResize(newWindowSize);
@@ -89,9 +87,6 @@ int main()
 
 	Log::d("Save dir = %s", SettingsManager::getSaveDir().c_str());
 
-	// initial coefficient calculation for all sliders
-	Slider::calculateCoeffs();
-
 	if (!resManager.loadCore())
 	{
 		Log::e(STR_LOAD_CORE_FAIL);
@@ -126,6 +121,9 @@ int main()
 		window.close();
 		exit(1);
 	}
+
+	// hook up the Log PipBuck page to receive log messages
+	Log::setMsgAddedCallback([&pipBuck](const StringAndColor& strAndColor) { pipBuck.addLogMessage(strAndColor); });
 
 	MainMenu mainMenu(resManager, cursorMgr, window, campaign, gameState, pipBuck);
 
@@ -394,6 +392,14 @@ int main()
 				{
 					if (event.mouseButton.button == sf::Mouse::Left)
 						pipBuck.handleLeftClickUp();
+
+					continue;
+				}
+
+				if (event.type == sf::Event::MouseWheelScrolled)
+				{
+					pipBuck.handleScroll(event.mouseWheelScroll.delta,
+										 { event.mouseWheelScroll.x, event.mouseWheelScroll.y });
 
 					continue;
 				}

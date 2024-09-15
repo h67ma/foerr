@@ -316,6 +316,16 @@ void PipBuck::handleLeftClickUp()
 		this->selectedCategory->handleLeftClickUp();
 }
 
+void PipBuck::handleScroll(float delta, sf::Vector2i mousePos)
+{
+	if (this->selectedCategory != nullptr)
+	{
+		mousePos -= this->getPosition();
+
+		this->selectedCategory->handleScroll(delta, mousePos);
+	}
+}
+
 void PipBuck::handleMouseMove(sf::Vector2i mousePos)
 {
 	if (this->selectedCategory == nullptr)
@@ -349,6 +359,22 @@ bool PipBuck::setupCampaignInfos()
 	}
 
 	return true;
+}
+
+/**
+ * Adds a log message to the Log PipBuck page.
+ */
+void PipBuck::addLogMessage(const StringAndColor& strAndColor)
+{
+	auto foundCat = this->categories.find(PIPB_CAT_GAME);
+	if (foundCat == this->categories.end())
+		return;
+
+	auto* logPage = foundCat->second->getPage<GuiPageLog>(PIPB_PAGE_LOG);
+	if (logPage == nullptr)
+		return;
+
+	logPage->addMsg(strAndColor);
 }
 
 void PipBuck::unloadCampaignInfos()
